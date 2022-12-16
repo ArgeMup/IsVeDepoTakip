@@ -31,10 +31,13 @@ namespace İş_ve_Depo_Takip
 
             Text = Kendi.Adı + " " + Kendi.Sürümü_Dosya;
 
+            Controls.Add(P_AnaMenü); P_AnaMenü.Dock = DockStyle.Fill; P_AnaMenü.Visible = false;
+            Controls.Add(P_Ayarlar); P_Ayarlar.Dock = DockStyle.Fill; P_Ayarlar.Visible = false;
+            Controls.Add(P_Parola); P_Parola.Dock = DockStyle.Fill; P_Parola.Visible = false;
+            Controls.Add(P_YeniParola); P_YeniParola.Dock = DockStyle.Fill; P_YeniParola.Visible = false;
+
 #if DEBUG
-            Controls.Add(P_AnaMenü);
-            P_AnaMenü.Dock = DockStyle.Fill;
-            P_AnaMenü.BringToFront();
+            P_AnaMenü.Visible = true;
 
             //Tuş_Click(Tüm_Talepler, null);
 #else
@@ -46,18 +49,14 @@ namespace İş_ve_Depo_Takip
                 if (kls.Dosyalar.Count > 0)
                 {
                     Hide();
-                    throw new Exception("Büyük Hata A");
+                    throw new Exception("Büyük Hata AA");
                 }
 
-                Controls.Add(P_YeniParola);
-                P_YeniParola.Dock = DockStyle.Fill;
-                P_YeniParola.BringToFront();
+                P_YeniParola.Visible = true;
             }
             else
             {
-                Controls.Add(P_Parola);
-                P_Parola.Dock = DockStyle.Fill;
-                P_Parola.BringToFront();
+                P_Parola.Visible = true;
             }
 
             YeniYazılımKontrolü.Başlat(new Uri("https://github.com/ArgeMup/IsVeDepoTakip/blob/main/%C4%B0%C5%9F%20ve%20Depo%20Takip/bin/Release/%C4%B0%C5%9F%20ve%20Depo%20Takip.exe?raw=true"));
@@ -67,6 +66,20 @@ namespace İş_ve_Depo_Takip
         {
             Application.Exit();
         }
+        private void Açılış_Ekranı_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                if (!P_YeniParola.Visible)
+                {
+                    Parola_Giriş.Text = "";
+                    P_Parola.Visible = true;
+                    P_Ayarlar.Visible = false;
+                    P_AnaMenü.Visible = false;
+                }
+            }
+            else if (P_Parola.Visible) Parola_Giriş.Focus();
+        }
         private void Açılış_Ekranı_FormClosing(object sender, FormClosingEventArgs e)
         {
 #if DEBUG
@@ -75,51 +88,21 @@ namespace İş_ve_Depo_Takip
 
             if (e.CloseReason == CloseReason.UserClosing)
             {
+                if (!P_YeniParola.Visible)
+                {
+                    Parola_Giriş.Text = "";
+                    P_Parola.Visible = true;
+                    P_Ayarlar.Visible = false;
+                    P_AnaMenü.Visible = false;
+                }
+
                 e.Cancel = true;
-                Ortak.Parola_Sor = true;
                 WindowState = FormWindowState.Minimized;
             }
         }
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Banka.Çıkış_İşlemleri();
-
-            #region yedekleme
-            Klasör_ ydk_ler = new Klasör_(Ortak.Klasör_Yedek, Filtre_Dosya: "*.zip");
-            ydk_ler.Dosya_Sil_SayısınaVeBoyutunaGöre(100, 1024 * 1024 * 1024 /*1GB*/);
-            ydk_ler.Güncelle(Ortak.Klasör_Yedek, Filtre_Dosya: "*.zip");
-
-            bool yedekle = false;
-            if (ydk_ler.Dosyalar.Count == 0) yedekle = true;
-            else
-            {
-                ydk_ler.Sırala_EskidenYeniye();
-
-                Klasör_ son_ydk = SıkıştırılmışDosya.Listele(ydk_ler.Kök + "\\" + ydk_ler.Dosyalar.Last().Yolu);
-                Klasör_ güncel = new Klasör_(Ortak.Klasör_Banka);
-                Klasör_.Farklılık_ farklar = güncel.Karşılaştır(son_ydk);
-                if (farklar.FarklılıkSayısı > 0)
-                {
-                    int içeriği_farklı_dosya_Sayısı = 0;
-                    foreach (Klasör_.Fark_Dosya_ a in farklar.Dosyalar)
-                    {
-                        if (!a.Aynı_Doğrulama_Kodu)
-                        {
-                            içeriği_farklı_dosya_Sayısı++;
-                            break;
-                        }
-                    }
-                    if (içeriği_farklı_dosya_Sayısı > 0) yedekle = true;
-                }
-            }
-            if (yedekle)
-            {
-                string k = Ortak.Klasör_Banka;
-                string h = Ortak.Klasör_Yedek + D_TarihSaat.Yazıya(DateTime.Now, D_TarihSaat.Şablon_DosyaAdı) + ".zip";
-
-                SıkıştırılmışDosya.Klasörden(k, h);
-            }
-            #endregion
 
             YeniYazılımKontrolü.Durdur();
             ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın = false;
@@ -149,9 +132,9 @@ namespace İş_ve_Depo_Takip
         {
             if (string.IsNullOrWhiteSpace(YeniParola_1.Text)) return;
 
-            if (YeniParola_1.Text.Length < 4)
+            if (YeniParola_1.Text.Length < 6)
             {
-                Hata.SetError(YeniParola_Etiket, "En az 4 karakter giriniz");
+                Hata.SetError(YeniParola_Etiket, "En az 6 karakter giriniz");
                 return;
             }
 
@@ -161,55 +144,43 @@ namespace İş_ve_Depo_Takip
                 return;
             }
 
-            Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Kullanıcı Şifresi", true)[0] = DoğrulamaKodu.Üret.Yazıdan(YeniParola_1.Text + Parola.Yazı);
+            Parola.Kaydet(YeniParola_1.Text);
 
             Klasör_ kls = new Klasör_(Ortak.Klasör_Banka);
             if (kls.Dosyalar.Count > 0)
             {
                 Hide();
-                throw new Exception("Büyük Hata AA");
+                throw new Exception("Büyük Hata AAA");
             }
 
             Banka.Değişiklikleri_Kaydet();
 
-            Controls.Add(P_Parola);
-            P_Parola.Dock = DockStyle.Fill;
-            P_Parola.BringToFront();
-
-            Controls.Remove(P_YeniParola);
-            P_YeniParola.Dispose();
+            P_YeniParola.Visible = false;
+            Parola_Giriş.Text = "";
+            P_Parola.Visible = true;
         }
         private void Parola_Kontrol_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Parola_Giriş.Text) || 
-                Parola_Giriş.Text.Length < 4 ||
-                    Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Kullanıcı Şifresi")[0] !=
-                    DoğrulamaKodu.Üret.Yazıdan(Parola_Giriş.Text + Parola.Yazı)) return;
+                Parola_Giriş.Text.Length < 6 ||
+                !Parola.KontrolEt(Parola_Giriş.Text)) return;
 
-            Controls.Add(P_AnaMenü);
-            P_AnaMenü.Dock = DockStyle.Fill;
-            P_AnaMenü.BringToFront();
-
-            Controls.Remove(P_Parola);
-            P_Parola.Dispose();
+            P_Parola.Visible = false;
+            P_AnaMenü.Visible = true;
         }
         private void Ayarlar_Click(object sender, EventArgs e)
         {
-            Controls.Add(P_Ayarlar);
-            P_Ayarlar.Dock = DockStyle.Fill;
-            P_Ayarlar.BringToFront();
-
-            Controls.Remove(P_AnaMenü);
+            P_AnaMenü.Visible = false;
+            P_Ayarlar.Visible = true;
         }
         private void Ayarlar_Geri_Click(object sender, EventArgs e)
         {
-            Controls.Add(P_AnaMenü);
-            P_AnaMenü.Dock = DockStyle.Fill;
-            P_AnaMenü.BringToFront();
-
-            Controls.Remove(P_Ayarlar);
+            P_Ayarlar.Visible = false;
+            P_AnaMenü.Visible = true;
         }
-
-        
+        private void Parola_Giriş_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) Parola_Kontrol_Click(null, null);
+        }
     }
 }

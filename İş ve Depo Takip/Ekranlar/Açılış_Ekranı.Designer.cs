@@ -38,23 +38,23 @@
             this.Yeni_Malzeme_Girişi = new System.Windows.Forms.Button();
             this.Yazdırma = new System.Windows.Forms.Button();
             this.P_YeniParola = new System.Windows.Forms.Panel();
-            this.P_Parola = new System.Windows.Forms.Panel();
-            this.YeniParola_2 = new System.Windows.Forms.MaskedTextBox();
-            this.P_AnaMenü = new System.Windows.Forms.Panel();
-            this.YeniParola_Kaydet = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.YeniParola_Etiket = new System.Windows.Forms.Label();
             this.YeniParola_1 = new System.Windows.Forms.MaskedTextBox();
-            this.Parola_Giriş = new System.Windows.Forms.MaskedTextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.YeniParola_Kaydet = new System.Windows.Forms.Button();
+            this.YeniParola_2 = new System.Windows.Forms.MaskedTextBox();
+            this.P_Parola = new System.Windows.Forms.Panel();
             this.Parola_Kontrol = new System.Windows.Forms.Button();
+            this.Parola_Giriş = new System.Windows.Forms.MaskedTextBox();
+            this.P_AnaMenü = new System.Windows.Forms.Panel();
             this.Ayarlar = new System.Windows.Forms.Button();
             this.Ayarlar_Geri = new System.Windows.Forms.Button();
             this.tab_sayfası = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.P_Ayarlar = new System.Windows.Forms.Panel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.P_Ayarlar = new System.Windows.Forms.Panel();
             this.Hata = new System.Windows.Forms.ErrorProvider(this.components);
             this.P_YeniParola.SuspendLayout();
             this.P_Parola.SuspendLayout();
@@ -62,9 +62,9 @@
             this.tab_sayfası.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.P_Ayarlar.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.P_Ayarlar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Hata)).BeginInit();
             this.SuspendLayout();
             // 
@@ -177,60 +177,7 @@
             this.P_YeniParola.Name = "P_YeniParola";
             this.P_YeniParola.Size = new System.Drawing.Size(349, 246);
             this.P_YeniParola.TabIndex = 9;
-            // 
-            // P_Parola
-            // 
-            this.P_Parola.Controls.Add(this.Parola_Kontrol);
-            this.P_Parola.Controls.Add(this.Parola_Giriş);
-            this.P_Parola.Location = new System.Drawing.Point(39, 19);
-            this.P_Parola.Name = "P_Parola";
-            this.P_Parola.Size = new System.Drawing.Size(307, 143);
-            this.P_Parola.TabIndex = 10;
-            // 
-            // YeniParola_2
-            // 
-            this.YeniParola_2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.YeniParola_2.Location = new System.Drawing.Point(6, 118);
-            this.YeniParola_2.Name = "YeniParola_2";
-            this.YeniParola_2.Size = new System.Drawing.Size(337, 36);
-            this.YeniParola_2.TabIndex = 1;
-            this.YeniParola_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.YeniParola_2.UseSystemPasswordChar = true;
-            // 
-            // P_AnaMenü
-            // 
-            this.P_AnaMenü.Controls.Add(this.Ayarlar);
-            this.P_AnaMenü.Controls.Add(this.Yeni_Talep_Girişi);
-            this.P_AnaMenü.Controls.Add(this.Tüm_Talepler);
-            this.P_AnaMenü.Controls.Add(this.Yeni_Malzeme_Girişi);
-            this.P_AnaMenü.Controls.Add(this.Tüm_Malzemeler);
-            this.P_AnaMenü.Location = new System.Drawing.Point(6, 6);
-            this.P_AnaMenü.Name = "P_AnaMenü";
-            this.P_AnaMenü.Size = new System.Drawing.Size(456, 407);
-            this.P_AnaMenü.TabIndex = 10;
-            this.P_AnaMenü.DoubleClick += new System.EventHandler(this.Açılış_Ekranı_DoubleClick);
-            // 
-            // YeniParola_Kaydet
-            // 
-            this.YeniParola_Kaydet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.YeniParola_Kaydet.Location = new System.Drawing.Point(6, 163);
-            this.YeniParola_Kaydet.Margin = new System.Windows.Forms.Padding(6);
-            this.YeniParola_Kaydet.Name = "YeniParola_Kaydet";
-            this.YeniParola_Kaydet.Size = new System.Drawing.Size(337, 68);
-            this.YeniParola_Kaydet.TabIndex = 2;
-            this.YeniParola_Kaydet.Text = "Yeni Parolayı Kaydet";
-            this.YeniParola_Kaydet.UseVisualStyleBackColor = true;
-            this.YeniParola_Kaydet.Click += new System.EventHandler(this.YeniParola_Kaydet_Click);
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 86);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(250, 29);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Parolayı tekrar giriniz";
+            this.P_YeniParola.Visible = false;
             // 
             // YeniParola_Etiket
             // 
@@ -252,15 +199,48 @@
             this.YeniParola_1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.YeniParola_1.UseSystemPasswordChar = true;
             // 
-            // Parola_Giriş
+            // label1
             // 
-            this.Parola_Giriş.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Parola_Giriş.Location = new System.Drawing.Point(6, 13);
-            this.Parola_Giriş.Name = "Parola_Giriş";
-            this.Parola_Giriş.Size = new System.Drawing.Size(295, 36);
-            this.Parola_Giriş.TabIndex = 0;
-            this.Parola_Giriş.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Parola_Giriş.UseSystemPasswordChar = true;
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 86);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(250, 29);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Parolayı tekrar giriniz";
+            // 
+            // YeniParola_Kaydet
+            // 
+            this.YeniParola_Kaydet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.YeniParola_Kaydet.Location = new System.Drawing.Point(6, 163);
+            this.YeniParola_Kaydet.Margin = new System.Windows.Forms.Padding(6);
+            this.YeniParola_Kaydet.Name = "YeniParola_Kaydet";
+            this.YeniParola_Kaydet.Size = new System.Drawing.Size(337, 68);
+            this.YeniParola_Kaydet.TabIndex = 2;
+            this.YeniParola_Kaydet.Text = "Yeni Parolayı Kaydet";
+            this.YeniParola_Kaydet.UseVisualStyleBackColor = true;
+            this.YeniParola_Kaydet.Click += new System.EventHandler(this.YeniParola_Kaydet_Click);
+            // 
+            // YeniParola_2
+            // 
+            this.YeniParola_2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.YeniParola_2.Location = new System.Drawing.Point(6, 118);
+            this.YeniParola_2.Name = "YeniParola_2";
+            this.YeniParola_2.Size = new System.Drawing.Size(337, 36);
+            this.YeniParola_2.TabIndex = 1;
+            this.YeniParola_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.YeniParola_2.UseSystemPasswordChar = true;
+            // 
+            // P_Parola
+            // 
+            this.P_Parola.Controls.Add(this.Parola_Kontrol);
+            this.P_Parola.Controls.Add(this.Parola_Giriş);
+            this.P_Parola.Location = new System.Drawing.Point(39, 19);
+            this.P_Parola.Name = "P_Parola";
+            this.P_Parola.Size = new System.Drawing.Size(307, 143);
+            this.P_Parola.TabIndex = 10;
+            this.P_Parola.Visible = false;
+            this.P_Parola.DoubleClick += new System.EventHandler(this.Açılış_Ekranı_DoubleClick);
             // 
             // Parola_Kontrol
             // 
@@ -273,6 +253,31 @@
             this.Parola_Kontrol.Text = "Giriş";
             this.Parola_Kontrol.UseVisualStyleBackColor = true;
             this.Parola_Kontrol.Click += new System.EventHandler(this.Parola_Kontrol_Click);
+            // 
+            // Parola_Giriş
+            // 
+            this.Parola_Giriş.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.Parola_Giriş.Location = new System.Drawing.Point(6, 13);
+            this.Parola_Giriş.Name = "Parola_Giriş";
+            this.Parola_Giriş.Size = new System.Drawing.Size(295, 36);
+            this.Parola_Giriş.TabIndex = 0;
+            this.Parola_Giriş.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Parola_Giriş.UseSystemPasswordChar = true;
+            this.Parola_Giriş.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Parola_Giriş_KeyUp);
+            // 
+            // P_AnaMenü
+            // 
+            this.P_AnaMenü.Controls.Add(this.Ayarlar);
+            this.P_AnaMenü.Controls.Add(this.Yeni_Talep_Girişi);
+            this.P_AnaMenü.Controls.Add(this.Tüm_Talepler);
+            this.P_AnaMenü.Controls.Add(this.Yeni_Malzeme_Girişi);
+            this.P_AnaMenü.Controls.Add(this.Tüm_Malzemeler);
+            this.P_AnaMenü.Location = new System.Drawing.Point(6, 6);
+            this.P_AnaMenü.Name = "P_AnaMenü";
+            this.P_AnaMenü.Size = new System.Drawing.Size(456, 407);
+            this.P_AnaMenü.TabIndex = 10;
+            this.P_AnaMenü.Visible = false;
+            this.P_AnaMenü.DoubleClick += new System.EventHandler(this.Açılış_Ekranı_DoubleClick);
             // 
             // Ayarlar
             // 
@@ -333,6 +338,19 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // P_Ayarlar
+            // 
+            this.P_Ayarlar.Controls.Add(this.Müşteriler);
+            this.P_Ayarlar.Controls.Add(this.Ayarlar_Geri);
+            this.P_Ayarlar.Controls.Add(this.Yazdırma);
+            this.P_Ayarlar.Controls.Add(this.Ücretler);
+            this.P_Ayarlar.Controls.Add(this.İş_Türleri);
+            this.P_Ayarlar.Location = new System.Drawing.Point(16, 19);
+            this.P_Ayarlar.Name = "P_Ayarlar";
+            this.P_Ayarlar.Size = new System.Drawing.Size(275, 404);
+            this.P_Ayarlar.TabIndex = 12;
+            this.P_Ayarlar.Visible = false;
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.P_Parola);
@@ -354,18 +372,6 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // P_Ayarlar
-            // 
-            this.P_Ayarlar.Controls.Add(this.Müşteriler);
-            this.P_Ayarlar.Controls.Add(this.Ayarlar_Geri);
-            this.P_Ayarlar.Controls.Add(this.Yazdırma);
-            this.P_Ayarlar.Controls.Add(this.Ücretler);
-            this.P_Ayarlar.Controls.Add(this.İş_Türleri);
-            this.P_Ayarlar.Location = new System.Drawing.Point(16, 19);
-            this.P_Ayarlar.Name = "P_Ayarlar";
-            this.P_Ayarlar.Size = new System.Drawing.Size(275, 404);
-            this.P_Ayarlar.TabIndex = 12;
             // 
             // Hata
             // 
@@ -389,6 +395,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.DoubleClick += new System.EventHandler(this.Açılış_Ekranı_DoubleClick);
+            this.Resize += new System.EventHandler(this.Açılış_Ekranı_Resize);
             this.P_YeniParola.ResumeLayout(false);
             this.P_YeniParola.PerformLayout();
             this.P_Parola.ResumeLayout(false);
@@ -397,9 +404,9 @@
             this.tab_sayfası.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.P_Ayarlar.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
-            this.P_Ayarlar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Hata)).EndInit();
             this.ResumeLayout(false);
 

@@ -1,4 +1,5 @@
 ﻿using ArgeMup.HazirKod;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -14,7 +15,11 @@ namespace İş_ve_Depo_Takip
         public static string Klasör_Pdf = Kendi.Klasörü + "\\Pdf\\";
         public static string Klasör_Gecici = Klasör.Depolama(Klasör.Kapsamı.Geçici) + "\\";
 
-        public static bool Parola_Sor = true;
+        static Random rnd = new Random();
+        public static int RasgeleSayı(int Asgari, int Azami)
+        {
+            return rnd.Next(Asgari, Azami);
+        }
 
         static Bitmap _Yazdırma_Logo_ = null;
         public static Bitmap Yazdırma_Logo

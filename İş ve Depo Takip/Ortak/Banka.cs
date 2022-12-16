@@ -39,11 +39,47 @@ namespace İş_ve_Depo_Takip
             switch (snç)
             {
                 case DoğrulamaKodu.KontrolEt.Durum_.Aynı:
+                    #region yedekleme
+                    Klasör_ ydk_ler = new Klasör_(Ortak.Klasör_Yedek, Filtre_Dosya: "*.zip");
+                    ydk_ler.Dosya_Sil_SayısınaVeBoyutunaGöre(100, 1024 * 1024 * 1024 /*1GB*/);
+                    ydk_ler.Güncelle(Ortak.Klasör_Yedek, Filtre_Dosya: "*.zip");
+
+                    bool yedekle = false;
+                    if (ydk_ler.Dosyalar.Count == 0) yedekle = true;
+                    else
+                    {
+                        ydk_ler.Sırala_EskidenYeniye();
+
+                        Klasör_ son_ydk = SıkıştırılmışDosya.Listele(ydk_ler.Kök + "\\" + ydk_ler.Dosyalar.Last().Yolu);
+                        Klasör_ güncel = new Klasör_(Ortak.Klasör_Banka);
+                        Klasör_.Farklılık_ farklar = güncel.Karşılaştır(son_ydk);
+                        if (farklar.FarklılıkSayısı > 0)
+                        {
+                            int içeriği_farklı_dosya_Sayısı = 0;
+                            foreach (Klasör_.Fark_Dosya_ a in farklar.Dosyalar)
+                            {
+                                if (!a.Aynı_Doğrulama_Kodu)
+                                {
+                                    içeriği_farklı_dosya_Sayısı++;
+                                    break;
+                                }
+                            }
+                            if (içeriği_farklı_dosya_Sayısı > 0) yedekle = true;
+                        }
+                    }
+                    if (yedekle)
+                    {
+                        string k = Ortak.Klasör_Banka;
+                        string h = Ortak.Klasör_Yedek + D_TarihSaat.Yazıya(DateTime.Now, D_TarihSaat.Şablon_DosyaAdı) + ".zip";
+
+                        SıkıştırılmışDosya.Klasörden(k, h);
+                    }
+                    #endregion
                     break;
 
                 case DoğrulamaKodu.KontrolEt.Durum_.DoğrulamaDosyasıYok:
                     Klasör_ kls = new Klasör_(Ortak.Klasör_Banka);
-                    if (kls.Dosyalar.Count > 0) throw new Exception("Büyük Hata AAA");
+                    if (kls.Dosyalar.Count > 0) throw new Exception("Büyük Hata A");
                     break;
 
                 case DoğrulamaKodu.KontrolEt.Durum_.DoğrulamaDosyasıİçeriğiHatalı:
