@@ -1,10 +1,8 @@
 ﻿using ArgeMup.HazirKod;
-using ArgeMup.HazirKod.Dönüştürme;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace İş_ve_Depo_Takip
 {

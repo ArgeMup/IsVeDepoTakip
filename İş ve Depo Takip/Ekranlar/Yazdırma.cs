@@ -58,8 +58,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             KarakterKümeleri.Text = Ayarlar.Oku("Karakterler", "Calibri");
 
-            KenarBoşluğu.Value = (decimal)Ayarlar.Oku_Sayı("Yazıcı", 20, 1);
-            DosyayaYazdır.Checked = Ayarlar.Oku_Bit("Yazıcı", false, 2);
+            KenarBoşluğu.Value = (decimal)Ayarlar.Oku_Sayı("Yazıcı", 15, 1);
+            DosyayaYazdır.Checked = Ayarlar.Oku_Bit("Yazıcı", true, 2);
             KarakterBüyüklüğü_Müşteri.Value = (decimal)Ayarlar.Oku_Sayı("Karakterler/Müşteri", 12);
             KarakterBüyüklüğü_Başlıklar.Value = (decimal)Ayarlar.Oku_Sayı("Karakterler/Başlık", 10);
             KarakterBüyüklüğü_Diğerleri.Value = (decimal)Ayarlar.Oku_Sayı("Karakterler/Diğer", 8);

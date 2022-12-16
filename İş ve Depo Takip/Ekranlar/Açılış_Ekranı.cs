@@ -10,6 +10,7 @@ namespace İş_ve_Depo_Takip
     public partial class Açılış_Ekranı : Form
     {
         UygulamaOncedenCalistirildiMi_ UyÖnÇa;
+        YeniYazılımKontrolü_ YeniYazılımKontrolü = new YeniYazılımKontrolü_();
 
         public Açılış_Ekranı()
         {
@@ -31,8 +32,40 @@ namespace İş_ve_Depo_Takip
             Text = Kendi.Adı + " " + Kendi.Sürümü_Dosya;
 
 #if DEBUG
+            Controls.Add(P_AnaMenü);
+            P_AnaMenü.Dock = DockStyle.Fill;
+            P_AnaMenü.BringToFront();
+
             //Tuş_Click(Tüm_Talepler, null);
+#else
+            IDepo_Eleman b_kullanıcı = Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Kullanıcı Şifresi");
+            if (b_kullanıcı == null || string.IsNullOrEmpty(b_kullanıcı[0]))
+            {
+                //ilk kez çalışırılıyor
+                Klasör_ kls = new Klasör_(Ortak.Klasör_Banka);
+                if (kls.Dosyalar.Count > 0)
+                {
+                    Hide();
+                    throw new Exception("Büyük Hata A");
+                }
+
+                Controls.Add(P_YeniParola);
+                P_YeniParola.Dock = DockStyle.Fill;
+                P_YeniParola.BringToFront();
+            }
+            else
+            {
+                Controls.Add(P_Parola);
+                P_Parola.Dock = DockStyle.Fill;
+                P_Parola.BringToFront();
+            }
+
+            YeniYazılımKontrolü.Başlat(new Uri("https://github.com/ArgeMup/IsVeDepoTakip/blob/main/%C4%B0%C5%9F%20ve%20Depo%20Takip/bin/Release/%C4%B0%C5%9F%20ve%20Depo%20Takip.exe?raw=true"));
 #endif
+        }
+        private void Açılış_Ekranı_DoubleClick(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
         private void Açılış_Ekranı_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -87,6 +120,9 @@ namespace İş_ve_Depo_Takip
                 SıkıştırılmışDosya.Klasörden(k, h);
             }
             #endregion
+
+            YeniYazılımKontrolü.Durdur();
+            ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın = false;
         }
 
         private void Tuş_Click(object sender, EventArgs e)
@@ -108,5 +144,72 @@ namespace İş_ve_Depo_Takip
 
             Show();
         }
+
+        private void YeniParola_Kaydet_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(YeniParola_1.Text)) return;
+
+            if (YeniParola_1.Text.Length < 4)
+            {
+                Hata.SetError(YeniParola_Etiket, "En az 4 karakter giriniz");
+                return;
+            }
+
+            if (YeniParola_1.Text != YeniParola_2.Text)
+            {
+                Hata.SetError(YeniParola_Etiket, "Girilen parolalar uyuşmuyor");
+                return;
+            }
+
+            Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Kullanıcı Şifresi", true)[0] = DoğrulamaKodu.Üret.Yazıdan(YeniParola_1.Text + Parola.Yazı);
+
+            Klasör_ kls = new Klasör_(Ortak.Klasör_Banka);
+            if (kls.Dosyalar.Count > 0)
+            {
+                Hide();
+                throw new Exception("Büyük Hata AA");
+            }
+
+            Banka.Değişiklikleri_Kaydet();
+
+            Controls.Add(P_Parola);
+            P_Parola.Dock = DockStyle.Fill;
+            P_Parola.BringToFront();
+
+            Controls.Remove(P_YeniParola);
+            P_YeniParola.Dispose();
+        }
+        private void Parola_Kontrol_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(Parola_Giriş.Text) || 
+                Parola_Giriş.Text.Length < 4 ||
+                    Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Kullanıcı Şifresi")[0] !=
+                    DoğrulamaKodu.Üret.Yazıdan(Parola_Giriş.Text + Parola.Yazı)) return;
+
+            Controls.Add(P_AnaMenü);
+            P_AnaMenü.Dock = DockStyle.Fill;
+            P_AnaMenü.BringToFront();
+
+            Controls.Remove(P_Parola);
+            P_Parola.Dispose();
+        }
+        private void Ayarlar_Click(object sender, EventArgs e)
+        {
+            Controls.Add(P_Ayarlar);
+            P_Ayarlar.Dock = DockStyle.Fill;
+            P_Ayarlar.BringToFront();
+
+            Controls.Remove(P_AnaMenü);
+        }
+        private void Ayarlar_Geri_Click(object sender, EventArgs e)
+        {
+            Controls.Add(P_AnaMenü);
+            P_AnaMenü.Dock = DockStyle.Fill;
+            P_AnaMenü.BringToFront();
+
+            Controls.Remove(P_Ayarlar);
+        }
+
+        
     }
 }

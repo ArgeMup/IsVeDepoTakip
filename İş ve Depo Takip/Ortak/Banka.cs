@@ -38,8 +38,17 @@ namespace İş_ve_Depo_Takip
             DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka);
             switch (snç)
             {
+                case DoğrulamaKodu.KontrolEt.Durum_.Aynı:
+                    break;
+
+                case DoğrulamaKodu.KontrolEt.Durum_.DoğrulamaDosyasıYok:
+                    Klasör_ kls = new Klasör_(Ortak.Klasör_Banka);
+                    if (kls.Dosyalar.Count > 0) throw new Exception("Büyük Hata AAA");
+                    break;
+
                 case DoğrulamaKodu.KontrolEt.Durum_.DoğrulamaDosyasıİçeriğiHatalı:
                 case DoğrulamaKodu.KontrolEt.Durum_.Farklı:
+                case DoğrulamaKodu.KontrolEt.Durum_.FazlaKlasörVeyaDosyaVar:
                     throw new Exception("Banka klasörünün içeriği hatalı" + Environment.NewLine +
                         "Son yaptığınız işlem yarım kalmış olabilir" + Environment.NewLine + 
                         "Yedeği kullanmak için" + Environment.NewLine +
@@ -891,7 +900,7 @@ string tarihsaat = D_TarihSaat.Yazıya(DateTime.Now, D_TarihSaat.Şablon_DosyaAd
             }
 
             //Şifreleme
-            byte[] çıktı = DaÇoKa.Karıştır(File.ReadAllBytes(Gecici_zip_dosyası), Parola.İçerik);
+            byte[] çıktı = DaÇoKa.Karıştır(File.ReadAllBytes(Gecici_zip_dosyası), Parola.Dizi);
             Dosya.Sil(Gecici_zip_dosyası);
 #endif
             DosyaYolu = Ortak.Klasör_Banka + DosyaYolu + ".mup";
@@ -917,7 +926,7 @@ string tarihsaat = D_TarihSaat.Yazıya(DateTime.Now, D_TarihSaat.Şablon_DosyaAd
             Depo_ Depo = null;
 
             //Şifreleme
-            byte[] çıktı = DaÇoKa.Düzelt(File.ReadAllBytes(DosyaYolu), Parola.İçerik);
+            byte[] çıktı = DaÇoKa.Düzelt(File.ReadAllBytes(DosyaYolu), Parola.Dizi);
 
             string Gecici_zip_dosyası = Ortak.Klasör_Gecici + Path.GetRandomFileName();
             File.WriteAllBytes(Gecici_zip_dosyası, çıktı);
