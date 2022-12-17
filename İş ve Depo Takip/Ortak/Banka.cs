@@ -3,6 +3,7 @@ using ArgeMup.HazirKod.Dönüştürme;
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -78,8 +79,10 @@ namespace İş_ve_Depo_Takip
                     break;
 
                 case DoğrulamaKodu.KontrolEt.Durum_.DoğrulamaDosyasıYok:
+#if !DEBUG
                     Klasör_ kls = new Klasör_(Ortak.Klasör_Banka);
                     if (kls.Dosyalar.Count > 0) throw new Exception("Büyük Hata A");
+#endif
                     break;
 
                 case DoğrulamaKodu.KontrolEt.Durum_.DoğrulamaDosyasıİçeriğiHatalı:
@@ -682,14 +685,21 @@ namespace İş_ve_Depo_Takip
 
             depo.Yaz("Silinecek", "Evet");
         }
-        public static void Talep_TablodaGöster(DataGridView Tablo, Banka_Tablo_ İçerik)
+        public static void Talep_TablodaGöster(DataGridView Tablo, Banka_Tablo_ İçerik, bool ÖnceTemizle = true)
         {
-            Tablo.Rows.Clear();
-            if (Tablo.SortedColumn != null)
+            Ortak.BeklemeGöstergesi.BackColor = Color.Salmon;
+            Ortak.BeklemeGöstergesi.Refresh();
+            
+            if (ÖnceTemizle)
             {
-                DataGridViewColumn col = Tablo.SortedColumn;
-                col.SortMode = DataGridViewColumnSortMode.NotSortable;
-                col.SortMode = DataGridViewColumnSortMode.Automatic;
+                Tablo.Rows.Clear();
+
+                if (Tablo.SortedColumn != null)
+                {
+                    DataGridViewColumn col = Tablo.SortedColumn;
+                    col.SortMode = DataGridViewColumnSortMode.NotSortable;
+                    col.SortMode = DataGridViewColumnSortMode.Automatic;
+                }
             }
 
             string tar_ödeme_talep = null;
@@ -719,46 +729,50 @@ namespace İş_ve_Depo_Takip
                 Tablo[8, y].Value = t[2]; //notlar
             }
           
-            switch (İçerik.Türü)
+            if (ÖnceTemizle)
             {
-                case TabloTürü.DevamEden:
-                    Tablo.Columns[2].Visible = false; //müşteri
-                    Tablo.Columns[5].Visible = false; //tarih teslim
-                    Tablo.Columns[6].Visible = false; //tarih ödeme talebi
-                    Tablo.Columns[7].Visible = false; //tarih ödendi
-                    break;
-                case TabloTürü.TeslimEdildi:
-                    Tablo.Columns[2].Visible = false; //müşteri
-                    Tablo.Columns[5].Visible = true; //tarih teslim
-                    Tablo.Columns[6].Visible = false; //tarih ödeme talebi
-                    Tablo.Columns[7].Visible = false; //tarih ödendi
-                    break;
+                switch (İçerik.Türü)
+                {
+                    case TabloTürü.DevamEden:
+                        Tablo.Columns[2].Visible = false; //müşteri
+                        Tablo.Columns[5].Visible = false; //tarih teslim
+                        Tablo.Columns[6].Visible = false; //tarih ödeme talebi
+                        Tablo.Columns[7].Visible = false; //tarih ödendi
+                        break;
+                    case TabloTürü.TeslimEdildi:
+                        Tablo.Columns[2].Visible = false; //müşteri
+                        Tablo.Columns[5].Visible = true; //tarih teslim
+                        Tablo.Columns[6].Visible = false; //tarih ödeme talebi
+                        Tablo.Columns[7].Visible = false; //tarih ödendi
+                        break;
 
-                case TabloTürü.ÖdemeTalepEdildi:
-                    Tablo.Columns[2].Visible = false; //müşteri
-                    Tablo.Columns[5].Visible = true; //tarih teslim
-                    Tablo.Columns[6].Visible = true; //tarih ödeme talebi
-                    Tablo.Columns[7].Visible = false; //tarih ödendi
-                    break;
+                    case TabloTürü.ÖdemeTalepEdildi:
+                        Tablo.Columns[2].Visible = false; //müşteri
+                        Tablo.Columns[5].Visible = true; //tarih teslim
+                        Tablo.Columns[6].Visible = true; //tarih ödeme talebi
+                        Tablo.Columns[7].Visible = false; //tarih ödendi
+                        break;
 
-                case TabloTürü.Ödendi:
-                    Tablo.Columns[2].Visible = false; //müşteri
-                    Tablo.Columns[5].Visible = true; //tarih teslim
-                    Tablo.Columns[6].Visible = true; //tarih ödeme talebi
-                    Tablo.Columns[7].Visible = true; //tarih ödendi
-                    break;
+                    case TabloTürü.Ödendi:
+                        Tablo.Columns[2].Visible = false; //müşteri
+                        Tablo.Columns[5].Visible = true; //tarih teslim
+                        Tablo.Columns[6].Visible = true; //tarih ödeme talebi
+                        Tablo.Columns[7].Visible = true; //tarih ödendi
+                        break;
 
-                case TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi:
-                    Tablo.Columns[2].Visible = true; //müşteri
-                    Tablo.Columns[5].Visible = true; //tarih teslim
-                    Tablo.Columns[6].Visible = true; //tarih ödeme talebi
-                    Tablo.Columns[7].Visible = true; //tarih ödendi
-                    break;
-                default:
-                    break;
+                    case TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi:
+                        Tablo.Columns[2].Visible = true; //müşteri
+                        Tablo.Columns[5].Visible = true; //tarih teslim
+                        Tablo.Columns[6].Visible = true; //tarih ödeme talebi
+                        Tablo.Columns[7].Visible = true; //tarih ödendi
+                        break;
+                    default:
+                        break;
+                }
             }
-
+            
             Tablo.ClearSelection();
+            Ortak.BeklemeGöstergesi.BackColor = Color.White;
         }
         public static void Talep_Ayıkla_İş(IDepo_Eleman Talep, out string Hasta, out string İşler, ref double Toplam)
         {
@@ -863,7 +877,7 @@ namespace İş_ve_Depo_Takip
             return Girdi.Substring(0, 10); // dd.MM.yyyy
         }
 
-        #region Demirbaşlar
+#region Demirbaşlar
         public enum TabloTürü { Ayarlar, İşTürleri, Ücretler, Malzemeler, DevamEden, TeslimEdildi, ÖdemeTalepEdildi, Ödendi,
                                                                              DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi
         }
@@ -890,9 +904,9 @@ namespace İş_ve_Depo_Takip
             }
         }
         static Dictionary<string, Müşteri_> Müşteriler = null;
-        #endregion
+#endregion
 
-        #region Depo + Sıkıştırma + Şifreleme
+#region Depo + Sıkıştırma + Şifreleme
         static DahaCokKarmasiklastirma_ DaÇoKa = new DahaCokKarmasiklastirma_();
 
         static bool Depo_DosyaVarMı(string DosyaYolu)
@@ -1016,6 +1030,6 @@ string tarihsaat = D_TarihSaat.Yazıya(DateTime.Now, D_TarihSaat.Şablon_DosyaAd
             return Depo;
 #endif
         }
-        #endregion
+#endregion
     }
 }

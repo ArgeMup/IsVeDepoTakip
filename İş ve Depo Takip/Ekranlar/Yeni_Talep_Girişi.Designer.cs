@@ -176,6 +176,8 @@ namespace İş_ve_Depo_Takip
             // 
             this.Kaydet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Kaydet.Enabled = false;
+            this.Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
+            this.Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.Kaydet.Location = new System.Drawing.Point(476, 439);
             this.Kaydet.Name = "Kaydet";
             this.Kaydet.Size = new System.Drawing.Size(350, 42);
@@ -187,6 +189,8 @@ namespace İş_ve_Depo_Takip
             // Seçili_Satırı_Sil
             // 
             this.Seçili_Satırı_Sil.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Seçili_Satırı_Sil.Image = global::İş_ve_Depo_Takip.Properties.Resources.sil;
+            this.Seçili_Satırı_Sil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.Seçili_Satırı_Sil.Location = new System.Drawing.Point(20, 439);
             this.Seçili_Satırı_Sil.Name = "Seçili_Satırı_Sil";
             this.Seçili_Satırı_Sil.Size = new System.Drawing.Size(350, 42);

@@ -40,13 +40,14 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.P_Arama = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.Seçenekli_Müşteriler = new System.Windows.Forms.CheckedListBox();
+            this.Arama_Müşteriler = new System.Windows.Forms.CheckedListBox();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.Seçenekli_İş_Türleri = new System.Windows.Forms.CheckedListBox();
-            this.Sorgula = new System.Windows.Forms.Button();
-            this.Seçenekli_GirişTarihi_Bitiş = new System.Windows.Forms.DateTimePicker();
+            this.Arama_İş_Türleri = new System.Windows.Forms.CheckedListBox();
+            this.Arama_İlerlemeÇubuğu = new System.Windows.Forms.ProgressBar();
+            this.Arama_Sorgula = new System.Windows.Forms.Button();
+            this.Arama_GirişTarihi_Bitiş = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
-            this.Seçenekli_GirişTarihi_Başlangıç = new System.Windows.Forms.DateTimePicker();
+            this.Arama_GirişTarihi_Başlangıç = new System.Windows.Forms.DateTimePicker();
             this.P_İşTakip = new System.Windows.Forms.Panel();
             this.Seçim_Seviye_1_Seviye_2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -80,7 +81,7 @@
             this.Seviye1_Arama = new System.Windows.Forms.CheckBox();
             this.Seviye2_Ödendi = new System.Windows.Forms.CheckBox();
             this.Seviye2_ÖdemeBekleyen = new System.Windows.Forms.CheckBox();
-            this.DetayArama = new System.Windows.Forms.TextBox();
+            this.TabloİçeriğiArama = new System.Windows.Forms.TextBox();
             this.Yazdır = new System.Windows.Forms.Button();
             this.Seviye2_DevamEden = new System.Windows.Forms.CheckBox();
             this.Seviye2_TeslimEdildi = new System.Windows.Forms.CheckBox();
@@ -163,7 +164,7 @@
             this.splitContainer1.Panel1.Controls.Add(this.Seviye1_Arama);
             this.splitContainer1.Panel1.Controls.Add(this.Seviye2_Ödendi);
             this.splitContainer1.Panel1.Controls.Add(this.Seviye2_ÖdemeBekleyen);
-            this.splitContainer1.Panel1.Controls.Add(this.DetayArama);
+            this.splitContainer1.Panel1.Controls.Add(this.TabloİçeriğiArama);
             this.splitContainer1.Panel1.Controls.Add(this.Yazdır);
             this.splitContainer1.Panel1.Controls.Add(this.Seviye2_DevamEden);
             this.splitContainer1.Panel1.Controls.Add(this.Seviye2_TeslimEdildi);
@@ -171,17 +172,17 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.Tablo);
-            this.splitContainer1.Size = new System.Drawing.Size(990, 585);
-            this.splitContainer1.SplitterDistance = 502;
+            this.splitContainer1.Size = new System.Drawing.Size(1315, 585);
+            this.splitContainer1.SplitterDistance = 501;
             this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 14;
             // 
             // P_Arama
             // 
             this.P_Arama.Controls.Add(this.splitContainer2);
-            this.P_Arama.Location = new System.Drawing.Point(674, 61);
+            this.P_Arama.Location = new System.Drawing.Point(639, 43);
             this.P_Arama.Name = "P_Arama";
-            this.P_Arama.Size = new System.Drawing.Size(296, 230);
+            this.P_Arama.Size = new System.Drawing.Size(527, 230);
             this.P_Arama.TabIndex = 26;
             // 
             // splitContainer2
@@ -195,25 +196,25 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.Seçenekli_Müşteriler);
+            this.splitContainer2.Panel1.Controls.Add(this.Arama_Müşteriler);
             // 
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(296, 180);
-            this.splitContainer2.SplitterDistance = 68;
+            this.splitContainer2.Size = new System.Drawing.Size(525, 180);
+            this.splitContainer2.SplitterDistance = 213;
             this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 15;
             // 
-            // Seçenekli_Müşteriler
+            // Arama_Müşteriler
             // 
-            this.Seçenekli_Müşteriler.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Seçenekli_Müşteriler.FormattingEnabled = true;
-            this.Seçenekli_Müşteriler.Location = new System.Drawing.Point(0, 0);
-            this.Seçenekli_Müşteriler.Margin = new System.Windows.Forms.Padding(2);
-            this.Seçenekli_Müşteriler.Name = "Seçenekli_Müşteriler";
-            this.Seçenekli_Müşteriler.Size = new System.Drawing.Size(68, 180);
-            this.Seçenekli_Müşteriler.TabIndex = 0;
+            this.Arama_Müşteriler.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Arama_Müşteriler.FormattingEnabled = true;
+            this.Arama_Müşteriler.Location = new System.Drawing.Point(0, 0);
+            this.Arama_Müşteriler.Margin = new System.Windows.Forms.Padding(2);
+            this.Arama_Müşteriler.Name = "Arama_Müşteriler";
+            this.Arama_Müşteriler.Size = new System.Drawing.Size(213, 180);
+            this.Arama_Müşteriler.TabIndex = 0;
             // 
             // splitContainer3
             // 
@@ -224,51 +225,64 @@
             // 
             // splitContainer3.Panel1
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.Seçenekli_İş_Türleri);
+            this.splitContainer3.Panel1.Controls.Add(this.Arama_İş_Türleri);
             // 
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.AutoScroll = true;
-            this.splitContainer3.Panel2.Controls.Add(this.Sorgula);
-            this.splitContainer3.Panel2.Controls.Add(this.Seçenekli_GirişTarihi_Bitiş);
+            this.splitContainer3.Panel2.Controls.Add(this.Arama_İlerlemeÇubuğu);
+            this.splitContainer3.Panel2.Controls.Add(this.Arama_Sorgula);
+            this.splitContainer3.Panel2.Controls.Add(this.Arama_GirişTarihi_Bitiş);
             this.splitContainer3.Panel2.Controls.Add(this.label2);
-            this.splitContainer3.Panel2.Controls.Add(this.Seçenekli_GirişTarihi_Başlangıç);
-            this.splitContainer3.Size = new System.Drawing.Size(225, 180);
-            this.splitContainer3.SplitterDistance = 71;
+            this.splitContainer3.Panel2.Controls.Add(this.Arama_GirişTarihi_Başlangıç);
+            this.splitContainer3.Size = new System.Drawing.Size(309, 180);
+            this.splitContainer3.SplitterDistance = 198;
             this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 1;
             // 
-            // Seçenekli_İş_Türleri
+            // Arama_İş_Türleri
             // 
-            this.Seçenekli_İş_Türleri.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Seçenekli_İş_Türleri.FormattingEnabled = true;
-            this.Seçenekli_İş_Türleri.Location = new System.Drawing.Point(0, 0);
-            this.Seçenekli_İş_Türleri.Margin = new System.Windows.Forms.Padding(2);
-            this.Seçenekli_İş_Türleri.Name = "Seçenekli_İş_Türleri";
-            this.Seçenekli_İş_Türleri.Size = new System.Drawing.Size(71, 180);
-            this.Seçenekli_İş_Türleri.TabIndex = 0;
+            this.Arama_İş_Türleri.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Arama_İş_Türleri.FormattingEnabled = true;
+            this.Arama_İş_Türleri.Location = new System.Drawing.Point(0, 0);
+            this.Arama_İş_Türleri.Margin = new System.Windows.Forms.Padding(2);
+            this.Arama_İş_Türleri.Name = "Arama_İş_Türleri";
+            this.Arama_İş_Türleri.Size = new System.Drawing.Size(198, 180);
+            this.Arama_İş_Türleri.TabIndex = 0;
             // 
-            // Sorgula
+            // Arama_İlerlemeÇubuğu
             // 
-            this.Sorgula.BackColor = System.Drawing.Color.YellowGreen;
-            this.Sorgula.Location = new System.Drawing.Point(11, 101);
-            this.Sorgula.Margin = new System.Windows.Forms.Padding(2);
-            this.Sorgula.Name = "Sorgula";
-            this.Sorgula.Size = new System.Drawing.Size(103, 32);
-            this.Sorgula.TabIndex = 23;
-            this.Sorgula.Text = "Sorgula";
-            this.İpUcu.SetToolTip(this.Sorgula, "Seçimlerinizi yapıp tıklayınız");
-            this.Sorgula.UseVisualStyleBackColor = false;
-            // 
-            // Seçenekli_GirişTarihi_Bitiş
-            // 
-            this.Seçenekli_GirişTarihi_Bitiş.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.Arama_İlerlemeÇubuğu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Seçenekli_GirişTarihi_Bitiş.Location = new System.Drawing.Point(11, 59);
-            this.Seçenekli_GirişTarihi_Bitiş.Margin = new System.Windows.Forms.Padding(2);
-            this.Seçenekli_GirişTarihi_Bitiş.Name = "Seçenekli_GirişTarihi_Bitiş";
-            this.Seçenekli_GirişTarihi_Bitiş.Size = new System.Drawing.Size(110, 26);
-            this.Seçenekli_GirişTarihi_Bitiş.TabIndex = 7;
+            this.Arama_İlerlemeÇubuğu.Location = new System.Drawing.Point(11, 126);
+            this.Arama_İlerlemeÇubuğu.Name = "Arama_İlerlemeÇubuğu";
+            this.Arama_İlerlemeÇubuğu.Size = new System.Drawing.Size(82, 23);
+            this.Arama_İlerlemeÇubuğu.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.Arama_İlerlemeÇubuğu.TabIndex = 24;
+            this.Arama_İlerlemeÇubuğu.Visible = false;
+            // 
+            // Arama_Sorgula
+            // 
+            this.Arama_Sorgula.BackColor = System.Drawing.Color.Transparent;
+            this.Arama_Sorgula.Location = new System.Drawing.Point(11, 89);
+            this.Arama_Sorgula.Margin = new System.Windows.Forms.Padding(2);
+            this.Arama_Sorgula.Name = "Arama_Sorgula";
+            this.Arama_Sorgula.Size = new System.Drawing.Size(103, 32);
+            this.Arama_Sorgula.TabIndex = 23;
+            this.Arama_Sorgula.Text = "Sorgula";
+            this.İpUcu.SetToolTip(this.Arama_Sorgula, "Seçimlerinizi yapıp tıklayınız");
+            this.Arama_Sorgula.UseVisualStyleBackColor = false;
+            this.Arama_Sorgula.Click += new System.EventHandler(this.Arama_Sorgula_Click);
+            // 
+            // Arama_GirişTarihi_Bitiş
+            // 
+            this.Arama_GirişTarihi_Bitiş.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Arama_GirişTarihi_Bitiş.Location = new System.Drawing.Point(11, 59);
+            this.Arama_GirişTarihi_Bitiş.Margin = new System.Windows.Forms.Padding(2);
+            this.Arama_GirişTarihi_Bitiş.Name = "Arama_GirişTarihi_Bitiş";
+            this.Arama_GirişTarihi_Bitiş.Size = new System.Drawing.Size(82, 26);
+            this.Arama_GirişTarihi_Bitiş.TabIndex = 7;
             // 
             // label2
             // 
@@ -276,19 +290,19 @@
             this.label2.Location = new System.Drawing.Point(7, 8);
             this.label2.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(138, 20);
+            this.label2.Size = new System.Drawing.Size(99, 20);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Talep Giriş Tarihi";
+            this.label2.Text = "Tarih Aralığı";
             // 
-            // Seçenekli_GirişTarihi_Başlangıç
+            // Arama_GirişTarihi_Başlangıç
             // 
-            this.Seçenekli_GirişTarihi_Başlangıç.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.Arama_GirişTarihi_Başlangıç.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Seçenekli_GirişTarihi_Başlangıç.Location = new System.Drawing.Point(11, 30);
-            this.Seçenekli_GirişTarihi_Başlangıç.Margin = new System.Windows.Forms.Padding(2);
-            this.Seçenekli_GirişTarihi_Başlangıç.Name = "Seçenekli_GirişTarihi_Başlangıç";
-            this.Seçenekli_GirişTarihi_Başlangıç.Size = new System.Drawing.Size(110, 26);
-            this.Seçenekli_GirişTarihi_Başlangıç.TabIndex = 7;
+            this.Arama_GirişTarihi_Başlangıç.Location = new System.Drawing.Point(11, 30);
+            this.Arama_GirişTarihi_Başlangıç.Margin = new System.Windows.Forms.Padding(2);
+            this.Arama_GirişTarihi_Başlangıç.Name = "Arama_GirişTarihi_Başlangıç";
+            this.Arama_GirişTarihi_Başlangıç.Size = new System.Drawing.Size(82, 26);
+            this.Arama_GirişTarihi_Başlangıç.TabIndex = 7;
             // 
             // P_İşTakip
             // 
@@ -345,7 +359,8 @@
             // 
             this.İşTakip_Etkin_Düzenle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.İşTakip_Etkin_Düzenle.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.İşTakip_Etkin_Düzenle.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol;
+            this.İşTakip_Etkin_Düzenle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.İşTakip_Etkin_Düzenle.Location = new System.Drawing.Point(2, 84);
             this.İşTakip_Etkin_Düzenle.Margin = new System.Windows.Forms.Padding(2);
             this.İşTakip_Etkin_Düzenle.Name = "İşTakip_Etkin_Düzenle";
@@ -359,7 +374,8 @@
             // 
             this.İşTakip_Etkin_Sil.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.İşTakip_Etkin_Sil.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.İşTakip_Etkin_Sil.Image = global::İş_ve_Depo_Takip.Properties.Resources.sil;
+            this.İşTakip_Etkin_Sil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.İşTakip_Etkin_Sil.Location = new System.Drawing.Point(2, 120);
             this.İşTakip_Etkin_Sil.Margin = new System.Windows.Forms.Padding(2);
             this.İşTakip_Etkin_Sil.Name = "İşTakip_Etkin_Sil";
@@ -373,7 +389,8 @@
             // 
             this.İşTakip_Etkin_İsaretle_Bitti.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.İşTakip_Etkin_İsaretle_Bitti.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.İşTakip_Etkin_İsaretle_Bitti.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
+            this.İşTakip_Etkin_İsaretle_Bitti.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.İşTakip_Etkin_İsaretle_Bitti.Location = new System.Drawing.Point(2, 156);
             this.İşTakip_Etkin_İsaretle_Bitti.Margin = new System.Windows.Forms.Padding(2);
             this.İşTakip_Etkin_İsaretle_Bitti.Name = "İşTakip_Etkin_İsaretle_Bitti";
@@ -410,6 +427,8 @@
             // 
             this.İşTakip_Bitti_ÖdemeTalebiOluştur.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.İşTakip_Bitti_ÖdemeTalebiOluştur.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
+            this.İşTakip_Bitti_ÖdemeTalebiOluştur.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.İşTakip_Bitti_ÖdemeTalebiOluştur.Location = new System.Drawing.Point(2, 211);
             this.İşTakip_Bitti_ÖdemeTalebiOluştur.Margin = new System.Windows.Forms.Padding(2);
             this.İşTakip_Bitti_ÖdemeTalebiOluştur.Name = "İşTakip_Bitti_ÖdemeTalebiOluştur";
@@ -423,6 +442,8 @@
             // 
             this.İşTakip_Bitti_İşaretle_Etkin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.İşTakip_Bitti_İşaretle_Etkin.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol;
+            this.İşTakip_Bitti_İşaretle_Etkin.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.İşTakip_Bitti_İşaretle_Etkin.Location = new System.Drawing.Point(2, 84);
             this.İşTakip_Bitti_İşaretle_Etkin.Margin = new System.Windows.Forms.Padding(2);
             this.İşTakip_Bitti_İşaretle_Etkin.Name = "İşTakip_Bitti_İşaretle_Etkin";
@@ -545,6 +566,8 @@
             // 
             this.İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
+            this.İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.Location = new System.Drawing.Point(4, 77);
             this.İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.Margin = new System.Windows.Forms.Padding(2);
             this.İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.Name = "İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle";
@@ -580,6 +603,8 @@
             // 
             this.İşTakip_ÖdemeBekleyen_İptalEt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.İşTakip_ÖdemeBekleyen_İptalEt.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol;
+            this.İşTakip_ÖdemeBekleyen_İptalEt.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.İşTakip_ÖdemeBekleyen_İptalEt.Location = new System.Drawing.Point(12, 116);
             this.İşTakip_ÖdemeBekleyen_İptalEt.Margin = new System.Windows.Forms.Padding(2);
             this.İşTakip_ÖdemeBekleyen_İptalEt.Name = "İşTakip_ÖdemeBekleyen_İptalEt";
@@ -613,7 +638,7 @@
             this.tabPage6.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage6.Size = new System.Drawing.Size(585, 309);
+            this.tabPage6.Size = new System.Drawing.Size(585, 303);
             this.tabPage6.TabIndex = 3;
             this.tabPage6.Text = "Ödendi";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -725,23 +750,23 @@
             this.Seviye2_ÖdemeBekleyen.UseVisualStyleBackColor = true;
             this.Seviye2_ÖdemeBekleyen.Click += new System.EventHandler(this.Seviye_Değişti);
             // 
-            // DetayArama
+            // TabloİçeriğiArama
             // 
-            this.DetayArama.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.TabloİçeriğiArama.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DetayArama.Location = new System.Drawing.Point(637, 9);
-            this.DetayArama.Margin = new System.Windows.Forms.Padding(2);
-            this.DetayArama.Name = "DetayArama";
-            this.DetayArama.Size = new System.Drawing.Size(279, 26);
-            this.DetayArama.TabIndex = 17;
-            this.İpUcu.SetToolTip(this.DetayArama, "Detay arama kutucuğu");
-            this.DetayArama.TextChanged += new System.EventHandler(this.DetayArama_TextChanged);
+            this.TabloİçeriğiArama.Location = new System.Drawing.Point(637, 9);
+            this.TabloİçeriğiArama.Margin = new System.Windows.Forms.Padding(2);
+            this.TabloİçeriğiArama.Name = "TabloİçeriğiArama";
+            this.TabloİçeriğiArama.Size = new System.Drawing.Size(604, 26);
+            this.TabloİçeriğiArama.TabIndex = 17;
+            this.İpUcu.SetToolTip(this.TabloİçeriğiArama, "Tablo içinde arama kutucuğu");
+            this.TabloİçeriğiArama.TextChanged += new System.EventHandler(this.TabloİçeriğiArama_TextChanged);
             // 
             // Yazdır
             // 
             this.Yazdır.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Yazdır.Enabled = false;
-            this.Yazdır.Location = new System.Drawing.Point(920, 7);
+            this.Yazdır.Location = new System.Drawing.Point(1245, 7);
             this.Yazdır.Margin = new System.Windows.Forms.Padding(2);
             this.Yazdır.Name = "Yazdır";
             this.Yazdır.Size = new System.Drawing.Size(65, 31);
@@ -825,7 +850,7 @@
             this.Tablo.ShowCellToolTips = false;
             this.Tablo.ShowEditingIcon = false;
             this.Tablo.ShowRowErrors = false;
-            this.Tablo.Size = new System.Drawing.Size(990, 80);
+            this.Tablo.Size = new System.Drawing.Size(1315, 81);
             this.Tablo.TabIndex = 0;
             this.İpUcu.SetToolTip(this.Tablo, "Tümünü seçmek / kaldırmak için çift tıkla");
             this.Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellValueChanged);
@@ -930,7 +955,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(990, 585);
+            this.ClientSize = new System.Drawing.Size(1315, 585);
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -984,12 +1009,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.CheckedListBox Seçenekli_Müşteriler;
-        private System.Windows.Forms.CheckedListBox Seçenekli_İş_Türleri;
+        private System.Windows.Forms.CheckedListBox Arama_Müşteriler;
+        private System.Windows.Forms.CheckedListBox Arama_İş_Türleri;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker Seçenekli_GirişTarihi_Bitiş;
-        private System.Windows.Forms.DateTimePicker Seçenekli_GirişTarihi_Başlangıç;
-        private System.Windows.Forms.TextBox DetayArama;
+        private System.Windows.Forms.DateTimePicker Arama_GirişTarihi_Bitiş;
+        private System.Windows.Forms.DateTimePicker Arama_GirişTarihi_Başlangıç;
+        private System.Windows.Forms.TextBox TabloİçeriğiArama;
         private System.Windows.Forms.DataGridView Tablo;
         private System.Windows.Forms.ComboBox İşTakip_ÖdemeBekleyen_Dönem;
         private System.Windows.Forms.CheckBox Seviye2_Ödendi;
@@ -1019,7 +1044,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.Button Yazdır;
-        private System.Windows.Forms.Button Sorgula;
+        private System.Windows.Forms.Button Arama_Sorgula;
         private System.Windows.Forms.ToolTip İpUcu;
         private System.Windows.Forms.Button İşTakip_Etkin_Düzenle;
         private System.Windows.Forms.Button İşTakip_Etkin_Sil;
@@ -1040,5 +1065,6 @@
         private System.Windows.Forms.Panel P_İşTakip_TeslimEdildi;
         private System.Windows.Forms.Panel P_İşTakip_DevamEden;
         private System.Windows.Forms.Panel P_İşTakip;
+        private System.Windows.Forms.ProgressBar Arama_İlerlemeÇubuğu;
     }
 }

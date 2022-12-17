@@ -51,6 +51,9 @@
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\kendi.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -169,6 +172,9 @@
     <EmbeddedResource Include="Ekranlar\Müşteriler.resx">
       <DependentUpon>Müşteriler.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Ekranlar\İş_Türleri.resx">
+      <DependentUpon>İş_Türleri.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -209,6 +215,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\logo_512_seffaf.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kendi.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sol.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sil.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -19,25 +19,27 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Tüm_Talepler_Load(object sender, EventArgs e)
         {
+            Ortak.BeklemeGöstergesi = TabloİçeriğiArama;
+
             List<string> l = Banka.Müşteri_Listele();
             string[] l_dizi = l.ToArray();
             İşTakip_Müşteriler.Items.AddRange(l_dizi);
-            Seçenekli_Müşteriler.Items.AddRange(l_dizi);
+            Arama_Müşteriler.Items.AddRange(l_dizi);
             for (int i = 0; i < l.Count; i++)
             {
-                Seçenekli_Müşteriler.SetItemChecked(i, true);
+                Arama_Müşteriler.SetItemChecked(i, true);
             }
 
             l = Banka.İşTürü_Listele();
             l_dizi = l.ToArray();
-            Seçenekli_İş_Türleri.Items.AddRange(l_dizi);
+            Arama_İş_Türleri.Items.AddRange(l_dizi);
             for (int i = 0; i < l.Count; i++)
             {
-                Seçenekli_İş_Türleri.SetItemChecked(i, true);
+                Arama_İş_Türleri.SetItemChecked(i, true);
             }
 
-            Seçenekli_GirişTarihi_Bitiş.Value = DateTime.Now;
-            Seçenekli_GirişTarihi_Başlangıç.Value = Seçenekli_GirişTarihi_Bitiş.Value.AddMonths(-6);
+            Arama_GirişTarihi_Bitiş.Value = DateTime.Now;
+            Arama_GirişTarihi_Başlangıç.Value = Arama_GirişTarihi_Bitiş.Value.AddMonths(-6);
 
             splitContainer1.Panel1.Controls.Add(P_İşTakip); P_İşTakip.Dock = DockStyle.Fill; P_İşTakip.Visible = true;
             P_İşTakip.Controls.Add(P_İşTakip_DevamEden); P_İşTakip_DevamEden.Dock = DockStyle.Fill; P_İşTakip_DevamEden.Visible = false;
@@ -92,7 +94,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Banka_Tablo_ bt;
             Yazdır.Enabled = false;
-            Tablo.SuspendLayout();
             Tablo.Rows.Clear();
             İpUcu.SetToolTip(Tablo, "Tümünü seçmek / kaldırmak için çift tıkla");
 
@@ -137,7 +138,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 case 10:
                     //devam eden
-                    if (!Seviye1_işTakip.Checked) goto AramayıBaşlat;
+                    if (!Seviye1_işTakip.Checked) goto AramaİçinSeçenekleriBelirle;
 
                     Seviye2_DevamEden.Checked = true;
                     Seviye2_TeslimEdildi.Checked = false;
@@ -153,7 +154,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 case 11:
                     //teslim edildi 
-                    if (!Seviye1_işTakip.Checked) goto AramayıBaşlat;
+                    if (!Seviye1_işTakip.Checked) goto AramaİçinSeçenekleriBelirle;
 
                     Seviye2_DevamEden.Checked = false;
                     Seviye2_TeslimEdildi.Checked = true;
@@ -169,7 +170,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 case 12:
                     //ödeme bekliyor
-                    if (!Seviye1_işTakip.Checked) goto AramayıBaşlat;
+                    if (!Seviye1_işTakip.Checked) goto AramaİçinSeçenekleriBelirle;
 
                     Seviye2_DevamEden.Checked = false;
                     Seviye2_TeslimEdildi.Checked = false;
@@ -184,13 +185,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         if (İşTakip_ÖdemeBekleyen_Dönem.SelectedIndex != 0) İşTakip_ÖdemeBekleyen_Dönem.SelectedIndex = 0;
                     }
                     else Seviye2_ÖdemeBekleyen.Checked = false;
-                    
+
                     splitContainer1.SplitterDistance = İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.PointToScreen(new Point()).Y + İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.Size.Height;
                     break;
 
                 case 13:
                     //ödendi
-                    if (!Seviye1_işTakip.Checked) goto AramayıBaşlat;
+                    if (!Seviye1_işTakip.Checked) goto AramaİçinSeçenekleriBelirle;
 
                     Seviye2_DevamEden.Checked = false;
                     Seviye2_TeslimEdildi.Checked = false;
@@ -217,17 +218,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             P_İşTakip_Ödendi.Visible = Seviye2_Ödendi.Checked;
             P_Arama.Visible = Seviye1_Arama.Checked;
 
-            Tablo.ResumeLayout();
             return;
 
-        AramayıBaşlat:
-            Tablo.ResumeLayout();
+        AramaİçinSeçenekleriBelirle:
             (sender as CheckBox).Checked = !(sender as CheckBox).Checked;
-            Arama_Başlat();
-        }
-        void Arama_Başlat()
-        {
-
         }
 
         private void İşTakip_Müşteriler_TextChanged(object sender, EventArgs e)
@@ -326,7 +320,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             List<string> l = new List<string>();
 
-            YenidenDene:
+        YenidenDene:
             for (int i = 0; i < Tablo.RowCount; i++)
             {
                 if ((bool)Tablo[0, i].Value)
@@ -370,7 +364,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             List<string> l = new List<string>();
 
-            YenidenDene:
+        YenidenDene:
             for (int i = 0; i < Tablo.RowCount; i++)
             {
                 if ((bool)Tablo[0, i].Value)
@@ -416,12 +410,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 ipucu += Environment.NewLine + Environment.NewLine + Açıklamalar[i] + " : " + Ücretler[i];
             }
-            
+
             if (!string.IsNullOrEmpty(Notlar))
             {
                 ipucu += Environment.NewLine + Environment.NewLine + "Notlar : " + Notlar;
             }
-            
+
             İpUcu.SetToolTip(Tablo, ipucu);
 
             Yazdır.Enabled = true;
@@ -543,36 +537,43 @@ namespace İş_ve_Depo_Takip.Ekranlar
             catch (Exception) { }
         }
 
-        bool GözGezdirme_Çalışıyor = false;
-        bool GözGezdirme_KapatmaTalebi = false;
-        int GözGezdirme_Tik = 0;
-        int GözGezdirme_Sayac_Bulundu = 0;
-        private void DetayArama_TextChanged(object sender, EventArgs e)
+        bool TabloİçeriğiArama_Çalışıyor = false;
+        bool TabloİçeriğiArama_KapatmaTalebi = false;
+        int TabloİçeriğiArama_Tik = 0;
+        int TabloİçeriğiArama_Sayac_Bulundu = 0;
+        private void TabloİçeriğiArama_TextChanged(object sender, EventArgs e)
         {
-            if (DetayArama.Text.Length < 2)
+            TabloİçeriğiArama_Tik = Environment.TickCount + 100;
+            if (TabloİçeriğiArama.Text.Length < 2)
             {
-                if (GözGezdirme_Sayac_Bulundu > 0)
+                if (TabloİçeriğiArama_Sayac_Bulundu != 0)
                 {
+                    TabloİçeriğiArama.BackColor = Color.Salmon;
+
                     for (int satır = 0; satır < Tablo.RowCount; satır++)
                     {
                         Tablo.Rows[satır].Visible = true;
+                        if (TabloİçeriğiArama_Tik < Environment.TickCount) { Application.DoEvents(); TabloİçeriğiArama_Tik = Environment.TickCount + 100; }
                     }
 
-                    GözGezdirme_Sayac_Bulundu = 0;
+                    TabloİçeriğiArama.BackColor = Color.White;
+                    TabloİçeriğiArama_Sayac_Bulundu = 0;
+                    Tablo_CellValueChanged(null, new DataGridViewCellEventArgs(0, 0));
                 }
 
                 return;
             }
-            
-            if (GözGezdirme_Çalışıyor) { GözGezdirme_KapatmaTalebi = true; return; }
-            
-            GözGezdirme_Çalışıyor = true;
-            GözGezdirme_KapatmaTalebi = false;
-            GözGezdirme_Sayac_Bulundu = 0;
-            GözGezdirme_Tik = Environment.TickCount + 100;
 
-            string aranan = DetayArama.Text.ToLower();
-            for (int satır = 0; satır < Tablo.RowCount; satır++)
+            if (TabloİçeriğiArama_Çalışıyor) { TabloİçeriğiArama_KapatmaTalebi = true; return; }
+
+            TabloİçeriğiArama_Çalışıyor = true;
+            TabloİçeriğiArama_KapatmaTalebi = false;
+            TabloİçeriğiArama_Sayac_Bulundu = 0;
+            TabloİçeriğiArama_Tik = Environment.TickCount + 500;
+            TabloİçeriğiArama.BackColor = Color.Salmon;
+
+            string aranan = TabloİçeriğiArama.Text.ToLower();
+            for (int satır = 0; satır < Tablo.RowCount && !TabloİçeriğiArama_KapatmaTalebi; satır++)
             {
                 bool bulundu = false;
                 for (int sutun = 1; sutun < Tablo.Columns.Count; sutun++)
@@ -588,11 +589,162 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
 
                 Tablo.Rows[satır].Visible = bulundu;
-                if (bulundu) GözGezdirme_Sayac_Bulundu++;
+                if (bulundu) TabloİçeriğiArama_Sayac_Bulundu++;
+
+                if (TabloİçeriğiArama_Tik < Environment.TickCount) { Application.DoEvents(); TabloİçeriğiArama_Tik = Environment.TickCount + 500; }
             }
 
+            if (TabloİçeriğiArama_Sayac_Bulundu == 0) TabloİçeriğiArama_Sayac_Bulundu = -1;
+            else Tablo_Notlar.HeaderText = "Notlar ( 0 / " + TabloİçeriğiArama_Sayac_Bulundu + " )";
+
+            TabloİçeriğiArama.BackColor = Color.White;
+            TabloİçeriğiArama_Çalışıyor = false;
             Tablo.ClearSelection();
-            GözGezdirme_Çalışıyor = false;
+
+            if (TabloİçeriğiArama_KapatmaTalebi) TabloİçeriğiArama_TextChanged(null, null);
+            TabloİçeriğiArama_KapatmaTalebi = false;
+        }
+
+        bool Arama_Sorgula_Çalışıyor = false;
+        bool Arama_Sorgula_KapatmaTalebi = false;
+        int Arama_Sorgula_Tik = 0;
+        string Arama_Sorgula_Aranan_İşTürleri = null;
+        private void Arama_Sorgula_Click(object sender, EventArgs e)
+        {
+            if (Arama_Sorgula_Çalışıyor) { Arama_Sorgula_KapatmaTalebi = true; return; }
+            Arama_Sorgula_Çalışıyor = true;
+            Arama_Sorgula_KapatmaTalebi = false;
+            Arama_Sorgula_Tik = Environment.TickCount + 500;
+            TabloİçeriğiArama.BackColor = Color.Salmon;
+
+            if (Arama_GirişTarihi_Başlangıç.Value > Arama_GirişTarihi_Bitiş.Value)
+            {
+                DateTime gecici = Arama_GirişTarihi_Başlangıç.Value;
+                Arama_GirişTarihi_Başlangıç.Value = Arama_GirişTarihi_Bitiş.Value;
+                Arama_GirişTarihi_Bitiş.Value = gecici;
+            }
+            if (Arama_Müşteriler.CheckedItems.Count == 0)
+            {
+                for (int i = 0; i < Arama_Müşteriler.Items.Count; i++)
+                {
+                    Arama_Müşteriler.SetItemChecked(i, true);
+                }
+            }
+            if (Arama_İş_Türleri.CheckedItems.Count == 0)
+            {
+                for (int i = 0; i < Arama_İş_Türleri.Items.Count; i++)
+                {
+                    Arama_İş_Türleri.SetItemChecked(i, true);
+                }
+            }
+            Arama_Sorgula_Aranan_İşTürleri = "";
+            for (int i = 0; i < Arama_İş_Türleri.Items.Count; i++)
+            {
+                if (Arama_İş_Türleri.GetItemChecked(i)) Arama_Sorgula_Aranan_İşTürleri += "-_" + Arama_İş_Türleri.Items[i].ToString() + "_-";
+            }
+            if (!Seviye2_DevamEden.Checked && !Seviye2_TeslimEdildi.Checked && !Seviye2_ÖdemeBekleyen.Checked && !Seviye2_Ödendi.Checked)
+            {
+                Seviye2_DevamEden.Checked = true;
+            }
+
+            Arama_İlerlemeÇubuğu.Minimum = 0;
+            Arama_İlerlemeÇubuğu.Value = 0;
+            Arama_İlerlemeÇubuğu.Maximum = 0;
+            Arama_İlerlemeÇubuğu.Visible = true;
+            for (int i = 0; i < Arama_Müşteriler.Items.Count && !Arama_Sorgula_KapatmaTalebi; i++)
+            {
+                if (Arama_Müşteriler.GetItemChecked(i) && !Arama_Sorgula_KapatmaTalebi)
+                {
+                    if (Seviye2_DevamEden.Checked) Arama_İlerlemeÇubuğu.Maximum += 1;
+                    if (Seviye2_TeslimEdildi.Checked) Arama_İlerlemeÇubuğu.Maximum += 1;
+                    if (Seviye2_ÖdemeBekleyen.Checked) Arama_İlerlemeÇubuğu.Maximum += Banka.Dosya_Listele(Arama_Müşteriler.Items[i].ToString(), false).Length;
+                    if (Seviye2_Ödendi.Checked) Arama_İlerlemeÇubuğu.Maximum += Banka.Dosya_Listele(Arama_Müşteriler.Items[i].ToString(), true).Length;
+                }
+
+                if (Arama_Sorgula_Tik < Environment.TickCount) { Application.DoEvents(); Arama_Sorgula_Tik = Environment.TickCount + 500; }
+            }
+
+            Banka_Tablo_ bt = new Banka_Tablo_(null);
+            bt.Türü = Banka.TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi;
+            Banka.Talep_TablodaGöster(Tablo, bt);
+
+            for (int i = 0; i < Arama_Müşteriler.Items.Count && !Arama_Sorgula_KapatmaTalebi; i++)
+            {
+                if (Arama_Müşteriler.GetItemChecked(i))
+                {
+                    if (Seviye2_DevamEden.Checked && !Arama_Sorgula_KapatmaTalebi)
+                    {
+                        Arama_İlerlemeÇubuğu.Value++;
+                        Arama_Sorgula_Click_2(Banka.Talep_Listele(Arama_Müşteriler.Items[i].ToString(), Banka.TabloTürü.DevamEden));
+                    }
+
+                    if (Seviye2_TeslimEdildi.Checked && !Arama_Sorgula_KapatmaTalebi)
+                    {
+                        Arama_İlerlemeÇubuğu.Value++;
+                        Arama_Sorgula_Click_2(Banka.Talep_Listele(Arama_Müşteriler.Items[i].ToString(), Banka.TabloTürü.TeslimEdildi));
+                    }
+
+                    if (Seviye2_ÖdemeBekleyen.Checked && !Arama_Sorgula_KapatmaTalebi)
+                    {
+                        string[] l = Banka.Dosya_Listele(Arama_Müşteriler.Items[i].ToString(), false);
+
+                        for (int s = 0; s < l.Length && !Arama_Sorgula_KapatmaTalebi; s++)
+                        {
+                            Arama_İlerlemeÇubuğu.Value++;
+                            DateTime t = l[s].TarihSaate("dd MM yyyy HH mm ss");
+                            if (Arama_GirişTarihi_Başlangıç.Value > t || t > Arama_GirişTarihi_Bitiş.Value) continue;
+
+                            Arama_Sorgula_Click_2(Banka.Talep_Listele(Arama_Müşteriler.Items[i].ToString(), Banka.TabloTürü.ÖdemeTalepEdildi, l[s]));
+                        }
+                    }
+
+                    if (Seviye2_Ödendi.Checked && !Arama_Sorgula_KapatmaTalebi)
+                    {
+                        string[] l = Banka.Dosya_Listele(Arama_Müşteriler.Items[i].ToString(), true);
+
+                        for (int s = 0; s < l.Length && !Arama_Sorgula_KapatmaTalebi; s++)
+                        {
+                            Arama_İlerlemeÇubuğu.Value++;
+                            DateTime t = l[s].TarihSaate("dd MM yyyy HH mm ss");
+                            if (Arama_GirişTarihi_Başlangıç.Value > t || t > Arama_GirişTarihi_Bitiş.Value) continue;
+
+                            Arama_Sorgula_Click_2(Banka.Talep_Listele(Arama_Müşteriler.Items[i].ToString(), Banka.TabloTürü.Ödendi, l[s]));
+                        }
+                    }
+                }
+            }
+
+            Arama_İlerlemeÇubuğu.Visible = false;
+            Arama_Sorgula_Çalışıyor = false;
+            TabloİçeriğiArama.BackColor = Color.White;
+        }
+        private void Arama_Sorgula_Click_2(Banka_Tablo_ bt)
+        {
+            if (Arama_Sorgula_KapatmaTalebi) return;
+            if (Arama_Sorgula_Tik < Environment.TickCount) { Application.DoEvents(); Arama_Sorgula_Tik = Environment.TickCount + 500; }
+
+            List<IDepo_Eleman> uyuşanlar = new List<IDepo_Eleman>();
+            foreach (IDepo_Eleman serino in bt.Talepler)
+            {
+                bool evet = false;
+
+                foreach (IDepo_Eleman iş in serino.Elemanları)
+                {
+                    if (!Arama_Sorgula_Aranan_İşTürleri.Contains(iş[0])) continue;
+
+                    DateTime t = iş[1].TarihSaate();
+                    if (Arama_GirişTarihi_Başlangıç.Value > t || t > Arama_GirişTarihi_Bitiş.Value) continue;
+
+                    evet = true;
+                    break;
+                }
+
+                if (evet) uyuşanlar.Add(serino);
+            }
+
+            if (uyuşanlar.Count == 0) return;
+            bt.Talepler = uyuşanlar;
+            Banka.Talep_TablodaGöster(Tablo, bt, false);
         }
     }
 }

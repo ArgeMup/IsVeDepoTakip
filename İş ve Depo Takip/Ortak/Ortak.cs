@@ -15,6 +15,8 @@ namespace İş_ve_Depo_Takip
         public static string Klasör_Pdf = Kendi.Klasörü + "\\Pdf\\";
         public static string Klasör_Gecici = Klasör.Depolama(Klasör.Kapsamı.Geçici) + "\\";
 
+        public static TextBox BeklemeGöstergesi = null;
+
         static Random rnd = new Random();
         public static int RasgeleSayı(int Asgari, int Azami)
         {
@@ -52,7 +54,9 @@ namespace İş_ve_Depo_Takip
                 Sayfa.Size = new System.Drawing.Size((int)p.Oku_Sayı("gen"), (int)p.Oku_Sayı("uzu"));
             }
 
-            Sayfa.Text = "ArGeMuP " + Kendi.Adı + " " + Kendi.Sürümü_Dosya + " " + Sayfa.Text;
+            Sayfa.Text = "ArGeMuP " + Kendi.Adı + " V" + Kendi.Sürümü_Dosya + " " + Sayfa.Text;
+
+            Sayfa.Icon = Properties.Resources.kendi;
         }
         public static void GeçiciDepolama_PencereKonumları_Yaz(Form Sayfa)
         {

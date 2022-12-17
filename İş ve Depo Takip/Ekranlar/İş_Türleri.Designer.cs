@@ -53,6 +53,8 @@
             // 
             this.Sil.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Sil.Enabled = false;
+            this.Sil.Image = global::İş_ve_Depo_Takip.Properties.Resources.sil;
+            this.Sil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.Sil.Location = new System.Drawing.Point(459, 292);
             this.Sil.Name = "Sil";
             this.Sil.Size = new System.Drawing.Size(208, 52);
@@ -75,6 +77,8 @@
             // 
             this.Ekle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Ekle.Enabled = false;
+            this.Ekle.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
+            this.Ekle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.Ekle.Location = new System.Drawing.Point(459, 392);
             this.Ekle.Name = "Ekle";
             this.Ekle.Size = new System.Drawing.Size(208, 52);

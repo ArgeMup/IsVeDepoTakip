@@ -30,6 +30,7 @@ namespace İş_ve_Depo_Takip
             Banka.Giriş_İşlemleri();
 
             Text = Kendi.Adı + " " + Kendi.Sürümü_Dosya;
+            Icon = Properties.Resources.kendi;
 
             Controls.Add(P_AnaMenü); P_AnaMenü.Dock = DockStyle.Fill; P_AnaMenü.Visible = false;
             Controls.Add(P_Ayarlar); P_Ayarlar.Dock = DockStyle.Fill; P_Ayarlar.Visible = false;
