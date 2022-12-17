@@ -212,6 +212,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>copy "..\..\..\..\Detaylar\Parola.cs" "$(SolutionDir)İş ve Depo Takip\Ortak\Parola.cs"</PreBuildEvent>
+    <PreBuildEvent>IF EXIST "..\..\..\..\Detaylar\Parola.cs" (copy "..\..\..\..\Detaylar\Parola.cs" "$(SolutionDir)İş ve Depo Takip\Ortak\Parola.cs")</PreBuildEvent>
   </PropertyGroup>
 </Project>

@@ -13,7 +13,7 @@ namespace İş_ve_Depo_Takip
         }
         public static bool KontrolEt(string KullanıcıParalosu)
         {
-            return Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Kullanıcı Şifresi")[0] == DoğrulamaKodu.Üret.Yazıdan(KullanıcıParalosu + "ArGeMuP"));
+            return Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Kullanıcı Şifresi")[0] == DoğrulamaKodu.Üret.Yazıdan(KullanıcıParalosu + "ArGeMuP");
         }
     }
 }

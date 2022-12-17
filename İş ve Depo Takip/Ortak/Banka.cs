@@ -274,15 +274,12 @@ namespace İş_ve_Depo_Takip
             {
                 if (m.Liste_Ödendi == null)
                 {
-                    string[] l = Directory.GetFiles(Ortak.Klasör_Banka + Müşteri, "Ödendi_*.mup", SearchOption.AllDirectories);
+                    string[] l = Directory.GetFiles(Ortak.Klasör_Banka + Müşteri, "Ödendi_*.mup", SearchOption.TopDirectoryOnly);
                     m.Liste_Ödendi = new string[l.Length];
 
-                    if (l.Length > 0)
+                    for (int i = 0; i < l.Length; i++)
                     {
-                        for (int i = 0; i < l.Length; i++)
-                        {
-                            m.Liste_Ödendi[i] = Path.GetFileNameWithoutExtension(l[i]).Substring(7 /*Ödendi_*/).Replace('_', ' ');
-                        }
+                        m.Liste_Ödendi[i] = Path.GetFileNameWithoutExtension(l[i]).Substring(7 /*Ödendi_*/).Replace('_', ' ');
                     }
                 }
 
@@ -292,15 +289,12 @@ namespace İş_ve_Depo_Takip
             {
                 if (m.Liste_ÖdemeTalepEdildi == null)
                 {
-                    string[] l = Directory.GetFiles(Ortak.Klasör_Banka + Müşteri, "Ödeme Talep Edildi_*.mup", SearchOption.AllDirectories);
+                    string[] l = Directory.GetFiles(Ortak.Klasör_Banka + Müşteri, "Ödeme Talep Edildi_*.mup", SearchOption.TopDirectoryOnly);
                     m.Liste_ÖdemeTalepEdildi = new string[l.Length];
 
-                    if (l.Length > 0)
+                    for (int i = 0; i < l.Length; i++)
                     {
-                        for (int i = 0; i < l.Length; i++)
-                        {
-                            m.Liste_ÖdemeTalepEdildi[i] = Path.GetFileNameWithoutExtension(l[i]).Substring(19 /*Ödeme Talep Edildi_*/).Replace('_', ' ');
-                        }
+                        m.Liste_ÖdemeTalepEdildi[i] = Path.GetFileNameWithoutExtension(l[i]).Substring(19 /*Ödeme Talep Edildi_*/).Replace('_', ' ');
                     }
                 }
 
@@ -548,7 +542,6 @@ namespace İş_ve_Depo_Takip
                 case TabloTürü.ÖdemeTalepEdildi:
                 case TabloTürü.Ödendi:
                     Depo_ depo = Tablo(Müşteri, Tür, false, EkTanım);
-
                     d = depo.Bul("Talepler");
                     if (d != null)
                     {
@@ -803,14 +796,14 @@ namespace İş_ve_Depo_Takip
             Açıklamalar = new List<string>();
             Ücretler = new List<string>();
 
-            Açıklamalar.Add("Alt Toplam"); Ücretler.Add(String.Format("{0:0,0.00}", AltToplam) + " ₺");
+            Açıklamalar.Add("Alt Toplam"); Ücretler.Add(string.Format("{0:,0.00}", AltToplam) + " ₺");
             
             if (İlaveÖdeme > 0)
             {
-                Açıklamalar.Add(İlaveÖdemeAçıklaması); Ücretler.Add(String.Format("{0:0,0.00}", İlaveÖdeme) + " ₺");
+                Açıklamalar.Add(İlaveÖdemeAçıklaması); Ücretler.Add(string.Format("{0:,0.00}", İlaveÖdeme) + " ₺");
             }
 
-            Açıklamalar.Add("Genel Toplam"); Ücretler.Add(String.Format("{0:0,0.00}", AltToplam + İlaveÖdeme) + " ₺");
+            Açıklamalar.Add("Genel Toplam"); Ücretler.Add(string.Format("{0:,0.00}", AltToplam + İlaveÖdeme) + " ₺");
         }
 
         public static void Değişiklikleri_Kaydet()

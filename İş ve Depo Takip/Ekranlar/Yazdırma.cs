@@ -197,7 +197,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             public float YazılarİçinToplamYükseklik = 0;
             public int ŞimdikiSayfaSayısı = 1, ToplamSayfaSayısı = 0;
 
-            public Bir_Yazı_ NotlarYazısı = null;
+            public Bir_Yazı_ NotlarYazısı = null, ÖdendiğiTarihYazısı = null;
             public List<Bir_Satır_Bilgi_> Ödemeler = new List<Bir_Satır_Bilgi_>();
             public float Ödemeler_Notlar_Yükseklik = 0;
         }
@@ -282,9 +282,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if (!string.IsNullOrEmpty(Notlar))
                 {
                     Sayfa.NotlarYazısı = new Bir_Yazı_();
-                    Sayfa.NotlarYazısı.Yazı = (string.IsNullOrEmpty(Ödendi) ? null : Ödendi + " ") + "Notlar : " + Notlar;
+                    Sayfa.NotlarYazısı.Yazı = Notlar;
                     Sayfa.NotlarYazısı.Boyut = Grafik.MeasureString(Sayfa.NotlarYazısı.Yazı, Sayfa.KaKü_Diğer, sf_ss);
                     Sayfa.Ödemeler_Notlar_Yükseklik += Sayfa.NotlarYazısı.Boyut.Height;
+                }
+
+                if (!string.IsNullOrEmpty(Ödendi))
+                {
+                    Sayfa.ÖdendiğiTarihYazısı = new Bir_Yazı_();
+                    Sayfa.ÖdendiğiTarihYazısı.Yazı = "Ödendi : " + Ödendi;
+                    Sayfa.ÖdendiğiTarihYazısı.Boyut = Grafik.MeasureString(Sayfa.ÖdendiğiTarihYazısı.Yazı, Sayfa.KaKü_Diğer, sf_ss);
                 }
 
                 HastaAdları.Clear();
@@ -496,6 +503,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         YazdırmaKonumu_Üst += y.Yazı.Boyut.Height;
                     }
 
+                    if (Sayfa.ÖdendiğiTarihYazısı != null)
+                    {
+                        y.Yazı = Sayfa.ÖdendiğiTarihYazısı;
+                        y.Sol = Sayfa.Sol;
+                        y.Üst = YazdırmaKonumu_Üst;
+                        y.Genişlik = Sayfa.Genişlik;
+                        y.Yükseklik = y.Yazı.Boyut.Height;
+                        y.Çerçeve = false;
+                        Yazdır(y);
+                    }
+
+                    y.Çerçeve = true;
                     y.YataydaOrtalanmış = false;
                     y.SağaYaslanmış = true;
                     foreach (Bir_Satır_Bilgi_ a in Sayfa.Ödemeler)

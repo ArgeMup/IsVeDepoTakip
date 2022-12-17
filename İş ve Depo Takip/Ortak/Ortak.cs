@@ -52,7 +52,7 @@ namespace İş_ve_Depo_Takip
                 Sayfa.Size = new System.Drawing.Size((int)p.Oku_Sayı("gen"), (int)p.Oku_Sayı("uzu"));
             }
 
-            Sayfa.Text = "ArGeMuP" + Kendi.Adı + " " + Kendi.Sürümü_Dosya + " " + Sayfa.Text;
+            Sayfa.Text = "ArGeMuP " + Kendi.Adı + " " + Kendi.Sürümü_Dosya + " " + Sayfa.Text;
         }
         public static void GeçiciDepolama_PencereKonumları_Yaz(Form Sayfa)
         {
