@@ -757,6 +757,8 @@ namespace İş_ve_Depo_Takip
                 default:
                     break;
             }
+
+            Tablo.ClearSelection();
         }
         public static void Talep_Ayıkla_İş(IDepo_Eleman Talep, out string Hasta, out string İşler, ref double Toplam)
         {

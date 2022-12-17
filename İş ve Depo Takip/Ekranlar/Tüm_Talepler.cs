@@ -542,5 +542,57 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             catch (Exception) { }
         }
+
+        bool GözGezdirme_Çalışıyor = false;
+        bool GözGezdirme_KapatmaTalebi = false;
+        int GözGezdirme_Tik = 0;
+        int GözGezdirme_Sayac_Bulundu = 0;
+        private void DetayArama_TextChanged(object sender, EventArgs e)
+        {
+            if (DetayArama.Text.Length < 2)
+            {
+                if (GözGezdirme_Sayac_Bulundu > 0)
+                {
+                    for (int satır = 0; satır < Tablo.RowCount; satır++)
+                    {
+                        Tablo.Rows[satır].Visible = true;
+                    }
+
+                    GözGezdirme_Sayac_Bulundu = 0;
+                }
+
+                return;
+            }
+            
+            if (GözGezdirme_Çalışıyor) { GözGezdirme_KapatmaTalebi = true; return; }
+            
+            GözGezdirme_Çalışıyor = true;
+            GözGezdirme_KapatmaTalebi = false;
+            GözGezdirme_Sayac_Bulundu = 0;
+            GözGezdirme_Tik = Environment.TickCount + 100;
+
+            string aranan = DetayArama.Text.ToLower();
+            for (int satır = 0; satır < Tablo.RowCount; satır++)
+            {
+                bool bulundu = false;
+                for (int sutun = 1; sutun < Tablo.Columns.Count; sutun++)
+                {
+                    string içerik = (string)Tablo[sutun, satır].Value;
+                    if (string.IsNullOrEmpty(içerik)) Tablo[sutun, satır].Style.BackColor = Color.White;
+                    else if (içerik.ToLower().Contains(aranan))
+                    {
+                        Tablo[sutun, satır].Style.BackColor = Color.YellowGreen;
+                        bulundu = true;
+                    }
+                    else Tablo[sutun, satır].Style.BackColor = Color.White;
+                }
+
+                Tablo.Rows[satır].Visible = bulundu;
+                if (bulundu) GözGezdirme_Sayac_Bulundu++;
+            }
+
+            Tablo.ClearSelection();
+            GözGezdirme_Çalışıyor = false;
+        }
     }
 }

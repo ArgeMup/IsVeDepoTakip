@@ -173,6 +173,7 @@ namespace İş_ve_Depo_Takip
 
             new Yeni_Talep_Girişi(Müşteriler.Text, b.Adı).ShowDialog();
             Banka.Değişiklikleri_GeriAl();
+            Hasta.Focus();
         }
 
         private void Müşteriler_SelectedIndexChanged(object sender, EventArgs e)
