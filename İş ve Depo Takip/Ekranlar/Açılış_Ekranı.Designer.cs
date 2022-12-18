@@ -53,10 +53,11 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.P_Ayarlar = new System.Windows.Forms.Panel();
+            this.Eposta = new System.Windows.Forms.Button();
+            this.Diğer = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.Hata = new System.Windows.Forms.ErrorProvider(this.components);
-            this.Diğer = new System.Windows.Forms.Button();
             this.P_YeniParola.SuspendLayout();
             this.P_Parola.SuspendLayout();
             this.P_AnaMenü.SuspendLayout();
@@ -119,8 +120,8 @@
             // 
             // Ücretler
             // 
-            this.Ücretler.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.Ücretler.Location = new System.Drawing.Point(243, 6);
+            this.Ücretler.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.Ücretler.Location = new System.Drawing.Point(6, 166);
             this.Ücretler.Margin = new System.Windows.Forms.Padding(6);
             this.Ücretler.Name = "Ücretler";
             this.Ücretler.Size = new System.Drawing.Size(225, 68);
@@ -158,7 +159,7 @@
             // Yazdırma
             // 
             this.Yazdırma.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.Yazdırma.Location = new System.Drawing.Point(243, 86);
+            this.Yazdırma.Location = new System.Drawing.Point(243, 6);
             this.Yazdırma.Margin = new System.Windows.Forms.Padding(6);
             this.Yazdırma.Name = "Yazdırma";
             this.Yazdırma.Size = new System.Drawing.Size(225, 68);
@@ -294,13 +295,13 @@
             // 
             // Ayarlar_Geri
             // 
-            this.Ayarlar_Geri.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.Ayarlar_Geri.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.Ayarlar_Geri.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol;
             this.Ayarlar_Geri.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Ayarlar_Geri.Location = new System.Drawing.Point(6, 166);
+            this.Ayarlar_Geri.Location = new System.Drawing.Point(6, 246);
             this.Ayarlar_Geri.Margin = new System.Windows.Forms.Padding(6);
             this.Ayarlar_Geri.Name = "Ayarlar_Geri";
-            this.Ayarlar_Geri.Size = new System.Drawing.Size(225, 68);
+            this.Ayarlar_Geri.Size = new System.Drawing.Size(462, 68);
             this.Ayarlar_Geri.TabIndex = 4;
             this.Ayarlar_Geri.Text = "Geri";
             this.Ayarlar_Geri.UseVisualStyleBackColor = true;
@@ -343,6 +344,7 @@
             // 
             // P_Ayarlar
             // 
+            this.P_Ayarlar.Controls.Add(this.Eposta);
             this.P_Ayarlar.Controls.Add(this.Diğer);
             this.P_Ayarlar.Controls.Add(this.Müşteriler);
             this.P_Ayarlar.Controls.Add(this.Ayarlar_Geri);
@@ -351,9 +353,33 @@
             this.P_Ayarlar.Controls.Add(this.İş_Türleri);
             this.P_Ayarlar.Location = new System.Drawing.Point(16, 19);
             this.P_Ayarlar.Name = "P_Ayarlar";
-            this.P_Ayarlar.Size = new System.Drawing.Size(475, 245);
+            this.P_Ayarlar.Size = new System.Drawing.Size(475, 321);
             this.P_Ayarlar.TabIndex = 12;
             this.P_Ayarlar.Visible = false;
+            // 
+            // Eposta
+            // 
+            this.Eposta.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.Eposta.Location = new System.Drawing.Point(243, 86);
+            this.Eposta.Margin = new System.Windows.Forms.Padding(6);
+            this.Eposta.Name = "Eposta";
+            this.Eposta.Size = new System.Drawing.Size(225, 68);
+            this.Eposta.TabIndex = 6;
+            this.Eposta.Text = "Eposta";
+            this.Eposta.UseVisualStyleBackColor = true;
+            this.Eposta.Click += new System.EventHandler(this.Tuş_Click);
+            // 
+            // Diğer
+            // 
+            this.Diğer.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.Diğer.Location = new System.Drawing.Point(243, 166);
+            this.Diğer.Margin = new System.Windows.Forms.Padding(6);
+            this.Diğer.Name = "Diğer";
+            this.Diğer.Size = new System.Drawing.Size(225, 68);
+            this.Diğer.TabIndex = 5;
+            this.Diğer.Text = "Diğer";
+            this.Diğer.UseVisualStyleBackColor = true;
+            this.Diğer.Click += new System.EventHandler(this.Tuş_Click);
             // 
             // tabPage3
             // 
@@ -382,18 +408,6 @@
             this.Hata.BlinkRate = 500;
             this.Hata.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.AlwaysBlink;
             this.Hata.ContainerControl = this;
-            // 
-            // Diğer
-            // 
-            this.Diğer.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.Diğer.Location = new System.Drawing.Point(243, 166);
-            this.Diğer.Margin = new System.Windows.Forms.Padding(6);
-            this.Diğer.Name = "Diğer";
-            this.Diğer.Size = new System.Drawing.Size(225, 68);
-            this.Diğer.TabIndex = 5;
-            this.Diğer.Text = "Diğer";
-            this.Diğer.UseVisualStyleBackColor = true;
-            this.Diğer.Click += new System.EventHandler(this.Tuş_Click);
             // 
             // Açılış_Ekranı
             // 
@@ -458,6 +472,7 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.ErrorProvider Hata;
         private System.Windows.Forms.Button Diğer;
+        private System.Windows.Forms.Button Eposta;
     }
 }
 

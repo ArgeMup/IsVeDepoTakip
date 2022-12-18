@@ -1,9 +1,7 @@
 ﻿using ArgeMup.HazirKod;
-using ArgeMup.HazirKod.Dönüştürme;
 using ArgeMup.HazirKod.Ekİşlemler;
 using İş_ve_Depo_Takip.Ekranlar;
 using System;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip
@@ -127,6 +125,7 @@ namespace İş_ve_Depo_Takip
                     case "İş Türleri": new İş_Türleri().ShowDialog(); break;
                     case "Yazdırma": new Yazdırma().ShowDialog(); break;
                     case "Ücretler": new Ücretler().ShowDialog(); break;
+                    case "Eposta": new Ayarlar_Eposta().ShowDialog(); break;
                     case "Diğer": new Ayarlar_Diğer().ShowDialog(); break;
                 }
             }

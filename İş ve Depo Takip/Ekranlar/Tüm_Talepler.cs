@@ -526,15 +526,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Yazdırma y = new Yazdırma();
             y.Yazdırma_Load(null, null);
             y.Yazdır_Depo(depo, DosyaAdı);
-
-            try
-            {
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-                Thread.Sleep(100);
-                System.Diagnostics.Process.Start(DosyaAdı);
-            }
-            catch (Exception) { }
+            Ortak.Pdf_AçmayaÇalış(DosyaAdı);
         }
 
         bool TabloİçeriğiArama_Çalışıyor = false;

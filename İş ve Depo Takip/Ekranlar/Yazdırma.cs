@@ -6,8 +6,6 @@ using ArgeMup.HazirKod;
 using System.Drawing.Text;
 using System.Linq;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
@@ -131,34 +129,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             Kaydet.Enabled = true;
 
-            Depo_ Depo = new Depo_();
-            Depo.Yaz("Müşteri", "Örnek Müşteri Adı");
-
-            int örnek_iş_sayısı = 0;
-            DateTime t = DateTime.Now.AddYears(-1);
-            for (int i = 1; i <= 35; i++) //talep sayısı
-            {
-                if (++örnek_iş_sayısı > 6) örnek_iş_sayısı = 1;
-
-                Depo.Yaz("Talepler/SeriNo" + i, "Örnek Hasta Adı " + i, 0);
-                if (örnek_iş_sayısı == 1 || örnek_iş_sayısı == 5) Depo.Yaz("Talepler/SeriNo" + i, i, 1);
-
-                for (int ii = 1; ii <= örnek_iş_sayısı; ii++)
-                {
-                    Depo.Yaz("Talepler/SeriNo" + i + "/" + ii, "Örnek İş Türü " + ii, 0);
-                    Depo.Yaz("Talepler/SeriNo" + i + "/" + ii, t, 1);
-                    Depo.Yaz("Talepler/SeriNo" + i + "/" + ii, i * ii * 10, 2);
-
-                    t = t.AddDays(1);
-                }
-            }
-            Depo.Yaz("Ödeme", t, 1);
-            Depo.Yaz("Ödeme", "Fatura No : ASDF123466", 2);
-            Depo.Yaz("Ödeme/Alt Toplam", 123456789);
-            Depo.Yaz("Ödeme/İlave Ödeme", "Örnek İlave ödeme açıklaması", 0);
-            Depo.Yaz("Ödeme/İlave Ödeme", 35.79, 1);
-
-            Yazdır_Depo(Depo);
+            Yazdır_Depo(Banka.ÖrnekMüşteriTablosuOluştur());
         }
 
         class Bir_Yazı_Yazdırma_Detayları_
@@ -344,6 +315,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             if (y.Çerçeve) y.Grafik.DrawRectangle(y.Kalem, y.Sol, y.Üst, y.Genişlik, y.Yükseklik);
         }
+        
         public void Yazdır_Depo(Depo_ Depo, string DosyaAdı = null)
         {
             Bir_Sayfa_ Sayfa = null;

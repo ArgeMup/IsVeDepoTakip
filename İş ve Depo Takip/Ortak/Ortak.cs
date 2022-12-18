@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip
@@ -76,5 +77,25 @@ namespace İş_ve_Depo_Takip
         }
         #endregion
 
+        public static bool Pdf_AçmayaÇalış(string DosyaYolu, int ZamanAşımı_msn = 5000)
+        {
+            int za = Environment.TickCount + ZamanAşımı_msn;
+            while (za > Environment.TickCount)
+            {
+                try
+                {
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    
+                    System.Diagnostics.Process.Start(DosyaYolu);
+                    return true;
+                }
+                catch (Exception) { }
+
+                Thread.Sleep(100);
+            }
+
+            return false;
+        }
     }
 }

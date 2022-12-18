@@ -119,6 +119,37 @@ namespace İş_ve_Depo_Takip
             Klasör.Sil(Ortak.Klasör_Gecici);
             Klasör.Sil_İçiBoşOlanları(Ortak.Klasör_Banka);
         }
+        public static Depo_ ÖrnekMüşteriTablosuOluştur()
+        {
+            Depo_ Depo = new Depo_();
+            Depo.Yaz("Müşteri", "Örnek Müşteri Adı");
+
+            int örnek_iş_sayısı = 0;
+            DateTime t = DateTime.Now.AddYears(-1);
+            for (int i = 1; i <= 35; i++) //talep sayısı
+            {
+                if (++örnek_iş_sayısı > 6) örnek_iş_sayısı = 1;
+
+                Depo.Yaz("Talepler/SeriNo" + i, "Örnek Hasta Adı " + i, 0);
+                if (örnek_iş_sayısı == 1 || örnek_iş_sayısı == 5) Depo.Yaz("Talepler/SeriNo" + i, i, 1);
+
+                for (int ii = 1; ii <= örnek_iş_sayısı; ii++)
+                {
+                    Depo.Yaz("Talepler/SeriNo" + i + "/" + ii, "Örnek İş Türü " + ii, 0);
+                    Depo.Yaz("Talepler/SeriNo" + i + "/" + ii, t, 1);
+                    Depo.Yaz("Talepler/SeriNo" + i + "/" + ii, i * ii * 10, 2);
+
+                    t = t.AddDays(1);
+                }
+            }
+            Depo.Yaz("Ödeme", t, 1);
+            Depo.Yaz("Ödeme", "Fatura No : ASDF123466", 2);
+            Depo.Yaz("Ödeme/Alt Toplam", 123456789);
+            Depo.Yaz("Ödeme/İlave Ödeme", "Örnek İlave ödeme açıklaması", 0);
+            Depo.Yaz("Ödeme/İlave Ödeme", 35.79, 1);
+
+            return Depo;
+        }
 
         public static Depo_ Tablo(string Müşteri, TabloTürü Tür, bool YoksaOluştur = false, string EkTanım = null)
         {
