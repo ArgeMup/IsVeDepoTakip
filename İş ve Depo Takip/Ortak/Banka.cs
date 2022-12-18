@@ -39,12 +39,10 @@ namespace İş_ve_Depo_Takip
             if (d != null)
             {
                 Ortak.Klasör_KullanıcıYedeği = d.Oku("Klasör/Yedek");
-                Ortak.Klasör_Pdf = d.Oku("Klasör/Pdf", Ortak.Klasör_Pdf);
+                Ortak.Klasör_Pdf = d.Oku("Klasör/Pdf");
                 Ortak.AçılışEkranıİçinParaloİste = d.Oku_Bit("AçılışEkranıİçinParaloİste", true);
+                Ortak.Eposta_hesabı_mevcut = !string.IsNullOrEmpty(d.Oku("Eposta/Gönderici/Şifresi"));
             }
-
-            Klasör.Oluştur(Ortak.Klasör_KullanıcıYedeği);
-            Klasör.Oluştur(Ortak.Klasör_Pdf);
 			
             DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka);
             switch (snç)

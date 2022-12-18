@@ -20,7 +20,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             InitializeComponent();
         }
-        private void Ayarlar_Eposta_Load(object sender, System.EventArgs e)
+        public void Ayarlar_Eposta_Load(object sender, System.EventArgs e)
         {
             Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
 
@@ -90,12 +90,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar.Yaz("Mesaj/İçerik", Mesaj_İçerik.Text);
             Banka.Değişiklikleri_Kaydet();
 
+            Ortak.Eposta_hesabı_mevcut = !string.IsNullOrEmpty(Gönderici_Şifre.Text);
+            
             Kaydet.Enabled = false;
         }
         private void GöndermeyiDene_Click(object sender, EventArgs e)
         {
             ArgeMup.HazirKod.Depo_ d = Banka.ÖrnekMüşteriTablosuOluştur();
-            string dosyayolu = Path.GetTempFileName() + ".pdf";
+            string dosyayolu = Ortak.Klasör_Gecici + Path.GetRandomFileName() + ".pdf";
 
             Yazdırma y = new Yazdırma();
             y.Yazdırma_Load(null, null);

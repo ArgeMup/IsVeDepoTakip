@@ -13,7 +13,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             InitializeComponent();
         }
-
         private void Ayarlar_Diğer_Load(object sender, System.EventArgs e)
         {
             Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
@@ -91,8 +90,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Banka.Değişiklikleri_Kaydet();
 
             Ortak.Klasör_KullanıcıYedeği = Klasör_Yedekleme.Text;
-            if (string.IsNullOrEmpty(Klasör_Pdf.Text)) Ortak.Klasör_Pdf = Kendi.Klasörü + "\\Pdf\\";
-            else Ortak.Klasör_Pdf = Klasör_Pdf.Text;
+            Ortak.Klasör_Pdf = Klasör_Pdf.Text;
             Ortak.AçılışEkranıİçinParaloİste = AçılışEkranıİçinParaloİste.Checked;
 
             Kaydet.Enabled = false;

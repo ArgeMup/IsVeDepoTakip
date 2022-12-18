@@ -6,6 +6,7 @@ using ArgeMup.HazirKod;
 using System.Drawing.Text;
 using System.Linq;
 using System.Collections.Generic;
+using System.IO;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
@@ -322,7 +323,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             PrintDocument pd = new PrintDocument();
             pd.OriginAtMargins = true;
 
-            if (DosyaAdı != null) pd.PrinterSettings.PrintFileName = DosyaAdı;
+            if (DosyaAdı != null)
+            {
+                Klasör.Oluştur(Path.GetDirectoryName(DosyaAdı));
+                pd.PrinterSettings.PrintFileName = DosyaAdı;
+            }
             else
             {
                 pd.EndPrint += Pd_EndPrint;

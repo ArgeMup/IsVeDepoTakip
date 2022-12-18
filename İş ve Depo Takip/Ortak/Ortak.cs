@@ -17,8 +17,9 @@ namespace İş_ve_Depo_Takip
 		public static string Klasör_Gecici = Klasör.Depolama(Klasör.Kapsamı.Geçici) + "\\";
 		
         public static string Klasör_KullanıcıYedeği = null;
-        public static string Klasör_Pdf = Kendi.Klasörü + "\\Pdf\\";
+        public static string Klasör_Pdf = null;
         public static bool AçılışEkranıİçinParaloİste = true;
+        public static bool Eposta_hesabı_mevcut = false;
 
         public static TextBox BeklemeGöstergesi = null;
 

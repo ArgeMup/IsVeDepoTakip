@@ -507,26 +507,46 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void Yazdır_Click(object sender, EventArgs e)
         {
             ArgeMup.HazirKod.Depo_ depo;
-            string DosyaAdı;
-
+            string gerçekdosyadı;
+            
             if (Seviye2_ÖdemeBekleyen.Checked)
             {
                 depo = Banka.Tablo(İşTakip_Müşteriler.Text, Banka.TabloTürü.ÖdemeTalepEdildi, false, İşTakip_ÖdemeBekleyen_Dönem.Text);
-                DosyaAdı = Ortak.Klasör_Pdf + İşTakip_Müşteriler.Text + "\\Ödeme Talep Edildi_" + İşTakip_ÖdemeBekleyen_Dönem.Text.Replace(' ', '_') + ".pdf";
+                gerçekdosyadı = "Ödeme Talep Edildi_" + İşTakip_ÖdemeBekleyen_Dönem.Text.Replace(' ', '_') + ".pdf";
             }
             else if (Seviye2_Ödendi.Checked)
             {
                 depo = Banka.Tablo(İşTakip_Müşteriler.Text, Banka.TabloTürü.Ödendi, false, İşTakip_Ödendi_Dönem.Text);
-                DosyaAdı = Ortak.Klasör_Pdf + İşTakip_Müşteriler.Text + "\\Ödendi_" + İşTakip_Ödendi_Dönem.Text.Replace(' ', '_') + ".pdf";
+                gerçekdosyadı = "Ödendi_" + İşTakip_Ödendi_Dönem.Text.Replace(' ', '_') + ".pdf";
             }
             else return;
 
-            Klasör.Oluştur(Path.GetDirectoryName(DosyaAdı));
+            string dosyayolu = Ortak.Klasör_Gecici + Path.GetRandomFileName() + ".pdf";
 
             Yazdırma y = new Yazdırma();
             y.Yazdırma_Load(null, null);
-            y.Yazdır_Depo(depo, DosyaAdı);
-            Ortak.Pdf_AçmayaÇalış(DosyaAdı);
+            y.Yazdır_Depo(depo, dosyayolu);
+
+            if (!string.IsNullOrEmpty(Ortak.Klasör_Pdf)) Dosya.Kopyala(dosyayolu, Ortak.Klasör_Pdf + İşTakip_Müşteriler.Text + "\\" + gerçekdosyadı);
+            
+            Ortak.Pdf_AçmayaÇalış(dosyayolu);
+
+            if (!Ortak.Eposta_hesabı_mevcut) return;
+            IDepo_Eleman m = Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Müşteriler/" + İşTakip_Müşteriler.Text);
+            if (m == null || string.IsNullOrEmpty(m.Oku("Eposta/Kime") + m.Oku("Eposta/Bilgi") + m.Oku("Eposta/Gizli"))) return;
+
+            DialogResult Dr = MessageBox.Show("Belgeyi müşterinize eposta ile göndermek ister misiniz?" + 
+                Environment.NewLine + Environment.NewLine + 
+                İşTakip_Müşteriler.Text, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (Dr == DialogResult.No) return;
+
+            string ek_dosyası = Ortak.Klasör_Gecici + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı) + ".pdf";
+            File.Move(dosyayolu, ek_dosyası);
+
+            Ayarlar_Eposta epst = new Ayarlar_Eposta();
+            epst.Ayarlar_Eposta_Load(null, null);
+            string snç = epst.EpostaGönder(m, ek_dosyası);
+            if (!string.IsNullOrEmpty(snç)) MessageBox.Show(snç, Text);
         }
 
         bool TabloİçeriğiArama_Çalışıyor = false;
