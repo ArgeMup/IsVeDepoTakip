@@ -15,7 +15,6 @@ namespace İş_ve_Depo_Takip
         {
             InitializeComponent();
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             UyÖnÇa = new UygulamaOncedenCalistirildiMi_();
@@ -26,8 +25,6 @@ namespace İş_ve_Depo_Takip
                 return;
             }
 
-            Banka.Giriş_İşlemleri();
-
             Text = Kendi.Adı + " " + Kendi.Sürümü_Dosya;
             Icon = Properties.Resources.kendi;
 
@@ -35,6 +32,13 @@ namespace İş_ve_Depo_Takip
             Controls.Add(P_Ayarlar); P_Ayarlar.Dock = DockStyle.Fill; P_Ayarlar.Visible = false;
             Controls.Add(P_Parola); P_Parola.Dock = DockStyle.Fill; P_Parola.Visible = false;
             Controls.Add(P_YeniParola); P_YeniParola.Dock = DockStyle.Fill; P_YeniParola.Visible = false;
+        }
+        private void Açılış_Ekranı_Shown(object sender, EventArgs e)
+        {
+            Application.DoEvents();
+            Banka.Giriş_İşlemleri();
+            Controls.Remove(AçılışYazısı);
+            AçılışYazısı.Dispose();
 
 #if DEBUG
             P_AnaMenü.Visible = true;

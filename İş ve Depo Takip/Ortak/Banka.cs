@@ -115,7 +115,6 @@ namespace İş_ve_Depo_Takip
         public static void Çıkış_İşlemleri()
         {
             Klasör.Sil(Ortak.Klasör_Gecici);
-            Klasör.Sil_İçiBoşOlanları(Ortak.Klasör_Banka);
         }
         public static Depo_ ÖrnekMüşteriTablosuOluştur()
         {

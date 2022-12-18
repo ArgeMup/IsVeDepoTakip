@@ -58,6 +58,7 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.Hata = new System.Windows.Forms.ErrorProvider(this.components);
+            this.AçılışYazısı = new System.Windows.Forms.Label();
             this.P_YeniParola.SuspendLayout();
             this.P_Parola.SuspendLayout();
             this.P_AnaMenü.SuspendLayout();
@@ -409,12 +410,25 @@
             this.Hata.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.AlwaysBlink;
             this.Hata.ContainerControl = this;
             // 
+            // AçılışYazısı
+            // 
+            this.AçılışYazısı.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AçılışYazısı.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
+            this.AçılışYazısı.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.AçılışYazısı.Location = new System.Drawing.Point(0, 0);
+            this.AçılışYazısı.Name = "AçılışYazısı";
+            this.AçılışYazısı.Size = new System.Drawing.Size(478, 449);
+            this.AçılışYazısı.TabIndex = 12;
+            this.AçılışYazısı.Text = "Lütfen bekleyiniz";
+            this.AçılışYazısı.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Açılış_Ekranı
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(478, 449);
             this.Controls.Add(this.tab_sayfası);
+            this.Controls.Add(this.AçılışYazısı);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Margin = new System.Windows.Forms.Padding(6);
@@ -424,6 +438,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Açılış_Ekranı_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shown += new System.EventHandler(this.Açılış_Ekranı_Shown);
             this.DoubleClick += new System.EventHandler(this.Açılış_Ekranı_DoubleClick);
             this.Resize += new System.EventHandler(this.Açılış_Ekranı_Resize);
             this.P_YeniParola.ResumeLayout(false);
@@ -473,6 +488,7 @@
         private System.Windows.Forms.ErrorProvider Hata;
         private System.Windows.Forms.Button Diğer;
         private System.Windows.Forms.Button Eposta;
+        private System.Windows.Forms.Label AçılışYazısı;
     }
 }
 
