@@ -31,19 +31,29 @@ namespace İş_ve_Depo_Takip
         public static void Giriş_İşlemleri()
         {
             Klasör.Oluştur(Ortak.Klasör_Banka);
-            Klasör.Oluştur(Ortak.Klasör_Yedek);
+            Klasör.Oluştur(Ortak.Klasör_İçYedek);
             Klasör.Oluştur(Ortak.Klasör_Diğer);
-            Klasör.Oluştur(Ortak.Klasör_Pdf);
             Klasör.Oluştur(Ortak.Klasör_Gecici);
 
+            Depo_ d = Tablo(null, TabloTürü.Ayarlar);
+            if (d != null)
+            {
+                Ortak.Klasör_KullanıcıYedeği = d.Oku("Klasör/Yedek");
+                Ortak.Klasör_Pdf = d.Oku("Klasör/Pdf", Ortak.Klasör_Pdf);
+                Ortak.AçılışEkranıİçinParaloİste = d.Oku_Bit("AçılışEkranıİçinParaloİste", true);
+            }
+
+            Klasör.Oluştur(Ortak.Klasör_KullanıcıYedeği);
+            Klasör.Oluştur(Ortak.Klasör_Pdf);
+			
             DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka);
             switch (snç)
             {
                 case DoğrulamaKodu.KontrolEt.Durum_.Aynı:
                     #region yedekleme
-                    Klasör_ ydk_ler = new Klasör_(Ortak.Klasör_Yedek, Filtre_Dosya: "*.zip");
+                    Klasör_ ydk_ler = new Klasör_(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip");
                     ydk_ler.Dosya_Sil_SayısınaVeBoyutunaGöre(100, 1024 * 1024 * 1024 /*1GB*/);
-                    ydk_ler.Güncelle(Ortak.Klasör_Yedek, Filtre_Dosya: "*.zip");
+                    ydk_ler.Güncelle(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip");
 
                     bool yedekle = false;
                     if (ydk_ler.Dosyalar.Count == 0) yedekle = true;
@@ -71,9 +81,16 @@ namespace İş_ve_Depo_Takip
                     if (yedekle)
                     {
                         string k = Ortak.Klasör_Banka;
-                        string h = Ortak.Klasör_Yedek + D_TarihSaat.Yazıya(DateTime.Now, D_TarihSaat.Şablon_DosyaAdı) + ".zip";
+                        string h = Ortak.Klasör_İçYedek + D_TarihSaat.Yazıya(DateTime.Now, D_TarihSaat.Şablon_DosyaAdı) + ".zip";
 
                         SıkıştırılmışDosya.Klasörden(k, h);
+                    }
+
+                    if (!string.IsNullOrEmpty(Ortak.Klasör_KullanıcıYedeği))
+                    {
+                        Klasör.Kopyala(Ortak.Klasör_Banka, Ortak.Klasör_KullanıcıYedeği + "Banka");
+                        Klasör.Kopyala(Ortak.Klasör_Diğer, Ortak.Klasör_KullanıcıYedeği + "Diğer");
+                        Klasör.Kopyala(Ortak.Klasör_İçYedek, Ortak.Klasör_KullanıcıYedeği + "Yedek");
                     }
                     #endregion
                     break;

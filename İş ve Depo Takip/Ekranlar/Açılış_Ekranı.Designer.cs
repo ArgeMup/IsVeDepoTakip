@@ -56,6 +56,7 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.Hata = new System.Windows.Forms.ErrorProvider(this.components);
+            this.Diğer = new System.Windows.Forms.Button();
             this.P_YeniParola.SuspendLayout();
             this.P_Parola.SuspendLayout();
             this.P_AnaMenü.SuspendLayout();
@@ -94,11 +95,11 @@
             // 
             // Müşteriler
             // 
-            this.Müşteriler.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Müşteriler.Location = new System.Drawing.Point(7, 6);
+            this.Müşteriler.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.Müşteriler.Location = new System.Drawing.Point(6, 6);
             this.Müşteriler.Margin = new System.Windows.Forms.Padding(6);
             this.Müşteriler.Name = "Müşteriler";
-            this.Müşteriler.Size = new System.Drawing.Size(262, 68);
+            this.Müşteriler.Size = new System.Drawing.Size(225, 68);
             this.Müşteriler.TabIndex = 0;
             this.Müşteriler.Text = "Müşteriler";
             this.Müşteriler.UseVisualStyleBackColor = true;
@@ -106,11 +107,11 @@
             // 
             // İş_Türleri
             // 
-            this.İş_Türleri.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.İş_Türleri.Location = new System.Drawing.Point(7, 86);
+            this.İş_Türleri.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.İş_Türleri.Location = new System.Drawing.Point(6, 86);
             this.İş_Türleri.Margin = new System.Windows.Forms.Padding(6);
             this.İş_Türleri.Name = "İş_Türleri";
-            this.İş_Türleri.Size = new System.Drawing.Size(262, 68);
+            this.İş_Türleri.Size = new System.Drawing.Size(225, 68);
             this.İş_Türleri.TabIndex = 1;
             this.İş_Türleri.Text = "İş Türleri";
             this.İş_Türleri.UseVisualStyleBackColor = true;
@@ -118,11 +119,11 @@
             // 
             // Ücretler
             // 
-            this.Ücretler.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Ücretler.Location = new System.Drawing.Point(7, 166);
+            this.Ücretler.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.Ücretler.Location = new System.Drawing.Point(243, 6);
             this.Ücretler.Margin = new System.Windows.Forms.Padding(6);
             this.Ücretler.Name = "Ücretler";
-            this.Ücretler.Size = new System.Drawing.Size(262, 68);
+            this.Ücretler.Size = new System.Drawing.Size(225, 68);
             this.Ücretler.TabIndex = 2;
             this.Ücretler.Text = "Ücretler";
             this.Ücretler.UseVisualStyleBackColor = true;
@@ -156,11 +157,11 @@
             // 
             // Yazdırma
             // 
-            this.Yazdırma.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Yazdırma.Location = new System.Drawing.Point(7, 246);
+            this.Yazdırma.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.Yazdırma.Location = new System.Drawing.Point(243, 86);
             this.Yazdırma.Margin = new System.Windows.Forms.Padding(6);
             this.Yazdırma.Name = "Yazdırma";
-            this.Yazdırma.Size = new System.Drawing.Size(262, 68);
+            this.Yazdırma.Size = new System.Drawing.Size(225, 68);
             this.Yazdırma.TabIndex = 3;
             this.Yazdırma.Text = "Yazdırma";
             this.Yazdırma.UseVisualStyleBackColor = true;
@@ -293,11 +294,13 @@
             // 
             // Ayarlar_Geri
             // 
-            this.Ayarlar_Geri.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Ayarlar_Geri.Location = new System.Drawing.Point(7, 326);
+            this.Ayarlar_Geri.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.Ayarlar_Geri.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol;
+            this.Ayarlar_Geri.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Ayarlar_Geri.Location = new System.Drawing.Point(6, 166);
             this.Ayarlar_Geri.Margin = new System.Windows.Forms.Padding(6);
             this.Ayarlar_Geri.Name = "Ayarlar_Geri";
-            this.Ayarlar_Geri.Size = new System.Drawing.Size(262, 68);
+            this.Ayarlar_Geri.Size = new System.Drawing.Size(225, 68);
             this.Ayarlar_Geri.TabIndex = 4;
             this.Ayarlar_Geri.Text = "Geri";
             this.Ayarlar_Geri.UseVisualStyleBackColor = true;
@@ -312,7 +315,7 @@
             this.tab_sayfası.Location = new System.Drawing.Point(12, 12);
             this.tab_sayfası.Name = "tab_sayfası";
             this.tab_sayfası.SelectedIndex = 0;
-            this.tab_sayfası.Size = new System.Drawing.Size(473, 490);
+            this.tab_sayfası.Size = new System.Drawing.Size(518, 490);
             this.tab_sayfası.TabIndex = 11;
             this.tab_sayfası.Visible = false;
             // 
@@ -322,7 +325,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 38);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(465, 448);
+            this.tabPage1.Size = new System.Drawing.Size(510, 448);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -333,13 +336,14 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 38);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(465, 448);
+            this.tabPage2.Size = new System.Drawing.Size(510, 448);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // P_Ayarlar
             // 
+            this.P_Ayarlar.Controls.Add(this.Diğer);
             this.P_Ayarlar.Controls.Add(this.Müşteriler);
             this.P_Ayarlar.Controls.Add(this.Ayarlar_Geri);
             this.P_Ayarlar.Controls.Add(this.Yazdırma);
@@ -347,7 +351,7 @@
             this.P_Ayarlar.Controls.Add(this.İş_Türleri);
             this.P_Ayarlar.Location = new System.Drawing.Point(16, 19);
             this.P_Ayarlar.Name = "P_Ayarlar";
-            this.P_Ayarlar.Size = new System.Drawing.Size(275, 404);
+            this.P_Ayarlar.Size = new System.Drawing.Size(475, 245);
             this.P_Ayarlar.TabIndex = 12;
             this.P_Ayarlar.Visible = false;
             // 
@@ -357,7 +361,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 38);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(465, 448);
+            this.tabPage3.Size = new System.Drawing.Size(510, 448);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -368,7 +372,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 38);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(465, 448);
+            this.tabPage4.Size = new System.Drawing.Size(510, 448);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -378,6 +382,18 @@
             this.Hata.BlinkRate = 500;
             this.Hata.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.AlwaysBlink;
             this.Hata.ContainerControl = this;
+            // 
+            // Diğer
+            // 
+            this.Diğer.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.Diğer.Location = new System.Drawing.Point(243, 166);
+            this.Diğer.Margin = new System.Windows.Forms.Padding(6);
+            this.Diğer.Name = "Diğer";
+            this.Diğer.Size = new System.Drawing.Size(225, 68);
+            this.Diğer.TabIndex = 5;
+            this.Diğer.Text = "Diğer";
+            this.Diğer.UseVisualStyleBackColor = true;
+            this.Diğer.Click += new System.EventHandler(this.Tuş_Click);
             // 
             // Açılış_Ekranı
             // 
@@ -441,6 +457,7 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.ErrorProvider Hata;
+        private System.Windows.Forms.Button Diğer;
     }
 }
 

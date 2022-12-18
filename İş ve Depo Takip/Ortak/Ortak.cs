@@ -10,10 +10,13 @@ namespace İş_ve_Depo_Takip
     public static class Ortak
     {
         public static string Klasör_Banka = Kendi.Klasörü + "\\Banka\\";
-        public static string Klasör_Yedek = Kendi.Klasörü + "\\Yedek\\";
+        public static string Klasör_İçYedek = Kendi.Klasörü + "\\Yedek\\";
         public static string Klasör_Diğer = Kendi.Klasörü + "\\Diğer\\";
+		public static string Klasör_Gecici = Klasör.Depolama(Klasör.Kapsamı.Geçici) + "\\";
+		
+        public static string Klasör_KullanıcıYedeği = null;
         public static string Klasör_Pdf = Kendi.Klasörü + "\\Pdf\\";
-        public static string Klasör_Gecici = Klasör.Depolama(Klasör.Kapsamı.Geçici) + "\\";
+        public static bool AçılışEkranıİçinParaloİste = true;
 
         public static TextBox BeklemeGöstergesi = null;
 

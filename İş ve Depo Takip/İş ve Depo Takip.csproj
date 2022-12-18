@@ -70,6 +70,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ekranlar\Ayarlar_Diğer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ekranlar\Ayarlar_Diğer.Designer.cs">
+      <DependentUpon>Ayarlar_Diğer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ekranlar\Açılış_Ekranı.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,6 +159,9 @@
       <DependentUpon>Yeni_Talep_Girişi.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <EmbeddedResource Include="Ekranlar\Ayarlar_Diğer.resx">
+      <DependentUpon>Ayarlar_Diğer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Açılış_Ekranı.resx">
       <DependentUpon>Açılış_Ekranı.cs</DependentUpon>
     </EmbeddedResource>

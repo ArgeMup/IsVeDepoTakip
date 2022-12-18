@@ -71,7 +71,7 @@ namespace İş_ve_Depo_Takip
         {
             if (WindowState == FormWindowState.Minimized)
             {
-                if (!P_YeniParola.Visible)
+                if (Ortak.AçılışEkranıİçinParaloİste && !P_YeniParola.Visible)
                 {
                     Parola_Giriş.Text = "";
                     P_Parola.Visible = true;
@@ -89,7 +89,7 @@ namespace İş_ve_Depo_Takip
 
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                if (!P_YeniParola.Visible)
+                if (Ortak.AçılışEkranıİçinParaloİste && !P_YeniParola.Visible)
                 {
                     Parola_Giriş.Text = "";
                     P_Parola.Visible = true;
@@ -119,11 +119,13 @@ namespace İş_ve_Depo_Takip
                 case "Yeni İş Girişi": new Yeni_Talep_Girişi().ShowDialog(); break;
                 case "Tüm İşler": new Tüm_Talepler().ShowDialog(); break;
                 //case "Malzeme Girişi": new xxx().ShowDialog(); break;
+                //case "Malzemeler": new xxx().ShowDialog(); break;
                 case "Müşteriler": new Müşteriler().ShowDialog(); break;
                 case "İş Türleri": new İş_Türleri().ShowDialog(); break;
                 case "Yazdırma": new Yazdırma().ShowDialog(); break;
                 case "Ücretler": new Ücretler().ShowDialog(); break;
-                //case "Malzemeler": new xxx().ShowDialog(); break;
+                case "Diğer": new Ayarlar_Diğer().ShowDialog(); break;
+                    
             }
 
             Show();

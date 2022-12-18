@@ -136,7 +136,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             int örnek_iş_sayısı = 0;
             DateTime t = DateTime.Now.AddYears(-1);
-            for (int i = 1; i <= 20; i++) //talep sayısı
+            for (int i = 1; i <= 35; i++) //talep sayısı
             {
                 if (++örnek_iş_sayısı > 6) örnek_iş_sayısı = 1;
 
@@ -187,7 +187,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         class Bir_Sayfa_
         {
-            public float Sol, Üst, Genişlik, Yükseklik, Yükseklik_SonrakiSayfaYazısıHariç, Yükseklik_YazılarİçinKullanılabilir;
+            public float Sol, Üst, Genişlik, Yükseklik, Yükseklik_YazılarİçinKullanılabilir;
             public float Sutun_Hasta_Genişlik, Sutun_İş_Genişlik, Sutun_ÖdemeAçıklama_Genişik;
             public Font KaKü_Müşteri, KaKü_Başlık, KaKü_Diğer;
 
@@ -264,17 +264,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Sayfa.YazılarİçinToplamYükseklik += a.EnYüksek_Yükseklik;
             }
 
-            //toplam sayfa sayısı hesabı
-            EnGeniş_Ücret = Sayfa.YazılarİçinToplamYükseklik / Sayfa.Yükseklik_YazılarİçinKullanılabilir;
-            Sayfa.ToplamSayfaSayısı = (int)Math.Ceiling(EnGeniş_Ücret); //4.1 -> 5
-
-            //Sonraki sayfa yazısının ölçülmesi
-            SizeF sf_ss = new SizeF(Sayfa.Genişlik, Sayfa.Yükseklik);
-            Sayfa.SonrakiSayfaYazısı.Yazı = "Toplam " + Sayfa.Yazılar.Count + " iş, sayfa _ArGeMuP_ / " + Sayfa.ToplamSayfaSayısı + ", #" + System.IO.Path.GetRandomFileName().Replace(".", "");
-            Sayfa.SonrakiSayfaYazısı.Boyut = Grafik.MeasureString(Sayfa.SonrakiSayfaYazısı.Yazı, Sayfa.KaKü_Diğer, sf_ss);
-            Sayfa.Yükseklik_SonrakiSayfaYazısıHariç = Sayfa.Yükseklik - Sayfa.SonrakiSayfaYazısı.Boyut.Height;
-
             //son sayfanın ölçülmesi
+            SizeF sf_ss = new SizeF(Sayfa.Genişlik, Sayfa.Yükseklik);
             l = Depo.Bul("Ödeme");
             if (l != null)
             {
@@ -314,6 +305,28 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 EnGeniş_İş = İşler.Max() + (genişlik_boşluk * 2); //en geniş ücret yazısı
                 Sayfa.Sutun_ÖdemeAçıklama_Genişik = Sayfa.Genişlik - EnGeniş_İş; //geriye kalan genişliği açıklama kısmına ver
             }
+
+            //toplam sayfa sayısı hesabı
+            List<Bir_Satır_Bilgi_> Yazılar2 = new List<Bir_Satır_Bilgi_>(Sayfa.Yazılar);
+            float Kullanılabilir_Yükseklik = Sayfa.Yükseklik_YazılarİçinKullanılabilir - Grafik.MeasureString("ŞÇÖĞ", Sayfa.KaKü_Diğer, sf_ss).Height;
+            Sayfa.ToplamSayfaSayısı = 1; float konum = 0;
+            while (Yazılar2.Count > 0)
+            {
+                if (konum + Yazılar2[0].EnYüksek_Yükseklik > Kullanılabilir_Yükseklik)
+                {
+                    Sayfa.ToplamSayfaSayısı++;
+                    konum = 0;
+                }
+                else
+                {
+                    konum += Yazılar2[0].EnYüksek_Yükseklik;
+                    Yazılar2.RemoveAt(0);
+                }
+            }
+
+            //Sonraki sayfa yazısının ölçülmesi
+            Sayfa.SonrakiSayfaYazısı.Yazı = "Toplam " + Sayfa.Yazılar.Count + " iş, sayfa _ArGeMuP_ / " + Sayfa.ToplamSayfaSayısı + ", #" + System.IO.Path.GetRandomFileName().Replace(".", "");
+            Sayfa.SonrakiSayfaYazısı.Boyut = Grafik.MeasureString(Sayfa.SonrakiSayfaYazısı.Yazı, Sayfa.KaKü_Diğer, sf_ss);
         }
         void Yazdır(Bir_Yazı_Yazdırma_Detayları_ y)
         {
@@ -380,7 +393,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Sayfa.KaKü_Başlık = new Font(KarakterKümeleri.Text, (int)KarakterBüyüklüğü_Başlıklar.Value, FontStyle.Bold);
                     Sayfa.KaKü_Diğer = new Font(KarakterKümeleri.Text, (int)KarakterBüyüklüğü_Diğerleri.Value);
 
-                    Sayfa.Yükseklik_YazılarİçinKullanılabilir = Sayfa.Yükseklik - (float)FirmaLogo_Yükseklik.Value - Sayfa.KaKü_Başlık.Height;
+                    Sayfa.Yükseklik_YazılarİçinKullanılabilir = Sayfa.Yükseklik - (float)FirmaLogo_Yükseklik.Value - ev.Graphics.MeasureString("ŞÇÖĞ", Sayfa.KaKü_Başlık).Height /*Başlık*/;
 
                     Hesaplat(Sayfa, Depo, ev.Graphics);
                 }
@@ -454,7 +467,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 while (Sayfa.Yazılar.Count > 0)
                 {
-                    if (YazdırmaKonumu_Üst + Sayfa.Yazılar[0].EnYüksek_Yükseklik > Sayfa.Üst + Sayfa.Yükseklik_SonrakiSayfaYazısıHariç)
+                    if (Sayfa.Yazılar[0].EnYüksek_Yükseklik + Sayfa.SonrakiSayfaYazısı.Boyut.Height > YazdırmaKonumu_Yükseklik)
                     {
                         //daha fazla yazdırılacak iş var, sonraki sayfaya geç
                         SonrakiSayfaYazısınıYazdır();
@@ -481,7 +494,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Sayfa.Yazılar.RemoveAt(0);
                 }
 
-                if (YazdırmaKonumu_Üst + Sayfa.Ödemeler_Notlar_Yükseklik > Sayfa.Yükseklik - Sayfa.Ödemeler_Notlar_Yükseklik)
+                if (Sayfa.Ödemeler_Notlar_Yükseklik > YazdırmaKonumu_Yükseklik)
                 {
                     //ödemeleri yazdıracak boşluk yok sonraki sayfaya atla
                     ev.HasMorePages = true;
@@ -548,7 +561,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     y.Yazı.Boyut = ev.Graphics.MeasureString(y.Yazı.Yazı, y.KarakterKümesi, new SizeF(Sayfa.Genişlik, Sayfa.SonrakiSayfaYazısı.Boyut.Height));
                     
                     y.Sol = Sayfa.Sol;
-                    y.Üst = Sayfa.Üst + Sayfa.Yükseklik_SonrakiSayfaYazısıHariç;
+                    y.Üst = Sayfa.Üst + Sayfa.Yükseklik - y.Yazı.Boyut.Height;
                     y.Genişlik = Sayfa.Genişlik;
                     y.Yükseklik = y.Yazı.Boyut.Height;
                     Yazdır(y);
