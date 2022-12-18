@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ArgeMup.HazirKod;
+using ArgeMup.HazirKod.Ekİşlemler;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,9 +16,15 @@ namespace İş_ve_Depo_Takip
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Açılış_Ekranı());
+            Günlük.Başlat(Kendi.Klasörü + "\\Günlük");
+
+            try
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new Açılış_Ekranı());
+            }
+            catch (Exception ex) { ex.Günlük(); }
         }
     }
 }

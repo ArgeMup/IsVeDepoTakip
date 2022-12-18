@@ -52,7 +52,7 @@ namespace İş_ve_Depo_Takip
                 case DoğrulamaKodu.KontrolEt.Durum_.Aynı:
                     #region yedekleme
                     Klasör_ ydk_ler = new Klasör_(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip");
-                    ydk_ler.Dosya_Sil_SayısınaVeBoyutunaGöre(100, 1024 * 1024 * 1024 /*1GB*/);
+                    ydk_ler.Dosya_Sil_SayısınaVeBoyutunaGöre(15, 1024 * 1024 * 1024 /*1GB*/);
                     ydk_ler.Güncelle(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip");
 
                     bool yedekle = false;
@@ -92,6 +92,8 @@ namespace İş_ve_Depo_Takip
                         Klasör.Kopyala(Ortak.Klasör_Diğer, Ortak.Klasör_KullanıcıYedeği + "Diğer");
                         Klasör.Kopyala(Ortak.Klasör_İçYedek, Ortak.Klasör_KullanıcıYedeği + "Yedek");
                     }
+
+                    Klasör.AslınaUygunHaleGetir(Ortak.Klasör_Banka, Ortak.Klasör_Banka2, true);
                     #endregion
                     break;
 
@@ -876,7 +878,11 @@ namespace İş_ve_Depo_Takip
                 }
             }
 
-            if (EnAzBirDeğişiklikYapıldı) DoğrulamaKodu.Üret.Klasörden(Ortak.Klasör_Banka, true);
+            if (EnAzBirDeğişiklikYapıldı)
+            {
+                DoğrulamaKodu.Üret.Klasörden(Ortak.Klasör_Banka, true);
+                Klasör.AslınaUygunHaleGetir(Ortak.Klasör_Banka, Ortak.Klasör_Banka2, true);
+            }
         }
         public static void Değişiklikleri_GeriAl()
         {

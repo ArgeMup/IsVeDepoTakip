@@ -1,5 +1,6 @@
 ﻿using ArgeMup.HazirKod;
 using ArgeMup.HazirKod.Dönüştürme;
+using ArgeMup.HazirKod.Ekİşlemler;
 using İş_ve_Depo_Takip.Ekranlar;
 using System;
 using System.Linq;
@@ -114,18 +115,29 @@ namespace İş_ve_Depo_Takip
             string a = (sender as Button).Text;
             Hide();
 
-            switch (a)
+            try
             {
-                case "Yeni İş Girişi": new Yeni_Talep_Girişi().ShowDialog(); break;
-                case "Tüm İşler": new Tüm_Talepler().ShowDialog(); break;
-                //case "Malzeme Girişi": new xxx().ShowDialog(); break;
-                //case "Malzemeler": new xxx().ShowDialog(); break;
-                case "Müşteriler": new Müşteriler().ShowDialog(); break;
-                case "İş Türleri": new İş_Türleri().ShowDialog(); break;
-                case "Yazdırma": new Yazdırma().ShowDialog(); break;
-                case "Ücretler": new Ücretler().ShowDialog(); break;
-                case "Diğer": new Ayarlar_Diğer().ShowDialog(); break;
-                    
+                switch (a)
+                {
+                    case "Yeni İş Girişi": new Yeni_Talep_Girişi().ShowDialog(); break;
+                    case "Tüm İşler": new Tüm_Talepler().ShowDialog(); break;
+                    //case "Malzeme Girişi": new xxx().ShowDialog(); break;
+                    //case "Malzemeler": new xxx().ShowDialog(); break;
+                    case "Müşteriler": new Müşteriler().ShowDialog(); break;
+                    case "İş Türleri": new İş_Türleri().ShowDialog(); break;
+                    case "Yazdırma": new Yazdırma().ShowDialog(); break;
+                    case "Ücretler": new Ücretler().ShowDialog(); break;
+                    case "Diğer": new Ayarlar_Diğer().ShowDialog(); break;
+                }
+            }
+            catch (Exception ex) 
+            { 
+                ex.Günlük();
+                Banka.Değişiklikleri_GeriAl();
+                Klasör.AslınaUygunHaleGetir(Ortak.Klasör_Banka2, Ortak.Klasör_Banka, true);
+
+                MessageBox.Show("Bir sorun oluştu, uygulama yedekler ile kontrol edildi ve bir sorun görülmedi" + Environment.NewLine +
+                    "Lütfen son işleminizi tekrar deneyiniz." + Environment.NewLine + Environment.NewLine + ex.Message, Text);
             }
 
             Show();

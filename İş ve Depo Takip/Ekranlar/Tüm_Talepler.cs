@@ -39,7 +39,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             Arama_GirişTarihi_Bitiş.Value = DateTime.Now;
-            Arama_GirişTarihi_Başlangıç.Value = Arama_GirişTarihi_Bitiş.Value.AddMonths(-6);
+            Arama_GirişTarihi_Başlangıç.Value = new DateTime(Arama_GirişTarihi_Bitiş.Value.Year - 1, 5, 19);
 
             splitContainer1.Panel1.Controls.Add(P_İşTakip); P_İşTakip.Dock = DockStyle.Fill; P_İşTakip.Visible = true;
             P_İşTakip.Controls.Add(P_İşTakip_DevamEden); P_İşTakip_DevamEden.Dock = DockStyle.Fill; P_İşTakip_DevamEden.Visible = false;
