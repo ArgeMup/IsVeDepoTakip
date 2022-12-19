@@ -57,10 +57,12 @@ namespace İş_ve_Depo_Takip
                 }
 
                 P_YeniParola.Visible = true;
+                YeniParola_1.Focus();
             }
             else
             {
                 P_Parola.Visible = true;
+                Parola_Giriş.Focus();
             }
 
             YeniYazılımKontrolü.Başlat(new Uri("https://github.com/ArgeMup/IsVeDepoTakip/blob/main/%C4%B0%C5%9F%20ve%20Depo%20Takip/bin/Release/%C4%B0%C5%9F%20ve%20Depo%20Takip.exe?raw=true"));

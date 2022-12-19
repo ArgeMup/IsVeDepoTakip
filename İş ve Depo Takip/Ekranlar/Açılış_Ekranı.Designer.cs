@@ -164,7 +164,7 @@
             this.Yazdırma.Margin = new System.Windows.Forms.Padding(6);
             this.Yazdırma.Name = "Yazdırma";
             this.Yazdırma.Size = new System.Drawing.Size(199, 68);
-            this.Yazdırma.TabIndex = 3;
+            this.Yazdırma.TabIndex = 6;
             this.Yazdırma.Text = "Yazdırma";
             this.Yazdırma.UseVisualStyleBackColor = true;
             this.Yazdırma.Click += new System.EventHandler(this.Tuş_Click);
@@ -304,7 +304,7 @@
             this.Ayarlar_Geri.Margin = new System.Windows.Forms.Padding(6);
             this.Ayarlar_Geri.Name = "Ayarlar_Geri";
             this.Ayarlar_Geri.Size = new System.Drawing.Size(409, 68);
-            this.Ayarlar_Geri.TabIndex = 4;
+            this.Ayarlar_Geri.TabIndex = 3;
             this.Ayarlar_Geri.Text = "Geri";
             this.Ayarlar_Geri.UseVisualStyleBackColor = true;
             this.Ayarlar_Geri.Click += new System.EventHandler(this.Ayarlar_Geri_Click);
@@ -367,7 +367,7 @@
             this.Eposta.Margin = new System.Windows.Forms.Padding(6);
             this.Eposta.Name = "Eposta";
             this.Eposta.Size = new System.Drawing.Size(199, 68);
-            this.Eposta.TabIndex = 6;
+            this.Eposta.TabIndex = 5;
             this.Eposta.Text = "Eposta";
             this.Eposta.UseVisualStyleBackColor = true;
             this.Eposta.Click += new System.EventHandler(this.Tuş_Click);
@@ -379,7 +379,7 @@
             this.Diğer.Margin = new System.Windows.Forms.Padding(6);
             this.Diğer.Name = "Diğer";
             this.Diğer.Size = new System.Drawing.Size(199, 68);
-            this.Diğer.TabIndex = 5;
+            this.Diğer.TabIndex = 4;
             this.Diğer.Text = "Diğer";
             this.Diğer.UseVisualStyleBackColor = true;
             this.Diğer.Click += new System.EventHandler(this.Tuş_Click);
