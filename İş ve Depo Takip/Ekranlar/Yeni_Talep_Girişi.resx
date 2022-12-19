@@ -123,14 +123,14 @@
   <data name="Notlar.ToolTip" xml:space="preserve">
     <value>Ücretlendirme, "Teslim Etme" aşamasında hesaplanır
 Ücret belirleme sıralaması :
-1 - Ücret sutununda bir değer (&gt;0₺) girilmiş ise ilgili satırın ücreti buradaki değerdir
-2 - Girilmemiş ise "Ana Ekran - Ücretler" sayfasındaki değerlere bakılır
+1 - Ücret sutununda bir değer (&gt;=0₺) girilmiş ise ilgili işin ücreti buradaki değerdir
+2 - Girilmemiş ise "Ana Ekran - Ayarlar - Ücretler" sayfasındaki değerlere bakılır
 2A - "Müşteri" ye ait sekmede ilgili iş türü için bir değer girilmiş ise ilgili satırın ücreti buradaki değerdir
 2B - Girilmemiş ise "Tüm müşteriler için ortak" sekmesinde ilgili iş türü için bir değer girilmiş ise ilgili satırın ücreti buradaki değerdir
-3 - Son olarak bir değer elde edilememiş ise hata oluşur ve ödeme talebi işleminden çıkılır
-4 - Her bir satırın ücreti yukarıdaki adımlar eşliğinde hesaplanır ve ilgili işe ait genel toplama ulaşılır
-5 - İskonto kutucuğu içeriği sıfırdan büyük ise elde edilen genel toplama sonucuna iskonta uygulanır
-( iş1 + iş2 + ... ) x iskonto</value>
+3 - Halen bir ücret (&gt;=0₺) elde edilememiş ise hata oluşur ve işlemden çıkılır
+4 - Her bir satırın ücreti yukarıdaki adımlar eşliğinde ayrı ayrı hesaplanır ve alt toplama ulaşılır
+5 - İskonto kutucuğu içeriği sıfırdan büyük ise elde edilen alt toplama uygulanır
+Alt Toplam - ( Alt Toplam x % iskonto ) = Genel Toplam</value>
   </data>
   <metadata name="Tablo_İş_Türü.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

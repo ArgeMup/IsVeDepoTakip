@@ -44,11 +44,11 @@ namespace İş_ve_Depo_Takip
             this.Müşteriler = new System.Windows.Forms.ComboBox();
             this.Kaydet = new System.Windows.Forms.Button();
             this.Seçili_Satırı_Sil = new System.Windows.Forms.Button();
-            this.Hasta = new System.Windows.Forms.TextBox();
             this.İskonto = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
+            this.Hasta = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,7 +62,7 @@ namespace İş_ve_Depo_Takip
             this.Notlar.Name = "Notlar";
             this.Notlar.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.Notlar.Size = new System.Drawing.Size(806, 86);
-            this.Notlar.TabIndex = 1;
+            this.Notlar.TabIndex = 3;
             this.İpUcu.SetToolTip(this.Notlar, resources.GetString("Notlar.ToolTip"));
             this.Notlar.TextChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
             // 
@@ -103,7 +103,7 @@ namespace İş_ve_Depo_Takip
             this.Tablo.ShowEditingIcon = false;
             this.Tablo.ShowRowErrors = false;
             this.Tablo.Size = new System.Drawing.Size(806, 186);
-            this.Tablo.TabIndex = 2;
+            this.Tablo.TabIndex = 4;
             this.Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellValueChanged);
             this.Tablo.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.Tablo_EditingControlShowing);
             this.Tablo.SelectionChanged += new System.EventHandler(this.Tablo_SelectionChanged);
@@ -165,10 +165,12 @@ namespace İş_ve_Depo_Takip
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Müşteriler.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.Müşteriler.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.Müşteriler.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Müşteriler.FormattingEnabled = true;
             this.Müşteriler.Location = new System.Drawing.Point(163, 12);
             this.Müşteriler.Name = "Müşteriler";
             this.Müşteriler.Size = new System.Drawing.Size(663, 37);
+            this.Müşteriler.Sorted = true;
             this.Müşteriler.TabIndex = 0;
             this.Müşteriler.SelectedIndexChanged += new System.EventHandler(this.Müşteriler_SelectedIndexChanged);
             // 
@@ -181,7 +183,7 @@ namespace İş_ve_Depo_Takip
             this.Kaydet.Location = new System.Drawing.Point(476, 439);
             this.Kaydet.Name = "Kaydet";
             this.Kaydet.Size = new System.Drawing.Size(350, 42);
-            this.Kaydet.TabIndex = 3;
+            this.Kaydet.TabIndex = 5;
             this.Kaydet.Text = "Kaydet";
             this.Kaydet.UseVisualStyleBackColor = true;
             this.Kaydet.Click += new System.EventHandler(this.Kaydet_Click);
@@ -194,23 +196,10 @@ namespace İş_ve_Depo_Takip
             this.Seçili_Satırı_Sil.Location = new System.Drawing.Point(20, 439);
             this.Seçili_Satırı_Sil.Name = "Seçili_Satırı_Sil";
             this.Seçili_Satırı_Sil.Size = new System.Drawing.Size(350, 42);
-            this.Seçili_Satırı_Sil.TabIndex = 8;
+            this.Seçili_Satırı_Sil.TabIndex = 6;
             this.Seçili_Satırı_Sil.Text = "Seçili Satırı Sil";
             this.Seçili_Satırı_Sil.UseVisualStyleBackColor = true;
             this.Seçili_Satırı_Sil.Click += new System.EventHandler(this.Seçili_Satırı_Sil_Click);
-            // 
-            // Hasta
-            // 
-            this.Hasta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Hasta.Location = new System.Drawing.Point(163, 57);
-            this.Hasta.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.Hasta.Name = "Hasta";
-            this.Hasta.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.Hasta.Size = new System.Drawing.Size(663, 36);
-            this.Hasta.TabIndex = 9;
-            this.Hasta.TextChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
-            this.Hasta.Leave += new System.EventHandler(this.Hasta_Leave);
             // 
             // İskonto
             // 
@@ -219,7 +208,7 @@ namespace İş_ve_Depo_Takip
             this.İskonto.Name = "İskonto";
             this.İskonto.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.İskonto.Size = new System.Drawing.Size(153, 36);
-            this.İskonto.TabIndex = 11;
+            this.İskonto.TabIndex = 2;
             this.İskonto.TextChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
             // 
             // label3
@@ -256,15 +245,29 @@ namespace İş_ve_Depo_Takip
             this.İpUcu.UseAnimation = false;
             this.İpUcu.UseFading = false;
             // 
+            // Hasta
+            // 
+            this.Hasta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Hasta.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.Hasta.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.Hasta.FormattingEnabled = true;
+            this.Hasta.Location = new System.Drawing.Point(163, 58);
+            this.Hasta.Name = "Hasta";
+            this.Hasta.Size = new System.Drawing.Size(663, 37);
+            this.Hasta.Sorted = true;
+            this.Hasta.TabIndex = 1;
+            this.Hasta.Leave += new System.EventHandler(this.Hasta_Leave);
+            // 
             // Yeni_Talep_Girişi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(843, 493);
+            this.Controls.Add(this.Hasta);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.İskonto);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.Hasta);
             this.Controls.Add(this.Seçili_Satırı_Sil);
             this.Controls.Add(this.Kaydet);
             this.Controls.Add(this.Müşteriler);
@@ -296,7 +299,6 @@ namespace İş_ve_Depo_Takip
         private System.Windows.Forms.ComboBox Müşteriler;
         private System.Windows.Forms.Button Kaydet;
         private System.Windows.Forms.Button Seçili_Satırı_Sil;
-        private System.Windows.Forms.TextBox Hasta;
         private System.Windows.Forms.TextBox İskonto;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -304,5 +306,6 @@ namespace İş_ve_Depo_Takip
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Ücret;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Giriş_Tarihi;
         private System.Windows.Forms.ToolTip İpUcu;
+        private System.Windows.Forms.ComboBox Hasta;
     }
 }

@@ -74,10 +74,10 @@
             // Yeni_Talep_Girişi
             // 
             this.Yeni_Talep_Girişi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Yeni_Talep_Girişi.Location = new System.Drawing.Point(6, 8);
+            this.Yeni_Talep_Girişi.Location = new System.Drawing.Point(34, 8);
             this.Yeni_Talep_Girişi.Margin = new System.Windows.Forms.Padding(6);
             this.Yeni_Talep_Girişi.Name = "Yeni_Talep_Girişi";
-            this.Yeni_Talep_Girişi.Size = new System.Drawing.Size(281, 68);
+            this.Yeni_Talep_Girişi.Size = new System.Drawing.Size(228, 68);
             this.Yeni_Talep_Girişi.TabIndex = 0;
             this.Yeni_Talep_Girişi.Text = "Yeni İş Girişi";
             this.Yeni_Talep_Girişi.UseVisualStyleBackColor = true;
@@ -86,10 +86,10 @@
             // Tüm_Talepler
             // 
             this.Tüm_Talepler.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Tüm_Talepler.Location = new System.Drawing.Point(6, 88);
+            this.Tüm_Talepler.Location = new System.Drawing.Point(34, 88);
             this.Tüm_Talepler.Margin = new System.Windows.Forms.Padding(6);
             this.Tüm_Talepler.Name = "Tüm_Talepler";
-            this.Tüm_Talepler.Size = new System.Drawing.Size(281, 68);
+            this.Tüm_Talepler.Size = new System.Drawing.Size(228, 68);
             this.Tüm_Talepler.TabIndex = 1;
             this.Tüm_Talepler.Text = "Tüm İşler";
             this.Tüm_Talepler.UseVisualStyleBackColor = true;
@@ -98,10 +98,10 @@
             // Müşteriler
             // 
             this.Müşteriler.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.Müşteriler.Location = new System.Drawing.Point(6, 6);
+            this.Müşteriler.Location = new System.Drawing.Point(33, 6);
             this.Müşteriler.Margin = new System.Windows.Forms.Padding(6);
             this.Müşteriler.Name = "Müşteriler";
-            this.Müşteriler.Size = new System.Drawing.Size(225, 68);
+            this.Müşteriler.Size = new System.Drawing.Size(198, 68);
             this.Müşteriler.TabIndex = 0;
             this.Müşteriler.Text = "Müşteriler";
             this.Müşteriler.UseVisualStyleBackColor = true;
@@ -110,10 +110,10 @@
             // İş_Türleri
             // 
             this.İş_Türleri.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.İş_Türleri.Location = new System.Drawing.Point(6, 86);
+            this.İş_Türleri.Location = new System.Drawing.Point(33, 86);
             this.İş_Türleri.Margin = new System.Windows.Forms.Padding(6);
             this.İş_Türleri.Name = "İş_Türleri";
-            this.İş_Türleri.Size = new System.Drawing.Size(225, 68);
+            this.İş_Türleri.Size = new System.Drawing.Size(198, 68);
             this.İş_Türleri.TabIndex = 1;
             this.İş_Türleri.Text = "İş Türleri";
             this.İş_Türleri.UseVisualStyleBackColor = true;
@@ -122,10 +122,10 @@
             // Ücretler
             // 
             this.Ücretler.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.Ücretler.Location = new System.Drawing.Point(6, 166);
+            this.Ücretler.Location = new System.Drawing.Point(33, 166);
             this.Ücretler.Margin = new System.Windows.Forms.Padding(6);
             this.Ücretler.Name = "Ücretler";
-            this.Ücretler.Size = new System.Drawing.Size(225, 68);
+            this.Ücretler.Size = new System.Drawing.Size(198, 68);
             this.Ücretler.TabIndex = 2;
             this.Ücretler.Text = "Ücretler";
             this.Ücretler.UseVisualStyleBackColor = true;
@@ -134,10 +134,10 @@
             // Tüm_Malzemeler
             // 
             this.Tüm_Malzemeler.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Tüm_Malzemeler.Location = new System.Drawing.Point(6, 248);
+            this.Tüm_Malzemeler.Location = new System.Drawing.Point(34, 248);
             this.Tüm_Malzemeler.Margin = new System.Windows.Forms.Padding(6);
             this.Tüm_Malzemeler.Name = "Tüm_Malzemeler";
-            this.Tüm_Malzemeler.Size = new System.Drawing.Size(281, 68);
+            this.Tüm_Malzemeler.Size = new System.Drawing.Size(228, 68);
             this.Tüm_Malzemeler.TabIndex = 3;
             this.Tüm_Malzemeler.Text = "Tüm Malzemeler";
             this.Tüm_Malzemeler.UseVisualStyleBackColor = true;
@@ -147,10 +147,10 @@
             // Yeni_Malzeme_Girişi
             // 
             this.Yeni_Malzeme_Girişi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Yeni_Malzeme_Girişi.Location = new System.Drawing.Point(6, 168);
+            this.Yeni_Malzeme_Girişi.Location = new System.Drawing.Point(34, 168);
             this.Yeni_Malzeme_Girişi.Margin = new System.Windows.Forms.Padding(6);
             this.Yeni_Malzeme_Girişi.Name = "Yeni_Malzeme_Girişi";
-            this.Yeni_Malzeme_Girişi.Size = new System.Drawing.Size(281, 68);
+            this.Yeni_Malzeme_Girişi.Size = new System.Drawing.Size(228, 68);
             this.Yeni_Malzeme_Girişi.TabIndex = 2;
             this.Yeni_Malzeme_Girişi.Text = "Yeni Malzeme Girişi";
             this.Yeni_Malzeme_Girişi.UseVisualStyleBackColor = true;
@@ -163,7 +163,7 @@
             this.Yazdırma.Location = new System.Drawing.Point(243, 6);
             this.Yazdırma.Margin = new System.Windows.Forms.Padding(6);
             this.Yazdırma.Name = "Yazdırma";
-            this.Yazdırma.Size = new System.Drawing.Size(225, 68);
+            this.Yazdırma.Size = new System.Drawing.Size(199, 68);
             this.Yazdırma.TabIndex = 3;
             this.Yazdırma.Text = "Yazdırma";
             this.Yazdırma.UseVisualStyleBackColor = true;
@@ -178,15 +178,16 @@
             this.P_YeniParola.Controls.Add(this.YeniParola_2);
             this.P_YeniParola.Location = new System.Drawing.Point(25, 19);
             this.P_YeniParola.Name = "P_YeniParola";
-            this.P_YeniParola.Size = new System.Drawing.Size(284, 246);
+            this.P_YeniParola.Size = new System.Drawing.Size(347, 246);
             this.P_YeniParola.TabIndex = 9;
             this.P_YeniParola.Visible = false;
+            this.P_YeniParola.DoubleClick += new System.EventHandler(this.Açılış_Ekranı_DoubleClick);
             // 
             // YeniParola_Etiket
             // 
             this.YeniParola_Etiket.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.YeniParola_Etiket.AutoSize = true;
-            this.YeniParola_Etiket.Location = new System.Drawing.Point(13, 14);
+            this.YeniParola_Etiket.Location = new System.Drawing.Point(27, 14);
             this.YeniParola_Etiket.Name = "YeniParola_Etiket";
             this.YeniParola_Etiket.Size = new System.Drawing.Size(207, 29);
             this.YeniParola_Etiket.TabIndex = 9;
@@ -195,9 +196,9 @@
             // YeniParola_1
             // 
             this.YeniParola_1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.YeniParola_1.Location = new System.Drawing.Point(6, 46);
+            this.YeniParola_1.Location = new System.Drawing.Point(32, 46);
             this.YeniParola_1.Name = "YeniParola_1";
-            this.YeniParola_1.Size = new System.Drawing.Size(272, 36);
+            this.YeniParola_1.Size = new System.Drawing.Size(283, 36);
             this.YeniParola_1.TabIndex = 0;
             this.YeniParola_1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.YeniParola_1.UseSystemPasswordChar = true;
@@ -206,7 +207,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 86);
+            this.label1.Location = new System.Drawing.Point(27, 85);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(250, 29);
             this.label1.TabIndex = 7;
@@ -215,10 +216,10 @@
             // YeniParola_Kaydet
             // 
             this.YeniParola_Kaydet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.YeniParola_Kaydet.Location = new System.Drawing.Point(6, 163);
+            this.YeniParola_Kaydet.Location = new System.Drawing.Point(32, 163);
             this.YeniParola_Kaydet.Margin = new System.Windows.Forms.Padding(6);
             this.YeniParola_Kaydet.Name = "YeniParola_Kaydet";
-            this.YeniParola_Kaydet.Size = new System.Drawing.Size(272, 68);
+            this.YeniParola_Kaydet.Size = new System.Drawing.Size(283, 68);
             this.YeniParola_Kaydet.TabIndex = 2;
             this.YeniParola_Kaydet.Text = "Yeni Parolayı Kaydet";
             this.YeniParola_Kaydet.UseVisualStyleBackColor = true;
@@ -227,9 +228,9 @@
             // YeniParola_2
             // 
             this.YeniParola_2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.YeniParola_2.Location = new System.Drawing.Point(6, 118);
+            this.YeniParola_2.Location = new System.Drawing.Point(32, 118);
             this.YeniParola_2.Name = "YeniParola_2";
-            this.YeniParola_2.Size = new System.Drawing.Size(272, 36);
+            this.YeniParola_2.Size = new System.Drawing.Size(283, 36);
             this.YeniParola_2.TabIndex = 1;
             this.YeniParola_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.YeniParola_2.UseSystemPasswordChar = true;
@@ -240,7 +241,7 @@
             this.P_Parola.Controls.Add(this.Parola_Giriş);
             this.P_Parola.Location = new System.Drawing.Point(16, 16);
             this.P_Parola.Name = "P_Parola";
-            this.P_Parola.Size = new System.Drawing.Size(163, 143);
+            this.P_Parola.Size = new System.Drawing.Size(253, 143);
             this.P_Parola.TabIndex = 10;
             this.P_Parola.Visible = false;
             this.P_Parola.DoubleClick += new System.EventHandler(this.Açılış_Ekranı_DoubleClick);
@@ -248,10 +249,10 @@
             // Parola_Kontrol
             // 
             this.Parola_Kontrol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Parola_Kontrol.Location = new System.Drawing.Point(6, 58);
+            this.Parola_Kontrol.Location = new System.Drawing.Point(32, 58);
             this.Parola_Kontrol.Margin = new System.Windows.Forms.Padding(6);
             this.Parola_Kontrol.Name = "Parola_Kontrol";
-            this.Parola_Kontrol.Size = new System.Drawing.Size(151, 68);
+            this.Parola_Kontrol.Size = new System.Drawing.Size(188, 68);
             this.Parola_Kontrol.TabIndex = 1;
             this.Parola_Kontrol.Text = "Giriş";
             this.Parola_Kontrol.UseVisualStyleBackColor = true;
@@ -260,9 +261,9 @@
             // Parola_Giriş
             // 
             this.Parola_Giriş.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Parola_Giriş.Location = new System.Drawing.Point(6, 13);
+            this.Parola_Giriş.Location = new System.Drawing.Point(32, 13);
             this.Parola_Giriş.Name = "Parola_Giriş";
-            this.Parola_Giriş.Size = new System.Drawing.Size(151, 36);
+            this.Parola_Giriş.Size = new System.Drawing.Size(188, 36);
             this.Parola_Giriş.TabIndex = 0;
             this.Parola_Giriş.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Parola_Giriş.UseSystemPasswordChar = true;
@@ -285,10 +286,10 @@
             // Ayarlar
             // 
             this.Ayarlar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Ayarlar.Location = new System.Drawing.Point(6, 328);
+            this.Ayarlar.Location = new System.Drawing.Point(34, 328);
             this.Ayarlar.Margin = new System.Windows.Forms.Padding(6);
             this.Ayarlar.Name = "Ayarlar";
-            this.Ayarlar.Size = new System.Drawing.Size(281, 68);
+            this.Ayarlar.Size = new System.Drawing.Size(217, 68);
             this.Ayarlar.TabIndex = 4;
             this.Ayarlar.Text = "Ayarlar";
             this.Ayarlar.UseVisualStyleBackColor = true;
@@ -299,10 +300,10 @@
             this.Ayarlar_Geri.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.Ayarlar_Geri.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol;
             this.Ayarlar_Geri.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Ayarlar_Geri.Location = new System.Drawing.Point(6, 246);
+            this.Ayarlar_Geri.Location = new System.Drawing.Point(33, 246);
             this.Ayarlar_Geri.Margin = new System.Windows.Forms.Padding(6);
             this.Ayarlar_Geri.Name = "Ayarlar_Geri";
-            this.Ayarlar_Geri.Size = new System.Drawing.Size(462, 68);
+            this.Ayarlar_Geri.Size = new System.Drawing.Size(409, 68);
             this.Ayarlar_Geri.TabIndex = 4;
             this.Ayarlar_Geri.Text = "Geri";
             this.Ayarlar_Geri.UseVisualStyleBackColor = true;
@@ -357,6 +358,7 @@
             this.P_Ayarlar.Size = new System.Drawing.Size(475, 321);
             this.P_Ayarlar.TabIndex = 12;
             this.P_Ayarlar.Visible = false;
+            this.P_Ayarlar.DoubleClick += new System.EventHandler(this.Açılış_Ekranı_DoubleClick);
             // 
             // Eposta
             // 
@@ -364,7 +366,7 @@
             this.Eposta.Location = new System.Drawing.Point(243, 86);
             this.Eposta.Margin = new System.Windows.Forms.Padding(6);
             this.Eposta.Name = "Eposta";
-            this.Eposta.Size = new System.Drawing.Size(225, 68);
+            this.Eposta.Size = new System.Drawing.Size(199, 68);
             this.Eposta.TabIndex = 6;
             this.Eposta.Text = "Eposta";
             this.Eposta.UseVisualStyleBackColor = true;
@@ -376,7 +378,7 @@
             this.Diğer.Location = new System.Drawing.Point(243, 166);
             this.Diğer.Margin = new System.Windows.Forms.Padding(6);
             this.Diğer.Name = "Diğer";
-            this.Diğer.Size = new System.Drawing.Size(225, 68);
+            this.Diğer.Size = new System.Drawing.Size(199, 68);
             this.Diğer.TabIndex = 5;
             this.Diğer.Text = "Diğer";
             this.Diğer.UseVisualStyleBackColor = true;
@@ -417,7 +419,7 @@
             this.AçılışYazısı.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.AçılışYazısı.Location = new System.Drawing.Point(0, 0);
             this.AçılışYazısı.Name = "AçılışYazısı";
-            this.AçılışYazısı.Size = new System.Drawing.Size(478, 449);
+            this.AçılışYazısı.Size = new System.Drawing.Size(578, 449);
             this.AçılışYazısı.TabIndex = 12;
             this.AçılışYazısı.Text = "Lütfen bekleyiniz";
             this.AçılışYazısı.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -426,7 +428,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(478, 449);
+            this.ClientSize = new System.Drawing.Size(578, 449);
             this.Controls.Add(this.tab_sayfası);
             this.Controls.Add(this.AçılışYazısı);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));

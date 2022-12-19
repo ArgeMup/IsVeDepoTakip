@@ -320,6 +320,8 @@ namespace İş_ve_Depo_Takip
                 Müşteriler.Add(Müşteri, m);
             }
 
+            if (!Directory.Exists(Ortak.Klasör_Banka + Müşteri)) return new string[0];
+
             if (Ödendi_1_ÖdemeBekleyen_0)
             {
                 if (m.Liste_Ödendi == null)
@@ -739,6 +741,8 @@ namespace İş_ve_Depo_Takip
             
             if (ÖnceTemizle)
             {
+                Tablo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+                Tablo.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
                 Tablo.Rows.Clear();
 
                 if (Tablo.SortedColumn != null)
@@ -816,6 +820,10 @@ namespace İş_ve_Depo_Takip
                     default:
                         break;
                 }
+
+                Tablo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                Tablo.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+                Tablo.AutoResizeColumns();
             }
             
             Tablo.ClearSelection();

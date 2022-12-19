@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
@@ -38,8 +37,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Arama_İş_Türleri.SetItemChecked(i, true);
             }
 
-            Arama_GirişTarihi_Bitiş.Value = DateTime.Now;
-            Arama_GirişTarihi_Başlangıç.Value = new DateTime(Arama_GirişTarihi_Bitiş.Value.Year - 1, 5, 19);
+            DateTime t = DateTime.Now;
+            Arama_GirişTarihi_Bitiş.Value = new DateTime(t.Year, t.Month, t.Day, 23, 59, 59);
+            Arama_GirişTarihi_Başlangıç.Value = new DateTime(t.Year - 1, 5, 19);
 
             splitContainer1.Panel1.Controls.Add(P_İşTakip); P_İşTakip.Dock = DockStyle.Fill; P_İşTakip.Visible = true;
             P_İşTakip.Controls.Add(P_İşTakip_DevamEden); P_İşTakip_DevamEden.Dock = DockStyle.Fill; P_İşTakip_DevamEden.Visible = false;
@@ -130,6 +130,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Seviye2_TeslimEdildi.Checked = true;
                     Seviye2_ÖdemeBekleyen.Checked = true;
                     Seviye2_Ödendi.Checked = true;
+
+                    for (int i = 0; i < Arama_Müşteriler.Items.Count; i++)
+                    {
+                        Arama_Müşteriler.SetItemChecked(i, true);
+                    }
+                    for (int i = 0; i < Arama_İş_Türleri.Items.Count; i++)
+                    {
+                        Arama_İş_Türleri.SetItemChecked(i, true);
+                    }
 
                     Seviye1_işTakip.Checked = false;
                     Seviye1_Arama.Checked = true;
@@ -484,6 +493,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Tablo[0, i].Value = b;
             }
         }
+        private void Tablo_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0 || e.ColumnIndex > 0) return;
+
+            Tablo[0, e.RowIndex].Value = !(bool)Tablo[0, e.RowIndex].Value;
+        }
         private void Tablo_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -679,6 +694,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Banka_Tablo_ bt = new Banka_Tablo_(null);
             bt.Türü = Banka.TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi;
             Banka.Talep_TablodaGöster(Tablo, bt);
+            Tablo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            Tablo.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
 
             for (int i = 0; i < Arama_Müşteriler.Items.Count && !Arama_Sorgula_KapatmaTalebi; i++)
             {
@@ -726,6 +743,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
             }
 
+            Tablo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            Tablo.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            Tablo.AutoResizeColumns();
+
             Arama_İlerlemeÇubuğu.Visible = false;
             Arama_Sorgula_Çalışıyor = false;
             TabloİçeriğiArama.BackColor = Color.White;
@@ -757,6 +778,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (uyuşanlar.Count == 0) return;
             bt.Talepler = uyuşanlar;
             Banka.Talep_TablodaGöster(Tablo, bt, false);
+        }
+
+        private void Arama_Müşteriler_İşler_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            (sender as CheckedListBox).SelectedIndex = -1;
         }
     }
 }

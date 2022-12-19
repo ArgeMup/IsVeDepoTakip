@@ -1,6 +1,5 @@
 ﻿using ArgeMup.HazirKod;
 using ArgeMup.HazirKod.Ekİşlemler;
-using İş_ve_Depo_Takip.Ekranlar;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -35,12 +34,12 @@ namespace İş_ve_Depo_Takip
             }
             else
             {
+                Müşteriler.DropDownStyle = ComboBoxStyle.DropDown;
                 Müşteriler.Text = Müşteri;
                 Müşteriler.Enabled = false;
                 Hasta.Enabled = false;
 
-                Banka_Tablo_ bt = Banka.Talep_Listele(Müşteri, Banka.TabloTürü.DevamEden);
-                IDepo_Eleman elm_ları = bt.Talepler.Find(x => x.Adı == SeriNo);
+                IDepo_Eleman elm_ları = Banka.Tablo_Dal(Müşteri, Banka.TabloTürü.DevamEden, "Talepler/" + SeriNo);
                 if (elm_ları == null) throw new Exception(Müşteri + " / Devam Eden / Talepler / " + SeriNo + " bulunamadı");
 
                 Text += " - " + elm_ları.Adı;
@@ -122,6 +121,77 @@ namespace İş_ve_Depo_Takip
             }
         }
 
+        private void Değişiklik_Yapılıyor(object sender, EventArgs e)
+        {
+            Kaydet.Enabled = true;
+        }
+
+        private void Müşteriler_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Hasta.Items.Clear();
+            if (!Banka.Müşteri_MevcutMu(Müşteriler.Text)) return;
+
+            IDepo_Eleman d = Banka.Tablo_Dal(Müşteriler.Text, Banka.TabloTürü.DevamEden, "Talepler");
+            if (d == null || d.Elemanları.Length < 1) return;
+
+            foreach (IDepo_Eleman ee in d.Elemanları)
+            {
+                if (ee.İçiBoşOlduğuİçinSilinecek) continue;
+                string ha = ee[0] + " -=> (" + ee.Adı + (string.IsNullOrEmpty(ee[3]) ? " Devam Eden)" : " Teslim Edildi)");
+                Hasta.Items.Add(ha);
+            }
+
+            Hasta.Focus();
+        }
+        private void Hasta_Leave(object sender, EventArgs e)
+        {
+            Hasta.Text = Hasta.Text.Trim();
+            if (string.IsNullOrWhiteSpace(Hasta.Text)) return;
+
+            DialogResult Dr;
+            if (Hasta.Items.Contains(Hasta.Text))
+            {
+                int konum = Hasta.Text.IndexOf(" -=> (");
+                if (konum < 0)
+                {
+                    MessageBox.Show(Hasta.Text + " içeriğinden seri no okunamadı, hasta kutucuğundan tekrar seçim yapınız", Text);
+                    return;
+                }
+                string sn = Hasta.Text.Substring(konum + 6).TrimEnd(')');
+                konum = sn.IndexOf(" ");
+                if (konum < 0)
+                {
+                    MessageBox.Show(Hasta.Text + " içeriğinden seri no okunamadı, hasta kutucuğundan tekrar seçim yapınız", Text);
+                    return;
+                }
+                sn = sn.Substring(0, konum);
+
+                string soru;
+                if (Hasta.Text.EndsWith(" Devam Eden)"))
+                {
+                    soru = "Yeni bir iş oluşturmak yerine" + Environment.NewLine +
+                    Hasta.Text + Environment.NewLine +
+                    "kaydını güncellemek ister misiniz?";
+                }
+                else if (Hasta.Text.EndsWith(" Teslim Edildi)"))
+                {
+                    soru = "Seçtiğiniz hastaya ait kayıt TESLİM EDİLMİŞ olarak görünüyor." + Environment.NewLine + Environment.NewLine +
+                    "İşleme devam ederseniz kayıt DEVAM EDİYOR olarak işaretlenecektir." + Environment.NewLine + Environment.NewLine +
+                    "Yeni bir iş oluşturmak yerine" + Environment.NewLine +
+                    Hasta.Text + Environment.NewLine +
+                    "kaydını güncellemek ister misiniz?";
+                }
+                else return;
+
+                Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (Dr == DialogResult.No) return;
+
+                new Yeni_Talep_Girişi(Müşteriler.Text, sn).ShowDialog();
+                Banka.Değişiklikleri_GeriAl();
+                Kaydet.Enabled = false;
+                Close();
+            }
+        }
         private void Seçili_Satırı_Sil_Click(object sender, EventArgs e)
         {
             var l = Tablo.SelectedRows;
@@ -145,41 +215,6 @@ namespace İş_ve_Depo_Takip
             }
            
             Kaydet.Enabled = true;
-        }
-
-        private void Değişiklik_Yapılıyor(object sender, EventArgs e)
-        {
-            Kaydet.Enabled = true;
-        }
-
-        private void Hasta_Leave(object sender, EventArgs e)
-        {
-            Hasta.Text = Hasta.Text.Trim();
-
-            Banka_Tablo_ bt = Banka.Talep_Listele(Müşteriler.Text, Banka.TabloTürü.DevamEden);
-            if (bt == null || bt.Talepler == null || bt.Talepler.Count == 0) return;
-
-            string hasta_küçükharfli = Hasta.Text.ToLower();
-            IDepo_Eleman b = bt.Talepler.Find(x => x[0].ToLower() == hasta_küçükharfli);
-            if (b == null)
-            {
-                b = bt.Talepler.Find(x => x[0].ToLower().Contains(hasta_küçükharfli));
-                if (b == null) return;
-            }
-
-            DialogResult Dr = MessageBox.Show(Hasta.Text + " benzeri " + b[0] + " adına devam eden bir iş bulundu" + Environment.NewLine +
-                "Yeni bir iş oluşturmak yerine ilgili kaydı güncellemek ister misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-            if (Dr == DialogResult.No) return;
-
-            new Yeni_Talep_Girişi(Müşteriler.Text, b.Adı).ShowDialog();
-            Banka.Değişiklikleri_GeriAl();
-            Hasta.Focus();
-        }
-
-        private void Müşteriler_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Değişiklik_Yapılıyor(null, null);
-            Hasta.Focus();
         }
 
         private void Kaydet_Click(object sender, EventArgs e)
