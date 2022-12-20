@@ -18,7 +18,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Tüm_Talepler_Load(object sender, EventArgs e)
         {
-            Ortak.BeklemeGöstergesi = TabloİçeriğiArama;
+            Ortak.Gösterge_UzunİşlemİçinBekleyiniz = TabloİçeriğiArama;
 
             List<string> l = Banka.Müşteri_Listele();
             string[] l_dizi = l.ToArray();
@@ -235,9 +235,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void İşTakip_Müşteriler_TextChanged(object sender, EventArgs e)
         {
-            CheckBox c = new CheckBox();
-            c.Tag = 1;
-            Seviye_Değişti(c, null);
+            Seviye_Değişti(Seviye1_işTakip, null);
         }
         private void İşTakip_DevamEden_Sil_Click(object sender, EventArgs e)
         {
@@ -283,7 +281,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             new Yeni_Talep_Girişi(İşTakip_Müşteriler.Text, l[0]).ShowDialog();
-            Banka.Değişiklikleri_GeriAl();
+            Banka.Değişiklikler_TamponuSıfırla();
             Seviye_Değişti(null, null);
         }
         private void İşTakip_DevamEden_İsaretle_Bitti_Click(object sender, EventArgs e)
@@ -315,7 +313,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
                 else
                 {
-                    Banka.Değişiklikleri_GeriAl();
+                    Banka.Değişiklikler_TamponuSıfırla();
 
                     DialogResult Dr = MessageBox.Show(snç + Environment.NewLine + Environment.NewLine +
                         "Ücretler sayfasını açmak ister misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
@@ -438,7 +436,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Banka.Talep_İşaretle_ÖdemeTalepEdildi_TeslimEdildi(İşTakip_Müşteriler.Text, İşTakip_ÖdemeBekleyen_Dönem.Text);
             Banka.Değişiklikleri_Kaydet();
-            Tablo.Rows.Clear();
+
+            Banka.Değişiklikler_TamponuSıfırla();
+            Seviye_Değişti(Seviye2_ÖdemeBekleyen, null);
         }
         private void İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle_Click(object sender, EventArgs e)
         {
@@ -451,9 +451,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Banka.Talep_İşaretle_ÖdemeTalepEdildi_Ödendi(İşTakip_Müşteriler.Text, İşTakip_ÖdemeBekleyen_Dönem.Text, İşTakip_ÖdemeBekleyen_Notlar.Text);
             Banka.Değişiklikleri_Kaydet();
-            Tablo.Rows.Clear();
-
+            
             İşTakip_ÖdemeBekleyen_Notlar.Text = "";
+
+            Banka.Değişiklikler_TamponuSıfırla();
+            Seviye_Değişti(Seviye2_ÖdemeBekleyen, null);
         }
         private void İşTakip_Ödendi_Dönem_TextChanged(object sender, EventArgs e)
         {
@@ -480,7 +482,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             İpUcu.SetToolTip(Tablo, ipucu);
 
-            Yazdır.Enabled = true;
+            Yazdır.Enabled = false;
         }
 
         private void Tablo_DoubleClick(object sender, EventArgs e)
@@ -527,12 +529,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (Seviye2_ÖdemeBekleyen.Checked)
             {
                 depo = Banka.Tablo(İşTakip_Müşteriler.Text, Banka.TabloTürü.ÖdemeTalepEdildi, false, İşTakip_ÖdemeBekleyen_Dönem.Text);
-                gerçekdosyadı = "Ödeme Talep Edildi_" + İşTakip_ÖdemeBekleyen_Dönem.Text.Replace(' ', '_') + ".pdf";
+                gerçekdosyadı = "Ödeme Talep Edildi_" + İşTakip_ÖdemeBekleyen_Dönem.Text + ".pdf";
             }
             else if (Seviye2_Ödendi.Checked)
             {
                 depo = Banka.Tablo(İşTakip_Müşteriler.Text, Banka.TabloTürü.Ödendi, false, İşTakip_Ödendi_Dönem.Text);
-                gerçekdosyadı = "Ödendi_" + İşTakip_Ödendi_Dönem.Text.Replace(' ', '_') + ".pdf";
+                gerçekdosyadı = "Ödendi_" + İşTakip_Ödendi_Dönem.Text + ".pdf";
             }
             else return;
 
@@ -542,11 +544,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             y.Yazdırma_Load(null, null);
             y.Yazdır_Depo(depo, dosyayolu);
 
-            if (!string.IsNullOrEmpty(Ortak.Klasör_Pdf)) Dosya.Kopyala(dosyayolu, Ortak.Klasör_Pdf + İşTakip_Müşteriler.Text + "\\" + gerçekdosyadı);
+            if (!string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Pdf)) Dosya.Kopyala(dosyayolu, Ortak.Kullanıcı_Klasör_Pdf + İşTakip_Müşteriler.Text + "\\" + gerçekdosyadı);
             
             Ortak.Pdf_AçmayaÇalış(dosyayolu);
 
-            if (!Ortak.Eposta_hesabı_mevcut) return;
+            if (!Ortak.Kullanıcı_Eposta_hesabı_mevcut) return;
             IDepo_Eleman m = Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Müşteriler/" + İşTakip_Müşteriler.Text);
             if (m == null || string.IsNullOrEmpty(m.Oku("Eposta/Kime") + m.Oku("Eposta/Bilgi") + m.Oku("Eposta/Gizli"))) return;
 
@@ -555,7 +557,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 İşTakip_Müşteriler.Text, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
 
-            string ek_dosyası = Ortak.Klasör_Gecici + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı) + ".pdf";
+            string ek_dosyası = Ortak.Klasör_Gecici + DateTime.Now.Yazıya(Ortak.Şablon_TarihSaat_DosyaAdı) + ".pdf";
             File.Move(dosyayolu, ek_dosyası);
 
             Ayarlar_Eposta epst = new Ayarlar_Eposta();
@@ -720,7 +722,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         for (int s = 0; s < l.Length && !Arama_Sorgula_KapatmaTalebi; s++)
                         {
                             Arama_İlerlemeÇubuğu.Value++;
-                            DateTime t = l[s].TarihSaate("dd MM yyyy HH mm ss");
+                            DateTime t = l[s].TarihSaate(Ortak.Şablon_TarihSaat_DosyaAdı);
                             if (Arama_GirişTarihi_Başlangıç.Value > t || t > Arama_GirişTarihi_Bitiş.Value) continue;
 
                             Arama_Sorgula_Click_2(Banka.Talep_Listele(Arama_Müşteriler.Items[i].ToString(), Banka.TabloTürü.ÖdemeTalepEdildi, l[s]));
@@ -734,7 +736,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         for (int s = 0; s < l.Length && !Arama_Sorgula_KapatmaTalebi; s++)
                         {
                             Arama_İlerlemeÇubuğu.Value++;
-                            DateTime t = l[s].TarihSaate("dd MM yyyy HH mm ss");
+                            DateTime t = l[s].TarihSaate(Ortak.Şablon_TarihSaat_DosyaAdı);
                             if (Arama_GirişTarihi_Başlangıç.Value > t || t > Arama_GirişTarihi_Bitiş.Value) continue;
 
                             Arama_Sorgula_Click_2(Banka.Talep_Listele(Arama_Müşteriler.Items[i].ToString(), Banka.TabloTürü.Ödendi, l[s]));

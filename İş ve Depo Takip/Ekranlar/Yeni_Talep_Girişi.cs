@@ -187,7 +187,7 @@ namespace İş_ve_Depo_Takip
                 if (Dr == DialogResult.No) return;
 
                 new Yeni_Talep_Girişi(Müşteriler.Text, sn).ShowDialog();
-                Banka.Değişiklikleri_GeriAl();
+                Banka.Değişiklikler_TamponuSıfırla();
                 Kaydet.Enabled = false;
                 Close();
             }

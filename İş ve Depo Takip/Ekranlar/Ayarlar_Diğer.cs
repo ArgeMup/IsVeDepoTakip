@@ -89,9 +89,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar.Yaz("AçılışEkranıİçinParaloİste", AçılışEkranıİçinParaloİste.Checked);
             Banka.Değişiklikleri_Kaydet();
 
-            Ortak.Klasör_KullanıcıYedeği = Klasör_Yedekleme.Text;
-            Ortak.Klasör_Pdf = Klasör_Pdf.Text;
-            Ortak.AçılışEkranıİçinParaloİste = AçılışEkranıİçinParaloİste.Checked;
+            Ortak.Kullanıcı_Klasör_Yedek = Klasör_Yedekleme.Text;
+            Ortak.Kullanıcı_Klasör_Pdf = Klasör_Pdf.Text;
+            Ortak.Kullanıcı_AçılışEkranıİçinParaloİste = AçılışEkranıİçinParaloİste.Checked;
 
             Kaydet.Enabled = false;
         }

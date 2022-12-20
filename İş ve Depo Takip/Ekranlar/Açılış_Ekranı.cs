@@ -2,6 +2,9 @@
 using ArgeMup.HazirKod.Ekİşlemler;
 using İş_ve_Depo_Takip.Ekranlar;
 using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip
@@ -36,7 +39,7 @@ namespace İş_ve_Depo_Takip
         private void Açılış_Ekranı_Shown(object sender, EventArgs e)
         {
             Application.DoEvents();
-            Banka.Giriş_İşlemleri();
+            Banka.Giriş_İşlemleri(AçılışYazısı);
             Controls.Remove(AçılışYazısı);
             AçılışYazısı.Dispose();
 
@@ -76,7 +79,7 @@ namespace İş_ve_Depo_Takip
         {
             if (WindowState == FormWindowState.Minimized)
             {
-                if (Ortak.AçılışEkranıİçinParaloİste && !P_YeniParola.Visible)
+                if (Ortak.Kullanıcı_AçılışEkranıİçinParaloİste && !P_YeniParola.Visible)
                 {
                     Parola_Giriş.Text = "";
                     P_Parola.Visible = true;
@@ -94,7 +97,7 @@ namespace İş_ve_Depo_Takip
 
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                if (Ortak.AçılışEkranıİçinParaloİste && !P_YeniParola.Visible)
+                if (Ortak.Kullanıcı_AçılışEkranıİçinParaloİste && !P_YeniParola.Visible)
                 {
                     Parola_Giriş.Text = "";
                     P_Parola.Visible = true;
@@ -125,8 +128,7 @@ namespace İş_ve_Depo_Takip
                 {
                     case "Yeni İş Girişi": new Yeni_Talep_Girişi().ShowDialog(); break;
                     case "Tüm İşler": new Tüm_Talepler().ShowDialog(); break;
-                    //case "Malzeme Girişi": new xxx().ShowDialog(); break;
-                    //case "Malzemeler": new xxx().ShowDialog(); break;
+                    case "Malzemeler": new Malzemeler().ShowDialog(); break;
                     case "Müşteriler": new Müşteriler().ShowDialog(); break;
                     case "İş Türleri": new İş_Türleri().ShowDialog(); break;
                     case "Yazdırma": new Yazdırma().ShowDialog(); break;
@@ -138,8 +140,8 @@ namespace İş_ve_Depo_Takip
             catch (Exception ex) 
             { 
                 ex.Günlük();
-                Banka.Değişiklikleri_GeriAl();
-                Klasör.AslınaUygunHaleGetir(Ortak.Klasör_Banka2, Ortak.Klasör_Banka, true);
+                Banka.Değişiklikler_TamponuSıfırla();
+                Klasör.AslınaUygunHaleGetir(Ortak.Klasör_Banka2, Ortak.Klasör_Banka, true, Ortak.EşZamanlıİşlemSayısı);
 
                 MessageBox.Show("Bir sorun oluştu, uygulama yedekler ile kontrol edildi ve bir sorun görülmedi" + Environment.NewLine +
                     "Lütfen son işleminizi tekrar deneyiniz." + Environment.NewLine + Environment.NewLine + ex.Message, Text);
@@ -201,6 +203,22 @@ namespace İş_ve_Depo_Takip
         private void Parola_Giriş_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter) Parola_Kontrol_Click(null, null);
+        }
+
+        private void P_AnaMenü_VisibleChanged(object sender, EventArgs e)
+        {
+            Ortak.Gösterge_UyarıVerenMalzemeler = Ortak.Gösterge_UyarıVerenMalzemeler.Where(x => !string.IsNullOrEmpty(x.Value)).ToDictionary(i => i.Key, i => i.Value);
+            
+            string mesaj = "";
+            foreach (KeyValuePair<string, string> a in Ortak.Gösterge_UyarıVerenMalzemeler)
+            {
+                //<mlz adı> : 0.0 kg\n gibi
+                mesaj += a.Key + " : " + a.Value + " kaldı\n";
+            }
+            mesaj = mesaj.TrimEnd('\n');
+            
+            if (string.IsNullOrEmpty(mesaj)) Hata.Clear();
+            else Hata.SetError(Malzemeler, mesaj);
         }
     }
 }

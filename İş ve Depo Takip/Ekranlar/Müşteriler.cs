@@ -1,7 +1,6 @@
 ﻿using ArgeMup.HazirKod;
 using System;
 using System.Windows.Forms;
-using static ArgeMup.HazirKod.MesajPanosu_;
 
 namespace İş_ve_Depo_Takip
 {
@@ -97,11 +96,11 @@ namespace İş_ve_Depo_Takip
             m.Yaz("Eposta/Kime", Eposta_Kime.Text);
             m.Yaz("Eposta/Bilgi", Eposta_Bilgi.Text);
             m.Yaz("Eposta/Gizli", Eposta_Gizli.Text);
-            m.Yaz("Notlar", Notlar.Text);
+            m.Yaz("Notlar", Notlar.Text.Trim());
             Banka.Değişiklikleri_Kaydet();
 
             splitContainer1.Panel1.Enabled = true;
-            Kaydet.Enabled = false;
+            Liste_SelectedValueChanged(null, null);
         }
     }
 }

@@ -194,7 +194,7 @@
             this.Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.Kaydet.Location = new System.Drawing.Point(15, 416);
             this.Kaydet.Name = "Kaydet";
-            this.Kaydet.Size = new System.Drawing.Size(374, 52);
+            this.Kaydet.Size = new System.Drawing.Size(380, 52);
             this.Kaydet.TabIndex = 4;
             this.Kaydet.Text = "Kaydet";
             this.Kaydet.UseVisualStyleBackColor = true;

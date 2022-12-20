@@ -138,6 +138,7 @@
             this.İşTakip_Müşteriler.Margin = new System.Windows.Forms.Padding(4);
             this.İşTakip_Müşteriler.Name = "İşTakip_Müşteriler";
             this.İşTakip_Müşteriler.Size = new System.Drawing.Size(456, 28);
+            this.İşTakip_Müşteriler.Sorted = true;
             this.İşTakip_Müşteriler.TabIndex = 4;
             this.İşTakip_Müşteriler.SelectedIndexChanged += new System.EventHandler(this.İşTakip_Müşteriler_TextChanged);
             this.İşTakip_Müşteriler.TextChanged += new System.EventHandler(this.İşTakip_Müşteriler_TextChanged);
@@ -281,11 +282,11 @@
             // 
             this.tabPage4.AutoScroll = true;
             this.tabPage4.Controls.Add(this.P_İşTakip_TeslimEdildi);
-            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Location = new System.Drawing.Point(4, 29);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage4.Size = new System.Drawing.Size(601, 307);
+            this.tabPage4.Size = new System.Drawing.Size(601, 303);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Teslim Edildi";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -393,11 +394,11 @@
             // 
             this.tabPage5.AutoScroll = true;
             this.tabPage5.Controls.Add(this.P_İşTakip_ÖdemeBekleyen);
-            this.tabPage5.Location = new System.Drawing.Point(4, 25);
+            this.tabPage5.Location = new System.Drawing.Point(4, 29);
             this.tabPage5.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage5.Size = new System.Drawing.Size(601, 307);
+            this.tabPage5.Size = new System.Drawing.Size(601, 303);
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "Ödeme Bekleyen";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -504,6 +505,7 @@
             this.İşTakip_ÖdemeBekleyen_Dönem.Margin = new System.Windows.Forms.Padding(4);
             this.İşTakip_ÖdemeBekleyen_Dönem.Name = "İşTakip_ÖdemeBekleyen_Dönem";
             this.İşTakip_ÖdemeBekleyen_Dönem.Size = new System.Drawing.Size(382, 28);
+            this.İşTakip_ÖdemeBekleyen_Dönem.Sorted = true;
             this.İşTakip_ÖdemeBekleyen_Dönem.TabIndex = 12;
             this.İşTakip_ÖdemeBekleyen_Dönem.TextChanged += new System.EventHandler(this.İşTakip_ÖdemeBekleyen_Dönem_TextChanged);
             // 
@@ -511,11 +513,11 @@
             // 
             this.tabPage6.AutoScroll = true;
             this.tabPage6.Controls.Add(this.P_İşTakip_Ödendi);
-            this.tabPage6.Location = new System.Drawing.Point(4, 25);
+            this.tabPage6.Location = new System.Drawing.Point(4, 29);
             this.tabPage6.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage6.Size = new System.Drawing.Size(601, 307);
+            this.tabPage6.Size = new System.Drawing.Size(601, 303);
             this.tabPage6.TabIndex = 3;
             this.tabPage6.Text = "Ödendi";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -542,6 +544,7 @@
             this.İşTakip_Ödendi_Dönem.Margin = new System.Windows.Forms.Padding(4);
             this.İşTakip_Ödendi_Dönem.Name = "İşTakip_Ödendi_Dönem";
             this.İşTakip_Ödendi_Dönem.Size = new System.Drawing.Size(85, 28);
+            this.İşTakip_Ödendi_Dönem.Sorted = true;
             this.İşTakip_Ödendi_Dönem.TabIndex = 22;
             this.İşTakip_Ödendi_Dönem.TextChanged += new System.EventHandler(this.İşTakip_Ödendi_Dönem_TextChanged);
             // 

@@ -34,8 +34,7 @@
             this.Müşteriler = new System.Windows.Forms.Button();
             this.İş_Türleri = new System.Windows.Forms.Button();
             this.Ücretler = new System.Windows.Forms.Button();
-            this.Tüm_Malzemeler = new System.Windows.Forms.Button();
-            this.Yeni_Malzeme_Girişi = new System.Windows.Forms.Button();
+            this.Malzemeler = new System.Windows.Forms.Button();
             this.Yazdırma = new System.Windows.Forms.Button();
             this.P_YeniParola = new System.Windows.Forms.Panel();
             this.YeniParola_Etiket = new System.Windows.Forms.Label();
@@ -77,7 +76,7 @@
             this.Yeni_Talep_Girişi.Location = new System.Drawing.Point(34, 8);
             this.Yeni_Talep_Girişi.Margin = new System.Windows.Forms.Padding(6);
             this.Yeni_Talep_Girişi.Name = "Yeni_Talep_Girişi";
-            this.Yeni_Talep_Girişi.Size = new System.Drawing.Size(228, 68);
+            this.Yeni_Talep_Girişi.Size = new System.Drawing.Size(335, 68);
             this.Yeni_Talep_Girişi.TabIndex = 0;
             this.Yeni_Talep_Girişi.Text = "Yeni İş Girişi";
             this.Yeni_Talep_Girişi.UseVisualStyleBackColor = true;
@@ -89,7 +88,7 @@
             this.Tüm_Talepler.Location = new System.Drawing.Point(34, 88);
             this.Tüm_Talepler.Margin = new System.Windows.Forms.Padding(6);
             this.Tüm_Talepler.Name = "Tüm_Talepler";
-            this.Tüm_Talepler.Size = new System.Drawing.Size(228, 68);
+            this.Tüm_Talepler.Size = new System.Drawing.Size(335, 68);
             this.Tüm_Talepler.TabIndex = 1;
             this.Tüm_Talepler.Text = "Tüm İşler";
             this.Tüm_Talepler.UseVisualStyleBackColor = true;
@@ -131,31 +130,17 @@
             this.Ücretler.UseVisualStyleBackColor = true;
             this.Ücretler.Click += new System.EventHandler(this.Tuş_Click);
             // 
-            // Tüm_Malzemeler
+            // Malzemeler
             // 
-            this.Tüm_Malzemeler.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Tüm_Malzemeler.Location = new System.Drawing.Point(34, 248);
-            this.Tüm_Malzemeler.Margin = new System.Windows.Forms.Padding(6);
-            this.Tüm_Malzemeler.Name = "Tüm_Malzemeler";
-            this.Tüm_Malzemeler.Size = new System.Drawing.Size(228, 68);
-            this.Tüm_Malzemeler.TabIndex = 3;
-            this.Tüm_Malzemeler.Text = "Tüm Malzemeler";
-            this.Tüm_Malzemeler.UseVisualStyleBackColor = true;
-            this.Tüm_Malzemeler.Visible = false;
-            this.Tüm_Malzemeler.Click += new System.EventHandler(this.Tuş_Click);
-            // 
-            // Yeni_Malzeme_Girişi
-            // 
-            this.Yeni_Malzeme_Girişi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Yeni_Malzeme_Girişi.Location = new System.Drawing.Point(34, 168);
-            this.Yeni_Malzeme_Girişi.Margin = new System.Windows.Forms.Padding(6);
-            this.Yeni_Malzeme_Girişi.Name = "Yeni_Malzeme_Girişi";
-            this.Yeni_Malzeme_Girişi.Size = new System.Drawing.Size(228, 68);
-            this.Yeni_Malzeme_Girişi.TabIndex = 2;
-            this.Yeni_Malzeme_Girişi.Text = "Yeni Malzeme Girişi";
-            this.Yeni_Malzeme_Girişi.UseVisualStyleBackColor = true;
-            this.Yeni_Malzeme_Girişi.Visible = false;
-            this.Yeni_Malzeme_Girişi.Click += new System.EventHandler(this.Tuş_Click);
+            this.Malzemeler.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.Malzemeler.Location = new System.Drawing.Point(34, 168);
+            this.Malzemeler.Margin = new System.Windows.Forms.Padding(6);
+            this.Malzemeler.Name = "Malzemeler";
+            this.Malzemeler.Size = new System.Drawing.Size(335, 68);
+            this.Malzemeler.TabIndex = 3;
+            this.Malzemeler.Text = "Malzemeler";
+            this.Malzemeler.UseVisualStyleBackColor = true;
+            this.Malzemeler.Click += new System.EventHandler(this.Tuş_Click);
             // 
             // Yazdırma
             // 
@@ -274,22 +259,22 @@
             this.P_AnaMenü.Controls.Add(this.Ayarlar);
             this.P_AnaMenü.Controls.Add(this.Yeni_Talep_Girişi);
             this.P_AnaMenü.Controls.Add(this.Tüm_Talepler);
-            this.P_AnaMenü.Controls.Add(this.Yeni_Malzeme_Girişi);
-            this.P_AnaMenü.Controls.Add(this.Tüm_Malzemeler);
+            this.P_AnaMenü.Controls.Add(this.Malzemeler);
             this.P_AnaMenü.Location = new System.Drawing.Point(6, 6);
             this.P_AnaMenü.Name = "P_AnaMenü";
-            this.P_AnaMenü.Size = new System.Drawing.Size(293, 407);
+            this.P_AnaMenü.Size = new System.Drawing.Size(400, 327);
             this.P_AnaMenü.TabIndex = 10;
             this.P_AnaMenü.Visible = false;
+            this.P_AnaMenü.VisibleChanged += new System.EventHandler(this.P_AnaMenü_VisibleChanged);
             this.P_AnaMenü.DoubleClick += new System.EventHandler(this.Açılış_Ekranı_DoubleClick);
             // 
             // Ayarlar
             // 
             this.Ayarlar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Ayarlar.Location = new System.Drawing.Point(34, 328);
+            this.Ayarlar.Location = new System.Drawing.Point(34, 248);
             this.Ayarlar.Margin = new System.Windows.Forms.Padding(6);
             this.Ayarlar.Name = "Ayarlar";
-            this.Ayarlar.Size = new System.Drawing.Size(217, 68);
+            this.Ayarlar.Size = new System.Drawing.Size(335, 68);
             this.Ayarlar.TabIndex = 4;
             this.Ayarlar.Text = "Ayarlar";
             this.Ayarlar.UseVisualStyleBackColor = true;
@@ -466,8 +451,7 @@
         private System.Windows.Forms.Button Müşteriler;
         private System.Windows.Forms.Button İş_Türleri;
         private System.Windows.Forms.Button Ücretler;
-        private System.Windows.Forms.Button Tüm_Malzemeler;
-        private System.Windows.Forms.Button Yeni_Malzeme_Girişi;
+        private System.Windows.Forms.Button Malzemeler;
         private System.Windows.Forms.Button Yazdırma;
         private System.Windows.Forms.Panel P_YeniParola;
         private System.Windows.Forms.MaskedTextBox YeniParola_2;

@@ -88,6 +88,18 @@
     <Compile Include="Ekranlar\Açılış_Ekranı.Designer.cs">
       <DependentUpon>Açılış_Ekranı.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ekranlar\Malzemeler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ekranlar\Malzemeler.Designer.cs">
+      <DependentUpon>Malzemeler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ekranlar\İş_Türleri.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ekranlar\İş_Türleri.Designer.cs">
+      <DependentUpon>İş_Türleri.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ekranlar\Yazdırma.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,12 +117,6 @@
     </Compile>
     <Compile Include="Ekranlar\Tüm_Talepler.Designer.cs">
       <DependentUpon>Tüm_Talepler.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Ekranlar\İş_Türleri.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Ekranlar\İş_Türleri.Designer.cs">
-      <DependentUpon>İş_Türleri.cs</DependentUpon>
     </Compile>
     <Compile Include="Ekranlar\Müşteriler.cs">
       <SubType>Form</SubType>
@@ -174,6 +180,12 @@
     <EmbeddedResource Include="Ekranlar\Açılış_Ekranı.resx">
       <DependentUpon>Açılış_Ekranı.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Ekranlar\Malzemeler.resx">
+      <DependentUpon>Malzemeler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ekranlar\İş_Türleri.resx">
+      <DependentUpon>İş_Türleri.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Yazdırma.resx">
       <DependentUpon>Yazdırma.cs</DependentUpon>
     </EmbeddedResource>
@@ -189,9 +201,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Müşteriler.resx">
       <DependentUpon>Müşteriler.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Ekranlar\İş_Türleri.resx">
-      <DependentUpon>İş_Türleri.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

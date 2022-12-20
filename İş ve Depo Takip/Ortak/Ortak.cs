@@ -1,4 +1,5 @@
 ﻿using ArgeMup.HazirKod;
+using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Drawing;
 using System.IO;
@@ -16,13 +17,25 @@ namespace İş_ve_Depo_Takip
         public static string Klasör_Diğer = Kendi.Klasörü + "\\Diğer\\";
 		public static string Klasör_Gecici = Klasör.Depolama(Klasör.Kapsamı.Geçici) + "\\";
 		
-        public static string Klasör_KullanıcıYedeği = null;
-        public static string Klasör_Pdf = null;
-        public static bool AçılışEkranıİçinParaloİste = true;
-        public static bool Eposta_hesabı_mevcut = false;
+        public static string Kullanıcı_Klasör_Yedek = null;
+        public static string Kullanıcı_Klasör_Pdf = null;
+        public static bool Kullanıcı_AçılışEkranıİçinParaloİste = true;
+        public static bool Kullanıcı_Eposta_hesabı_mevcut = false;
 
-        public static TextBox BeklemeGöstergesi = null;
+        public static TextBox Gösterge_UzunİşlemİçinBekleyiniz = null;
+        public static System.Collections.Generic.Dictionary<string, string> Gösterge_UyarıVerenMalzemeler = new System.Collections.Generic.Dictionary<string, string>();
+        public static void Gösterge_Açılışİşlemi(Label Gösterge, string Açıklama, ref int Tik)
+        {
+            int geçensüre = Environment.TickCount - Tik;
+            Açıklama = Açıklama + " (" + geçensüre + " msn)";
+            Gösterge.Text += Environment.NewLine + Açıklama.Günlük();
+            Gösterge.Refresh();
+            Tik = Environment.TickCount;
+        }
 
+        public static string Şablon_TarihSaat_DosyaAdı = "yyyy_MM_dd_HH_mm_ss_fff";
+
+        public static int EşZamanlıİşlemSayısı = 3;
         static Random rnd = new Random();
         public static int RasgeleSayı(int Asgari, int Azami)
         {

@@ -55,6 +55,7 @@
             this.Müşterıler.Margin = new System.Windows.Forms.Padding(4);
             this.Müşterıler.Name = "Müşterıler";
             this.Müşterıler.Size = new System.Drawing.Size(339, 462);
+            this.Müşterıler.Sorted = true;
             this.Müşterıler.TabIndex = 0;
             this.Müşterıler.SelectedIndexChanged += new System.EventHandler(this.Müşterıler_SelectedIndexChanged);
             // 

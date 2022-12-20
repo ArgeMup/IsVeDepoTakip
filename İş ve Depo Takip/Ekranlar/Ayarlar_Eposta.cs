@@ -90,7 +90,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar.Yaz("Mesaj/İçerik", Mesaj_İçerik.Text);
             Banka.Değişiklikleri_Kaydet();
 
-            Ortak.Eposta_hesabı_mevcut = !string.IsNullOrEmpty(Gönderici_Şifre.Text);
+            Ortak.Kullanıcı_Eposta_hesabı_mevcut = !string.IsNullOrEmpty(Gönderici_Şifre.Text);
             
             Kaydet.Enabled = false;
         }
