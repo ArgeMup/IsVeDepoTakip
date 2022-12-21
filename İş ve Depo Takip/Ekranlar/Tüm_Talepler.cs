@@ -482,7 +482,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             İpUcu.SetToolTip(Tablo, ipucu);
 
-            Yazdır.Enabled = false;
+            Yazdır.Enabled = true;
         }
 
         private void Tablo_DoubleClick(object sender, EventArgs e)
@@ -547,6 +547,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (!string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Pdf)) Dosya.Kopyala(dosyayolu, Ortak.Kullanıcı_Klasör_Pdf + İşTakip_Müşteriler.Text + "\\" + gerçekdosyadı);
             
             Ortak.Pdf_AçmayaÇalış(dosyayolu);
+            if (Seviye2_Ödendi.Checked) return; //ödendiği için tekrar eposta gönderme
 
             if (!Ortak.Kullanıcı_Eposta_hesabı_mevcut) return;
             IDepo_Eleman m = Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Müşteriler/" + İşTakip_Müşteriler.Text);

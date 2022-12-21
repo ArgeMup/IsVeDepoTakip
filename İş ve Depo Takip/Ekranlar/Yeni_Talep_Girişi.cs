@@ -26,7 +26,8 @@ namespace İş_ve_Depo_Takip
         {
             Müşteriler.Items.Clear();
 
-            Tablo_İş_Türü.Items.AddRange(Banka.İşTürü_Listele().ToArray());
+            List<string> İşTürleri = Banka.İşTürü_Listele();
+            Tablo_İş_Türü.Items.AddRange(İşTürleri.ToArray());
 
             if (Müşteri == null)
             {
@@ -47,17 +48,27 @@ namespace İş_ve_Depo_Takip
                 İskonto.Text = elm_ları[1];
                 Notlar.Text = elm_ları[2];
 
+                string hata_bilgilendirmesi = "";
                 Tablo.RowCount = elm_ları.Elemanları.Length + 1;
                 for (int i = 0; i < elm_ları.Elemanları.Length; i++)
                 {
-                    Tablo[0, i].Value = elm_ları.Elemanları[i][0]; //iş türü
+                    if (!İşTürleri.Contains(elm_ları.Elemanları[i][0]))
+                    {
+                        //eskiden varolan şuanda bulunmayan bir iş türü 
+                        hata_bilgilendirmesi += (i + 1) + ". satırdaki \"" + elm_ları.Elemanları[i][0] + "\" olarak tanımlı iş türü şuanda mevcut olmadığından satır içeriği boş olarak bırakıldı" + Environment.NewLine;
+                    }
+                    else Tablo[0, i].Value = elm_ları.Elemanları[i][0]; //iş türü
+                    
                     Tablo[1, i].Value = elm_ları.Elemanları[i][2]; //ücret
                     Tablo[2, i].Value = elm_ları.Elemanları[i][1]; //tarih
                     elm_ları.Elemanları[i].Sil(null);
 
                     Tablo.Rows[i].ReadOnly = true;
                 }
-                bool _ = elm_ları.İçiBoşOlduğuİçinSilinecek;
+
+                bool _ = elm_ları.İçiBoşOlduğuİçinSilinecek; //geçerli kaydı sil, kaydet tuşuna basınca tekrar oluşturulacak
+
+                if (!string.IsNullOrEmpty(hata_bilgilendirmesi)) MessageBox.Show(hata_bilgilendirmesi, Text);
             }
 
             Tablo.Rows[Tablo.RowCount - 1].Selected = true;
@@ -232,6 +243,7 @@ namespace İş_ve_Depo_Takip
                 Hasta.Focus();
                 return;
             }
+            Hasta.Text = Hasta.Text.Trim();
 
             try
             {
@@ -313,6 +325,7 @@ namespace İş_ve_Depo_Takip
 
             Banka.Talep_Ekle(Müşteriler.Text, Hasta.Text, İskonto.Text, Notlar.Text, it_leri, ücret_ler, tarih_ler, SeriNo);
             Banka.Değişiklikleri_Kaydet();
+            
             Kaydet.Enabled = false;
             Close();
         }

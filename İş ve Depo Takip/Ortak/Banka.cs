@@ -635,6 +635,8 @@ namespace İş_ve_Depo_Takip
         }
         public static void Malzeme_İştürüneGöreHareket(List<string> İşTürleri, bool Eksilt)
         {
+            //İşTürleri değişkeni içeriğini silerek ilerliyor
+
             Depo_ d_malzemeler = Tablo(null, TabloTürü.Malzemeler);
             if (d_malzemeler == null) return;
 
@@ -824,7 +826,6 @@ namespace İş_ve_Depo_Takip
             d[0] = Hasta;
             d[1] = İskonto;
             d[2] = Notlar;
-            d[3] = null; //teslim edilme tarihi
 
             for (int i = 0; i < İşTürleri.Count; i++)
             {
@@ -832,6 +833,12 @@ namespace İş_ve_Depo_Takip
                 d.Yaz(ad, İşTürleri[i], 0);
                 d.Yaz(ad, GirişTarihleri[i], 1);
                 d.Yaz(ad, Ücretler[i], 2);
+            }
+
+            if (!string.IsNullOrEmpty(d[3]))
+            {
+                d[3] = null; //teslim edilme tarihi
+                Malzeme_İştürüneGöreHareket(İşTürleri, false);//depoya geri teslim et
             }
         }
         public static void Talep_Sil(string Müşteri, List<string> Seri_No_lar)
