@@ -217,6 +217,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
         List<string> İşTakip_Müşteriler_AramaÇubuğu_Liste = null;
         private void İşTakip_Müşteriler_AramaÇubuğu_TextChanged(object sender, EventArgs e)
         {
+            P_İşTakip_DevamEden.Visible = false;
+            P_İşTakip_TeslimEdildi.Visible = false;
+            P_İşTakip_ÖdemeBekleyen.Visible = false;
+            P_İşTakip_Ödendi.Visible = false;
             İşTakip_Müşteriler.Items.Clear();
             
             if (string.IsNullOrEmpty(İşTakip_Müşteriler_AramaÇubuğu.Text))

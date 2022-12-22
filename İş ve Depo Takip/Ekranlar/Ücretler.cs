@@ -34,9 +34,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Zam_Miktarı.Text = "0";
 
             Müşterıler.Text = "Tüm müşteriler için ortak";
-            Müşterıler.Focus();
-            Müşterıler.Enabled = true;
             Kaydet.Enabled = false;
+            splitContainer1.Panel1.Enabled = true;
+            Müşterıler.Focus();
 
             KeyDown += Yeni_Talep_Girişi_Tuş;
             KeyUp += Yeni_Talep_Girişi_Tuş;
@@ -65,6 +65,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         List<string> AramaÇubuğu_Müşteri_Liste = null;
         private void AramaÇubuğu_Müşteri_TextChanged(object sender, EventArgs e)
         {
+            splitContainer1.Panel2.Enabled = false;
             Müşterıler.Items.Clear();
 
             if (string.IsNullOrEmpty(AramaÇubuğu_Müşteri.Text))
@@ -106,7 +107,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             else Banka.Ücretler_TablodaGöster(Tablo, Müşterıler.Text);
 
-            Müşterıler.Enabled = true;
+            splitContainer1.Panel1.Enabled = true;
+            splitContainer1.Panel2.Enabled = true;
             Kaydet.Enabled = false;
         }
 
@@ -143,7 +145,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
 
-            Müşterıler.Enabled = false;
+            splitContainer1.Panel1.Enabled = false;
             Kaydet.Enabled = true;
         }
 
@@ -175,7 +177,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Banka.Değişiklikleri_Kaydet();
 
             Kaydet.Enabled = false;
-            Müşterıler.Enabled = true;
+            splitContainer1.Panel1.Enabled = true;
         }
     }
 }

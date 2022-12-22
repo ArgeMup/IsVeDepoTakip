@@ -263,7 +263,7 @@ namespace İş_ve_Depo_Takip
         private void İştürü_SeçiliSatıraKopyala_Click(object sender, EventArgs e)
         {
             var l = Tablo.SelectedRows;
-            if (l == null || l.Count > 1) return;
+            if (l == null || l.Count != 1) return;
 
             int konum = l[0].Index;
             if (konum == Tablo.RowCount - 1) Tablo.RowCount++;

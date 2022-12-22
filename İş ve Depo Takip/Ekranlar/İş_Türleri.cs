@@ -19,7 +19,10 @@ namespace İş_ve_Depo_Takip
             Liste.Items.AddRange(AramaÇubuğu_Liste.ToArray());
             if (Liste.Items.Count > 0) Sil.Enabled = true;
 
-            Tablo_Malzeme.Items.AddRange(Banka.Malzeme_Listele().ToArray());
+            Malzeme_Liste = Banka.Malzeme_Listele();
+            string[] m_l = Malzeme_Liste.ToArray();
+            Malzeme_SeçimKutusu.Items.AddRange(m_l);
+            Tablo_Malzeme.Items.AddRange(m_l);
 
             Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
 
@@ -58,6 +61,7 @@ namespace İş_ve_Depo_Takip
         List<string> AramaÇubuğu_Liste = null;
         private void AramaÇubuğu_TextChanged(object sender, EventArgs e)
         {
+            splitContainer1.Panel2.Enabled = false;
             Liste.Items.Clear();
 
             if (string.IsNullOrEmpty(AramaÇubuğu.Text))
@@ -69,6 +73,37 @@ namespace İş_ve_Depo_Takip
                 AramaÇubuğu.Text = AramaÇubuğu.Text.ToLower();
                 Liste.Items.AddRange(AramaÇubuğu_Liste.FindAll(x => x.ToLower().Contains(AramaÇubuğu.Text)).ToArray());
             }
+        }
+
+        List<string> Malzeme_Liste = null;
+        private void Malzeme_TextChanged(object sender, EventArgs e)
+        {
+            Malzeme_SeçiliSatıraKopyala.Enabled = false;
+            Malzeme_SeçimKutusu.Items.Clear();
+
+            if (string.IsNullOrEmpty(Malzeme_AramaÇubuğu.Text))
+            {
+                Malzeme_SeçimKutusu.Items.AddRange(Malzeme_Liste.ToArray());
+            }
+            else
+            {
+                Malzeme_AramaÇubuğu.Text = Malzeme_AramaÇubuğu.Text.ToLower();
+                Malzeme_SeçimKutusu.Items.AddRange(Malzeme_Liste.FindAll(x => x.ToLower().Contains(Malzeme_AramaÇubuğu.Text)).ToArray());
+            }
+        }
+        private void Malzeme_SeçimKutusu_SelectedValueChanged(object sender, System.EventArgs e)
+        {
+            Malzeme_SeçiliSatıraKopyala.Enabled = !string.IsNullOrEmpty(Malzeme_SeçimKutusu.Text);
+        }
+        private void Malzeme_SeçiliSatıraKopyala_Click(object sender, EventArgs e)
+        {
+            var l = Tablo.SelectedRows;
+            if (l == null || l.Count != 1) return;
+
+            int konum = l[0].Index;
+            if (konum == Tablo.RowCount - 1) Tablo.RowCount++;
+
+            Tablo[0, konum].Value = Malzeme_SeçimKutusu.Text;
         }
 
         private void Liste_SelectedValueChanged(object sender, System.EventArgs e)
@@ -144,19 +179,6 @@ namespace İş_ve_Depo_Takip
 
             for (int i = 0; i < Tablo.RowCount - 1; i++)
             {
-                if (!Banka.Malzeme_MevcutMu((string)Tablo[0, i].Value))
-                {
-                    MessageBox.Show("Tablodaki " + (i + 1) + ". satırdaki \"Malzeme\" uygun değil", Text);
-                    return;
-                }
-
-                if (EklenmişMalzmeler.Contains((string)Tablo[0, i].Value))
-                {
-                    MessageBox.Show("Tablodaki " + (i + 1).ToString() + ". satırdaki " + (string)Tablo[0, i].Value + " malzemesi ikinci kez seçilmiş, lütfen fazla olanı siliniz", Text);
-                    return;
-                }
-                else EklenmişMalzmeler.Add((string)Tablo[0, i].Value); 
-
                 try
                 {
                     double miktar = ((string)Tablo[1, i].Value).NoktalıSayıya();
@@ -172,6 +194,19 @@ namespace İş_ve_Depo_Takip
                     MessageBox.Show("Tablodaki " + (i + 1).ToString() + ". satırdaki miktar kutucuğu içeriği sayıya dönüştürülemedi.", Text);
                     return;
                 }
+
+                if (!Banka.Malzeme_MevcutMu((string)Tablo[0, i].Value))
+                {
+                    MessageBox.Show("Tablodaki " + (i + 1) + ". satırdaki \"Malzeme\" uygun değil", Text);
+                    return;
+                }
+
+                if (EklenmişMalzmeler.Contains((string)Tablo[0, i].Value))
+                {
+                    MessageBox.Show("Tablodaki " + (i + 1).ToString() + ". satırdaki " + (string)Tablo[0, i].Value + " malzemesi ikinci kez seçilmiş, lütfen fazla olanı siliniz", Text);
+                    return;
+                }
+                else EklenmişMalzmeler.Add((string)Tablo[0, i].Value); 
 
                 Malzemeler.Add((string)Tablo[0, i].Value);
                 Miktarlar.Add((string)Tablo[1, i].Value);

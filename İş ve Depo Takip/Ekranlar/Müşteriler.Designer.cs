@@ -42,10 +42,10 @@
             this.Eposta_Kime = new System.Windows.Forms.TextBox();
             this.Kaydet = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.AramaÇubuğu = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Notlar = new System.Windows.Forms.TextBox();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
-            this.AramaÇubuğu = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -220,9 +220,21 @@
             this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
             this.splitContainer1.Panel2.Controls.Add(this.Kaydet);
             this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
+            this.splitContainer1.Panel2.Enabled = false;
             this.splitContainer1.Size = new System.Drawing.Size(841, 498);
             this.splitContainer1.SplitterDistance = 430;
             this.splitContainer1.TabIndex = 5;
+            // 
+            // AramaÇubuğu
+            // 
+            this.AramaÇubuğu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.AramaÇubuğu.Location = new System.Drawing.Point(15, 14);
+            this.AramaÇubuğu.Name = "AramaÇubuğu";
+            this.AramaÇubuğu.Size = new System.Drawing.Size(404, 36);
+            this.AramaÇubuğu.TabIndex = 4;
+            this.İpUcu.SetToolTip(this.AramaÇubuğu, "Arama çubuğu");
+            this.AramaÇubuğu.TextChanged += new System.EventHandler(this.AramaÇubuğu_TextChanged);
             // 
             // groupBox2
             // 
@@ -252,17 +264,6 @@
             this.İpUcu.AutomaticDelay = 0;
             this.İpUcu.UseAnimation = false;
             this.İpUcu.UseFading = false;
-            // 
-            // AramaÇubuğu
-            // 
-            this.AramaÇubuğu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.AramaÇubuğu.Location = new System.Drawing.Point(15, 14);
-            this.AramaÇubuğu.Name = "AramaÇubuğu";
-            this.AramaÇubuğu.Size = new System.Drawing.Size(404, 36);
-            this.AramaÇubuğu.TabIndex = 4;
-            this.İpUcu.SetToolTip(this.AramaÇubuğu, "Arama çubuğu");
-            this.AramaÇubuğu.TextChanged += new System.EventHandler(this.AramaÇubuğu_TextChanged);
             // 
             // Müşteriler
             // 

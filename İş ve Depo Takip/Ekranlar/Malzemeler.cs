@@ -57,6 +57,7 @@ namespace İş_ve_Depo_Takip
         List<string> AramaÇubuğu_Liste = null;
         private void AramaÇubuğu_TextChanged(object sender, EventArgs e)
         {
+            splitContainer1.Panel2.Enabled = false;
             Liste.Items.Clear();
 
             if (string.IsNullOrEmpty(AramaÇubuğu.Text))
@@ -75,6 +76,7 @@ namespace İş_ve_Depo_Takip
             Sil.Enabled = !string.IsNullOrEmpty(Liste.Text);
 
             if (!Sil.Enabled) { splitContainer1.Panel2.Enabled = false; return; }
+            Yeni.Text = Liste.Text;
 
             Banka.Malzeme_TablodaGöster(Tablo, Liste.Text, out double Miktar, out string Birim, out double UyarıVermeMiktar, out string Notları);
             Miktarı.Text = Miktar.Yazıya();

@@ -1279,7 +1279,7 @@ namespace İş_ve_Depo_Takip
 #if DEBUG
             byte[] çıktı = içerik.BaytDizisine();
 #else
-string tarihsaat = D_TarihSaat.Yazıya(DateTime.Now, D_TarihSaat.Şablon_DosyaAdı);
+            string tarihsaat = D_TarihSaat.Yazıya(DateTime.Now, D_TarihSaat.Şablon_DosyaAdı);
             byte[] dizi_içerik = içerik.BaytDizisine();
             byte[] dizi_doko = D_Yazı.BaytDizisine(tarihsaat + ";" + DoğrulamaKodu.Üret.BaytDizisinden(dizi_içerik).HexYazıya());
 

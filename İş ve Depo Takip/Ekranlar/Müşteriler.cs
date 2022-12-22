@@ -36,6 +36,7 @@ namespace İş_ve_Depo_Takip
         List<string> AramaÇubuğu_Liste = null;
         private void AramaÇubuğu_TextChanged(object sender, EventArgs e)
         {
+            splitContainer1.Panel2.Enabled = false;
             Liste.Items.Clear();
 
             if (string.IsNullOrEmpty(AramaÇubuğu.Text))
