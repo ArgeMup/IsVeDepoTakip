@@ -58,6 +58,7 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.Hata = new System.Windows.Forms.ErrorProvider(this.components);
             this.AçılışYazısı = new System.Windows.Forms.Label();
+            this.ParolayıDeğiştir = new System.Windows.Forms.Button();
             this.P_YeniParola.SuspendLayout();
             this.P_Parola.SuspendLayout();
             this.P_AnaMenü.SuspendLayout();
@@ -149,7 +150,7 @@
             this.Yazdırma.Margin = new System.Windows.Forms.Padding(6);
             this.Yazdırma.Name = "Yazdırma";
             this.Yazdırma.Size = new System.Drawing.Size(199, 68);
-            this.Yazdırma.TabIndex = 6;
+            this.Yazdırma.TabIndex = 7;
             this.Yazdırma.Text = "Yazdırma";
             this.Yazdırma.UseVisualStyleBackColor = true;
             this.Yazdırma.Click += new System.EventHandler(this.Tuş_Click);
@@ -165,6 +166,7 @@
             this.P_YeniParola.Name = "P_YeniParola";
             this.P_YeniParola.Size = new System.Drawing.Size(347, 246);
             this.P_YeniParola.TabIndex = 9;
+            this.P_YeniParola.Tag = "";
             this.P_YeniParola.Visible = false;
             this.P_YeniParola.DoubleClick += new System.EventHandler(this.Açılış_Ekranı_DoubleClick);
             // 
@@ -288,7 +290,7 @@
             this.Ayarlar_Geri.Location = new System.Drawing.Point(33, 246);
             this.Ayarlar_Geri.Margin = new System.Windows.Forms.Padding(6);
             this.Ayarlar_Geri.Name = "Ayarlar_Geri";
-            this.Ayarlar_Geri.Size = new System.Drawing.Size(409, 68);
+            this.Ayarlar_Geri.Size = new System.Drawing.Size(198, 68);
             this.Ayarlar_Geri.TabIndex = 3;
             this.Ayarlar_Geri.Text = "Geri";
             this.Ayarlar_Geri.UseVisualStyleBackColor = true;
@@ -331,6 +333,7 @@
             // 
             // P_Ayarlar
             // 
+            this.P_Ayarlar.Controls.Add(this.ParolayıDeğiştir);
             this.P_Ayarlar.Controls.Add(this.Eposta);
             this.P_Ayarlar.Controls.Add(this.Diğer);
             this.P_Ayarlar.Controls.Add(this.Müşteriler);
@@ -352,7 +355,7 @@
             this.Eposta.Margin = new System.Windows.Forms.Padding(6);
             this.Eposta.Name = "Eposta";
             this.Eposta.Size = new System.Drawing.Size(199, 68);
-            this.Eposta.TabIndex = 5;
+            this.Eposta.TabIndex = 6;
             this.Eposta.Text = "Eposta";
             this.Eposta.UseVisualStyleBackColor = true;
             this.Eposta.Click += new System.EventHandler(this.Tuş_Click);
@@ -360,7 +363,7 @@
             // Diğer
             // 
             this.Diğer.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.Diğer.Location = new System.Drawing.Point(243, 166);
+            this.Diğer.Location = new System.Drawing.Point(243, 246);
             this.Diğer.Margin = new System.Windows.Forms.Padding(6);
             this.Diğer.Name = "Diğer";
             this.Diğer.Size = new System.Drawing.Size(199, 68);
@@ -404,16 +407,28 @@
             this.AçılışYazısı.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.AçılışYazısı.Location = new System.Drawing.Point(0, 0);
             this.AçılışYazısı.Name = "AçılışYazısı";
-            this.AçılışYazısı.Size = new System.Drawing.Size(578, 449);
+            this.AçılışYazısı.Size = new System.Drawing.Size(478, 449);
             this.AçılışYazısı.TabIndex = 12;
             this.AçılışYazısı.Text = "Lütfen bekleyiniz";
             this.AçılışYazısı.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ParolayıDeğiştir
+            // 
+            this.ParolayıDeğiştir.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.ParolayıDeğiştir.Location = new System.Drawing.Point(243, 166);
+            this.ParolayıDeğiştir.Margin = new System.Windows.Forms.Padding(6);
+            this.ParolayıDeğiştir.Name = "ParolayıDeğiştir";
+            this.ParolayıDeğiştir.Size = new System.Drawing.Size(199, 68);
+            this.ParolayıDeğiştir.TabIndex = 5;
+            this.ParolayıDeğiştir.Text = "Parola";
+            this.ParolayıDeğiştir.UseVisualStyleBackColor = true;
+            this.ParolayıDeğiştir.Click += new System.EventHandler(this.Tuş_Click);
             // 
             // Açılış_Ekranı
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(578, 449);
+            this.ClientSize = new System.Drawing.Size(478, 449);
             this.Controls.Add(this.tab_sayfası);
             this.Controls.Add(this.AçılışYazısı);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -475,6 +490,7 @@
         private System.Windows.Forms.Button Diğer;
         private System.Windows.Forms.Button Eposta;
         private System.Windows.Forms.Label AçılışYazısı;
+        private System.Windows.Forms.Button ParolayıDeğiştir;
     }
 }
 

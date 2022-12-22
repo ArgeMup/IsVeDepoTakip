@@ -3,7 +3,6 @@ using ArgeMup.HazirKod.Ekİşlemler;
 using İş_ve_Depo_Takip.Ekranlar;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -13,6 +12,7 @@ namespace İş_ve_Depo_Takip
     {
         UygulamaOncedenCalistirildiMi_ UyÖnÇa;
         YeniYazılımKontrolü_ YeniYazılımKontrolü = new YeniYazılımKontrolü_();
+        int Parola_EnAzKarakterSayısı = 4;
 
         public Açılış_Ekranı()
         {
@@ -46,7 +46,7 @@ namespace İş_ve_Depo_Takip
 #if DEBUG
             P_AnaMenü.Visible = true;
 
-            //Tuş_Click(Tüm_Talepler, null);
+            //Tuş_Click(Yeni_Talep_Girişi, null);
 #else
             IDepo_Eleman b_kullanıcı = Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Kullanıcı Şifresi");
             if (b_kullanıcı == null || string.IsNullOrEmpty(b_kullanıcı[0]))
@@ -79,7 +79,11 @@ namespace İş_ve_Depo_Takip
         {
             if (WindowState == FormWindowState.Minimized)
             {
-                if (Ortak.Kullanıcı_AçılışEkranıİçinParaloİste && !P_YeniParola.Visible)
+                if (P_YeniParola.Visible)
+                {
+                    Application.Exit();
+                }
+                else if (Ortak.Kullanıcı_AçılışEkranıİçinParaloİste)
                 {
                     Parola_Giriş.Text = "";
                     P_Parola.Visible = true;
@@ -95,9 +99,9 @@ namespace İş_ve_Depo_Takip
             e = new FormClosingEventArgs(CloseReason.None, false);
 #endif
 
-            if (e.CloseReason == CloseReason.UserClosing)
+            if (!P_YeniParola.Visible && e.CloseReason == CloseReason.UserClosing)
             {
-                if (Ortak.Kullanıcı_AçılışEkranıİçinParaloİste && !P_YeniParola.Visible)
+                if (Ortak.Kullanıcı_AçılışEkranıİçinParaloİste)
                 {
                     Parola_Giriş.Text = "";
                     P_Parola.Visible = true;
@@ -135,6 +139,11 @@ namespace İş_ve_Depo_Takip
                     case "Ücretler": new Ücretler().ShowDialog(); break;
                     case "Eposta": new Ayarlar_Eposta().ShowDialog(); break;
                     case "Diğer": new Ayarlar_Diğer().ShowDialog(); break;
+                    case "Parola":
+                        P_Ayarlar.Visible = false;
+                        P_YeniParola.Visible = true;
+                        P_YeniParola.Tag = "Normal Çalışma";
+                        break;
                 }
             }
             catch (Exception ex) 
@@ -153,10 +162,10 @@ namespace İş_ve_Depo_Takip
         private void YeniParola_Kaydet_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(YeniParola_1.Text)) return;
-
-            if (YeniParola_1.Text.Length < 6)
+            
+            if (YeniParola_1.Text.Length < Parola_EnAzKarakterSayısı)
             {
-                Hata.SetError(YeniParola_Etiket, "En az 6 karakter giriniz");
+                Hata.SetError(YeniParola_Etiket, "En az " + Parola_EnAzKarakterSayısı + " karakter giriniz");
                 return;
             }
 
@@ -168,13 +177,16 @@ namespace İş_ve_Depo_Takip
 
             Parola.Kaydet(YeniParola_1.Text);
 
-            Klasör_ kls = new Klasör_(Ortak.Klasör_Banka);
-            if (kls.Dosyalar.Count > 0)
+            if ((string)P_YeniParola.Tag != "Normal Çalışma")
             {
-                Hide();
-                throw new Exception("Büyük Hata AAA");
+                Klasör_ kls = new Klasör_(Ortak.Klasör_Banka);
+                if (kls.Dosyalar.Count > 0)
+                {
+                    Hide();
+                    throw new Exception("Büyük Hata AAA");
+                }
             }
-
+            
             Banka.Değişiklikleri_Kaydet();
 
             P_YeniParola.Visible = false;
@@ -184,7 +196,7 @@ namespace İş_ve_Depo_Takip
         private void Parola_Kontrol_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Parola_Giriş.Text) || 
-                Parola_Giriş.Text.Length < 6 ||
+                Parola_Giriş.Text.Length < Parola_EnAzKarakterSayısı ||
                 !Parola.KontrolEt(Parola_Giriş.Text)) return;
 
             P_Parola.Visible = false;

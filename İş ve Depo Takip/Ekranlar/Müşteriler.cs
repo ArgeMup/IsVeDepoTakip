@@ -1,5 +1,6 @@
 ﻿using ArgeMup.HazirKod;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip
@@ -13,7 +14,8 @@ namespace İş_ve_Depo_Takip
         private void Müşteriler_Load(object sender, System.EventArgs e)
         {
             Liste.Items.Clear();
-            Liste.Items.AddRange(Banka.Müşteri_Listele().ToArray());
+            AramaÇubuğu_Liste = Banka.Müşteri_Listele();
+            Liste.Items.AddRange(AramaÇubuğu_Liste.ToArray());
             if (Liste.Items.Count > 0) Sil.Enabled = true;
 
             Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
@@ -31,11 +33,28 @@ namespace İş_ve_Depo_Takip
             Ortak.GeçiciDepolama_PencereKonumları_Yaz(this);
         }
 
+        List<string> AramaÇubuğu_Liste = null;
+        private void AramaÇubuğu_TextChanged(object sender, EventArgs e)
+        {
+            Liste.Items.Clear();
+
+            if (string.IsNullOrEmpty(AramaÇubuğu.Text))
+            {
+                Liste.Items.AddRange(AramaÇubuğu_Liste.ToArray());
+            }
+            else
+            {
+                AramaÇubuğu.Text = AramaÇubuğu.Text.ToLower();
+                Liste.Items.AddRange(AramaÇubuğu_Liste.FindAll(x => x.ToLower().Contains(AramaÇubuğu.Text)).ToArray());
+            }
+        }
+
         private void Liste_SelectedValueChanged(object sender, System.EventArgs e)
         {
             Sil.Enabled = !string.IsNullOrEmpty(Liste.Text);
 
             if (!Sil.Enabled) { splitContainer1.Panel2.Enabled = false; return; }
+            Yeni.Text = Liste.Text;
 
             IDepo_Eleman m = Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Müşteriler/" + Liste.Text);
             if (m != null)
@@ -59,6 +78,8 @@ namespace İş_ve_Depo_Takip
 
             Banka.Müşteri_Sil(Liste.Text);
             Banka.Değişiklikleri_Kaydet();
+
+            AramaÇubuğu_Liste.Remove(Liste.Text);
             Liste.Items.RemoveAt(Liste.SelectedIndex);
         }
         private void Yeni_TextChanged(object sender, System.EventArgs e)
@@ -82,7 +103,9 @@ namespace İş_ve_Depo_Takip
 
             Banka.Müşteri_Ekle(Yeni.Text);
             Banka.Değişiklikleri_Kaydet();
+
             Liste.Items.Add(Yeni.Text);
+            AramaÇubuğu_Liste.Add(Yeni.Text);
         }
 
         private void Ayar_Değişti(object sender, EventArgs e)

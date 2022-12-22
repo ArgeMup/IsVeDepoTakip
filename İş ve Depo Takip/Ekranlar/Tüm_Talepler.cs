@@ -20,33 +20,25 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             Ortak.Gösterge_UzunİşlemİçinBekleyiniz = TabloİçeriğiArama;
 
-            List<string> l = Banka.Müşteri_Listele();
-            string[] l_dizi = l.ToArray();
+            İşTakip_Müşteriler_AramaÇubuğu_Liste = Banka.Müşteri_Listele();
+            string[] l_dizi = İşTakip_Müşteriler_AramaÇubuğu_Liste.ToArray();
             İşTakip_Müşteriler.Items.AddRange(l_dizi);
             Arama_Müşteriler.Items.AddRange(l_dizi);
-            for (int i = 0; i < l.Count; i++)
-            {
-                Arama_Müşteriler.SetItemChecked(i, true);
-            }
 
-            l = Banka.İşTürü_Listele();
-            l_dizi = l.ToArray();
-            Arama_İş_Türleri.Items.AddRange(l_dizi);
-            for (int i = 0; i < l.Count; i++)
-            {
-                Arama_İş_Türleri.SetItemChecked(i, true);
-            }
+            Arama_İş_Türleri.Items.AddRange(Banka.İşTürü_Listele().ToArray());
 
             DateTime t = DateTime.Now;
             Arama_GirişTarihi_Bitiş.Value = new DateTime(t.Year, t.Month, t.Day, 23, 59, 59);
             Arama_GirişTarihi_Başlangıç.Value = new DateTime(t.Year - 1, 5, 19);
 
             splitContainer1.Panel1.Controls.Add(P_İşTakip); P_İşTakip.Dock = DockStyle.Fill; P_İşTakip.Visible = true;
-            P_İşTakip.Controls.Add(P_İşTakip_DevamEden); P_İşTakip_DevamEden.Dock = DockStyle.Fill; P_İşTakip_DevamEden.Visible = false;
-            P_İşTakip.Controls.Add(P_İşTakip_TeslimEdildi); P_İşTakip_TeslimEdildi.Dock = DockStyle.Fill; P_İşTakip_TeslimEdildi.Visible = false;
-            P_İşTakip.Controls.Add(P_İşTakip_ÖdemeBekleyen); P_İşTakip_ÖdemeBekleyen.Dock = DockStyle.Fill; P_İşTakip_ÖdemeBekleyen.Visible = false;
-            P_İşTakip.Controls.Add(P_İşTakip_Ödendi); P_İşTakip_Ödendi.Dock = DockStyle.Fill; P_İşTakip_Ödendi.Visible = false;
+            P_İşTakip.Panel2.Controls.Add(P_İşTakip_DevamEden); P_İşTakip_DevamEden.Dock = DockStyle.Fill; P_İşTakip_DevamEden.Visible = false;
+            P_İşTakip.Panel2.Controls.Add(P_İşTakip_TeslimEdildi); P_İşTakip_TeslimEdildi.Dock = DockStyle.Fill; P_İşTakip_TeslimEdildi.Visible = false;
+            P_İşTakip.Panel2.Controls.Add(P_İşTakip_ÖdemeBekleyen); P_İşTakip_ÖdemeBekleyen.Dock = DockStyle.Fill; P_İşTakip_ÖdemeBekleyen.Visible = false;
+            P_İşTakip.Panel2.Controls.Add(P_İşTakip_Ödendi); P_İşTakip_Ödendi.Dock = DockStyle.Fill; P_İşTakip_Ödendi.Visible = false;
             splitContainer1.Panel1.Controls.Add(P_Arama); P_Arama.Dock = DockStyle.Fill; P_Arama.Visible = false;
+
+            splitContainer1.SplitterDistance = Height / 3;
 
             Seviye1_işTakip.Tag = 1;
             Seviye1_Arama.Tag = 2;
@@ -73,10 +65,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if (e.Delta > 0) Font = new Font(Font.FontFamily, Font.Size + 0.2f);
                 else Font = new Font(Font.FontFamily, Font.Size - 0.2f);
             }
-        }
-        private void Tüm_Talepler_Shown(object sender, EventArgs e)
-        {
-            İşTakip_Müşteriler.DroppedDown = true;
         }
         private void Tüm_Talepler_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -142,7 +130,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     Seviye1_işTakip.Checked = false;
                     Seviye1_Arama.Checked = true;
-                    splitContainer1.SplitterDistance = Height / 4;
                     break;
 
                 case 10:
@@ -156,7 +143,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.DevamEden);
                     Banka.Talep_TablodaGöster(Tablo, bt);
-                    splitContainer1.SplitterDistance = İşTakip_Etkin_İsaretle_Bitti.PointToScreen(new Point()).Y + İşTakip_Etkin_İsaretle_Bitti.Size.Height;
 
                     if (Tablo.RowCount < 1) Seviye2_DevamEden.Checked = false;
                     break;
@@ -172,7 +158,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.TeslimEdildi);
                     Banka.Talep_TablodaGöster(Tablo, bt);
-                    splitContainer1.SplitterDistance = İşTakip_Bitti_ÖdemeTalebiOluştur.PointToScreen(new Point()).Y + İşTakip_Bitti_ÖdemeTalebiOluştur.Size.Height;
 
                     if (Tablo.RowCount < 1) Seviye2_TeslimEdildi.Checked = false;
                     break;
@@ -194,8 +179,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         if (İşTakip_ÖdemeBekleyen_Dönem.SelectedIndex != 0) İşTakip_ÖdemeBekleyen_Dönem.SelectedIndex = 0;
                     }
                     else Seviye2_ÖdemeBekleyen.Checked = false;
-
-                    splitContainer1.SplitterDistance = İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.PointToScreen(new Point()).Y + İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.Size.Height;
                     break;
 
                 case 13:
@@ -215,8 +198,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         if (İşTakip_Ödendi_Dönem.SelectedIndex != 0) İşTakip_Ödendi_Dönem.SelectedIndex = 0;
                     }
                     else Seviye2_Ödendi.Checked = false;
-
-                    splitContainer1.SplitterDistance = İşTakip_Ödendi_Dönem.PointToScreen(new Point()).Y + İşTakip_Ödendi_Dönem.Size.Height;
                     break;
             }
 
@@ -233,7 +214,22 @@ namespace İş_ve_Depo_Takip.Ekranlar
             (sender as CheckBox).Checked = !(sender as CheckBox).Checked;
         }
 
-        private void İşTakip_Müşteriler_TextChanged(object sender, EventArgs e)
+        List<string> İşTakip_Müşteriler_AramaÇubuğu_Liste = null;
+        private void İşTakip_Müşteriler_AramaÇubuğu_TextChanged(object sender, EventArgs e)
+        {
+            İşTakip_Müşteriler.Items.Clear();
+            
+            if (string.IsNullOrEmpty(İşTakip_Müşteriler_AramaÇubuğu.Text))
+            {
+                İşTakip_Müşteriler.Items.AddRange(İşTakip_Müşteriler_AramaÇubuğu_Liste.ToArray());
+            }
+            else
+            {
+                string gecici = İşTakip_Müşteriler_AramaÇubuğu.Text.ToLower();
+                İşTakip_Müşteriler.Items.AddRange(İşTakip_Müşteriler_AramaÇubuğu_Liste.FindAll(x => x.ToLower().Contains(gecici)).ToArray());
+            }
+        }
+        private void İşTakip_Müşteriler_SelectedIndexChanged(object sender, EventArgs e)
         {
             Seviye_Değişti(Seviye1_işTakip, null);
         }
@@ -782,10 +778,25 @@ namespace İş_ve_Depo_Takip.Ekranlar
             bt.Talepler = uyuşanlar;
             Banka.Talep_TablodaGöster(Tablo, bt, false);
         }
-
         private void Arama_Müşteriler_İşler_SelectedIndexChanged(object sender, EventArgs e)
         {
             (sender as CheckedListBox).SelectedIndex = -1;
+        }
+        private void Arama_Müşteriler_Seç_Click(object sender, EventArgs e)
+        {
+            bool şimdi = !Arama_Müşteriler.GetItemChecked(0);
+            for (int i = 0; i < Arama_Müşteriler.Items.Count; i++)
+            {
+                Arama_Müşteriler.SetItemChecked(i, şimdi);
+            }
+        }
+        private void Arama_İşTürleri_Seç_Click(object sender, EventArgs e)
+        {
+            bool şimdi = !Arama_İş_Türleri.GetItemChecked(0);
+            for (int i = 0; i < Arama_İş_Türleri.Items.Count; i++)
+            {
+                Arama_İş_Türleri.SetItemChecked(i, şimdi);
+            }
         }
     }
 }

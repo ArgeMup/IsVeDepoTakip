@@ -17,13 +17,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Tüm_Talepler_Load(object sender, EventArgs e)
         {
-            List<string> l = Banka.Müşteri_Listele();
-            l.Insert(0, "Tüm müşteriler için ortak");
-            Müşterıler.Items.AddRange(l.ToArray());
+            AramaÇubuğu_Müşteri_Liste = Banka.Müşteri_Listele();
+            AramaÇubuğu_Müşteri_Liste.Add("Tüm müşteriler için ortak");
+            Müşterıler.Items.AddRange(AramaÇubuğu_Müşteri_Liste.ToArray());
 
             Tablo.Rows.Clear();
-            l = Banka.İşTürü_Listele();
-            foreach (string it in l)
+            AramaÇubuğu_İşTürü_Liste = Banka.İşTürü_Listele();
+            foreach (string it in AramaÇubuğu_İşTürü_Liste)
             {
                 int y = Tablo.RowCount;
                 Tablo.RowCount++;
@@ -62,6 +62,42 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ortak.GeçiciDepolama_PencereKonumları_Yaz(this);
         }
 
+        List<string> AramaÇubuğu_Müşteri_Liste = null;
+        private void AramaÇubuğu_Müşteri_TextChanged(object sender, EventArgs e)
+        {
+            Müşterıler.Items.Clear();
+
+            if (string.IsNullOrEmpty(AramaÇubuğu_Müşteri.Text))
+            {
+                Müşterıler.Items.AddRange(AramaÇubuğu_Müşteri_Liste.ToArray());
+            }
+            else
+            {
+                AramaÇubuğu_Müşteri.Text = AramaÇubuğu_Müşteri.Text.ToLower();
+                Müşterıler.Items.AddRange(AramaÇubuğu_Müşteri_Liste.FindAll(x => x.ToLower().Contains(AramaÇubuğu_Müşteri.Text)).ToArray());
+            }
+        }
+
+        List<string> AramaÇubuğu_İşTürü_Liste = null;
+        private void AramaÇubuğu_İşTürü_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(AramaÇubuğu_İşTürü.Text))
+            {
+                for (int i = 0; i < Tablo.RowCount; i++)
+                {
+                    Tablo.Rows[i].Visible = true;
+                }
+            }
+            else
+            {
+                AramaÇubuğu_İşTürü.Text = AramaÇubuğu_İşTürü.Text.ToLower();
+                for (int i = 0; i < Tablo.RowCount; i++)
+                {
+                    Tablo.Rows[i].Visible = ((string)Tablo[0, i].Value).ToLower().Contains(AramaÇubuğu_İşTürü.Text);
+                }
+            }
+        }
+
         private void Müşterıler_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (Müşterıler.Text == "Tüm müşteriler için ortak")
@@ -90,7 +126,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             for (int i = 0; i < Tablo.RowCount; i++)
             {
-                if (Tablo[1, i].Value != null)
+                if (Tablo[1, i].Visible && Tablo[1, i].Value != null)
                 {
                     try
                     {
