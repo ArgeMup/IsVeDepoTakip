@@ -65,18 +65,25 @@ namespace İş_ve_Depo_Takip
                         //eskiden varolan şuanda bulunmayan bir iş türü 
                         hata_bilgilendirmesi += (i + 1) + ". satırdaki \"" + elm_ları.Elemanları[i][0] + "\" olarak tanımlı iş türü şuanda mevcut olmadığından satır içeriği boş olarak bırakıldı" + Environment.NewLine;
                     }
-                    else Tablo[0, i].Value = elm_ları.Elemanları[i][0]; //iş türü
-                    
+                    else
+                    {
+                        Tablo.Rows[i].ReadOnly = true;
+                        Tablo[0, i].Value = elm_ları.Elemanları[i][0]; //iş türü
+                    }
+
                     Tablo[1, i].Value = elm_ları.Elemanları[i][2]; //ücret
                     Tablo[2, i].Value = elm_ları.Elemanları[i][1]; //tarih
                     elm_ları.Elemanları[i].Sil(null);
-
-                    Tablo.Rows[i].ReadOnly = true;
                 }
 
                 bool _ = elm_ları.İçiBoşOlduğuİçinSilinecek; //geçerli kaydı sil, kaydet tuşuna basınca tekrar oluşturulacak
 
-                if (!string.IsNullOrEmpty(hata_bilgilendirmesi)) MessageBox.Show(hata_bilgilendirmesi, Text);
+                if (!string.IsNullOrEmpty(hata_bilgilendirmesi))
+                {
+                    MessageBox.Show(hata_bilgilendirmesi + Environment.NewLine + "Bu mesaj Notlar içerisine aktarıldı", Text);
+                    Notlar.Text = hata_bilgilendirmesi + Notlar.Text;
+                    Ayraç_Kat_2_3.SplitterDistance *= 2; 
+                }
             }
 
             Tablo.Rows[Tablo.RowCount - 1].Selected = true;

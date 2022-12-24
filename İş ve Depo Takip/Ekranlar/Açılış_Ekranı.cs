@@ -10,7 +10,6 @@ namespace İş_ve_Depo_Takip
 {
     public partial class Açılış_Ekranı : Form
     {
-        UygulamaOncedenCalistirildiMi_ UyÖnÇa;
         YeniYazılımKontrolü_ YeniYazılımKontrolü = new YeniYazılımKontrolü_();
         int Parola_EnAzKarakterSayısı = 4;
 
@@ -20,14 +19,6 @@ namespace İş_ve_Depo_Takip
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            UyÖnÇa = new UygulamaOncedenCalistirildiMi_();
-            if (UyÖnÇa.KontrolEt())
-            {
-                UyÖnÇa.DiğerUygulamayıÖneGetir();
-                Application.Exit();
-                return;
-            }
-
             Text = Kendi.Adı + " " + Kendi.Sürümü_Dosya;
             Icon = Properties.Resources.kendi;
 

@@ -10,6 +10,8 @@ namespace İş_ve_Depo_Takip
 {
     internal static class Program
     {
+        static UygulamaOncedenCalistirildiMi_ UyÖnÇa;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -20,9 +22,14 @@ namespace İş_ve_Depo_Takip
 
             try
             {
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new Açılış_Ekranı());
+                UyÖnÇa = new UygulamaOncedenCalistirildiMi_();
+                if (UyÖnÇa.KontrolEt()) UyÖnÇa.DiğerUygulamayıÖneGetir();
+                else
+                {
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+                    Application.Run(new Açılış_Ekranı());
+                }
             }
             catch (Exception ex) { ex.Günlük(); }
         }

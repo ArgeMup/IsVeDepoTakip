@@ -32,8 +32,8 @@ namespace İş_ve_Depo_Takip
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Yeni_Talep_Girişi));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Notlar = new System.Windows.Forms.TextBox();
             this.Tablo = new System.Windows.Forms.DataGridView();
             this.Tablo_İş_Türü = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -57,7 +57,7 @@ namespace İş_ve_Depo_Takip
             this.label7 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.Ayraç_Kat_2_3 = new System.Windows.Forms.SplitContainer();
             this.Ayraç_Kat_1_2 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             this.Müşteriler_Grup.SuspendLayout();
@@ -71,10 +71,10 @@ namespace İş_ve_Depo_Takip
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
-            this.splitContainer3.Panel1.SuspendLayout();
-            this.splitContainer3.Panel2.SuspendLayout();
-            this.splitContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Kat_2_3)).BeginInit();
+            this.Ayraç_Kat_2_3.Panel1.SuspendLayout();
+            this.Ayraç_Kat_2_3.Panel2.SuspendLayout();
+            this.Ayraç_Kat_2_3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Kat_1_2)).BeginInit();
             this.Ayraç_Kat_1_2.Panel1.SuspendLayout();
             this.Ayraç_Kat_1_2.Panel2.SuspendLayout();
@@ -106,14 +106,14 @@ namespace İş_ve_Depo_Takip
             this.Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.Tablo.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.Tablo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Tablo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Tablo_İş_Türü,
@@ -133,7 +133,7 @@ namespace İş_ve_Depo_Takip
             this.Tablo.ShowCellToolTips = false;
             this.Tablo.ShowEditingIcon = false;
             this.Tablo.ShowRowErrors = false;
-            this.Tablo.Size = new System.Drawing.Size(577, 212);
+            this.Tablo.Size = new System.Drawing.Size(574, 210);
             this.Tablo.TabIndex = 4;
             this.Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellValueChanged);
             this.Tablo.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.Tablo_EditingControlShowing);
@@ -152,8 +152,8 @@ namespace İş_ve_Depo_Takip
             // Tablo_Ücret
             // 
             this.Tablo_Ücret.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Ücret.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Ücret.DefaultCellStyle = dataGridViewCellStyle2;
             this.Tablo_Ücret.FillWeight = 30F;
             this.Tablo_Ücret.HeaderText = "Ücret ₺";
             this.Tablo_Ücret.MinimumWidth = 6;
@@ -176,7 +176,7 @@ namespace İş_ve_Depo_Takip
             this.Kaydet.Enabled = false;
             this.Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Kaydet.Location = new System.Drawing.Point(295, 222);
+            this.Kaydet.Location = new System.Drawing.Point(292, 220);
             this.Kaydet.Margin = new System.Windows.Forms.Padding(2);
             this.Kaydet.Name = "Kaydet";
             this.Kaydet.Size = new System.Drawing.Size(280, 36);
@@ -190,7 +190,7 @@ namespace İş_ve_Depo_Takip
             this.Seçili_Satırı_Sil.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Seçili_Satırı_Sil.Image = global::İş_ve_Depo_Takip.Properties.Resources.sil;
             this.Seçili_Satırı_Sil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Seçili_Satırı_Sil.Location = new System.Drawing.Point(13, 222);
+            this.Seçili_Satırı_Sil.Location = new System.Drawing.Point(13, 220);
             this.Seçili_Satırı_Sil.Margin = new System.Windows.Forms.Padding(2);
             this.Seçili_Satırı_Sil.Name = "Seçili_Satırı_Sil";
             this.Seçili_Satırı_Sil.Size = new System.Drawing.Size(280, 36);
@@ -266,7 +266,7 @@ namespace İş_ve_Depo_Takip
             this.Müşteriler_Grup.Margin = new System.Windows.Forms.Padding(4);
             this.Müşteriler_Grup.Name = "Müşteriler_Grup";
             this.Müşteriler_Grup.Padding = new System.Windows.Forms.Padding(4);
-            this.Müşteriler_Grup.Size = new System.Drawing.Size(423, 179);
+            this.Müşteriler_Grup.Size = new System.Drawing.Size(423, 156);
             this.Müşteriler_Grup.TabIndex = 13;
             this.Müşteriler_Grup.TabStop = false;
             this.Müşteriler_Grup.Text = "Müşteri";
@@ -281,7 +281,7 @@ namespace İş_ve_Depo_Takip
             this.Müşteriler_SeçimKutusu.Location = new System.Drawing.Point(4, 67);
             this.Müşteriler_SeçimKutusu.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
             this.Müşteriler_SeçimKutusu.Name = "Müşteriler_SeçimKutusu";
-            this.Müşteriler_SeçimKutusu.Size = new System.Drawing.Size(415, 104);
+            this.Müşteriler_SeçimKutusu.Size = new System.Drawing.Size(415, 79);
             this.Müşteriler_SeçimKutusu.Sorted = true;
             this.Müşteriler_SeçimKutusu.TabIndex = 4;
             this.Müşteriler_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.Müşteriler_SeçimKutusu_SelectedIndexChanged);
@@ -295,7 +295,7 @@ namespace İş_ve_Depo_Takip
             this.Hastalar_Grup.Margin = new System.Windows.Forms.Padding(4);
             this.Hastalar_Grup.Name = "Hastalar_Grup";
             this.Hastalar_Grup.Padding = new System.Windows.Forms.Padding(4);
-            this.Hastalar_Grup.Size = new System.Drawing.Size(418, 179);
+            this.Hastalar_Grup.Size = new System.Drawing.Size(418, 156);
             this.Hastalar_Grup.TabIndex = 14;
             this.Hastalar_Grup.TabStop = false;
             this.Hastalar_Grup.Text = "Hasta";
@@ -310,7 +310,7 @@ namespace İş_ve_Depo_Takip
             this.Hastalar_SeçimKutusu.Location = new System.Drawing.Point(0, 67);
             this.Hastalar_SeçimKutusu.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
             this.Hastalar_SeçimKutusu.Name = "Hastalar_SeçimKutusu";
-            this.Hastalar_SeçimKutusu.Size = new System.Drawing.Size(414, 104);
+            this.Hastalar_SeçimKutusu.Size = new System.Drawing.Size(414, 79);
             this.Hastalar_SeçimKutusu.Sorted = true;
             this.Hastalar_SeçimKutusu.TabIndex = 4;
             this.Hastalar_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.Hastalar_SeçimKutusu_SelectedIndexChanged);
@@ -325,7 +325,7 @@ namespace İş_ve_Depo_Takip
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(254, 264);
+            this.groupBox4.Size = new System.Drawing.Size(254, 262);
             this.groupBox4.TabIndex = 14;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "İş Türleri";
@@ -336,7 +336,7 @@ namespace İş_ve_Depo_Takip
             | System.Windows.Forms.AnchorStyles.Right)));
             this.İştürü_SeçiliSatıraKopyala.Enabled = false;
             this.İştürü_SeçiliSatıraKopyala.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.İştürü_SeçiliSatıraKopyala.Location = new System.Drawing.Point(11, 222);
+            this.İştürü_SeçiliSatıraKopyala.Location = new System.Drawing.Point(11, 220);
             this.İştürü_SeçiliSatıraKopyala.Margin = new System.Windows.Forms.Padding(2);
             this.İştürü_SeçiliSatıraKopyala.Name = "İştürü_SeçiliSatıraKopyala";
             this.İştürü_SeçiliSatıraKopyala.Size = new System.Drawing.Size(228, 36);
@@ -352,7 +352,7 @@ namespace İş_ve_Depo_Takip
             | System.Windows.Forms.AnchorStyles.Right)));
             this.İşTürleri_SeçimKutusu.FormattingEnabled = true;
             this.İşTürleri_SeçimKutusu.ItemHeight = 25;
-            this.İşTürleri_SeçimKutusu.Location = new System.Drawing.Point(11, 74);
+            this.İşTürleri_SeçimKutusu.Location = new System.Drawing.Point(11, 71);
             this.İşTürleri_SeçimKutusu.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
             this.İşTürleri_SeçimKutusu.Name = "İşTürleri_SeçimKutusu";
             this.İşTürleri_SeçimKutusu.Size = new System.Drawing.Size(228, 129);
@@ -396,7 +396,7 @@ namespace İş_ve_Depo_Takip
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.Hastalar_Grup);
-            this.splitContainer1.Size = new System.Drawing.Size(846, 179);
+            this.splitContainer1.Size = new System.Drawing.Size(846, 156);
             this.splitContainer1.SplitterDistance = 423;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 23;
@@ -417,33 +417,33 @@ namespace İş_ve_Depo_Takip
             this.splitContainer2.Panel2.Controls.Add(this.Tablo);
             this.splitContainer2.Panel2.Controls.Add(this.Kaydet);
             this.splitContainer2.Panel2.Controls.Add(this.Seçili_Satırı_Sil);
-            this.splitContainer2.Size = new System.Drawing.Size(846, 264);
+            this.splitContainer2.Size = new System.Drawing.Size(846, 262);
             this.splitContainer2.SplitterDistance = 254;
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 24;
             // 
-            // splitContainer3
+            // Ayraç_Kat_2_3
             // 
-            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Margin = new System.Windows.Forms.Padding(4);
-            this.splitContainer3.Name = "splitContainer3";
-            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.Ayraç_Kat_2_3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Ayraç_Kat_2_3.Location = new System.Drawing.Point(0, 0);
+            this.Ayraç_Kat_2_3.Margin = new System.Windows.Forms.Padding(4);
+            this.Ayraç_Kat_2_3.Name = "Ayraç_Kat_2_3";
+            this.Ayraç_Kat_2_3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer3.Panel1
+            // Ayraç_Kat_2_3.Panel1
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.Notlar);
-            this.splitContainer3.Panel1.Controls.Add(this.label7);
-            this.splitContainer3.Panel1.Controls.Add(this.İskonto);
-            this.splitContainer3.Panel1.Controls.Add(this.label6);
+            this.Ayraç_Kat_2_3.Panel1.Controls.Add(this.Notlar);
+            this.Ayraç_Kat_2_3.Panel1.Controls.Add(this.label7);
+            this.Ayraç_Kat_2_3.Panel1.Controls.Add(this.İskonto);
+            this.Ayraç_Kat_2_3.Panel1.Controls.Add(this.label6);
             // 
-            // splitContainer3.Panel2
+            // Ayraç_Kat_2_3.Panel2
             // 
-            this.splitContainer3.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer3.Size = new System.Drawing.Size(846, 329);
-            this.splitContainer3.SplitterDistance = 60;
-            this.splitContainer3.SplitterWidth = 5;
-            this.splitContainer3.TabIndex = 25;
+            this.Ayraç_Kat_2_3.Panel2.Controls.Add(this.splitContainer2);
+            this.Ayraç_Kat_2_3.Size = new System.Drawing.Size(846, 327);
+            this.Ayraç_Kat_2_3.SplitterDistance = 60;
+            this.Ayraç_Kat_2_3.SplitterWidth = 5;
+            this.Ayraç_Kat_2_3.TabIndex = 25;
             // 
             // Ayraç_Kat_1_2
             // 
@@ -459,9 +459,9 @@ namespace İş_ve_Depo_Takip
             // 
             // Ayraç_Kat_1_2.Panel2
             // 
-            this.Ayraç_Kat_1_2.Panel2.Controls.Add(this.splitContainer3);
-            this.Ayraç_Kat_1_2.Size = new System.Drawing.Size(846, 513);
-            this.Ayraç_Kat_1_2.SplitterDistance = 179;
+            this.Ayraç_Kat_1_2.Panel2.Controls.Add(this.Ayraç_Kat_2_3);
+            this.Ayraç_Kat_1_2.Size = new System.Drawing.Size(846, 488);
+            this.Ayraç_Kat_1_2.SplitterDistance = 156;
             this.Ayraç_Kat_1_2.SplitterWidth = 5;
             this.Ayraç_Kat_1_2.TabIndex = 26;
             // 
@@ -469,7 +469,7 @@ namespace İş_ve_Depo_Takip
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(846, 513);
+            this.ClientSize = new System.Drawing.Size(846, 488);
             this.Controls.Add(this.Ayraç_Kat_1_2);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -496,11 +496,11 @@ namespace İş_ve_Depo_Takip
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            this.splitContainer3.Panel1.ResumeLayout(false);
-            this.splitContainer3.Panel1.PerformLayout();
-            this.splitContainer3.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
-            this.splitContainer3.ResumeLayout(false);
+            this.Ayraç_Kat_2_3.Panel1.ResumeLayout(false);
+            this.Ayraç_Kat_2_3.Panel1.PerformLayout();
+            this.Ayraç_Kat_2_3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Kat_2_3)).EndInit();
+            this.Ayraç_Kat_2_3.ResumeLayout(false);
             this.Ayraç_Kat_1_2.Panel1.ResumeLayout(false);
             this.Ayraç_Kat_1_2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Kat_1_2)).EndInit();
@@ -533,7 +533,7 @@ namespace İş_ve_Depo_Takip
         private System.Windows.Forms.Button İştürü_SeçiliSatıraKopyala;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.SplitContainer Ayraç_Kat_2_3;
         private System.Windows.Forms.SplitContainer Ayraç_Kat_1_2;
     }
 }
