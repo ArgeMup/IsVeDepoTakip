@@ -337,7 +337,11 @@ namespace İş_ve_Depo_Takip
             {
                 if (m.Liste_Ödendi == null)
                 {
-                    string[] l = Directory.GetFiles(Ortak.Klasör_Banka + Müşteri, "Ödendi_*.mup", SearchOption.TopDirectoryOnly);
+                    string[] l = new DirectoryInfo(Ortak.Klasör_Banka + Müşteri).GetFiles("Ödendi_*.mup", SearchOption.TopDirectoryOnly)
+                        .OrderByDescending(f => f.LastWriteTime)
+                        .Select(f => f.FullName)
+                        .ToArray();
+
                     m.Liste_Ödendi = new string[l.Length];
 
                     for (int i = 0; i < l.Length; i++)
@@ -352,7 +356,11 @@ namespace İş_ve_Depo_Takip
             {
                 if (m.Liste_ÖdemeTalepEdildi == null)
                 {
-                    string[] l = Directory.GetFiles(Ortak.Klasör_Banka + Müşteri, "Ödeme Talep Edildi_*.mup", SearchOption.TopDirectoryOnly);
+                    string[] l = new DirectoryInfo(Ortak.Klasör_Banka + Müşteri).GetFiles("Ödeme Talep Edildi_*.mup", SearchOption.TopDirectoryOnly)
+                        .OrderBy(f => f.LastWriteTime)
+                        .Select(f => f.FullName)
+                        .ToArray();
+
                     m.Liste_ÖdemeTalepEdildi = new string[l.Length];
 
                     for (int i = 0; i < l.Length; i++)
