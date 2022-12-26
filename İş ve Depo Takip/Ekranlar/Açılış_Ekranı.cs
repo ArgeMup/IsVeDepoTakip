@@ -128,7 +128,7 @@ namespace İş_ve_Depo_Takip
                     case "İş Türleri": new İş_Türleri().ShowDialog(); break;
                     case "Yazdırma": new Yazdırma().ShowDialog(); break;
                     case "Ücretler": new Ücretler().ShowDialog(); break;
-                    case "Eposta": new Ayarlar_Eposta().ShowDialog(); break;
+                    case "E-posta": new Ayarlar_Eposta().ShowDialog(); break;
                     case "Diğer": new Ayarlar_Diğer().ShowDialog(); break;
                     case "Parola":
                         P_Ayarlar.Visible = false;

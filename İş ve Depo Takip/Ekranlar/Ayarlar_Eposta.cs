@@ -106,11 +106,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             ArgeMup.HazirKod.Depo_ müşteri = new ArgeMup.HazirKod.Depo_();
             müşteri.Yaz("Örnek Müşteri Adı/Eposta/Kime", Gönderici_Adres.Text);
 
-            string snç = EpostaGönder(müşteri.Elemanları[0], dosyayolu);
+            string snç = EpostaGönder(müşteri.Elemanları[0], new string[] { dosyayolu });
             if (!string.IsNullOrEmpty(snç)) MessageBox.Show(snç, Text);
         }
 
-        public string EpostaGönder(IDepo_Eleman Müşteri, string DosyaEki, int ZamanAşımı_msn = 15000)
+        public string EpostaGönder(IDepo_Eleman Müşteri, string[] DosyaEkleri, int ZamanAşımı_msn = 15000)
         {
             string HataMesajı = "";
             int za = Environment.TickCount + ZamanAşımı_msn;
@@ -135,7 +135,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     mail.Body = Mesaj_İçerik.Text.Replace("%Müşteri%", Müşteri.Adı);
                     mail.BodyEncoding = System.Text.Encoding.UTF8;
                     mail.IsBodyHtml = true;
-                    mail.Attachments.Add(new Attachment(DosyaEki));
+                    foreach (string ek in DosyaEkleri)
+                    {
+                        mail.Attachments.Add(new Attachment(ek));
+                    }
                     
                     SmtpClient client = new SmtpClient();
                     client.Credentials = new System.Net.NetworkCredential(Gönderici_Adres.Text, Gönderici_Şifre.Text);

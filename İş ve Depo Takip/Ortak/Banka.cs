@@ -86,7 +86,7 @@ namespace İş_ve_Depo_Takip
                     if (yedekle)
                     {
                         string k = Ortak.Klasör_Banka;
-                        string h = Ortak.Klasör_İçYedek + D_TarihSaat.Yazıya(DateTime.Now, Ortak.Şablon_TarihSaat_DosyaAdı) + ".zip";
+                        string h = Ortak.Klasör_İçYedek + D_TarihSaat.Yazıya(DateTime.Now, ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".zip";
 
                         SıkıştırılmışDosya.Klasörden(k, h);
 
@@ -963,7 +963,7 @@ namespace İş_ve_Depo_Takip
         public static string Talep_İşaretle_ÖdemeTalepEdildi(string Müşteri, List<string> Seri_No_lar, string İlaveÖdeme_Açıklama, double İlaveÖdeme_Miktar)
         {
             DateTime t = DateTime.Now;
-            Depo_ yeni_tablo = Tablo(Müşteri, TabloTürü.ÖdemeTalepEdildi, true, t.Yazıya(Ortak.Şablon_TarihSaat_DosyaAdı));
+            Depo_ yeni_tablo = Tablo(Müşteri, TabloTürü.ÖdemeTalepEdildi, true, t.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2));
             IDepo_Eleman yeni_tablodaki_işler = yeni_tablo.Bul("Talepler", true);
             IDepo_Eleman eski_tablodaki_işler = Tablo_Dal(Müşteri, TabloTürü.DevamEden, "Talepler");
             double Alt_Toplam = 0;
@@ -1027,7 +1027,7 @@ namespace İş_ve_Depo_Takip
             yeni_tablo.Ekle(depo.YazıyaDönüştür());
             yeni_tablo.Yaz("Ödeme", t.Yazıya(), 1);
             yeni_tablo.Yaz("Ödeme", Notlar, 2);
-            Depo_Kaydet(Müşteri + "\\Ödendi_" + t.Yazıya(Ortak.Şablon_TarihSaat_DosyaAdı), yeni_tablo);
+            Depo_Kaydet(Müşteri + "\\Ödendi_" + t.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2), yeni_tablo);
 
             depo.Yaz("Silinecek", "Evet");
         }
@@ -1165,7 +1165,10 @@ namespace İş_ve_Depo_Takip
             Ücretler = new List<string>();
 
             Açıklamalar.Add("Alt Toplam"); Ücretler.Add(string.Format("{0:,0.00}", AltToplam) + " ₺");
-            Açıklamalar.Add(İlaveÖdemeAçıklaması); Ücretler.Add(string.Format("{0:,0.00}", İlaveÖdeme) + " ₺");
+            if (!string.IsNullOrEmpty(İlaveÖdemeAçıklaması))
+            {
+                Açıklamalar.Add(İlaveÖdemeAçıklaması); Ücretler.Add(string.Format("{0:,0.00}", İlaveÖdeme) + " ₺");
+            }
             Açıklamalar.Add("Genel Toplam"); Ücretler.Add(string.Format("{0:,0.00}", AltToplam + İlaveÖdeme) + " ₺");
         }
 

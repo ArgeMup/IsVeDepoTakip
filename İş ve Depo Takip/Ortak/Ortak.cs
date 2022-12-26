@@ -33,8 +33,6 @@ namespace İş_ve_Depo_Takip
             Tik = Environment.TickCount;
         }
 
-        public static string Şablon_TarihSaat_DosyaAdı = "yyyy_MM_dd_HH_mm_ss_fff";
-
         public static int EşZamanlıİşlemSayısı = 3;
         static Random rnd = new Random();
         public static int RasgeleSayı(int Asgari, int Azami)
@@ -91,25 +89,41 @@ namespace İş_ve_Depo_Takip
         }
         #endregion
 
-        public static bool Pdf_AçmayaÇalış(string DosyaYolu, int ZamanAşımı_msn = 5000)
+        public static bool Pdf_TutmayaÇalış(string DosyaYolu, int ZamanAşımı_msn = 5000)
         {
+            FileStream KilitDosyası;
             int za = Environment.TickCount + ZamanAşımı_msn;
             while (za > Environment.TickCount)
             {
+                Thread.Sleep(100);
+
                 try
                 {
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
-                    
-                    System.Diagnostics.Process.Start(DosyaYolu);
+
+                    KilitDosyası = new FileStream(DosyaYolu, FileMode.Open, FileAccess.Read, FileShare.None);
+                    KilitDosyası.Close();
+
                     return true;
                 }
                 catch (Exception) { }
-
-                Thread.Sleep(100);
             }
 
             return false;
+        }
+        public static bool Pdf_AçmayaÇalış(string DosyaYolu, int ZamanAşımı_msn = 5000)
+        {
+            if (!Pdf_TutmayaÇalış(DosyaYolu, ZamanAşımı_msn)) return false;
+            
+            System.Diagnostics.Process.Start(DosyaYolu);
+            return true;
+        }
+        public static bool Pdf_KopyalamayaÇalış(string Kaynak, string Hedef, int ZamanAşımı_msn = 5000)
+        {
+            if (!Pdf_TutmayaÇalış(Kaynak, ZamanAşımı_msn)) return false;
+            
+            return Dosya.Kopyala(Kaynak, Hedef);
         }
     }
 }

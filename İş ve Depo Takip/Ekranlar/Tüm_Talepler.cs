@@ -31,14 +31,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Arama_GirişTarihi_Bitiş.Value = new DateTime(t.Year, t.Month, t.Day, 23, 59, 59);
             Arama_GirişTarihi_Başlangıç.Value = new DateTime(t.Year - 1, 5, 19);
 
-            splitContainer1.Panel1.Controls.Add(P_İşTakip); P_İşTakip.Dock = DockStyle.Fill; P_İşTakip.Visible = true;
-            P_İşTakip.Panel2.Controls.Add(P_İşTakip_DevamEden); P_İşTakip_DevamEden.Dock = DockStyle.Fill; P_İşTakip_DevamEden.Visible = false;
-            P_İşTakip.Panel2.Controls.Add(P_İşTakip_TeslimEdildi); P_İşTakip_TeslimEdildi.Dock = DockStyle.Fill; P_İşTakip_TeslimEdildi.Visible = false;
-            P_İşTakip.Panel2.Controls.Add(P_İşTakip_ÖdemeBekleyen); P_İşTakip_ÖdemeBekleyen.Dock = DockStyle.Fill; P_İşTakip_ÖdemeBekleyen.Visible = false;
-            P_İşTakip.Panel2.Controls.Add(P_İşTakip_Ödendi); P_İşTakip_Ödendi.Dock = DockStyle.Fill; P_İşTakip_Ödendi.Visible = false;
-            splitContainer1.Panel1.Controls.Add(P_Arama); P_Arama.Dock = DockStyle.Fill; P_Arama.Visible = false;
+            P_Üst_Alt.Panel1.Controls.Add(P_SolOrta_Sağ); P_SolOrta_Sağ.Dock = DockStyle.Fill; P_SolOrta_Sağ.Visible = true;
+            P_Sol_Orta.Panel2.Controls.Add(P_İşTakip_DevamEden); P_İşTakip_DevamEden.Dock = DockStyle.Fill; P_İşTakip_DevamEden.Visible = false;
+            P_Sol_Orta.Panel2.Controls.Add(P_İşTakip_TeslimEdildi); P_İşTakip_TeslimEdildi.Dock = DockStyle.Fill; P_İşTakip_TeslimEdildi.Visible = false;
+            P_Sol_Orta.Panel2.Controls.Add(P_İşTakip_ÖdemeBekleyen); P_İşTakip_ÖdemeBekleyen.Dock = DockStyle.Fill; P_İşTakip_ÖdemeBekleyen.Visible = false;
+            P_Sol_Orta.Panel2.Controls.Add(P_İşTakip_Ödendi); P_İşTakip_Ödendi.Dock = DockStyle.Fill; P_İşTakip_Ödendi.Visible = false;
+            P_Üst_Alt.Panel1.Controls.Add(P_Arama); P_Arama.Dock = DockStyle.Fill; P_Arama.Visible = false;
 
-            splitContainer1.SplitterDistance = Height / 3;
+            P_SolOrta_Sağ.SplitterDistance = P_SolOrta_Sağ.Width * 3 / 4; //müşteriler, tuşlar + yazdırma
+            P_Sol_Orta.SplitterDistance = P_Sol_Orta.Width / 2; //müşteriler + tuşları
+            P_Üst_Alt.SplitterDistance = Height / 3; //tuşlar + tablo
 
             Seviye1_işTakip.Tag = 1;
             Seviye1_Arama.Tag = 2;
@@ -81,7 +83,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             Banka_Tablo_ bt;
-            Yazdır.Enabled = false;
+            İşTakip_Yazdırma_Yazdır.Enabled = false;
             Tablo.Rows.Clear();
             İpUcu.SetToolTip(Tablo, "Tümünü seçmek / kaldırmak için çift tıkla");
 
@@ -145,7 +147,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Banka.Talep_TablodaGöster(Tablo, bt);
 
                     if (Tablo.RowCount < 1) Seviye2_DevamEden.Checked = false;
-                    else Yazdır.Enabled = true;
+                    else İşTakip_Yazdırma_Yazdır.Enabled = true;
                     break;
 
                 case 11:
@@ -161,7 +163,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Banka.Talep_TablodaGöster(Tablo, bt);
 
                     if (Tablo.RowCount < 1) Seviye2_TeslimEdildi.Checked = false;
-                    else Yazdır.Enabled = true;
+                    else İşTakip_Yazdırma_Yazdır.Enabled = true;
                     break;
 
                 case 12:
@@ -203,7 +205,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     break;
             }
 
-            P_İşTakip.Visible = Seviye1_işTakip.Checked;
+            P_SolOrta_Sağ.Visible = Seviye1_işTakip.Checked;
             P_İşTakip_DevamEden.Visible = Seviye2_DevamEden.Checked;
             P_İşTakip_TeslimEdildi.Visible = Seviye2_TeslimEdildi.Checked;
             P_İşTakip_ÖdemeBekleyen.Visible = Seviye2_ÖdemeBekleyen.Checked;
@@ -224,7 +226,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             P_İşTakip_ÖdemeBekleyen.Visible = false;
             P_İşTakip_Ödendi.Visible = false;
             İşTakip_Müşteriler.Items.Clear();
-            
+
+            İşTakip_Eposta_DevamEden.Checked = false;
+            İşTakip_Eposta_TeslimEdildi.Checked = false;
+            İşTakip_Eposta_ÖdemeBekleyen.Checked = false;
+
             if (string.IsNullOrEmpty(İşTakip_Müşteriler_AramaÇubuğu.Text))
             {
                 İşTakip_Müşteriler.Items.AddRange(İşTakip_Müşteriler_AramaÇubuğu_Liste.ToArray());
@@ -238,6 +244,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void İşTakip_Müşteriler_SelectedIndexChanged(object sender, EventArgs e)
         {
             Seviye_Değişti(Seviye1_işTakip, null);
+
+            //eposta gönderimi için iş adetlerinin enüde gösterilemsi
+            İşTakip_Eposta_DevamEden.Checked = false;
+            İşTakip_Eposta_TeslimEdildi.Checked = false;
+            İşTakip_Eposta_ÖdemeBekleyen.Checked = false;
+            Banka_Tablo_ bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.DevamEden);
+            İşTakip_Eposta_DevamEden.Text = "Devam eden : " + bt.Talepler.Count + " iş"; ;
+            bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.TeslimEdildi);
+            İşTakip_Eposta_TeslimEdildi.Text = "Teslim edildi : " + bt.Talepler.Count + " iş";
+            İşTakip_Eposta_ÖdemeBekleyen.Text = "Ödeme talep edildi : " + Banka.Dosya_Listele(İşTakip_Müşteriler.Text, false).Length + " dönem";
         }
         private void İşTakip_DevamEden_Sil_Click(object sender, EventArgs e)
         {
@@ -427,7 +443,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             İpUcu.SetToolTip(Tablo, ipucu);
 
-            Yazdır.Enabled = true;
+            İşTakip_Yazdırma_Yazdır.Enabled = true;
         }
         private void İşTakip_ÖdemeBekleyen_İptalEt_Click(object sender, EventArgs e)
         {
@@ -484,7 +500,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             İpUcu.SetToolTip(Tablo, ipucu);
 
-            Yazdır.Enabled = true;
+            İşTakip_Yazdırma_Yazdır.Enabled = true;
         }
 
         private void Tablo_DoubleClick(object sender, EventArgs e)
@@ -521,80 +537,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             Tablo_Notlar.HeaderText = m;
-        }
-
-        private void Yazdır_Click(object sender, EventArgs e)
-        {
-            ArgeMup.HazirKod.Depo_ depo;
-            string gerçekdosyadı;
-
-            if (Seviye2_DevamEden.Checked)
-            {
-                depo = new Depo_();
-                Banka_Tablo_ bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.DevamEden);
-                IDepo_Eleman talepler = depo.Bul("Talepler", true);
-                depo.Yaz("Müşteri", İşTakip_Müşteriler.Text);
-                
-                foreach (IDepo_Eleman elm in bt.Talepler)
-                {
-                    talepler.Ekle(null, elm.YazıyaDönüştür(null));
-                }
-                
-                gerçekdosyadı = "Devam Eden_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
-            }
-            else if (Seviye2_TeslimEdildi.Checked)
-            {
-                depo = new Depo_();
-                Banka_Tablo_ bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.TeslimEdildi);
-                IDepo_Eleman talepler = depo.Bul("Talepler", true);
-                depo.Yaz("Müşteri", İşTakip_Müşteriler.Text);
-
-                foreach (IDepo_Eleman elm in bt.Talepler)
-                {
-                    talepler.Ekle(null, elm.YazıyaDönüştür(null));
-                }
-
-                gerçekdosyadı = "Teslim Edildi_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
-            }
-            else if (Seviye2_ÖdemeBekleyen.Checked)
-            {
-                depo = Banka.Tablo(İşTakip_Müşteriler.Text, Banka.TabloTürü.ÖdemeTalepEdildi, false, İşTakip_ÖdemeBekleyen_Dönem.Text);
-                gerçekdosyadı = "Ödeme Talep Edildi_" + İşTakip_ÖdemeBekleyen_Dönem.Text + ".pdf";
-            }
-            else if (Seviye2_Ödendi.Checked)
-            {
-                depo = Banka.Tablo(İşTakip_Müşteriler.Text, Banka.TabloTürü.Ödendi, false, İşTakip_Ödendi_Dönem.Text);
-                gerçekdosyadı = "Ödendi_" + İşTakip_Ödendi_Dönem.Text + ".pdf";
-            }
-            else return;
-
-            string dosyayolu = Ortak.Klasör_Gecici + Path.GetRandomFileName() + ".pdf";
-
-            Yazdırma y = new Yazdırma();
-            y.Yazdırma_Load(null, null);
-            y.Yazdır_Depo(depo, dosyayolu);
-
-            if (!string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Pdf)) Dosya.Kopyala(dosyayolu, Ortak.Kullanıcı_Klasör_Pdf + İşTakip_Müşteriler.Text + "\\" + gerçekdosyadı);
-            
-            Ortak.Pdf_AçmayaÇalış(dosyayolu);
-            if (Seviye2_Ödendi.Checked) return; //ödendiği için tekrar eposta gönderme
-
-            if (!Ortak.Kullanıcı_Eposta_hesabı_mevcut) return;
-            IDepo_Eleman m = Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Müşteriler/" + İşTakip_Müşteriler.Text);
-            if (m == null || string.IsNullOrEmpty(m.Oku("Eposta/Kime") + m.Oku("Eposta/Bilgi") + m.Oku("Eposta/Gizli"))) return;
-
-            DialogResult Dr = MessageBox.Show("Belgeyi müşterinize eposta ile göndermek ister misiniz?" + 
-                Environment.NewLine + Environment.NewLine + 
-                İşTakip_Müşteriler.Text, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-            if (Dr == DialogResult.No) return;
-
-            string ek_dosyası = Ortak.Klasör_Gecici + DateTime.Now.Yazıya(Ortak.Şablon_TarihSaat_DosyaAdı) + ".pdf";
-            File.Move(dosyayolu, ek_dosyası);
-
-            Ayarlar_Eposta epst = new Ayarlar_Eposta();
-            epst.Ayarlar_Eposta_Load(null, null);
-            string snç = epst.EpostaGönder(m, ek_dosyası);
-            if (!string.IsNullOrEmpty(snç)) MessageBox.Show(snç, Text);
         }
 
         bool TabloİçeriğiArama_Çalışıyor = false;
@@ -753,7 +695,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         for (int s = 0; s < l.Length && !Arama_Sorgula_KapatmaTalebi; s++)
                         {
                             Arama_İlerlemeÇubuğu.Value++;
-                            DateTime t = l[s].TarihSaate(Ortak.Şablon_TarihSaat_DosyaAdı);
+                            DateTime t = l[s].TarihSaate(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2);
                             if (Arama_GirişTarihi_Başlangıç.Value > t || t > Arama_GirişTarihi_Bitiş.Value) continue;
 
                             Arama_Sorgula_Click_2(Banka.Talep_Listele(Arama_Müşteriler.Items[i].ToString(), Banka.TabloTürü.ÖdemeTalepEdildi, l[s]));
@@ -767,7 +709,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         for (int s = 0; s < l.Length && !Arama_Sorgula_KapatmaTalebi; s++)
                         {
                             Arama_İlerlemeÇubuğu.Value++;
-                            DateTime t = l[s].TarihSaate(Ortak.Şablon_TarihSaat_DosyaAdı);
+                            DateTime t = l[s].TarihSaate(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2);
                             if (Arama_GirişTarihi_Başlangıç.Value > t || t > Arama_GirişTarihi_Bitiş.Value) continue;
 
                             Arama_Sorgula_Click_2(Banka.Talep_Listele(Arama_Müşteriler.Items[i].ToString(), Banka.TabloTürü.Ödendi, l[s]));
@@ -830,6 +772,186 @@ namespace İş_ve_Depo_Takip.Ekranlar
             for (int i = 0; i < Arama_İş_Türleri.Items.Count; i++)
             {
                 Arama_İş_Türleri.SetItemChecked(i, şimdi);
+            }
+        }
+
+        private void İşTakip_Yazdırma_Yazdır_Click(object sender, EventArgs e)
+        {
+            ArgeMup.HazirKod.Depo_ depo;
+            string gerçekdosyadı;
+
+            if (Seviye2_DevamEden.Checked)
+            {
+                depo = new ArgeMup.HazirKod.Depo_();
+                Banka_Tablo_ bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.DevamEden);
+                IDepo_Eleman talepler = depo.Bul("Talepler", true);
+                depo.Yaz("Müşteri", İşTakip_Müşteriler.Text);
+
+                foreach (IDepo_Eleman elm in bt.Talepler)
+                {
+                    talepler.Ekle(null, elm.YazıyaDönüştür(null));
+                }
+
+                gerçekdosyadı = "Devam_Eden_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
+            }
+            else if (Seviye2_TeslimEdildi.Checked)
+            {
+                depo = new ArgeMup.HazirKod.Depo_();
+                Banka_Tablo_ bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.TeslimEdildi);
+                IDepo_Eleman talepler = depo.Bul("Talepler", true);
+                depo.Yaz("Müşteri", İşTakip_Müşteriler.Text);
+
+                foreach (IDepo_Eleman elm in bt.Talepler)
+                {
+                    talepler.Ekle(null, elm.YazıyaDönüştür(null));
+                }
+
+                gerçekdosyadı = "Teslim_Edildi_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
+            }
+            else if (Seviye2_ÖdemeBekleyen.Checked)
+            {
+                depo = Banka.Tablo(İşTakip_Müşteriler.Text, Banka.TabloTürü.ÖdemeTalepEdildi, false, İşTakip_ÖdemeBekleyen_Dönem.Text);
+                gerçekdosyadı = "Ödeme_Talebi_" + İşTakip_ÖdemeBekleyen_Dönem.Text + ".pdf";
+            }
+            else if (Seviye2_Ödendi.Checked)
+            {
+                depo = Banka.Tablo(İşTakip_Müşteriler.Text, Banka.TabloTürü.Ödendi, false, İşTakip_Ödendi_Dönem.Text);
+                gerçekdosyadı = "Ödendi_" + İşTakip_Ödendi_Dönem.Text + ".pdf";
+            }
+            else return;
+
+            string dosyayolu = Ortak.Klasör_Gecici + Path.GetRandomFileName() + ".pdf";
+
+            Yazdırma y = new Yazdırma();
+            y.Yazdırma_Load(null, null);
+            y.Yazdır_Depo(depo, dosyayolu);
+
+            if (!string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Pdf))
+            {
+                string hedef = Ortak.Kullanıcı_Klasör_Pdf + İşTakip_Müşteriler.Text + "\\" + gerçekdosyadı;
+                if (!Ortak.Pdf_KopyalamayaÇalış(dosyayolu, hedef))
+                {
+                    MessageBox.Show("Üretilen pdf kullanıcı klasörüne kopyalanamadı", Text);
+                }
+                else if (İşTakip_Yazdırma_VeAç.Checked) Ortak.Pdf_AçmayaÇalış(hedef);
+            }
+            else if (İşTakip_Yazdırma_VeAç.Checked) Ortak.Pdf_AçmayaÇalış(dosyayolu);
+        }
+        private void İşTakip_Eposta_CheckedChanged(object sender, EventArgs e)
+        {
+            İşTakip_Eposta_Gönder.Enabled = İşTakip_Eposta_DevamEden.Checked || İşTakip_Eposta_TeslimEdildi.Checked || İşTakip_Eposta_ÖdemeBekleyen.Checked;
+        }
+        private void İşTakip_Eposta_Gönder_Click(object sender, EventArgs e)
+        {
+            if (!Ortak.Kullanıcı_Eposta_hesabı_mevcut)
+            {
+                MessageBox.Show("Geçerli bir eposta hesabı oluşturulmadı" + Environment.NewLine + "Ana Ekran - Ayarlar - E-posta sayfasını kullanabilirsiniz", Text);
+                return;
+            }
+
+            IDepo_Eleman m = Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Müşteriler/" + İşTakip_Müşteriler.Text);
+            if (m == null || string.IsNullOrEmpty(m.Oku("Eposta/Kime") + m.Oku("Eposta/Bilgi") + m.Oku("Eposta/Gizli")))
+            {
+                MessageBox.Show("Müşteriye tanımlı e-posta adresi bulunamadı" + Environment.NewLine + "Ana Ekran - Ayarlar - Müşteriler sayfasını kullanabilirsiniz", Text);
+                return;
+            }
+
+            ArgeMup.HazirKod.Depo_ depo;
+            string gecici_dosyadı;
+            string gecici_klasör = Ortak.Klasör_Gecici + Path.GetRandomFileName() + "\\";
+            Directory.CreateDirectory(gecici_klasör);
+
+            Yazdırma y = new Yazdırma();
+            y.Yazdırma_Load(null, null);
+
+            if (İşTakip_Eposta_DevamEden.Checked)
+            {
+                depo = new ArgeMup.HazirKod.Depo_();
+                Banka_Tablo_ bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.DevamEden);
+                IDepo_Eleman talepler = depo.Bul("Talepler", true);
+                depo.Yaz("Müşteri", İşTakip_Müşteriler.Text);
+
+                if (bt.Talepler.Count > 0)
+                {
+                    foreach (IDepo_Eleman elm in bt.Talepler)
+                    {
+                        talepler.Ekle(null, elm.YazıyaDönüştür(null));
+                    }
+
+                    gecici_dosyadı = gecici_klasör + "Devam_Eden_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
+
+                    if (!YazdırVeBitmesiniBekle())
+                    {
+                        MessageBox.Show("Devam eden için pdf dosyası oluşturulamadı" + Environment.NewLine + gecici_dosyadı, Text);
+                        return;
+                    }
+                }
+            }
+            
+            if (İşTakip_Eposta_TeslimEdildi.Checked)
+            {
+                depo = new ArgeMup.HazirKod.Depo_();
+                Banka_Tablo_ bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.TeslimEdildi);
+                IDepo_Eleman talepler = depo.Bul("Talepler", true);
+                depo.Yaz("Müşteri", İşTakip_Müşteriler.Text);
+
+                if (bt.Talepler.Count > 0)
+                {
+                    foreach (IDepo_Eleman elm in bt.Talepler)
+                    {
+                        talepler.Ekle(null, elm.YazıyaDönüştür(null));
+                    }
+
+                    gecici_dosyadı = gecici_klasör + "Teslim_Edildi_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
+
+                    if (!YazdırVeBitmesiniBekle())
+                    {
+                        MessageBox.Show("Teslim edilenler için pdf dosyası oluşturulamadı" + Environment.NewLine + gecici_dosyadı, Text);
+                        return;
+                    }
+                }
+            }
+            
+            if (İşTakip_Eposta_ÖdemeBekleyen.Checked)
+            {
+                foreach (string ö in Banka.Dosya_Listele(İşTakip_Müşteriler.Text, false))
+                {
+                    depo = Banka.Tablo(İşTakip_Müşteriler.Text, Banka.TabloTürü.ÖdemeTalepEdildi, false, ö);
+                    if (depo != null)
+                    {
+                        IDepo_Eleman de = depo.Bul("Talepler");
+                        if (de != null && de.Elemanları.Length > 0)
+                        {
+                            gecici_dosyadı = gecici_klasör + "Ödeme_Talebi_" + ö + ".pdf";
+
+                            if (!YazdırVeBitmesiniBekle())
+                            {
+                                MessageBox.Show("Ödeme bekleyenler için pdf dosyası oluşturulamadı" + Environment.NewLine + gecici_dosyadı, Text);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+
+            string[] dsy_lar = Directory.GetFiles(gecici_klasör);
+            if (dsy_lar.Length > 0)
+            {
+                DialogResult Dr = MessageBox.Show("Oluşturulan toplam " + dsy_lar.Length + " adet belge müşterinize e-posta yoluyla gönderilecek" +
+                Environment.NewLine + Environment.NewLine +
+                "Devam etmek için Evet tuşuna basınız", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (Dr == DialogResult.No) return;
+
+                Ayarlar_Eposta epst = new Ayarlar_Eposta();
+                epst.Ayarlar_Eposta_Load(null, null);
+                string snç = epst.EpostaGönder(m, dsy_lar);
+                if (!string.IsNullOrEmpty(snç)) MessageBox.Show(snç, Text);
+            }
+
+            bool YazdırVeBitmesiniBekle()
+            {
+                y.Yazdır_Depo(depo, gecici_dosyadı);
+                return Ortak.Pdf_TutmayaÇalış(gecici_dosyadı);
             }
         }
     }

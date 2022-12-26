@@ -52,13 +52,13 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.P_Ayarlar = new System.Windows.Forms.Panel();
+            this.ParolayıDeğiştir = new System.Windows.Forms.Button();
             this.Eposta = new System.Windows.Forms.Button();
             this.Diğer = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.Hata = new System.Windows.Forms.ErrorProvider(this.components);
             this.AçılışYazısı = new System.Windows.Forms.Label();
-            this.ParolayıDeğiştir = new System.Windows.Forms.Button();
             this.P_YeniParola.SuspendLayout();
             this.P_Parola.SuspendLayout();
             this.P_AnaMenü.SuspendLayout();
@@ -348,6 +348,18 @@
             this.P_Ayarlar.Visible = false;
             this.P_Ayarlar.DoubleClick += new System.EventHandler(this.Açılış_Ekranı_DoubleClick);
             // 
+            // ParolayıDeğiştir
+            // 
+            this.ParolayıDeğiştir.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.ParolayıDeğiştir.Location = new System.Drawing.Point(243, 166);
+            this.ParolayıDeğiştir.Margin = new System.Windows.Forms.Padding(6);
+            this.ParolayıDeğiştir.Name = "ParolayıDeğiştir";
+            this.ParolayıDeğiştir.Size = new System.Drawing.Size(199, 68);
+            this.ParolayıDeğiştir.TabIndex = 5;
+            this.ParolayıDeğiştir.Text = "Parola";
+            this.ParolayıDeğiştir.UseVisualStyleBackColor = true;
+            this.ParolayıDeğiştir.Click += new System.EventHandler(this.Tuş_Click);
+            // 
             // Eposta
             // 
             this.Eposta.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -356,7 +368,7 @@
             this.Eposta.Name = "Eposta";
             this.Eposta.Size = new System.Drawing.Size(199, 68);
             this.Eposta.TabIndex = 6;
-            this.Eposta.Text = "Eposta";
+            this.Eposta.Text = "E-posta";
             this.Eposta.UseVisualStyleBackColor = true;
             this.Eposta.Click += new System.EventHandler(this.Tuş_Click);
             // 
@@ -411,18 +423,6 @@
             this.AçılışYazısı.TabIndex = 12;
             this.AçılışYazısı.Text = "Lütfen bekleyiniz";
             this.AçılışYazısı.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // ParolayıDeğiştir
-            // 
-            this.ParolayıDeğiştir.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.ParolayıDeğiştir.Location = new System.Drawing.Point(243, 166);
-            this.ParolayıDeğiştir.Margin = new System.Windows.Forms.Padding(6);
-            this.ParolayıDeğiştir.Name = "ParolayıDeğiştir";
-            this.ParolayıDeğiştir.Size = new System.Drawing.Size(199, 68);
-            this.ParolayıDeğiştir.TabIndex = 5;
-            this.ParolayıDeğiştir.Text = "Parola";
-            this.ParolayıDeğiştir.UseVisualStyleBackColor = true;
-            this.ParolayıDeğiştir.Click += new System.EventHandler(this.Tuş_Click);
             // 
             // Açılış_Ekranı
             // 
