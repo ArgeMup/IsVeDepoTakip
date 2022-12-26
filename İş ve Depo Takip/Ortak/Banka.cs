@@ -1165,12 +1165,7 @@ namespace İş_ve_Depo_Takip
             Ücretler = new List<string>();
 
             Açıklamalar.Add("Alt Toplam"); Ücretler.Add(string.Format("{0:,0.00}", AltToplam) + " ₺");
-            
-            if (İlaveÖdeme > 0)
-            {
-                Açıklamalar.Add(İlaveÖdemeAçıklaması); Ücretler.Add(string.Format("{0:,0.00}", İlaveÖdeme) + " ₺");
-            }
-
+            Açıklamalar.Add(İlaveÖdemeAçıklaması); Ücretler.Add(string.Format("{0:,0.00}", İlaveÖdeme) + " ₺");
             Açıklamalar.Add("Genel Toplam"); Ücretler.Add(string.Format("{0:,0.00}", AltToplam + İlaveÖdeme) + " ₺");
         }
 
