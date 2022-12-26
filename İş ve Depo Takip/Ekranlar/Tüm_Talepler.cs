@@ -145,6 +145,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Banka.Talep_TablodaGöster(Tablo, bt);
 
                     if (Tablo.RowCount < 1) Seviye2_DevamEden.Checked = false;
+                    else Yazdır.Enabled = true;
                     break;
 
                 case 11:
@@ -160,6 +161,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Banka.Talep_TablodaGöster(Tablo, bt);
 
                     if (Tablo.RowCount < 1) Seviye2_TeslimEdildi.Checked = false;
+                    else Yazdır.Enabled = true;
                     break;
 
                 case 12:
@@ -525,8 +527,36 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             ArgeMup.HazirKod.Depo_ depo;
             string gerçekdosyadı;
-            
-            if (Seviye2_ÖdemeBekleyen.Checked)
+
+            if (Seviye2_DevamEden.Checked)
+            {
+                depo = new Depo_();
+                Banka_Tablo_ bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.DevamEden);
+                IDepo_Eleman talepler = depo.Bul("Talepler", true);
+                depo.Yaz("Müşteri", İşTakip_Müşteriler.Text);
+                
+                foreach (IDepo_Eleman elm in bt.Talepler)
+                {
+                    talepler.Ekle(null, elm.YazıyaDönüştür(null));
+                }
+                
+                gerçekdosyadı = "Devam Eden_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
+            }
+            else if (Seviye2_TeslimEdildi.Checked)
+            {
+                depo = new Depo_();
+                Banka_Tablo_ bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.TeslimEdildi);
+                IDepo_Eleman talepler = depo.Bul("Talepler", true);
+                depo.Yaz("Müşteri", İşTakip_Müşteriler.Text);
+
+                foreach (IDepo_Eleman elm in bt.Talepler)
+                {
+                    talepler.Ekle(null, elm.YazıyaDönüştür(null));
+                }
+
+                gerçekdosyadı = "Teslim Edildi_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
+            }
+            else if (Seviye2_ÖdemeBekleyen.Checked)
             {
                 depo = Banka.Tablo(İşTakip_Müşteriler.Text, Banka.TabloTürü.ÖdemeTalepEdildi, false, İşTakip_ÖdemeBekleyen_Dönem.Text);
                 gerçekdosyadı = "Ödeme Talep Edildi_" + İşTakip_ÖdemeBekleyen_Dönem.Text + ".pdf";
