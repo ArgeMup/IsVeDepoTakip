@@ -129,6 +129,7 @@ namespace İş_ve_Depo_Takip
         private void Müşteriler_AramaÇubuğu_TextChanged(object sender, EventArgs e)
         {
             Müşteriler_SeçimKutusu.Items.Clear();
+            Hastalar_SeçimKutusu.Items.Clear();
 
             if (string.IsNullOrEmpty(Müşteriler_AramaÇubuğu.Text))
             {
@@ -332,7 +333,7 @@ namespace İş_ve_Depo_Takip
             {
                 if (!string.IsNullOrWhiteSpace(İskonto.Text))
                 {
-                    double i = İskonto.Text.NoktalıSayıya();
+                    double i = double.Parse(İskonto.Text);
                     if (i > 100 || i < 0)
                     {
                         MessageBox.Show("İskonto kutucuğuna 0 ile 100 aralığında bir değer giriniz", Text);
@@ -347,7 +348,7 @@ namespace İş_ve_Depo_Takip
                 İskonto.Focus();
                 return;
             }
-
+            
             DateTime t = DateTime.Now;
             List<string> it_leri = new List<string>();
             List<string> ücret_ler = new List<string>();
@@ -368,7 +369,7 @@ namespace İş_ve_Depo_Takip
                     {
                         if (!string.IsNullOrWhiteSpace((string)Tablo[1, i].Value))
                         {
-                            double ü = ((string)Tablo[1, i].Value).NoktalıSayıya();
+                            double ü = double.Parse((string)Tablo[1, i].Value);
                             if (ü < 0)
                             {
                                 MessageBox.Show("Tablodaki " + (i + 1) + ". satırdaki \"Ücret\" içeriği 0, boş veya sıfırdan büyük olmalı", Text);

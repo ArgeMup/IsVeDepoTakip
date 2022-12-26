@@ -40,6 +40,11 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.AramaÇubuğu = new System.Windows.Forms.TextBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.Malzeme_SeçiliSatıraKopyala = new System.Windows.Forms.Button();
+            this.Malzeme_AramaÇubuğu = new System.Windows.Forms.TextBox();
+            this.Malzeme_SeçimKutusu = new System.Windows.Forms.ListBox();
             this.Tablo = new System.Windows.Forms.DataGridView();
             this.Tablo_Malzeme = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Tablo_Miktar = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,11 +52,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Notlar = new System.Windows.Forms.TextBox();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.Malzeme_SeçiliSatıraKopyala = new System.Windows.Forms.Button();
-            this.Malzeme_AramaÇubuğu = new System.Windows.Forms.TextBox();
-            this.Malzeme_SeçimKutusu = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -60,13 +60,13 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
-            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // Liste
@@ -194,6 +194,81 @@
             this.splitContainer2.SplitterDistance = 386;
             this.splitContainer2.TabIndex = 7;
             // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.groupBox4);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.Tablo);
+            this.splitContainer3.Size = new System.Drawing.Size(988, 386);
+            this.splitContainer3.SplitterDistance = 407;
+            this.splitContainer3.TabIndex = 1;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.Malzeme_SeçiliSatıraKopyala);
+            this.groupBox4.Controls.Add(this.Malzeme_AramaÇubuğu);
+            this.groupBox4.Controls.Add(this.Malzeme_SeçimKutusu);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox4.Location = new System.Drawing.Point(0, 0);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox4.Size = new System.Drawing.Size(407, 386);
+            this.groupBox4.TabIndex = 15;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Malzemeler";
+            // 
+            // Malzeme_SeçiliSatıraKopyala
+            // 
+            this.Malzeme_SeçiliSatıraKopyala.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Malzeme_SeçiliSatıraKopyala.Enabled = false;
+            this.Malzeme_SeçiliSatıraKopyala.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Malzeme_SeçiliSatıraKopyala.Location = new System.Drawing.Point(11, 344);
+            this.Malzeme_SeçiliSatıraKopyala.Margin = new System.Windows.Forms.Padding(2);
+            this.Malzeme_SeçiliSatıraKopyala.Name = "Malzeme_SeçiliSatıraKopyala";
+            this.Malzeme_SeçiliSatıraKopyala.Size = new System.Drawing.Size(381, 36);
+            this.Malzeme_SeçiliSatıraKopyala.TabIndex = 22;
+            this.Malzeme_SeçiliSatıraKopyala.Text = "Seçili Satıra Kopyala";
+            this.Malzeme_SeçiliSatıraKopyala.UseVisualStyleBackColor = true;
+            this.Malzeme_SeçiliSatıraKopyala.Click += new System.EventHandler(this.Malzeme_SeçiliSatıraKopyala_Click);
+            // 
+            // Malzeme_AramaÇubuğu
+            // 
+            this.Malzeme_AramaÇubuğu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Malzeme_AramaÇubuğu.Location = new System.Drawing.Point(11, 31);
+            this.Malzeme_AramaÇubuğu.Margin = new System.Windows.Forms.Padding(4);
+            this.Malzeme_AramaÇubuğu.Name = "Malzeme_AramaÇubuğu";
+            this.Malzeme_AramaÇubuğu.Size = new System.Drawing.Size(381, 36);
+            this.Malzeme_AramaÇubuğu.TabIndex = 5;
+            this.İpUcu.SetToolTip(this.Malzeme_AramaÇubuğu, "Arama çubuğu");
+            this.Malzeme_AramaÇubuğu.TextChanged += new System.EventHandler(this.Malzeme_TextChanged);
+            // 
+            // Malzeme_SeçimKutusu
+            // 
+            this.Malzeme_SeçimKutusu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Malzeme_SeçimKutusu.FormattingEnabled = true;
+            this.Malzeme_SeçimKutusu.ItemHeight = 29;
+            this.Malzeme_SeçimKutusu.Location = new System.Drawing.Point(11, 74);
+            this.Malzeme_SeçimKutusu.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+            this.Malzeme_SeçimKutusu.Name = "Malzeme_SeçimKutusu";
+            this.Malzeme_SeçimKutusu.Size = new System.Drawing.Size(381, 265);
+            this.Malzeme_SeçimKutusu.Sorted = true;
+            this.Malzeme_SeçimKutusu.TabIndex = 4;
+            this.Malzeme_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.Malzeme_SeçimKutusu_SelectedValueChanged);
+            this.Malzeme_SeçimKutusu.DoubleClick += new System.EventHandler(this.Malzeme_SeçiliSatıraKopyala_Click);
+            // 
             // Tablo
             // 
             this.Tablo.AllowUserToResizeColumns = false;
@@ -286,81 +361,6 @@
             this.İpUcu.UseAnimation = false;
             this.İpUcu.UseFading = false;
             // 
-            // splitContainer3
-            // 
-            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Name = "splitContainer3";
-            // 
-            // splitContainer3.Panel1
-            // 
-            this.splitContainer3.Panel1.Controls.Add(this.groupBox4);
-            // 
-            // splitContainer3.Panel2
-            // 
-            this.splitContainer3.Panel2.Controls.Add(this.Tablo);
-            this.splitContainer3.Size = new System.Drawing.Size(988, 386);
-            this.splitContainer3.SplitterDistance = 407;
-            this.splitContainer3.TabIndex = 1;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.Malzeme_SeçiliSatıraKopyala);
-            this.groupBox4.Controls.Add(this.Malzeme_AramaÇubuğu);
-            this.groupBox4.Controls.Add(this.Malzeme_SeçimKutusu);
-            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(0, 0);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(407, 386);
-            this.groupBox4.TabIndex = 15;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Malzemeler";
-            // 
-            // Malzeme_SeçiliSatıraKopyala
-            // 
-            this.Malzeme_SeçiliSatıraKopyala.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Malzeme_SeçiliSatıraKopyala.Enabled = false;
-            this.Malzeme_SeçiliSatıraKopyala.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Malzeme_SeçiliSatıraKopyala.Location = new System.Drawing.Point(11, 344);
-            this.Malzeme_SeçiliSatıraKopyala.Margin = new System.Windows.Forms.Padding(2);
-            this.Malzeme_SeçiliSatıraKopyala.Name = "Malzeme_SeçiliSatıraKopyala";
-            this.Malzeme_SeçiliSatıraKopyala.Size = new System.Drawing.Size(381, 36);
-            this.Malzeme_SeçiliSatıraKopyala.TabIndex = 22;
-            this.Malzeme_SeçiliSatıraKopyala.Text = "Seçili Satıra Kopyala";
-            this.Malzeme_SeçiliSatıraKopyala.UseVisualStyleBackColor = true;
-            this.Malzeme_SeçiliSatıraKopyala.Click += new System.EventHandler(this.Malzeme_SeçiliSatıraKopyala_Click);
-            // 
-            // Malzeme_AramaÇubuğu
-            // 
-            this.Malzeme_AramaÇubuğu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Malzeme_AramaÇubuğu.Location = new System.Drawing.Point(11, 31);
-            this.Malzeme_AramaÇubuğu.Margin = new System.Windows.Forms.Padding(4);
-            this.Malzeme_AramaÇubuğu.Name = "Malzeme_AramaÇubuğu";
-            this.Malzeme_AramaÇubuğu.Size = new System.Drawing.Size(381, 36);
-            this.Malzeme_AramaÇubuğu.TabIndex = 5;
-            this.İpUcu.SetToolTip(this.Malzeme_AramaÇubuğu, "Arama çubuğu");
-            this.Malzeme_AramaÇubuğu.TextChanged += new System.EventHandler(this.Malzeme_TextChanged);
-            // 
-            // Malzeme_SeçimKutusu
-            // 
-            this.Malzeme_SeçimKutusu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Malzeme_SeçimKutusu.FormattingEnabled = true;
-            this.Malzeme_SeçimKutusu.ItemHeight = 29;
-            this.Malzeme_SeçimKutusu.Location = new System.Drawing.Point(11, 74);
-            this.Malzeme_SeçimKutusu.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
-            this.Malzeme_SeçimKutusu.Name = "Malzeme_SeçimKutusu";
-            this.Malzeme_SeçimKutusu.Size = new System.Drawing.Size(381, 265);
-            this.Malzeme_SeçimKutusu.Sorted = true;
-            this.Malzeme_SeçimKutusu.TabIndex = 4;
-            this.Malzeme_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.Malzeme_SeçimKutusu_SelectedValueChanged);
-            this.Malzeme_SeçimKutusu.DoubleClick += new System.EventHandler(this.Malzeme_SeçiliSatıraKopyala_Click);
-            // 
             // İş_Türleri
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
@@ -384,15 +384,15 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Tablo)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Tablo)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }

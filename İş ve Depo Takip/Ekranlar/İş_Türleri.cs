@@ -181,7 +181,7 @@ namespace İş_ve_Depo_Takip
             {
                 try
                 {
-                    double miktar = ((string)Tablo[1, i].Value).NoktalıSayıya();
+                    double miktar = double.Parse((string)Tablo[1, i].Value);
                     if (miktar <= 0)
                     {
                         continue; //silmek için kullanılıyor

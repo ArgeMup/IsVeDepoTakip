@@ -356,7 +356,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     if (!string.IsNullOrEmpty(İşTakip_Bitti_İlaveÖdeme_Miktar.Text))
                     {
-                        ilave_ödeme_miktar = İşTakip_Bitti_İlaveÖdeme_Miktar.Text.NoktalıSayıya();
+                        ilave_ödeme_miktar = double.Parse(İşTakip_Bitti_İlaveÖdeme_Miktar.Text);
                     }
                     else İşTakip_Bitti_İlaveÖdeme_Miktar.Text = null;
                 }

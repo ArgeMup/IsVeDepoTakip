@@ -156,7 +156,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 try
                 {
                     string s = (string)Tablo[1, i].Value;
-                    if (!string.IsNullOrEmpty(s)) s.NoktalıSayıya();
+                    if (!string.IsNullOrEmpty(s)) double.Parse(s);
                 }
                 catch (Exception)
                 {
