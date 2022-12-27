@@ -130,7 +130,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             Kaydet.Enabled = true;
 
-            Yazdır_Depo(Banka.ÖrnekMüşteriTablosuOluştur());
+            try
+            {
+                Yazdır_Depo(Banka.ÖrnekMüşteriTablosuOluştur());
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.Message, Text);
+            }
         }
 
         class Bir_Yazı_Yazdırma_Detayları_
@@ -337,16 +344,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             pd.PrinterSettings.PrintToFile = DosyayaYazdır.Checked;
             pd.PrinterSettings.PrinterName = Yazcılar.Text;
             pd.PrintPage += pd_ÖrnekSayfa;
-            if (!pd.PrinterSettings.IsValid)
-            {
-                MessageBox.Show("Yazıcı kullanılamıyor " + pd.PrinterSettings.PrinterName);
-                return;
-            }
+            if (!pd.PrinterSettings.IsValid) throw new Exception("Yazıcı kullanılamıyor " + pd.PrinterSettings.PrinterName);
 
             if (DosyaAdı != null)
             {
                 pd.Print();
                 pd.Dispose();
+
+                if (!Ortak.Dosya_TutmayaÇalış(DosyaAdı)) throw new Exception("Pdf dosyası oluşturulamadı" + Environment.NewLine + DosyaAdı);
             }
 
             void pd_ÖrnekSayfa(object senderr, PrintPageEventArgs ev)

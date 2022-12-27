@@ -89,7 +89,7 @@ namespace İş_ve_Depo_Takip
         }
         #endregion
 
-        public static bool Pdf_TutmayaÇalış(string DosyaYolu, int ZamanAşımı_msn = 5000)
+        public static bool Dosya_TutmayaÇalış(string DosyaYolu, int ZamanAşımı_msn = 5000)
         {
             FileStream KilitDosyası;
             int za = Environment.TickCount + ZamanAşımı_msn;
@@ -111,19 +111,6 @@ namespace İş_ve_Depo_Takip
             }
 
             return false;
-        }
-        public static bool Pdf_AçmayaÇalış(string DosyaYolu, int ZamanAşımı_msn = 5000)
-        {
-            if (!Pdf_TutmayaÇalış(DosyaYolu, ZamanAşımı_msn)) return false;
-            
-            System.Diagnostics.Process.Start(DosyaYolu);
-            return true;
-        }
-        public static bool Pdf_KopyalamayaÇalış(string Kaynak, string Hedef, int ZamanAşımı_msn = 5000)
-        {
-            if (!Pdf_TutmayaÇalış(Kaynak, ZamanAşımı_msn)) return false;
-            
-            return Dosya.Kopyala(Kaynak, Hedef);
         }
     }
 }

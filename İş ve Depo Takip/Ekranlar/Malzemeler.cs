@@ -138,7 +138,7 @@ namespace İş_ve_Depo_Takip
 
             try
             {
-                mevcut = double.Parse(Miktarı.Text);
+                mevcut = Miktarı.Text.NoktalıSayıya(true, false);
             }
             catch (Exception)
             {
@@ -149,7 +149,7 @@ namespace İş_ve_Depo_Takip
 
             try
             {
-                uyarımiktarı = double.Parse(UyarıMiktarı.Text);
+                uyarımiktarı = UyarıMiktarı.Text.NoktalıSayıya(true, false);
             }
             catch (Exception)
             {

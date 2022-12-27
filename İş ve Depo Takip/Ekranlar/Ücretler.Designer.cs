@@ -218,6 +218,7 @@
             this.Name = "Ücretler";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ücretler";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Ücretler_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Tüm_Talepler_FormClosed);
             this.Load += new System.EventHandler(this.Tüm_Talepler_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).EndInit();

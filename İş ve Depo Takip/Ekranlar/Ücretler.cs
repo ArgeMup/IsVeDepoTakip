@@ -57,6 +57,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 else Font = new Font(Font.FontFamily, Font.Size - 0.2f);
             }
         }
+        private void Ücretler_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Kaydet.Enabled)
+            {
+                DialogResult Dr = MessageBox.Show("Değişiklikleri kaydetmeden çıkmak istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                e.Cancel = Dr == DialogResult.No;
+            }
+        }
         private void Tüm_Talepler_FormClosed(object sender, FormClosedEventArgs e)
         {
             Ortak.GeçiciDepolama_PencereKonumları_Yaz(this);
@@ -155,8 +163,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 try
                 {
-                    string s = (string)Tablo[1, i].Value;
-                    if (!string.IsNullOrEmpty(s)) double.Parse(s);
+                    if (!string.IsNullOrEmpty((string)Tablo[1, i].Value))
+                    {
+                        Tablo[1, i].Value = ((string)Tablo[1, i].Value).NoktalıSayıya(true, false).Yazıya();
+                    }
                 }
                 catch (Exception)
                 {

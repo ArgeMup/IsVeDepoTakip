@@ -374,7 +374,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     if (!string.IsNullOrEmpty(İşTakip_Bitti_İlaveÖdeme_Miktar.Text))
                     {
-                        ilave_ödeme_miktar = double.Parse(İşTakip_Bitti_İlaveÖdeme_Miktar.Text);
+                        ilave_ödeme_miktar = İşTakip_Bitti_İlaveÖdeme_Miktar.Text.NoktalıSayıya(true, false);
                     }
                     else İşTakip_Bitti_İlaveÖdeme_Miktar.Text = null;
                 }
@@ -829,13 +829,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (!string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Pdf))
             {
                 string hedef = Ortak.Kullanıcı_Klasör_Pdf + İşTakip_Müşteriler.Text + "\\" + gerçekdosyadı;
-                if (!Ortak.Pdf_KopyalamayaÇalış(dosyayolu, hedef))
+                if (!Dosya.Kopyala(dosyayolu, hedef))
                 {
                     MessageBox.Show("Üretilen pdf kullanıcı klasörüne kopyalanamadı", Text);
                 }
-                else if (İşTakip_Yazdırma_VeAç.Checked) Ortak.Pdf_AçmayaÇalış(hedef);
+                else if (İşTakip_Yazdırma_VeAç.Checked) System.Diagnostics.Process.Start(hedef);
             }
-            else if (İşTakip_Yazdırma_VeAç.Checked) Ortak.Pdf_AçmayaÇalış(dosyayolu);
+            else if (İşTakip_Yazdırma_VeAç.Checked) System.Diagnostics.Process.Start(dosyayolu);
         }
         private void İşTakip_Eposta_CheckedChanged(object sender, EventArgs e)
         {
@@ -880,11 +880,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     gecici_dosyadı = gecici_klasör + "Devam_Eden_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
 
-                    if (!YazdırVeBitmesiniBekle())
-                    {
-                        MessageBox.Show("Devam eden için pdf dosyası oluşturulamadı" + Environment.NewLine + gecici_dosyadı, Text);
-                        return;
-                    }
+                    y.Yazdır_Depo(depo, gecici_dosyadı);
                 }
             }
             
@@ -904,11 +900,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     gecici_dosyadı = gecici_klasör + "Teslim_Edildi_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
 
-                    if (!YazdırVeBitmesiniBekle())
-                    {
-                        MessageBox.Show("Teslim edilenler için pdf dosyası oluşturulamadı" + Environment.NewLine + gecici_dosyadı, Text);
-                        return;
-                    }
+                    y.Yazdır_Depo(depo, gecici_dosyadı);
                 }
             }
             
@@ -924,11 +916,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         {
                             gecici_dosyadı = gecici_klasör + "Ödeme_Talebi_" + ö + ".pdf";
 
-                            if (!YazdırVeBitmesiniBekle())
-                            {
-                                MessageBox.Show("Ödeme bekleyenler için pdf dosyası oluşturulamadı" + Environment.NewLine + gecici_dosyadı, Text);
-                                return;
-                            }
+                            y.Yazdır_Depo(depo, gecici_dosyadı);
                         }
                     }
                 }
@@ -946,12 +934,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 epst.Ayarlar_Eposta_Load(null, null);
                 string snç = epst.EpostaGönder(m, dsy_lar);
                 if (!string.IsNullOrEmpty(snç)) MessageBox.Show(snç, Text);
-            }
-
-            bool YazdırVeBitmesiniBekle()
-            {
-                y.Yazdır_Depo(depo, gecici_dosyadı);
-                return Ortak.Pdf_TutmayaÇalış(gecici_dosyadı);
             }
         }
     }

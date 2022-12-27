@@ -333,13 +333,14 @@ namespace İş_ve_Depo_Takip
             {
                 if (!string.IsNullOrWhiteSpace(İskonto.Text))
                 {
-                    double i = double.Parse(İskonto.Text);
+                    double i = İskonto.Text.NoktalıSayıya(true, false);
                     if (i > 100 || i < 0)
                     {
                         MessageBox.Show("İskonto kutucuğuna 0 ile 100 aralığında bir değer giriniz", Text);
                         İskonto.Focus();
                         return;
                     }
+                    else İskonto.Text = i.Yazıya();
                 }
             }
             catch (Exception)
@@ -369,12 +370,13 @@ namespace İş_ve_Depo_Takip
                     {
                         if (!string.IsNullOrWhiteSpace((string)Tablo[1, i].Value))
                         {
-                            double ü = double.Parse((string)Tablo[1, i].Value);
+                            double ü = ((string)Tablo[1, i].Value).NoktalıSayıya(true, false);
                             if (ü < 0)
                             {
                                 MessageBox.Show("Tablodaki " + (i + 1) + ". satırdaki \"Ücret\" içeriği 0, boş veya sıfırdan büyük olmalı", Text);
                                 return;
                             }
+                            else Tablo[1, i].Value = ü.Yazıya();
                         }
                         //else
                         //{

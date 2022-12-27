@@ -96,6 +96,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void GöndermeyiDene_Click(object sender, EventArgs e)
         {
+            if (!int.TryParse(Sunucu_ErişimNoktası.Text, out int _))
+            {
+                MessageBox.Show("Sunucu erişim noktası kutucuğu içeriği sayıya dönüştürülemedi", Text);
+                Sunucu_ErişimNoktası.Focus();
+                return;
+            }
+
             ArgeMup.HazirKod.Depo_ d = Banka.ÖrnekMüşteriTablosuOluştur();
             string dosyayolu = Ortak.Klasör_Gecici + Path.GetRandomFileName() + ".pdf";
 

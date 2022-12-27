@@ -181,13 +181,14 @@ namespace İş_ve_Depo_Takip
             {
                 try
                 {
-                    double miktar = double.Parse((string)Tablo[1, i].Value);
+                    double miktar = ((string)Tablo[1, i].Value).NoktalıSayıya(true, false);
                     if (miktar <= 0)
                     {
                         continue; //silmek için kullanılıyor
                         //MessageBox.Show("Tablodaki " + (i + 1).ToString() + ". satırdaki miktar kutucuğuna 0 dan büyük bir değer giriniz veya siliniz", Text);
                         //return;
                     }
+                    else Tablo[1, i].Value = miktar.Yazıya();
                 }
                 catch (Exception)
                 {
