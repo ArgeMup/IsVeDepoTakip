@@ -133,7 +133,7 @@ namespace İş_ve_Depo_Takip
             this.Tablo.ShowCellToolTips = false;
             this.Tablo.ShowEditingIcon = false;
             this.Tablo.ShowRowErrors = false;
-            this.Tablo.Size = new System.Drawing.Size(574, 210);
+            this.Tablo.Size = new System.Drawing.Size(573, 210);
             this.Tablo.TabIndex = 4;
             this.Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellValueChanged);
             this.Tablo.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.Tablo_EditingControlShowing);
@@ -176,7 +176,7 @@ namespace İş_ve_Depo_Takip
             this.Kaydet.Enabled = false;
             this.Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Kaydet.Location = new System.Drawing.Point(292, 220);
+            this.Kaydet.Location = new System.Drawing.Point(291, 220);
             this.Kaydet.Margin = new System.Windows.Forms.Padding(2);
             this.Kaydet.Name = "Kaydet";
             this.Kaydet.Size = new System.Drawing.Size(280, 36);
@@ -208,6 +208,7 @@ namespace İş_ve_Depo_Takip
             this.İskonto.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.İskonto.Size = new System.Drawing.Size(117, 30);
             this.İskonto.TabIndex = 2;
+            this.İskonto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.İskonto.TextChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
             // 
             // İpUcu

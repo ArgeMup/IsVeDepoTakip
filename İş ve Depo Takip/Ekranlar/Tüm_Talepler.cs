@@ -364,26 +364,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İşTakip_TeslimEdildi_ÖdemeTalebiOluştur_Click(object sender, EventArgs e)
         {
-            double ilave_ödeme_miktar = 0;
             İşTakip_Bitti_İlaveÖdeme_Açıklama.Text = İşTakip_Bitti_İlaveÖdeme_Açıklama.Text.Trim();
             if (!string.IsNullOrEmpty(İşTakip_Bitti_İlaveÖdeme_Açıklama.Text))
             {
-                İşTakip_Bitti_İlaveÖdeme_Miktar.Text = İşTakip_Bitti_İlaveÖdeme_Miktar.Text.Trim();
-
-                try
+                string ilave_ödeme_miktar = İşTakip_Bitti_İlaveÖdeme_Miktar.Text;
+                if (!Ortak.YazıyıSayıyaDönüştür(ref ilave_ödeme_miktar, "İlave ödeme Miktar kutucuğu"))
                 {
-                    if (!string.IsNullOrEmpty(İşTakip_Bitti_İlaveÖdeme_Miktar.Text))
-                    {
-                        ilave_ödeme_miktar = İşTakip_Bitti_İlaveÖdeme_Miktar.Text.NoktalıSayıya(true, false);
-                    }
-                    else İşTakip_Bitti_İlaveÖdeme_Miktar.Text = null;
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("İlave ödeme Miktar kutucuğu içeriği sayıya dönüştürülemedi", Text);
                     İşTakip_Bitti_İlaveÖdeme_Miktar.Focus();
                     return;
                 }
+
+                İşTakip_Bitti_İlaveÖdeme_Miktar.Text = ilave_ödeme_miktar;
             }
             else İşTakip_Bitti_İlaveÖdeme_Açıklama.Text = null;
 
@@ -402,7 +393,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             if (l.Count > 0)
             {
-                Banka.Talep_İşaretle_ÖdemeTalepEdildi(İşTakip_Müşteriler.Text, l, İşTakip_Bitti_İlaveÖdeme_Açıklama.Text, ilave_ödeme_miktar);
+                Banka.Talep_İşaretle_ÖdemeTalepEdildi(İşTakip_Müşteriler.Text, l, İşTakip_Bitti_İlaveÖdeme_Açıklama.Text, İşTakip_Bitti_İlaveÖdeme_Miktar.Text);
                 Banka.Değişiklikleri_Kaydet();
 
                 İşTakip_Bitti_İlaveÖdeme_Açıklama.Text = "";

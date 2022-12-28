@@ -329,25 +329,17 @@ namespace İş_ve_Depo_Takip
             }
             Hastalar_AramaÇubuğu.Text = Hastalar_AramaÇubuğu.Text.Trim();
 
-            try
+            if (!string.IsNullOrWhiteSpace(İskonto.Text))
             {
-                if (!string.IsNullOrWhiteSpace(İskonto.Text))
+                string gecici = İskonto.Text;
+                if (!Ortak.YazıyıSayıyaDönüştür(ref gecici, "İskonto kutucuğu", null, 0, 100))
                 {
-                    double i = İskonto.Text.NoktalıSayıya(true, false);
-                    if (i > 100 || i < 0)
-                    {
-                        MessageBox.Show("İskonto kutucuğuna 0 ile 100 aralığında bir değer giriniz", Text);
-                        İskonto.Focus();
-                        return;
-                    }
-                    else İskonto.Text = i.Yazıya();
+                    İskonto.Focus();
+                    return;
                 }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("İskonto kutucuğu içeriği sayıya dönüştürülemedi", Text);
-                İskonto.Focus();
-                return;
+
+                if (gecici == "0") İskonto.Text = null;
+                else İskonto.Text = gecici;
             }
             
             DateTime t = DateTime.Now;
@@ -366,30 +358,14 @@ namespace İş_ve_Depo_Takip
                     }
 
                     //Ücret kontrolü
-                    try
+                    if (!string.IsNullOrWhiteSpace((string)Tablo[1, i].Value))
                     {
-                        if (!string.IsNullOrWhiteSpace((string)Tablo[1, i].Value))
-                        {
-                            double ü = ((string)Tablo[1, i].Value).NoktalıSayıya(true, false);
-                            if (ü < 0)
-                            {
-                                MessageBox.Show("Tablodaki " + (i + 1) + ". satırdaki \"Ücret\" içeriği 0, boş veya sıfırdan büyük olmalı", Text);
-                                return;
-                            }
-                            else Tablo[1, i].Value = ü.Yazıya();
-                        }
-                        //else
-                        //{
-                        //    MessageBox.Show("Tablodaki " + (i + 1) + ". satırdaki \"Ücret\" hanesine giriş yapılmamış" + Environment.NewLine +
-                        //        "Eğer geçerli tarife üzerinden ücretlendirmek istiyorsanız İş Türü sutunundan farklı bir kalemi seçiniz" + Environment.NewLine +
-                        //        "Ardından önceden seçili olan kalemi tekrar seçiniz", Text);
-                        //    return;
-                        //}
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("Tablodaki " + (i + 1) + ". satırdaki \"Ücret\" sayıya dönüştürülemedi", Text);
-                        return;
+                        string gecici = (string)Tablo[1, i].Value;
+                        if (!Ortak.YazıyıSayıyaDönüştür(ref gecici, 
+                            "Tablodaki ücret sutununun " + (i + 1).ToString() + ". satırı",
+                            "İçeriği 0, boş veya sıfırdan büyük olabilir", 0)) return;
+
+                        Tablo[1, i].Value = gecici;
                     }
 
                     //tarih

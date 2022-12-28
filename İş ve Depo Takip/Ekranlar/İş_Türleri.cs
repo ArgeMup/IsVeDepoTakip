@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip
@@ -162,6 +163,7 @@ namespace İş_ve_Depo_Takip
 
             Ayar_Değişti(null, null);
 
+            //malzeme değişince birimini güncelle
             if (e.ColumnIndex == 0) Tablo[2, e.RowIndex].Value = Banka.Malzeme_Birimi((string)Tablo[0, e.RowIndex].Value);
         }
         
@@ -179,22 +181,13 @@ namespace İş_ve_Depo_Takip
 
             for (int i = 0; i < Tablo.RowCount - 1; i++)
             {
-                try
-                {
-                    double miktar = ((string)Tablo[1, i].Value).NoktalıSayıya(true, false);
-                    if (miktar <= 0)
-                    {
-                        continue; //silmek için kullanılıyor
-                        //MessageBox.Show("Tablodaki " + (i + 1).ToString() + ". satırdaki miktar kutucuğuna 0 dan büyük bir değer giriniz veya siliniz", Text);
-                        //return;
-                    }
-                    else Tablo[1, i].Value = miktar.Yazıya();
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Tablodaki " + (i + 1).ToString() + ". satırdaki miktar kutucuğu içeriği sayıya dönüştürülemedi.", Text);
-                    return;
-                }
+                string miktar = (string)Tablo[1, i].Value;
+                if (!Ortak.YazıyıSayıyaDönüştür(ref miktar, 
+                    "Tablodaki miktar sutununun " + (i + 1).ToString() + ". satırı", 
+                    "İlgili satırı silmek için sıfır yazınız.", 
+                    0)) return;
+                Tablo[1, i].Value = miktar;
+                if (miktar == "0") continue; //silmek için kullanılıyor
 
                 if (!Banka.Malzeme_MevcutMu((string)Tablo[0, i].Value))
                 {

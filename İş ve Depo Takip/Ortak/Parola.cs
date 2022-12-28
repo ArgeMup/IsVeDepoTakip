@@ -5,7 +5,7 @@ namespace İş_ve_Depo_Takip
 {
     public static class Parola
     {
-        static string Yazı = "ArGeMuP İş Ve Depo Takip Uygulaması";
+        public static string Yazı = "ArGeMuP İş Ve Depo Takip Uygulaması";
         public static byte[] Dizi = D_Yazı.BaytDizisine(Yazı);
         public static void Kaydet(string KullanıcıParalosu)
         {

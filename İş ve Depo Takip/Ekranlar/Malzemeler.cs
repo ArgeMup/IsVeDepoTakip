@@ -134,29 +134,11 @@ namespace İş_ve_Depo_Takip
         }
         private void Kaydet_Click(object sender, EventArgs e)
         {
-            double mevcut, uyarımiktarı;
+            string mevcut = Miktarı.Text;
+            if (!Ortak.YazıyıSayıyaDönüştür(ref mevcut, "Mevcut kutucuğu")) return;
 
-            try
-            {
-                mevcut = Miktarı.Text.NoktalıSayıya(true, false);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Mevcut kutucuğu içeriği sayıya dönüştürülemedi", Text);
-                Miktarı.Focus();
-                return;
-            }
-
-            try
-            {
-                uyarımiktarı = UyarıMiktarı.Text.NoktalıSayıya(true, false);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Uyarı Miktarı kutucuğu içeriği sayıya dönüştürülemedi", Text);
-                UyarıMiktarı.Focus();
-                return;
-            }
+            string uyarımiktarı = UyarıMiktarı.Text;
+            if (!Ortak.YazıyıSayıyaDönüştür(ref uyarımiktarı, "Uyarı Miktarı kutucuğu")) return;
 
             Banka.Malzeme_DetaylarıKaydet(Liste.Text, mevcut, Birimi.Text, uyarımiktarı, Notlar.Text.Trim());
             Banka.Değişiklikleri_Kaydet();

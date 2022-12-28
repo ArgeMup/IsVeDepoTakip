@@ -22,6 +22,59 @@ namespace İş_ve_Depo_Takip
         public static bool Kullanıcı_AçılışEkranıİçinParaloİste = true;
         public static bool Kullanıcı_Eposta_hesabı_mevcut = false;
 
+        public static bool YazıyıSayıyaDönüştür(ref string YazıŞeklindeSayı, string Konum, string YardımcıAçıklama = null, double EnDüşük = double.MinValue, double EnYüksek = double.MaxValue)
+        {
+            int sayac_virgül = YazıŞeklindeSayı.Count(x => x == ',');
+            int sayac_nokta = YazıŞeklindeSayı.Count(x => x == '.');
+            if (sayac_virgül == 1 && sayac_nokta == 0) YazıŞeklindeSayı = YazıŞeklindeSayı.Replace(',', '.');
+
+            double üretilen_s = 0;
+            try
+            {
+                üretilen_s = YazıŞeklindeSayı.NoktalıSayıya();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Girdiğiniz ifade sayıya dönüştürülemedi." + Environment.NewLine +
+                    "Lütfen tekrar giriniz" + Environment.NewLine + Environment.NewLine +
+                    "Konum : " + Konum + Environment.NewLine +
+                    "İçerik : " + YazıŞeklindeSayı +
+                    (YardımcıAçıklama == null ? null : Environment.NewLine + Environment.NewLine + YardımcıAçıklama), "Yazıdan sayıya dönüştürme işlemi");
+
+                return false;
+            }
+            
+            string üretilen_y = üretilen_s.Yazıya();
+            if (üretilen_y != YazıŞeklindeSayı)
+            {
+                string soru = "İçerik sayıya dönüştürülürken yeniden düzenlenmesi gerekti." + Environment.NewLine + Environment.NewLine +
+                    "Konum : " + Konum + Environment.NewLine +
+                    "İlk içerik : " + YazıŞeklindeSayı + Environment.NewLine +
+                    "Düzenlenen : " + üretilen_y + Environment.NewLine + Environment.NewLine +
+                    "Düzenlenen değer uygun ise Evet tuşuna basınız" +
+                    (YardımcıAçıklama == null ? null : Environment.NewLine + Environment.NewLine + YardımcıAçıklama);
+
+                DialogResult Dr = MessageBox.Show(soru, "Yazıdan sayıya dönüştürme işlemi", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (Dr == DialogResult.No) return false;
+
+                YazıŞeklindeSayı = üretilen_y;
+            }
+
+            if (üretilen_s < EnDüşük || üretilen_s > EnYüksek)
+            {
+                MessageBox.Show(üretilen_y + " sayısı belirlenen aralığın dışında," + Environment.NewLine +
+                    "Lütfen tekrar giriniz" + Environment.NewLine + Environment.NewLine +
+                    "Konum : " + Konum + Environment.NewLine +
+                    "En düşük : " + EnDüşük.Yazıya() + Environment.NewLine +
+                    "En yüksek : " + EnYüksek.Yazıya() +
+                    (YardımcıAçıklama == null ? null : Environment.NewLine + Environment.NewLine + YardımcıAçıklama), "Yazıdan sayıya dönüştürme işlemi");
+                
+                return false;
+            }
+
+            return true;
+        }
+
         public static TextBox Gösterge_UzunİşlemİçinBekleyiniz = null;
         public static System.Collections.Generic.Dictionary<string, string> Gösterge_UyarıVerenMalzemeler = new System.Collections.Generic.Dictionary<string, string>();
         public static void Gösterge_Açılışİşlemi(Label Gösterge, string Açıklama, ref int Tik)

@@ -74,6 +74,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void AramaÇubuğu_Müşteri_TextChanged(object sender, EventArgs e)
         {
             splitContainer1.Panel2.Enabled = false;
+            Zam_Yap.Enabled = false;
             Müşterıler.Items.Clear();
 
             if (string.IsNullOrEmpty(AramaÇubuğu_Müşteri.Text))
@@ -117,21 +118,28 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             splitContainer1.Panel1.Enabled = true;
             splitContainer1.Panel2.Enabled = true;
+            Zam_Yap.Enabled = true;
             Kaydet.Enabled = false;
         }
 
         private void Zam_Yap_Click(object sender, EventArgs e)
         {
-            double yüzde;
-            try
+            string yüzde_y = Zam_Miktarı.Text;
+            if (!Ortak.YazıyıSayıyaDönüştür(ref yüzde_y, "Artış miktarı kutucuğu"))
             {
-                yüzde = Zam_Miktarı.Text.NoktalıSayıya();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Artış miktarı kutucuğu içerisindeki yazı ( " + Zam_Miktarı.Text + " ) sayıya dönüştürülemedi");
                 Zam_Miktarı.Focus();
                 return;
+            }
+            Zam_Miktarı.Text = yüzde_y;
+            double yüzde_s = yüzde_y.NoktalıSayıya();
+
+            if (!string.IsNullOrWhiteSpace(AramaÇubuğu_İşTürü.Text))
+            {
+                string soru = "Tablo içeriği filtrelendiğinden sadece GÖRÜNEN üyeler ücretlendiririlecek." + Environment.NewLine +
+                    "Devam etmek için Evet tuşuna basınız";
+
+                DialogResult Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (Dr == DialogResult.No) return;
             }
 
             for (int i = 0; i < Tablo.RowCount; i++)
@@ -141,7 +149,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     try
                     {
                         double s = ((string)Tablo[1, i].Value).NoktalıSayıya();
-                        s = (s / 100.0 * yüzde) + s;
+                        s = (s / 100.0 * yüzde_s) + s;
                         Tablo[1, i].Value = s.Yazıya();
                     }
                     catch (Exception) { }
@@ -161,22 +169,22 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             for (int i = 0; i < Tablo.RowCount; i++)
             {
-                try
+                if (!string.IsNullOrEmpty((string)Tablo[1, i].Value))
                 {
-                    if (!string.IsNullOrEmpty((string)Tablo[1, i].Value))
-                    {
-                        Tablo[1, i].Value = ((string)Tablo[1, i].Value).NoktalıSayıya(true, false).Yazıya();
-                    }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show((i + 1) + ". satırdaki " + Tablo[0, i].Value + " ücreti sayıya dönüştürülemedi, düzenleyip tekrar deneyiniz" + Environment.NewLine + "Ücretlendirmek istemiyorsanız boş olarak bırakınız", Text);
-                    Tablo.Focus();
-                    return;
+                    string miktar = (string)Tablo[1, i].Value;
+                    if (!Ortak.YazıyıSayıyaDönüştür(ref miktar,
+                        (string)Tablo[0, i].Value + " (ücret sutununun " + (i + 1).ToString() + ". satırı)",
+                        "Ücretlendirmek istemiyorsanız boş olarak bırakınız." + Environment.NewLine +
+                        "Eğer " + (i + 1) + ". satır görünmüyor ise arama filtresini kaldırınız",
+                        0)) return;
+
+                    Tablo[1, i].Value = miktar;
                 }
             }
 
-            DialogResult Dr = MessageBox.Show("Değişiklikleri kaydetmek istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            DialogResult Dr = MessageBox.Show("Değişiklikleri kaydetmek istediğinize emin misiniz?" +
+                (string.IsNullOrWhiteSpace(AramaÇubuğu_İşTürü.Text) ? null : Environment.NewLine + Environment.NewLine + "Tablo içeriği filtrelendiğinden görünmeseler bile TÜM girdiler kaydedilecektir."),
+                Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
 
             if (Müşterıler.Text == "Tüm müşteriler için ortak")

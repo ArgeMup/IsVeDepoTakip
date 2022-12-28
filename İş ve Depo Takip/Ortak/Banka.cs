@@ -48,7 +48,7 @@ namespace İş_ve_Depo_Takip
             }
             Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Ayarlar", ref Açılışİşlemi_Tik);
 
-            DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, Ortak.EşZamanlıİşlemSayısı);
+            DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı, Ortak.EşZamanlıİşlemSayısı);
             Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Bütünlük Kontrolü", ref Açılışİşlemi_Tik);
             switch (snç)
             {
@@ -118,6 +118,9 @@ namespace İş_ve_Depo_Takip
                     break;
 
                 case DoğrulamaKodu.KontrolEt.Durum_.DoğrulamaDosyasıİçeriğiHatalı:
+                    Klasör.AslınaUygunHaleGetir(Ortak.Klasör_Banka, Ortak.Klasör_Banka2, true, Ortak.EşZamanlıİşlemSayısı);
+                    Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "İlk Kullanıma Hazırlanıyor", ref Açılışİşlemi_Tik);
+                    break;
                 case DoğrulamaKodu.KontrolEt.Durum_.Farklı:
                 case DoğrulamaKodu.KontrolEt.Durum_.FazlaKlasörVeyaDosyaVar:
                     throw new Exception("Banka klasörünün içeriği hatalı" + Environment.NewLine +
@@ -620,17 +623,18 @@ namespace İş_ve_Depo_Takip
 
             Tablo.ClearSelection();
         }
-        public static void Malzeme_DetaylarıKaydet(string Malzeme, double Mevcut, string Birimi, double UyarıVermeMiktarı, string Notlar)
+        public static void Malzeme_DetaylarıKaydet(string Malzeme, string Mevcut, string Birimi, string UyarıVermeMiktarı, string Notlar)
         {
             IDepo_Eleman d = Tablo_Dal(null, TabloTürü.Malzemeler, Malzeme);
-            d[0] = Mevcut.Yazıya();
+            d[0] = Mevcut;
             d[1] = Birimi;
-            d[2] = UyarıVermeMiktarı.Yazıya();
+            d[2] = UyarıVermeMiktarı;
             d.Yaz("Notlar", Notlar);
 
-            if (UyarıVermeMiktarı > 0)
+            double UyarıVermeMiktarı_s = UyarıVermeMiktarı.NoktalıSayıya();
+            if (UyarıVermeMiktarı_s > 0)
             {
-                if (Mevcut <= UyarıVermeMiktarı) Ortak.Gösterge_UyarıVerenMalzemeler[Malzeme] = Mevcut.Yazıya() + " " + Birimi;
+                if (Mevcut.NoktalıSayıya() <= UyarıVermeMiktarı_s) Ortak.Gösterge_UyarıVerenMalzemeler[Malzeme] = Mevcut + " " + Birimi;
                 else Ortak.Gösterge_UyarıVerenMalzemeler[Malzeme] = null;
             }
         }
@@ -968,7 +972,7 @@ namespace İş_ve_Depo_Takip
 
             return null;
         }
-        public static string Talep_İşaretle_ÖdemeTalepEdildi(string Müşteri, List<string> Seri_No_lar, string İlaveÖdeme_Açıklama, double İlaveÖdeme_Miktar)
+        public static string Talep_İşaretle_ÖdemeTalepEdildi(string Müşteri, List<string> Seri_No_lar, string İlaveÖdeme_Açıklama, string İlaveÖdeme_Miktar)
         {
             DateTime t = DateTime.Now;
             Depo_ yeni_tablo = Tablo(Müşteri, TabloTürü.ÖdemeTalepEdildi, true, t.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2));
@@ -1219,7 +1223,7 @@ namespace İş_ve_Depo_Takip
 
             if (EnAzBirDeğişiklikYapıldı)
             {
-                DoğrulamaKodu.Üret.Klasörden(Ortak.Klasör_Banka, true);
+                DoğrulamaKodu.Üret.Klasörden(Ortak.Klasör_Banka, true, SearchOption.AllDirectories, Parola.Yazı);
                 Klasör.AslınaUygunHaleGetir(Ortak.Klasör_Banka, Ortak.Klasör_Banka2, true, Ortak.EşZamanlıİşlemSayısı);
             }
         }
