@@ -227,9 +227,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             P_İşTakip_Ödendi.Visible = false;
             İşTakip_Müşteriler.Items.Clear();
 
-            İşTakip_Eposta_DevamEden.Checked = false;
-            İşTakip_Eposta_TeslimEdildi.Checked = false;
-            İşTakip_Eposta_ÖdemeBekleyen.Checked = false;
+            P_SolOrta_Sağ.Panel2.Enabled = false; //yazdırma + eposta
 
             if (string.IsNullOrEmpty(İşTakip_Müşteriler_AramaÇubuğu.Text))
             {
@@ -246,6 +244,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Seviye_Değişti(Seviye1_işTakip, null);
 
             //eposta gönderimi için iş adetlerinin enüde gösterilemsi
+            P_SolOrta_Sağ.Panel2.Enabled = true;
             İşTakip_Eposta_DevamEden.Checked = false;
             İşTakip_Eposta_TeslimEdildi.Checked = false;
             İşTakip_Eposta_ÖdemeBekleyen.Checked = false;
