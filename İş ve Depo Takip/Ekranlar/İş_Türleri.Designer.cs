@@ -300,7 +300,6 @@
             this.Tablo.TabIndex = 0;
             this.İpUcu.SetToolTip(this.Tablo, "Silinmek istenen malzemenin miktarı 0 yazılmalıdır");
             this.Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellValueChanged);
-            this.Tablo.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.Tablo_EditingControlShowing);
             // 
             // Tablo_Malzeme
             // 

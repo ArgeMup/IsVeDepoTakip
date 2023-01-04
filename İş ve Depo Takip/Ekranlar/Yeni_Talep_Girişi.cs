@@ -23,13 +23,11 @@ namespace İş_ve_Depo_Takip
             this.Müşteri = Müşteri;
             this.SeriNo = SeriNo;
         }
-        private void Yeni_Talep_Girişi_Load(object sender, EventArgs e)
+        private void Yeni_Talep_Girişi_Shown(object sender, EventArgs e)
         {
             İşTürleri_SeçimKutusu.Items.Clear();
             İşTürleri_Liste = Banka.İşTürü_Listele();
-            string[] i_l = İşTürleri_Liste.ToArray();
-            İşTürleri_SeçimKutusu.Items.AddRange(i_l);
-            Tablo_İş_Türü.Items.AddRange(i_l);
+            İşTürleri_SeçimKutusu.Items.AddRange(İşTürleri_Liste.ToArray());
 
             if (Müşteri == null)
             {
@@ -40,13 +38,14 @@ namespace İş_ve_Depo_Takip
             else
             {
                 Müşteriler_Grup.Enabled = false;
-                Hastalar_Grup.Enabled = false;
+                Hastalar_Grup.Enabled = true;
+                Hastalar_SeçimKutusu.Enabled = false;
 
                 Müşteriler_Liste = new List<string>();
                 Müşteriler_Liste.Add(Müşteri);
                 Müşteriler_AramaÇubuğu.Text = Müşteri;
                 Müşteriler_SeçimKutusu.SelectedIndex = 0;
-                Ayraç_Kat_1_2.SplitterDistance = (Müşteriler_AramaÇubuğu.Size.Height * 2) + (Müşteriler_AramaÇubuğu.Size.Height/2);
+                Ayraç_Kat_1_2.SplitterDistance = (Müşteriler_AramaÇubuğu.Size.Height * 2) + (Müşteriler_AramaÇubuğu.Size.Height / 2);
 
                 IDepo_Eleman elm_ları = Banka.Tablo_Dal(Müşteri, Banka.TabloTürü.DevamEden, "Talepler/" + SeriNo);
                 if (elm_ları == null) throw new Exception(Müşteri + " / Devam Eden / Talepler / " + SeriNo + " bulunamadı");
@@ -82,22 +81,20 @@ namespace İş_ve_Depo_Takip
                 {
                     MessageBox.Show(hata_bilgilendirmesi + Environment.NewLine + "Bu mesaj Notlar içerisine aktarıldı", Text);
                     Notlar.Text = hata_bilgilendirmesi + Notlar.Text;
-                    Ayraç_Kat_2_3.SplitterDistance *= 2; 
+                    Ayraç_Kat_2_3.SplitterDistance *= 2;
                 }
             }
 
             Tablo.Rows[Tablo.RowCount - 1].Selected = true;
-            
+
+            Kaydet.Enabled = false;
+
+            Müşteriler_AramaÇubuğu.Focus();
+
             KeyDown += Yeni_Talep_Girişi_Tuş;
             KeyUp += Yeni_Talep_Girişi_Tuş;
             MouseWheel += Yeni_Talep_Girişi_MouseWheel;
             KeyPreview = true;
-
-            Kaydet.Enabled = false;
-        }
-        private void Yeni_Talep_Girişi_Shown(object sender, EventArgs e)
-        {
-            Müşteriler_AramaÇubuğu.Focus();
         }
         bool ctrl_tuşuna_basıldı = false;
         private void Yeni_Talep_Girişi_Tuş(object sender, KeyEventArgs e)
@@ -143,6 +140,8 @@ namespace İş_ve_Depo_Takip
         }
         private void Hastalar_AramaÇubuğu_TextChanged(object sender, EventArgs e)
         {
+            if (Müşteri != null) Değişiklik_Yapılıyor(null, null);
+            
             if (Hastalar_Liste == null) return;
 
             Hastalar_SeçimKutusu.Items.Clear();
@@ -173,10 +172,6 @@ namespace İş_ve_Depo_Takip
             }
         }
 
-        private void Tablo_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
-        {
-            e.CellStyle.BackColor = Color.White;
-        }
         private void Tablo_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex < 0 || e.RowIndex < 0) return;
@@ -202,6 +197,7 @@ namespace İş_ve_Depo_Takip
         private void Müşteriler_SeçimKutusu_SelectedIndexChanged(object sender, EventArgs e)
         {
             Hastalar_Liste = null;
+            Hastalar_AramaÇubuğu.Text = "";
             Hastalar_SeçimKutusu.Items.Clear();
             Hastalar_SeçimKutusu.Enabled = false;
             if (!Banka.Müşteri_MevcutMu(Müşteriler_SeçimKutusu.Text)) return;
@@ -287,6 +283,7 @@ namespace İş_ve_Depo_Takip
             }
 
             Tablo[0, konum].Value = İşTürleri_SeçimKutusu.Text;
+            Tablo[0, konum].ToolTipText = Banka.Ücretler_BirimÜcret_Detaylı(Müşteriler_SeçimKutusu.Text, İşTürleri_SeçimKutusu.Text); 
         }
 
         private void Seçili_Satırı_Sil_Click(object sender, EventArgs e)

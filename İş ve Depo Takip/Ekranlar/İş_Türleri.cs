@@ -153,10 +153,6 @@ namespace İş_ve_Depo_Takip
             AramaÇubuğu_Liste.Add(Yeni.Text);
         }
 
-        private void Tablo_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
-        {
-            e.CellStyle.BackColor = Color.White;
-        }
         private void Tablo_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex < 0 || e.RowIndex < 0) return;

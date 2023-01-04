@@ -31,9 +31,13 @@
             this.Kaydet = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Klasör_Yedekleme_5 = new System.Windows.Forms.TextBox();
+            this.Klasör_Yedekleme_4 = new System.Windows.Forms.TextBox();
+            this.Klasör_Yedekleme_3 = new System.Windows.Forms.TextBox();
+            this.Klasör_Yedekleme_2 = new System.Windows.Forms.TextBox();
             this.Klasör_Pdf = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.Klasör_Yedekleme = new System.Windows.Forms.TextBox();
+            this.Klasör_Yedekleme_1 = new System.Windows.Forms.TextBox();
             this.AçılışEkranıİçinParaloİste = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -45,7 +49,7 @@
             this.Kaydet.Enabled = false;
             this.Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Kaydet.Location = new System.Drawing.Point(15, 300);
+            this.Kaydet.Location = new System.Drawing.Point(15, 438);
             this.Kaydet.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.Kaydet.Name = "Kaydet";
             this.Kaydet.Size = new System.Drawing.Size(1005, 63);
@@ -68,24 +72,72 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.Klasör_Yedekleme_5);
+            this.groupBox1.Controls.Add(this.Klasör_Yedekleme_4);
+            this.groupBox1.Controls.Add(this.Klasör_Yedekleme_3);
+            this.groupBox1.Controls.Add(this.Klasör_Yedekleme_2);
             this.groupBox1.Controls.Add(this.Klasör_Pdf);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.Klasör_Yedekleme);
+            this.groupBox1.Controls.Add(this.Klasör_Yedekleme_1);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(15, 14);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.groupBox1.Size = new System.Drawing.Size(1005, 211);
+            this.groupBox1.Size = new System.Drawing.Size(1005, 361);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Klasörler";
+            // 
+            // Klasör_Yedekleme_5
+            // 
+            this.Klasör_Yedekleme_5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Klasör_Yedekleme_5.Location = new System.Drawing.Point(18, 243);
+            this.Klasör_Yedekleme_5.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.Klasör_Yedekleme_5.Name = "Klasör_Yedekleme_5";
+            this.Klasör_Yedekleme_5.Size = new System.Drawing.Size(979, 36);
+            this.Klasör_Yedekleme_5.TabIndex = 28;
+            this.Klasör_Yedekleme_5.TextChanged += new System.EventHandler(this.Ayar_Değişti);
+            // 
+            // Klasör_Yedekleme_4
+            // 
+            this.Klasör_Yedekleme_4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Klasör_Yedekleme_4.Location = new System.Drawing.Point(18, 199);
+            this.Klasör_Yedekleme_4.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.Klasör_Yedekleme_4.Name = "Klasör_Yedekleme_4";
+            this.Klasör_Yedekleme_4.Size = new System.Drawing.Size(979, 36);
+            this.Klasör_Yedekleme_4.TabIndex = 27;
+            this.Klasör_Yedekleme_4.TextChanged += new System.EventHandler(this.Ayar_Değişti);
+            // 
+            // Klasör_Yedekleme_3
+            // 
+            this.Klasör_Yedekleme_3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Klasör_Yedekleme_3.Location = new System.Drawing.Point(18, 155);
+            this.Klasör_Yedekleme_3.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.Klasör_Yedekleme_3.Name = "Klasör_Yedekleme_3";
+            this.Klasör_Yedekleme_3.Size = new System.Drawing.Size(979, 36);
+            this.Klasör_Yedekleme_3.TabIndex = 26;
+            this.Klasör_Yedekleme_3.TextChanged += new System.EventHandler(this.Ayar_Değişti);
+            // 
+            // Klasör_Yedekleme_2
+            // 
+            this.Klasör_Yedekleme_2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Klasör_Yedekleme_2.Location = new System.Drawing.Point(18, 111);
+            this.Klasör_Yedekleme_2.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.Klasör_Yedekleme_2.Name = "Klasör_Yedekleme_2";
+            this.Klasör_Yedekleme_2.Size = new System.Drawing.Size(979, 36);
+            this.Klasör_Yedekleme_2.TabIndex = 25;
+            this.Klasör_Yedekleme_2.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
             // Klasör_Pdf
             // 
             this.Klasör_Pdf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Klasör_Pdf.Location = new System.Drawing.Point(17, 155);
+            this.Klasör_Pdf.Location = new System.Drawing.Point(17, 316);
             this.Klasör_Pdf.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.Klasör_Pdf.Name = "Klasör_Pdf";
             this.Klasör_Pdf.Size = new System.Drawing.Size(979, 36);
@@ -95,30 +147,30 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 122);
+            this.label2.Location = new System.Drawing.Point(13, 283);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(420, 29);
             this.label2.TabIndex = 23;
             this.label2.Text = "Pdf Yazdırma (...\\Müşteri\\Dosya.pdf)";
             // 
-            // Klasör_Yedekleme
+            // Klasör_Yedekleme_1
             // 
-            this.Klasör_Yedekleme.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.Klasör_Yedekleme_1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Klasör_Yedekleme.Location = new System.Drawing.Point(17, 67);
-            this.Klasör_Yedekleme.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
-            this.Klasör_Yedekleme.Name = "Klasör_Yedekleme";
-            this.Klasör_Yedekleme.Size = new System.Drawing.Size(979, 36);
-            this.Klasör_Yedekleme.TabIndex = 22;
-            this.Klasör_Yedekleme.TextChanged += new System.EventHandler(this.Ayar_Değişti);
+            this.Klasör_Yedekleme_1.Location = new System.Drawing.Point(17, 67);
+            this.Klasör_Yedekleme_1.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.Klasör_Yedekleme_1.Name = "Klasör_Yedekleme_1";
+            this.Klasör_Yedekleme_1.Size = new System.Drawing.Size(979, 36);
+            this.Klasör_Yedekleme_1.TabIndex = 22;
+            this.Klasör_Yedekleme_1.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
             // AçılışEkranıİçinParaloİste
             // 
             this.AçılışEkranıİçinParaloİste.AutoSize = true;
             this.AçılışEkranıİçinParaloİste.Checked = true;
             this.AçılışEkranıİçinParaloİste.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.AçılışEkranıİçinParaloİste.Location = new System.Drawing.Point(15, 246);
+            this.AçılışEkranıİçinParaloİste.Location = new System.Drawing.Point(15, 384);
             this.AçılışEkranıİçinParaloİste.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.AçılışEkranıİçinParaloİste.Name = "AçılışEkranıİçinParaloİste";
             this.AçılışEkranıİçinParaloİste.Size = new System.Drawing.Size(488, 33);
@@ -131,7 +183,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1035, 374);
+            this.ClientSize = new System.Drawing.Size(1035, 512);
             this.Controls.Add(this.AçılışEkranıİçinParaloİste);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Kaydet);
@@ -157,7 +209,11 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox Klasör_Pdf;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox Klasör_Yedekleme;
+        private System.Windows.Forms.TextBox Klasör_Yedekleme_1;
         private System.Windows.Forms.CheckBox AçılışEkranıİçinParaloİste;
+        private System.Windows.Forms.TextBox Klasör_Yedekleme_5;
+        private System.Windows.Forms.TextBox Klasör_Yedekleme_4;
+        private System.Windows.Forms.TextBox Klasör_Yedekleme_3;
+        private System.Windows.Forms.TextBox Klasör_Yedekleme_2;
     }
 }

@@ -7,6 +7,7 @@ using System.Drawing.Text;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using ArgeMup.HazirKod.Ekİşlemler;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
@@ -161,13 +162,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         class Bir_Satır_Bilgi_
         {
-            public Bir_Yazı_ Hasta = new Bir_Yazı_(), İş = new Bir_Yazı_();
+            public Bir_Yazı_ 
+                SıraNo = new Bir_Yazı_(), 
+                Hasta = new Bir_Yazı_(), 
+                İş = new Bir_Yazı_(), 
+                Ücret = new Bir_Yazı_();
             public float EnYüksek_Yükseklik;
         }
         class Bir_Sayfa_
         {
             public float Sol, Üst, Genişlik, Yükseklik, Yükseklik_YazılarİçinKullanılabilir;
-            public float Sutun_Hasta_Genişlik, Sutun_İş_Genişlik, Sutun_ÖdemeAçıklama_Genişik;
+            public float Sutun_SıraNo_Genişlik, Sutun_Hasta_Genişlik, Sutun_İş_Genişlik, Sutun_ÖdemeAçıklama_Genişik, Sutun_Ödeme_Genişik;
             public Font KaKü_Müşteri, KaKü_Başlık, KaKü_Diğer;
 
             public List<Bir_Satır_Bilgi_> Yazılar = new List<Bir_Satır_Bilgi_>();
@@ -182,73 +187,19 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         void Hesaplat(Bir_Sayfa_ Sayfa, Depo_ Depo, Graphics Grafik)
         {
-            SizeF s = new SizeF(100, 100);//a4 ten büyük
             List<float> HastaAdları = new List<float>();
             List<float> İşler = new List<float>();
-            //List<float> Ücretler = new List<float>();
 
-            float genişlik_boşluk = Grafik.MeasureString("ZT", Sayfa.KaKü_Diğer, s).Width;
-
-            IDepo_Eleman l = Depo.Bul("Talepler");
-            foreach (IDepo_Eleman sn in l.Elemanları)
-            {
-                double ücret = 0;
-                Banka.Talep_Ayıkla_İş(sn, out string Hasta, out string İşler_Tümü, ref ücret);
-                Bir_Satır_Bilgi_ a = new Bir_Satır_Bilgi_();
-                a.Hasta.Yazı = Hasta;
-                a.İş.Yazı = İşler_Tümü;
-                Sayfa.Yazılar.Add(a);
-
-                HastaAdları.Add(Grafik.MeasureString(Hasta, Sayfa.KaKü_Diğer, s).Width + genişlik_boşluk);
-                İşler.Add(Grafik.MeasureString(İşler_Tümü, Sayfa.KaKü_Diğer, s).Width + genişlik_boşluk);
-
-                //Ücretler.Add(Grafik.MeasureString(ücret.Yazıya(), KarakterKümesi, s).Width + genişlik_boşluk + genişlik_boşluk);
-            }
-            //Banka.Talep_Ayıkla_Ödeme()
-
-            float EnGeniş_HastaAdı = HastaAdları.Max();
-            float EnGeniş_İş = İşler.Max();
-            float EnGeniş_Ücret = 0/*Ücretler.Max()*/;
-            float ücret_hariç_genişlik = Sayfa.Genişlik - EnGeniş_Ücret;
-            float fark = ücret_hariç_genişlik - (EnGeniş_HastaAdı + EnGeniş_İş);
-            if (fark > 0)
-            {
-                Sayfa.Sutun_Hasta_Genişlik = EnGeniş_HastaAdı + (fark * 0.5f);
-                Sayfa.Sutun_İş_Genişlik = EnGeniş_İş + (fark * 0.5f);
-
-                //Sutun_Ücret.Sol = Sutun_İşler.Sol + Sutun_İşler.Genişlik;
-                //Sutun_Ücret.Genişlik = ö.EnGeniş_Ücret + (fark * 0.2f);
-            }
-            else
-            {
-                fark /= 2;
-
-                Sayfa.Sutun_Hasta_Genişlik = EnGeniş_HastaAdı + fark;
-                Sayfa.Sutun_İş_Genişlik = EnGeniş_İş + fark;
-
-                //Sutun_Ücret.Sol = Sutun_İşler.Sol + Sutun_İşler.Genişlik;
-                //Sutun_Ücret.Genişlik = (Kullanılabilir_Alan.Sol + Kullanılabilir_Alan.Genişlik) - Sutun_Ücret.Sol;
-            }
-
-            //sınırlandırılmış sutun genişliklkerine göre yazıların son gen ve yük hesabı
-            SizeF sf_h = new SizeF(Sayfa.Sutun_Hasta_Genişlik, Sayfa.Yükseklik);
-            SizeF sf_i = new SizeF(Sayfa.Sutun_İş_Genişlik, Sayfa.Yükseklik);
-            foreach (Bir_Satır_Bilgi_ a in Sayfa.Yazılar)
-            {
-                a.Hasta.Boyut = Grafik.MeasureString(a.Hasta.Yazı, Sayfa.KaKü_Diğer, sf_h);
-                a.İş.Boyut = Grafik.MeasureString(a.İş.Yazı, Sayfa.KaKü_Diğer, sf_i);
-
-                a.EnYüksek_Yükseklik = a.İş.Boyut.Height;
-                if (a.EnYüksek_Yükseklik < a.Hasta.Boyut.Height) a.EnYüksek_Yükseklik = a.Hasta.Boyut.Height;
-                Sayfa.YazılarİçinToplamYükseklik += a.EnYüksek_Yükseklik;
-            }
+            SizeF s = new SizeF(100, 100);//a4 ten büyük
+            float genişlik_boşluk = Grafik.MeasureString("Ğ", Sayfa.KaKü_Diğer, s).Width;
+            Sayfa.Sutun_Ödeme_Genişik = 0;
 
             //son sayfanın ölçülmesi
             SizeF sf_ss = new SizeF(Sayfa.Genişlik, Sayfa.Yükseklik);
-            l = Depo.Bul("Ödeme");
+            IDepo_Eleman l = Depo.Bul("Ödeme");
             if (l != null)
             {
-                Banka.Talep_Ayıkla_Ödeme(l, out List<string> Açıklamalar, out List<string> Ücretler, out string _, out string Ödendi, out string Notlar);
+                Banka.Talep_Ayıkla_Ödeme(l, out List<string> Açıklamalar, out List<string> Ödemeler, out string _, out string Ödendi, out string Notlar);
                 if (!string.IsNullOrEmpty(Notlar))
                 {
                     Sayfa.NotlarYazısı = new Bir_Yazı_();
@@ -264,8 +215,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Sayfa.ÖdendiğiTarihYazısı.Boyut = Grafik.MeasureString(Sayfa.ÖdendiğiTarihYazısı.Yazı, Sayfa.KaKü_Diğer, sf_ss);
                 }
 
-                HastaAdları.Clear();
-                İşler.Clear();
                 for (int i = 0; i < Açıklamalar.Count; i++)
                 {
                     Bir_Satır_Bilgi_ a = new Bir_Satır_Bilgi_();
@@ -273,7 +222,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     a.Hasta.Boyut = Grafik.MeasureString(a.Hasta.Yazı, Sayfa.KaKü_Diğer, sf_ss);
                     HastaAdları.Add(a.Hasta.Boyut.Width);
 
-                    a.İş.Yazı = Ücretler[i];
+                    a.İş.Yazı = Ödemeler[i];
                     a.İş.Boyut = Grafik.MeasureString(a.İş.Yazı, Sayfa.KaKü_Diğer, sf_ss);
                     İşler.Add(a.İş.Boyut.Width);
 
@@ -281,8 +230,63 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     Sayfa.Ödemeler_Notlar_Yükseklik += a.Hasta.Boyut.Height;
                 }
-                EnGeniş_İş = İşler.Max() + (genişlik_boşluk * 2); //en geniş ücret yazısı
-                Sayfa.Sutun_ÖdemeAçıklama_Genişik = Sayfa.Genişlik - EnGeniş_İş; //geriye kalan genişliği açıklama kısmına ver
+                Sayfa.Sutun_Ödeme_Genişik = İşler.Max() + genişlik_boşluk; //en geniş ücret yazısı
+                Sayfa.Sutun_ÖdemeAçıklama_Genişik = Sayfa.Genişlik - Sayfa.Sutun_Ödeme_Genişik; //geriye kalan genişliği açıklama kısmına ver
+            }
+
+            HastaAdları.Clear();
+            İşler.Clear();
+            l = Depo.Bul("Talepler");
+            for (int i = 0; i < l.Elemanları.Length; i++)
+            {
+                double ücret = 0;
+                Banka.Talep_Ayıkla_İş(l.Elemanları[i], out string Hasta, out string İşler_Tümü, ref ücret);
+                Bir_Satır_Bilgi_ a = new Bir_Satır_Bilgi_();
+
+                a.SıraNo.Yazı = (i + 1).Yazıya();
+                a.Hasta.Yazı = Hasta;
+                a.İş.Yazı = İşler_Tümü;
+                a.Ücret.Yazı = Banka.Yazdır_Ücret(ücret);
+                Sayfa.Yazılar.Add(a);
+
+                HastaAdları.Add(Grafik.MeasureString(Hasta, Sayfa.KaKü_Diğer, s).Width + genişlik_boşluk);
+                İşler.Add(Grafik.MeasureString(İşler_Tümü, Sayfa.KaKü_Diğer, s).Width + genişlik_boşluk);
+            }
+
+            Sayfa.Sutun_SıraNo_Genişlik = Grafik.MeasureString(l.Elemanları.Length.Yazıya(), Sayfa.KaKü_Diğer, s).Width + genişlik_boşluk;
+            float EnGeniş_HastaAdı = HastaAdları.Max();
+            float EnGeniş_İş = İşler.Max();
+
+            float SıraNoÜcret_hariç_genişlik = Sayfa.Genişlik - Sayfa.Sutun_SıraNo_Genişlik - Sayfa.Sutun_Ödeme_Genişik;
+            float fark = SıraNoÜcret_hariç_genişlik - (EnGeniş_HastaAdı + EnGeniş_İş);
+            if (fark > 0)
+            {
+                Sayfa.Sutun_Hasta_Genişlik = EnGeniş_HastaAdı + (fark * 0.5f);
+                Sayfa.Sutun_İş_Genişlik = EnGeniş_İş + (fark * 0.5f);
+            }
+            else
+            {
+                fark /= 2;
+
+                Sayfa.Sutun_Hasta_Genişlik = EnGeniş_HastaAdı + fark;
+                Sayfa.Sutun_İş_Genişlik = EnGeniş_İş + fark;
+            }
+
+            //sınırlandırılmış sutun genişliklkerine göre yazıların son gen ve yük hesabı
+            SizeF sf_sn = new SizeF(Sayfa.Sutun_SıraNo_Genişlik, Sayfa.Yükseklik);
+            SizeF sf_h = new SizeF(Sayfa.Sutun_Hasta_Genişlik, Sayfa.Yükseklik);
+            SizeF sf_i = new SizeF(Sayfa.Sutun_İş_Genişlik, Sayfa.Yükseklik);
+            SizeF sf_ö = new SizeF(Sayfa.Sutun_Ödeme_Genişik, Sayfa.Yükseklik);
+            foreach (Bir_Satır_Bilgi_ a in Sayfa.Yazılar)
+            {
+                a.SıraNo.Boyut = Grafik.MeasureString(a.SıraNo.Yazı, Sayfa.KaKü_Diğer, sf_sn);
+                a.Hasta.Boyut = Grafik.MeasureString(a.Hasta.Yazı, Sayfa.KaKü_Diğer, sf_h);
+                a.İş.Boyut = Grafik.MeasureString(a.İş.Yazı, Sayfa.KaKü_Diğer, sf_i);
+                a.Ücret.Boyut = Grafik.MeasureString(a.Ücret.Yazı, Sayfa.KaKü_Diğer, sf_ö);
+
+                a.EnYüksek_Yükseklik = a.İş.Boyut.Height;
+                if (a.EnYüksek_Yükseklik < a.Hasta.Boyut.Height) a.EnYüksek_Yükseklik = a.Hasta.Boyut.Height;
+                Sayfa.YazılarİçinToplamYükseklik += a.EnYüksek_Yükseklik;
             }
 
             //toplam sayfa sayısı hesabı
@@ -427,17 +431,28 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 y.Yazı.Boyut = ev.Graphics.MeasureString("Hasta", y.KarakterKümesi, s1);
                 y.Sol = Sayfa.Sol;
                 y.Üst = YazdırmaKonumu_Üst;
-                y.Genişlik = Sayfa.Sutun_Hasta_Genişlik;
+                y.Genişlik = Sayfa.Sutun_SıraNo_Genişlik + Sayfa.Sutun_Hasta_Genişlik;
                 y.Yükseklik = y.Yazı.Boyut.Height;
                 Yazdır(y);
 
                 y.Yazı.Yazı = "İşler";
                 y.Yazı.Boyut = ev.Graphics.MeasureString("İşler", y.KarakterKümesi, s1);
-                y.Sol = Sayfa.Sol + Sayfa.Sutun_Hasta_Genişlik;
+                y.Sol = y.Sol + y.Genişlik;
                 y.Üst = YazdırmaKonumu_Üst;
                 y.Genişlik = Sayfa.Sutun_İş_Genişlik;
                 y.Yükseklik = y.Yazı.Boyut.Height;
                 Yazdır(y);
+
+                if (Sayfa.Sutun_Ödeme_Genişik > 0)
+                {
+                    y.Yazı.Yazı = "Ücret";
+                    y.Yazı.Boyut = ev.Graphics.MeasureString("Ücret", y.KarakterKümesi, s1);
+                    y.Sol = y.Sol + y.Genişlik;
+                    y.Üst = YazdırmaKonumu_Üst;
+                    y.Genişlik = Sayfa.Sutun_Ödeme_Genişik;
+                    y.Yükseklik = y.Yazı.Boyut.Height;
+                    Yazdır(y);
+                }
 
                 YazdırmaKonumu_Üst += y.Yükseklik;
                 YazdırmaKonumu_Yükseklik -= y.Yükseklik;
@@ -445,7 +460,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 #region Hasta + işler
                 y.KarakterKümesi = Sayfa.KaKü_Diğer;
-                y.YataydaOrtalanmış = false;
 
                 while (Sayfa.Yazılar.Count > 0)
                 {
@@ -458,18 +472,33 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     }
 
                     y.Yükseklik = Sayfa.Yazılar[0].EnYüksek_Yükseklik;
-
-                    y.Yazı = Sayfa.Yazılar[0].Hasta;
-                    y.Sol = Sayfa.Sol;
                     y.Üst = YazdırmaKonumu_Üst;
+
+                    y.YataydaOrtalanmış = true;
+                    y.Yazı = Sayfa.Yazılar[0].SıraNo;
+                    y.Sol = Sayfa.Sol;
+                    y.Genişlik = Sayfa.Sutun_SıraNo_Genişlik;
+                    Yazdır(y);
+
+                    y.YataydaOrtalanmış = false;
+                    y.Yazı = Sayfa.Yazılar[0].Hasta;
+                    y.Sol = y.Sol + Sayfa.Sutun_SıraNo_Genişlik;
                     y.Genişlik = Sayfa.Sutun_Hasta_Genişlik;
                     Yazdır(y);
 
                     y.Yazı = Sayfa.Yazılar[0].İş;
-                    y.Sol = Sayfa.Sol + Sayfa.Sutun_Hasta_Genişlik;
-                    y.Üst = YazdırmaKonumu_Üst;
+                    y.Sol = y.Sol + Sayfa.Sutun_Hasta_Genişlik;
                     y.Genişlik = Sayfa.Sutun_İş_Genişlik;
                     Yazdır(y);
+
+                    if (Sayfa.Sutun_Ödeme_Genişik > 0)
+                    {
+                        y.YataydaOrtalanmış = true;
+                        y.Yazı = Sayfa.Yazılar[0].Ücret;
+                        y.Sol = y.Sol + Sayfa.Sutun_İş_Genişlik;
+                        y.Genişlik = Sayfa.Sutun_Ödeme_Genişik;
+                        Yazdır(y);
+                    }
 
                     YazdırmaKonumu_Üst += y.Yükseklik;
                     YazdırmaKonumu_Yükseklik -= y.Yükseklik;
@@ -484,6 +513,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 else
                 {
                     //ödemeler yazısını yazdır
+                    y.YataydaOrtalanmış = false;
                     YazdırmaKonumu_Üst = Sayfa.Yükseklik - Sayfa.Ödemeler_Notlar_Yükseklik + Sayfa.Üst;
 
                     if (Sayfa.NotlarYazısı != null)
@@ -510,7 +540,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     }
 
                     y.Çerçeve = true;
-                    y.YataydaOrtalanmış = false;
                     y.SağaYaslanmış = true;
                     foreach (Bir_Satır_Bilgi_ a in Sayfa.Ödemeler)
                     {

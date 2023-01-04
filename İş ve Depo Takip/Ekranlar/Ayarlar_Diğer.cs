@@ -19,7 +19,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Ayarlar = Banka.Tablo(null, Banka.TabloTürü.Ayarlar, true);
 
-            Klasör_Yedekleme.Text = Ayarlar.Oku("Klasör/Yedek");
+            Klasör_Yedekleme_1.Text = Ayarlar.Oku("Klasör/Yedek", null, 0);
+            Klasör_Yedekleme_2.Text = Ayarlar.Oku("Klasör/Yedek", null, 1);
+            Klasör_Yedekleme_3.Text = Ayarlar.Oku("Klasör/Yedek", null, 2);
+            Klasör_Yedekleme_4.Text = Ayarlar.Oku("Klasör/Yedek", null, 3);
+            Klasör_Yedekleme_5.Text = Ayarlar.Oku("Klasör/Yedek", null, 4);
             Klasör_Pdf.Text = Ayarlar.Oku("Klasör/Pdf");
             AçılışEkranıİçinParaloİste.Checked = Ayarlar.Oku_Bit("AçılışEkranıİçinParaloİste", true);
             Kaydet.Enabled = false;
@@ -62,13 +66,62 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Kaydet_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Klasör_Yedekleme.Text)) Klasör_Yedekleme.Text = null;
+            if (string.IsNullOrWhiteSpace(Klasör_Yedekleme_1.Text)) Klasör_Yedekleme_1.Text = null;
             else
             {
-                Klasör_Yedekleme.Text = Klasör_Yedekleme.Text.TrimEnd(' ', '\\') + "\\";
-                if (!Klasör.Oluştur(Klasör_Yedekleme.Text))
+                Klasör_Yedekleme_1.Text = Klasör_Yedekleme_1.Text.TrimEnd(' ', '\\') + "\\";
+                if (!Klasör.Oluştur(Klasör_Yedekleme_1.Text))
                 {
-                    MessageBox.Show("Yedek klasörü oluşturulamıyor", Text);
+                    MessageBox.Show("Yedek klasörü 1 oluşturulamıyor", Text);
+                    Klasör_Yedekleme_1.Focus();
+                    return;
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(Klasör_Yedekleme_2.Text)) Klasör_Yedekleme_2.Text = null;
+            else
+            {
+                Klasör_Yedekleme_2.Text = Klasör_Yedekleme_2.Text.TrimEnd(' ', '\\') + "\\";
+                if (!Klasör.Oluştur(Klasör_Yedekleme_2.Text))
+                {
+                    MessageBox.Show("Yedek klasörü 2 oluşturulamıyor", Text);
+                    Klasör_Yedekleme_2.Focus();
+                    return;
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(Klasör_Yedekleme_3.Text)) Klasör_Yedekleme_3.Text = null;
+            else
+            {
+                Klasör_Yedekleme_3.Text = Klasör_Yedekleme_3.Text.TrimEnd(' ', '\\') + "\\";
+                if (!Klasör.Oluştur(Klasör_Yedekleme_3.Text))
+                {
+                    MessageBox.Show("Yedek klasörü 3 oluşturulamıyor", Text);
+                    Klasör_Yedekleme_3.Focus();
+                    return;
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(Klasör_Yedekleme_4.Text)) Klasör_Yedekleme_4.Text = null;
+            else
+            {
+                Klasör_Yedekleme_4.Text = Klasör_Yedekleme_4.Text.TrimEnd(' ', '\\') + "\\";
+                if (!Klasör.Oluştur(Klasör_Yedekleme_4.Text))
+                {
+                    MessageBox.Show("Yedek klasörü 4 oluşturulamıyor", Text);
+                    Klasör_Yedekleme_4.Focus();
+                    return;
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(Klasör_Yedekleme_5.Text)) Klasör_Yedekleme_5.Text = null;
+            else
+            {
+                Klasör_Yedekleme_5.Text = Klasör_Yedekleme_5.Text.TrimEnd(' ', '\\') + "\\";
+                if (!Klasör.Oluştur(Klasör_Yedekleme_5.Text))
+                {
+                    MessageBox.Show("Yedek klasörü 5 oluşturulamıyor", Text);
+                    Klasör_Yedekleme_5.Focus();
                     return;
                 }
             }
@@ -84,12 +137,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
             }
 
-            Ayarlar.Yaz("Klasör/Yedek", Klasör_Yedekleme.Text);
+            IDepo_Eleman ydk = Ayarlar.Bul("Klasör/Yedek", true);
+            ydk[0] = Klasör_Yedekleme_1.Text;
+            ydk[1] = Klasör_Yedekleme_2.Text;
+            ydk[2] = Klasör_Yedekleme_3.Text;
+            ydk[3] = Klasör_Yedekleme_4.Text;
+            ydk[4] = Klasör_Yedekleme_5.Text;
+            
             Ayarlar.Yaz("Klasör/Pdf", Klasör_Pdf.Text);
             Ayarlar.Yaz("AçılışEkranıİçinParaloİste", AçılışEkranıİçinParaloİste.Checked);
             Banka.Değişiklikleri_Kaydet();
 
-            Ortak.Kullanıcı_Klasör_Yedek = Klasör_Yedekleme.Text;
+            Ortak.Kullanıcı_Klasör_Yedek = ydk.İçeriği;
             Ortak.Kullanıcı_Klasör_Pdf = Klasör_Pdf.Text;
             Ortak.Kullanıcı_AçılışEkranıİçinParaloİste = AçılışEkranıİçinParaloİste.Checked;
 
