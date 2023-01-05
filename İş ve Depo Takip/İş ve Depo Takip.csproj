@@ -94,6 +94,12 @@
     <Compile Include="Ekranlar\Malzemeler.Designer.cs">
       <DependentUpon>Malzemeler.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ekranlar\Bütçe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ekranlar\Bütçe.Designer.cs">
+      <DependentUpon>Bütçe.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ekranlar\İş_Türleri.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +188,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Malzemeler.resx">
       <DependentUpon>Malzemeler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ekranlar\Bütçe.resx">
+      <DependentUpon>Bütçe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\İş_Türleri.resx">
       <DependentUpon>İş_Türleri.cs</DependentUpon>

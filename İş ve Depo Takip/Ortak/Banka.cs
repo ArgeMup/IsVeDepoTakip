@@ -836,6 +836,13 @@ namespace İş_ve_Depo_Takip
                 (müşteriye_özel < 0 ? null : "Özel ücret : " + Yazdır_Ücret(müşteriye_özel)) +
                 (ortak < 0 ? null : (müşteriye_özel < 0 ? null : Environment.NewLine) + "Ortak ücret : " + Yazdır_Ücret(ortak));
         }
+        public static double Ücretler_Maliyet(string İşTürü)
+        {
+            IDepo_Eleman d = Tablo_Dal(null, TabloTürü.Ücretler, "Ücretler/" + İşTürü);
+            
+            if (d != null) return d.Oku_Sayı(null, 0, 1);
+            else return 0;
+        }
 
         public static void Talep_Ekle(string Müşteri, string Hasta, string İskonto, string Notlar, List<string> İşTürleri, List<string> Ücretler, List<string> GirişTarihleri, string SeriNo = null)
         {
@@ -1145,15 +1152,15 @@ namespace İş_ve_Depo_Takip
             Tablo.ClearSelection();
             Ortak.Gösterge_UzunİşlemİçinBekleyiniz.BackColor = Color.White;
         }
-        public static void Talep_Ayıkla_İş(IDepo_Eleman Talep, out string Hasta, out string İşler, ref double Toplam)
+        public static void Talep_Ayıkla_İş(IDepo_Eleman SeriNoDalı, out string Hasta, out string İşler, ref double Toplam)
         {
-            Hasta = Talep[0];
-            double iskonto = Talep.Oku_Sayı(null, 0, 1);
+            Hasta = SeriNoDalı[0];
+            double iskonto = SeriNoDalı.Oku_Sayı(null, 0, 1);
             if (iskonto > 0) Hasta += "\n% " + iskonto + " iskonto";
 
             İşler = "";
             double AltToplam = 0;
-            foreach (IDepo_Eleman iş in Talep.Elemanları)
+            foreach (IDepo_Eleman iş in SeriNoDalı.Elemanları)
             {
                 //tarih - iş türü - ücret sadece 0 dan büyük ise
                 İşler += Yazdır_Tarih(iş[1]) + " " + iş[0];
@@ -1175,15 +1182,34 @@ namespace İş_ve_Depo_Takip
 
             Toplam += AltToplam;
         }
-        public static void Talep_Ayıkla_Ödeme(IDepo_Eleman Talep, out List<string> Açıklamalar, out List<string> Ücretler, out string ÖdemeTalepEdildi, out string Ödendi, out string Notlar)
+        public static void Talep_Ayıkla_İş(string Müşteri, IDepo_Eleman SeriNoDalı, ref double İskontaDahilÜcretler_Toplamı, ref double Maliyetler_Toplamı, ref string HataMesajı)
         {
-            double AltToplam = Talep.Oku_Sayı("Alt Toplam");
-            double İlaveÖdeme = Talep.Oku_Sayı("İlave Ödeme", 0, 1);
-            string İlaveÖdemeAçıklaması = Talep.Oku("İlave Ödeme");
+            double iskonto = SeriNoDalı.Oku_Sayı(null, 0, 1), Toplam_Ücret = 0, Toplam_Maliyet = 0;
 
-            ÖdemeTalepEdildi = Yazdır_Tarih(Talep[0]);
-            Ödendi = Yazdır_Tarih(Talep[1]);
-            Notlar = Talep[2];
+            foreach (IDepo_Eleman iş in SeriNoDalı.Elemanları)
+            {
+                double ücret = iş.Oku_Sayı(null, -1, 2);
+                if (ücret < 0) ücret = Ücretler_BirimÜcret(Müşteri, iş[0]);
+                if (ücret > 0) Toplam_Ücret += ücret;
+                else HataMesajı += iş[0] + " için ücret hesaplanamadı" + Environment.NewLine;
+
+                Toplam_Maliyet += Ücretler_Maliyet(iş[0]);
+            }
+
+            if (iskonto > 0 && Toplam_Ücret > 0) Toplam_Ücret -= Toplam_Ücret / 100 * iskonto;
+
+            İskontaDahilÜcretler_Toplamı += Toplam_Ücret;
+            Maliyetler_Toplamı += Toplam_Maliyet;
+        }
+        public static void Talep_Ayıkla_Ödeme(IDepo_Eleman ÖdemeDalı, out List<string> Açıklamalar, out List<string> Ücretler, out string ÖdemeTalepEdildi, out string Ödendi, out string Notlar)
+        {
+            double AltToplam = ÖdemeDalı.Oku_Sayı("Alt Toplam");
+            double İlaveÖdeme = ÖdemeDalı.Oku_Sayı("İlave Ödeme", 0, 1);
+            string İlaveÖdemeAçıklaması = ÖdemeDalı.Oku("İlave Ödeme");
+
+            ÖdemeTalepEdildi = Yazdır_Tarih(ÖdemeDalı[0]);
+            Ödendi = Yazdır_Tarih(ÖdemeDalı[1]);
+            Notlar = ÖdemeDalı[2];
 
             Açıklamalar = new List<string>();
             Ücretler = new List<string>();

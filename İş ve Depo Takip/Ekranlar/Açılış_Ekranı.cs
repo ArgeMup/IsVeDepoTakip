@@ -247,8 +247,9 @@ namespace İş_ve_Depo_Takip
                     case "Malzemeler": ÖndekiEkran = new Malzemeler(); break;
                     case "Müşteriler": ÖndekiEkran = new Müşteriler(); break;
                     case "İş Türleri": ÖndekiEkran = new İş_Türleri(); break;
-                    case "Yazdırma": ÖndekiEkran = new Yazdırma(); break;
                     case "Ücretler": ÖndekiEkran = new Ücretler(); break;
+                    case "Bütçe": ÖndekiEkran = new Bütçe(); break;
+                    case "Yazdırma": ÖndekiEkran = new Yazdırma(); break;
                     case "E-posta": ÖndekiEkran = new Ayarlar_Eposta(); break;
                     case "Diğer": ÖndekiEkran = new Ayarlar_Diğer(); break;
                 }
