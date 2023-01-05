@@ -15,9 +15,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             InitializeComponent();
 
             Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
-        }
-        private void Tüm_Talepler_Load(object sender, EventArgs e)
-        {
+        
             Ortak.Gösterge_UzunİşlemİçinBekleyiniz = TabloİçeriğiArama;
 
             İşTakip_Müşteriler_AramaÇubuğu_Liste = Banka.Müşteri_Listele();
@@ -48,29 +46,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Seviye2_TeslimEdildi.Tag = 11;
             Seviye2_ÖdemeBekleyen.Tag = 12;
             Seviye2_Ödendi.Tag = 13;
-
-            KeyDown += Yeni_Talep_Girişi_Tuş;
-            KeyUp += Yeni_Talep_Girişi_Tuş;
-            MouseWheel += Yeni_Talep_Girişi_MouseWheel;
-            KeyPreview = true;
-        }
-        bool ctrl_tuşuna_basıldı = false;
-        private void Yeni_Talep_Girişi_Tuş(object sender, KeyEventArgs e)
-        {
-            ctrl_tuşuna_basıldı = e.Control;
-        }
-        private void Yeni_Talep_Girişi_MouseWheel(object sender, MouseEventArgs e)
-        {
-            if (ctrl_tuşuna_basıldı)
-            {
-                WindowState = FormWindowState.Normal;
-                if (e.Delta > 0) Font = new Font(Font.FontFamily, Font.Size + 0.2f);
-                else Font = new Font(Font.FontFamily, Font.Size - 0.2f);
-            }
-        }
-        private void Tüm_Talepler_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Ortak.GeçiciDepolama_PencereKonumları_Yaz(this);
         }
 
         private void Seviye_Değişti(object sender, EventArgs e)
@@ -813,7 +788,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             string dosyayolu = Ortak.Klasör_Gecici + Path.GetRandomFileName() + ".pdf";
 
             Yazdırma y = new Yazdırma();
-            y.Yazdırma_Load(null, null);
             y.Yazdır_Depo(depo, dosyayolu);
 
             if (!string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Pdf))
@@ -852,7 +826,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Directory.CreateDirectory(gecici_klasör);
 
             Yazdırma y = new Yazdırma();
-            y.Yazdırma_Load(null, null);
 
             if (İşTakip_Eposta_DevamEden.Checked)
             {
@@ -921,7 +894,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if (Dr == DialogResult.No) return;
 
                 Ayarlar_Eposta epst = new Ayarlar_Eposta();
-                epst.Ayarlar_Eposta_Load(null, null);
                 string snç = epst.EpostaGönder(m, dsy_lar);
                 if (!string.IsNullOrEmpty(snç)) MessageBox.Show(snç, Text);
             }

@@ -276,9 +276,6 @@
             this.Name = "Müşteriler";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Müşteriler";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Müşteriler_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Müşteriler_FormClosed);
-            this.Load += new System.EventHandler(this.Müşteriler_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);

@@ -2,7 +2,6 @@
 using ArgeMup.HazirKod.Ekİşlemler;
 using İş_ve_Depo_Takip.Ekranlar;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -10,6 +9,11 @@ namespace İş_ve_Depo_Takip
 {
     public partial class Açılış_Ekranı : Form
     {
+        Form ÖndekiEkran = null;
+        bool ÖndekiEkran_ctrl_tuşuna_basıldı = false;
+        KlavyeFareGozlemcisi_ ÖndekiEkran_KlaFaGö = null;
+        Timer ÖndekiEkran_Zamanlayıcı = null;
+
         YeniYazılımKontrolü_ YeniYazılımKontrolü = new YeniYazılımKontrolü_();
         int Parola_EnAzKarakterSayısı = 4;
 
@@ -61,6 +65,64 @@ namespace İş_ve_Depo_Takip
 
             YeniYazılımKontrolü.Başlat(new Uri("https://github.com/ArgeMup/IsVeDepoTakip/blob/main/%C4%B0%C5%9F%20ve%20Depo%20Takip/bin/Release/%C4%B0%C5%9F%20ve%20Depo%20Takip.exe?raw=true"));
 #endif
+
+            if (Ortak.Kullanıcı_KüçültüldüğündeParolaSor)
+            {
+                ÖndekiEkran_KlaFaGö = new KlavyeFareGozlemcisi_();
+
+                ÖndekiEkran_Zamanlayıcı = new Timer();
+                ÖndekiEkran_Zamanlayıcı.Interval = 5000;
+                ÖndekiEkran_Zamanlayıcı.Tick += T_Tick;
+                ÖndekiEkran_Zamanlayıcı.Start();
+
+                void T_Tick(object senderr, EventArgs ee)
+                {
+                    Form f = ÖndekiEkran == null ? this : ÖndekiEkran;
+                    ÖndekiEkran_Zamanlayıcı.Stop();
+                    
+                    if (f.WindowState == FormWindowState.Minimized)
+                    {
+                        ÖndekiEkran_Zamanlayıcı.Interval = 5000;
+                    }
+                    else
+                    {
+                        if ((DateTime.Now - ÖndekiEkran_KlaFaGö.SonKlavyeFareOlayıAnı).TotalSeconds < Ortak.Kullanıcı_KüçültüldüğündeParolaSor_sn)
+                        {
+                            //kullanıcı bilgisayarı kullanıyor
+                            f.Opacity = 1;
+                            ÖndekiEkran_Zamanlayıcı.Interval = 5000;
+                        }
+                        else
+                        {
+                            //bilgisayar boşta
+                            ÖndekiEkran_Zamanlayıcı.Interval = 100;
+
+                            f.Opacity -= 0.01;
+                            if (f.Opacity <= 0)
+                            {
+                                f.WindowState = FormWindowState.Minimized;
+                                f.Opacity = 1;
+
+                                //yedeklemeye başla
+                                Parola_Kontrol.Enabled = false;
+                                Hata.SetError(Parola_Kontrol, "Lütfen yedekleme devam ederken bekleyiniz");
+                                new System.Threading.Tasks.Task(new Action(() =>
+                                {
+                                    Banka.Yedekle();
+
+                                    Parola_Kontrol.Invoke(new Action(() =>
+                                    {
+                                        Hata.Clear();
+                                        Parola_Kontrol.Enabled = true;
+                                    }));
+                                })).Start();
+                            }
+                        }
+                    }
+
+                    ÖndekiEkran_Zamanlayıcı.Start();
+                }
+            }
         }
         private void Açılış_Ekranı_DoubleClick(object sender, EventArgs e)
         {
@@ -74,7 +136,7 @@ namespace İş_ve_Depo_Takip
                 {
                     Application.Exit();
                 }
-                else if (Ortak.Kullanıcı_AçılışEkranıİçinParaloİste)
+                else if (Ortak.Kullanıcı_KüçültüldüğündeParolaSor)
                 {
                     Parola_Giriş.Text = "";
                     P_Parola.Visible = true;
@@ -82,7 +144,12 @@ namespace İş_ve_Depo_Takip
                     P_AnaMenü.Visible = false;
                 }
             }
-            else if (P_Parola.Visible) Parola_Giriş.Focus();
+            else
+            {
+                Opacity = 1;
+
+                if (P_Parola.Visible) Parola_Giriş.Focus();
+            }
         }
         private void Açılış_Ekranı_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -92,7 +159,7 @@ namespace İş_ve_Depo_Takip
 
             if (!P_YeniParola.Visible && e.CloseReason == CloseReason.UserClosing)
             {
-                if (Ortak.Kullanıcı_AçılışEkranıİçinParaloİste)
+                if (Ortak.Kullanıcı_KüçültüldüğündeParolaSor)
                 {
                     Parola_Giriş.Text = "";
                     P_Parola.Visible = true;
@@ -115,39 +182,89 @@ namespace İş_ve_Depo_Takip
         private void Tuş_Click(object sender, EventArgs e)
         {
             string a = (sender as Button).Text;
-            Hide();
 
-            try
+            if (a == "Parola")
             {
+                P_Ayarlar.Visible = false;
+                P_YeniParola.Visible = true;
+                P_YeniParola.Tag = "Normal Çalışma";
+            }
+            else
+            {
+                //Yeni yan uygulamayı oluştur
                 switch (a)
                 {
-                    case "Yeni İş Girişi": new Yeni_Talep_Girişi().ShowDialog(); break;
-                    case "Tüm İşler": new Tüm_Talepler().ShowDialog(); break;
-                    case "Malzemeler": new Malzemeler().ShowDialog(); break;
-                    case "Müşteriler": new Müşteriler().ShowDialog(); break;
-                    case "İş Türleri": new İş_Türleri().ShowDialog(); break;
-                    case "Yazdırma": new Yazdırma().ShowDialog(); break;
-                    case "Ücretler": new Ücretler().ShowDialog(); break;
-                    case "E-posta": new Ayarlar_Eposta().ShowDialog(); break;
-                    case "Diğer": new Ayarlar_Diğer().ShowDialog(); break;
-                    case "Parola":
-                        P_Ayarlar.Visible = false;
-                        P_YeniParola.Visible = true;
-                        P_YeniParola.Tag = "Normal Çalışma";
-                        break;
+                    case "Yeni İş Girişi": ÖndekiEkran = new Yeni_Talep_Girişi(); break;
+                    case "Tüm İşler": ÖndekiEkran = new Tüm_Talepler(); break;
+                    case "Malzemeler": ÖndekiEkran = new Malzemeler(); break;
+                    case "Müşteriler": ÖndekiEkran = new Müşteriler(); break;
+                    case "İş Türleri": ÖndekiEkran = new İş_Türleri(); break;
+                    case "Yazdırma": ÖndekiEkran = new Yazdırma(); break;
+                    case "Ücretler": ÖndekiEkran = new Ücretler(); break;
+                    case "E-posta": ÖndekiEkran = new Ayarlar_Eposta(); break;
+                    case "Diğer": ÖndekiEkran = new Ayarlar_Diğer(); break;
+                }
+
+                ÖndekiEkran.Shown += ÖndekiEkran_Shown;
+                ÖndekiEkran.KeyDown += ÖndekiEkran_Tuş;
+                ÖndekiEkran.KeyUp += ÖndekiEkran_Tuş;
+                ÖndekiEkran.MouseWheel += ÖndekiEkran_MouseWheel;
+                ÖndekiEkran.Resize += ÖndekiEkran_Resize;
+                ÖndekiEkran.FormClosing += ÖndekiEkran_FormClosing;
+                ÖndekiEkran.FormClosed += ÖndekiEkran_FormClosed;
+                ÖndekiEkran.KeyPreview = true;
+                YanUygulamayaGeç();
+            }
+        }
+        private void ÖndekiEkran_Shown(object sender, EventArgs e)
+        {
+            Ortak.GeçiciDepolama_PencereKonumları_Yaz(ÖndekiEkran);
+        } 
+        private void ÖndekiEkran_Tuş(object sender, KeyEventArgs e)
+        {
+            ÖndekiEkran_ctrl_tuşuna_basıldı = e.Control;
+        }
+        private void ÖndekiEkran_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (ÖndekiEkran_ctrl_tuşuna_basıldı)
+            {
+                ÖndekiEkran.WindowState = FormWindowState.Normal;
+                if (e.Delta > 0) ÖndekiEkran.Font = new System.Drawing.Font(ÖndekiEkran.Font.FontFamily, ÖndekiEkran.Font.Size + 0.2f);
+                else ÖndekiEkran.Font = new System.Drawing.Font(ÖndekiEkran.Font.FontFamily, ÖndekiEkran.Font.Size - 0.2f);
+            }
+        }
+        private void ÖndekiEkran_Resize(object sender, EventArgs e)
+        {
+            if (ÖndekiEkran.WindowState == FormWindowState.Minimized)
+            {
+                if (Ortak.Kullanıcı_KüçültüldüğündeParolaSor)
+                {
+                    ÖndekiEkran.Hide();
+
+                    Show();
+                    WindowState = FormWindowState.Minimized;
                 }
             }
-            catch (Exception ex) 
-            { 
-                ex.Günlük();
-                Banka.Değişiklikler_TamponuSıfırla();
-                Klasör.AslınaUygunHaleGetir(Ortak.Klasör_Banka2, Ortak.Klasör_Banka, true, Ortak.EşZamanlıİşlemSayısı);
+            else Ortak.GeçiciDepolama_PencereKonumları_Yaz(ÖndekiEkran);
+        }
+        private void ÖndekiEkran_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                Control[] kydt = ÖndekiEkran.Controls.Find("Kaydet", true);
+                if (kydt == null || kydt.Length != 1 || !kydt[0].Enabled) return;
 
-                MessageBox.Show("Bir sorun oluştu, uygulama yedekler ile kontrol edildi ve bir sorun görülmedi" + Environment.NewLine +
-                    "Lütfen son işleminizi tekrar deneyiniz." + Environment.NewLine + Environment.NewLine + ex.Message, Text);
+                DialogResult Dr = MessageBox.Show("Değişiklikleri kaydetmeden çıkmak istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                e.Cancel = Dr == DialogResult.No;
             }
+        }
+        private void ÖndekiEkran_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Ortak.GeçiciDepolama_PencereKonumları_Yaz(ÖndekiEkran);
+            ÖndekiEkran = null;
 
             Show();
+            WindowState = FormWindowState.Normal;
         }
 
         private void YeniParola_Kaydet_Click(object sender, EventArgs e)
@@ -192,6 +309,8 @@ namespace İş_ve_Depo_Takip
 
             P_Parola.Visible = false;
             P_AnaMenü.Visible = true;
+
+            if (ÖndekiEkran != null) YanUygulamayaGeç();
         }
         private void Ayarlar_Click(object sender, EventArgs e)
         {
@@ -213,15 +332,38 @@ namespace İş_ve_Depo_Takip
             Ortak.Gösterge_UyarıVerenMalzemeler = Ortak.Gösterge_UyarıVerenMalzemeler.Where(x => !string.IsNullOrEmpty(x.Value)).ToDictionary(i => i.Key, i => i.Value);
             
             string mesaj = "";
-            foreach (KeyValuePair<string, string> a in Ortak.Gösterge_UyarıVerenMalzemeler)
+            foreach (System.Collections.Generic.KeyValuePair<string, string> a in Ortak.Gösterge_UyarıVerenMalzemeler)
             {
                 //<mlz adı> : 0.0 kg\n gibi
                 mesaj += a.Key + " : " + a.Value + " kaldı\n";
             }
             mesaj = mesaj.TrimEnd('\n');
-            
-            if (string.IsNullOrEmpty(mesaj)) Hata.Clear();
-            else Hata.SetError(Malzemeler, mesaj);
+
+            Hata.Clear();
+            if (!string.IsNullOrEmpty(mesaj)) Hata.SetError(Malzemeler, mesaj);
+        }
+
+        void YanUygulamayaGeç()
+        {
+            try
+            {
+                Hide();
+
+                Ortak.GeçiciDepolama_PencereKonumları_Oku(ÖndekiEkran);
+                ÖndekiEkran.Opacity = 1;
+                ÖndekiEkran.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                ex.Günlük();
+                Banka.Değişiklikler_TamponuSıfırla();
+                Klasör.AslınaUygunHaleGetir(Ortak.Klasör_Banka2, Ortak.Klasör_Banka, true, Ortak.EşZamanlıİşlemSayısı);
+
+                MessageBox.Show("Bir sorun oluştu, uygulama yedekler ile kontrol edildi ve bir sorun görülmedi" + Environment.NewLine +
+                    "Lütfen son işleminizi tekrar deneyiniz." + Environment.NewLine + Environment.NewLine + ex.Message, Text);
+
+                ÖndekiEkran_FormClosed(null, null);
+            }
         }
     }
 }

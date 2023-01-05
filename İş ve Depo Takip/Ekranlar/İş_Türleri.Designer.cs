@@ -371,9 +371,6 @@
             this.Name = "İş_Türleri";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "İş Türleri";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.İş_Türleri_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.İş_Türleri_FormClosed);
-            this.Load += new System.EventHandler(this.İş_Türleri_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);

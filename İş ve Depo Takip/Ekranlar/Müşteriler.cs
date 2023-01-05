@@ -10,27 +10,13 @@ namespace İş_ve_Depo_Takip
         public Müşteriler()
         {
             InitializeComponent();
-        }
-        private void Müşteriler_Load(object sender, System.EventArgs e)
-        {
+
+            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
+        
             Liste.Items.Clear();
             AramaÇubuğu_Liste = Banka.Müşteri_Listele();
             Liste.Items.AddRange(AramaÇubuğu_Liste.ToArray());
             if (Liste.Items.Count > 0) Sil.Enabled = true;
-
-            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
-        }
-        private void Müşteriler_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (Kaydet.Enabled)
-            {
-                DialogResult Dr = MessageBox.Show("Değişiklikleri kaydetmeden çıkmak istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                e.Cancel = Dr == DialogResult.No;
-            }
-        }
-        private void Müşteriler_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Ortak.GeçiciDepolama_PencereKonumları_Yaz(this);
         }
 
         List<string> AramaÇubuğu_Liste = null;

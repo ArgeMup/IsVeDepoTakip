@@ -12,9 +12,9 @@ namespace İş_ve_Depo_Takip
         public İş_Türleri()
         {
             InitializeComponent();
-        }
-        private void İş_Türleri_Load(object sender, System.EventArgs e)
-        {
+
+            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
+        
             Liste.Items.Clear();
             AramaÇubuğu_Liste = Banka.İşTürü_Listele();
             Liste.Items.AddRange(AramaÇubuğu_Liste.ToArray());
@@ -24,39 +24,6 @@ namespace İş_ve_Depo_Takip
             string[] m_l = Malzeme_Liste.ToArray();
             Malzeme_SeçimKutusu.Items.AddRange(m_l);
             Tablo_Malzeme.Items.AddRange(m_l);
-
-            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
-
-            KeyDown += İş_Türleri_Tuş;
-            KeyUp += İş_Türleri_Tuş;
-            MouseWheel += İş_Türleri_MouseWheel;
-            KeyPreview = true;
-        }
-        bool ctrl_tuşuna_basıldı = false;
-        private void İş_Türleri_Tuş(object sender, KeyEventArgs e)
-        {
-            ctrl_tuşuna_basıldı = e.Control;
-        }
-        private void İş_Türleri_MouseWheel(object sender, MouseEventArgs e)
-        {
-            if (ctrl_tuşuna_basıldı)
-            {
-                WindowState = FormWindowState.Normal;
-                if (e.Delta > 0) Font = new Font(Font.FontFamily, Font.Size + 0.2f);
-                else Font = new Font(Font.FontFamily, Font.Size - 0.2f);
-            }
-        }
-        private void İş_Türleri_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (Kaydet.Enabled)
-            {
-                DialogResult Dr = MessageBox.Show("Değişiklikleri kaydetmeden çıkmak istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                e.Cancel = Dr == DialogResult.No;
-            }
-        }
-        private void İş_Türleri_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Ortak.GeçiciDepolama_PencereKonumları_Yaz(this);
         }
 
         List<string> AramaÇubuğu_Liste = null;

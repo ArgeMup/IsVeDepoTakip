@@ -14,9 +14,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             InitializeComponent();
 
             Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
-        }
-        private void Tüm_Talepler_Load(object sender, EventArgs e)
-        {
+        
             AramaÇubuğu_Müşteri_Liste = Banka.Müşteri_Listele();
             AramaÇubuğu_Müşteri_Liste.Add("Tüm müşteriler için ortak");
             Müşterıler.Items.AddRange(AramaÇubuğu_Müşteri_Liste.ToArray());
@@ -37,37 +35,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Kaydet.Enabled = false;
             splitContainer1.Panel1.Enabled = true;
             Müşterıler.Focus();
-
-            KeyDown += Yeni_Talep_Girişi_Tuş;
-            KeyUp += Yeni_Talep_Girişi_Tuş;
-            MouseWheel += Yeni_Talep_Girişi_MouseWheel;
-            KeyPreview = true;
-        }
-        bool ctrl_tuşuna_basıldı = false;
-        private void Yeni_Talep_Girişi_Tuş(object sender, KeyEventArgs e)
-        {
-            ctrl_tuşuna_basıldı = e.Control;
-        }
-        private void Yeni_Talep_Girişi_MouseWheel(object sender, MouseEventArgs e)
-        {
-            if (ctrl_tuşuna_basıldı)
-            {
-                WindowState = FormWindowState.Normal;
-                if (e.Delta > 0) Font = new Font(Font.FontFamily, Font.Size + 0.2f);
-                else Font = new Font(Font.FontFamily, Font.Size - 0.2f);
-            }
-        }
-        private void Ücretler_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (Kaydet.Enabled)
-            {
-                DialogResult Dr = MessageBox.Show("Değişiklikleri kaydetmeden çıkmak istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                e.Cancel = Dr == DialogResult.No;
-            }
-        }
-        private void Tüm_Talepler_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Ortak.GeçiciDepolama_PencereKonumları_Yaz(this);
         }
 
         List<string> AramaÇubuğu_Müşteri_Liste = null;

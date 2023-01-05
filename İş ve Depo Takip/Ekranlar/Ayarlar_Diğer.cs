@@ -1,6 +1,5 @@
 ﻿using ArgeMup.HazirKod;
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
@@ -12,11 +11,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
         public Ayarlar_Diğer()
         {
             InitializeComponent();
-        }
-        private void Ayarlar_Diğer_Load(object sender, System.EventArgs e)
-        {
-            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
 
+            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
+        
             Ayarlar = Banka.Tablo(null, Banka.TabloTürü.Ayarlar, true);
 
             Klasör_Yedekleme_1.Text = Ayarlar.Oku("Klasör/Yedek", null, 0);
@@ -25,39 +22,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Klasör_Yedekleme_4.Text = Ayarlar.Oku("Klasör/Yedek", null, 3);
             Klasör_Yedekleme_5.Text = Ayarlar.Oku("Klasör/Yedek", null, 4);
             Klasör_Pdf.Text = Ayarlar.Oku("Klasör/Pdf");
-            AçılışEkranıİçinParaloİste.Checked = Ayarlar.Oku_Bit("AçılışEkranıİçinParaloİste", true);
+            KüçültüldüğündeParolaSor.Checked = Ayarlar.Oku_Bit("Küçültüldüğünde Parola Sor", true, 0);
+            KüçültüldüğündeParolaSor_sn.Value = Ayarlar.Oku_TamSayı("Küçültüldüğünde Parola Sor", 60, 1);
             Kaydet.Enabled = false;
-
-            KeyDown += Yeni_Talep_Girişi_Tuş;
-            KeyUp += Yeni_Talep_Girişi_Tuş;
-            MouseWheel += Yeni_Talep_Girişi_MouseWheel;
-            KeyPreview = true;
-        }
-        bool ctrl_tuşuna_basıldı = false;
-        private void Yeni_Talep_Girişi_Tuş(object sender, KeyEventArgs e)
-        {
-            ctrl_tuşuna_basıldı = e.Control;
-        }
-        private void Yeni_Talep_Girişi_MouseWheel(object sender, MouseEventArgs e)
-        {
-            if (ctrl_tuşuna_basıldı)
-            {
-                WindowState = FormWindowState.Normal;
-                if (e.Delta > 0) Font = new Font(Font.FontFamily, Font.Size + 0.2f);
-                else Font = new Font(Font.FontFamily, Font.Size - 0.2f);
-            }
-        }
-        private void Ayarlar_Diğer_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (Kaydet.Enabled)
-            {
-                DialogResult Dr = MessageBox.Show("Değişiklikleri kaydetmeden çıkmak istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                e.Cancel = Dr == DialogResult.No;
-            }
-        }
-        private void Ayarlar_Diğer_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Ortak.GeçiciDepolama_PencereKonumları_Yaz(this);
         }
         
         private void Ayar_Değişti(object sender, EventArgs e)
@@ -145,13 +112,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             ydk[4] = Klasör_Yedekleme_5.Text;
             
             Ayarlar.Yaz("Klasör/Pdf", Klasör_Pdf.Text);
-            Ayarlar.Yaz("AçılışEkranıİçinParaloİste", AçılışEkranıİçinParaloİste.Checked);
+            Ayarlar.Yaz("Küçültüldüğünde Parola Sor", KüçültüldüğündeParolaSor.Checked, 0);
+            Ayarlar.Yaz("Küçültüldüğünde Parola Sor", (int)KüçültüldüğündeParolaSor_sn.Value, 1);
             Banka.Değişiklikleri_Kaydet();
 
             Ortak.Kullanıcı_Klasör_Yedek = ydk.İçeriği;
             Ortak.Kullanıcı_Klasör_Pdf = Klasör_Pdf.Text;
-            Ortak.Kullanıcı_AçılışEkranıİçinParaloİste = AçılışEkranıİçinParaloİste.Checked;
-
+            Ortak.Kullanıcı_KüçültüldüğündeParolaSor = KüçültüldüğündeParolaSor.Checked;
+            Ortak.Kullanıcı_KüçültüldüğündeParolaSor_sn = (int)KüçültüldüğündeParolaSor_sn.Value;
             Kaydet.Enabled = false;
         }
     }

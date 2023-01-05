@@ -1157,8 +1157,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tüm İşler";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Tüm_Talepler_FormClosed);
-            this.Load += new System.EventHandler(this.Tüm_Talepler_Load);
             this.P_Üst_Alt.Panel1.ResumeLayout(false);
             this.P_Üst_Alt.Panel1.PerformLayout();
             this.P_Üst_Alt.Panel2.ResumeLayout(false);

@@ -19,11 +19,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
         public Ayarlar_Eposta()
         {
             InitializeComponent();
-        }
-        public void Ayarlar_Eposta_Load(object sender, System.EventArgs e)
-        {
-            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
 
+            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
+        
             Ayarlar = Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Eposta", true);
 
             Sunucu_Adres.Text = Ayarlar.Oku("Sunucu/Adresi", Sunucu_Adres.Text);
@@ -35,37 +33,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Mesaj_Konu.Text = Ayarlar.Oku("Mesaj/Konu", Mesaj_Konu.Text);
             Mesaj_İçerik.Text = Ayarlar.Oku("Mesaj/İçerik", Mesaj_İçerik.Text);
             Kaydet.Enabled = false;
-
-            KeyDown += Ayarlar_Eposta_Tuş;
-            KeyUp += Ayarlar_Eposta_Tuş;
-            MouseWheel += Ayarlar_Eposta_MouseWheel;
-            KeyPreview = true;
-        }
-        bool ctrl_tuşuna_basıldı = false;
-        private void Ayarlar_Eposta_Tuş(object sender, KeyEventArgs e)
-        {
-            ctrl_tuşuna_basıldı = e.Control;
-        }
-        private void Ayarlar_Eposta_MouseWheel(object sender, MouseEventArgs e)
-        {
-            if (ctrl_tuşuna_basıldı)
-            {
-                WindowState = FormWindowState.Normal;
-                if (e.Delta > 0) Font = new Font(Font.FontFamily, Font.Size + 0.2f);
-                else Font = new Font(Font.FontFamily, Font.Size - 0.2f);
-            }
-        }
-        private void Ayarlar_Eposta_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (Kaydet.Enabled)
-            {
-                DialogResult Dr = MessageBox.Show("Değişiklikleri kaydetmeden çıkmak istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                e.Cancel = Dr == DialogResult.No;
-            }
-        }
-        private void Ayarlar_Eposta_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Ortak.GeçiciDepolama_PencereKonumları_Yaz(this);
         }
         
         private void Ayar_Değişti(object sender, EventArgs e)
@@ -107,7 +74,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             string dosyayolu = Ortak.Klasör_Gecici + Path.GetRandomFileName() + ".pdf";
 
             Yazdırma y = new Yazdırma();
-            y.Yazdırma_Load(null, null);
             y.Yazdır_Depo(d, dosyayolu);
 
             ArgeMup.HazirKod.Depo_ müşteri = new ArgeMup.HazirKod.Depo_();

@@ -12,46 +12,13 @@ namespace İş_ve_Depo_Takip
         public Malzemeler()
         {
             InitializeComponent();
-        }
-        private void Malzemeler_Load(object sender, System.EventArgs e)
-        {
+
+            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
+        
             Liste.Items.Clear();
             AramaÇubuğu_Liste = Banka.Malzeme_Listele();
             Liste.Items.AddRange(AramaÇubuğu_Liste.ToArray());
             if (Liste.Items.Count > 0) Sil.Enabled = true;
-
-            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
-
-            KeyDown += Malzemeler_Tuş;
-            KeyUp += Malzemeler_Tuş;
-            MouseWheel += Malzemeler_MouseWheel;
-            KeyPreview = true;
-        }
-        bool ctrl_tuşuna_basıldı = false;
-        private void Malzemeler_Tuş(object sender, KeyEventArgs e)
-        {
-            ctrl_tuşuna_basıldı = e.Control;
-        }
-        private void Malzemeler_MouseWheel(object sender, MouseEventArgs e)
-        {
-            if (ctrl_tuşuna_basıldı)
-            {
-                WindowState = FormWindowState.Normal;
-                if (e.Delta > 0) Font = new Font(Font.FontFamily, Font.Size + 0.2f);
-                else Font = new Font(Font.FontFamily, Font.Size - 0.2f);
-            }
-        }
-        private void Malzemeler_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (Kaydet.Enabled)
-            {
-                DialogResult Dr = MessageBox.Show("Değişiklikleri kaydetmeden çıkmak istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                e.Cancel = Dr == DialogResult.No;
-            }
-        }
-        private void Malzemeler_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Ortak.GeçiciDepolama_PencereKonumları_Yaz(this);
         }
 
         List<string> AramaÇubuğu_Liste = null;

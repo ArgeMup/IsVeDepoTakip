@@ -20,9 +20,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             InitializeComponent();
 
             Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
-        }
-        public void Yazdırma_Load(object sender, System.EventArgs e)
-        {
+        
             Yazcılar.Items.Clear();
             for (int i = 0; i < PrinterSettings.InstalledPrinters.Count; i++)
             {
@@ -75,41 +73,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             FirmaLogo_Genişlik.ValueChanged += Ayar_Değişti;
             FirmaLogo_Yükseklik.ValueChanged += Ayar_Değişti;
 
-            KeyDown += Yazdırma_Tuş;
-            KeyUp += Yazdırma_Tuş;
-            MouseWheel += Yazdırma_MouseWheel;
-            KeyPreview = true;
-        }
-        bool ctrl_tuşuna_basıldı = false;
-        private void Yazdırma_Tuş(object sender, KeyEventArgs e)
-        {
-            ctrl_tuşuna_basıldı = e.Control;
-        }
-        private void Yazdırma_MouseWheel(object sender, MouseEventArgs e)
-        {
-            if (ctrl_tuşuna_basıldı)
-            {
-                WindowState = FormWindowState.Normal;
-                if (e.Delta > 0) Font = new Font(Font.FontFamily, Font.Size + 0.2f);
-                else Font = new Font(Font.FontFamily, Font.Size - 0.2f);
-            }
-        }
-        private void Yazdırma_Shown(object sender, EventArgs e)
-        {
             Ayar_Değişti(null, null);
             Kaydet.Enabled = false;
-        }
-        private void Yazdırma_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (Kaydet.Enabled)
-            {
-                DialogResult Dr = MessageBox.Show("Değişiklikleri kaydetmeden çıkmak istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                e.Cancel = Dr == DialogResult.No;
-            }
-        }
-        private void Yazdırma_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Ortak.GeçiciDepolama_PencereKonumları_Yaz(this);
         }
 
         private void Kaydet_Click(object sender, EventArgs e)

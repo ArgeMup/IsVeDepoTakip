@@ -19,7 +19,8 @@ namespace İş_ve_Depo_Takip
 		
         public static string[] Kullanıcı_Klasör_Yedek = null;
         public static string Kullanıcı_Klasör_Pdf = null;
-        public static bool Kullanıcı_AçılışEkranıİçinParaloİste = true;
+        public static bool Kullanıcı_KüçültüldüğündeParolaSor = true;
+        public static int Kullanıcı_KüçültüldüğündeParolaSor_sn = 60;
         public static bool Kullanıcı_Eposta_hesabı_mevcut = false;
 
         public static bool YazıyıSayıyaDönüştür(ref string YazıŞeklindeSayı, string Konum, string YardımcıAçıklama = null, double EnDüşük = double.MinValue, double EnYüksek = double.MaxValue)
@@ -124,12 +125,16 @@ namespace İş_ve_Depo_Takip
                 Sayfa.Size = new System.Drawing.Size((int)p.Oku_Sayı("gen"), (int)p.Oku_Sayı("uzu"));
             }
 
-            Sayfa.Text = "ArGeMuP " + Kendi.Adı + " V" + Kendi.Sürümü_Dosya + " " + Sayfa.Text;
-
-            Sayfa.Icon = Properties.Resources.kendi;
+            if (!Sayfa.Text.StartsWith("ArGeMuP "))
+            {
+                Sayfa.Text = "ArGeMuP " + Kendi.Adı + " V" + Kendi.Sürümü_Dosya + " " + Sayfa.Text;
+                Sayfa.Icon = Properties.Resources.kendi;
+            }
         }
         public static void GeçiciDepolama_PencereKonumları_Yaz(Form Sayfa)
         {
+            if (Sayfa == null || Sayfa.Disposing || Sayfa.IsDisposed) return;
+
             GeçiciDepolama.Yaz(Sayfa.Name + "/konum", (double)Sayfa.WindowState);
             GeçiciDepolama.Yaz(Sayfa.Name + "/yak", Sayfa.Font.Size);
             if (Sayfa.WindowState == FormWindowState.Normal)

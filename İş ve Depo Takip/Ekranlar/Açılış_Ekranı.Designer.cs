@@ -228,7 +228,7 @@
             this.P_Parola.Controls.Add(this.Parola_Giriş);
             this.P_Parola.Location = new System.Drawing.Point(16, 16);
             this.P_Parola.Name = "P_Parola";
-            this.P_Parola.Size = new System.Drawing.Size(253, 143);
+            this.P_Parola.Size = new System.Drawing.Size(358, 237);
             this.P_Parola.TabIndex = 10;
             this.P_Parola.Visible = false;
             this.P_Parola.DoubleClick += new System.EventHandler(this.Açılış_Ekranı_DoubleClick);
@@ -236,10 +236,10 @@
             // Parola_Kontrol
             // 
             this.Parola_Kontrol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Parola_Kontrol.Location = new System.Drawing.Point(32, 58);
+            this.Parola_Kontrol.Location = new System.Drawing.Point(32, 105);
             this.Parola_Kontrol.Margin = new System.Windows.Forms.Padding(6);
             this.Parola_Kontrol.Name = "Parola_Kontrol";
-            this.Parola_Kontrol.Size = new System.Drawing.Size(188, 68);
+            this.Parola_Kontrol.Size = new System.Drawing.Size(293, 68);
             this.Parola_Kontrol.TabIndex = 1;
             this.Parola_Kontrol.Text = "Giriş";
             this.Parola_Kontrol.UseVisualStyleBackColor = true;
@@ -248,9 +248,9 @@
             // Parola_Giriş
             // 
             this.Parola_Giriş.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Parola_Giriş.Location = new System.Drawing.Point(32, 13);
+            this.Parola_Giriş.Location = new System.Drawing.Point(32, 60);
             this.Parola_Giriş.Name = "Parola_Giriş";
-            this.Parola_Giriş.Size = new System.Drawing.Size(188, 36);
+            this.Parola_Giriş.Size = new System.Drawing.Size(293, 36);
             this.Parola_Giriş.TabIndex = 0;
             this.Parola_Giriş.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Parola_Giriş.UseSystemPasswordChar = true;

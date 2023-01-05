@@ -38,8 +38,11 @@
             this.Klasör_Pdf = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.Klasör_Yedekleme_1 = new System.Windows.Forms.TextBox();
-            this.AçılışEkranıİçinParaloİste = new System.Windows.Forms.CheckBox();
+            this.KüçültüldüğündeParolaSor = new System.Windows.Forms.CheckBox();
+            this.KüçültüldüğündeParolaSor_sn = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.KüçültüldüğündeParolaSor_sn)).BeginInit();
             this.SuspendLayout();
             // 
             // Kaydet
@@ -64,9 +67,9 @@
             this.label1.Location = new System.Drawing.Point(13, 34);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(140, 29);
+            this.label1.Size = new System.Drawing.Size(817, 29);
             this.label1.TabIndex = 21;
-            this.label1.Text = "Yedekleme";
+            this.label1.Text = "Yedekleme  (Yedekleme sadece açılışta ve parola sorulduğunda yapılır)";
             // 
             // groupBox1
             // 
@@ -165,26 +168,61 @@
             this.Klasör_Yedekleme_1.TabIndex = 22;
             this.Klasör_Yedekleme_1.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
-            // AçılışEkranıİçinParaloİste
+            // KüçültüldüğündeParolaSor
             // 
-            this.AçılışEkranıİçinParaloİste.AutoSize = true;
-            this.AçılışEkranıİçinParaloİste.Checked = true;
-            this.AçılışEkranıİçinParaloİste.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.AçılışEkranıİçinParaloİste.Location = new System.Drawing.Point(15, 384);
-            this.AçılışEkranıİçinParaloİste.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
-            this.AçılışEkranıİçinParaloİste.Name = "AçılışEkranıİçinParaloİste";
-            this.AçılışEkranıİçinParaloİste.Size = new System.Drawing.Size(488, 33);
-            this.AçılışEkranıİçinParaloİste.TabIndex = 23;
-            this.AçılışEkranıİçinParaloİste.Text = "Açılış ekranı küçültüldüğünde parola iste";
-            this.AçılışEkranıİçinParaloİste.UseVisualStyleBackColor = true;
-            this.AçılışEkranıİçinParaloİste.CheckedChanged += new System.EventHandler(this.Ayar_Değişti);
+            this.KüçültüldüğündeParolaSor.AutoSize = true;
+            this.KüçültüldüğündeParolaSor.Checked = true;
+            this.KüçültüldüğündeParolaSor.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.KüçültüldüğündeParolaSor.Location = new System.Drawing.Point(15, 384);
+            this.KüçültüldüğündeParolaSor.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.KüçültüldüğündeParolaSor.Name = "KüçültüldüğündeParolaSor";
+            this.KüçültüldüğündeParolaSor.Size = new System.Drawing.Size(285, 33);
+            this.KüçültüldüğündeParolaSor.TabIndex = 23;
+            this.KüçültüldüğündeParolaSor.Text = "Küçültüldüğünde veya";
+            this.KüçültüldüğündeParolaSor.UseVisualStyleBackColor = true;
+            this.KüçültüldüğündeParolaSor.CheckedChanged += new System.EventHandler(this.Ayar_Değişti);
+            // 
+            // KüçültüldüğündeParolaSor_sn
+            // 
+            this.KüçültüldüğündeParolaSor_sn.Location = new System.Drawing.Point(311, 383);
+            this.KüçültüldüğündeParolaSor_sn.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.KüçültüldüğündeParolaSor_sn.Minimum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.KüçültüldüğündeParolaSor_sn.Name = "KüçültüldüğündeParolaSor_sn";
+            this.KüçültüldüğündeParolaSor_sn.Size = new System.Drawing.Size(120, 36);
+            this.KüçültüldüğündeParolaSor_sn.TabIndex = 24;
+            this.KüçültüldüğündeParolaSor_sn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.KüçültüldüğündeParolaSor_sn.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.KüçültüldüğündeParolaSor_sn.ValueChanged += new System.EventHandler(this.Ayar_Değişti);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(447, 385);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(466, 29);
+            this.label3.TabIndex = 25;
+            this.label3.Text = "sn boyunca işlem yapılmazsa parola sor";
             // 
             // Ayarlar_Diğer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1035, 512);
-            this.Controls.Add(this.AçılışEkranıİçinParaloİste);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.KüçültüldüğündeParolaSor_sn);
+            this.Controls.Add(this.KüçültüldüğündeParolaSor);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Kaydet);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -192,11 +230,9 @@
             this.Name = "Ayarlar_Diğer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ayarlar Diğer";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Ayarlar_Diğer_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Ayarlar_Diğer_FormClosed);
-            this.Load += new System.EventHandler(this.Ayarlar_Diğer_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.KüçültüldüğündeParolaSor_sn)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -210,10 +246,12 @@
         private System.Windows.Forms.TextBox Klasör_Pdf;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox Klasör_Yedekleme_1;
-        private System.Windows.Forms.CheckBox AçılışEkranıİçinParaloİste;
+        private System.Windows.Forms.CheckBox KüçültüldüğündeParolaSor;
         private System.Windows.Forms.TextBox Klasör_Yedekleme_5;
         private System.Windows.Forms.TextBox Klasör_Yedekleme_4;
         private System.Windows.Forms.TextBox Klasör_Yedekleme_3;
         private System.Windows.Forms.TextBox Klasör_Yedekleme_2;
+        private System.Windows.Forms.NumericUpDown KüçültüldüğündeParolaSor_sn;
+        private System.Windows.Forms.Label label3;
     }
 }

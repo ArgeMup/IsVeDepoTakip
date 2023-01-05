@@ -394,10 +394,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Yazdırma";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Yazdırma_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Yazdırma_FormClosed);
-            this.Load += new System.EventHandler(this.Yazdırma_Load);
-            this.Shown += new System.EventHandler(this.Yazdırma_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.KenarBoşluğu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.KarakterBüyüklüğü_Başlıklar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.KarakterBüyüklüğü_Diğerleri)).EndInit();

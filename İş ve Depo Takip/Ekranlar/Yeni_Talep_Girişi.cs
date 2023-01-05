@@ -22,9 +22,7 @@ namespace İş_ve_Depo_Takip
             //düzenleme için açılacak
             this.Müşteri = Müşteri;
             this.SeriNo = SeriNo;
-        }
-        private void Yeni_Talep_Girişi_Shown(object sender, EventArgs e)
-        {
+        
             İşTürleri_SeçimKutusu.Items.Clear();
             İşTürleri_Liste = Banka.İşTürü_Listele();
             İşTürleri_SeçimKutusu.Items.AddRange(İşTürleri_Liste.ToArray());
@@ -90,37 +88,6 @@ namespace İş_ve_Depo_Takip
             Kaydet.Enabled = false;
 
             Müşteriler_AramaÇubuğu.Focus();
-
-            KeyDown += Yeni_Talep_Girişi_Tuş;
-            KeyUp += Yeni_Talep_Girişi_Tuş;
-            MouseWheel += Yeni_Talep_Girişi_MouseWheel;
-            KeyPreview = true;
-        }
-        bool ctrl_tuşuna_basıldı = false;
-        private void Yeni_Talep_Girişi_Tuş(object sender, KeyEventArgs e)
-        {
-            ctrl_tuşuna_basıldı = e.Control;
-        }
-        private void Yeni_Talep_Girişi_MouseWheel(object sender, MouseEventArgs e)
-        {
-            if (ctrl_tuşuna_basıldı)
-            {
-                WindowState = FormWindowState.Normal;
-                if (e.Delta > 0) Font = new Font(Font.FontFamily, Font.Size + 0.2f);
-                else Font = new Font(Font.FontFamily, Font.Size - 0.2f);
-            }
-        }
-        private void Yeni_Talep_Girişi_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (Kaydet.Enabled)
-            {
-                DialogResult Dr = MessageBox.Show("Değişiklikleri kaydetmeden çıkmak istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                e.Cancel = Dr == DialogResult.No;
-            }
-        }
-        private void Yeni_Talep_Girişi_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Ortak.GeçiciDepolama_PencereKonumları_Yaz(this);
         }
 
         private void Müşteriler_AramaÇubuğu_TextChanged(object sender, EventArgs e)

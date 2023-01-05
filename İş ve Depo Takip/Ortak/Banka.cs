@@ -45,7 +45,8 @@ namespace İş_ve_Depo_Takip
                 Ortak.Kullanıcı_Klasör_Yedek = k_y == null ? new string[0] : k_y.İçeriği;
 
                 Ortak.Kullanıcı_Klasör_Pdf = d.Oku("Klasör/Pdf");
-                Ortak.Kullanıcı_AçılışEkranıİçinParaloİste = d.Oku_Bit("AçılışEkranıİçinParaloİste", true);
+                Ortak.Kullanıcı_KüçültüldüğündeParolaSor = d.Oku_Bit("Küçültüldüğünde Parola Sor", true, 0);
+                Ortak.Kullanıcı_KüçültüldüğündeParolaSor_sn = d.Oku_TamSayı("Küçültüldüğünde Parola Sor", 60, 1);
                 Ortak.Kullanıcı_Eposta_hesabı_mevcut = !string.IsNullOrEmpty(d.Oku("Eposta/Gönderici/Şifresi"));
 
                 while (d.Oku_TarihSaat("Son Banka Kayıt", default, 1) > DateTime.Now)
@@ -64,55 +65,8 @@ namespace İş_ve_Depo_Takip
             {
                 case DoğrulamaKodu.KontrolEt.Durum_.Aynı:
                     #region yedekleme
-                    Klasör_ ydk_ler = new Klasör_(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip", EşZamanlıİşlemSayısı:Ortak.EşZamanlıİşlemSayısı);
-                    ydk_ler.Dosya_Sil_SayısınaVeBoyutunaGöre(15, 1024 * 1024 * 1024 /*1GB*/, Ortak.EşZamanlıİşlemSayısı);
-                    ydk_ler.Güncelle(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip", EşZamanlıİşlemSayısı:Ortak.EşZamanlıİşlemSayısı);
-
-                    bool yedekle = false;
-                    if (ydk_ler.Dosyalar.Count == 0) yedekle = true;
-                    else
-                    {
-                        ydk_ler.Sırala_EskidenYeniye();
-
-                        Klasör_ son_ydk = SıkıştırılmışDosya.Listele(ydk_ler.Kök + "\\" + ydk_ler.Dosyalar.Last().Yolu);
-                        Klasör_ güncel = new Klasör_(Ortak.Klasör_Banka, EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
-                        Klasör_.Farklılık_ farklar = güncel.Karşılaştır(son_ydk);
-                        if (farklar.FarklılıkSayısı > 0)
-                        {
-                            int içeriği_farklı_dosya_Sayısı = 0;
-                            foreach (Klasör_.Fark_Dosya_ a in farklar.Dosyalar)
-                            {
-                                if (!a.Aynı_Doğrulama_Kodu)
-                                {
-                                    içeriği_farklı_dosya_Sayısı++;
-                                    break;
-                                }
-                            }
-                            if (içeriği_farklı_dosya_Sayısı > 0) yedekle = true;
-                        }
-                    }
-                    Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "İç Yedekleme Kontrolü", ref Açılışİşlemi_Tik);
-
-                    if (yedekle)
-                    {
-                        string k = Ortak.Klasör_Banka;
-                        string h = Ortak.Klasör_İçYedek + D_TarihSaat.Yazıya(DateTime.Now, ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".zip";
-
-                        SıkıştırılmışDosya.Klasörden(k, h);
-
-                        Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "İç Yedekleme İşlemi", ref Açılışİşlemi_Tik);
-                    }
-
-                    for (int i = 0; i < Ortak.Kullanıcı_Klasör_Yedek.Length; i++)
-                    {
-                        if (string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Yedek[i])) continue;
-
-                        Klasör.Kopyala(Ortak.Klasör_Banka, Ortak.Kullanıcı_Klasör_Yedek[i] + "Banka", Ortak.EşZamanlıİşlemSayısı);
-                        Klasör.Kopyala(Ortak.Klasör_Diğer, Ortak.Kullanıcı_Klasör_Yedek[i] + "Diğer", Ortak.EşZamanlıİşlemSayısı);
-                        Klasör.Kopyala(Ortak.Klasör_İçYedek, Ortak.Kullanıcı_Klasör_Yedek[i] + "Yedek", Ortak.EşZamanlıİşlemSayısı);
-
-                        Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Kullanıcı Yedeği İşlemi " + (i+1), ref Açılışİşlemi_Tik);
-                    }
+                    Yedekle();
+                    Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Yedekleme", ref Açılışİşlemi_Tik);
 
                     Klasör.AslınaUygunHaleGetir(Ortak.Klasör_Banka, Ortak.Klasör_Banka2, true, Ortak.EşZamanlıİşlemSayısı);
                     Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "İlk Kullanıma Hazırlanıyor", ref Açılışİşlemi_Tik);
@@ -1283,6 +1237,53 @@ namespace İş_ve_Depo_Takip
             Malzemeler = null;
             Ücretler = null;
             Müşteriler = null;
+        }
+        public static void Yedekle()
+        {
+            Klasör_ ydk_ler = new Klasör_(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip", EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
+            ydk_ler.Dosya_Sil_SayısınaVeBoyutunaGöre(15, 1024 * 1024 * 1024 /*1GB*/, Ortak.EşZamanlıİşlemSayısı);
+            ydk_ler.Güncelle(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip", EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
+
+            bool yedekle = false;
+            if (ydk_ler.Dosyalar.Count == 0) yedekle = true;
+            else
+            {
+                ydk_ler.Sırala_EskidenYeniye();
+
+                Klasör_ son_ydk = SıkıştırılmışDosya.Listele(ydk_ler.Kök + "\\" + ydk_ler.Dosyalar.Last().Yolu);
+                Klasör_ güncel = new Klasör_(Ortak.Klasör_Banka, EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
+                Klasör_.Farklılık_ farklar = güncel.Karşılaştır(son_ydk);
+                if (farklar.FarklılıkSayısı > 0)
+                {
+                    int içeriği_farklı_dosya_Sayısı = 0;
+                    foreach (Klasör_.Fark_Dosya_ a in farklar.Dosyalar)
+                    {
+                        if (!a.Aynı_Doğrulama_Kodu)
+                        {
+                            içeriği_farklı_dosya_Sayısı++;
+                            break;
+                        }
+                    }
+                    if (içeriği_farklı_dosya_Sayısı > 0) yedekle = true;
+                }
+            }
+
+            if (yedekle)
+            {
+                string k = Ortak.Klasör_Banka;
+                string h = Ortak.Klasör_İçYedek + D_TarihSaat.Yazıya(DateTime.Now, ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".zip";
+
+                SıkıştırılmışDosya.Klasörden(k, h);
+            }
+
+            for (int i = 0; i < Ortak.Kullanıcı_Klasör_Yedek.Length; i++)
+            {
+                if (string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Yedek[i])) continue;
+
+                Klasör.Kopyala(Ortak.Klasör_Banka, Ortak.Kullanıcı_Klasör_Yedek[i] + "Banka", Ortak.EşZamanlıİşlemSayısı);
+                Klasör.Kopyala(Ortak.Klasör_Diğer, Ortak.Kullanıcı_Klasör_Yedek[i] + "Diğer", Ortak.EşZamanlıİşlemSayısı);
+                Klasör.Kopyala(Ortak.Klasör_İçYedek, Ortak.Kullanıcı_Klasör_Yedek[i] + "Yedek", Ortak.EşZamanlıİşlemSayısı);
+            }
         }
 
         public static string Yazdır_Tarih(string Girdi)

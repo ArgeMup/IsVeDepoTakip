@@ -473,9 +473,6 @@ namespace İş_ve_Depo_Takip
             this.Name = "Yeni_Talep_Girişi";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Yeni İş Girişi / Düzenleme";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Yeni_Talep_Girişi_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Yeni_Talep_Girişi_FormClosed);
-            this.Shown += new System.EventHandler(this.Yeni_Talep_Girişi_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).EndInit();
             this.Müşteriler_Grup.ResumeLayout(false);
             this.Müşteriler_Grup.PerformLayout();

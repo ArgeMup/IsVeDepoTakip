@@ -350,9 +350,6 @@
             this.Name = "Malzemeler";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Malzemeler";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Malzemeler_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Malzemeler_FormClosed);
-            this.Load += new System.EventHandler(this.Malzemeler_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);

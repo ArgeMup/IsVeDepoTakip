@@ -332,9 +332,6 @@
             this.Name = "Ayarlar_Eposta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ayarlar Eposta";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Ayarlar_Eposta_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Ayarlar_Eposta_FormClosed);
-            this.Load += new System.EventHandler(this.Ayarlar_Eposta_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
