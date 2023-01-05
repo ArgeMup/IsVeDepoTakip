@@ -35,6 +35,7 @@ namespace İş_ve_Depo_Takip
             Klasör.Oluştur(Ortak.Klasör_Banka);
             Klasör.Oluştur(Ortak.Klasör_İçYedek);
             Klasör.Oluştur(Ortak.Klasör_Diğer);
+            Klasör.Oluştur(Ortak.Klasör_Diğer_ArkaPlanResimleri);
             Klasör.Oluştur(Ortak.Klasör_Gecici);
             Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Klasörler", ref Açılışİşlemi_Tik);
 

@@ -75,6 +75,30 @@ namespace İş_ve_Depo_Takip
                 ÖndekiEkran_Zamanlayıcı.Tick += T_Tick;
                 ÖndekiEkran_Zamanlayıcı.Start();
 
+                string[] rsm_ler = System.IO.Directory.GetFiles(Ortak.Klasör_Diğer_ArkaPlanResimleri, "*.*", System.IO.SearchOption.AllDirectories);
+                if (rsm_ler != null)
+                {
+                    Depo_ d = new Depo_();
+                    int syc = 0;
+
+                    for (int i = 0; i < rsm_ler.Length; i++)
+                    {
+                        if (rsm_ler[i].EndsWith(".bmp") || rsm_ler[i].EndsWith(".jpg") || rsm_ler[i].EndsWith(".png"))
+                        {
+                            d.Yaz("resimler", rsm_ler[i], syc);
+                            syc++;
+                        }
+                    }
+
+                    if (syc > 0)
+                    {
+                        d.Yaz("sayac", 0);
+                        d.Yaz("toplam", syc);
+
+                        ÖndekiEkran_Zamanlayıcı.Tag = d;
+                    }
+                }
+                    
                 void T_Tick(object senderr, EventArgs ee)
                 {
                     Form f = ÖndekiEkran == null ? this : ÖndekiEkran;
@@ -91,6 +115,32 @@ namespace İş_ve_Depo_Takip
                             //kullanıcı bilgisayarı kullanıyor
                             f.Opacity = 1;
                             ÖndekiEkran_Zamanlayıcı.Interval = 5000;
+
+                            if (f == this && ÖndekiEkran_Zamanlayıcı.Tag != null)
+                            {
+                                //parola ekranı görünüyor, resimleri döndür
+                                Depo_ d = ÖndekiEkran_Zamanlayıcı.Tag as Depo_;
+                                int syc = d.Oku_TamSayı("sayac");
+                                System.Drawing.Image r = System.Drawing.Image.FromFile(d.Oku("resimler", null, syc++));
+                                if (syc >= d.Oku_TamSayı("toplam")) syc = 0;
+                                d.Yaz("sayac", syc);
+
+                                if (P_AnaMenü.Visible)
+                                {
+                                    P_AnaMenü.BackgroundImage.Dispose();
+                                    P_AnaMenü.BackgroundImage = r;
+                                }
+                                else if(P_Ayarlar.Visible)
+                                {
+                                    P_Ayarlar.BackgroundImage.Dispose();
+                                    P_Ayarlar.BackgroundImage = r;
+                                }
+                                else if (P_Parola.Visible)
+                                {
+                                    P_Parola.BackgroundImage.Dispose();
+                                    P_Parola.BackgroundImage = r;
+                                }
+                            }
                         }
                         else
                         {

@@ -224,6 +224,8 @@
             // 
             // P_Parola
             // 
+            this.P_Parola.BackgroundImage = global::İş_ve_Depo_Takip.Properties.Resources.logo_512_seffaf;
+            this.P_Parola.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.P_Parola.Controls.Add(this.Parola_Kontrol);
             this.P_Parola.Controls.Add(this.Parola_Giriş);
             this.P_Parola.Location = new System.Drawing.Point(16, 16);
@@ -236,10 +238,10 @@
             // Parola_Kontrol
             // 
             this.Parola_Kontrol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Parola_Kontrol.Location = new System.Drawing.Point(32, 105);
+            this.Parola_Kontrol.Location = new System.Drawing.Point(80, 105);
             this.Parola_Kontrol.Margin = new System.Windows.Forms.Padding(6);
             this.Parola_Kontrol.Name = "Parola_Kontrol";
-            this.Parola_Kontrol.Size = new System.Drawing.Size(293, 68);
+            this.Parola_Kontrol.Size = new System.Drawing.Size(197, 68);
             this.Parola_Kontrol.TabIndex = 1;
             this.Parola_Kontrol.Text = "Giriş";
             this.Parola_Kontrol.UseVisualStyleBackColor = true;
@@ -248,9 +250,9 @@
             // Parola_Giriş
             // 
             this.Parola_Giriş.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Parola_Giriş.Location = new System.Drawing.Point(32, 60);
+            this.Parola_Giriş.Location = new System.Drawing.Point(80, 60);
             this.Parola_Giriş.Name = "Parola_Giriş";
-            this.Parola_Giriş.Size = new System.Drawing.Size(293, 36);
+            this.Parola_Giriş.Size = new System.Drawing.Size(197, 36);
             this.Parola_Giriş.TabIndex = 0;
             this.Parola_Giriş.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Parola_Giriş.UseSystemPasswordChar = true;
@@ -258,6 +260,8 @@
             // 
             // P_AnaMenü
             // 
+            this.P_AnaMenü.BackgroundImage = global::İş_ve_Depo_Takip.Properties.Resources.logo_512_seffaf;
+            this.P_AnaMenü.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.P_AnaMenü.Controls.Add(this.Ayarlar);
             this.P_AnaMenü.Controls.Add(this.Yeni_Talep_Girişi);
             this.P_AnaMenü.Controls.Add(this.Tüm_Talepler);
@@ -333,6 +337,8 @@
             // 
             // P_Ayarlar
             // 
+            this.P_Ayarlar.BackgroundImage = global::İş_ve_Depo_Takip.Properties.Resources.logo_512_seffaf;
+            this.P_Ayarlar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.P_Ayarlar.Controls.Add(this.ParolayıDeğiştir);
             this.P_Ayarlar.Controls.Add(this.Eposta);
             this.P_Ayarlar.Controls.Add(this.Diğer);
