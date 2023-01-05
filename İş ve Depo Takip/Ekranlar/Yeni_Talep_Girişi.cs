@@ -18,10 +18,12 @@ namespace İş_ve_Depo_Takip
 
             Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
 
-            if (Müşteri == null || SeriNo == null) return;
-            //düzenleme için açılacak
-            this.Müşteri = Müşteri;
-            this.SeriNo = SeriNo;
+            if (Müşteri != null && SeriNo != null)
+            {
+                //düzenleme için açılıyor
+                this.Müşteri = Müşteri;
+                this.SeriNo = SeriNo;
+            }
         
             İşTürleri_SeçimKutusu.Items.Clear();
             İşTürleri_Liste = Banka.İşTürü_Listele();
@@ -66,6 +68,7 @@ namespace İş_ve_Depo_Takip
                     {
                         Tablo.Rows[i].ReadOnly = true;
                         Tablo[0, i].Value = elm_ları.Elemanları[i][0]; //iş türü
+                        Tablo[0, i].ToolTipText = Banka.Ücretler_BirimÜcret_Detaylı(Müşteri, elm_ları.Elemanları[i][0]); //ücretlendirme ipucları
                     }
 
                     Tablo[1, i].Value = elm_ları.Elemanları[i][2]; //ücret

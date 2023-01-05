@@ -20,9 +20,7 @@ namespace İş_ve_Depo_Takip
         public Açılış_Ekranı()
         {
             InitializeComponent();
-        }
-        private void Form1_Load(object sender, EventArgs e)
-        {
+        
             Text = Kendi.Adı + " " + Kendi.Sürümü_Dosya;
             Icon = Properties.Resources.kendi;
 

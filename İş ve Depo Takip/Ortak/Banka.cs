@@ -8,6 +8,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Windows.Forms;
+using static ArgeMup.HazirKod.Vt100;
 
 namespace İş_ve_Depo_Takip
 {
@@ -806,7 +807,7 @@ namespace İş_ve_Depo_Takip
         }
         public static string Ücretler_BirimÜcret_Detaylı(string Müşteri, string İşTürü)
         {
-            double müşteriye_özel = -1, ortak = -1;
+            double müşteriye_özel = -1, ortak = -1, maliyet = -1;
 
             //müşteriye özel ücret varmı diye bak
             IDepo_Eleman d;
@@ -819,15 +820,19 @@ namespace İş_ve_Depo_Takip
 
             //genel ücret
             d = Tablo_Dal(null, TabloTürü.Ücretler, "Ücretler/" + İşTürü);
-            if (d != null) ortak = d.Oku_Sayı(null, -1);
+            if (d != null) ortak = d.Oku_Sayı(null, -1, 0);
 
             if (müşteriye_özel < 0 && ortak < 0)
             {
                 return "Ücret bilgisi girilmemiş.";
             }
 
+            //maliyet
+            if (d != null) maliyet = d.Oku_Sayı(null, -1, 1);
+
             return "Müşteri : " + Müşteri + Environment.NewLine + 
                 "İş Türü : " + İşTürü + Environment.NewLine +
+                (maliyet < 0 ? null : "Maliyet : " + Yazdır_Ücret(maliyet) + Environment.NewLine) + Environment.NewLine +
                 (müşteriye_özel < 0 ? null : "Özel ücret : " + Yazdır_Ücret(müşteriye_özel)) +
                 (ortak < 0 ? null : (müşteriye_özel < 0 ? null : Environment.NewLine) + "Ortak ücret : " + Yazdır_Ücret(ortak));
         }
