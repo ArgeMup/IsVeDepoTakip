@@ -745,6 +745,7 @@ namespace İş_ve_Depo_Takip
                 if (bulunan != null)
                 {
                     Tablo[1, i].Value = bulunan[0];
+                    if (Müşteri == null) Tablo[2, i].Value = bulunan[1];
                     Ücretler.Remove(bulunan);
                 }
                 else Tablo[1, i].Value = null;
@@ -761,6 +762,7 @@ namespace İş_ve_Depo_Takip
                 }
             }
 
+            Tablo.Columns[2].Visible = Müşteri == null;
             Tablo.ClearSelection();
         }
         public static void Ücretler_TablodakileriKaydet(DataGridView Tablo, string Müşteri)
@@ -769,11 +771,20 @@ namespace İş_ve_Depo_Takip
 
             for (int i = 0; i < Tablo.RowCount; i++)
             {
-                string ü = (string)Tablo[1, i].Value;
-                if (!string.IsNullOrEmpty(ü)) ü = ü.NoktalıSayıya().Yazıya();
                 string iştürü = (string)Tablo[0, i].Value;
 
-                d.Yaz(iştürü, ü);
+                string ücret = (string)Tablo[1, i].Value;
+                if (!string.IsNullOrEmpty(ücret)) ücret = ücret.NoktalıSayıya().Yazıya();
+                
+                d.Yaz(iştürü, ücret, 0);
+
+                if (Müşteri == null)
+                {
+                    string maliyet = (string)Tablo[2, i].Value;
+                    if (!string.IsNullOrEmpty(maliyet)) maliyet = maliyet.NoktalıSayıya().Yazıya();
+
+                    d.Yaz(iştürü, maliyet, 1);
+                }
             }
         }
         public static double Ücretler_BirimÜcret(string Müşteri, string İşTürü)

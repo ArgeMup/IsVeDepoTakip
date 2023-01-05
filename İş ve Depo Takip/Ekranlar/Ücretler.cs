@@ -134,6 +134,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void Kaydet_Click(object sender, EventArgs e)
         {
+            bool TümMüşterilerİçinOrtak = Müşterıler.Text == "Tüm müşteriler için ortak";
+
             for (int i = 0; i < Tablo.RowCount; i++)
             {
                 if (!string.IsNullOrEmpty((string)Tablo[1, i].Value))
@@ -147,6 +149,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     Tablo[1, i].Value = miktar;
                 }
+
+                if (TümMüşterilerİçinOrtak && !string.IsNullOrEmpty((string)Tablo[2, i].Value))
+                {
+                    string miktar = (string)Tablo[2, i].Value;
+                    if (!Ortak.YazıyıSayıyaDönüştür(ref miktar,
+                        (string)Tablo[0, i].Value + " (maliyet sutununun " + (i + 1).ToString() + ". satırı)",
+                        "Ücretlendirmek istemiyorsanız boş olarak bırakınız." + Environment.NewLine +
+                        "Eğer " + (i + 1) + ". satır görünmüyor ise arama filtresini kaldırınız",
+                        0)) return;
+
+                    Tablo[2, i].Value = miktar;
+                }
             }
 
             DialogResult Dr = MessageBox.Show("Değişiklikleri kaydetmek istediğinize emin misiniz?" +
@@ -154,7 +168,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
 
-            if (Müşterıler.Text == "Tüm müşteriler için ortak")
+            if (TümMüşterilerİçinOrtak)
             {
                 Banka.Ücretler_TablodakileriKaydet(Tablo, null);
             }

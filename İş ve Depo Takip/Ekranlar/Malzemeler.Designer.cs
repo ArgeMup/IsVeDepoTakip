@@ -128,7 +128,7 @@
             this.UyarıMiktarı.Size = new System.Drawing.Size(268, 36);
             this.UyarıMiktarı.TabIndex = 7;
             this.UyarıMiktarı.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.İpUcu.SetToolTip(this.UyarıMiktarı, "noktalı virgül ile ayrılmış birden fazla adres girilebilir");
+            this.İpUcu.SetToolTip(this.UyarıMiktarı, "Malzemenin mevcut miktarı");
             this.UyarıMiktarı.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
             // Birimi
@@ -140,7 +140,7 @@
             this.Birimi.Size = new System.Drawing.Size(268, 36);
             this.Birimi.TabIndex = 6;
             this.Birimi.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.İpUcu.SetToolTip(this.Birimi, "noktalı virgül ile ayrılmış birden fazla adres girilebilir");
+            this.İpUcu.SetToolTip(this.Birimi, "Malzemenin birimi (kg, adet veya litre gibi)");
             this.Birimi.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
             // label3
@@ -179,7 +179,7 @@
             this.Miktarı.Size = new System.Drawing.Size(268, 36);
             this.Miktarı.TabIndex = 5;
             this.Miktarı.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.İpUcu.SetToolTip(this.Miktarı, "noktalı virgül ile ayrılmış birden fazla adres girilebilir");
+            this.İpUcu.SetToolTip(this.Miktarı, "Elinizdeki mevcut miktarı gösterir");
             this.Miktarı.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
             // Kaydet
