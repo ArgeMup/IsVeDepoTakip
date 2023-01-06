@@ -1,4 +1,5 @@
 ﻿using ArgeMup.HazirKod;
+using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Windows.Forms;
 
@@ -18,7 +19,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             InitializeComponent();
 
-            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);  
+            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
+
+            IDepo_Eleman d = Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Kullanıcı Ayarları/Bütçe/Genel Anlamda");
+            if (d != null ) 
+            {
+                foreach (IDepo_Eleman a in d.Elemanları)
+                {
+                    _2_Tablo.Rows.Add(new object[] { true, a[0], a[1], a[2] });
+                }
+            }
         }
         private void Bütçe_Shown(object sender, EventArgs e)
         {
@@ -28,6 +38,33 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 Application.DoEvents();
                 _1_Hesapla(null, null);
+            }
+        }
+        private void Sekmeler_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Sekmeler.SelectedIndex == 1)
+            {
+                //genel anlamda
+
+                //Müşteriler kapsamında yazısını ara
+                int Müşteriler_kapsamında = -1;
+                for (int i = 0; i < _2_Tablo.RowCount; i++)
+                {
+                    if ((string)_2_Tablo[1, i].Value == "Müşteriler kapsamında")
+                    {
+                        Müşteriler_kapsamında = i;
+                        break;
+                    }
+                }
+
+                if (Müşteriler_kapsamında >= 0) _2_Tablo.Rows.RemoveAt(Müşteriler_kapsamında);
+
+                double gel = (double)_1_Gelir.Tag;
+                double gid = (double)_1_Gider.Tag;
+                double fark = gel - gid;
+                _2_Tablo.Rows.Insert(0, new object[] { true, "Müşteriler kapsamında", gel.Yazıya(), gid.Yazıya(), fark.Yazıya() });
+
+                _2_Hesapla(null, null);
             }
         }
 
@@ -41,6 +78,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 _1_Tablo[0, i].Value = b;
             }
+
+            _1_Hesapla(null, null);
         }
         private void _1_Tablo_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -60,8 +99,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             _1_Hesapla_Çalışıyor = true;
             _1_Hesapla_KapatmaTalebi = false;
             _1_Hesapla_Tik = Environment.TickCount + 500;
-            _1_AltToplam.BackColor = System.Drawing.Color.Salmon;
+            _1_AltToplam.BackColor = System.Drawing.Color.Khaki;
 
+            //ilk açılışta 1 kere hesaplat
             if (_1_Dizi == null)
             {
                 İlerlemeÇubuğu.Minimum = 0;
@@ -128,6 +168,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 col.SortMode = DataGridViewColumnSortMode.Automatic;
             }
 
+            //talep edilen müşterilerin talep edilen değerlerini hesapla
             for (int i = 0; i < _1_Dizi.Length; i++)
             {
                 Bütçe_Gelir_Gider_ gg = _1_Dizi[i];
@@ -159,6 +200,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if (_1_Hesapla_Tik < Environment.TickCount) { Application.DoEvents(); _1_Hesapla_Tik = Environment.TickCount + 500; }
             }
 
+            //talep edilenlerin çıktılarını topla
             double gel = 0, gid = 0, fark = 0;
             for (int i = 0; i < _1_Dizi.Length; i++)
             {
@@ -169,14 +211,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if (_1_Hesapla_Tik < Environment.TickCount) { Application.DoEvents(); _1_Hesapla_Tik = Environment.TickCount + 500; }
             }
 
+            //çıktıları yazdır
             _1_AltToplam.Text = "Alt Toplam   /   " +
                 "Gelir : " + Banka.Yazdır_Ücret(gel) + "   /   " +
                 "Gider : " + Banka.Yazdır_Ücret(gid) + "   /   " +
                 "Fark : " + Banka.Yazdır_Ücret(fark);
 
+            _1_Gelir.Tag = gel;
+            _1_Gider.Tag = gid;
+
             İlerlemeÇubuğu.Visible = false;
             _1_Hesapla_Çalışıyor = false;
-            if (!_1_Hesapla_KapatmaTalebi) _1_AltToplam.BackColor = System.Drawing.Color.YellowGreen;
+            if (!_1_Hesapla_KapatmaTalebi) _1_AltToplam.BackColor = gel > gid ? System.Drawing.Color.YellowGreen : System.Drawing.Color.Salmon;
         }
         private void _1_Hesapla_2(string Müşteri, Banka_Tablo_ bt, out double Gelir, out double Gider)
         {
@@ -189,14 +235,121 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 string HataMesajı = "";
                 Banka.Talep_Ayıkla_İş(Müşteri, serino, ref Gelir, ref Gider, ref HataMesajı);
 
+#if !DEBUG
                 if (!string.IsNullOrEmpty(HataMesajı))
                 {
                     MessageBox.Show("Alttaki işler için ücret hesaplanamadı." + Environment.NewLine +
                         "Ekrandaki hesaplamaların eksik olduğunu göz önünde bulundurunuz." + Environment.NewLine + Environment.NewLine +
                         HataMesajı, Text);
                 }
+#endif
             }
         }
+#endregion
+
+        #region _2_
+        private void _2_Tablo_DoubleClick(object sender, EventArgs e)
+        {
+            if (_2_Tablo.RowCount < 1) return;
+            bool b = !(bool)_2_Tablo[0, 0].Value;
+
+            for (int i = 0; i < _2_Tablo.RowCount; i++)
+            {
+                _2_Tablo[0, i].Value = b;
+            }
+        }
+        private void _2_Tablo_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0 || e.ColumnIndex > 0) return;
+
+            _2_Tablo[0, e.RowIndex].Value = !(bool)_2_Tablo[0, e.RowIndex].Value;
+
+            _2_Hesapla(null, null);
+        }
+        private void _2_Tablo_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            if (e.ColumnIndex >= 1 && e.ColumnIndex <= 3) Kaydet.Enabled = true;
+
+            if (e.ColumnIndex == 0 || e.ColumnIndex == 2 || e.ColumnIndex == 3) _2_Hesapla(null, null);
+        }
+
+        private void _2_Hesapla(object sender, EventArgs e)
+        {
+            double gelir_top = 0, gider_top = 0;
+
+            for (int i = 0; i < _2_Tablo.RowCount; i++)
+            {
+                double gelir = 0, gider = 0;
+
+                if (!string.IsNullOrEmpty((string)_2_Tablo[2, i].Value))
+                {
+                    string gecici = (string)_2_Tablo[2, i].Value;
+                    if (!Ortak.YazıyıSayıyaDönüştür(ref gecici,
+                        (string)_2_Tablo[1, i].Value + " (gelir sutununun " + (i + 1).ToString() + ". satırı)",
+                        "Ücretlendirmek istemiyorsanız boş olarak bırakınız.", 0))
+                    {
+                        _2_Tablo[2, i].Style.BackColor = System.Drawing.Color.Salmon;
+                        return;
+                    }
+                    _2_Tablo[2, i].Style.BackColor = System.Drawing.Color.White;
+
+                    _2_Tablo[2, i].Value = gecici;
+                    gelir = gecici.NoktalıSayıya();
+                }
+
+                if (!string.IsNullOrEmpty((string)_2_Tablo[3, i].Value))
+                {
+                    string gecici = (string)_2_Tablo[3, i].Value;
+                    if (!Ortak.YazıyıSayıyaDönüştür(ref gecici,
+                        (string)_2_Tablo[1, i].Value + " (gider sutununun " + (i + 1).ToString() + ". satırı)",
+                        "Ücretlendirmek istemiyorsanız boş olarak bırakınız.", 0))
+                    {
+                        _2_Tablo[3, i].Style.BackColor = System.Drawing.Color.Salmon;
+                        return;
+                    }
+                    _2_Tablo[3, i].Style.BackColor = System.Drawing.Color.White;
+
+                    _2_Tablo[3, i].Value = gecici;
+                    gider = gecici.NoktalıSayıya();
+                }
+
+                _2_Tablo[4, i].Value = (gelir - gider).Yazıya();
+
+                if (_2_Tablo[0, i].Value == null) _2_Tablo[0, i].Value = true;
+                if ((bool)_2_Tablo[0, i].Value)
+                {
+                    gelir_top += gelir;
+                    gider_top += gider;
+                }
+            }
+
+            //çıktıları yazdır
+            _2_AltToplam.Text = "Alt Toplam   /   " +
+                "Gelir : " + Banka.Yazdır_Ücret(gelir_top) + "   /   " +
+                "Gider : " + Banka.Yazdır_Ücret(gider_top) + "   /   " +
+                "Fark : " + Banka.Yazdır_Ücret(gelir_top - gider_top);
+
+            _2_AltToplam.BackColor = gelir_top > gider_top ? System.Drawing.Color.YellowGreen : System.Drawing.Color.Salmon;
+        }
         #endregion
+
+        private void Kaydet_Click(object sender, EventArgs e)
+        {
+            IDepo_Eleman d = Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Kullanıcı Ayarları/Bütçe/Genel Anlamda", true);
+            d.Sil(null, false, true);
+            for (int i = 0; i < _2_Tablo.RowCount; i++)
+            {
+                if ((string)_2_Tablo[1, i].Value == "Müşteriler kapsamında") continue;
+
+                d.Yaz(i.ToString(), (string)_2_Tablo[1, i].Value, 0);
+                d.Yaz(i.ToString(), (string)_2_Tablo[2, i].Value, 1);
+                d.Yaz(i.ToString(), (string)_2_Tablo[3, i].Value, 2);
+            }
+
+            Banka.Değişiklikleri_Kaydet();
+            Kaydet.Enabled = false;
+        }
     }
 }

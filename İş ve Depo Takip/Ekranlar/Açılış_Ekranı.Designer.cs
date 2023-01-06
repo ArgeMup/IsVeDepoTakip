@@ -52,6 +52,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.P_Ayarlar = new System.Windows.Forms.Panel();
+            this.Bütçe = new System.Windows.Forms.Button();
             this.ParolayıDeğiştir = new System.Windows.Forms.Button();
             this.Eposta = new System.Windows.Forms.Button();
             this.Diğer = new System.Windows.Forms.Button();
@@ -59,7 +60,6 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.Hata = new System.Windows.Forms.ErrorProvider(this.components);
             this.AçılışYazısı = new System.Windows.Forms.Label();
-            this.Bütçe = new System.Windows.Forms.Button();
             this.P_YeniParola.SuspendLayout();
             this.P_Parola.SuspendLayout();
             this.P_AnaMenü.SuspendLayout();
@@ -356,6 +356,18 @@
             this.P_Ayarlar.Visible = false;
             this.P_Ayarlar.DoubleClick += new System.EventHandler(this.Açılış_Ekranı_DoubleClick);
             // 
+            // Bütçe
+            // 
+            this.Bütçe.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.Bütçe.Location = new System.Drawing.Point(33, 255);
+            this.Bütçe.Margin = new System.Windows.Forms.Padding(6);
+            this.Bütçe.Name = "Bütçe";
+            this.Bütçe.Size = new System.Drawing.Size(198, 68);
+            this.Bütçe.TabIndex = 8;
+            this.Bütçe.Text = "Bütçe";
+            this.Bütçe.UseVisualStyleBackColor = true;
+            this.Bütçe.Click += new System.EventHandler(this.Tuş_Click);
+            // 
             // ParolayıDeğiştir
             // 
             this.ParolayıDeğiştir.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -427,28 +439,16 @@
             this.AçılışYazısı.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.AçılışYazısı.Location = new System.Drawing.Point(0, 0);
             this.AçılışYazısı.Name = "AçılışYazısı";
-            this.AçılışYazısı.Size = new System.Drawing.Size(478, 549);
+            this.AçılışYazısı.Size = new System.Drawing.Size(478, 499);
             this.AçılışYazısı.TabIndex = 12;
             this.AçılışYazısı.Text = "Lütfen bekleyiniz";
             this.AçılışYazısı.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Bütçe
-            // 
-            this.Bütçe.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.Bütçe.Location = new System.Drawing.Point(33, 255);
-            this.Bütçe.Margin = new System.Windows.Forms.Padding(6);
-            this.Bütçe.Name = "Bütçe";
-            this.Bütçe.Size = new System.Drawing.Size(198, 68);
-            this.Bütçe.TabIndex = 8;
-            this.Bütçe.Text = "Bütçe";
-            this.Bütçe.UseVisualStyleBackColor = true;
-            this.Bütçe.Click += new System.EventHandler(this.Tuş_Click);
             // 
             // Açılış_Ekranı
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(478, 549);
+            this.ClientSize = new System.Drawing.Size(478, 499);
             this.Controls.Add(this.tab_sayfası);
             this.Controls.Add(this.AçılışYazısı);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
