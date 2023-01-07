@@ -14,6 +14,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             InitializeComponent();
 
             Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
+
+            Ortak.YeniSayfaAçmaTalebi = null; //tüm işler içinden çağırıldığından dolayı
         
             AramaÇubuğu_Müşteri_Liste = Banka.Müşteri_Listele();
             AramaÇubuğu_Müşteri_Liste.Add("Tüm müşteriler için ortak");

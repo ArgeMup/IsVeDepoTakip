@@ -225,16 +225,16 @@ namespace İş_ve_Depo_Takip
             //Yeni yan uygulamayı oluştur
             switch ((sender as Button).Text)
             {
-                case "Yeni İş Girişi": ÖndekiEkran = new Yeni_İş_Girişi(); break;
-                case "Tüm İşler": ÖndekiEkran = new Tüm_İşler(); break;
-                case "Malzemeler": ÖndekiEkran = new Malzemeler(); break;
-                case "Müşteriler": ÖndekiEkran = new Müşteriler(); break;
-                case "İş Türleri": ÖndekiEkran = new İş_Türleri(); break;
-                case "Ücretler": ÖndekiEkran = new Ücretler(); break;
-                case "Bütçe": ÖndekiEkran = new Bütçe(); break;
-                case "Yazdırma": ÖndekiEkran = new Yazdırma(); break;
-                case "E-posta": ÖndekiEkran = new Ayarlar_Eposta(); break;
-                case "Diğer": ÖndekiEkran = new Ayarlar_Diğer(); break;
+                case "Yeni İş Girişi":  ÖndekiEkran = new Yeni_İş_Girişi();  break;  //Tüm işler, yeni iş girişi   
+                case "Tüm İşler":       ÖndekiEkran = new Tüm_İşler();       break;
+                case "Malzemeler":      ÖndekiEkran = new Malzemeler();      break;
+                case "Müşteriler":      ÖndekiEkran = new Müşteriler();      break;
+                case "İş Türleri":      ÖndekiEkran = new İş_Türleri();      break;
+                case "Ücretler":        ÖndekiEkran = new Ücretler();        break;  //Tüm işler
+                case "Bütçe":           ÖndekiEkran = new Bütçe();           break;
+                case "Yazdırma":        ÖndekiEkran = new Yazdırma();        break;
+                case "E-posta":         ÖndekiEkran = new Ayarlar_Eposta();  break;
+                case "Diğer":           ÖndekiEkran = new Ayarlar_Diğer();   break;
             }
 
             ÖndekiEkran.Shown += ÖndekiEkran_Shown;
@@ -257,6 +257,14 @@ namespace İş_ve_Depo_Takip
 
                 ÖndekiEkran.Opacity = 1;
                 ÖndekiEkran.ShowDialog();
+
+                if (Ortak.YeniSayfaAçmaTalebi != null)
+                {
+                    Button b = new Button();
+                    b.Text = (string)Ortak.YeniSayfaAçmaTalebi[0];
+                    Tuş_Click(b, null);
+                    Banka.Değişiklikler_TamponuSıfırla();
+                }
             }
             catch (Exception ex)
             {

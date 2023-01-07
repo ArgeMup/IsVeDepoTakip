@@ -261,9 +261,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 return;
             }
 
-            new Yeni_İş_Girişi(İşTakip_Müşteriler.Text, l[0]).ShowDialog();
-            Banka.Değişiklikler_TamponuSıfırla();
-            Seviye_Değişti(null, null);
+            Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", İşTakip_Müşteriler.Text, l[0] };
+            Close();
         }
         private void İşTakip_DevamEden_İsaretle_Bitti_Click(object sender, EventArgs e)
         {
@@ -311,7 +310,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     "Ücretler sayfasını açmak ister misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 if (Dr == DialogResult.No) return;
 
-                new Ücretler().ShowDialog();
+                Ortak.YeniSayfaAçmaTalebi = new object[] { "Ücretler" };
+                Close();
             }
         }
         private void İşTakip_TeslimEdildi_İşaretle_Etkin_Click(object sender, EventArgs e)

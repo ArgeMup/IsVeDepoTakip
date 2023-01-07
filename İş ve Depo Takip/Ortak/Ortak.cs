@@ -19,6 +19,7 @@ namespace İş_ve_Depo_Takip
         public static string Klasör_Gecici = Klasör.Depolama(Klasör.Kapsamı.Geçici) + "\\";
 
         public static Açılış_Ekranı AnaEkran;
+        public static object[] YeniSayfaAçmaTalebi = null; //[0] Sayfanın tuşunun adı [1 ... ] varsa girdileri
 
         public static string[] Kullanıcı_Klasör_Yedek = null;
         public static string Kullanıcı_Klasör_Pdf = null;

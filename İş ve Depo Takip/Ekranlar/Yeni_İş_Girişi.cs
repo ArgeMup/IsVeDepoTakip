@@ -12,17 +12,24 @@ namespace İş_ve_Depo_Takip
         string Müşteri  = null, SeriNo = null;
         List<string> Müşteriler_Liste = null, Hastalar_Liste = null, İşTürleri_Liste = null; 
 
-        public Yeni_İş_Girişi(string Müşteri = null, string SeriNo = null)
+        public Yeni_İş_Girişi()
         {
             InitializeComponent();
 
             Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
 
-            if (Müşteri != null && SeriNo != null)
+            if (Ortak.YeniSayfaAçmaTalebi != null)
             {
                 //düzenleme için açılıyor
-                this.Müşteri = Müşteri;
-                this.SeriNo = SeriNo;
+                Müşteri = (string)Ortak.YeniSayfaAçmaTalebi[1];
+                SeriNo = (string)Ortak.YeniSayfaAçmaTalebi[2];
+                Ortak.YeniSayfaAçmaTalebi = null;
+
+                if (string.IsNullOrEmpty(Müşteri) || string.IsNullOrEmpty(SeriNo))
+                {
+                    Müşteri = null;
+                    SeriNo = null;
+                }
             }
         
             İşTürleri_SeçimKutusu.Items.Clear();
@@ -225,9 +232,8 @@ namespace İş_ve_Depo_Takip
             Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
 
-            new Yeni_İş_Girişi(Müşteriler_SeçimKutusu.Text, sn).ShowDialog();
-            Banka.Değişiklikler_TamponuSıfırla();
             Kaydet.Enabled = false;
+            Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", Müşteriler_SeçimKutusu.Text, sn };
             Close();
         }
         private void İşTürleri_SeçimKutusu_SelectedIndexChanged(object sender, EventArgs e)
