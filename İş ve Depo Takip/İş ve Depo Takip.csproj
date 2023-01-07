@@ -118,11 +118,11 @@
     <Compile Include="Ekranlar\Ücretler.Designer.cs">
       <DependentUpon>Ücretler.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ekranlar\Tüm_Talepler.cs">
+    <Compile Include="Ekranlar\Tüm_İşler.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ekranlar\Tüm_Talepler.Designer.cs">
-      <DependentUpon>Tüm_Talepler.cs</DependentUpon>
+    <Compile Include="Ekranlar\Tüm_İşler.Designer.cs">
+      <DependentUpon>Tüm_İşler.cs</DependentUpon>
     </Compile>
     <Compile Include="Ekranlar\Müşteriler.cs">
       <SubType>Form</SubType>
@@ -170,11 +170,11 @@
     <Compile Include="Ortak\Parola.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Ekranlar\Yeni_Talep_Girişi.cs">
+    <Compile Include="Ekranlar\Yeni_İş_Girişi.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ekranlar\Yeni_Talep_Girişi.Designer.cs">
-      <DependentUpon>Yeni_Talep_Girişi.cs</DependentUpon>
+    <Compile Include="Ekranlar\Yeni_İş_Girişi.Designer.cs">
+      <DependentUpon>Yeni_İş_Girişi.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
     <EmbeddedResource Include="Ekranlar\Ayarlar_Eposta.resx">
@@ -201,12 +201,12 @@
     <EmbeddedResource Include="Ekranlar\Ücretler.resx">
       <DependentUpon>Ücretler.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ekranlar\Tüm_Talepler.resx">
-      <DependentUpon>Tüm_Talepler.cs</DependentUpon>
+    <EmbeddedResource Include="Ekranlar\Tüm_İşler.resx">
+      <DependentUpon>Tüm_İşler.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ekranlar\Yeni_Talep_Girişi.resx">
-      <DependentUpon>Yeni_Talep_Girişi.cs</DependentUpon>
+    <EmbeddedResource Include="Ekranlar\Yeni_İş_Girişi.resx">
+      <DependentUpon>Yeni_İş_Girişi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Müşteriler.resx">
       <DependentUpon>Müşteriler.cs</DependentUpon>

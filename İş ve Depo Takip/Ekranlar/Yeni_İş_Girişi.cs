@@ -7,12 +7,12 @@ using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip
 {
-    public partial class Yeni_Talep_Girişi : Form
+    public partial class Yeni_İş_Girişi : Form
     {
         string Müşteri  = null, SeriNo = null;
         List<string> Müşteriler_Liste = null, Hastalar_Liste = null, İşTürleri_Liste = null; 
 
-        public Yeni_Talep_Girişi(string Müşteri = null, string SeriNo = null)
+        public Yeni_İş_Girişi(string Müşteri = null, string SeriNo = null)
         {
             InitializeComponent();
 
@@ -225,7 +225,7 @@ namespace İş_ve_Depo_Takip
             Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
 
-            new Yeni_Talep_Girişi(Müşteriler_SeçimKutusu.Text, sn).ShowDialog();
+            new Yeni_İş_Girişi(Müşteriler_SeçimKutusu.Text, sn).ShowDialog();
             Banka.Değişiklikler_TamponuSıfırla();
             Kaydet.Enabled = false;
             Close();

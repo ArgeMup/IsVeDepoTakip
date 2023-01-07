@@ -2,7 +2,7 @@
 
 namespace İş_ve_Depo_Takip
 {
-    partial class Yeni_Talep_Girişi
+    partial class Yeni_İş_Girişi
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@ namespace İş_ve_Depo_Takip
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Yeni_Talep_Girişi));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Yeni_İş_Girişi));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Notlar = new System.Windows.Forms.TextBox();

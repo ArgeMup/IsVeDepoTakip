@@ -55,7 +55,7 @@
             this.Kaydet.Location = new System.Drawing.Point(15, 438);
             this.Kaydet.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.Kaydet.Name = "Kaydet";
-            this.Kaydet.Size = new System.Drawing.Size(1005, 63);
+            this.Kaydet.Size = new System.Drawing.Size(952, 63);
             this.Kaydet.TabIndex = 20;
             this.Kaydet.Text = "Kaydet";
             this.Kaydet.UseVisualStyleBackColor = true;
@@ -67,9 +67,9 @@
             this.label1.Location = new System.Drawing.Point(13, 34);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(817, 29);
+            this.label1.Size = new System.Drawing.Size(683, 29);
             this.label1.TabIndex = 21;
-            this.label1.Text = "Yedekleme  (Yedekleme sadece açılışta ve parola sorulduğunda yapılır)";
+            this.label1.Text = "Yedekleme  (Yedekleme açılışta ve küçültüldüğünde yapılır)";
             // 
             // groupBox1
             // 
@@ -87,7 +87,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.groupBox1.Size = new System.Drawing.Size(1005, 361);
+            this.groupBox1.Size = new System.Drawing.Size(952, 361);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Klasörler";
@@ -99,7 +99,7 @@
             this.Klasör_Yedekleme_5.Location = new System.Drawing.Point(18, 243);
             this.Klasör_Yedekleme_5.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.Klasör_Yedekleme_5.Name = "Klasör_Yedekleme_5";
-            this.Klasör_Yedekleme_5.Size = new System.Drawing.Size(979, 36);
+            this.Klasör_Yedekleme_5.Size = new System.Drawing.Size(925, 36);
             this.Klasör_Yedekleme_5.TabIndex = 28;
             this.Klasör_Yedekleme_5.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
@@ -110,7 +110,7 @@
             this.Klasör_Yedekleme_4.Location = new System.Drawing.Point(18, 199);
             this.Klasör_Yedekleme_4.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.Klasör_Yedekleme_4.Name = "Klasör_Yedekleme_4";
-            this.Klasör_Yedekleme_4.Size = new System.Drawing.Size(979, 36);
+            this.Klasör_Yedekleme_4.Size = new System.Drawing.Size(925, 36);
             this.Klasör_Yedekleme_4.TabIndex = 27;
             this.Klasör_Yedekleme_4.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
@@ -121,7 +121,7 @@
             this.Klasör_Yedekleme_3.Location = new System.Drawing.Point(18, 155);
             this.Klasör_Yedekleme_3.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.Klasör_Yedekleme_3.Name = "Klasör_Yedekleme_3";
-            this.Klasör_Yedekleme_3.Size = new System.Drawing.Size(979, 36);
+            this.Klasör_Yedekleme_3.Size = new System.Drawing.Size(925, 36);
             this.Klasör_Yedekleme_3.TabIndex = 26;
             this.Klasör_Yedekleme_3.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
@@ -132,7 +132,7 @@
             this.Klasör_Yedekleme_2.Location = new System.Drawing.Point(18, 111);
             this.Klasör_Yedekleme_2.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.Klasör_Yedekleme_2.Name = "Klasör_Yedekleme_2";
-            this.Klasör_Yedekleme_2.Size = new System.Drawing.Size(979, 36);
+            this.Klasör_Yedekleme_2.Size = new System.Drawing.Size(925, 36);
             this.Klasör_Yedekleme_2.TabIndex = 25;
             this.Klasör_Yedekleme_2.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
@@ -143,7 +143,7 @@
             this.Klasör_Pdf.Location = new System.Drawing.Point(17, 316);
             this.Klasör_Pdf.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.Klasör_Pdf.Name = "Klasör_Pdf";
-            this.Klasör_Pdf.Size = new System.Drawing.Size(979, 36);
+            this.Klasör_Pdf.Size = new System.Drawing.Size(926, 36);
             this.Klasör_Pdf.TabIndex = 24;
             this.Klasör_Pdf.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
@@ -164,7 +164,7 @@
             this.Klasör_Yedekleme_1.Location = new System.Drawing.Point(17, 67);
             this.Klasör_Yedekleme_1.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.Klasör_Yedekleme_1.Name = "Klasör_Yedekleme_1";
-            this.Klasör_Yedekleme_1.Size = new System.Drawing.Size(979, 36);
+            this.Klasör_Yedekleme_1.Size = new System.Drawing.Size(926, 36);
             this.Klasör_Yedekleme_1.TabIndex = 22;
             this.Klasör_Yedekleme_1.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
@@ -176,15 +176,16 @@
             this.KüçültüldüğündeParolaSor.Location = new System.Drawing.Point(15, 384);
             this.KüçültüldüğündeParolaSor.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.KüçültüldüğündeParolaSor.Name = "KüçültüldüğündeParolaSor";
-            this.KüçültüldüğündeParolaSor.Size = new System.Drawing.Size(285, 33);
+            this.KüçültüldüğündeParolaSor.Size = new System.Drawing.Size(343, 33);
             this.KüçültüldüğündeParolaSor.TabIndex = 23;
-            this.KüçültüldüğündeParolaSor.Text = "Küçültüldüğünde veya";
+            this.KüçültüldüğündeParolaSor.Text = "Küçültüldüğünde parola sor";
             this.KüçültüldüğündeParolaSor.UseVisualStyleBackColor = true;
             this.KüçültüldüğündeParolaSor.CheckedChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
             // KüçültüldüğündeParolaSor_sn
             // 
-            this.KüçültüldüğündeParolaSor_sn.Location = new System.Drawing.Point(311, 383);
+            this.KüçültüldüğündeParolaSor_sn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.KüçültüldüğündeParolaSor_sn.Location = new System.Drawing.Point(401, 386);
             this.KüçültüldüğündeParolaSor_sn.Maximum = new decimal(new int[] {
             99999,
             0,
@@ -208,18 +209,19 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(447, 385);
+            this.label3.Location = new System.Drawing.Point(537, 388);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(466, 29);
+            this.label3.Size = new System.Drawing.Size(421, 29);
             this.label3.TabIndex = 25;
-            this.label3.Text = "sn boyunca işlem yapılmazsa parola sor";
+            this.label3.Text = "sn boyunca işlem yapılmazsa küçült";
             // 
             // Ayarlar_Diğer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1035, 512);
+            this.ClientSize = new System.Drawing.Size(982, 512);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.KüçültüldüğündeParolaSor_sn);
             this.Controls.Add(this.KüçültüldüğündeParolaSor);

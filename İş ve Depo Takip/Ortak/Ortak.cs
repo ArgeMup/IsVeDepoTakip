@@ -17,7 +17,9 @@ namespace İş_ve_Depo_Takip
         public static string Klasör_Diğer = Kendi.Klasörü + "\\Diğer\\";
         public static string Klasör_Diğer_ArkaPlanResimleri = Klasör_Diğer + "Arka Plan Resimleri\\";
         public static string Klasör_Gecici = Klasör.Depolama(Klasör.Kapsamı.Geçici) + "\\";
-		
+
+        public static Açılış_Ekranı AnaEkran;
+
         public static string[] Kullanıcı_Klasör_Yedek = null;
         public static string Kullanıcı_Klasör_Pdf = null;
         public static bool Kullanıcı_KüçültüldüğündeParolaSor = true;
@@ -26,6 +28,7 @@ namespace İş_ve_Depo_Takip
 
         public static bool YazıyıSayıyaDönüştür(ref string YazıŞeklindeSayı, string Konum, string YardımcıAçıklama = null, double EnDüşük = double.MinValue, double EnYüksek = double.MaxValue)
         {
+            if (YazıŞeklindeSayı == null) YazıŞeklindeSayı = "";
             int sayac_virgül = YazıŞeklindeSayı.Count(x => x == ',');
             int sayac_nokta = YazıŞeklindeSayı.Count(x => x == '.');
             if (sayac_virgül == 1 && sayac_nokta == 0) YazıŞeklindeSayı = YazıŞeklindeSayı.Replace(',', '.');

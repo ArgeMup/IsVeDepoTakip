@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
-    public partial class Tüm_Talepler : Form
+    public partial class Tüm_İşler : Form
     {
-        public Tüm_Talepler()
+        public Tüm_İşler()
         {
             InitializeComponent();
 
@@ -272,7 +272,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 return;
             }
 
-            new Yeni_Talep_Girişi(İşTakip_Müşteriler.Text, l[0]).ShowDialog();
+            new Yeni_İş_Girişi(İşTakip_Müşteriler.Text, l[0]).ShowDialog();
             Banka.Değişiklikler_TamponuSıfırla();
             Seviye_Değişti(null, null);
         }

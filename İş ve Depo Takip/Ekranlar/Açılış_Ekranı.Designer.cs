@@ -46,6 +46,7 @@
             this.Parola_Kontrol = new System.Windows.Forms.Button();
             this.Parola_Giriş = new System.Windows.Forms.MaskedTextBox();
             this.P_AnaMenü = new System.Windows.Forms.Panel();
+            this.YedekleKapat = new System.Windows.Forms.Button();
             this.Ayarlar = new System.Windows.Forms.Button();
             this.Ayarlar_Geri = new System.Windows.Forms.Button();
             this.tab_sayfası = new System.Windows.Forms.TabControl();
@@ -75,10 +76,10 @@
             // Yeni_Talep_Girişi
             // 
             this.Yeni_Talep_Girişi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Yeni_Talep_Girişi.Location = new System.Drawing.Point(34, 8);
+            this.Yeni_Talep_Girişi.Location = new System.Drawing.Point(34, 44);
             this.Yeni_Talep_Girişi.Margin = new System.Windows.Forms.Padding(6);
             this.Yeni_Talep_Girişi.Name = "Yeni_Talep_Girişi";
-            this.Yeni_Talep_Girişi.Size = new System.Drawing.Size(335, 68);
+            this.Yeni_Talep_Girişi.Size = new System.Drawing.Size(363, 68);
             this.Yeni_Talep_Girişi.TabIndex = 0;
             this.Yeni_Talep_Girişi.Text = "Yeni İş Girişi";
             this.Yeni_Talep_Girişi.UseVisualStyleBackColor = true;
@@ -87,10 +88,10 @@
             // Tüm_Talepler
             // 
             this.Tüm_Talepler.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Tüm_Talepler.Location = new System.Drawing.Point(34, 88);
+            this.Tüm_Talepler.Location = new System.Drawing.Point(34, 124);
             this.Tüm_Talepler.Margin = new System.Windows.Forms.Padding(6);
             this.Tüm_Talepler.Name = "Tüm_Talepler";
-            this.Tüm_Talepler.Size = new System.Drawing.Size(335, 68);
+            this.Tüm_Talepler.Size = new System.Drawing.Size(363, 68);
             this.Tüm_Talepler.TabIndex = 1;
             this.Tüm_Talepler.Text = "Tüm İşler";
             this.Tüm_Talepler.UseVisualStyleBackColor = true;
@@ -135,10 +136,10 @@
             // Malzemeler
             // 
             this.Malzemeler.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Malzemeler.Location = new System.Drawing.Point(34, 168);
+            this.Malzemeler.Location = new System.Drawing.Point(34, 204);
             this.Malzemeler.Margin = new System.Windows.Forms.Padding(6);
             this.Malzemeler.Name = "Malzemeler";
-            this.Malzemeler.Size = new System.Drawing.Size(335, 68);
+            this.Malzemeler.Size = new System.Drawing.Size(363, 68);
             this.Malzemeler.TabIndex = 3;
             this.Malzemeler.Text = "Malzemeler";
             this.Malzemeler.UseVisualStyleBackColor = true;
@@ -169,7 +170,6 @@
             this.P_YeniParola.TabIndex = 9;
             this.P_YeniParola.Tag = "";
             this.P_YeniParola.Visible = false;
-            this.P_YeniParola.DoubleClick += new System.EventHandler(this.Açılış_Ekranı_DoubleClick);
             // 
             // YeniParola_Etiket
             // 
@@ -234,7 +234,6 @@
             this.P_Parola.Size = new System.Drawing.Size(358, 237);
             this.P_Parola.TabIndex = 10;
             this.P_Parola.Visible = false;
-            this.P_Parola.DoubleClick += new System.EventHandler(this.Açılış_Ekranı_DoubleClick);
             // 
             // Parola_Kontrol
             // 
@@ -263,25 +262,39 @@
             // 
             this.P_AnaMenü.BackgroundImage = global::İş_ve_Depo_Takip.Properties.Resources.logo_512_seffaf;
             this.P_AnaMenü.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.P_AnaMenü.Controls.Add(this.YedekleKapat);
             this.P_AnaMenü.Controls.Add(this.Ayarlar);
             this.P_AnaMenü.Controls.Add(this.Yeni_Talep_Girişi);
             this.P_AnaMenü.Controls.Add(this.Tüm_Talepler);
             this.P_AnaMenü.Controls.Add(this.Malzemeler);
             this.P_AnaMenü.Location = new System.Drawing.Point(6, 6);
             this.P_AnaMenü.Name = "P_AnaMenü";
-            this.P_AnaMenü.Size = new System.Drawing.Size(400, 327);
+            this.P_AnaMenü.Size = new System.Drawing.Size(428, 399);
             this.P_AnaMenü.TabIndex = 10;
             this.P_AnaMenü.Visible = false;
             this.P_AnaMenü.VisibleChanged += new System.EventHandler(this.P_AnaMenü_VisibleChanged);
-            this.P_AnaMenü.DoubleClick += new System.EventHandler(this.Açılış_Ekranı_DoubleClick);
+            // 
+            // YedekleKapat
+            // 
+            this.YedekleKapat.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.YedekleKapat.BackColor = System.Drawing.Color.Transparent;
+            this.YedekleKapat.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.YedekleKapat.Location = new System.Drawing.Point(261, 364);
+            this.YedekleKapat.Margin = new System.Windows.Forms.Padding(6);
+            this.YedekleKapat.Name = "YedekleKapat";
+            this.YedekleKapat.Size = new System.Drawing.Size(136, 29);
+            this.YedekleKapat.TabIndex = 5;
+            this.YedekleKapat.Text = "Yedekle ve kapat";
+            this.YedekleKapat.UseVisualStyleBackColor = false;
+            this.YedekleKapat.Click += new System.EventHandler(this.YedekleKapat_Click);
             // 
             // Ayarlar
             // 
             this.Ayarlar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Ayarlar.Location = new System.Drawing.Point(34, 248);
+            this.Ayarlar.Location = new System.Drawing.Point(34, 284);
             this.Ayarlar.Margin = new System.Windows.Forms.Padding(6);
             this.Ayarlar.Name = "Ayarlar";
-            this.Ayarlar.Size = new System.Drawing.Size(335, 68);
+            this.Ayarlar.Size = new System.Drawing.Size(363, 68);
             this.Ayarlar.TabIndex = 4;
             this.Ayarlar.Text = "Ayarlar";
             this.Ayarlar.UseVisualStyleBackColor = true;
@@ -354,7 +367,6 @@
             this.P_Ayarlar.Size = new System.Drawing.Size(475, 423);
             this.P_Ayarlar.TabIndex = 12;
             this.P_Ayarlar.Visible = false;
-            this.P_Ayarlar.DoubleClick += new System.EventHandler(this.Açılış_Ekranı_DoubleClick);
             // 
             // Bütçe
             // 
@@ -378,7 +390,7 @@
             this.ParolayıDeğiştir.TabIndex = 5;
             this.ParolayıDeğiştir.Text = "Parola";
             this.ParolayıDeğiştir.UseVisualStyleBackColor = true;
-            this.ParolayıDeğiştir.Click += new System.EventHandler(this.Tuş_Click);
+            this.ParolayıDeğiştir.Click += new System.EventHandler(this.ParolayıDeğiştir_Click);
             // 
             // Eposta
             // 
@@ -458,9 +470,8 @@
             this.Name = "Açılış_Ekranı";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Açılış_Ekranı_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Açılış_Ekranı_FormClosed);
             this.Shown += new System.EventHandler(this.Açılış_Ekranı_Shown);
-            this.DoubleClick += new System.EventHandler(this.Açılış_Ekranı_DoubleClick);
             this.Resize += new System.EventHandler(this.Açılış_Ekranı_Resize);
             this.P_YeniParola.ResumeLayout(false);
             this.P_YeniParola.PerformLayout();
@@ -511,6 +522,7 @@
         private System.Windows.Forms.Label AçılışYazısı;
         private System.Windows.Forms.Button ParolayıDeğiştir;
         private System.Windows.Forms.Button Bütçe;
+        private System.Windows.Forms.Button YedekleKapat;
     }
 }
 
