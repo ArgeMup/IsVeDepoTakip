@@ -1481,6 +1481,7 @@ namespace İş_ve_Depo_Takip
             for (int i = 0; i < Ortak.Kullanıcı_Klasör_Yedek.Length; i++)
             {
                 if (string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Yedek[i])) continue;
+                Klasör.Oluştur(Ortak.Kullanıcı_Klasör_Yedek[i]);
 
                 FileSystemWatcher yeni = new FileSystemWatcher(Ortak.Kullanıcı_Klasör_Yedek[i], "*.mup");
                 yeni.Changed += Yeni_Created_Changed_Deleted;

@@ -58,7 +58,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             Banka_Tablo_ bt;
-            İşTakip_Yazdırma_Yazdır.Enabled = false;
             Tablo.Rows.Clear();
             İpUcu.SetToolTip(Tablo, "Tümünü seçmek / kaldırmak için çift tıkla");
 
@@ -69,33 +68,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Seviye1_işTakip.Checked = true;
                     Seviye1_Arama.Checked = false;
 
-                    if (Banka.Müşteri_MevcutMu(İşTakip_Müşteriler.Text))
-                    {
-                        CheckBox c = new CheckBox();
-                        for (int i = 10; i <= 13; i++)
-                        {
-                            c.Tag = i;
-                            Seviye_Değişti(c, null);
+                    CheckBox c = null;
+                    if (Seviye2_DevamEden.Checked) c = Seviye2_DevamEden;
+                    else if (Seviye2_TeslimEdildi.Checked) c = Seviye2_TeslimEdildi;
+                    else if (Seviye2_ÖdemeBekleyen.Checked) c = Seviye2_ÖdemeBekleyen;
+                    else if (Seviye2_Ödendi.Checked) c = Seviye2_Ödendi;
 
-                            if (Tablo.RowCount > 0) break;
-                        }
-                    }
-                    else
-                    {
-                        Seviye2_DevamEden.Checked = false;
-                        Seviye2_TeslimEdildi.Checked = false;
-                        Seviye2_ÖdemeBekleyen.Checked = false;
-                        Seviye2_Ödendi.Checked = false;
-                    }
+                    if (c != null) Seviye_Değişti(c, null);
                     break;
 
                 case 2:
                     //arama
-                    Seviye2_DevamEden.Checked = true;
-                    Seviye2_TeslimEdildi.Checked = true;
-                    Seviye2_ÖdemeBekleyen.Checked = true;
-                    Seviye2_Ödendi.Checked = true;
-
                     for (int i = 0; i < Arama_Müşteriler.Items.Count; i++)
                     {
                         Arama_Müşteriler.SetItemChecked(i, true);
@@ -120,9 +103,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.DevamEden);
                     Banka.Talep_TablodaGöster(Tablo, bt);
-
-                    if (Tablo.RowCount < 1) Seviye2_DevamEden.Checked = false;
-                    else İşTakip_Yazdırma_Yazdır.Enabled = true;
                     break;
 
                 case 11:
@@ -136,9 +116,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.TeslimEdildi);
                     Banka.Talep_TablodaGöster(Tablo, bt);
-
-                    if (Tablo.RowCount < 1) Seviye2_TeslimEdildi.Checked = false;
-                    else İşTakip_Yazdırma_Yazdır.Enabled = true;
                     break;
 
                 case 12:
@@ -157,7 +134,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     {
                         if (İşTakip_ÖdemeBekleyen_Dönem.SelectedIndex != 0) İşTakip_ÖdemeBekleyen_Dönem.SelectedIndex = 0;
                     }
-                    else Seviye2_ÖdemeBekleyen.Checked = false;
                     break;
 
                 case 13:
@@ -176,17 +152,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     {
                         if (İşTakip_Ödendi_Dönem.SelectedIndex != 0) İşTakip_Ödendi_Dönem.SelectedIndex = 0;
                     }
-                    else Seviye2_Ödendi.Checked = false;
                     break;
             }
 
             P_SolOrta_Sağ.Visible = Seviye1_işTakip.Checked;
-            P_İşTakip_DevamEden.Visible = Seviye2_DevamEden.Checked;
-            P_İşTakip_TeslimEdildi.Visible = Seviye2_TeslimEdildi.Checked;
-            P_İşTakip_ÖdemeBekleyen.Visible = Seviye2_ÖdemeBekleyen.Checked;
-            P_İşTakip_Ödendi.Visible = Seviye2_Ödendi.Checked;
+            if (Seviye1_işTakip.Checked)
+            {
+                P_İşTakip_DevamEden.Visible = Seviye2_DevamEden.Checked;
+                P_İşTakip_TeslimEdildi.Visible = Seviye2_TeslimEdildi.Checked;
+                P_İşTakip_ÖdemeBekleyen.Visible = Seviye2_ÖdemeBekleyen.Checked;
+                P_İşTakip_Ödendi.Visible = Seviye2_Ödendi.Checked;
+            }
             P_Arama.Visible = Seviye1_Arama.Checked;
-
             return;
 
         AramaİçinSeçenekleriBelirle:
@@ -196,13 +173,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         List<string> İşTakip_Müşteriler_AramaÇubuğu_Liste = null;
         private void İşTakip_Müşteriler_AramaÇubuğu_TextChanged(object sender, EventArgs e)
         {
-            P_İşTakip_DevamEden.Visible = false;
-            P_İşTakip_TeslimEdildi.Visible = false;
-            P_İşTakip_ÖdemeBekleyen.Visible = false;
-            P_İşTakip_Ödendi.Visible = false;
             İşTakip_Müşteriler.Items.Clear();
-
-            P_SolOrta_Sağ.Panel2.Enabled = false; //yazdırma + eposta
 
             if (string.IsNullOrEmpty(İşTakip_Müşteriler_AramaÇubuğu.Text))
             {
@@ -219,7 +190,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Seviye_Değişti(Seviye1_işTakip, null);
 
             //eposta gönderimi için iş adetlerinin enüde gösterilemsi
-            P_SolOrta_Sağ.Panel2.Enabled = true;
             İşTakip_Eposta_DevamEden.Checked = false;
             İşTakip_Eposta_TeslimEdildi.Checked = false;
             İşTakip_Eposta_ÖdemeBekleyen.Checked = false;
@@ -231,12 +201,24 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İşTakip_DevamEden_Sil_Click(object sender, EventArgs e)
         {
+            if (!Banka.Müşteri_MevcutMu(İşTakip_Müşteriler.Text))
+            {
+                MessageBox.Show("Lütfen geçerli bir müşteri seçiniz", Text);
+                İşTakip_Müşteriler.Focus();
+                return;
+            }
+
             List<string> l = new List<string>();
             for (int i = 0; i < Tablo.RowCount; i++)
             {
                 if ((bool)Tablo[0, i].Value) l.Add((string)Tablo[1, i].Value);
             }
-            if (l.Count == 0) return;
+
+            if (l.Count < 1)
+            {
+                MessageBox.Show("Lütfen tablodan seçim yapınız", Text);
+                return;
+            }
 
             DialogResult Dr = MessageBox.Show("Seçili " + l.Count + " adet öğeyi KALICI OLARAK SİLMEK istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
@@ -256,6 +238,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İşTakip_DevamEden_Düzenle_Click(object sender, EventArgs e)
         {
+            if (!Banka.Müşteri_MevcutMu(İşTakip_Müşteriler.Text))
+            {
+                MessageBox.Show("Lütfen geçerli bir müşteri seçiniz", Text);
+                İşTakip_Müşteriler.Focus();
+                return;
+            }
+
             List<string> l = new List<string>();
 
             for (int i = 0; i < Tablo.RowCount; i++)
@@ -278,6 +267,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İşTakip_DevamEden_İsaretle_Bitti_Click(object sender, EventArgs e)
         {
+            if (!Banka.Müşteri_MevcutMu(İşTakip_Müşteriler.Text))
+            {
+                MessageBox.Show("Lütfen geçerli bir müşteri seçiniz", Text);
+                İşTakip_Müşteriler.Focus();
+                return;
+            }
+
             List<string> l = new List<string>();
             List<DataGridViewRow> silinecek_satırlar = new List<DataGridViewRow>();
 
@@ -290,33 +286,43 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
             }
 
-            if (l.Count > 0)
+            if (l.Count < 1)
             {
-                string snç = Banka.Talep_İşaretle_DevamEden_TeslimEdilen(İşTakip_Müşteriler.Text, l, true);
-                if (string.IsNullOrEmpty(snç))
+                MessageBox.Show("Lütfen tablodan seçim yapınız", Text);
+                return;
+            }
+
+            string snç = Banka.Talep_İşaretle_DevamEden_TeslimEdilen(İşTakip_Müşteriler.Text, l, true);
+            if (string.IsNullOrEmpty(snç))
+            {
+                //başarılı
+                Banka.Değişiklikleri_Kaydet();
+
+                foreach (DataGridViewRow s in silinecek_satırlar)
                 {
-                    //başarılı
-                    Banka.Değişiklikleri_Kaydet();
-
-                    foreach (DataGridViewRow s in silinecek_satırlar)
-                    {
-                        Tablo.Rows.Remove(s);
-                    }
+                    Tablo.Rows.Remove(s);
                 }
-                else
-                {
-                    Banka.Değişiklikler_TamponuSıfırla();
+            }
+            else
+            {
+                Banka.Değişiklikler_TamponuSıfırla();
 
-                    DialogResult Dr = MessageBox.Show(snç + Environment.NewLine + Environment.NewLine +
-                        "Ücretler sayfasını açmak ister misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                    if (Dr == DialogResult.No) return;
+                DialogResult Dr = MessageBox.Show(snç + Environment.NewLine + Environment.NewLine +
+                    "Ücretler sayfasını açmak ister misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (Dr == DialogResult.No) return;
 
-                    new Ücretler().ShowDialog();
-                }
+                new Ücretler().ShowDialog();
             }
         }
         private void İşTakip_TeslimEdildi_İşaretle_Etkin_Click(object sender, EventArgs e)
         {
+            if (!Banka.Müşteri_MevcutMu(İşTakip_Müşteriler.Text))
+            {
+                MessageBox.Show("Lütfen geçerli bir müşteri seçiniz", Text);
+                İşTakip_Müşteriler.Focus();
+                return;
+            }
+
             List<string> l = new List<string>();
 
         YenidenDene:
@@ -330,14 +336,24 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
             }
 
-            if (l.Count > 0)
+            if (l.Count < 1)
             {
-                Banka.Talep_İşaretle_DevamEden_TeslimEdilen(İşTakip_Müşteriler.Text, l, false);
-                Banka.Değişiklikleri_Kaydet();
+                MessageBox.Show("Lütfen tablodan seçim yapınız", Text);
+                return;
             }
+
+            Banka.Talep_İşaretle_DevamEden_TeslimEdilen(İşTakip_Müşteriler.Text, l, false);
+            Banka.Değişiklikleri_Kaydet();
         }
         private void İşTakip_TeslimEdildi_ÖdemeTalebiOluştur_Click(object sender, EventArgs e)
         {
+            if (!Banka.Müşteri_MevcutMu(İşTakip_Müşteriler.Text))
+            {
+                MessageBox.Show("Lütfen geçerli bir müşteri seçiniz", Text);
+                İşTakip_Müşteriler.Focus();
+                return;
+            }
+
             İşTakip_Bitti_İlaveÖdeme_Açıklama.Text = İşTakip_Bitti_İlaveÖdeme_Açıklama.Text.Trim();
             if (!string.IsNullOrEmpty(İşTakip_Bitti_İlaveÖdeme_Açıklama.Text))
             {
@@ -365,14 +381,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
             }
 
-            if (l.Count > 0)
+            if (l.Count < 1)
             {
-                Banka.Talep_İşaretle_ÖdemeTalepEdildi(İşTakip_Müşteriler.Text, l, İşTakip_Bitti_İlaveÖdeme_Açıklama.Text, İşTakip_Bitti_İlaveÖdeme_Miktar.Text);
-                Banka.Değişiklikleri_Kaydet();
-
-                İşTakip_Bitti_İlaveÖdeme_Açıklama.Text = "";
-                İşTakip_Bitti_İlaveÖdeme_Miktar.Text = "";
+                MessageBox.Show("Lütfen tablodan seçim yapınız", Text);
+                return;
             }
+
+            Banka.Talep_İşaretle_ÖdemeTalepEdildi(İşTakip_Müşteriler.Text, l, İşTakip_Bitti_İlaveÖdeme_Açıklama.Text, İşTakip_Bitti_İlaveÖdeme_Miktar.Text);
+            Banka.Değişiklikleri_Kaydet();
+
+            İşTakip_Bitti_İlaveÖdeme_Açıklama.Text = "";
+            İşTakip_Bitti_İlaveÖdeme_Miktar.Text = "";
         }
         private void İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama_TextChanged(object sender, EventArgs e)
         {
@@ -380,16 +399,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İşTakip_ÖdemeBekleyen_Dönem_TextChanged(object sender, EventArgs e)
         {
-            if (!İşTakip_ÖdemeBekleyen_Dönem.Items.Contains(İşTakip_ÖdemeBekleyen_Dönem.Text))
+            if (!Banka.Müşteri_MevcutMu(İşTakip_Müşteriler.Text))
             {
-                İşTakip_ÖdemeBekleyen_İptalEt.Enabled = false;
-                İşTakip_ÖdemeBekleyen_ÖdemeAlındı.Enabled = false;
-                İpUcu.SetToolTip(Tablo, "Tümünü seçmek / kaldırmak için çift tıkla");
+                MessageBox.Show("Lütfen geçerli bir müşteri seçiniz", Text);
+                İşTakip_Müşteriler.Focus();
                 return;
             }
 
-            İşTakip_ÖdemeBekleyen_İptalEt.Enabled = true;
-            İşTakip_ÖdemeBekleyen_ÖdemeAlındı.Enabled = true;
+            if (!İşTakip_ÖdemeBekleyen_Dönem.Items.Contains(İşTakip_ÖdemeBekleyen_Dönem.Text))
+            {
+                İpUcu.SetToolTip(Tablo, "Tümünü seçmek / kaldırmak için çift tıkla");
+                return;
+            }
 
             Banka_Tablo_ bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.ÖdemeTalepEdildi, İşTakip_ÖdemeBekleyen_Dönem.Text);
             Banka.Talep_TablodaGöster(Tablo, bt);
@@ -407,12 +428,22 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             İpUcu.SetToolTip(Tablo, ipucu);
-
-            İşTakip_Yazdırma_Yazdır.Enabled = true;
         }
         private void İşTakip_ÖdemeBekleyen_İptalEt_Click(object sender, EventArgs e)
         {
-            if (!İşTakip_ÖdemeBekleyen_Dönem.Items.Contains(İşTakip_ÖdemeBekleyen_Dönem.Text)) return;
+            if (!Banka.Müşteri_MevcutMu(İşTakip_Müşteriler.Text))
+            {
+                MessageBox.Show("Lütfen geçerli bir müşteri seçiniz", Text);
+                İşTakip_Müşteriler.Focus();
+                return;
+            }
+
+            if (!İşTakip_ÖdemeBekleyen_Dönem.Items.Contains(İşTakip_ÖdemeBekleyen_Dönem.Text))
+            {
+                MessageBox.Show("Lütfen geçerli bir eleman seçiniz", Text);
+                İşTakip_ÖdemeBekleyen_Dönem.Focus();
+                return;
+            }
 
             DialogResult Dr = MessageBox.Show("Seçilen döneme ait altta listelenmiş işlerin ödeme talebini iptal etmek istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
@@ -425,7 +456,19 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle_Click(object sender, EventArgs e)
         {
-            if (!İşTakip_ÖdemeBekleyen_Dönem.Items.Contains(İşTakip_ÖdemeBekleyen_Dönem.Text)) return;
+            if (!Banka.Müşteri_MevcutMu(İşTakip_Müşteriler.Text))
+            {
+                MessageBox.Show("Lütfen geçerli bir müşteri seçiniz", Text);
+                İşTakip_Müşteriler.Focus();
+                return;
+            }
+
+            if (!İşTakip_ÖdemeBekleyen_Dönem.Items.Contains(İşTakip_ÖdemeBekleyen_Dönem.Text))
+            {
+                MessageBox.Show("Lütfen geçerli bir eleman seçiniz", Text);
+                İşTakip_ÖdemeBekleyen_Dönem.Focus();
+                return;
+            }
 
             if (string.IsNullOrWhiteSpace(İşTakip_ÖdemeBekleyen_Notlar.Text)) İşTakip_ÖdemeBekleyen_Notlar.Text = null;
 
@@ -442,6 +485,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İşTakip_Ödendi_Dönem_TextChanged(object sender, EventArgs e)
         {
+            if (!Banka.Müşteri_MevcutMu(İşTakip_Müşteriler.Text))
+            {
+                MessageBox.Show("Lütfen geçerli bir müşteri seçiniz", Text);
+                İşTakip_Müşteriler.Focus();
+                return;
+            }
+
             if (!İşTakip_Ödendi_Dönem.Items.Contains(İşTakip_Ödendi_Dönem.Text))
             {
                 İpUcu.SetToolTip(Tablo, "Tümünü seçmek / kaldırmak için çift tıkla");
@@ -464,8 +514,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             İpUcu.SetToolTip(Tablo, ipucu);
-
-            İşTakip_Yazdırma_Yazdır.Enabled = true;
         }
 
         private void Tablo_DoubleClick(object sender, EventArgs e)
@@ -742,6 +790,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void İşTakip_Yazdırma_Yazdır_Click(object sender, EventArgs e)
         {
+            if (!Banka.Müşteri_MevcutMu(İşTakip_Müşteriler.Text))
+            {
+                MessageBox.Show("Lütfen geçerli bir müşteri seçiniz", Text);
+                İşTakip_Müşteriler.Focus();
+                return;
+            }
+
             ArgeMup.HazirKod.Depo_ depo;
             string gerçekdosyadı;
 
@@ -785,6 +840,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             else return;
 
+            if (depo == null)
+            {
+                MessageBox.Show("Hiç kayıt bulunamadı", Text);
+                return;
+            }
+            IDepo_Eleman tlp = depo.Bul("Talepler");
+            if (tlp == null || tlp.Elemanları.Length < 1)
+            {
+                MessageBox.Show("Hiç kayıt bulunamadı", Text);
+                return;
+            }
+
             string dosyayolu = Ortak.Klasör_Gecici + Path.GetRandomFileName() + ".pdf";
 
             Yazdırma y = new Yazdırma();
@@ -807,6 +874,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İşTakip_Eposta_Gönder_Click(object sender, EventArgs e)
         {
+            if (!Banka.Müşteri_MevcutMu(İşTakip_Müşteriler.Text))
+            {
+                MessageBox.Show("Lütfen geçerli bir müşteri seçiniz", Text);
+                İşTakip_Müşteriler.Focus();
+                return;
+            }
+
             if (!Ortak.Kullanıcı_Eposta_hesabı_mevcut)
             {
                 MessageBox.Show("Geçerli bir eposta hesabı oluşturulmadı" + Environment.NewLine + "Ana Ekran - Ayarlar - E-posta sayfasını kullanabilirsiniz", Text);
@@ -897,6 +971,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 string snç = epst.EpostaGönder(m, dsy_lar);
                 if (!string.IsNullOrEmpty(snç)) MessageBox.Show(snç, Text);
             }
+            else MessageBox.Show("Hiç kayıt bulunamadı", Text);
         }
     }
 }

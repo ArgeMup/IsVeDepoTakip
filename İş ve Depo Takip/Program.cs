@@ -28,7 +28,7 @@ namespace İş_ve_Depo_Takip
                     Application.Run(new Açılış_Ekranı());
                 }
             }
-            catch (Exception ex) { ex.Günlük(); }
+            catch (Exception ex) { ex.Günlük(); System.Threading.Thread.Sleep(100); }
         }
     }
 }

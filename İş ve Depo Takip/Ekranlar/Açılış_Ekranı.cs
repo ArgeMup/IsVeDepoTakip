@@ -41,6 +41,8 @@ namespace İş_ve_Depo_Takip
             P_AnaMenü.Visible = true;
 
             //Tuş_Click(Bütçe, null);
+
+            ÖndekiEkran_KlaFaGö = new KlavyeFareGozlemcisi_(false, false, false);//denemelerde kasıyor
 #else
             IDepo_Eleman b_kullanıcı = Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Kullanıcı Şifresi");
             if (b_kullanıcı == null || string.IsNullOrEmpty(b_kullanıcı[0]))
@@ -63,11 +65,11 @@ namespace İş_ve_Depo_Takip
             }
 
             YeniYazılımKontrolü.Başlat(new Uri("https://github.com/ArgeMup/IsVeDepoTakip/blob/main/%C4%B0%C5%9F%20ve%20Depo%20Takip/bin/Release/%C4%B0%C5%9F%20ve%20Depo%20Takip.exe?raw=true"));
+
+            ÖndekiEkran_KlaFaGö = new KlavyeFareGozlemcisi_();
 #endif
 
             #region ÖndekiEkran ve zamanlayıcı
-            ÖndekiEkran_KlaFaGö = new KlavyeFareGozlemcisi_();
-
             ÖndekiEkran_Zamanlayıcı = new Timer();
             ÖndekiEkran_Zamanlayıcı.Interval = 5000;
             ÖndekiEkran_Zamanlayıcı.Tick += T_Tick;
@@ -108,6 +110,10 @@ namespace İş_ve_Depo_Takip
                 }
                 else
                 {
+                    #if DEBUG
+                    ÖndekiEkran_KlaFaGö.SonKlavyeFareOlayıAnı = DateTime.Now;
+                    #endif
+
                     if ((DateTime.Now - ÖndekiEkran_KlaFaGö.SonKlavyeFareOlayıAnı).TotalSeconds < Ortak.Kullanıcı_KüçültüldüğündeParolaSor_sn)
                     {
                         //kullanıcı bilgisayarı kullanıyor
