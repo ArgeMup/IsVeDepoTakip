@@ -917,7 +917,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 return;
             }
 
-            IDepo_Eleman m = Banka.Ayarlar_Müşteri(İşTakip_Müşteriler.Text);
+            IDepo_Eleman m = Banka.Müşteri_Ayarlar(İşTakip_Müşteriler.Text);
             if (m == null || string.IsNullOrEmpty(m.Oku("Eposta/Kime") + m.Oku("Eposta/Bilgi") + m.Oku("Eposta/Gizli")))
             {
                 MessageBox.Show("Müşteriye tanımlı e-posta adresi bulunamadı" + Environment.NewLine + "Ana Ekran - Ayarlar - Müşteriler sayfasını kullanabilirsiniz", Text);

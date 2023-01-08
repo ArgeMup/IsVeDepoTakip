@@ -43,7 +43,7 @@ namespace İş_ve_Depo_Takip
             if (!Sil.Enabled) { splitContainer1.Panel2.Enabled = false; return; }
             Yeni.Text = Liste.Text;
 
-            IDepo_Eleman m = Banka.Ayarlar_Müşteri(Liste.Text);
+            IDepo_Eleman m = Banka.Müşteri_Ayarlar(Liste.Text);
             if (m != null)
             {
                 Eposta_Kime.Text = m.Oku("Eposta/Kime");
@@ -105,7 +105,7 @@ namespace İş_ve_Depo_Takip
         }
         private void Kaydet_Click(object sender, EventArgs e)
         {
-            IDepo_Eleman m = Banka.Ayarlar_Müşteri(Liste.Text, true);
+            IDepo_Eleman m = Banka.Müşteri_Ayarlar(Liste.Text, true);
             m.Yaz("Eposta/Kime", Eposta_Kime.Text);
             m.Yaz("Eposta/Bilgi", Eposta_Bilgi.Text);
             m.Yaz("Eposta/Gizli", Eposta_Gizli.Text);

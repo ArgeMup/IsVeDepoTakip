@@ -352,15 +352,10 @@ namespace İş_ve_Depo_Takip
             Dal = "Bilgisayarlar/" + Kendi.BilgisayarAdı + " " + Kendi.KullanıcıAdı + (string.IsNullOrEmpty(Dal) ? null : "/" + Dal);
             return Tablo_Dal(null, TabloTürü.Ayarlar, Dal, YoksaOluştur);
         }
-        public static IDepo_Eleman Ayarlar_Müşteri(string Müşteri, bool YoksaOluştur = false)
-        {
-            Müşteri = "Müşteriler" + ( string.IsNullOrEmpty(Müşteri) ? null : "/" + Müşteri );
-            return Tablo_Dal(null, TabloTürü.Ayarlar, Müşteri, YoksaOluştur);
-        }
-
+        
         public static List<string> Müşteri_Listele()
         {
-            IDepo_Eleman d = Ayarlar_Müşteri(null);
+            IDepo_Eleman d = Müşteri_Ayarlar(null);
             List<string> l = new List<string>();
             if (d == null) return l;
 
@@ -375,18 +370,23 @@ namespace İş_ve_Depo_Takip
         }
         public static void Müşteri_Ekle(string Adı)
         {
-            Ayarlar_Müşteri(Adı, true)[0] = ".";
+            Müşteri_Ayarlar(Adı, true)[0] = ".";
         }
         public static void Müşteri_Sil(string Adı)
         {
-            IDepo_Eleman d = Ayarlar_Müşteri(Adı);
+            IDepo_Eleman d = Müşteri_Ayarlar(Adı);
             if (d != null) d.Sil(null);
         }
         public static bool Müşteri_MevcutMu(string Adı)
         {
-            return !string.IsNullOrWhiteSpace(Adı) && Ayarlar_Müşteri(Adı) != null;
+            return !string.IsNullOrWhiteSpace(Adı) && Müşteri_Ayarlar(Adı) != null;
         }
-        
+        public static IDepo_Eleman Müşteri_Ayarlar(string Müşteri, bool YoksaOluştur = false)
+        {
+            Müşteri = "Müşteriler" + (string.IsNullOrEmpty(Müşteri) ? null : "/" + Müşteri);
+            return Tablo_Dal(null, TabloTürü.Ayarlar, Müşteri, YoksaOluştur);
+        }
+
         public static List<string> İşTürü_Listele()
         {
             Depo_ d = Tablo(null, TabloTürü.İşTürleri);
@@ -464,10 +464,10 @@ namespace İş_ve_Depo_Takip
 
         public static void Malzeme_KritikMiktarKontrolü()
         {
-            Depo_ d_malzemeler = Tablo(null, TabloTürü.Malzemeler);
+            IDepo_Eleman d_malzemeler = Tablo_Dal(null, TabloTürü.Malzemeler, "Malzemeler");
             if (d_malzemeler == null) return;
 
-            DateTime t = Tablo_Dal(null, TabloTürü.Ayarlar, "Malzemeler", true).Oku_TarihSaat(null, DateTime.Now);
+            DateTime t = Tablo_Dal(null, TabloTürü.Malzemeler, "Son Aylık Sayım", true).Oku_TarihSaat(null, DateTime.Now);
             int fark_tarih = (int)(DateTime.Now - t).TotalDays / 30;
 
             foreach (IDepo_Eleman malzeme in d_malzemeler.Elemanları)
@@ -500,17 +500,17 @@ namespace İş_ve_Depo_Takip
 
             if (fark_tarih > 0)
             {
-                Ayarlar_Genel("Malzemeler").Yaz(null, DateTime.Now);
+                Tablo_Dal(null, TabloTürü.Malzemeler, "Son Aylık Sayım").Yaz(null, DateTime.Now);
                 Değişiklikleri_Kaydet();
             }
         }
         public static List<string> Malzeme_Listele()
         {
-            Depo_ d = Tablo(null, TabloTürü.Malzemeler);
+            IDepo_Eleman d_malzemeler = Tablo_Dal(null, TabloTürü.Malzemeler, "Malzemeler");
             List<string> l = new List<string>();
-            if (d == null) return l;
+            if (d_malzemeler == null) return l;
 
-            foreach (IDepo_Eleman e in d.Elemanları)
+            foreach (IDepo_Eleman e in d_malzemeler.Elemanları)
             {
                 if (e.İçiBoşOlduğuİçinSilinecek) continue;
 
@@ -521,16 +521,16 @@ namespace İş_ve_Depo_Takip
         }
         public static void Malzeme_Ekle(string Adı)
         {
-            Tablo_Dal(null, TabloTürü.Malzemeler, Adı, true)[0] = "0";
+            Tablo_Dal(null, TabloTürü.Malzemeler, "Malzemeler/" + Adı, true)[0] = "0";
         }
         public static void Malzeme_Sil(string Adı)
         {
-            IDepo_Eleman d = Tablo_Dal(null, TabloTürü.Malzemeler, Adı);
+            IDepo_Eleman d = Tablo_Dal(null, TabloTürü.Malzemeler, "Malzemeler/" + Adı);
             if (d != null) d.Sil(null);
         }
         public static bool Malzeme_MevcutMu(string Adı)
         {
-            return !string.IsNullOrWhiteSpace(Adı) && Tablo_Dal(null, TabloTürü.Malzemeler, Adı) != null;
+            return !string.IsNullOrWhiteSpace(Adı) && Tablo_Dal(null, TabloTürü.Malzemeler, "Malzemeler/" + Adı) != null;
         }
         public static void Malzeme_TablodaGöster(DataGridView Tablo, string Malzeme, out double Miktarı, out string Birimi, out double UyarıVermeMiktarı, out string Notlar)
         {
@@ -546,7 +546,7 @@ namespace İş_ve_Depo_Takip
             Birimi = null;
             UyarıVermeMiktarı = 0;
             Notlar = null;
-            IDepo_Eleman d = Tablo_Dal(null, TabloTürü.Malzemeler, Malzeme);
+            IDepo_Eleman d = Tablo_Dal(null, TabloTürü.Malzemeler, "Malzemeler/" + Malzeme);
             if (d == null) return;
             int y;
 
@@ -607,7 +607,7 @@ namespace İş_ve_Depo_Takip
         }
         public static void Malzeme_DetaylarıKaydet(string Malzeme, string Mevcut, string Birimi, string UyarıVermeMiktarı, string Notlar)
         {
-            IDepo_Eleman d = Tablo_Dal(null, TabloTürü.Malzemeler, Malzeme);
+            IDepo_Eleman d = Tablo_Dal(null, TabloTürü.Malzemeler, "Malzemeler/" + Malzeme);
             d[0] = Mevcut;
             d[1] = Birimi;
             d[2] = UyarıVermeMiktarı;
@@ -622,7 +622,7 @@ namespace İş_ve_Depo_Takip
         }
         public static string Malzeme_Birimi(string Malzeme)
         {
-            IDepo_Eleman d = Tablo_Dal(null, TabloTürü.Malzemeler, Malzeme);
+            IDepo_Eleman d = Tablo_Dal(null, TabloTürü.Malzemeler, "Malzemeler/" + Malzeme);
             if (d == null) return null;
 
             return d[1];
@@ -631,7 +631,7 @@ namespace İş_ve_Depo_Takip
         {
             //İşTürleri değişkeni içeriğini silerek ilerliyor
 
-            Depo_ d_malzemeler = Tablo(null, TabloTürü.Malzemeler);
+            IDepo_Eleman d_malzemeler = Tablo_Dal(null, TabloTürü.Malzemeler, "Malzemeler");
             if (d_malzemeler == null) return;
 
             Depo_ d_iştürleri = Tablo(null, TabloTürü.İşTürleri);
