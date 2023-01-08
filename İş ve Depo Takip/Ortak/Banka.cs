@@ -41,10 +41,11 @@ namespace İş_ve_Depo_Takip
             Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Klasörler", ref Açılışİşlemi_Tik);
 
             #region Ayarlar
-            Depo_ d = Tablo(null, TabloTürü.Ayarlar, true);
-            Ortak.Kullanıcı_Klasör_Yedek = d.Bul("Klasör/Yedek", true).İçeriği;
+            IDepo_Eleman d_ayarlar_bilgisayar_kullanıcı = Ayarlar_BilgisayarVeKullanıcı("Klasör", true);
+            Ortak.Kullanıcı_Klasör_Yedek = d_ayarlar_bilgisayar_kullanıcı.Bul("Yedek", true).İçeriği;
+            Ortak.Kullanıcı_Klasör_Pdf = d_ayarlar_bilgisayar_kullanıcı.Oku("Pdf");
 
-            Ortak.Kullanıcı_Klasör_Pdf = d.Oku("Klasör/Pdf");
+            Depo_ d = Tablo(null, TabloTürü.Ayarlar, true);
             Ortak.Kullanıcı_KüçültüldüğündeParolaSor = d.Oku_Bit("Küçültüldüğünde Parola Sor", true, 0);
             Ortak.Kullanıcı_KüçültüldüğündeParolaSor_sn = d.Oku_TamSayı("Küçültüldüğünde Parola Sor", 60, 1);
             Ortak.Kullanıcı_Eposta_hesabı_mevcut = !string.IsNullOrEmpty(d.Oku("Eposta/Gönderici/Şifresi"));
@@ -342,9 +343,24 @@ namespace İş_ve_Depo_Takip
             }
         }
 
+        public static IDepo_Eleman Ayarlar_Genel(string Dal, bool YoksaOluştur = false)
+        {
+            return Tablo_Dal(null, TabloTürü.Ayarlar, Dal, YoksaOluştur);
+        }
+        public static IDepo_Eleman Ayarlar_BilgisayarVeKullanıcı(string Dal, bool YoksaOluştur = false)
+        {
+            Dal = "Bilgisayarlar/" + Kendi.BilgisayarAdı + " " + Kendi.KullanıcıAdı + (string.IsNullOrEmpty(Dal) ? null : "/" + Dal);
+            return Tablo_Dal(null, TabloTürü.Ayarlar, Dal, YoksaOluştur);
+        }
+        public static IDepo_Eleman Ayarlar_Müşteri(string Müşteri, bool YoksaOluştur = false)
+        {
+            Müşteri = "Müşteriler" + ( string.IsNullOrEmpty(Müşteri) ? null : "/" + Müşteri );
+            return Tablo_Dal(null, TabloTürü.Ayarlar, Müşteri, YoksaOluştur);
+        }
+
         public static List<string> Müşteri_Listele()
         {
-            IDepo_Eleman d = Tablo_Dal(null, TabloTürü.Ayarlar, "Müşteriler");
+            IDepo_Eleman d = Ayarlar_Müşteri(null);
             List<string> l = new List<string>();
             if (d == null) return l;
 
@@ -359,16 +375,16 @@ namespace İş_ve_Depo_Takip
         }
         public static void Müşteri_Ekle(string Adı)
         {
-            Tablo_Dal(null, TabloTürü.Ayarlar, "Müşteriler", true).Yaz(Adı, ".");
+            Ayarlar_Müşteri(Adı, true)[0] = ".";
         }
         public static void Müşteri_Sil(string Adı)
         {
-            IDepo_Eleman d = Tablo_Dal(null, TabloTürü.Ayarlar, "Müşteriler");
-            if (d != null) d.Sil(Adı);
+            IDepo_Eleman d = Ayarlar_Müşteri(Adı);
+            if (d != null) d.Sil(null);
         }
         public static bool Müşteri_MevcutMu(string Adı)
         {
-            return !string.IsNullOrWhiteSpace(Adı) && Tablo_Dal(null, TabloTürü.Ayarlar, "Müşteriler/" + Adı) != null;
+            return !string.IsNullOrWhiteSpace(Adı) && Ayarlar_Müşteri(Adı) != null;
         }
         
         public static List<string> İşTürü_Listele()
@@ -484,7 +500,7 @@ namespace İş_ve_Depo_Takip
 
             if (fark_tarih > 0)
             {
-                Tablo_Dal(null, TabloTürü.Ayarlar, "Malzemeler").Yaz(null, DateTime.Now);
+                Ayarlar_Genel("Malzemeler").Yaz(null, DateTime.Now);
                 Değişiklikleri_Kaydet();
             }
         }
@@ -680,7 +696,7 @@ namespace İş_ve_Depo_Takip
             //Mart 2071 no:1 -> C711
             //Mart 3071 no:6789 -> C716789
 
-            IDepo_Eleman o = Tablo_Dal(null, TabloTürü.Ayarlar, "Seri No", true);
+            IDepo_Eleman o = Ayarlar_Genel("Seri No", true);
             string yeni_sn = "";
             DateTime t = DateTime.Now;
 
@@ -1481,7 +1497,13 @@ namespace İş_ve_Depo_Takip
             for (int i = 0; i < Ortak.Kullanıcı_Klasör_Yedek.Length; i++)
             {
                 if (string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Yedek[i])) continue;
-                Klasör.Oluştur(Ortak.Kullanıcı_Klasör_Yedek[i]);
+                if (!Klasör.Oluştur(Ortak.Kullanıcı_Klasör_Yedek[i]))
+                {
+                    MessageBox.Show("Klasör oluşturulamadı, belirtilen konuma yedek alınmayacaktır" + Environment.NewLine + Environment.NewLine +
+                        Ortak.Kullanıcı_Klasör_Yedek[i], "Yedekleme");
+                    Ortak.Kullanıcı_Klasör_Yedek[i] = null;
+                    continue;
+                }
 
                 FileSystemWatcher yeni = new FileSystemWatcher(Ortak.Kullanıcı_Klasör_Yedek[i], "*.mup");
                 yeni.Changed += Yeni_Created_Changed_Deleted;
@@ -1531,7 +1553,7 @@ namespace İş_ve_Depo_Takip
             Task.Run(() =>
             {
                 Klasör_ ydk_ler = new Klasör_(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip", EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
-                ydk_ler.Dosya_Sil_SayısınaVeBoyutunaGöre(15, 1024 * 1024 * 1024 /*1GB*/, Ortak.EşZamanlıİşlemSayısı);
+                ydk_ler.Dosya_Sil_SayısınaVeBoyutunaGöre(15, 150 * 1024 * 1024 /*150MB*/, Ortak.EşZamanlıİşlemSayısı);
                 ydk_ler.Güncelle(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip", EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
 
                 bool yedekle = false;
@@ -1576,6 +1598,7 @@ namespace İş_ve_Depo_Takip
                         Klasör.Kopyala(Ortak.Klasör_Banka, Ortak.Kullanıcı_Klasör_Yedek[i] + "Banka", Ortak.EşZamanlıİşlemSayısı);
                         Klasör.Kopyala(Ortak.Klasör_Diğer, Ortak.Kullanıcı_Klasör_Yedek[i] + "Diğer", Ortak.EşZamanlıİşlemSayısı);
                         Klasör.Kopyala(Ortak.Klasör_İçYedek, Ortak.Kullanıcı_Klasör_Yedek[i] + "Yedek", Ortak.EşZamanlıİşlemSayısı);
+                        Dosya.Kopyala(Kendi.DosyaYolu, Ortak.Kullanıcı_Klasör_Yedek[i] + Kendi.DosyaAdı);
                     }
 
                     Yedekleme_İzleyici_Başlat();

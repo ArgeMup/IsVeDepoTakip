@@ -6,24 +6,25 @@ namespace İş_ve_Depo_Takip.Ekranlar
 {
     public partial class Ayarlar_Diğer : Form
     {
-        Depo_ Ayarlar = null;
+        IDepo_Eleman Ayarlar_Küçültüldüğünde = null, Ayarlar_Bilgisayar = null;
 
         public Ayarlar_Diğer()
         {
             InitializeComponent();
 
             Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
-        
-            Ayarlar = Banka.Tablo(null, Banka.TabloTürü.Ayarlar, true);
 
-            Klasör_Yedekleme_1.Text = Ayarlar.Oku("Klasör/Yedek", null, 0);
-            Klasör_Yedekleme_2.Text = Ayarlar.Oku("Klasör/Yedek", null, 1);
-            Klasör_Yedekleme_3.Text = Ayarlar.Oku("Klasör/Yedek", null, 2);
-            Klasör_Yedekleme_4.Text = Ayarlar.Oku("Klasör/Yedek", null, 3);
-            Klasör_Yedekleme_5.Text = Ayarlar.Oku("Klasör/Yedek", null, 4);
-            Klasör_Pdf.Text = Ayarlar.Oku("Klasör/Pdf");
-            KüçültüldüğündeParolaSor.Checked = Ayarlar.Oku_Bit("Küçültüldüğünde Parola Sor", true, 0);
-            KüçültüldüğündeParolaSor_sn.Value = Ayarlar.Oku_TamSayı("Küçültüldüğünde Parola Sor", 60, 1);
+            Ayarlar_Bilgisayar = Banka.Ayarlar_BilgisayarVeKullanıcı("Klasör", true);
+            Ayarlar_Küçültüldüğünde = Banka.Ayarlar_Genel("Küçültüldüğünde Parola Sor", true);
+
+            Klasör_Yedekleme_1.Text = Ayarlar_Bilgisayar.Oku("Yedek", null, 0);
+            Klasör_Yedekleme_2.Text = Ayarlar_Bilgisayar.Oku("Yedek", null, 1);
+            Klasör_Yedekleme_3.Text = Ayarlar_Bilgisayar.Oku("Yedek", null, 2);
+            Klasör_Yedekleme_4.Text = Ayarlar_Bilgisayar.Oku("Yedek", null, 3);
+            Klasör_Yedekleme_5.Text = Ayarlar_Bilgisayar.Oku("Yedek", null, 4);
+            Klasör_Pdf.Text = Ayarlar_Bilgisayar.Oku("Pdf");
+            KüçültüldüğündeParolaSor.Checked = Ayarlar_Küçültüldüğünde.Oku_Bit(null, true, 0);
+            KüçültüldüğündeParolaSor_sn.Value = Ayarlar_Küçültüldüğünde.Oku_TamSayı(null, 60, 1);
             Kaydet.Enabled = false;
         }
         
@@ -104,19 +105,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
             }
 
-            IDepo_Eleman ydk = Ayarlar.Bul("Klasör/Yedek", true);
-            ydk[0] = Klasör_Yedekleme_1.Text;
-            ydk[1] = Klasör_Yedekleme_2.Text;
-            ydk[2] = Klasör_Yedekleme_3.Text;
-            ydk[3] = Klasör_Yedekleme_4.Text;
-            ydk[4] = Klasör_Yedekleme_5.Text;
-            
-            Ayarlar.Yaz("Klasör/Pdf", Klasör_Pdf.Text);
-            Ayarlar.Yaz("Küçültüldüğünde Parola Sor", KüçültüldüğündeParolaSor.Checked, 0);
-            Ayarlar.Yaz("Küçültüldüğünde Parola Sor", (int)KüçültüldüğündeParolaSor_sn.Value, 1);
+            Ayarlar_Bilgisayar.Yaz("Yedek", Klasör_Yedekleme_1.Text, 0);
+            Ayarlar_Bilgisayar.Yaz("Yedek", Klasör_Yedekleme_2.Text, 1);
+            Ayarlar_Bilgisayar.Yaz("Yedek", Klasör_Yedekleme_3.Text, 2);
+            Ayarlar_Bilgisayar.Yaz("Yedek", Klasör_Yedekleme_4.Text, 3);
+            Ayarlar_Bilgisayar.Yaz("Yedek", Klasör_Yedekleme_5.Text, 4);
+            Ayarlar_Bilgisayar.Yaz("Pdf", Klasör_Pdf.Text);
+            Ayarlar_Küçültüldüğünde.Yaz(null, KüçültüldüğündeParolaSor.Checked, 0);
+            Ayarlar_Küçültüldüğünde.Yaz(null, (int)KüçültüldüğündeParolaSor_sn.Value, 1);
             Banka.Değişiklikleri_Kaydet();
 
-            Ortak.Kullanıcı_Klasör_Yedek = ydk.İçeriği;
+            Ortak.Kullanıcı_Klasör_Yedek = Ayarlar_Bilgisayar.Bul("Yedek").İçeriği;
             Ortak.Kullanıcı_Klasör_Pdf = Klasör_Pdf.Text;
             Ortak.Kullanıcı_KüçültüldüğündeParolaSor = KüçültüldüğündeParolaSor.Checked;
             Ortak.Kullanıcı_KüçültüldüğündeParolaSor_sn = (int)KüçültüldüğündeParolaSor_sn.Value;

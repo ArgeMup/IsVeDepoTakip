@@ -13,7 +13,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 {
     public partial class Yazdırma : Form
     {
-        IDepo_Eleman Ayarlar = null;
+        IDepo_Eleman Ayarlar = null, Ayarlar_Bilgisayar = null;
 
         public Yazdırma()
         {
@@ -28,13 +28,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             if (Yazcılar.Items.Count < 1)
             {
+                Yazcılar.Items.Add("Yazıcı bulunamadı");
+                Yazcılar.SelectedIndex = 0;
                 Enabled = false;
                 return;
             }
 
-            Ayarlar = Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Yazdırma", true);
+            Ayarlar_Bilgisayar = Banka.Ayarlar_BilgisayarVeKullanıcı("Yazdırma", true);
+            Ayarlar = Banka.Ayarlar_Genel("Yazdırma", true);
             string bulunan = "";
-            if (string.IsNullOrEmpty(Ayarlar.Oku("Yazıcı")))
+            if (string.IsNullOrEmpty(Ayarlar_Bilgisayar.Oku("Yazıcı")))
             {
                 foreach (string y in Yazcılar.Items)
                 {
@@ -47,7 +50,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
             }
             if (string.IsNullOrEmpty(bulunan)) bulunan = (string)Yazcılar.Items[0];
-            Yazcılar.Text = Ayarlar.Oku("Yazıcı", bulunan);
+            Yazcılar.Text = Ayarlar_Bilgisayar.Oku("Yazıcı", bulunan);
 
             KarakterKümeleri.Items.Clear();
             foreach (var kk in new InstalledFontCollection().Families)
@@ -56,8 +59,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             KarakterKümeleri.Text = Ayarlar.Oku("Karakterler", "Calibri");
 
-            KenarBoşluğu.Value = (decimal)Ayarlar.Oku_Sayı("Yazıcı", 15, 1);
-            DosyayaYazdır.Checked = Ayarlar.Oku_Bit("Yazıcı", true, 2);
+            KenarBoşluğu.Value = (decimal)Ayarlar_Bilgisayar.Oku_Sayı("Yazıcı", 15, 1);
+            DosyayaYazdır.Checked = Ayarlar_Bilgisayar.Oku_Bit("Yazıcı", true, 2);
             KarakterBüyüklüğü_Müşteri.Value = (decimal)Ayarlar.Oku_Sayı("Karakterler/Müşteri", 12);
             KarakterBüyüklüğü_Başlıklar.Value = (decimal)Ayarlar.Oku_Sayı("Karakterler/Başlık", 10);
             KarakterBüyüklüğü_Diğerleri.Value = (decimal)Ayarlar.Oku_Sayı("Karakterler/Diğer", 8);
@@ -79,10 +82,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void Kaydet_Click(object sender, EventArgs e)
         {
-            Ayarlar.Yaz("Yazıcı", Yazcılar.Text);
+            Ayarlar_Bilgisayar.Yaz("Yazıcı", Yazcılar.Text);
+            Ayarlar_Bilgisayar.Yaz("Yazıcı", (double)KenarBoşluğu.Value, 1);
+            Ayarlar_Bilgisayar.Yaz("Yazıcı", DosyayaYazdır.Checked, 2);
             Ayarlar.Yaz("Karakterler", KarakterKümeleri.Text);
-            Ayarlar.Yaz("Yazıcı", (double)KenarBoşluğu.Value, 1);
-            Ayarlar.Yaz("Yazıcı", DosyayaYazdır.Checked, 2);
             Ayarlar.Yaz("Karakterler/Müşteri", (double)KarakterBüyüklüğü_Müşteri.Value);
             Ayarlar.Yaz("Karakterler/Başlık", (double)KarakterBüyüklüğü_Başlıklar.Value);
             Ayarlar.Yaz("Karakterler/Diğer", (double)KarakterBüyüklüğü_Diğerleri.Value);

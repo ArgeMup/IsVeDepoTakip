@@ -21,10 +21,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
 
-            IDepo_Eleman d = Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Kullanıcı Ayarları/Bütçe/Genel Anlamda");
-            if (d != null ) 
+            IDepo_Eleman Ayarlar_GenelAnlamda = Banka.Ayarlar_Genel("Bütçe/Genel Anlamda");
+            if (Ayarlar_GenelAnlamda != null ) 
             {
-                foreach (IDepo_Eleman a in d.Elemanları)
+                foreach (IDepo_Eleman a in Ayarlar_GenelAnlamda.Elemanları)
                 {
                     _2_Tablo.Rows.Add(new object[] { true, a[0], a[1], a[2] });
                 }
@@ -337,15 +337,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void Kaydet_Click(object sender, EventArgs e)
         {
-            IDepo_Eleman d = Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Kullanıcı Ayarları/Bütçe/Genel Anlamda", true);
-            d.Sil(null, false, true);
+            IDepo_Eleman Ayarlar_GenelAnlamda = Banka.Ayarlar_Genel("Bütçe/Genel Anlamda", true);
+            Ayarlar_GenelAnlamda.Sil(null, false, true);
             for (int i = 0; i < _2_Tablo.RowCount; i++)
             {
                 if ((string)_2_Tablo[1, i].Value == "Müşteriler kapsamında") continue;
 
-                d.Yaz(i.ToString(), (string)_2_Tablo[1, i].Value, 0);
-                d.Yaz(i.ToString(), (string)_2_Tablo[2, i].Value, 1);
-                d.Yaz(i.ToString(), (string)_2_Tablo[3, i].Value, 2);
+                Ayarlar_GenelAnlamda.Yaz(i.ToString(), (string)_2_Tablo[1, i].Value, 0);
+                Ayarlar_GenelAnlamda.Yaz(i.ToString(), (string)_2_Tablo[2, i].Value, 1);
+                Ayarlar_GenelAnlamda.Yaz(i.ToString(), (string)_2_Tablo[3, i].Value, 2);
             }
 
             Banka.Değişiklikleri_Kaydet();

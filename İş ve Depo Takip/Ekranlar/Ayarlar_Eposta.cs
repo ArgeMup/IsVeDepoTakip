@@ -22,7 +22,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
         
-            Ayarlar = Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Eposta", true);
+            Ayarlar = Banka.Ayarlar_Genel("Eposta", true);
 
             Sunucu_Adres.Text = Ayarlar.Oku("Sunucu/Adresi", Sunucu_Adres.Text);
             Sunucu_ErişimNoktası.Text = Ayarlar.Oku("Sunucu/Erişim Noktası", Sunucu_ErişimNoktası.Text);

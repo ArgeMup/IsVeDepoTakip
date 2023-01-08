@@ -43,7 +43,7 @@ namespace İş_ve_Depo_Takip
             if (!Sil.Enabled) { splitContainer1.Panel2.Enabled = false; return; }
             Yeni.Text = Liste.Text;
 
-            IDepo_Eleman m = Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Müşteriler/" + Liste.Text);
+            IDepo_Eleman m = Banka.Ayarlar_Müşteri(Liste.Text);
             if (m != null)
             {
                 Eposta_Kime.Text = m.Oku("Eposta/Kime");
@@ -81,12 +81,15 @@ namespace İş_ve_Depo_Takip
                 return;
             }
 
-            if (!Klasör.Oluştur(Ortak.Klasör_Banka + Yeni.Text))
+            if (!System.IO.Directory.Exists(Ortak.Klasör_Banka + Yeni.Text))
             {
-                MessageBox.Show(Yeni.Text + " girdisi ile klasör oluşturulamıyor, uygun olmayan karakterleri değiştiriniz", Text);
-                return;
+                if (!Klasör.Oluştur(Ortak.Klasör_Banka + Yeni.Text))
+                {
+                    MessageBox.Show(Yeni.Text + " girdisi ile klasör oluşturulamıyor, uygun olmayan karakterleri değiştiriniz", Text);
+                    return;
+                }
+                else Klasör.Sil(Ortak.Klasör_Banka + Yeni.Text);
             }
-            else Klasör.Sil(Ortak.Klasör_Banka + Yeni.Text);
 
             Banka.Müşteri_Ekle(Yeni.Text);
             Banka.Değişiklikleri_Kaydet();
@@ -102,7 +105,7 @@ namespace İş_ve_Depo_Takip
         }
         private void Kaydet_Click(object sender, EventArgs e)
         {
-            IDepo_Eleman m = Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Müşteriler/" + Liste.Text, true);
+            IDepo_Eleman m = Banka.Ayarlar_Müşteri(Liste.Text, true);
             m.Yaz("Eposta/Kime", Eposta_Kime.Text);
             m.Yaz("Eposta/Bilgi", Eposta_Bilgi.Text);
             m.Yaz("Eposta/Gizli", Eposta_Gizli.Text);
