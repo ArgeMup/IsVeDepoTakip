@@ -108,6 +108,7 @@
             this.Tablo_Ödendi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tablo_Notlar = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
+            this.Arama_Sorgula_Detaylı = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.P_Üst_Alt)).BeginInit();
             this.P_Üst_Alt.Panel1.SuspendLayout();
             this.P_Üst_Alt.Panel2.SuspendLayout();
@@ -615,10 +616,10 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.P_Arama);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(603, 310);
+            this.tabPage1.Size = new System.Drawing.Size(603, 306);
             this.tabPage1.TabIndex = 4;
             this.tabPage1.Text = "Arama";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -642,6 +643,7 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.Arama_Sorgula_Detaylı);
             this.splitContainer2.Panel1.Controls.Add(this.Arama_İlerlemeÇubuğu);
             this.splitContainer2.Panel1.Controls.Add(this.label2);
             this.splitContainer2.Panel1.Controls.Add(this.Arama_Sorgula);
@@ -660,9 +662,9 @@
             // 
             this.Arama_İlerlemeÇubuğu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Arama_İlerlemeÇubuğu.Location = new System.Drawing.Point(12, 129);
+            this.Arama_İlerlemeÇubuğu.Location = new System.Drawing.Point(14, 129);
             this.Arama_İlerlemeÇubuğu.Name = "Arama_İlerlemeÇubuğu";
-            this.Arama_İlerlemeÇubuğu.Size = new System.Drawing.Size(104, 23);
+            this.Arama_İlerlemeÇubuğu.Size = new System.Drawing.Size(102, 23);
             this.Arama_İlerlemeÇubuğu.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.Arama_İlerlemeÇubuğu.TabIndex = 24;
             this.Arama_İlerlemeÇubuğu.Visible = false;
@@ -759,7 +761,7 @@
             // Arama_İşTürleri_Seç
             // 
             this.Arama_İşTürleri_Seç.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Arama_İşTürleri_Seç.Location = new System.Drawing.Point(174, 144);
+            this.Arama_İşTürleri_Seç.Location = new System.Drawing.Point(175, 144);
             this.Arama_İşTürleri_Seç.Name = "Arama_İşTürleri_Seç";
             this.Arama_İşTürleri_Seç.Size = new System.Drawing.Size(54, 33);
             this.Arama_İşTürleri_Seç.TabIndex = 16;
@@ -1143,6 +1145,16 @@
             this.İpUcu.UseAnimation = false;
             this.İpUcu.UseFading = false;
             // 
+            // Arama_Sorgula_Detaylı
+            // 
+            this.Arama_Sorgula_Detaylı.AutoSize = true;
+            this.Arama_Sorgula_Detaylı.Location = new System.Drawing.Point(126, 97);
+            this.Arama_Sorgula_Detaylı.Name = "Arama_Sorgula_Detaylı";
+            this.Arama_Sorgula_Detaylı.Size = new System.Drawing.Size(83, 24);
+            this.Arama_Sorgula_Detaylı.TabIndex = 16;
+            this.Arama_Sorgula_Detaylı.Text = "Detaylı";
+            this.Arama_Sorgula_Detaylı.UseVisualStyleBackColor = true;
+            // 
             // Tüm_İşler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -1278,5 +1290,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Ödeme_Talep_Edildi;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Ödendi;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Notlar;
+        private System.Windows.Forms.CheckBox Arama_Sorgula_Detaylı;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ArgeMup.HazirKod;
+using ArgeMup.HazirKod.Dönüştürme;
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Collections.Generic;
@@ -744,6 +745,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (Arama_Sorgula_KapatmaTalebi) return;
             if (Arama_Sorgula_Tik < Environment.TickCount) { Application.DoEvents(); Arama_Sorgula_Tik = Environment.TickCount + 500; }
 
+            string sn_ler = "";
             List<IDepo_Eleman> uyuşanlar = new List<IDepo_Eleman>();
             foreach (IDepo_Eleman serino in bt.Talepler)
             {
@@ -760,10 +762,38 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     break;
                 }
 
-                if (evet) uyuşanlar.Add(serino);
+                if (evet)
+                {
+                    sn_ler += serino.Adı + " ";
+                    uyuşanlar.Add(serino);
+                }
             }
 
             if (uyuşanlar.Count == 0) return;
+
+            if (Arama_Sorgula_Detaylı.Checked && bt.Ödeme != null)
+            {
+                IDepo_Eleman y = uyuşanlar[0].Bul(null, false, true);
+                y.Sil(null, true, true);
+                y.Adı = "";
+
+                sn_ler = sn_ler.TrimEnd() + Environment.NewLine + Environment.NewLine;
+                sn_ler += "Talep : " + D_TarihSaat.Yazıya(bt.Ödeme.Oku_TarihSaat(null), D_TarihSaat.Şablon_DosyaAdı2);
+                if (bt.Türü == Banka.TabloTürü.Ödendi) sn_ler += Environment.NewLine + "Ödeme : " + D_TarihSaat.Yazıya(bt.Ödeme.Oku_TarihSaat(null, default, 1), D_TarihSaat.Şablon_DosyaAdı2);
+
+                //sn ler + tarihler
+                y.Yaz("1", sn_ler);
+
+                sn_ler = "Alt Toplam : " + Banka.Yazdır_Ücret(bt.Ödeme.Oku_Sayı("Alt Toplam")) + Environment.NewLine;
+                if (!string.IsNullOrEmpty(bt.Ödeme.Oku("İlave Ödeme"))) sn_ler += "İlave ödeme : " + Banka.Yazdır_Ücret(bt.Ödeme.Oku_Sayı("İlave Ödeme", 0, 1)) + " (" + bt.Ödeme.Oku("İlave Ödeme") + ")" + Environment.NewLine;
+                sn_ler += "Genel Toplam : " + Banka.Yazdır_Ücret(bt.Ödeme.Oku_Sayı("Alt Toplam") + bt.Ödeme.Oku_Sayı("İlave Ödeme", 0, 1));
+
+                //toplamlar + ödendi notları
+                y[2] = sn_ler + (string.IsNullOrEmpty(bt.Ödeme[2]) ? null : Environment.NewLine + Environment.NewLine + bt.Ödeme[2]); 
+
+                uyuşanlar.Add(y);
+            }
+
             bt.Talepler = uyuşanlar;
             Banka.Talep_TablodaGöster(Tablo, bt, false);
         }
@@ -963,6 +993,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (dsy_lar.Length > 0)
             {
                 DialogResult Dr = MessageBox.Show("Oluşturulan toplam " + dsy_lar.Length + " adet belge müşterinize e-posta yoluyla gönderilecek" +
+                Environment.NewLine + Environment.NewLine +
+                İşTakip_Müşteriler.Text+
                 Environment.NewLine + Environment.NewLine +
                 "Devam etmek için Evet tuşuna basınız", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (Dr == DialogResult.No) return;

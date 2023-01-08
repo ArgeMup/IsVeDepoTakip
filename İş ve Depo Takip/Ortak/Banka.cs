@@ -1279,7 +1279,7 @@ namespace İş_ve_Depo_Takip
 
             if (Ayarlar != null && ( Ayarlar.EnAzBir_ElemanAdıVeyaİçeriği_Değişti || EnAzBirDeğişiklikYapıldı )) 
             {
-                Ayarlar.Yaz("Son Banka Kayıt", Kendi.BilgisayarAdı + " / " + Kendi.KullanıcıAdı, 0);
+                Ayarlar.Yaz("Son Banka Kayıt", Kendi.BilgisayarAdı + " " + Kendi.KullanıcıAdı, 0);
                 Ayarlar.Yaz("Son Banka Kayıt", DateTime.Now, 1);
 
                 Depo_Kaydet("Ayarlar", Ayarlar); 
