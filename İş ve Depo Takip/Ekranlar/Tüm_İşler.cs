@@ -519,23 +519,27 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void Tablo_DoubleClick(object sender, EventArgs e)
         {
-            if (Tablo.RowCount < 1) return;
+            if (Tablo.Tag != null || Tablo.RowCount < 1) return;
             bool b = !(bool)Tablo[0, 0].Value;
+            Tablo.Tag = 0;
 
-            for (int i = 0; i < Tablo.RowCount; i++)
+            for (int i = 0; i < Tablo.RowCount - 1; i++)
             {
                 Tablo[0, i].Value = b;
             }
+
+            Tablo.Tag = null;
+            Tablo[0, Tablo.RowCount - 1].Value = b;
         }
         private void Tablo_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0 || e.ColumnIndex > 0) return;
+            if (Tablo.Tag != null || e.RowIndex < 0 || e.ColumnIndex < 0 || e.ColumnIndex > 0) return;
 
             Tablo[0, e.RowIndex].Value = !(bool)Tablo[0, e.RowIndex].Value;
         }
         private void Tablo_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            if (Tablo.Tag != null || e.RowIndex < 0) return;
 
             string m = "Notlar";
 

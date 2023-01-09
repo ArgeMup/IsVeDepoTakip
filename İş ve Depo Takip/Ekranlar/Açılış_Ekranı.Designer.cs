@@ -522,7 +522,7 @@
         private System.Windows.Forms.Label AçılışYazısı;
         private System.Windows.Forms.Button ParolayıDeğiştir;
         private System.Windows.Forms.Button Bütçe;
-        private System.Windows.Forms.Button YedekleKapat;
+        public System.Windows.Forms.Button YedekleKapat;
     }
 }
 

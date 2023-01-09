@@ -3,7 +3,6 @@ using ArgeMup.HazirKod.Dönüştürme;
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -55,7 +54,7 @@ namespace İş_ve_Depo_Takip
                 MessageBox.Show(
                     "Son kayıt saati : " + d.Oku("Son Banka Kayıt", default, 1) + Environment.NewLine +
                     "Bilgisayarınızın saati : " + DateTime.Now.Yazıya() + Environment.NewLine + Environment.NewLine +
-                    "Muhtemelen bilgisayarınızın saati geri kaldı, lütfen düzeltip devam ediniz", "Bütünlük Kontrolü");
+                    "Muhtemelen bilgisayarınızın saati geri kaldı, lütfen düzeltip devam ediniz", Ortak.AnaEkran.Text + " Bütünlük Kontrolü");
             }
          
             if (string.IsNullOrEmpty(d.Oku("Uygulama Kimliği"))) d.Yaz("Uygulama Kimliği", DoğrulamaKodu.Üret.Yazıdan(DateTime.Now.Yazıya() + Ortak.Klasör_Banka)); //yedekleme işleminde tarama aşamasında aynı uygulamanın dosyalarının kullanıldığından emin olmak için
@@ -1076,9 +1075,10 @@ namespace İş_ve_Depo_Takip
         }
         public static void Talep_TablodaGöster(DataGridView Tablo, Banka_Tablo_ İçerik, bool ÖnceTemizle = true)
         {
-            Ortak.Gösterge_UzunİşlemİçinBekleyiniz.BackColor = Color.Salmon;
+            Ortak.Gösterge_UzunİşlemİçinBekleyiniz.BackColor = System.Drawing.Color.Salmon;
             Ortak.Gösterge_UzunİşlemİçinBekleyiniz.Refresh();
-            
+            Tablo.Tag = 0;
+
             if (ÖnceTemizle)
             {
                 Tablo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
@@ -1165,9 +1165,10 @@ namespace İş_ve_Depo_Takip
                 Tablo.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
                 Tablo.AutoResizeColumns();
             }
-            
+
             Tablo.ClearSelection();
-            Ortak.Gösterge_UzunİşlemİçinBekleyiniz.BackColor = Color.White;
+            Tablo.Tag = null;
+            Ortak.Gösterge_UzunİşlemİçinBekleyiniz.BackColor = System.Drawing.Color.White;
         }
         public static void Talep_Ayıkla_İş(IDepo_Eleman SeriNoDalı, out string Hasta, out string İşler, ref double Toplam)
         {
@@ -1207,8 +1208,9 @@ namespace İş_ve_Depo_Takip
             {
                 double ücret = iş.Oku_Sayı(null, -1, 2);
                 if (ücret < 0) ücret = Ücretler_BirimÜcret(Müşteri, iş[0]);
-                if (ücret > 0) Toplam_Ücret += ücret;
-                else HataMesajı += iş[0] + " için ücret hesaplanamadı" + Environment.NewLine;
+                
+                if (ücret >= 0) Toplam_Ücret += ücret;
+                else HataMesajı += SeriNoDalı.Adı + " " + iş[0] + " için ücret hesaplanamadı" + Environment.NewLine;
 
                 Toplam_Maliyet += Ücretler_Maliyet(iş[0]);
             }
@@ -1243,13 +1245,13 @@ namespace İş_ve_Depo_Takip
         {
             if (Yedekleme_İzleyici_DeğişiklikYapıldı != null)
             {
-                string soru = "Yedeğinizin içeriği uygulama haricinde değiştirildi." + Environment.NewLine + Environment.NewLine +
-                    Yedekleme_İzleyici_DeğişiklikYapıldı + Environment.NewLine + Environment.NewLine +
-                    "Uygulamayı yeniden başlatmak ister misiniz?" + Environment.NewLine + Environment.NewLine +
-                    "Evet : Sadece son yaptığınız işlemden feragat ederek uygulamayı yeniden başlatıp daha detaylı bilgiye erişebilirsiniz." + Environment.NewLine + Environment.NewLine +
-                    "Hayır : Şuanki işleminiz değişen yedeğin üzerine kaydedilir.";
+                string soru = "Yedeğinizin içeriği uygulama haricinde değiştirildi." + Environment.NewLine +
+                "Uygulamayı yeniden başlatmak ister misiniz?" + Environment.NewLine + Environment.NewLine +
+                "Evet : Tavsiye edilir fakat şuanda yaptığınız işlemden feragat edeceksiniz." + Environment.NewLine +
+                "Hayır : İşlemlerinizin sonuçları değişen yedeğin üzerine kaydedilir." + Environment.NewLine + Environment.NewLine +
+                Yedekleme_İzleyici_DeğişiklikYapıldı;
 
-                DialogResult Dr = MessageBox.Show(soru, "Yedekleme", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                DialogResult Dr = MessageBox.Show(soru, Ortak.AnaEkran.Text + " Yedekleme", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
                 if (Dr == DialogResult.Yes) 
                 { 
                     Application.Restart(); 
@@ -1305,7 +1307,7 @@ namespace İş_ve_Depo_Takip
             if (EnAzBirDeğişiklikYapıldı)
             {
                 DoğrulamaKodu.Üret.Klasörden(Ortak.Klasör_Banka, true, SearchOption.AllDirectories, Parola.Yazı);
-                Banka.Yedekle_Banka();
+                Yedekle_Banka();
             }
         }
         public static void Değişiklikler_TamponuSıfırla()
@@ -1488,7 +1490,32 @@ namespace İş_ve_Depo_Takip
         static string Yedekle_Tümü_ÖndekiEkran_ÜstYazısı = null;
 
         static FileSystemWatcher[] Yedekleme_izleyiciler = null;
-        static string Yedekleme_İzleyici_DeğişiklikYapıldı = null;
+        static string _Yedekleme_İzleyici_DeğişiklikYapıldı = null;
+        static string Yedekleme_İzleyici_DeğişiklikYapıldı
+        {
+            get
+            {
+                return _Yedekleme_İzleyici_DeğişiklikYapıldı;
+            }
+            set
+            {
+                _Yedekleme_İzleyici_DeğişiklikYapıldı = value;
+                Ortak.AnaEkran.Invoke(new Action(() => 
+                {
+                    if (_Yedekleme_İzleyici_DeğişiklikYapıldı == null)
+                    {
+                        Ortak.AnaEkran.YedekleKapat.BackColor = System.Drawing.Color.Transparent;
+                        Ortak.AnaEkran.YedekleKapat.Text = "Yedekle ve kapat";
+                    }
+                    else
+                    {
+                        Ortak.AnaEkran.YedekleKapat.BackColor = System.Drawing.Color.Khaki;
+                        Ortak.AnaEkran.YedekleKapat.Text = "Yeniden başlat";
+                    }
+                }));
+            }
+        }
+
         static void Yedekleme_İzleyici_Başlat()
         {
             Yedekleme_İzleyici_Durdur();
@@ -1500,7 +1527,7 @@ namespace İş_ve_Depo_Takip
                 if (!Klasör.Oluştur(Ortak.Kullanıcı_Klasör_Yedek[i]))
                 {
                     MessageBox.Show("Klasör oluşturulamadı, belirtilen konuma yedek alınmayacaktır" + Environment.NewLine + Environment.NewLine +
-                        Ortak.Kullanıcı_Klasör_Yedek[i], "Yedekleme");
+                        Ortak.Kullanıcı_Klasör_Yedek[i], Ortak.AnaEkran.Text + " Yedekleme");
                     Ortak.Kullanıcı_Klasör_Yedek[i] = null;
                     continue;
                 }
@@ -1521,15 +1548,15 @@ namespace İş_ve_Depo_Takip
 
             void Yeni_Renamed(object sender, RenamedEventArgs e)
             {
-                Yedekleme_İzleyici_DeğişiklikYapıldı = "Yeniden isimlendirildi " + e.FullPath;
+                Yedekleme_İzleyici_DeğişiklikYapıldı = e.FullPath;
             }
             void Yeni_Created_Changed_Deleted(object sender, FileSystemEventArgs e)
             {
-                Yedekleme_İzleyici_DeğişiklikYapıldı = "Değiştirildi " + e.ChangeType.ToString() + " " + e.FullPath;
+                Yedekleme_İzleyici_DeğişiklikYapıldı = e.FullPath;
             }
             void Yeni_Error(object sender, ErrorEventArgs e)
             {
-                Yedekleme_İzleyici_DeğişiklikYapıldı = "Beklenmeyen durum " + e.GetException().Message;
+                Yedekleme_İzleyici_DeğişiklikYapıldı = e.GetException().Message;
             }
         }
         static void Yedekleme_İzleyici_Durdur()
@@ -1547,6 +1574,25 @@ namespace İş_ve_Depo_Takip
         {
             if (Yedekleme_Tümü_Çalışıyor) return;
             Yedekleme_Tümü_Çalışıyor = true;
+
+            if (Yedekleme_İzleyici_DeğişiklikYapıldı != null)
+            {
+                string soru = "Yedeğinizin içeriği uygulama haricinde değiştirildi." + Environment.NewLine +
+                "Uygulamayı yeniden başlatmak ister misiniz?" + Environment.NewLine + Environment.NewLine +
+                "Evet : Tavsiye edilir." + Environment.NewLine +
+                "Hayır : İşlemlerinizin sonuçları değişen yedeğin üzerine kaydedilir." + Environment.NewLine + Environment.NewLine +
+                Yedekleme_İzleyici_DeğişiklikYapıldı;
+
+                DialogResult Dr = MessageBox.Show(soru, Ortak.AnaEkran.Text + " Yedekleme", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                if (Dr == DialogResult.Yes) 
+                {
+                    Application.Restart();
+                    Yedekleme_Tümü_Çalışıyor = false;
+                    return;
+                }
+                
+                Yedekleme_İzleyici_DeğişiklikYapıldı = null;
+            }
 
             Yedekle_Tümü_HassasTuşlar(false);
 
@@ -1718,7 +1764,7 @@ namespace İş_ve_Depo_Takip
                     "Diğer kayıt saati : " + l.Values.First().Yazıya() + Environment.NewLine + Environment.NewLine +
                     "Mevcut kayıtlarınız yerine DAHA YENİ olan DİĞER kayıtları kullanarak devam etmek ister misiniz?";
 
-                DialogResult Dr = MessageBox.Show(soru, "Mevcut kayılarınız daha eski", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                DialogResult Dr = MessageBox.Show(soru, Ortak.AnaEkran.Text + " Mevcut kayılarınız daha eski", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 if (Dr == DialogResult.No) return;
                 string hata;
 

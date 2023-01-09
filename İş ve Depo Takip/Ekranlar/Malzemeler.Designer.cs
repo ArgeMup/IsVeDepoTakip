@@ -128,7 +128,8 @@
             this.UyarıMiktarı.Size = new System.Drawing.Size(268, 36);
             this.UyarıMiktarı.TabIndex = 7;
             this.UyarıMiktarı.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.İpUcu.SetToolTip(this.UyarıMiktarı, "Malzemenin mevcut miktarı");
+            this.İpUcu.SetToolTip(this.UyarıMiktarı, "Malzemenin mevcut miktarı burada yazan değerin altında ise açılış ekranında uyarı" +
+        " gösterilir.\r\nİçeriği 0 dan büyük olmalıdır");
             this.UyarıMiktarı.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
             // Birimi

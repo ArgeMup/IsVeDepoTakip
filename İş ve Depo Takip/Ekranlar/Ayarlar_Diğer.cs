@@ -115,7 +115,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar_Küçültüldüğünde.Yaz(null, (int)KüçültüldüğündeParolaSor_sn.Value, 1);
             Banka.Değişiklikleri_Kaydet();
 
-            Ortak.Kullanıcı_Klasör_Yedek = Ayarlar_Bilgisayar.Bul("Yedek").İçeriği;
+            Ortak.Kullanıcı_Klasör_Yedek = Ayarlar_Bilgisayar.Bul("Yedek", true).İçeriği;
             Ortak.Kullanıcı_Klasör_Pdf = Klasör_Pdf.Text;
             Ortak.Kullanıcı_KüçültüldüğündeParolaSor = KüçültüldüğündeParolaSor.Checked;
             Ortak.Kullanıcı_KüçültüldüğündeParolaSor_sn = (int)KüçültüldüğündeParolaSor_sn.Value;

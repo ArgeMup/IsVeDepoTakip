@@ -105,7 +105,7 @@ namespace İş_ve_Depo_Takip
             if (!Ortak.YazıyıSayıyaDönüştür(ref mevcut, "Mevcut kutucuğu")) return;
 
             string uyarımiktarı = UyarıMiktarı.Text;
-            if (!Ortak.YazıyıSayıyaDönüştür(ref uyarımiktarı, "Uyarı Miktarı kutucuğu")) return;
+            if (!Ortak.YazıyıSayıyaDönüştür(ref uyarımiktarı, "Uyarı Miktarı kutucuğu", null, 0)) return;
 
             Banka.Malzeme_DetaylarıKaydet(Liste.Text, mevcut, Birimi.Text, uyarımiktarı, Notlar.Text.Trim());
             Banka.Değişiklikleri_Kaydet();

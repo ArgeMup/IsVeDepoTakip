@@ -168,7 +168,7 @@ namespace İş_ve_Depo_Takip
         {
             if (WindowState == FormWindowState.Minimized)
             {
-                if (P_YeniParola.Visible) YedekleKapat_Click(null, null);
+                if (P_YeniParola.Visible) Application.Exit();
                 else 
                 {
                     if (Ortak.Kullanıcı_KüçültüldüğündeParolaSor)
@@ -399,19 +399,24 @@ namespace İş_ve_Depo_Takip
         }
         private void YedekleKapat_Click(object sender, EventArgs e)
         {
-            YedekleKapat.BackColor = System.Drawing.Color.Salmon;
-            double za = 0;
-
-            Banka.Yedekle_Tümü();
-            while (Banka.Yedekleme_Tümü_Çalışıyor)
+            if (YedekleKapat.Text == "Yeniden başlat") Application.Restart();
+            else
             {
-                YedekleKapat.Text = "Bekleyiniz " + za + " sn";
-                Application.DoEvents();
-                System.Threading.Thread.Sleep(100);
-                za += 0.1;
-            }
+                //Yedekle ve kapat
+                YedekleKapat.BackColor = System.Drawing.Color.Salmon;
+                double za = 0;
 
-            Application.Exit();
+                Banka.Yedekle_Tümü();
+                while (Banka.Yedekleme_Tümü_Çalışıyor)
+                {
+                    YedekleKapat.Text = "Bekleyiniz " + za + " sn";
+                    Application.DoEvents();
+                    System.Threading.Thread.Sleep(100);
+                    za += 0.1;
+                }
+
+                Application.Exit();
+            }
         }
     }
 }

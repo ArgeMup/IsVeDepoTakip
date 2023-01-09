@@ -9,11 +9,11 @@ namespace İş_ve_Depo_Takip
         public static byte[] Dizi = D_Yazı.BaytDizisine(Yazı);
         public static void Kaydet(string KullanıcıParalosu)
         {
-            Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Kullanıcı Şifresi", true)[0] = DoğrulamaKodu.Üret.Yazıdan(KullanıcıParalosu + "ArGeMuP");
+            Banka.Ayarlar_Genel("Kullanıcı Şifresi", true)[0] = DoğrulamaKodu.Üret.Yazıdan(KullanıcıParalosu + "ArGeMuP");
         }
         public static bool KontrolEt(string KullanıcıParalosu)
         {
-            return Banka.Tablo_Dal(null, Banka.TabloTürü.Ayarlar, "Kullanıcı Şifresi")[0] == DoğrulamaKodu.Üret.Yazıdan(KullanıcıParalosu + "ArGeMuP");
+            return Banka.Ayarlar_Genel("Kullanıcı Şifresi")[0] == DoğrulamaKodu.Üret.Yazıdan(KullanıcıParalosu + "ArGeMuP");
         }
     }
 }

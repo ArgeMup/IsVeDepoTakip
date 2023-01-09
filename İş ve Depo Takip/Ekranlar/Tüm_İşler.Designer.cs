@@ -29,12 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.P_Üst_Alt = new System.Windows.Forms.SplitContainer();
             this.P_SolOrta_Sağ = new System.Windows.Forms.SplitContainer();
             this.P_Sol_Orta = new System.Windows.Forms.SplitContainer();
@@ -72,6 +74,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.P_Arama = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.Arama_Sorgula_Detaylı = new System.Windows.Forms.CheckBox();
             this.Arama_İlerlemeÇubuğu = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
             this.Arama_Sorgula = new System.Windows.Forms.Button();
@@ -98,6 +101,7 @@
             this.Seviye2_DevamEden = new System.Windows.Forms.CheckBox();
             this.Seviye2_TeslimEdildi = new System.Windows.Forms.CheckBox();
             this.Tablo = new System.Windows.Forms.DataGridView();
+            this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
             this.Tablo_Seç = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Tablo_SeriNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tablo_Müşteri = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -107,8 +111,6 @@
             this.Tablo_Ödeme_Talep_Edildi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tablo_Ödendi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tablo_Notlar = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
-            this.Arama_Sorgula_Detaylı = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.P_Üst_Alt)).BeginInit();
             this.P_Üst_Alt.Panel1.SuspendLayout();
             this.P_Üst_Alt.Panel2.SuspendLayout();
@@ -616,10 +618,10 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.P_Arama);
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(603, 306);
+            this.tabPage1.Size = new System.Drawing.Size(603, 310);
             this.tabPage1.TabIndex = 4;
             this.tabPage1.Text = "Arama";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -657,6 +659,16 @@
             this.splitContainer2.SplitterDistance = 133;
             this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 15;
+            // 
+            // Arama_Sorgula_Detaylı
+            // 
+            this.Arama_Sorgula_Detaylı.AutoSize = true;
+            this.Arama_Sorgula_Detaylı.Location = new System.Drawing.Point(126, 97);
+            this.Arama_Sorgula_Detaylı.Name = "Arama_Sorgula_Detaylı";
+            this.Arama_Sorgula_Detaylı.Size = new System.Drawing.Size(83, 24);
+            this.Arama_Sorgula_Detaylı.TabIndex = 16;
+            this.Arama_Sorgula_Detaylı.Text = "Detaylı";
+            this.Arama_Sorgula_Detaylı.UseVisualStyleBackColor = true;
             // 
             // Arama_İlerlemeÇubuğu
             // 
@@ -761,7 +773,7 @@
             // Arama_İşTürleri_Seç
             // 
             this.Arama_İşTürleri_Seç.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Arama_İşTürleri_Seç.Location = new System.Drawing.Point(175, 144);
+            this.Arama_İşTürleri_Seç.Location = new System.Drawing.Point(177, 144);
             this.Arama_İşTürleri_Seç.Name = "Arama_İşTürleri_Seç";
             this.Arama_İşTürleri_Seç.Size = new System.Drawing.Size(54, 33);
             this.Arama_İşTürleri_Seç.TabIndex = 16;
@@ -1010,14 +1022,14 @@
             this.Tablo.AllowUserToDeleteRows = false;
             this.Tablo.AllowUserToResizeRows = false;
             this.Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.Tablo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Tablo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Tablo_Seç,
@@ -1050,11 +1062,20 @@
             this.Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellValueChanged);
             this.Tablo.DoubleClick += new System.EventHandler(this.Tablo_DoubleClick);
             // 
+            // İpUcu
+            // 
+            this.İpUcu.AutomaticDelay = 100;
+            this.İpUcu.AutoPopDelay = 5000;
+            this.İpUcu.InitialDelay = 100;
+            this.İpUcu.IsBalloon = true;
+            this.İpUcu.ReshowDelay = 20;
+            this.İpUcu.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.İpUcu.ToolTipTitle = "Açıklamalar";
+            this.İpUcu.UseAnimation = false;
+            this.İpUcu.UseFading = false;
+            // 
             // Tablo_Seç
             // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle8.NullValue = false;
-            this.Tablo_Seç.DefaultCellStyle = dataGridViewCellStyle8;
             this.Tablo_Seç.HeaderText = "Seç";
             this.Tablo_Seç.MinimumWidth = 6;
             this.Tablo_Seç.Name = "Tablo_Seç";
@@ -1063,8 +1084,8 @@
             // 
             // Tablo_SeriNo
             // 
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Tablo_SeriNo.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_SeriNo.DefaultCellStyle = dataGridViewCellStyle2;
             this.Tablo_SeriNo.HeaderText = "Seri No";
             this.Tablo_SeriNo.MinimumWidth = 6;
             this.Tablo_SeriNo.Name = "Tablo_SeriNo";
@@ -1081,26 +1102,30 @@
             // 
             // Tablo_Hasta
             // 
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_Hasta.DefaultCellStyle = dataGridViewCellStyle10;
+            this.Tablo_Hasta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_Hasta.DefaultCellStyle = dataGridViewCellStyle3;
             this.Tablo_Hasta.HeaderText = "Hasta";
             this.Tablo_Hasta.MinimumWidth = 6;
             this.Tablo_Hasta.Name = "Tablo_Hasta";
             this.Tablo_Hasta.ReadOnly = true;
-            this.Tablo_Hasta.Width = 89;
+            this.Tablo_Hasta.Width = 83;
             // 
             // Tablo_İş
             // 
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_İş.DefaultCellStyle = dataGridViewCellStyle11;
+            this.Tablo_İş.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_İş.DefaultCellStyle = dataGridViewCellStyle4;
             this.Tablo_İş.HeaderText = "İş";
             this.Tablo_İş.MinimumWidth = 6;
             this.Tablo_İş.Name = "Tablo_İş";
             this.Tablo_İş.ReadOnly = true;
-            this.Tablo_İş.Width = 90;
+            this.Tablo_İş.Width = 51;
             // 
             // Tablo_Teslim_Edildi
             // 
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Teslim_Edildi.DefaultCellStyle = dataGridViewCellStyle5;
             this.Tablo_Teslim_Edildi.HeaderText = "Teslim Edildi";
             this.Tablo_Teslim_Edildi.MinimumWidth = 6;
             this.Tablo_Teslim_Edildi.Name = "Tablo_Teslim_Edildi";
@@ -1109,6 +1134,8 @@
             // 
             // Tablo_Ödeme_Talep_Edildi
             // 
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Ödeme_Talep_Edildi.DefaultCellStyle = dataGridViewCellStyle6;
             this.Tablo_Ödeme_Talep_Edildi.HeaderText = "Ödeme Talebi";
             this.Tablo_Ödeme_Talep_Edildi.MinimumWidth = 6;
             this.Tablo_Ödeme_Talep_Edildi.Name = "Tablo_Ödeme_Talep_Edildi";
@@ -1117,6 +1144,8 @@
             // 
             // Tablo_Ödendi
             // 
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Ödendi.DefaultCellStyle = dataGridViewCellStyle7;
             this.Tablo_Ödendi.HeaderText = "Ödendi";
             this.Tablo_Ödendi.MinimumWidth = 6;
             this.Tablo_Ödendi.Name = "Tablo_Ödendi";
@@ -1125,35 +1154,14 @@
             // 
             // Tablo_Notlar
             // 
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_Notlar.DefaultCellStyle = dataGridViewCellStyle12;
+            this.Tablo_Notlar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_Notlar.DefaultCellStyle = dataGridViewCellStyle8;
             this.Tablo_Notlar.HeaderText = "Notlar";
             this.Tablo_Notlar.MinimumWidth = 6;
             this.Tablo_Notlar.Name = "Tablo_Notlar";
             this.Tablo_Notlar.ReadOnly = true;
-            this.Tablo_Notlar.Width = 89;
-            // 
-            // İpUcu
-            // 
-            this.İpUcu.AutomaticDelay = 100;
-            this.İpUcu.AutoPopDelay = 5000;
-            this.İpUcu.InitialDelay = 100;
-            this.İpUcu.IsBalloon = true;
-            this.İpUcu.ReshowDelay = 20;
-            this.İpUcu.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.İpUcu.ToolTipTitle = "Açıklamalar";
-            this.İpUcu.UseAnimation = false;
-            this.İpUcu.UseFading = false;
-            // 
-            // Arama_Sorgula_Detaylı
-            // 
-            this.Arama_Sorgula_Detaylı.AutoSize = true;
-            this.Arama_Sorgula_Detaylı.Location = new System.Drawing.Point(126, 97);
-            this.Arama_Sorgula_Detaylı.Name = "Arama_Sorgula_Detaylı";
-            this.Arama_Sorgula_Detaylı.Size = new System.Drawing.Size(83, 24);
-            this.Arama_Sorgula_Detaylı.TabIndex = 16;
-            this.Arama_Sorgula_Detaylı.Text = "Detaylı";
-            this.Arama_Sorgula_Detaylı.UseVisualStyleBackColor = true;
+            this.Tablo_Notlar.Width = 83;
             // 
             // Tüm_İşler
             // 
@@ -1281,6 +1289,7 @@
         private System.Windows.Forms.CheckBox İşTakip_Eposta_TeslimEdildi;
         private System.Windows.Forms.CheckBox İşTakip_Eposta_DevamEden;
         private System.Windows.Forms.Button İşTakip_Eposta_Gönder;
+        private System.Windows.Forms.CheckBox Arama_Sorgula_Detaylı;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Tablo_Seç;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_SeriNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Müşteri;
@@ -1290,6 +1299,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Ödeme_Talep_Edildi;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Ödendi;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Notlar;
-        private System.Windows.Forms.CheckBox Arama_Sorgula_Detaylı;
     }
 }
