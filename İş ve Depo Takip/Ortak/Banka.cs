@@ -49,20 +49,25 @@ namespace İş_ve_Depo_Takip
             Ortak.Kullanıcı_KüçültüldüğündeParolaSor_sn = d.Oku_TamSayı("Küçültüldüğünde Parola Sor", 60, 1);
             Ortak.Kullanıcı_Eposta_hesabı_mevcut = !string.IsNullOrEmpty(d.Oku("Eposta/Gönderici/Şifresi"));
 
-            while (d.Oku_TarihSaat("Son Banka Kayıt", default, 1) > DateTime.Now)
+            while (d.Oku_TarihSaat("Son Banka Kayıt", default, 1).Günlük("Son Banka Kayıt ") > DateTime.Now)
             {
                 MessageBox.Show(
                     "Son kayıt saati : " + d.Oku("Son Banka Kayıt", default, 1) + Environment.NewLine +
                     "Bilgisayarınızın saati : " + DateTime.Now.Yazıya() + Environment.NewLine + Environment.NewLine +
                     "Muhtemelen bilgisayarınızın saati geri kaldı, lütfen düzeltip devam ediniz", Ortak.AnaEkran.Text + " Bütünlük Kontrolü");
             }
-         
-            if (string.IsNullOrEmpty(d.Oku("Uygulama Kimliği"))) d.Yaz("Uygulama Kimliği", DoğrulamaKodu.Üret.Yazıdan(DateTime.Now.Yazıya() + Ortak.Klasör_Banka)); //yedekleme işleminde tarama aşamasında aynı uygulamanın dosyalarının kullanıldığından emin olmak için
+
+            if (string.IsNullOrEmpty(d.Oku("Uygulama Kimliği")))
+            {
+                d.Yaz("Uygulama Kimliği", DoğrulamaKodu.Üret.Yazıdan(DateTime.Now.Yazıya() + Ortak.Klasör_Banka)); //yedekleme işleminde tarama aşamasında aynı uygulamanın dosyalarının kullanıldığından emin olmak için
+                Günlük.Ekle("Uygulama Kimliği geçersiz");
+            }
             Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Ayarlar", ref Açılışİşlemi_Tik);
             #endregion
 
             DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı, Ortak.EşZamanlıİşlemSayısı);
             Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Bütünlük Kontrolü", ref Açılışİşlemi_Tik);
+            Günlük.Ekle("Bütünlük Kontrolü " + snç.ToString());
             switch (snç)
             {
                 case DoğrulamaKodu.KontrolEt.Durum_.Aynı:
@@ -1523,9 +1528,12 @@ namespace İş_ve_Depo_Takip
             List<FileSystemWatcher> liste = new List<FileSystemWatcher>();
             for (int i = 0; i < Ortak.Kullanıcı_Klasör_Yedek.Length; i++)
             {
+                Günlük.Ekle("Yedekleme_İzleyici_Başlat deneniyor " + i + " " + Ortak.Kullanıcı_Klasör_Yedek[i]);
+
                 if (string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Yedek[i])) continue;
                 if (!Klasör.Oluştur(Ortak.Kullanıcı_Klasör_Yedek[i]))
                 {
+                    Günlük.Ekle("Yedekleme_İzleyici_Başlat oluşturulamadı " + Ortak.Kullanıcı_Klasör_Yedek[i]);
                     MessageBox.Show("Klasör oluşturulamadı, belirtilen konuma yedek alınmayacaktır" + Environment.NewLine + Environment.NewLine +
                         Ortak.Kullanıcı_Klasör_Yedek[i], Ortak.AnaEkran.Text + " Yedekleme");
                     Ortak.Kullanıcı_Klasör_Yedek[i] = null;
@@ -1549,14 +1557,17 @@ namespace İş_ve_Depo_Takip
             void Yeni_Renamed(object sender, RenamedEventArgs e)
             {
                 Yedekleme_İzleyici_DeğişiklikYapıldı = e.FullPath;
+                Günlük.Ekle(e.ChangeType.ToString() + " " + e.OldFullPath + " " + e.FullPath);
             }
             void Yeni_Created_Changed_Deleted(object sender, FileSystemEventArgs e)
             {
                 Yedekleme_İzleyici_DeğişiklikYapıldı = e.FullPath;
+                Günlük.Ekle(e.ChangeType.ToString() + " " + e.FullPath);
             }
             void Yeni_Error(object sender, ErrorEventArgs e)
             {
                 Yedekleme_İzleyici_DeğişiklikYapıldı = e.GetException().Message;
+                Günlük.Ekle(e.GetException().ToString());
             }
         }
         static void Yedekleme_İzleyici_Durdur()
@@ -1599,7 +1610,7 @@ namespace İş_ve_Depo_Takip
             Task.Run(() =>
             {
                 Klasör_ ydk_ler = new Klasör_(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip", EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
-                ydk_ler.Dosya_Sil_SayısınaVeBoyutunaGöre(15, 150 * 1024 * 1024 /*150MB*/, Ortak.EşZamanlıİşlemSayısı);
+                ydk_ler.Dosya_Sil_SayısınaVeBoyutunaGöre(100, 500 * 1024 * 1024 /*500MB*/, Ortak.EşZamanlıİşlemSayısı);
                 ydk_ler.Güncelle(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip", EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
 
                 bool yedekle = false;
@@ -1730,6 +1741,7 @@ namespace İş_ve_Depo_Takip
                 try
                 {
                     string bnk_yolu = Ortak.Kullanıcı_Klasör_Yedek[i] + "Banka\\";
+                    Günlük.Ekle("Deneniyor " + bnk_yolu);
 
                     if (string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Yedek[i]) ||
                         DoğrulamaKodu.KontrolEt.Klasör(bnk_yolu,
@@ -1744,13 +1756,14 @@ namespace İş_ve_Depo_Takip
 
                     //ayarlar dan son kayıt tarihini al
                     l.Add(bnk_yolu, d.Oku_TarihSaat("Son Banka Kayıt", default, 1));
+                    Günlük.Ekle("Kabul edildi " + d.Oku("Son Banka Kayıt", default, 1));
                 }
                 catch (Exception) { }
             }
-
             if (l.Count == 0) return;
 
             l = l.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+            Günlük.Ekle("İşleniyor " + l.Values.First().Yazıya());
 
             //karşılaştırma
             if (l.Values.First() > bizimki_saat)
@@ -1765,6 +1778,7 @@ namespace İş_ve_Depo_Takip
                     "Mevcut kayıtlarınız yerine DAHA YENİ olan DİĞER kayıtları kullanarak devam etmek ister misiniz?";
 
                 DialogResult Dr = MessageBox.Show(soru, Ortak.AnaEkran.Text + " Mevcut kayılarınız daha eski", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                Dr.Günlük("Mevcut kayıtlarınızdan daha yeni bir yedek bulundu. ");
                 if (Dr == DialogResult.No) return;
                 string hata;
 
@@ -1828,7 +1842,7 @@ namespace İş_ve_Depo_Takip
                 }
                 
                 try { MessageBox.Show(hata, "Yedekleme"); } catch (Exception) { }
-                throw new Exception(hata);
+                throw new Exception(hata).Günlük();
             }
         }
         #endregion

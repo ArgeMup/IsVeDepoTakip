@@ -12,7 +12,7 @@ namespace İş_ve_Depo_Takip
         public Form ÖndekiEkran = null;
         bool ÖndekiEkran_ctrl_tuşuna_basıldı = false;
         KlavyeFareGozlemcisi_ ÖndekiEkran_KlaFaGö = null;
-        Timer ÖndekiEkran_Zamanlayıcı = null;
+        System.Windows.Forms.Timer ÖndekiEkran_Zamanlayıcı = null;
 
         YeniYazılımKontrolü_ YeniYazılımKontrolü = new YeniYazılımKontrolü_();
         int Parola_EnAzKarakterSayısı = 4;
@@ -32,10 +32,19 @@ namespace İş_ve_Depo_Takip
         }
         private void Açılış_Ekranı_Shown(object sender, EventArgs e)
         {
-            Application.DoEvents();
-            Banka.Giriş_İşlemleri(AçılışYazısı);
-            Controls.Remove(AçılışYazısı);
-            AçılışYazısı.Dispose();
+            try
+            {
+            	Application.DoEvents();
+                Banka.Giriş_İşlemleri(AçılışYazısı);
+                Controls.Remove(AçılışYazısı);
+                AçılışYazısı.Dispose();
+            }
+            catch (Exception ex)
+            {
+                ex.Günlük();
+                System.Threading.Thread.Sleep(100);
+                Application.Exit();
+            }
 
 #if DEBUG
             P_AnaMenü.Visible = true;
@@ -70,7 +79,7 @@ namespace İş_ve_Depo_Takip
 #endif
 
             #region ÖndekiEkran ve zamanlayıcı
-            ÖndekiEkran_Zamanlayıcı = new Timer();
+            ÖndekiEkran_Zamanlayıcı = new System.Windows.Forms.Timer();
             ÖndekiEkran_Zamanlayıcı.Interval = 5000;
             ÖndekiEkran_Zamanlayıcı.Tick += T_Tick;
             ÖndekiEkran_Zamanlayıcı.Start();
@@ -406,6 +415,7 @@ namespace İş_ve_Depo_Takip
                 YedekleKapat.BackColor = System.Drawing.Color.Salmon;
                 double za = 0;
 
+                ÖndekiEkran_KlaFaGö.Dispose();
                 Banka.Yedekle_Tümü();
                 while (Banka.Yedekleme_Tümü_Çalışıyor)
                 {
