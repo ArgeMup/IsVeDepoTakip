@@ -47,9 +47,7 @@ namespace İş_ve_Depo_Takip
             this.Hastalar_AramaÇubuğu = new System.Windows.Forms.TextBox();
             this.İşTürleri_AramaÇubuğu = new System.Windows.Forms.TextBox();
             this.Müşteriler_Grup = new System.Windows.Forms.GroupBox();
-            this.Müşteriler_SeçimKutusu = new System.Windows.Forms.ComboBox();
             this.Hastalar_Grup = new System.Windows.Forms.GroupBox();
-            this.Hastalar_SeçimKutusu = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.İştürü_SeçiliSatıraKopyala = new System.Windows.Forms.Button();
             this.İşTürleri_SeçimKutusu = new System.Windows.Forms.ListBox();
@@ -59,6 +57,8 @@ namespace İş_ve_Depo_Takip
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.Ayraç_Kat_2_3 = new System.Windows.Forms.SplitContainer();
             this.Ayraç_Kat_1_2 = new System.Windows.Forms.SplitContainer();
+            this.Müşteriler_SeçimKutusu = new System.Windows.Forms.ListBox();
+            this.Hastalar_SeçimKutusu = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             this.Müşteriler_Grup.SuspendLayout();
             this.Hastalar_Grup.SuspendLayout();
@@ -91,7 +91,7 @@ namespace İş_ve_Depo_Takip
             this.Notlar.Multiline = true;
             this.Notlar.Name = "Notlar";
             this.Notlar.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.Notlar.Size = new System.Drawing.Size(838, 55);
+            this.Notlar.Size = new System.Drawing.Size(838, 49);
             this.Notlar.TabIndex = 5;
             this.İpUcu.SetToolTip(this.Notlar, resources.GetString("Notlar.ToolTip"));
             this.Notlar.TextChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
@@ -132,7 +132,7 @@ namespace İş_ve_Depo_Takip
             this.Tablo.ShowCellErrors = false;
             this.Tablo.ShowEditingIcon = false;
             this.Tablo.ShowRowErrors = false;
-            this.Tablo.Size = new System.Drawing.Size(570, 271);
+            this.Tablo.Size = new System.Drawing.Size(569, 256);
             this.Tablo.TabIndex = 9;
             this.Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellValueChanged);
             this.Tablo.SelectionChanged += new System.EventHandler(this.Tablo_SelectionChanged);
@@ -175,7 +175,7 @@ namespace İş_ve_Depo_Takip
             this.Kaydet.Enabled = false;
             this.Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Kaydet.Location = new System.Drawing.Point(288, 281);
+            this.Kaydet.Location = new System.Drawing.Point(287, 266);
             this.Kaydet.Margin = new System.Windows.Forms.Padding(2);
             this.Kaydet.Name = "Kaydet";
             this.Kaydet.Size = new System.Drawing.Size(280, 36);
@@ -189,7 +189,7 @@ namespace İş_ve_Depo_Takip
             this.Seçili_Satırı_Sil.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Seçili_Satırı_Sil.Image = global::İş_ve_Depo_Takip.Properties.Resources.sil;
             this.Seçili_Satırı_Sil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Seçili_Satırı_Sil.Location = new System.Drawing.Point(13, 281);
+            this.Seçili_Satırı_Sil.Location = new System.Drawing.Point(13, 266);
             this.Seçili_Satırı_Sil.Margin = new System.Windows.Forms.Padding(2);
             this.Seçili_Satırı_Sil.Name = "Seçili_Satırı_Sil";
             this.Seçili_Satırı_Sil.Size = new System.Drawing.Size(280, 36);
@@ -266,24 +266,10 @@ namespace İş_ve_Depo_Takip
             this.Müşteriler_Grup.Margin = new System.Windows.Forms.Padding(4);
             this.Müşteriler_Grup.Name = "Müşteriler_Grup";
             this.Müşteriler_Grup.Padding = new System.Windows.Forms.Padding(4);
-            this.Müşteriler_Grup.Size = new System.Drawing.Size(423, 112);
+            this.Müşteriler_Grup.Size = new System.Drawing.Size(423, 133);
             this.Müşteriler_Grup.TabIndex = 13;
             this.Müşteriler_Grup.TabStop = false;
             this.Müşteriler_Grup.Text = "Müşteri";
-            // 
-            // Müşteriler_SeçimKutusu
-            // 
-            this.Müşteriler_SeçimKutusu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Müşteriler_SeçimKutusu.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Müşteriler_SeçimKutusu.FormattingEnabled = true;
-            this.Müşteriler_SeçimKutusu.Location = new System.Drawing.Point(4, 65);
-            this.Müşteriler_SeçimKutusu.Margin = new System.Windows.Forms.Padding(4);
-            this.Müşteriler_SeçimKutusu.Name = "Müşteriler_SeçimKutusu";
-            this.Müşteriler_SeçimKutusu.Size = new System.Drawing.Size(415, 33);
-            this.Müşteriler_SeçimKutusu.Sorted = true;
-            this.Müşteriler_SeçimKutusu.TabIndex = 1;
-            this.Müşteriler_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.Müşteriler_SeçimKutusu_SelectedIndexChanged);
             // 
             // Hastalar_Grup
             // 
@@ -294,23 +280,10 @@ namespace İş_ve_Depo_Takip
             this.Hastalar_Grup.Margin = new System.Windows.Forms.Padding(4);
             this.Hastalar_Grup.Name = "Hastalar_Grup";
             this.Hastalar_Grup.Padding = new System.Windows.Forms.Padding(4);
-            this.Hastalar_Grup.Size = new System.Drawing.Size(418, 112);
+            this.Hastalar_Grup.Size = new System.Drawing.Size(418, 133);
             this.Hastalar_Grup.TabIndex = 14;
             this.Hastalar_Grup.TabStop = false;
             this.Hastalar_Grup.Text = "Hasta";
-            // 
-            // Hastalar_SeçimKutusu
-            // 
-            this.Hastalar_SeçimKutusu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Hastalar_SeçimKutusu.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Hastalar_SeçimKutusu.FormattingEnabled = true;
-            this.Hastalar_SeçimKutusu.Location = new System.Drawing.Point(4, 65);
-            this.Hastalar_SeçimKutusu.Margin = new System.Windows.Forms.Padding(4);
-            this.Hastalar_SeçimKutusu.Name = "Hastalar_SeçimKutusu";
-            this.Hastalar_SeçimKutusu.Size = new System.Drawing.Size(410, 33);
-            this.Hastalar_SeçimKutusu.TabIndex = 3;
-            this.Hastalar_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.Hastalar_SeçimKutusu_SelectedIndexChanged);
             // 
             // groupBox4
             // 
@@ -322,7 +295,7 @@ namespace İş_ve_Depo_Takip
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(254, 323);
+            this.groupBox4.Size = new System.Drawing.Size(254, 308);
             this.groupBox4.TabIndex = 14;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "İş Türleri";
@@ -333,7 +306,7 @@ namespace İş_ve_Depo_Takip
             | System.Windows.Forms.AnchorStyles.Right)));
             this.İştürü_SeçiliSatıraKopyala.Enabled = false;
             this.İştürü_SeçiliSatıraKopyala.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.İştürü_SeçiliSatıraKopyala.Location = new System.Drawing.Point(11, 281);
+            this.İştürü_SeçiliSatıraKopyala.Location = new System.Drawing.Point(11, 266);
             this.İştürü_SeçiliSatıraKopyala.Margin = new System.Windows.Forms.Padding(2);
             this.İştürü_SeçiliSatıraKopyala.Name = "İştürü_SeçiliSatıraKopyala";
             this.İştürü_SeçiliSatıraKopyala.Size = new System.Drawing.Size(228, 36);
@@ -352,7 +325,7 @@ namespace İş_ve_Depo_Takip
             this.İşTürleri_SeçimKutusu.Location = new System.Drawing.Point(11, 71);
             this.İşTürleri_SeçimKutusu.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
             this.İşTürleri_SeçimKutusu.Name = "İşTürleri_SeçimKutusu";
-            this.İşTürleri_SeçimKutusu.Size = new System.Drawing.Size(228, 204);
+            this.İşTürleri_SeçimKutusu.Size = new System.Drawing.Size(228, 179);
             this.İşTürleri_SeçimKutusu.Sorted = true;
             this.İşTürleri_SeçimKutusu.TabIndex = 7;
             this.İşTürleri_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.İşTürleri_SeçimKutusu_SelectedIndexChanged);
@@ -393,7 +366,7 @@ namespace İş_ve_Depo_Takip
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.Hastalar_Grup);
-            this.splitContainer1.Size = new System.Drawing.Size(846, 112);
+            this.splitContainer1.Size = new System.Drawing.Size(846, 133);
             this.splitContainer1.SplitterDistance = 423;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 23;
@@ -414,7 +387,7 @@ namespace İş_ve_Depo_Takip
             this.splitContainer2.Panel2.Controls.Add(this.Tablo);
             this.splitContainer2.Panel2.Controls.Add(this.Kaydet);
             this.splitContainer2.Panel2.Controls.Add(this.Seçili_Satırı_Sil);
-            this.splitContainer2.Size = new System.Drawing.Size(846, 323);
+            this.splitContainer2.Size = new System.Drawing.Size(846, 308);
             this.splitContainer2.SplitterDistance = 254;
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 24;
@@ -437,8 +410,8 @@ namespace İş_ve_Depo_Takip
             // Ayraç_Kat_2_3.Panel2
             // 
             this.Ayraç_Kat_2_3.Panel2.Controls.Add(this.splitContainer2);
-            this.Ayraç_Kat_2_3.Size = new System.Drawing.Size(846, 431);
-            this.Ayraç_Kat_2_3.SplitterDistance = 103;
+            this.Ayraç_Kat_2_3.Size = new System.Drawing.Size(846, 410);
+            this.Ayraç_Kat_2_3.SplitterDistance = 97;
             this.Ayraç_Kat_2_3.SplitterWidth = 5;
             this.Ayraç_Kat_2_3.TabIndex = 25;
             // 
@@ -458,11 +431,40 @@ namespace İş_ve_Depo_Takip
             // 
             this.Ayraç_Kat_1_2.Panel2.Controls.Add(this.Ayraç_Kat_2_3);
             this.Ayraç_Kat_1_2.Size = new System.Drawing.Size(846, 548);
-            this.Ayraç_Kat_1_2.SplitterDistance = 112;
+            this.Ayraç_Kat_1_2.SplitterDistance = 133;
             this.Ayraç_Kat_1_2.SplitterWidth = 5;
             this.Ayraç_Kat_1_2.TabIndex = 26;
             // 
-            // Yeni_Talep_Girişi
+            // Müşteriler_SeçimKutusu
+            // 
+            this.Müşteriler_SeçimKutusu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Müşteriler_SeçimKutusu.FormattingEnabled = true;
+            this.Müşteriler_SeçimKutusu.HorizontalScrollbar = true;
+            this.Müşteriler_SeçimKutusu.ItemHeight = 25;
+            this.Müşteriler_SeçimKutusu.Location = new System.Drawing.Point(4, 64);
+            this.Müşteriler_SeçimKutusu.Name = "Müşteriler_SeçimKutusu";
+            this.Müşteriler_SeçimKutusu.Size = new System.Drawing.Size(415, 54);
+            this.Müşteriler_SeçimKutusu.Sorted = true;
+            this.Müşteriler_SeçimKutusu.TabIndex = 1;
+            this.Müşteriler_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.Müşteriler_SeçimKutusu_SelectedIndexChanged);
+            // 
+            // Hastalar_SeçimKutusu
+            // 
+            this.Hastalar_SeçimKutusu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Hastalar_SeçimKutusu.FormattingEnabled = true;
+            this.Hastalar_SeçimKutusu.HorizontalScrollbar = true;
+            this.Hastalar_SeçimKutusu.ItemHeight = 25;
+            this.Hastalar_SeçimKutusu.Location = new System.Drawing.Point(4, 65);
+            this.Hastalar_SeçimKutusu.Name = "Hastalar_SeçimKutusu";
+            this.Hastalar_SeçimKutusu.Size = new System.Drawing.Size(410, 54);
+            this.Hastalar_SeçimKutusu.TabIndex = 3;
+            this.Hastalar_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.Hastalar_SeçimKutusu_SelectedIndexChanged);
+            // 
+            // Yeni_İş_Girişi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -470,7 +472,7 @@ namespace İş_ve_Depo_Takip
             this.Controls.Add(this.Ayraç_Kat_1_2);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.Name = "Yeni_Talep_Girişi";
+            this.Name = "Yeni_İş_Girişi";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Yeni İş Girişi / Düzenleme";
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).EndInit();
@@ -522,10 +524,10 @@ namespace İş_ve_Depo_Takip
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer Ayraç_Kat_2_3;
         private System.Windows.Forms.SplitContainer Ayraç_Kat_1_2;
-        private System.Windows.Forms.ComboBox Müşteriler_SeçimKutusu;
-        private System.Windows.Forms.ComboBox Hastalar_SeçimKutusu;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_İş_Türü;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Ücret;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Giriş_Tarihi;
+        private System.Windows.Forms.ListBox Müşteriler_SeçimKutusu;
+        private System.Windows.Forms.ListBox Hastalar_SeçimKutusu;
     }
 }

@@ -30,7 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.Liste = new System.Windows.Forms.ListBox();
-            this.Sil = new System.Windows.Forms.Button();
+            this.SağTuşMenü = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.SağTuşMenü_yenidenAdlandır = new System.Windows.Forms.ToolStripMenuItem();
+            this.SağTuşMenü_sil = new System.Windows.Forms.ToolStripMenuItem();
             this.Yeni = new System.Windows.Forms.TextBox();
             this.Ekle = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -46,6 +48,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Notlar = new System.Windows.Forms.TextBox();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
+            this.SağTuşMenü.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -59,30 +62,40 @@
             this.Liste.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Liste.ContextMenuStrip = this.SağTuşMenü;
             this.Liste.FormattingEnabled = true;
             this.Liste.ItemHeight = 29;
             this.Liste.Location = new System.Drawing.Point(15, 58);
             this.Liste.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.Liste.Name = "Liste";
-            this.Liste.Size = new System.Drawing.Size(404, 265);
+            this.Liste.Size = new System.Drawing.Size(404, 323);
             this.Liste.Sorted = true;
             this.Liste.TabIndex = 0;
             this.Liste.SelectedValueChanged += new System.EventHandler(this.Liste_SelectedValueChanged);
             // 
-            // Sil
+            // SağTuşMenü
             // 
-            this.Sil.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Sil.Enabled = false;
-            this.Sil.Image = global::İş_ve_Depo_Takip.Properties.Resources.sil;
-            this.Sil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Sil.Location = new System.Drawing.Point(15, 334);
-            this.Sil.Name = "Sil";
-            this.Sil.Size = new System.Drawing.Size(404, 52);
-            this.Sil.TabIndex = 1;
-            this.Sil.Text = "Sil";
-            this.Sil.UseVisualStyleBackColor = true;
-            this.Sil.Click += new System.EventHandler(this.Sil_Click);
+            this.SağTuşMenü.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.SağTuşMenü.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SağTuşMenü_yenidenAdlandır,
+            this.SağTuşMenü_sil});
+            this.SağTuşMenü.Name = "SağTuşMenü";
+            this.SağTuşMenü.ShowImageMargin = false;
+            this.SağTuşMenü.Size = new System.Drawing.Size(186, 80);
+            // 
+            // SağTuşMenü_yenidenAdlandır
+            // 
+            this.SağTuşMenü_yenidenAdlandır.Name = "SağTuşMenü_yenidenAdlandır";
+            this.SağTuşMenü_yenidenAdlandır.Size = new System.Drawing.Size(185, 24);
+            this.SağTuşMenü_yenidenAdlandır.Text = "Yeniden adlandır";
+            this.SağTuşMenü_yenidenAdlandır.Click += new System.EventHandler(this.SağTuşMenü_YenidenAdlandır_Click);
+            // 
+            // SağTuşMenü_sil
+            // 
+            this.SağTuşMenü_sil.Name = "SağTuşMenü_sil";
+            this.SağTuşMenü_sil.Size = new System.Drawing.Size(185, 24);
+            this.SağTuşMenü_sil.Text = "Sil";
+            this.SağTuşMenü_sil.Click += new System.EventHandler(this.SağTuşMenü_Sil_Click);
             // 
             // Yeni
             // 
@@ -211,7 +224,6 @@
             // 
             this.splitContainer1.Panel1.Controls.Add(this.AramaÇubuğu);
             this.splitContainer1.Panel1.Controls.Add(this.Liste);
-            this.splitContainer1.Panel1.Controls.Add(this.Sil);
             this.splitContainer1.Panel1.Controls.Add(this.Yeni);
             this.splitContainer1.Panel1.Controls.Add(this.Ekle);
             // 
@@ -276,6 +288,7 @@
             this.Name = "Müşteriler";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Müşteriler";
+            this.SağTuşMenü.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -292,7 +305,6 @@
         #endregion
 
         private System.Windows.Forms.ListBox Liste;
-        private System.Windows.Forms.Button Sil;
         private System.Windows.Forms.TextBox Yeni;
         private System.Windows.Forms.Button Ekle;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -308,5 +320,8 @@
         private System.Windows.Forms.TextBox Notlar;
         private System.Windows.Forms.ToolTip İpUcu;
         private System.Windows.Forms.TextBox AramaÇubuğu;
+        private System.Windows.Forms.ContextMenuStrip SağTuşMenü;
+        private System.Windows.Forms.ToolStripMenuItem SağTuşMenü_yenidenAdlandır;
+        private System.Windows.Forms.ToolStripMenuItem SağTuşMenü_sil;
     }
 }

@@ -279,10 +279,10 @@
             this.YedekleKapat.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.YedekleKapat.BackColor = System.Drawing.Color.Transparent;
             this.YedekleKapat.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.YedekleKapat.Location = new System.Drawing.Point(261, 364);
+            this.YedekleKapat.Location = new System.Drawing.Point(215, 364);
             this.YedekleKapat.Margin = new System.Windows.Forms.Padding(6);
             this.YedekleKapat.Name = "YedekleKapat";
-            this.YedekleKapat.Size = new System.Drawing.Size(136, 29);
+            this.YedekleKapat.Size = new System.Drawing.Size(180, 29);
             this.YedekleKapat.TabIndex = 5;
             this.YedekleKapat.Text = "Yedekle ve kapat";
             this.YedekleKapat.UseVisualStyleBackColor = false;

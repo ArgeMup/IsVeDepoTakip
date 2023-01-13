@@ -175,5 +175,18 @@ namespace İş_ve_Depo_Takip
 
             return false;
         }
+
+        public static bool Klasör_TamKopya(string Kaynak, string Hedef)
+        {
+            int ZamanAşımı_msn = Environment.TickCount + 15000;
+            while (ZamanAşımı_msn > Environment.TickCount)
+            {
+                if (Klasör.AslınaUygunHaleGetir(Kaynak, Hedef, true, EşZamanlıİşlemSayısı)) return true;
+
+                Thread.Sleep(100);
+            }
+
+            return false;
+        }
     }
 }

@@ -44,10 +44,6 @@ namespace İş_ve_Depo_Takip
             }
             else
             {
-                Müşteriler_Grup.Enabled = false;
-                Hastalar_Grup.Enabled = true;
-                Hastalar_SeçimKutusu.Enabled = false;
-
                 Müşteriler_Liste = new List<string>();
                 Müşteriler_Liste.Add(Müşteri);
                 Müşteriler_AramaÇubuğu.Text = Müşteri;
@@ -82,6 +78,10 @@ namespace İş_ve_Depo_Takip
                     Tablo[2, i].Value = elm_ları.Elemanları[i][1]; //tarih
                     elm_ları.Elemanları[i].Sil(null);
                 }
+
+                Müşteriler_Grup.Enabled = false;
+                Hastalar_Grup.Enabled = true;
+                Hastalar_SeçimKutusu.Enabled = false;
 
                 bool _ = elm_ları.İçiBoşOlduğuİçinSilinecek; //geçerli kaydı sil, kaydet tuşuna basınca tekrar oluşturulacak
 

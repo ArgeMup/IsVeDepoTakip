@@ -390,6 +390,34 @@ namespace İş_ve_Depo_Takip
             Müşteri = "Müşteriler" + (string.IsNullOrEmpty(Müşteri) ? null : "/" + Müşteri);
             return Tablo_Dal(null, TabloTürü.Ayarlar, Müşteri, YoksaOluştur);
         }
+        public static void Müşteri_İsminiDeğiştir(string Eski, string Yeni)
+        {
+            if (Directory.Exists(Ortak.Klasör_Banka + Eski))
+            {
+                Directory.Move(Ortak.Klasör_Banka + Eski, Ortak.Klasör_Banka + Yeni);
+
+                if (!Directory.Exists(Ortak.Klasör_Banka + Yeni) ||
+                     Directory.Exists(Ortak.Klasör_Banka + Eski))
+                {
+                    throw new Exception("Klasör ve dosya işlemleri tamamlanamadı");
+                }
+
+                string[] dsy_lar = Directory.GetFiles(Ortak.Klasör_Banka + Yeni, "*.mup", SearchOption.AllDirectories);
+                if (dsy_lar != null)
+                {
+                    foreach (string dsy in dsy_lar)
+                    {
+                        string d = Yeni + "\\" + Path.GetFileNameWithoutExtension(dsy);
+                        Depo_ gecici = Depo_Aç(d);
+                        gecici.Yaz("Müşteri", Yeni);
+                        Depo_Kaydet(d, gecici);
+                    }
+                }
+            }
+
+            Müşteri_Sil(Eski);
+            Müşteri_Ekle(Yeni);
+        }
 
         public static List<string> İşTürü_Listele()
         {
@@ -1259,7 +1287,7 @@ namespace İş_ve_Depo_Takip
                 DialogResult Dr = MessageBox.Show(soru, Ortak.AnaEkran.Text + " Yedekleme", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
                 if (Dr == DialogResult.Yes) 
                 { 
-                    Application.Restart(); 
+                    System.Windows.Forms.Application.Restart(); 
                     return; 
                 }
 
@@ -1597,7 +1625,7 @@ namespace İş_ve_Depo_Takip
                 DialogResult Dr = MessageBox.Show(soru, Ortak.AnaEkran.Text + " Yedekleme", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
                 if (Dr == DialogResult.Yes) 
                 {
-                    Application.Restart();
+                    System.Windows.Forms.Application.Restart();
                     Yedekleme_Tümü_Çalışıyor = false;
                     return;
                 }
@@ -1709,7 +1737,7 @@ namespace İş_ve_Depo_Takip
         }
         public static void Yedekle_Banka()
         {
-            if (!Klasör.AslınaUygunHaleGetir(Ortak.Klasör_Banka, Ortak.Klasör_Banka2, true, Ortak.EşZamanlıİşlemSayısı))
+            if (!Ortak.Klasör_TamKopya(Ortak.Klasör_Banka, Ortak.Klasör_Banka2))
             {
                 throw new Exception("Yedekle_Banka>" + Ortak.Klasör_Banka + ">" + Ortak.Klasör_Banka2);
             }
@@ -1717,7 +1745,8 @@ namespace İş_ve_Depo_Takip
         public static void Yedekle_Banka_Kurtar()
         {
             Değişiklikler_TamponuSıfırla();
-            if (!Klasör.AslınaUygunHaleGetir(Ortak.Klasör_Banka2, Ortak.Klasör_Banka, true, Ortak.EşZamanlıİşlemSayısı))
+
+            if (!Ortak.Klasör_TamKopya(Ortak.Klasör_Banka2, Ortak.Klasör_Banka))
             {
                 throw new Exception("Yedekle_Banka_Kurtar>" + Ortak.Klasör_Banka2 + ">" + Ortak.Klasör_Banka);
             }
@@ -1783,14 +1812,14 @@ namespace İş_ve_Depo_Takip
                 string hata;
 
                 // banka -> banka2
-                if (!Klasör.AslınaUygunHaleGetir(Ortak.Klasör_Banka, Ortak.Klasör_Banka2, true, Ortak.EşZamanlıİşlemSayısı))
+                if (!Ortak.Klasör_TamKopya(Ortak.Klasör_Banka, Ortak.Klasör_Banka2))
                 {
                     throw new Exception("AslınaUygunHaleGetir>" + Ortak.Klasör_Banka + ">" + Ortak.Klasör_Banka2);
                 }
 
                 // yedek -> gecici
                 string kla_gecici = Ortak.Klasör_Gecici + Path.GetRandomFileName();
-                if (!Klasör.AslınaUygunHaleGetir(l.Keys.First(), kla_gecici, true, Ortak.EşZamanlıİşlemSayısı))
+                if (!Ortak.Klasör_TamKopya(l.Keys.First(), kla_gecici))
                 {
                     hata = "1.AslınaUygunHaleGetir>" + l.Keys.First() + ">" + kla_gecici;
                     goto HatalıCıkış;
@@ -1805,7 +1834,7 @@ namespace İş_ve_Depo_Takip
                 }
 
                 // gecici -> banka
-                if (!Klasör.AslınaUygunHaleGetir(kla_gecici, Ortak.Klasör_Banka, true, Ortak.EşZamanlıİşlemSayısı))
+                if (!Ortak.Klasör_TamKopya(kla_gecici, Ortak.Klasör_Banka))
                 {
                     hata = "3.AslınaUygunHaleGetir>" + kla_gecici + ">" + Ortak.Klasör_Banka;
                     goto HatalıCıkış;
@@ -1820,14 +1849,14 @@ namespace İş_ve_Depo_Takip
                 }
 
                 hata = Klasör.ÜstKlasör(l.Keys.First()) + "\\";
-                Klasör.AslınaUygunHaleGetir(hata + "Diğer", Ortak.Klasör_Diğer, true, Ortak.EşZamanlıİşlemSayısı);
-                Klasör.AslınaUygunHaleGetir(hata + "Yedek", Ortak.Klasör_İçYedek, true, Ortak.EşZamanlıİşlemSayısı);
+                Ortak.Klasör_TamKopya(hata + "Diğer", Ortak.Klasör_Diğer);
+                Ortak.Klasör_TamKopya(hata + "Yedek", Ortak.Klasör_İçYedek);
                 Klasör.Sil(kla_gecici);
                 return;
 
             HatalıCıkış:
                 // banka2 -> banka
-                if (Klasör.AslınaUygunHaleGetir(Ortak.Klasör_Banka2, Ortak.Klasör_Banka, true, Ortak.EşZamanlıİşlemSayısı))
+                if (Ortak.Klasör_TamKopya(Ortak.Klasör_Banka2, Ortak.Klasör_Banka))
                 {
                     hata = "Yedekleme başarısız oldu fakat mevcut kayıtlarınız sağlam," + Environment.NewLine +
                         "uygulamayı kapatıp açmak yardımcı olabilir" + Environment.NewLine + Environment.NewLine +
