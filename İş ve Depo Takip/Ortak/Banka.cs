@@ -39,6 +39,45 @@ namespace İş_ve_Depo_Takip
             Klasör.Oluştur(Ortak.Klasör_Gecici);
             Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Klasörler", ref Açılışİşlemi_Tik);
 
+            DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı, Ortak.EşZamanlıİşlemSayısı);
+            Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Bütünlük Kontrolü", ref Açılışİşlemi_Tik);
+            Günlük.Ekle("Bütünlük Kontrolü " + snç.ToString());
+            switch (snç)
+            {
+                case DoğrulamaKodu.KontrolEt.Durum_.Aynı:
+                    goto Devam;
+
+                case DoğrulamaKodu.KontrolEt.Durum_.DoğrulamaDosyasıYok:
+#if !DEBUG
+                    Klasör_ kls = new Klasör_(Ortak.Klasör_Banka, EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
+                    if (kls.Dosyalar.Count > 0) throw new Exception("Büyük Hata A");
+#endif
+                    goto Devam;
+
+                default:
+                case DoğrulamaKodu.KontrolEt.Durum_.DoğrulamaDosyasıİçeriğiHatalı:
+                case DoğrulamaKodu.KontrolEt.Durum_.Farklı:
+                case DoğrulamaKodu.KontrolEt.Durum_.FazlaKlasörVeyaDosyaVar:
+                    snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka2, SearchOption.AllDirectories, Parola.Yazı, Ortak.EşZamanlıİşlemSayısı);
+                    Günlük.Ekle("Bütünlük Kontrolü 2 " + snç.ToString());
+                    if (snç == DoğrulamaKodu.KontrolEt.Durum_.Aynı)
+                    {
+                        if (Ortak.Klasör_TamKopya(Ortak.Klasör_Banka2, Ortak.Klasör_Banka))
+                        {
+                            Değişiklikler_TamponuSıfırla();
+                            goto Devam;
+                        }
+                    }
+                    break;
+            }
+
+            throw new Exception("Banka klasörünün içeriği hatalı" + Environment.NewLine +
+                        "Son yaptığınız işlem yarım kalmış olabilir" + Environment.NewLine +
+                        "Yedeği kullanmak için" + Environment.NewLine +
+                        "Banka klasörünün içeriğini tamamen silebilir ve" + Environment.NewLine +
+                        "Yedek klasöründen en son tarihli yedeğini Banka klasörü içerisine çıkarabilirsiniz");
+
+        Devam:
             #region Ayarlar
             IDepo_Eleman d_ayarlar_bilgisayar_kullanıcı = Ayarlar_BilgisayarVeKullanıcı("Klasör", true);
             Ortak.Kullanıcı_Klasör_Yedek = d_ayarlar_bilgisayar_kullanıcı.Bul("Yedek", true).İçeriği;
@@ -65,41 +104,17 @@ namespace İş_ve_Depo_Takip
             Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Ayarlar", ref Açılışİşlemi_Tik);
             #endregion
 
-            DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı, Ortak.EşZamanlıİşlemSayısı);
-            Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Bütünlük Kontrolü", ref Açılışİşlemi_Tik);
-            Günlük.Ekle("Bütünlük Kontrolü " + snç.ToString());
-            switch (snç)
-            {
-                case DoğrulamaKodu.KontrolEt.Durum_.Aynı:
-                    #region yedekleme
-                    Yedekle_DahaYeniYedekVarsa_KullanıcıyaSor();
-                    Yedekleme_İzleyici_Başlat();
-                    Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Yedekleme", ref Açılışİşlemi_Tik);
+            #region yedekleme
+            Yedekle_DahaYeniYedekVarsa_KullanıcıyaSor();
+            Yedekleme_İzleyici_Başlat();
+            Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Yedekleme", ref Açılışİşlemi_Tik);
 
-                    Yedekle_Banka();
-                    Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "İlk Kullanıma Hazırlanıyor", ref Açılışİşlemi_Tik);
-                    #endregion
+            Yedekle_Banka();
+            Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "İlk Kullanıma Hazırlanıyor", ref Açılışİşlemi_Tik);
+            #endregion
 
-                    Malzeme_KritikMiktarKontrolü();
-                    Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Malzeme Durumu", ref Açılışİşlemi_Tik);
-                    break;
-
-                case DoğrulamaKodu.KontrolEt.Durum_.DoğrulamaDosyasıYok:
-#if !DEBUG
-                    Klasör_ kls = new Klasör_(Ortak.Klasör_Banka, EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
-                    if (kls.Dosyalar.Count > 0) throw new Exception("Büyük Hata A");
-#endif
-                    break;
-
-                case DoğrulamaKodu.KontrolEt.Durum_.DoğrulamaDosyasıİçeriğiHatalı:
-                case DoğrulamaKodu.KontrolEt.Durum_.Farklı:
-                case DoğrulamaKodu.KontrolEt.Durum_.FazlaKlasörVeyaDosyaVar:
-                    throw new Exception("Banka klasörünün içeriği hatalı" + Environment.NewLine +
-                        "Son yaptığınız işlem yarım kalmış olabilir" + Environment.NewLine + 
-                        "Yedeği kullanmak için" + Environment.NewLine +
-                        "Banka klasörünün içeriğini tamamen silebilir ve" + Environment.NewLine +
-                        "Yedek klasöründen en son tarihli yedeğini Banka klasörü içerisine çıkarabilirsiniz");
-            }
+            Malzeme_KritikMiktarKontrolü();
+            Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Malzeme Durumu", ref Açılışİşlemi_Tik);
         }
         public static void Çıkış_İşlemleri()
         {
@@ -1852,6 +1867,7 @@ namespace İş_ve_Depo_Takip
                 Ortak.Klasör_TamKopya(hata + "Diğer", Ortak.Klasör_Diğer);
                 Ortak.Klasör_TamKopya(hata + "Yedek", Ortak.Klasör_İçYedek);
                 Klasör.Sil(kla_gecici);
+                Değişiklikler_TamponuSıfırla();
                 return;
 
             HatalıCıkış:
