@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.Liste = new System.Windows.Forms.ListBox();
             this.SağTuşMenü = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.SağTuşMenü_yenidenAdlandır = new System.Windows.Forms.ToolStripMenuItem();
-            this.SağTuşMenü_sil = new System.Windows.Forms.ToolStripMenuItem();
+            this.SağTuşMenü_YenidenAdlandır = new System.Windows.Forms.ToolStripMenuItem();
+            this.SağTuşMenü_Sil = new System.Windows.Forms.ToolStripMenuItem();
             this.Yeni = new System.Windows.Forms.TextBox();
             this.Ekle = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -77,25 +77,25 @@
             // 
             this.SağTuşMenü.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.SağTuşMenü.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.SağTuşMenü_yenidenAdlandır,
-            this.SağTuşMenü_sil});
+            this.SağTuşMenü_YenidenAdlandır,
+            this.SağTuşMenü_Sil});
             this.SağTuşMenü.Name = "SağTuşMenü";
             this.SağTuşMenü.ShowImageMargin = false;
             this.SağTuşMenü.Size = new System.Drawing.Size(186, 80);
             // 
-            // SağTuşMenü_yenidenAdlandır
+            // SağTuşMenü_YenidenAdlandır
             // 
-            this.SağTuşMenü_yenidenAdlandır.Name = "SağTuşMenü_yenidenAdlandır";
-            this.SağTuşMenü_yenidenAdlandır.Size = new System.Drawing.Size(185, 24);
-            this.SağTuşMenü_yenidenAdlandır.Text = "Yeniden adlandır";
-            this.SağTuşMenü_yenidenAdlandır.Click += new System.EventHandler(this.SağTuşMenü_YenidenAdlandır_Click);
+            this.SağTuşMenü_YenidenAdlandır.Name = "SağTuşMenü_YenidenAdlandır";
+            this.SağTuşMenü_YenidenAdlandır.Size = new System.Drawing.Size(185, 24);
+            this.SağTuşMenü_YenidenAdlandır.Text = "Yeniden adlandır";
+            this.SağTuşMenü_YenidenAdlandır.Click += new System.EventHandler(this.SağTuşMenü_YenidenAdlandır_Click);
             // 
-            // SağTuşMenü_sil
+            // SağTuşMenü_Sil
             // 
-            this.SağTuşMenü_sil.Name = "SağTuşMenü_sil";
-            this.SağTuşMenü_sil.Size = new System.Drawing.Size(185, 24);
-            this.SağTuşMenü_sil.Text = "Sil";
-            this.SağTuşMenü_sil.Click += new System.EventHandler(this.SağTuşMenü_Sil_Click);
+            this.SağTuşMenü_Sil.Name = "SağTuşMenü_Sil";
+            this.SağTuşMenü_Sil.Size = new System.Drawing.Size(185, 24);
+            this.SağTuşMenü_Sil.Text = "Sil";
+            this.SağTuşMenü_Sil.Click += new System.EventHandler(this.SağTuşMenü_Sil_Click);
             // 
             // Yeni
             // 
@@ -321,7 +321,7 @@
         private System.Windows.Forms.ToolTip İpUcu;
         private System.Windows.Forms.TextBox AramaÇubuğu;
         private System.Windows.Forms.ContextMenuStrip SağTuşMenü;
-        private System.Windows.Forms.ToolStripMenuItem SağTuşMenü_yenidenAdlandır;
-        private System.Windows.Forms.ToolStripMenuItem SağTuşMenü_sil;
+        private System.Windows.Forms.ToolStripMenuItem SağTuşMenü_YenidenAdlandır;
+        private System.Windows.Forms.ToolStripMenuItem SağTuşMenü_Sil;
     }
 }

@@ -41,6 +41,9 @@ namespace İş_ve_Depo_Takip
                 Müşteriler_SeçimKutusu.Items.Clear();
                 Müşteriler_Liste = Banka.Müşteri_Listele();
                 Müşteriler_SeçimKutusu.Items.AddRange(Müşteriler_Liste.ToArray());
+
+                Tablo_Kabul_Tarihi.Visible = false;
+                Tablo_Çıkış_Tarihi.Visible = false;
             }
             else
             {
@@ -75,7 +78,16 @@ namespace İş_ve_Depo_Takip
                     }
 
                     Tablo[1, i].Value = elm_ları.Elemanları[i][2]; //ücret
-                    Tablo[2, i].Value = elm_ları.Elemanları[i][1]; //tarih
+                    if (elm_ları.Elemanları[i][1].DoluMu()) //tarih kabul
+                    {
+                        Tablo[2, i].Value = Banka.Yazdır_Tarih(elm_ları.Elemanları[i][1]);
+                        Tablo[2, i].Tag = elm_ları.Elemanları[i].Oku_TarihSaat(null, default, 1);
+                    }
+                    if (elm_ları.Elemanları[i][4].DoluMu()) //tarih çıkış
+                    {
+                        Tablo[3, i].Value = Banka.Yazdır_Tarih(elm_ları.Elemanları[i][4]);
+                        Tablo[3, i].Tag = elm_ları.Elemanları[i].Oku_TarihSaat(null, default, 4);
+                    }
                     elm_ları.Elemanları[i].Sil(null);
                 }
 
@@ -92,7 +104,9 @@ namespace İş_ve_Depo_Takip
                     Ayraç_Kat_2_3.SplitterDistance *= 2;
                 }
             }
-
+        }
+        private void Yeni_İş_Girişi_Shown(object sender, EventArgs e)
+        {
             Tablo.Rows[Tablo.RowCount - 1].Selected = true;
 
             Kaydet.Enabled = false;
@@ -163,6 +177,35 @@ namespace İş_ve_Depo_Takip
             foreach (DataGridViewRow Row in l)
             {
                 Seçili_Satırı_Sil.Text = Row.ReadOnly ? "Seçili satırın kilidini KALDIR" : "Seçili Satırı Sil";
+            }
+        }
+        private void Tablo_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex != 3) return;
+
+            if (Tablo.Rows[e.RowIndex].ReadOnly)
+            {
+                DialogResult Dr = MessageBox.Show((e.RowIndex + 1).ToString() + ". satırdaki iş önceki döneme ait" + Environment.NewLine +
+                        "Eğer kilidi kaldırılırsa halihazırdaki KABUL EDİLMİŞ BİLGİLERİ değiştirebileceksiniz." + Environment.NewLine +
+                        "İlgili satırın KİLDİNİ AÇMAK istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (Dr == DialogResult.No) return;
+
+                Tablo.Rows[e.RowIndex].ReadOnly = false;
+            }
+
+            if (Tablo[e.ColumnIndex, e.RowIndex].Tag != null)
+            {
+                DialogResult Dr = MessageBox.Show("Çıkış tarihi bilgisini kaldırmak mı istiyorsunuz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (Dr == DialogResult.No) return;
+
+                Tablo[e.ColumnIndex, e.RowIndex].Value = null;
+                Tablo[e.ColumnIndex, e.RowIndex].Tag = null;
+            }
+            else
+            {
+                DateTime t = DateTime.Now;
+                Tablo[e.ColumnIndex, e.RowIndex].Value = Banka.Yazdır_Tarih(t.Yazıya());
+                Tablo[e.ColumnIndex, e.RowIndex].Tag = t;
             }
         }
 
@@ -240,6 +283,7 @@ namespace İş_ve_Depo_Takip
         {
             İştürü_SeçiliSatıraKopyala.Enabled = İşTürleri_SeçimKutusu.Items.Count > 0;
         }
+
         private void İştürü_SeçiliSatıraKopyala_Click(object sender, EventArgs e)
         {
             var l = Tablo.SelectedRows;
@@ -275,6 +319,7 @@ namespace İş_ve_Depo_Takip
                 if (Dr == DialogResult.No) return;
 
                 l[0].ReadOnly = false;
+                Seçili_Satırı_Sil.Text = "Seçili Satırı Sil";
             }
             else
             {
@@ -318,7 +363,8 @@ namespace İş_ve_Depo_Takip
             DateTime t = DateTime.Now;
             List<string> it_leri = new List<string>();
             List<string> ücret_ler = new List<string>();
-            List<string> tarih_ler = new List<string>();
+            List<string> giriş_tarih_ler = new List<string>();
+            List<string> çıkış_tarih_ler = new List<string>();
             for (int i = 0; i < Tablo.RowCount - 1; i++)
             {
                 if (!Tablo.Rows[i].ReadOnly)
@@ -341,13 +387,18 @@ namespace İş_ve_Depo_Takip
                         Tablo[1, i].Value = gecici;
                     }
 
-                    //tarih
-                    Tablo[2, i].Value = t.Yazıya();
+                    //tarih kabul
+                    if (Tablo[2, i].Tag == null)
+                    {
+                        Tablo[2, i].Value = t.Yazıya();
+                        Tablo[2, i].Tag = t;
+                    }
                 }
 
                 it_leri.Add((string)Tablo[0, i].Value);
                 ücret_ler.Add(((string)Tablo[1, i].Value));
-                tarih_ler.Add((string)Tablo[2, i].Value);
+                giriş_tarih_ler.Add(((DateTime)Tablo[2, i].Tag).Yazıya());
+                çıkış_tarih_ler.Add(Tablo[3, i].Tag == null ? null : ((DateTime)Tablo[3, i].Tag).Yazıya());
             }
 
             if (it_leri.Count == 0)
@@ -356,7 +407,7 @@ namespace İş_ve_Depo_Takip
                 return;
             }
 
-            Banka.Talep_Ekle(Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, İskonto.Text, Notlar.Text.Trim(), it_leri, ücret_ler, tarih_ler, SeriNo);
+            Banka.Talep_Ekle(Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, İskonto.Text, Notlar.Text.Trim(), it_leri, ücret_ler, giriş_tarih_ler, çıkış_tarih_ler, SeriNo);
             Banka.Değişiklikleri_Kaydet();
 
             Kaydet.Enabled = false;

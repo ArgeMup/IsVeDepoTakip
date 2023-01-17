@@ -264,6 +264,9 @@
   <ItemGroup>
     <None Include="Resources\sil.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\sol_mavi.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>IF EXIST "..\..\..\..\Detaylar\Parola.cs" (copy "..\..\..\..\Detaylar\Parola.cs" "$(SolutionDir)İş ve Depo Takip\Ortak\Parola.cs")</PreBuildEvent>

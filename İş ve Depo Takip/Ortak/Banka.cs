@@ -88,12 +88,13 @@ namespace İş_ve_Depo_Takip
             Ortak.Kullanıcı_KüçültüldüğündeParolaSor_sn = d.Oku_TamSayı("Küçültüldüğünde Parola Sor", 60, 1);
             Ortak.Kullanıcı_Eposta_hesabı_mevcut = !string.IsNullOrEmpty(d.Oku("Eposta/Gönderici/Şifresi"));
 
-            while (d.Oku_TarihSaat("Son Banka Kayıt", default, 1).Günlük("Son Banka Kayıt ") > DateTime.Now)
+            while (d.Oku_TarihSaat("Son Banka Kayıt", default, 1) > DateTime.Now)
             {
-                MessageBox.Show(
-                    "Son kayıt saati : " + d.Oku("Son Banka Kayıt", default, 1) + Environment.NewLine +
+                string msg = "Son kayıt saati : " + d.Oku("Son Banka Kayıt", default, 1) + Environment.NewLine +
                     "Bilgisayarınızın saati : " + DateTime.Now.Yazıya() + Environment.NewLine + Environment.NewLine +
-                    "Muhtemelen bilgisayarınızın saati geri kaldı, lütfen düzeltip devam ediniz", Ortak.AnaEkran.Text + " Bütünlük Kontrolü");
+                    "Muhtemelen bilgisayarınızın saati geri kaldı, lütfen düzeltip devam ediniz";
+
+                MessageBox.Show(msg.Günlük(), Ortak.AnaEkran.Text + " Bütünlük Kontrolü");
             }
 
             if (string.IsNullOrEmpty(d.Oku("Uygulama Kimliği")))
@@ -908,7 +909,7 @@ namespace İş_ve_Depo_Takip
             else return 0;
         }
 
-        public static void Talep_Ekle(string Müşteri, string Hasta, string İskonto, string Notlar, List<string> İşTürleri, List<string> Ücretler, List<string> GirişTarihleri, string SeriNo = null)
+        public static void Talep_Ekle(string Müşteri, string Hasta, string İskonto, string Notlar, List<string> İşTürleri, List<string> Ücretler, List<string> GirişTarihleri, List<string> ÇıkışTarihleri, string SeriNo = null)
         {
             if (string.IsNullOrEmpty(SeriNo)) SeriNo = SeriNo_Üret();
 
@@ -923,6 +924,8 @@ namespace İş_ve_Depo_Takip
                 d.Yaz(ad, İşTürleri[i], 0);
                 d.Yaz(ad, GirişTarihleri[i], 1);
                 d.Yaz(ad, Ücretler[i], 2);
+                //3 nolu konumda ücret detayı var
+                d.Yaz(ad, ÇıkışTarihleri[i], 4);
             }
 
             if (!string.IsNullOrEmpty(d[3]))
@@ -988,6 +991,21 @@ namespace İş_ve_Depo_Takip
             }
 
             return bt;
+        }
+        public static void Talep_İşaretle_DevamEden_MüşteriyeGönderildi(string Müşteri, List<string> SeriNolar)
+        {
+            IDepo_Eleman d = Tablo_Dal(Müşteri, TabloTürü.DevamEden, "Talepler", true);
+            
+            foreach (string SeriNo in SeriNolar)
+            {
+                IDepo_Eleman sn = d.Bul(SeriNo);
+                if (sn == null) throw new Exception(Müşteri + " / Devam Eden / Talepler / " + SeriNo + " bulunamadı");
+
+                foreach (IDepo_Eleman iştürü in sn.Elemanları)
+                {
+                    if (string.IsNullOrEmpty(iştürü.Oku(null, null, 4))) iştürü.Yaz(null, DateTime.Now, 4);
+                }
+            }
         }
         public static string Talep_İşaretle_DevamEden_TeslimEdilen(string Müşteri, List<string> SeriNolar, bool TeslimEdildi_1_DevamEden_0)
         {
@@ -1155,17 +1173,19 @@ namespace İş_ve_Depo_Takip
                 Tablo.RowCount++;
 
                 double ü = 0;
-                Talep_Ayıkla_İş(t, out string Hasta, out string İşler, ref ü);
+                Talep_Ayıkla_İş(t, out string Hasta, out string İşKabulTarihleri, out string İşÇıkışTarihleri, out string İşler, ref ü);
 
                 Tablo[0, y].Value = false; //seçim kutucuğu
                 Tablo[1, y].Value = t.Adı; //seri no
                 Tablo[2, y].Value = İçerik.Müşteri;
                 Tablo[3, y].Value = Hasta;
-                Tablo[4, y].Value = İşler;
-                Tablo[5, y].Value = Yazdır_Tarih(t[3]); //teslim edilme tarihi
-                Tablo[6, y].Value = tar_ödeme_talep;
-                Tablo[7, y].Value = tar_ödendi;
-                Tablo[8, y].Value = t[2]; //notlar
+                Tablo[4, y].Value = İşKabulTarihleri; //iş kabul tarihi
+                Tablo[5, y].Value = İşÇıkışTarihleri; //iş çıkış tarihi
+                Tablo[6, y].Value = İşler;
+                Tablo[7, y].Value = Yazdır_Tarih(t[3]); //teslim edilme tarihi
+                Tablo[8, y].Value = tar_ödeme_talep;
+                Tablo[9, y].Value = tar_ödendi;
+                Tablo[10, y].Value = t[2]; //notlar
             }
           
             if (ÖnceTemizle)
@@ -1174,36 +1194,36 @@ namespace İş_ve_Depo_Takip
                 {
                     case TabloTürü.DevamEden:
                         Tablo.Columns[2].Visible = false; //müşteri
-                        Tablo.Columns[5].Visible = false; //tarih teslim
-                        Tablo.Columns[6].Visible = false; //tarih ödeme talebi
-                        Tablo.Columns[7].Visible = false; //tarih ödendi
+                        Tablo.Columns[7].Visible = false; //tarih teslim
+                        Tablo.Columns[8].Visible = false; //tarih ödeme talebi
+                        Tablo.Columns[9].Visible = false; //tarih ödendi
                         break;
                     case TabloTürü.TeslimEdildi:
                         Tablo.Columns[2].Visible = false; //müşteri
-                        Tablo.Columns[5].Visible = true; //tarih teslim
-                        Tablo.Columns[6].Visible = false; //tarih ödeme talebi
-                        Tablo.Columns[7].Visible = false; //tarih ödendi
+                        Tablo.Columns[7].Visible = true; //tarih teslim
+                        Tablo.Columns[8].Visible = false; //tarih ödeme talebi
+                        Tablo.Columns[9].Visible = false; //tarih ödendi
                         break;
 
                     case TabloTürü.ÖdemeTalepEdildi:
                         Tablo.Columns[2].Visible = false; //müşteri
-                        Tablo.Columns[5].Visible = true; //tarih teslim
-                        Tablo.Columns[6].Visible = true; //tarih ödeme talebi
-                        Tablo.Columns[7].Visible = false; //tarih ödendi
+                        Tablo.Columns[7].Visible = true; //tarih teslim
+                        Tablo.Columns[8].Visible = true; //tarih ödeme talebi
+                        Tablo.Columns[9].Visible = false; //tarih ödendi
                         break;
 
                     case TabloTürü.Ödendi:
                         Tablo.Columns[2].Visible = false; //müşteri
-                        Tablo.Columns[5].Visible = true; //tarih teslim
-                        Tablo.Columns[6].Visible = true; //tarih ödeme talebi
-                        Tablo.Columns[7].Visible = true; //tarih ödendi
+                        Tablo.Columns[7].Visible = true; //tarih teslim
+                        Tablo.Columns[8].Visible = true; //tarih ödeme talebi
+                        Tablo.Columns[9].Visible = true; //tarih ödendi
                         break;
 
                     case TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi:
                         Tablo.Columns[2].Visible = true; //müşteri
-                        Tablo.Columns[5].Visible = true; //tarih teslim
-                        Tablo.Columns[6].Visible = true; //tarih ödeme talebi
-                        Tablo.Columns[7].Visible = true; //tarih ödendi
+                        Tablo.Columns[7].Visible = true; //tarih teslim
+                        Tablo.Columns[8].Visible = true; //tarih ödeme talebi
+                        Tablo.Columns[9].Visible = true; //tarih ödendi
                         break;
                     default:
                         break;
@@ -1242,6 +1262,43 @@ namespace İş_ve_Depo_Takip
 
                 İşler += "\n";
             }
+            İşler = İşler.TrimEnd('\n');
+
+            if (iskonto > 0 && AltToplam > 0) AltToplam -= AltToplam / 100 * iskonto;
+
+            Toplam += AltToplam;
+        }
+        public static void Talep_Ayıkla_İş(IDepo_Eleman SeriNoDalı, out string Hasta, out string İşKabulTarihleri, out string İşÇıkışTarihleri, out string İşler, ref double Toplam)
+        {
+            Hasta = SeriNoDalı[0];
+            double iskonto = SeriNoDalı.Oku_Sayı(null, 0, 1);
+            if (iskonto > 0) Hasta += "\n% " + iskonto + " iskonto";
+
+            İşKabulTarihleri = "";
+            İşÇıkışTarihleri = "";
+            İşler = "";
+            double AltToplam = 0;
+            foreach (IDepo_Eleman iş in SeriNoDalı.Elemanları)
+            {
+                //tarihler - iş türü - ücret sadece 0 dan büyük ise
+
+                İşKabulTarihleri += Yazdır_Tarih(iş[1]) + "\n";
+                İşÇıkışTarihleri += (iş[4].DoluMu() ? Yazdır_Tarih(iş[4]) : " ") + "\n";
+                İşler += iş[0];
+
+                //ücret girilmemiş ise gösterilmeyecek, AltToplamdan hariç tutulacak : -1
+                //ücret girilmiş ise gösterilecek : >= 0
+                double ücret = iş.Oku_Sayı(null, -1, 2);
+                if (ücret >= 0)
+                {
+                    İşler += " " + Yazdır_Ücret(ücret);
+                    AltToplam += ücret;
+                }
+
+                İşler += "\n";
+            }
+            İşKabulTarihleri = İşKabulTarihleri.TrimEnd('\n');
+            İşÇıkışTarihleri = İşÇıkışTarihleri.TrimEnd('\n');
             İşler = İşler.TrimEnd('\n');
 
             if (iskonto > 0 && AltToplam > 0) AltToplam -= AltToplam / 100 * iskonto;
@@ -1731,6 +1788,10 @@ namespace İş_ve_Depo_Takip
                     Gizle_Göster("İşTakip_TeslimEdildi_ÖdemeTalebiOluştur");
                     Gizle_Göster("İşTakip_ÖdemeBekleyen_İptalEt");
                     Gizle_Göster("İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle");
+                }
+                else if (Ortak.AnaEkran.ÖndekiEkran.Name == "Müşteriler")
+                {
+                    Gizle_Göster("Liste");
                 }
 
                 if (Göster) Ortak.AnaEkran.ÖndekiEkran.Text = Yedekle_Tümü_ÖndekiEkran_ÜstYazısı;

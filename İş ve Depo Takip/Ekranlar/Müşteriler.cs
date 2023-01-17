@@ -59,7 +59,7 @@ namespace İş_ve_Depo_Takip
         }
         private void SağTuşMenü_YenidenAdlandır_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(Liste.Text) || string.IsNullOrWhiteSpace(Yeni.Text)) return;
+            if (!Liste.Visible || string.IsNullOrEmpty(Liste.Text) || string.IsNullOrWhiteSpace(Yeni.Text)) return;
             
             if (Liste.Text == Yeni.Text)
             {
@@ -105,7 +105,7 @@ namespace İş_ve_Depo_Takip
         }
         private void SağTuşMenü_Sil_Click(object sender, EventArgs e)
         {
-            if (Liste.SelectedIndex < 0 || Liste.SelectedIndex >= Liste.Items.Count) return;
+            if (!Liste.Visible || Liste.SelectedIndex < 0 || Liste.SelectedIndex >= Liste.Items.Count) return;
 
             string soru = Liste.Text + " öğesi görünmez yapılacak. Devamında müşteriye ait mevcut kayıtları SİLMEK istiyor musunuz?" + Environment.NewLine + Environment.NewLine +
                 "Evet : Müşteriye ait TÜM KAYITLARI SİL." + Environment.NewLine +
