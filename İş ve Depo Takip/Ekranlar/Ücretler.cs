@@ -32,6 +32,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             Zam_Miktarı.Text = "0";
+            KDV.Text = Banka.Ayarlar_Genel("Bütçe/KDV", true).Oku_Sayı(null, 8).Yazıya();
 
             Müşterıler.Text = "Tüm müşteriler için ortak";
             Kaydet.Enabled = false;
@@ -90,6 +91,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Zam_Yap.Enabled = true;
             Kaydet.Enabled = false;
         }
+        private void Tablo_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+
+            Ayar_Değişti(null, null);
+        }
+        private void Ayar_Değişti(object sender, EventArgs e)
+        {
+            splitContainer1.Panel1.Enabled = false;
+            Kaydet.Enabled = true;
+        }
 
         private void Zam_Yap_Click(object sender, EventArgs e)
         {
@@ -126,16 +138,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
         }
 
-        private void Tablo_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
-
-            splitContainer1.Panel1.Enabled = false;
-            Kaydet.Enabled = true;
-        }
-
         private void Kaydet_Click(object sender, EventArgs e)
         {
+            string kdv = KDV.Text;
+            if (!Ortak.YazıyıSayıyaDönüştür(ref kdv, "KDV kutucuğu", null, 0, 100))
+            {
+                KDV.Focus();
+                return;
+            }
+            KDV.Text = kdv;
+
             bool TümMüşterilerİçinOrtak = Müşterıler.Text == "Tüm müşteriler için ortak";
 
             for (int i = 0; i < Tablo.RowCount; i++)
@@ -170,6 +182,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
 
+            Banka.Ayarlar_Genel("Bütçe/KDV", true).Yaz(null, kdv);
             if (TümMüşterilerİçinOrtak)
             {
                 Banka.Ücretler_TablodakileriKaydet(Tablo, null);
@@ -179,6 +192,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Kaydet.Enabled = false;
             splitContainer1.Panel1.Enabled = true;
-        }
+        }  
     }
 }

@@ -1068,7 +1068,7 @@ namespace İş_ve_Depo_Takip
 
             return null;
         }
-        public static string Talep_İşaretle_ÖdemeTalepEdildi(string Müşteri, List<string> Seri_No_lar, string İlaveÖdeme_Açıklama, string İlaveÖdeme_Miktar)
+        public static string Talep_İşaretle_ÖdemeTalepEdildi(string Müşteri, List<string> Seri_No_lar, string İlaveÖdeme_Açıklama, string İlaveÖdeme_Miktar, bool KDV)
         {
             DateTime t = DateTime.Now;
             Depo_ yeni_tablo = Tablo(Müşteri, TabloTürü.ÖdemeTalepEdildi, true, t.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2));
@@ -1108,6 +1108,7 @@ namespace İş_ve_Depo_Takip
             }
 
             yeni_tablo.Yaz("Ödeme/Alt Toplam", Alt_Toplam);
+            if (KDV) yeni_tablo.Yaz("Ödeme/Alt Toplam", Ayarlar_Genel("Bütçe/KDV", true).Oku_Sayı(null, 8), 1);
 
             return null;
         }
@@ -1328,6 +1329,7 @@ namespace İş_ve_Depo_Takip
         public static void Talep_Ayıkla_Ödeme(IDepo_Eleman ÖdemeDalı, out List<string> Açıklamalar, out List<string> Ücretler, out string ÖdemeTalepEdildi, out string Ödendi, out string Notlar)
         {
             double AltToplam = ÖdemeDalı.Oku_Sayı("Alt Toplam");
+            double KDV = ÖdemeDalı.Oku_Sayı("Alt Toplam", 0, 1);
             double İlaveÖdeme = ÖdemeDalı.Oku_Sayı("İlave Ödeme", 0, 1);
             string İlaveÖdemeAçıklaması = ÖdemeDalı.Oku("İlave Ödeme");
 
@@ -1339,6 +1341,11 @@ namespace İş_ve_Depo_Takip
             Ücretler = new List<string>();
 
             Açıklamalar.Add("Alt Toplam"); Ücretler.Add(Yazdır_Ücret(AltToplam));
+            if (KDV > 0)
+            {
+                Açıklamalar.Add("KDV % " + KDV.Yazıya()); Ücretler.Add(Yazdır_Ücret(AltToplam / 100 * KDV));
+                AltToplam += AltToplam / 100 * KDV;
+            }
             if (!string.IsNullOrEmpty(İlaveÖdemeAçıklaması))
             {
                 Açıklamalar.Add(İlaveÖdemeAçıklaması); Ücretler.Add(Yazdır_Ücret(İlaveÖdeme));

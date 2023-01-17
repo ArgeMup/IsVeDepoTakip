@@ -418,7 +418,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 return;
             }
 
-            Banka.Talep_İşaretle_ÖdemeTalepEdildi(İşTakip_Müşteriler.Text, l, İşTakip_Bitti_İlaveÖdeme_Açıklama.Text, İşTakip_Bitti_İlaveÖdeme_Miktar.Text);
+            Banka.Talep_İşaretle_ÖdemeTalepEdildi(İşTakip_Müşteriler.Text, l, İşTakip_Bitti_İlaveÖdeme_Açıklama.Text, İşTakip_Bitti_İlaveÖdeme_Miktar.Text, İşTakip_TeslimEdildi_KDV.Checked);
             Banka.Değişiklikleri_Kaydet();
 
             İşTakip_Bitti_İlaveÖdeme_Açıklama.Text = "";
@@ -994,6 +994,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             if (Arama_Sorgula_Detaylı.Checked && bt.Ödeme != null)
             {
+                //boş IDepo_Eleman oluşturulması
                 IDepo_Eleman y = uyuşanlar[0].Bul(null, false, true);
                 y.Sil(null, true, true);
                 y.Adı = "";
@@ -1005,12 +1006,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 //sn ler + tarihler
                 y.Yaz("1", sn_ler);
 
-                sn_ler = "Alt Toplam : " + Banka.Yazdır_Ücret(bt.Ödeme.Oku_Sayı("Alt Toplam")) + Environment.NewLine;
-                if (!string.IsNullOrEmpty(bt.Ödeme.Oku("İlave Ödeme"))) sn_ler += "İlave ödeme : " + Banka.Yazdır_Ücret(bt.Ödeme.Oku_Sayı("İlave Ödeme", 0, 1)) + " (" + bt.Ödeme.Oku("İlave Ödeme") + ")" + Environment.NewLine;
-                sn_ler += "Genel Toplam : " + Banka.Yazdır_Ücret(bt.Ödeme.Oku_Sayı("Alt Toplam") + bt.Ödeme.Oku_Sayı("İlave Ödeme", 0, 1));
+                sn_ler = "";
+                Banka.Talep_Ayıkla_Ödeme(bt.Ödeme, out List<string> Açıklamalar, out List<string> Ücretler, out _, out _, out string Notlar);
+                for (int i = 0; i < Açıklamalar.Count; i++) sn_ler += Açıklamalar[i] + " : " + Ücretler[i] + "\n";
+                sn_ler = sn_ler.TrimEnd('\n');
 
-                //toplamlar + ödendi notları
-                y[2] = sn_ler + (string.IsNullOrEmpty(bt.Ödeme[2]) ? null : Environment.NewLine + Environment.NewLine + bt.Ödeme[2]); 
+                if (Notlar.DoluMu()) sn_ler += "\n\n" + Notlar;
+                y[2] = sn_ler;
 
                 uyuşanlar.Add(y);
             }
