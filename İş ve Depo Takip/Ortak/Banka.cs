@@ -910,12 +910,30 @@ namespace İş_ve_Depo_Takip
 
         public static void Talep_Ekle(string Müşteri, string Hasta, string İskonto, string Notlar, List<string> İşTürleri, List<string> Ücretler, List<string> GirişTarihleri, List<string> ÇıkışTarihleri, string SeriNo = null)
         {
-            if (string.IsNullOrEmpty(SeriNo)) SeriNo = SeriNo_Üret();
+            bool YeniKayıt = false;
+            if (string.IsNullOrEmpty(SeriNo))
+            {
+                YeniKayıt = true;
+                SeriNo = SeriNo_Üret();
+            }
 
             IDepo_Eleman d = Tablo_Dal(Müşteri, TabloTürü.DevamEden, "Talepler/" + SeriNo, true);
             d[0] = Hasta;
             d[1] = İskonto;
             d[2] = Notlar;
+            d[3] = null; //teslim edilme tarihi
+
+            if (!YeniKayıt)
+            {
+                List<string> halihazırdaki_işler = new List<string>();
+                foreach (IDepo_Eleman eski in d.Elemanları)
+                {
+                    halihazırdaki_işler.Add(eski[0]);
+                }
+
+                Malzeme_İştürüneGöreHareket(halihazırdaki_işler, false);//depoya geri teslim et
+                d.Sil(null, false, true);
+            }
 
             for (int i = 0; i < İşTürleri.Count; i++)
             {
@@ -927,21 +945,34 @@ namespace İş_ve_Depo_Takip
                 d.Yaz(ad, ÇıkışTarihleri[i], 4);
             }
 
-            if (!string.IsNullOrEmpty(d[3]))
-            {
-                d[3] = null; //teslim edilme tarihi
-                Malzeme_İştürüneGöreHareket(İşTürleri, false);//depoya geri teslim et
-            }
+            Malzeme_İştürüneGöreHareket(İşTürleri, true);//depodan malzeme harca
         }
         public static void Talep_Sil(string Müşteri, List<string> Seri_No_lar)
         {
             IDepo_Eleman d = Tablo_Dal(Müşteri, TabloTürü.DevamEden, "Talepler");
-            if (d == null) return;
+            if (d == null || d.Elemanları.Length == 0)
+            {
+                if (Seri_No_lar != null && Seri_No_lar.Count > 0) throw new Exception(Müşteri + " / Devam Eden / Talepler altında iş bulunamadı");
+                
+                return;
+            }
+
+            List<string> işler_silinecek = new List<string>();
 
             foreach (string sn in Seri_No_lar)
             {
-                d.Sil(sn);
+                IDepo_Eleman sn_silinecek = d.Bul(sn);
+                if (sn_silinecek == null) throw new Exception(Müşteri + " / Devam Eden / Talepler / " + sn + " bulunamadı");
+
+                foreach (IDepo_Eleman eski in sn_silinecek.Elemanları)
+                {
+                    işler_silinecek.Add(eski[0]);
+                }
+
+                sn_silinecek.Sil(null);
             }
+
+            Malzeme_İştürüneGöreHareket(işler_silinecek, false);//depoya geri teslim et
         }
         public static Banka_Tablo_ Talep_Listele(string Müşteri, TabloTürü Tür, string EkTanım = null)
         {
@@ -1009,7 +1040,6 @@ namespace İş_ve_Depo_Takip
         public static string Talep_İşaretle_DevamEden_TeslimEdilen(string Müşteri, List<string> SeriNolar, bool TeslimEdildi_1_DevamEden_0)
         {
             IDepo_Eleman d = Tablo_Dal(Müşteri, TabloTürü.DevamEden, "Talepler", true);
-            List<string> İşTürleri = new List<string>();
 
             foreach (string SeriNo in SeriNolar)
             {
@@ -1034,8 +1064,8 @@ namespace İş_ve_Depo_Takip
                             if (ücret < 0)
                             {
                                 return Müşteri + " / " + sn.Adı + " / " + iştürü[0] + " için ücret hesaplanamadı" + Environment.NewLine + Environment.NewLine +
-                            "Bilgi için \"Ana Ekran -> Yeni İş Girişi -> Notlar\" elemanı üzerine" + Environment.NewLine +
-                            "fareyi götürüp 1 sn kadar bekleyiniz";
+                                    "Bilgi için \"Ana Ekran -> Yeni İş Girişi -> Notlar\" elemanı üzerine" + Environment.NewLine +
+                                    "fareyi götürüp 1 sn kadar bekleyiniz";
                             }
                         }
                         else
@@ -1045,8 +1075,6 @@ namespace İş_ve_Depo_Takip
                         }
 
                         iştürü.Yaz(null, ücret, 2);
-
-                        İşTürleri.Add(iştürü[0]); //depo hareketi için
                     }
                 }
                 else
@@ -1057,13 +1085,9 @@ namespace İş_ve_Depo_Takip
                     foreach (IDepo_Eleman iştürü in sn.Elemanları)
                     {
                         iştürü[2] = iştürü[3]; //eğer var ise kullanıcının girdiği değeri geri yükle
-
-                        İşTürleri.Add(iştürü[0]); //depo hareketi için
                     }
                 }
             }
-
-            Malzeme_İştürüneGöreHareket(İşTürleri, TeslimEdildi_1_DevamEden_0);
 
             return null;
         }

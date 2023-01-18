@@ -88,14 +88,11 @@ namespace İş_ve_Depo_Takip
                         Tablo[3, i].Value = Banka.Yazdır_Tarih(elm_ları.Elemanları[i][4]);
                         Tablo[3, i].Tag = elm_ları.Elemanları[i].Oku_TarihSaat(null, default, 4);
                     }
-                    elm_ları.Elemanları[i].Sil(null);
                 }
 
                 Müşteriler_Grup.Enabled = false;
                 Hastalar_Grup.Enabled = true;
                 Hastalar_SeçimKutusu.Enabled = false;
-
-                bool _ = elm_ları.İçiBoşOlduğuİçinSilinecek; //geçerli kaydı sil, kaydet tuşuna basınca tekrar oluşturulacak
 
                 if (!string.IsNullOrEmpty(hata_bilgilendirmesi))
                 {

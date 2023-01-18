@@ -147,7 +147,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 59);
+            this.label3.Location = new System.Drawing.Point(3, 59);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(78, 29);
             this.label3.TabIndex = 3;
@@ -156,7 +156,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 101);
+            this.label2.Location = new System.Drawing.Point(3, 101);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(154, 29);
             this.label2.TabIndex = 2;
@@ -165,7 +165,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 17);
+            this.label1.Location = new System.Drawing.Point(3, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(95, 29);
             this.label1.TabIndex = 1;
@@ -190,9 +190,9 @@
             this.Kaydet.Enabled = false;
             this.Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Kaydet.Location = new System.Drawing.Point(18, 492);
+            this.Kaydet.Location = new System.Drawing.Point(3, 492);
             this.Kaydet.Name = "Kaydet";
-            this.Kaydet.Size = new System.Drawing.Size(423, 52);
+            this.Kaydet.Size = new System.Drawing.Size(438, 52);
             this.Kaydet.TabIndex = 10;
             this.Kaydet.Text = "Kaydet";
             this.Kaydet.UseVisualStyleBackColor = true;
@@ -243,7 +243,7 @@
             this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer2.Location = new System.Drawing.Point(18, 140);
+            this.splitContainer2.Location = new System.Drawing.Point(3, 140);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -254,7 +254,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.groupBox2);
-            this.splitContainer2.Size = new System.Drawing.Size(423, 346);
+            this.splitContainer2.Size = new System.Drawing.Size(438, 346);
             this.splitContainer2.SplitterDistance = 169;
             this.splitContainer2.TabIndex = 8;
             // 
@@ -290,7 +290,7 @@
             this.Tablo.ShowCellToolTips = false;
             this.Tablo.ShowEditingIcon = false;
             this.Tablo.ShowRowErrors = false;
-            this.Tablo.Size = new System.Drawing.Size(423, 169);
+            this.Tablo.Size = new System.Drawing.Size(438, 169);
             this.Tablo.TabIndex = 8;
             // 
             // Tablo_Kullanım
@@ -319,7 +319,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(423, 173);
+            this.groupBox2.Size = new System.Drawing.Size(438, 173);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Notlar";
@@ -330,7 +330,7 @@
             this.Notlar.Location = new System.Drawing.Point(3, 32);
             this.Notlar.Multiline = true;
             this.Notlar.Name = "Notlar";
-            this.Notlar.Size = new System.Drawing.Size(417, 138);
+            this.Notlar.Size = new System.Drawing.Size(432, 138);
             this.Notlar.TabIndex = 9;
             this.Notlar.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 

@@ -76,7 +76,7 @@
             // Yeni_Talep_Girişi
             // 
             this.Yeni_Talep_Girişi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Yeni_Talep_Girişi.Location = new System.Drawing.Point(34, 44);
+            this.Yeni_Talep_Girişi.Location = new System.Drawing.Point(34, 22);
             this.Yeni_Talep_Girişi.Margin = new System.Windows.Forms.Padding(6);
             this.Yeni_Talep_Girişi.Name = "Yeni_Talep_Girişi";
             this.Yeni_Talep_Girişi.Size = new System.Drawing.Size(363, 68);
@@ -88,7 +88,7 @@
             // Tüm_Talepler
             // 
             this.Tüm_Talepler.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Tüm_Talepler.Location = new System.Drawing.Point(34, 124);
+            this.Tüm_Talepler.Location = new System.Drawing.Point(34, 102);
             this.Tüm_Talepler.Margin = new System.Windows.Forms.Padding(6);
             this.Tüm_Talepler.Name = "Tüm_Talepler";
             this.Tüm_Talepler.Size = new System.Drawing.Size(363, 68);
@@ -136,7 +136,7 @@
             // Malzemeler
             // 
             this.Malzemeler.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Malzemeler.Location = new System.Drawing.Point(34, 204);
+            this.Malzemeler.Location = new System.Drawing.Point(34, 182);
             this.Malzemeler.Margin = new System.Windows.Forms.Padding(6);
             this.Malzemeler.Name = "Malzemeler";
             this.Malzemeler.Size = new System.Drawing.Size(363, 68);
@@ -269,7 +269,7 @@
             this.P_AnaMenü.Controls.Add(this.Malzemeler);
             this.P_AnaMenü.Location = new System.Drawing.Point(6, 6);
             this.P_AnaMenü.Name = "P_AnaMenü";
-            this.P_AnaMenü.Size = new System.Drawing.Size(428, 399);
+            this.P_AnaMenü.Size = new System.Drawing.Size(428, 387);
             this.P_AnaMenü.TabIndex = 10;
             this.P_AnaMenü.Visible = false;
             this.P_AnaMenü.VisibleChanged += new System.EventHandler(this.P_AnaMenü_VisibleChanged);
@@ -279,7 +279,7 @@
             this.YedekleKapat.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.YedekleKapat.BackColor = System.Drawing.Color.Transparent;
             this.YedekleKapat.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.YedekleKapat.Location = new System.Drawing.Point(215, 364);
+            this.YedekleKapat.Location = new System.Drawing.Point(215, 342);
             this.YedekleKapat.Margin = new System.Windows.Forms.Padding(6);
             this.YedekleKapat.Name = "YedekleKapat";
             this.YedekleKapat.Size = new System.Drawing.Size(180, 29);
@@ -291,7 +291,7 @@
             // Ayarlar
             // 
             this.Ayarlar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Ayarlar.Location = new System.Drawing.Point(34, 284);
+            this.Ayarlar.Location = new System.Drawing.Point(34, 262);
             this.Ayarlar.Margin = new System.Windows.Forms.Padding(6);
             this.Ayarlar.Name = "Ayarlar";
             this.Ayarlar.Size = new System.Drawing.Size(363, 68);
@@ -323,7 +323,7 @@
             this.tab_sayfası.Location = new System.Drawing.Point(12, 12);
             this.tab_sayfası.Name = "tab_sayfası";
             this.tab_sayfası.SelectedIndex = 0;
-            this.tab_sayfası.Size = new System.Drawing.Size(518, 490);
+            this.tab_sayfası.Size = new System.Drawing.Size(491, 475);
             this.tab_sayfası.TabIndex = 11;
             this.tab_sayfası.Visible = false;
             // 
@@ -333,7 +333,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 38);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(510, 448);
+            this.tabPage1.Size = new System.Drawing.Size(483, 433);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -344,7 +344,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 38);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(510, 448);
+            this.tabPage2.Size = new System.Drawing.Size(483, 433);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -422,7 +422,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 38);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(510, 448);
+            this.tabPage3.Size = new System.Drawing.Size(483, 433);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -433,7 +433,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 38);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(510, 448);
+            this.tabPage4.Size = new System.Drawing.Size(483, 433);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
