@@ -90,49 +90,39 @@ namespace İş_ve_Depo_Takip.Ekranlar
             _1_Hesapla(null, null);
         }
 
-        bool _1_Hesapla_Çalışıyor = false;
-        bool _1_Hesapla_KapatmaTalebi = false;
-        int _1_Hesapla_Tik = 0;
         private void _1_Hesapla(object sender, EventArgs e)
         {
-            if (_1_Hesapla_Çalışıyor) { _1_Hesapla_KapatmaTalebi = true; return; }
-            _1_Hesapla_Çalışıyor = true;
-            _1_Hesapla_KapatmaTalebi = false;
-            _1_Hesapla_Tik = Environment.TickCount + 500;
             _1_AltToplam.BackColor = System.Drawing.Color.Khaki;
+            Ortak.Gösterge.Başlat("Sayılıyor", true, null, 0);
 
             //ilk açılışta 1 kere hesaplat
             if (_1_Dizi == null)
             {
-                İlerlemeÇubuğu.Minimum = 0;
-                İlerlemeÇubuğu.Value = 0;
-                İlerlemeÇubuğu.Maximum = 0;
-                İlerlemeÇubuğu.Visible = true;
+                int kademe = 0;
 
                 System.Collections.Generic.List<string> Müşteriler = Banka.Müşteri_Listele();
-                for (int i = 0; i < Müşteriler.Count && !_1_Hesapla_KapatmaTalebi; i++)
+                for (int i = 0; i < Müşteriler.Count && Ortak.Gösterge.Çalışsın; i++)
                 {
-                    İlerlemeÇubuğu.Maximum += 2 + Banka.Dosya_Listele(Müşteriler[i], false).Length;
-
-                    if (_1_Hesapla_Tik < Environment.TickCount) { Application.DoEvents(); _1_Hesapla_Tik = Environment.TickCount + 500; }
+                    kademe += 2 + Banka.Dosya_Listele(Müşteriler[i], false).Length;
                 }
 
+                Ortak.Gösterge.Başlat("Hesaplanıyor", true, null, kademe);
                 _1_Dizi = new Bütçe_Gelir_Gider_[Müşteriler.Count];
 
-                for (int i = 0; i < Müşteriler.Count && !_1_Hesapla_KapatmaTalebi; i++)
+                for (int i = 0; i < Müşteriler.Count && Ortak.Gösterge.Çalışsın; i++)
                 {
                     Bütçe_Gelir_Gider_ gg = new Bütçe_Gelir_Gider_();
 
-                    İlerlemeÇubuğu.Value++;
+                    Ortak.Gösterge.İlerleme = 1;
                     _1_Hesapla_2(Müşteriler[i], Banka.Talep_Listele(Müşteriler[i], Banka.TabloTürü.DevamEden), out gg.gelir_devameden, out gg.gider_devameden);
 
-                    İlerlemeÇubuğu.Value++;
+                    Ortak.Gösterge.İlerleme = 1;
                     _1_Hesapla_2(Müşteriler[i], Banka.Talep_Listele(Müşteriler[i], Banka.TabloTürü.TeslimEdildi), out gg.gelir_teslimedilen, out gg.gider_teslimedilen);
 
                     string[] l = Banka.Dosya_Listele(Müşteriler[i], false);
-                    for (int s = 0; s < l.Length && !_1_Hesapla_KapatmaTalebi; s++)
+                    for (int s = 0; s < l.Length && Ortak.Gösterge.Çalışsın; s++)
                     {
-                        İlerlemeÇubuğu.Value++;
+                        Ortak.Gösterge.İlerleme = 1;
                         _1_Hesapla_2(Müşteriler[i], Banka.Talep_Listele(Müşteriler[i], Banka.TabloTürü.ÖdemeTalepEdildi, l[s]), out double gelll, out double giddd);
 
                         gg.gelir_ödemebekleyen += gelll;
@@ -149,8 +139,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         "Teslim edilen : " + Banka.Yazdır_Ücret(gg.gider_teslimedilen) + Environment.NewLine +
                         "Ödeme talebi : " + Banka.Yazdır_Ücret(gg.gider_ödemebekleyen);
                     _1_Dizi[i] = gg;
-
-                    if (_1_Hesapla_Tik < Environment.TickCount) { Application.DoEvents(); _1_Hesapla_Tik = Environment.TickCount + 500; }
                 }
 
                 _1_Tablo.Rows.Clear();
@@ -196,8 +184,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 _1_Tablo[4, i].Value = Banka.Yazdır_Ücret(top_gelir - top_gider);
                 _1_Tablo[4, i].Tag = top_gelir - top_gider;
-
-                if (_1_Hesapla_Tik < Environment.TickCount) { Application.DoEvents(); _1_Hesapla_Tik = Environment.TickCount + 500; }
             }
 
             //talep edilenlerin çıktılarını topla
@@ -207,8 +193,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 gel += (double)_1_Tablo[2, i].Tag;
                 gid += (double)_1_Tablo[3, i].Tag;
                 fark += (double)_1_Tablo[4, i].Tag;
-
-                if (_1_Hesapla_Tik < Environment.TickCount) { Application.DoEvents(); _1_Hesapla_Tik = Environment.TickCount + 500; }
             }
 
             //çıktıları yazdır
@@ -220,16 +204,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
             _1_Gelir.Tag = gel;
             _1_Gider.Tag = gid;
 
-            İlerlemeÇubuğu.Visible = false;
-            _1_Hesapla_Çalışıyor = false;
-            if (!_1_Hesapla_KapatmaTalebi) _1_AltToplam.BackColor = gel > gid ? System.Drawing.Color.YellowGreen : System.Drawing.Color.Salmon;
+            Ortak.Gösterge.Bitir();
+  
+            if (Ortak.Gösterge.Çalışsın) _1_AltToplam.BackColor = gel > gid ? System.Drawing.Color.YellowGreen : System.Drawing.Color.Salmon;
         }
         private void _1_Hesapla_2(string Müşteri, Banka_Tablo_ bt, out double Gelir, out double Gider)
         {
             Gelir = 0; Gider = 0;
-            if (_1_Hesapla_KapatmaTalebi) return;
-            if (_1_Hesapla_Tik < Environment.TickCount) { Application.DoEvents(); _1_Hesapla_Tik = Environment.TickCount + 500; }
-
+            if (!Ortak.Gösterge.Çalışsın) return;
+           
             foreach (IDepo_Eleman serino in bt.Talepler)
             {
                 string HataMesajı = "";
@@ -348,7 +331,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Ayarlar_GenelAnlamda.Yaz(i.ToString(), (string)_2_Tablo[3, i].Value, 2);
             }
 
-            Banka.Değişiklikleri_Kaydet();
+            Banka.Değişiklikleri_Kaydet(Kaydet);
             Kaydet.Enabled = false;
         }
     }

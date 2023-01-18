@@ -113,7 +113,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar_Bilgisayar.Yaz("Pdf", Klasör_Pdf.Text);
             Ayarlar_Küçültüldüğünde.Yaz(null, KüçültüldüğündeParolaSor.Checked, 0);
             Ayarlar_Küçültüldüğünde.Yaz(null, (int)KüçültüldüğündeParolaSor_sn.Value, 1);
-            Banka.Değişiklikleri_Kaydet();
+            Banka.Değişiklikleri_Kaydet(Kaydet);
 
             Ortak.Kullanıcı_Klasör_Yedek = Ayarlar_Bilgisayar.Bul("Yedek", true).İçeriği;
             Ortak.Kullanıcı_Klasör_Pdf = Klasör_Pdf.Text;

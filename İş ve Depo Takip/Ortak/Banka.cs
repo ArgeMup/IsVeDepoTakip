@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip
@@ -549,7 +548,7 @@ namespace İş_ve_Depo_Takip
             if (fark_tarih > 0)
             {
                 Tablo_Dal(null, TabloTürü.Malzemeler, "Son Aylık Sayım").Yaz(null, DateTime.Now);
-                Değişiklikleri_Kaydet();
+                Değişiklikleri_Kaydet(null);
             }
         }
         public static List<string> Malzeme_Listele()
@@ -1142,8 +1141,6 @@ namespace İş_ve_Depo_Takip
         }
         public static void Talep_TablodaGöster(DataGridView Tablo, Banka_Tablo_ İçerik, bool ÖnceTemizle = true)
         {
-            Ortak.Gösterge_UzunİşlemİçinBekleyiniz.BackColor = System.Drawing.Color.Salmon;
-            Ortak.Gösterge_UzunİşlemİçinBekleyiniz.Refresh();
             Tablo.Tag = 0;
 
             if (ÖnceTemizle)
@@ -1237,7 +1234,6 @@ namespace İş_ve_Depo_Takip
 
             Tablo.ClearSelection();
             Tablo.Tag = null;
-            Ortak.Gösterge_UzunİşlemİçinBekleyiniz.BackColor = System.Drawing.Color.White;
         }
         public static void Talep_Ayıkla_İş(IDepo_Eleman SeriNoDalı, out string Hasta, out string İşler, ref double Toplam)
         {
@@ -1353,8 +1349,18 @@ namespace İş_ve_Depo_Takip
             Açıklamalar.Add("Genel Toplam"); Ücretler.Add(Yazdır_Ücret(AltToplam + İlaveÖdeme));
         }
 
-        public static void Değişiklikleri_Kaydet()
+        public static void Değişiklikleri_Kaydet(Control Tetikleyen)
         {
+            if (Yedekleme_Tümü_Çalışıyor)
+            {
+                Ortak.Gösterge.Başlat("Yedekleniyor", false, Tetikleyen, 0);
+
+                while (Yedekleme_Tümü_Çalışıyor && Ortak.Gösterge.Çalışsın)
+                {
+                    System.Threading.Thread.Sleep(250);
+                }
+            }
+
             if (Yedekleme_İzleyici_DeğişiklikYapıldı != null)
             {
                 string soru = "Yedeğinizin içeriği uygulama haricinde değiştirildi." + Environment.NewLine +
@@ -1374,18 +1380,25 @@ namespace İş_ve_Depo_Takip
             }
             
             bool EnAzBirDeğişiklikYapıldı = false;
+            Ortak.Gösterge.Başlat("Kaydediliyor", false, Tetikleyen, 5 + (Müşteriler == null ? 0 : Müşteriler.Count * 3));
 
+            Ortak.Gösterge.İlerleme = 1;
             if (İşTürleri != null && İşTürleri.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("İş Türleri", İşTürleri); EnAzBirDeğişiklikYapıldı = true; }
+            Ortak.Gösterge.İlerleme = 1;
             if (Malzemeler != null && Malzemeler.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Malzemeler", Malzemeler); EnAzBirDeğişiklikYapıldı = true; }
+            Ortak.Gösterge.İlerleme = 1;
             if (Ücretler != null && Ücretler.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Ücretler", Ücretler); EnAzBirDeğişiklikYapıldı = true; }
             
             if (Müşteriler != null && Müşteriler.Count > 0)
             {
                 foreach (Müşteri_ m in Müşteriler.Values)
                 {
+                    Ortak.Gösterge.İlerleme = 1;
                     if (m.DevamEden != null && m.DevamEden.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet(m.Adı + "\\Devam Eden", m.DevamEden); EnAzBirDeğişiklikYapıldı = true; }
+                    Ortak.Gösterge.İlerleme = 1;
                     if (m.Ücretler != null && m.Ücretler.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet(m.Adı + "\\Ücretler", m.Ücretler); EnAzBirDeğişiklikYapıldı = true; }
 
+                    Ortak.Gösterge.İlerleme = 1;
                     if (m.ÖdemeTalepEdildi != null)
                     {
                         foreach (KeyValuePair<string, Depo_> a in m.ÖdemeTalepEdildi)
@@ -1407,6 +1420,7 @@ namespace İş_ve_Depo_Takip
                 }
             }
 
+            Ortak.Gösterge.İlerleme = 1;
             if (Ayarlar != null && ( Ayarlar.EnAzBir_ElemanAdıVeyaİçeriği_Değişti || EnAzBirDeğişiklikYapıldı )) 
             {
                 Ayarlar.Yaz("Son Banka Kayıt", Kendi.BilgisayarAdı + " " + Kendi.KullanıcıAdı, 0);
@@ -1416,11 +1430,14 @@ namespace İş_ve_Depo_Takip
                 EnAzBirDeğişiklikYapıldı = true; 
             }
 
+            Ortak.Gösterge.İlerleme = 1;
             if (EnAzBirDeğişiklikYapıldı)
             {
                 DoğrulamaKodu.Üret.Klasörden(Ortak.Klasör_Banka, true, SearchOption.AllDirectories, Parola.Yazı);
                 Yedekle_Banka();
             }
+
+            Ortak.Gösterge.Bitir();
         }
         public static void Değişiklikler_TamponuSıfırla()
         {
@@ -1599,7 +1616,6 @@ namespace İş_ve_Depo_Takip
 
         #region Yedekleme
         public static bool Yedekleme_Tümü_Çalışıyor = false;
-        static string Yedekle_Tümü_ÖndekiEkran_ÜstYazısı = null;
 
         static FileSystemWatcher[] Yedekleme_izleyiciler = null;
         static string _Yedekleme_İzleyici_DeğişiklikYapıldı = null;
@@ -1712,9 +1728,7 @@ namespace İş_ve_Depo_Takip
                 Yedekleme_İzleyici_DeğişiklikYapıldı = null;
             }
 
-            Yedekle_Tümü_HassasTuşlar(false);
-
-            Task.Run(() =>
+            System.Threading.Tasks.Task.Run(() =>
             {
                 Klasör_ ydk_ler = new Klasör_(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip", EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
                 ydk_ler.Dosya_Sil_SayısınaVeBoyutunaGöre(100, 500 * 1024 * 1024 /*500MB*/, Ortak.EşZamanlıİşlemSayısı);
@@ -1768,55 +1782,8 @@ namespace İş_ve_Depo_Takip
                     Yedekleme_İzleyici_Başlat();
                 }
 
-                Ortak.AnaEkran.Invoke(new Action(() => { Yedekle_Tümü_HassasTuşlar(true); }));
-
                 Yedekleme_Tümü_Çalışıyor = false;
             });
-        }
-        public static void Yedekle_Tümü_HassasTuşlar(bool Göster)
-        {
-            // Değişiklikleri_Kaydet(); çağıran her tuş için uygulanacak
-
-            //açılış ekranı
-            Ortak.AnaEkran.Controls.Find("YeniParola_Kaydet", true)[0].Enabled = Göster;
-            
-            if (Ortak.AnaEkran.ÖndekiEkran != null && !Ortak.AnaEkran.ÖndekiEkran.Disposing && !Ortak.AnaEkran.ÖndekiEkran.IsDisposed)
-            {
-                //diğer ekran
-                Gizle_Göster("Kaydet");
-                Gizle_Göster("Ekle");
-                Gizle_Göster("Sil");
-
-                if (Ortak.AnaEkran.ÖndekiEkran.Name == "Tüm_İşler")
-                {
-                    Gizle_Göster("İşTakip_DevamEden_Sil");
-                    Gizle_Göster("İşTakip_DevamEden_İsaretle_Bitti");
-                    Gizle_Göster("İşTakip_TeslimEdildi_İşaretle_Etkin");
-                    Gizle_Göster("İşTakip_TeslimEdildi_ÖdemeTalebiOluştur");
-                    Gizle_Göster("İşTakip_ÖdemeBekleyen_İptalEt");
-                    Gizle_Göster("İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle");
-                }
-                else if (Ortak.AnaEkran.ÖndekiEkran.Name == "Müşteriler")
-                {
-                    Gizle_Göster("Liste");
-                }
-
-                if (Göster) Ortak.AnaEkran.ÖndekiEkran.Text = Yedekle_Tümü_ÖndekiEkran_ÜstYazısı;
-                else
-                {
-                    Yedekle_Tümü_ÖndekiEkran_ÜstYazısı = Ortak.AnaEkran.ÖndekiEkran.Text;
-                    Ortak.AnaEkran.ÖndekiEkran.Text = "Yedekleniyor";
-                }
-            }
-
-            void Gizle_Göster(string Adı)
-            {
-                Control[] c = Ortak.AnaEkran.ÖndekiEkran.Controls.Find(Adı, true);
-                if (c != null && c.Length > 0)
-                {
-                    foreach (Control cc in c) cc.Visible = Göster;
-                }
-            }
         }
         public static void Yedekle_Banka()
         {

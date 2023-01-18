@@ -95,7 +95,7 @@ namespace İş_ve_Depo_Takip
 
             Banka.Değişiklikler_TamponuSıfırla();
             Banka.Müşteri_İsminiDeğiştir(Liste.Text, Yeni.Text);
-            Banka.Değişiklikleri_Kaydet();
+            Banka.Değişiklikleri_Kaydet(Liste);
             Banka.Değişiklikler_TamponuSıfırla();
 
             AramaÇubuğu_Liste.Remove(Liste.Text);
@@ -122,7 +122,7 @@ namespace İş_ve_Depo_Takip
             }	
 			
             Banka.Müşteri_Sil(Liste.Text);
-            Banka.Değişiklikleri_Kaydet();
+            Banka.Değişiklikleri_Kaydet(Liste);
 
             AramaÇubuğu_Liste.Remove(Liste.Text);
             Liste.Items.RemoveAt(Liste.SelectedIndex);
@@ -146,7 +146,7 @@ namespace İş_ve_Depo_Takip
             }
             
             Banka.Müşteri_Ekle(Yeni.Text);
-            Banka.Değişiklikleri_Kaydet();
+            Banka.Değişiklikleri_Kaydet(Ekle);
 
             Liste.Items.Add(Yeni.Text);
             AramaÇubuğu_Liste.Add(Yeni.Text);
@@ -164,7 +164,7 @@ namespace İş_ve_Depo_Takip
             m.Yaz("Eposta/Bilgi", Eposta_Bilgi.Text);
             m.Yaz("Eposta/Gizli", Eposta_Gizli.Text);
             m.Yaz("Notlar", Notlar.Text.Trim());
-            Banka.Değişiklikleri_Kaydet();
+            Banka.Değişiklikleri_Kaydet(Kaydet);
 
             splitContainer1.Panel1.Enabled = true;
             Liste_SelectedValueChanged(null, null);

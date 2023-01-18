@@ -4,7 +4,6 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip
@@ -81,7 +80,6 @@ namespace İş_ve_Depo_Takip
             return true;
         }
 
-        public static TextBox Gösterge_UzunİşlemİçinBekleyiniz = null;
         public static System.Collections.Generic.Dictionary<string, string> Gösterge_UyarıVerenMalzemeler = new System.Collections.Generic.Dictionary<string, string>();
         public static void Gösterge_Açılışİşlemi(Label Gösterge, string Açıklama, ref int Tik)
         {
@@ -91,6 +89,7 @@ namespace İş_ve_Depo_Takip
             Gösterge.Refresh();
             Tik = Environment.TickCount;
         }
+        public static Ekranlar.Bekleyiniz Gösterge = new Ekranlar.Bekleyiniz();
 
         public static int EşZamanlıİşlemSayısı = 3;
         static Random rnd = new Random();
@@ -158,7 +157,7 @@ namespace İş_ve_Depo_Takip
             int za = Environment.TickCount + ZamanAşımı_msn;
             while (za > Environment.TickCount)
             {
-                Thread.Sleep(100);
+                System.Threading.Thread.Sleep(100);
 
                 try
                 {
@@ -183,7 +182,7 @@ namespace İş_ve_Depo_Takip
             {
                 if (Klasör.AslınaUygunHaleGetir(Kaynak, Hedef, true, EşZamanlıİşlemSayısı)) return true;
 
-                Thread.Sleep(100);
+                System.Threading.Thread.Sleep(100);
             }
 
             return false;

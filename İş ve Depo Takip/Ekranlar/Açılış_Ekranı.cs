@@ -289,8 +289,6 @@ namespace İş_ve_Depo_Takip
         private void ÖndekiEkran_Shown(object sender, EventArgs e)
         {
             Ortak.GeçiciDepolama_PencereKonumları_Yaz(ÖndekiEkran);
-
-            if (Banka.Yedekleme_Tümü_Çalışıyor) Banka.Yedekle_Tümü_HassasTuşlar(false);
         } 
         private void ÖndekiEkran_Tuş(object sender, KeyEventArgs e)
         {
@@ -369,7 +367,7 @@ namespace İş_ve_Depo_Takip
                 }
             }
             
-            Banka.Değişiklikleri_Kaydet();
+            Banka.Değişiklikleri_Kaydet(YeniParola_Kaydet);
 
             P_YeniParola.Visible = false;
             Parola_Giriş.Text = "";

@@ -96,7 +96,7 @@ namespace İş_ve_Depo_Takip
             if (Dr == DialogResult.No) return;
 
             Banka.İşTürü_Sil(Liste.Text);
-            Banka.Değişiklikleri_Kaydet();
+            Banka.Değişiklikleri_Kaydet(Sil);
 
             AramaÇubuğu_Liste.Remove(Liste.Text);
             Liste.Items.RemoveAt(Liste.SelectedIndex);
@@ -114,7 +114,7 @@ namespace İş_ve_Depo_Takip
             }
 
             Banka.İşTürü_Ekle(Yeni.Text);
-            Banka.Değişiklikleri_Kaydet();
+            Banka.Değişiklikleri_Kaydet(Ekle);
 
             Liste.Items.Add(Yeni.Text);
             AramaÇubuğu_Liste.Add(Yeni.Text);
@@ -176,7 +176,7 @@ namespace İş_ve_Depo_Takip
             }
 
             Banka.İşTürü_Malzemeler_Kaydet(Liste.Text, Malzemeler, Miktarlar, Notlar.Text.Trim());
-            Banka.Değişiklikleri_Kaydet();
+            Banka.Değişiklikleri_Kaydet(Kaydet);
 
             splitContainer1.Panel1.Enabled = true;
             Liste_SelectedValueChanged(null, null);

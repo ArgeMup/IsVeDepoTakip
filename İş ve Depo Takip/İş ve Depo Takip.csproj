@@ -70,6 +70,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ekranlar\Bekleyiniz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ekranlar\Bekleyiniz.Designer.cs">
+      <DependentUpon>Bekleyiniz.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ekranlar\Ayarlar_Eposta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,6 +183,9 @@
       <DependentUpon>Yeni_İş_Girişi.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <EmbeddedResource Include="Ekranlar\Bekleyiniz.resx">
+      <DependentUpon>Bekleyiniz.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Ayarlar_Eposta.resx">
       <DependentUpon>Ayarlar_Eposta.cs</DependentUpon>
     </EmbeddedResource>

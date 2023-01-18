@@ -55,7 +55,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar.Yaz("Gönderici/Şifresi", Gönderici_Şifre.Text);
             Ayarlar.Yaz("Mesaj/Konu", Mesaj_Konu.Text);
             Ayarlar.Yaz("Mesaj/İçerik", Mesaj_İçerik.Text);
-            Banka.Değişiklikleri_Kaydet();
+            Banka.Değişiklikleri_Kaydet(Kaydet);
 
             Ortak.Kullanıcı_Eposta_hesabı_mevcut = !string.IsNullOrEmpty(Gönderici_Şifre.Text);
             

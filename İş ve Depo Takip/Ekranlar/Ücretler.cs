@@ -188,7 +188,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Banka.Ücretler_TablodakileriKaydet(Tablo, null);
             }
             else Banka.Ücretler_TablodakileriKaydet(Tablo, Müşterıler.Text);
-            Banka.Değişiklikleri_Kaydet();
+            Banka.Değişiklikleri_Kaydet(Kaydet);
 
             Kaydet.Enabled = false;
             splitContainer1.Panel1.Enabled = true;

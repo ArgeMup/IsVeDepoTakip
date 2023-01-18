@@ -92,7 +92,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar.Yaz("Firma Logosu", (double)FirmaLogo_Genişlik.Value, 0);
             Ayarlar.Yaz("Firma Logosu", (double)FirmaLogo_Yükseklik.Value, 1);
 
-            Banka.Değişiklikleri_Kaydet();
+            Banka.Değişiklikleri_Kaydet(Kaydet);
             Kaydet.Enabled = false;
         }
         private void Ayar_Değişti(object sender, EventArgs e)
