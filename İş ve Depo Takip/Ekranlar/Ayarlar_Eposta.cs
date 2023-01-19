@@ -76,14 +76,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Yazdırma y = new Yazdırma();
             y.Yazdır_Depo(d, dosyayolu);
 
-            ArgeMup.HazirKod.Depo_ müşteri = new ArgeMup.HazirKod.Depo_();
-            müşteri.Yaz("Örnek Müşteri Adı/Eposta/Kime", Gönderici_Adres.Text);
-
-            string snç = EpostaGönder(müşteri.Elemanları[0], new string[] { dosyayolu });
+            d.Yaz("E-posta/Kime", Gönderici_Adres.Text);
+            string snç = EpostaGönder(d, new string[] { dosyayolu });
             if (!string.IsNullOrEmpty(snç)) MessageBox.Show(snç, Text);
         }
 
-        public string EpostaGönder(IDepo_Eleman Müşteri, string[] DosyaEkleri, int ZamanAşımı_msn = 15000)
+        public string EpostaGönder(ArgeMup.HazirKod.Depo_ Müşteri, string[] DosyaEkleri, int ZamanAşımı_msn = 15000)
         {
             string HataMesajı = "";
             int za = Environment.TickCount + ZamanAşımı_msn;
@@ -94,18 +92,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     MailMessage mail = new MailMessage();
                     mail.From = new MailAddress(Gönderici_Adres.Text, Gönderici_Ad.Text, System.Text.Encoding.UTF8);
 
-                    string[] l = Müşteri.Oku("Eposta/Kime", "").Split(';');
+                    string[] l = Müşteri.Oku("E-posta/Kime", "").Split(';');
                     foreach (string a in l) if (!string.IsNullOrEmpty(a)) mail.To.Add(a);
 
-                    l = Müşteri.Oku("Eposta/Bilgi", "").Split(';');
+                    l = Müşteri.Oku("E-posta/Bilgi", "").Split(';');
                     foreach (string a in l) if (!string.IsNullOrEmpty(a)) mail.CC.Add(a);
 
-                    l = Müşteri.Oku("Eposta/Gizli", "").Split(';');
+                    l = Müşteri.Oku("E-posta/Gizli", "").Split(';');
                     foreach (string a in l) if (!string.IsNullOrEmpty(a)) mail.Bcc.Add(a);
 
                     mail.Subject = Mesaj_Konu.Text;
                     mail.SubjectEncoding = System.Text.Encoding.UTF8;
-                    mail.Body = Mesaj_İçerik.Text.Replace("%Müşteri%", Müşteri.Adı);
+                    mail.Body = Mesaj_İçerik.Text.Replace("%Müşteri%", Müşteri.Oku("Müşteri"));
                     mail.BodyEncoding = System.Text.Encoding.UTF8;
                     mail.IsBodyHtml = true;
                     foreach (string ek in DosyaEkleri)

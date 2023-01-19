@@ -1,4 +1,5 @@
 ﻿using ArgeMup.HazirKod;
+using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -40,14 +41,11 @@ namespace İş_ve_Depo_Takip
             if (string.IsNullOrEmpty(Liste.Text)) { splitContainer1.Panel2.Enabled = false; return; }
             Yeni.Text = Liste.Text;
 
-            IDepo_Eleman m = Banka.Müşteri_Ayarlar(Liste.Text);
-            if (m != null)
-            {
-                Eposta_Kime.Text = m.Oku("Eposta/Kime");
-                Eposta_Bilgi.Text = m.Oku("Eposta/Bilgi");
-                Eposta_Gizli.Text = m.Oku("Eposta/Gizli");
-                Notlar.Text = m.Oku("Notlar");
-            }
+            IDepo_Eleman m = Banka.Müşteri_Ayarlar(Liste.Text, "E-posta", true);
+            Eposta_Kime.Text = m.Oku("Kime");
+            Eposta_Bilgi.Text = m.Oku("Bilgi");
+            Eposta_Gizli.Text = m.Oku("Gizli");
+            Notlar.Text = Banka.Müşteri_Ayarlar(Liste.Text, "Notlar", true)[0];
 
             splitContainer1.Panel1.Enabled = true;
             splitContainer1.Panel2.Enabled = true;
@@ -91,6 +89,15 @@ namespace İş_ve_Depo_Takip
                 {
                     throw new Exception("Klasör silinemedi." + Environment.NewLine + Ortak.Klasör_Banka + Yeni.Text);
                 }
+            }
+            else
+            {
+                if (!Klasör.Oluştur(Ortak.Klasör_Banka + Yeni.Text))
+                {
+                    MessageBox.Show(Yeni.Text + " girdisi ile klasör oluşturulamıyor, uygun olmayan karakterleri değiştiriniz", Text);
+                    return;
+                }
+                else Klasör.Sil(Ortak.Klasör_Banka + Yeni.Text);
             }
 
             Banka.Değişiklikler_TamponuSıfırla();
@@ -144,6 +151,13 @@ namespace İş_ve_Depo_Takip
                 }
                 else Klasör.Sil(Ortak.Klasör_Banka + Yeni.Text);
             }
+            else
+            {
+                DialogResult Dr = MessageBox.Show("Önceden kullanılmış bir isim seçtiniz." + Environment.NewLine +
+                    "Dolayısıyla kaydedilmiş ayar ve ücret bilgilerinin geçerli kabul edileceğini göz önünde bulundurunuz." + Environment.NewLine + Environment.NewLine +
+                    "İşleme devam etmek istiyor musunuz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (Dr == DialogResult.No) return;
+            }
             
             Banka.Müşteri_Ekle(Yeni.Text);
             Banka.Değişiklikleri_Kaydet(Ekle);
@@ -159,11 +173,11 @@ namespace İş_ve_Depo_Takip
         }
         private void Kaydet_Click(object sender, EventArgs e)
         {
-            IDepo_Eleman m = Banka.Müşteri_Ayarlar(Liste.Text, true);
-            m.Yaz("Eposta/Kime", Eposta_Kime.Text);
-            m.Yaz("Eposta/Bilgi", Eposta_Bilgi.Text);
-            m.Yaz("Eposta/Gizli", Eposta_Gizli.Text);
-            m.Yaz("Notlar", Notlar.Text.Trim());
+            IDepo_Eleman m = Banka.Müşteri_Ayarlar(Liste.Text, "E-posta", true);
+            m.Yaz("Kime", Eposta_Kime.Text.Trim());
+            m.Yaz("Bilgi", Eposta_Bilgi.Text.Trim());
+            m.Yaz("Gizli", Eposta_Gizli.Text.Trim());
+            Banka.Müşteri_Ayarlar(Liste.Text, "Notlar", true)[0] = Notlar.Text.Trim();
             Banka.Değişiklikleri_Kaydet(Kaydet);
 
             splitContainer1.Panel1.Enabled = true;

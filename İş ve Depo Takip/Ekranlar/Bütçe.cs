@@ -204,9 +204,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             _1_Gelir.Tag = gel;
             _1_Gider.Tag = gid;
 
-            Ortak.Gösterge.Bitir();
-  
             if (Ortak.Gösterge.Çalışsın) _1_AltToplam.BackColor = gel > gid ? System.Drawing.Color.YellowGreen : System.Drawing.Color.Salmon;
+            Ortak.Gösterge.Bitir();
         }
         private void _1_Hesapla_2(string Müşteri, Banka_Tablo_ bt, out double Gelir, out double Gider)
         {

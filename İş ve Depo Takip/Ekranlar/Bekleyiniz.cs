@@ -7,6 +7,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
     public partial class Bekleyiniz : Form
     {
         private int Tik = 0;
+        const int Tik_ZamanAşımmı_msn = 500;
         private bool _Çalışsın = false;
         private Control Tetikleyen = null;
 
@@ -19,7 +20,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     if (!Visible) Show();
 
                     Application.DoEvents(); 
-                    Tik = Environment.TickCount + 250; 
+                    Tik = Environment.TickCount + Tik_ZamanAşımmı_msn; 
                 }
                 
                 return _Çalışsın;
@@ -59,8 +60,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             _Çalışsın = true;
 
-            if (Tetikleyen != null) Tetikleyen.Enabled = false;
+            if (Tetikleyen != null)
+            {
+                Tetikleyen.Enabled = false;
+                Application.DoEvents();
+            }
             this.Tetikleyen = Tetikleyen;
+
+            Tik = Environment.TickCount + Tik_ZamanAşımmı_msn;
         }
         public void Bitir()
         {

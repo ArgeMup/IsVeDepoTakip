@@ -113,6 +113,33 @@ namespace İş_ve_Depo_Takip
             Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "İlk Kullanıma Hazırlanıyor", ref Açılışİşlemi_Tik);
             #endregion
 
+            #region Yeni Sürüme Uygun Hale Getirme
+            if (File.Exists(Ortak.Klasör_Banka + "Ücretler.mup"))
+            {
+                //Genel ücretler -> genel iş türleri <Bütçe> içine kaydedilmesi
+                Depo_ Ücretler = Depo_Aç("Ücretler");
+                Depo_ iş_türleri = Depo_Aç("İş Türleri");
+                foreach (IDepo_Eleman ücrt in Ücretler["Ücretler"].Elemanları)
+                {
+                    IDepo_Eleman iş_türü = iş_türleri.Bul(ücrt.Adı);
+                    if (iş_türü == null) continue; //ücret var ama iş türü yok : atla
+
+                    iş_türü["Bütçe"].İçeriği = ücrt.İçeriği; //ücet + maliyet
+                }
+
+                Depo_Kaydet("İş Türleri", iş_türleri);
+                File.Delete(Ortak.Klasör_Banka + "Ücretler.mup");
+
+                string[] dsy_ücr_ler = Directory.GetFiles(Ortak.Klasör_Banka, "Ücretler.mup", SearchOption.AllDirectories);
+                foreach (string dsy in dsy_ücr_ler) Dosya.Sil(dsy);
+
+                Ayarlar_Genel("Son Banka Kayıt", true).Yaz(null, DateTime.Now, 1);
+                Değişiklikleri_Kaydet(null);
+                Yedekle_Banka();
+            }
+            Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Yeni Sürüme Uygunlaştırma", ref Açılışİşlemi_Tik);
+            #endregion
+
             Malzeme_KritikMiktarKontrolü();
             Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Malzeme Durumu", ref Açılışİşlemi_Tik);
         }
@@ -145,7 +172,8 @@ namespace İş_ve_Depo_Takip
             }
             Depo.Yaz("Ödeme", t, 1);
             Depo.Yaz("Ödeme", "Fatura No : ASDF123466", 2);
-            Depo.Yaz("Ödeme/Alt Toplam", 123456789);
+            Depo.Yaz("Ödeme/Alt Toplam", 12345000);
+            Depo.Yaz("Ödeme/Alt Toplam", 10, 1);
             Depo.Yaz("Ödeme/İlave Ödeme", "Örnek İlave ödeme açıklaması", 0);
             Depo.Yaz("Ödeme/İlave Ödeme", 35.79, 1);
 
@@ -170,19 +198,6 @@ namespace İş_ve_Depo_Takip
                             Ayarlar = Depo_Aç("Ayarlar");
                         }
                         depo = Ayarlar;
-                        break;
-
-                    case TabloTürü.Ücretler:
-                        if (Ücretler == null)
-                        {
-                            if (!Depo_DosyaVarMı("Ücretler"))
-                            {
-                                if (!YoksaOluştur) return null;
-                            }
-
-                            Ücretler = Depo_Aç("Ücretler");
-                        }
-                        depo = Ücretler;
                         break;
 
                     case TabloTürü.İşTürleri:
@@ -241,17 +256,17 @@ namespace İş_ve_Depo_Takip
                         depo = m.DevamEden;
                         break;
 
-                    case TabloTürü.Ücretler:
-                        if (m.Ücretler == null)
+                    case TabloTürü.Ayarlar:
+                        if (m.Ayarlar == null)
                         {
-                            if (!Depo_DosyaVarMı(Müşteri + "\\Ücretler"))
+                            if (!Depo_DosyaVarMı(Müşteri + "\\Ayarlar"))
                             {
                                 if (!YoksaOluştur) return null;
                             }
 
-                            m.Ücretler = Depo_Aç(Müşteri + "\\Ücretler");
+                            m.Ayarlar = Depo_Aç(Müşteri + "\\Ayarlar");
                         }
-                        depo = m.Ücretler;
+                        depo = m.Ayarlar;
                         break;
 
                     case TabloTürü.ÖdemeTalepEdildi:
@@ -374,7 +389,7 @@ namespace İş_ve_Depo_Takip
         
         public static List<string> Müşteri_Listele()
         {
-            IDepo_Eleman d = Müşteri_Ayarlar(null);
+            IDepo_Eleman d = Ayarlar_Genel("Müşteriler");
             List<string> l = new List<string>();
             if (d == null) return l;
 
@@ -389,21 +404,20 @@ namespace İş_ve_Depo_Takip
         }
         public static void Müşteri_Ekle(string Adı)
         {
-            Müşteri_Ayarlar(Adı, true)[0] = ".";
+            Ayarlar_Genel("Müşteriler/" + Adı, true)[0] = ".";
         }
         public static void Müşteri_Sil(string Adı)
         {
-            IDepo_Eleman d = Müşteri_Ayarlar(Adı);
+            IDepo_Eleman d = Ayarlar_Genel("Müşteriler/" + Adı);
             if (d != null) d.Sil(null);
         }
         public static bool Müşteri_MevcutMu(string Adı)
         {
-            return !string.IsNullOrWhiteSpace(Adı) && Müşteri_Ayarlar(Adı) != null;
+            return !string.IsNullOrWhiteSpace(Adı) && Ayarlar_Genel("Müşteriler/" + Adı) != null;
         }
-        public static IDepo_Eleman Müşteri_Ayarlar(string Müşteri, bool YoksaOluştur = false)
+        public static IDepo_Eleman Müşteri_Ayarlar(string Müşteri, string Dal, bool YoksaOluştur = false)
         {
-            Müşteri = "Müşteriler" + (string.IsNullOrEmpty(Müşteri) ? null : "/" + Müşteri);
-            return Tablo_Dal(null, TabloTürü.Ayarlar, Müşteri, YoksaOluştur);
+            return Tablo_Dal(Müşteri, TabloTürü.Ayarlar, Dal, YoksaOluştur);
         }
         public static void Müşteri_İsminiDeğiştir(string Eski, string Yeni)
         {
@@ -438,7 +452,7 @@ namespace İş_ve_Depo_Takip
         {
             Depo_ d = Tablo(null, TabloTürü.İşTürleri);
             List<string> l = new List<string>();
-            if (d == null) return l;
+            if (d == null || d.Elemanları.Length == 0) return l;
 
             foreach (IDepo_Eleman e in d.Elemanları)
             {
@@ -776,79 +790,95 @@ namespace İş_ve_Depo_Takip
             return yeni_sn;
         }
 
-        static List<IDepo_Eleman> Ücretler_Listele(string Müşteri)
+        public static void Ücretler_TablodaGöster(DataGridView Önyüz_Tablo, string Müşteri)
         {
-            IDepo_Eleman d = Tablo_Dal(Müşteri, TabloTürü.Ücretler, "Ücretler");
-            List<IDepo_Eleman> l = new List<IDepo_Eleman>();
-            if (d == null || d.Elemanları.Length == 0) return l;
-
-            foreach (IDepo_Eleman e in d.Elemanları)
+            if (Önyüz_Tablo.SortedColumn != null)
             {
-                if (e.İçiBoşOlduğuİçinSilinecek) continue;
-
-                l.Add(e);
-            }
-
-            return l;
-        }
-        public static void Ücretler_TablodaGöster(DataGridView Tablo, string Müşteri)
-        {
-            if (Tablo.SortedColumn != null)
-            {
-                DataGridViewColumn col = Tablo.SortedColumn;
+                DataGridViewColumn col = Önyüz_Tablo.SortedColumn;
                 col.SortMode = DataGridViewColumnSortMode.NotSortable;
                 col.SortMode = DataGridViewColumnSortMode.Automatic;
             }
 
-            List<IDepo_Eleman> Ücretler = Ücretler_Listele(Müşteri);
-
-            for (int i = 0; i < Tablo.RowCount; i++)
+            if (Müşteri == null)
             {
-                string aranan = (string)Tablo[0, i].Value;
-                IDepo_Eleman bulunan = Ücretler.Find(x => x.Adı == aranan);
+                //tüm müşteriler için ortak ücretler
+                Önyüz_Tablo.Columns[2].Visible = true; // maliyet sutunu
 
-                if (bulunan != null)
-                {
-                    Tablo[1, i].Value = bulunan[0];
-                    if (Müşteri == null) Tablo[2, i].Value = bulunan[1];
-                    Ücretler.Remove(bulunan);
-                }
-                else Tablo[1, i].Value = null;
-            }
-
-            if (Ücretler.Count > 0)
-            {
-                //dosya içinde önceden kalma girdi var
-
-                IDepo_Eleman d = Tablo_Dal(Müşteri, TabloTürü.Ücretler, "Ücretler");
-                foreach (IDepo_Eleman ü in Ücretler)
-                {
-                    d.Sil(ü.Adı);
-                }
-            }
-
-            Tablo.Columns[2].Visible = Müşteri == null;
-            Tablo.ClearSelection();
-        }
-        public static void Ücretler_TablodakileriKaydet(DataGridView Tablo, string Müşteri)
-        {
-            IDepo_Eleman d = Tablo_Dal(Müşteri, TabloTürü.Ücretler, "Ücretler", true);
-
-            for (int i = 0; i < Tablo.RowCount; i++)
-            {
-                string iştürü = (string)Tablo[0, i].Value;
-
-                string ücret = (string)Tablo[1, i].Value;
-                if (!string.IsNullOrEmpty(ücret)) ücret = ücret.NoktalıSayıya().Yazıya();
+                Depo_ İşTürleri = Tablo(null, TabloTürü.İşTürleri, true);
                 
-                d.Yaz(iştürü, ücret, 0);
-
-                if (Müşteri == null)
+                for (int i = 0; i < Önyüz_Tablo.RowCount; i++)
                 {
-                    string maliyet = (string)Tablo[2, i].Value;
+                    IDepo_Eleman bulunan = İşTürleri.Bul((string)Önyüz_Tablo[0, i].Value + "/Bütçe");
+
+                    if (bulunan != null)
+                    {
+                        Önyüz_Tablo[1, i].Value = bulunan[0]; //ücret
+                        Önyüz_Tablo[2, i].Value = bulunan[1]; //maliyet
+                    }
+                    else
+                    {
+                        Önyüz_Tablo[1, i].Value = null;
+                        Önyüz_Tablo[2, i].Value = null;
+                    }
+                }
+            }
+            else
+            {
+                //müşteriye ait ücretler
+                Önyüz_Tablo.Columns[2].Visible = false; // maliyet sutunu
+
+                IDepo_Eleman Bütçe = Müşteri_Ayarlar(Müşteri, "Bütçe", true);
+                
+                for (int i = 0; i < Önyüz_Tablo.RowCount; i++)
+                {
+                    IDepo_Eleman bulunan = Bütçe.Bul((string)Önyüz_Tablo[0, i].Value);
+
+                    if (bulunan != null)
+                    {
+                        Önyüz_Tablo[1, i].Value = bulunan[0]; //ücret
+                    }
+                    else
+                    {
+                        Önyüz_Tablo[1, i].Value = null;
+                    }
+                }
+            }
+            
+            Önyüz_Tablo.ClearSelection();
+        }
+        public static void Ücretler_TablodakileriKaydet(DataGridView Önyüz_Tablo, string Müşteri)
+        {
+            if (Müşteri == null)
+            {
+                //tüm müşteriler için ortak ücretler
+                Depo_ İşTürleri = Tablo(null, TabloTürü.İşTürleri, true);
+
+                for (int i = 0; i < Önyüz_Tablo.RowCount; i++)
+                {
+                    string iştürü = (string)Önyüz_Tablo[0, i].Value;
+
+                    string ücret = (string)Önyüz_Tablo[1, i].Value;
+                    if (!string.IsNullOrEmpty(ücret)) ücret = ücret.NoktalıSayıya().Yazıya();
+
+                    string maliyet = (string)Önyüz_Tablo[2, i].Value;
                     if (!string.IsNullOrEmpty(maliyet)) maliyet = maliyet.NoktalıSayıya().Yazıya();
 
-                    d.Yaz(iştürü, maliyet, 1);
+                    İşTürleri[iştürü + "/Bütçe"].İçeriği = new string[] { ücret, maliyet }; 
+                }
+            }
+            else
+            {
+                //müşteriye ait ücretler
+                IDepo_Eleman Bütçe = Müşteri_Ayarlar(Müşteri, "Bütçe", true);
+
+                for (int i = 0; i < Önyüz_Tablo.RowCount; i++)
+                {
+                    string iştürü = (string)Önyüz_Tablo[0, i].Value;
+
+                    string ücret = (string)Önyüz_Tablo[1, i].Value;
+                    if (!string.IsNullOrEmpty(ücret)) ücret = ücret.NoktalıSayıya().Yazıya();
+
+                    Bütçe[iştürü].İçeriği = new string[] { ücret };
                 }
             }
         }
@@ -857,12 +887,13 @@ namespace İş_ve_Depo_Takip
             string ücret = null;
 
             //müşteriye özel ücret varmı diye bak
-            IDepo_Eleman d = Tablo_Dal(Müşteri, TabloTürü.Ücretler, "Ücretler/" + İşTürü);
+            IDepo_Eleman d = Müşteri_Ayarlar(Müşteri, "Bütçe/" + İşTürü);
             if (d != null) ücret = d[0];
             
             if (string.IsNullOrEmpty(ücret))
             {
-                d = Tablo_Dal(null, TabloTürü.Ücretler, "Ücretler/" + İşTürü);
+                //tüm müşteriler için ortak ücret
+                d = Tablo_Dal(null, TabloTürü.İşTürleri, İşTürü + "/Bütçe");
                 if (d != null) ücret = d[0];
             }
 
@@ -872,18 +903,17 @@ namespace İş_ve_Depo_Takip
         public static string Ücretler_BirimÜcret_Detaylı(string Müşteri, string İşTürü)
         {
             double müşteriye_özel = -1, ortak = -1, maliyet = -1;
+            IDepo_Eleman d;
 
             //müşteriye özel ücret varmı diye bak
-            IDepo_Eleman d;
-            
             if (!string.IsNullOrEmpty(Müşteri))
             {
-                d = Tablo_Dal(Müşteri, TabloTürü.Ücretler, "Ücretler/" + İşTürü);
+                d = Müşteri_Ayarlar(Müşteri, "Bütçe/" + İşTürü);
                 if (d != null) müşteriye_özel = d.Oku_Sayı(null, -1);
             }
 
-            //genel ücret
-            d = Tablo_Dal(null, TabloTürü.Ücretler, "Ücretler/" + İşTürü);
+            //tüm müşteriler için ortak ücret
+            d = Tablo_Dal(null, TabloTürü.İşTürleri, İşTürü + "/Bütçe");
             if (d != null) ortak = d.Oku_Sayı(null, -1, 0);
 
             if (müşteriye_özel < 0 && ortak < 0)
@@ -902,8 +932,9 @@ namespace İş_ve_Depo_Takip
         }
         public static double Ücretler_Maliyet(string İşTürü)
         {
-            IDepo_Eleman d = Tablo_Dal(null, TabloTürü.Ücretler, "Ücretler/" + İşTürü);
-            
+            //tüm müşteriler için ortak ücret
+            IDepo_Eleman d = Tablo_Dal(null, TabloTürü.İşTürleri, İşTürü + "/Bütçe");
+
             if (d != null) return d.Oku_Sayı(null, 0, 1);
             else return 0;
         }
@@ -1410,8 +1441,6 @@ namespace İş_ve_Depo_Takip
             if (İşTürleri != null && İşTürleri.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("İş Türleri", İşTürleri); EnAzBirDeğişiklikYapıldı = true; }
             Ortak.Gösterge.İlerleme = 1;
             if (Malzemeler != null && Malzemeler.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Malzemeler", Malzemeler); EnAzBirDeğişiklikYapıldı = true; }
-            Ortak.Gösterge.İlerleme = 1;
-            if (Ücretler != null && Ücretler.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Ücretler", Ücretler); EnAzBirDeğişiklikYapıldı = true; }
             
             if (Müşteriler != null && Müşteriler.Count > 0)
             {
@@ -1420,7 +1449,7 @@ namespace İş_ve_Depo_Takip
                     Ortak.Gösterge.İlerleme = 1;
                     if (m.DevamEden != null && m.DevamEden.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet(m.Adı + "\\Devam Eden", m.DevamEden); EnAzBirDeğişiklikYapıldı = true; }
                     Ortak.Gösterge.İlerleme = 1;
-                    if (m.Ücretler != null && m.Ücretler.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet(m.Adı + "\\Ücretler", m.Ücretler); EnAzBirDeğişiklikYapıldı = true; }
+                    if (m.Ayarlar != null && m.Ayarlar.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet(m.Adı + "\\Ayarlar", m.Ayarlar); EnAzBirDeğişiklikYapıldı = true; }
 
                     Ortak.Gösterge.İlerleme = 1;
                     if (m.ÖdemeTalepEdildi != null)
@@ -1468,7 +1497,6 @@ namespace İş_ve_Depo_Takip
             Ayarlar = null;
             İşTürleri = null;
             Malzemeler = null;
-            Ücretler = null;
             Müşteriler = null;
         }
 
@@ -1484,12 +1512,11 @@ namespace İş_ve_Depo_Takip
         }
 
         #region Demirbaşlar
-        public enum TabloTürü { Ayarlar, İşTürleri, Ücretler, Malzemeler, DevamEden, TeslimEdildi, ÖdemeTalepEdildi, Ödendi,
+        public enum TabloTürü { Ayarlar, İşTürleri, Malzemeler, DevamEden, TeslimEdildi, ÖdemeTalepEdildi, Ödendi,
                                                                              DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi
         }
         static Depo_ Ayarlar = null;
         static Depo_ İşTürleri = null;
-        static Depo_ Ücretler = null;
         static Depo_ Malzemeler = null;
 
         class Müşteri_
@@ -1497,7 +1524,7 @@ namespace İş_ve_Depo_Takip
             public string Adı = null;
 
             public Depo_ DevamEden = null;
-            public Depo_ Ücretler = null;
+            public Depo_ Ayarlar = null;
             public Dictionary<string, Depo_> ÖdemeTalepEdildi = null;
             public Dictionary<string, Depo_> Ödendi = null;
             
