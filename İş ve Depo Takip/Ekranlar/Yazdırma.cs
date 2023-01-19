@@ -349,6 +349,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     Sayfa.Yükseklik_YazılarİçinKullanılabilir = Sayfa.Yükseklik - (float)FirmaLogo_Yükseklik.Value - ev.Graphics.MeasureString("ŞÇÖĞ", Sayfa.KaKü_Başlık).Height /*Başlık*/;
 
+                    Depo = Banka.YazdırmayaHazırla_İşTürüAdları(Depo);
                     Hesaplat(Sayfa, Depo, ev.Graphics);
                 }
 

@@ -179,6 +179,26 @@ namespace İş_ve_Depo_Takip
 
             return Depo;
         }
+        public static Depo_ YazdırmayaHazırla_İşTürüAdları(Depo_ Depo)
+        {
+            Depo_ it_leri = Tablo(null, TabloTürü.İşTürleri);
+            if (it_leri == null) return Depo;
+
+            Depo = new Depo_(Depo.YazıyaDönüştür());
+
+            foreach (IDepo_Eleman sn in Depo.Bul("Talepler").Elemanları)
+            {
+                foreach (IDepo_Eleman iş in sn.Elemanları)
+                {
+                    IDepo_Eleman it_ma = it_leri.Bul(iş[0] + "/Müşteri için adı");
+                    if (it_ma == null || it_ma[0].BoşMu()) continue;
+
+                    iş[0] = it_ma[0];
+                }
+            }
+
+            return Depo;
+        }
 
         public static Depo_ Tablo(string Müşteri, TabloTürü Tür, bool YoksaOluştur = false, string EkTanım = null)
         {
@@ -488,7 +508,7 @@ namespace İş_ve_Depo_Takip
         {
             return !string.IsNullOrWhiteSpace(Adı) && Tablo_Dal(null, TabloTürü.İşTürleri, Adı) != null;
         }
-        public static void İşTürü_Malzemeler_TablodaGöster(DataGridView Tablo, string İşTürü, out string Notlar)
+        public static void İşTürü_Malzemeler_TablodaGöster(DataGridView Tablo, string İşTürü, out string MüşteriyeGösterilecekOlanAdı, out string Notlar)
         {
             Tablo.Rows.Clear();
             if (Tablo.SortedColumn != null)
@@ -498,10 +518,12 @@ namespace İş_ve_Depo_Takip
                 col.SortMode = DataGridViewColumnSortMode.Automatic;
             }
 
+            MüşteriyeGösterilecekOlanAdı = null;
             Notlar = null;
             IDepo_Eleman d = Tablo_Dal(null, TabloTürü.İşTürleri, İşTürü);
             if (d == null) return;
 
+            MüşteriyeGösterilecekOlanAdı = d.Oku("Müşteri için adı");
             Notlar = d.Oku("Notlar");
 
             d = d.Bul("Malzemeler");
@@ -523,9 +545,10 @@ namespace İş_ve_Depo_Takip
 
             Tablo.ClearSelection();
         }
-        public static void İşTürü_Malzemeler_Kaydet(string İşTürü, List<string> Malzemeler, List<string> Miktarlar, string Notlar)
+        public static void İşTürü_Malzemeler_Kaydet(string İşTürü, List<string> Malzemeler, List<string> Miktarlar, string MüşteriyeGösterilecekOlanAdı, string Notlar)
         {
             IDepo_Eleman d = Tablo_Dal(null, TabloTürü.İşTürleri, İşTürü, true);
+            d.Yaz("Müşteri için adı", MüşteriyeGösterilecekOlanAdı);
             d.Yaz("Notlar", Notlar);
             d.Sil("Malzemeler");
 

@@ -81,7 +81,8 @@ namespace İş_ve_Depo_Takip
             if (!Sil.Enabled) { splitContainer1.Panel2.Enabled = false; return; }
             Yeni.Text = Liste.Text;
 
-            Banka.İşTürü_Malzemeler_TablodaGöster(Tablo, Liste.Text, out string Notları);
+            Banka.İşTürü_Malzemeler_TablodaGöster(Tablo, Liste.Text, out string MüşteriyeGösterilecekAdı, out string Notları);
+            MüşteriyeGösterilecekOlanAdı.Text = MüşteriyeGösterilecekAdı;
             Notlar.Text = Notları;
 
             splitContainer1.Panel1.Enabled = true;
@@ -169,13 +170,7 @@ namespace İş_ve_Depo_Takip
                 Miktarlar.Add((string)Tablo[1, i].Value);
             }
 
-            if (Malzemeler.Count < 1)
-            {
-                MessageBox.Show("Tabloda hiç geçerli girdi bulunamadı", Text);
-                return;
-            }
-
-            Banka.İşTürü_Malzemeler_Kaydet(Liste.Text, Malzemeler, Miktarlar, Notlar.Text.Trim());
+            Banka.İşTürü_Malzemeler_Kaydet(Liste.Text, Malzemeler, Miktarlar, MüşteriyeGösterilecekOlanAdı.Text.Trim(), Notlar.Text.Trim());
             Banka.Değişiklikleri_Kaydet(Kaydet);
 
             splitContainer1.Panel1.Enabled = true;
