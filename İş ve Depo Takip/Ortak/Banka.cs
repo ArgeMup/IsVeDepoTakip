@@ -470,7 +470,19 @@ namespace İş_ve_Depo_Takip
         public static void İşTürü_Sil(string Adı)
         {
             IDepo_Eleman d = Tablo_Dal(null, TabloTürü.İşTürleri, Adı);
-            if (d != null) d.Sil(null);
+            if (d != null)
+            {
+                //iştürü tablosundan silinmesi
+                d.Sil(null);
+
+                //müşteri ücretlerinden silinmesi
+                List<string> müş_ler = Müşteri_Listele();
+                foreach (string müş in müş_ler)
+                {
+                    d = Müşteri_Ayarlar(müş, "Bütçe/" + Adı);
+                    if (d != null) d.Sil(null);
+                }
+            }
         }
         public static bool İşTürü_MevcutMu(string Adı)
         {
