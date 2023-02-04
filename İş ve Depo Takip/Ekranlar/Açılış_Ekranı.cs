@@ -455,7 +455,7 @@ namespace İş_ve_Depo_Takip
                         break;
 
                     case Keys.F3:
-                        Ortak.YeniSayfaAçmaTalebi = new string[] { "Tüm_İşler", "Arama" };
+                        Ortak.YeniSayfaAçmaTalebi = new string[] { "Tüm İşler", "Arama" };
                         Tuş_Click(Tüm_Talepler, null);
                         break;
                 }
