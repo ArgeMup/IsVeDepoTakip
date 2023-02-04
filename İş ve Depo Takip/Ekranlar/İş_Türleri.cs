@@ -1,8 +1,5 @@
-﻿using ArgeMup.HazirKod.Ekİşlemler;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip
@@ -21,9 +18,7 @@ namespace İş_ve_Depo_Takip
             if (Liste.Items.Count > 0) Sil.Enabled = true;
 
             Malzeme_Liste = Banka.Malzeme_Listele();
-            string[] m_l = Malzeme_Liste.ToArray();
-            Malzeme_SeçimKutusu.Items.AddRange(m_l);
-            Tablo_Malzeme.Items.AddRange(m_l);
+            Malzeme_SeçimKutusu.Items.AddRange(Malzeme_Liste.ToArray());
         }
 
         List<string> AramaÇubuğu_Liste = null;

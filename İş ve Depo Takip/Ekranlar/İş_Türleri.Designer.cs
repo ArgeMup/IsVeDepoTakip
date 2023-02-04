@@ -39,6 +39,8 @@
             this.Kaydet = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.AramaÇubuğu = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.MüşteriyeGösterilecekOlanAdı = new System.Windows.Forms.TextBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -46,14 +48,12 @@
             this.Malzeme_AramaÇubuğu = new System.Windows.Forms.TextBox();
             this.Malzeme_SeçimKutusu = new System.Windows.Forms.ListBox();
             this.Tablo = new System.Windows.Forms.DataGridView();
-            this.Tablo_Malzeme = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Tablo_Miktar = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tablo_Biim = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Notlar = new System.Windows.Forms.TextBox();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
-            this.MüşteriyeGösterilecekOlanAdı = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.Tablo_Malzeme = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tablo_Miktar = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tablo_Biim = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -139,7 +139,7 @@
             this.Kaydet.Location = new System.Drawing.Point(12, 478);
             this.Kaydet.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Kaydet.Name = "Kaydet";
-            this.Kaydet.Size = new System.Drawing.Size(791, 45);
+            this.Kaydet.Size = new System.Drawing.Size(793, 45);
             this.Kaydet.TabIndex = 4;
             this.Kaydet.Text = "Kaydet";
             this.İpUcu.SetToolTip(this.Kaydet, "Silinmek istenen malzemenin miktarı 0 yazılmalıdır");
@@ -185,6 +185,28 @@
             this.İpUcu.SetToolTip(this.AramaÇubuğu, "Arama çubuğu");
             this.AramaÇubuğu.TextChanged += new System.EventHandler(this.AramaÇubuğu_TextChanged);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(17, 15);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(279, 25);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Müşteriye gösterilecek olan adı";
+            // 
+            // MüşteriyeGösterilecekOlanAdı
+            // 
+            this.MüşteriyeGösterilecekOlanAdı.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MüşteriyeGösterilecekOlanAdı.Location = new System.Drawing.Point(311, 12);
+            this.MüşteriyeGösterilecekOlanAdı.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.MüşteriyeGösterilecekOlanAdı.Name = "MüşteriyeGösterilecekOlanAdı";
+            this.MüşteriyeGösterilecekOlanAdı.Size = new System.Drawing.Size(495, 30);
+            this.MüşteriyeGösterilecekOlanAdı.TabIndex = 8;
+            this.İpUcu.SetToolTip(this.MüşteriyeGösterilecekOlanAdı, "Arama çubuğu");
+            this.MüşteriyeGösterilecekOlanAdı.TextChanged += new System.EventHandler(this.Ayar_Değişti);
+            // 
             // splitContainer2
             // 
             this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -202,7 +224,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.groupBox2);
-            this.splitContainer2.Size = new System.Drawing.Size(791, 422);
+            this.splitContainer2.Size = new System.Drawing.Size(793, 422);
             this.splitContainer2.SplitterDistance = 318;
             this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 7;
@@ -221,7 +243,7 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.Tablo);
-            this.splitContainer3.Size = new System.Drawing.Size(791, 318);
+            this.splitContainer3.Size = new System.Drawing.Size(793, 318);
             this.splitContainer3.SplitterDistance = 325;
             this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 1;
@@ -309,10 +331,45 @@
             this.Tablo.RowHeadersWidth = 51;
             this.Tablo.RowTemplate.Height = 24;
             this.Tablo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.Tablo.Size = new System.Drawing.Size(463, 318);
+            this.Tablo.Size = new System.Drawing.Size(465, 318);
             this.Tablo.TabIndex = 0;
             this.İpUcu.SetToolTip(this.Tablo, "Silinmek istenen malzemenin miktarı 0 yazılmalıdır");
             this.Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellValueChanged);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.Notlar);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.groupBox2.Size = new System.Drawing.Size(793, 101);
+            this.groupBox2.TabIndex = 6;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Notlar";
+            // 
+            // Notlar
+            // 
+            this.Notlar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Notlar.Location = new System.Drawing.Point(2, 26);
+            this.Notlar.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.Notlar.Multiline = true;
+            this.Notlar.Name = "Notlar";
+            this.Notlar.Size = new System.Drawing.Size(789, 72);
+            this.Notlar.TabIndex = 6;
+            this.İpUcu.SetToolTip(this.Notlar, "Silinmek istenen malzemenin miktarı 0 yazılmalıdır");
+            this.Notlar.TextChanged += new System.EventHandler(this.Ayar_Değişti);
+            // 
+            // İpUcu
+            // 
+            this.İpUcu.AutomaticDelay = 0;
+            this.İpUcu.AutoPopDelay = 0;
+            this.İpUcu.InitialDelay = 0;
+            this.İpUcu.ReshowDelay = 0;
+            this.İpUcu.ShowAlways = true;
+            this.İpUcu.UseAnimation = false;
+            this.İpUcu.UseFading = false;
             // 
             // Tablo_Malzeme
             // 
@@ -320,7 +377,8 @@
             this.Tablo_Malzeme.HeaderText = "Malzeme";
             this.Tablo_Malzeme.MinimumWidth = 6;
             this.Tablo_Malzeme.Name = "Tablo_Malzeme";
-            this.Tablo_Malzeme.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Tablo_Malzeme.ReadOnly = true;
+            this.Tablo_Malzeme.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // Tablo_Miktar
             // 
@@ -340,63 +398,6 @@
             this.Tablo_Biim.Name = "Tablo_Biim";
             this.Tablo_Biim.ReadOnly = true;
             this.Tablo_Biim.Width = 88;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.Notlar);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.groupBox2.Size = new System.Drawing.Size(791, 101);
-            this.groupBox2.TabIndex = 6;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Notlar";
-            // 
-            // Notlar
-            // 
-            this.Notlar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Notlar.Location = new System.Drawing.Point(2, 26);
-            this.Notlar.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.Notlar.Multiline = true;
-            this.Notlar.Name = "Notlar";
-            this.Notlar.Size = new System.Drawing.Size(787, 72);
-            this.Notlar.TabIndex = 6;
-            this.İpUcu.SetToolTip(this.Notlar, "Silinmek istenen malzemenin miktarı 0 yazılmalıdır");
-            this.Notlar.TextChanged += new System.EventHandler(this.Ayar_Değişti);
-            // 
-            // İpUcu
-            // 
-            this.İpUcu.AutomaticDelay = 0;
-            this.İpUcu.AutoPopDelay = 0;
-            this.İpUcu.InitialDelay = 0;
-            this.İpUcu.ReshowDelay = 0;
-            this.İpUcu.ShowAlways = true;
-            this.İpUcu.UseAnimation = false;
-            this.İpUcu.UseFading = false;
-            // 
-            // MüşteriyeGösterilecekOlanAdı
-            // 
-            this.MüşteriyeGösterilecekOlanAdı.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.MüşteriyeGösterilecekOlanAdı.Location = new System.Drawing.Point(311, 12);
-            this.MüşteriyeGösterilecekOlanAdı.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.MüşteriyeGösterilecekOlanAdı.Name = "MüşteriyeGösterilecekOlanAdı";
-            this.MüşteriyeGösterilecekOlanAdı.Size = new System.Drawing.Size(493, 30);
-            this.MüşteriyeGösterilecekOlanAdı.TabIndex = 8;
-            this.İpUcu.SetToolTip(this.MüşteriyeGösterilecekOlanAdı, "Arama çubuğu");
-            this.MüşteriyeGösterilecekOlanAdı.TextChanged += new System.EventHandler(this.Ayar_Değişti);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 15);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(279, 25);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Müşteriye gösterilecek olan adı";
             // 
             // İş_Türleri
             // 
@@ -445,9 +446,6 @@
         private System.Windows.Forms.ToolTip İpUcu;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.DataGridView Tablo;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Tablo_Malzeme;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Miktar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Biim;
         private System.Windows.Forms.TextBox AramaÇubuğu;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -456,5 +454,8 @@
         private System.Windows.Forms.ListBox Malzeme_SeçimKutusu;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox MüşteriyeGösterilecekOlanAdı;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Malzeme;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Miktar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Biim;
     }
 }

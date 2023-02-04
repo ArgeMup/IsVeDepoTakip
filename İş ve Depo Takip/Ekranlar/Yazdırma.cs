@@ -167,7 +167,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             IDepo_Eleman l = Depo.Bul("Ödeme");
             if (l != null)
             {
-                Banka.Talep_Ayıkla_Ödeme(l, out List<string> Açıklamalar, out List<string> Ödemeler, out string _, out string Ödendi, out string Notlar);
+                Banka.Talep_Ayıkla_ÖdemeDalı(l, out List<string> Açıklamalar, out List<string> Ödemeler, out string _, out string Ödendi, out string Notlar);
                 if (!string.IsNullOrEmpty(Notlar))
                 {
                     Sayfa.NotlarYazısı = new Bir_Yazı_();
@@ -208,7 +208,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             for (int i = 0; i < l.Elemanları.Length; i++)
             {
                 double ücret = 0;
-                Banka.Talep_Ayıkla_İş(l.Elemanları[i], out string Hasta, out string İşler_Tümü, ref ücret);
+                Banka.Talep_Ayıkla_SeriNoDalı(l.Elemanları[i], out string Hasta, out string İşler_Tümü, ref ücret);
                 Bir_Satır_Bilgi_ a = new Bir_Satır_Bilgi_();
 
                 a.SıraNo.Yazı = (i + 1).Yazıya();
@@ -364,17 +364,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 #region Müşteri
                 SizeF s1 = new SizeF(Sayfa.Genişlik - (float)FirmaLogo_Genişlik.Value, (float)FirmaLogo_Yükseklik.Value);
-                y.Yazı.Boyut = ev.Graphics.MeasureString("Sayın " + Depo.Oku("Müşteri"), Sayfa.KaKü_Müşteri, s1);
+                y.Yazı.Boyut = ev.Graphics.MeasureString("Sayın " + Depo["Tür", 1], Sayfa.KaKü_Müşteri, s1);
                 while (y.Yazı.Boyut.Height > (float)FirmaLogo_Yükseklik.Value)
                 {
                     //logo yüksekliğine sığmayan yazının karakterini küçült
                     Sayfa.KaKü_Müşteri = new Font(Sayfa.KaKü_Müşteri.FontFamily, Sayfa.KaKü_Müşteri.Size - 0.5f);
 
-                    y.Yazı.Boyut = ev.Graphics.MeasureString("Sayın " + Depo.Oku("Müşteri"), Sayfa.KaKü_Müşteri, s1);
+                    y.Yazı.Boyut = ev.Graphics.MeasureString("Sayın " + Depo["Tür", 1], Sayfa.KaKü_Müşteri, s1);
                 }
                 
                 y.KarakterKümesi = Sayfa.KaKü_Müşteri;
-                y.Yazı.Yazı = "Sayın " + Depo.Oku("Müşteri");
+                y.Yazı.Yazı = "Sayın " + Depo["Tür", 1];
                 y.Sol = Sayfa.Sol + (float)FirmaLogo_Genişlik.Value;
                 y.Üst = Sayfa.Üst;
                 y.Genişlik = s1.Width;

@@ -14,7 +14,7 @@ namespace İş_ve_Depo_Takip
         KlavyeFareGozlemcisi_ ÖndekiEkran_KlaFaGö = null;
         System.Windows.Forms.Timer ÖndekiEkran_Zamanlayıcı = null;
 
-        YeniYazılımKontrolü_ YeniYazılımKontrolü = new YeniYazılımKontrolü_();
+        public YeniYazılımKontrolü_ YeniYazılımKontrolü = new YeniYazılımKontrolü_();
         int Parola_EnAzKarakterSayısı = 4;
 
         public Açılış_Ekranı()
@@ -34,7 +34,11 @@ namespace İş_ve_Depo_Takip
         {
             try
             {
-            	Application.DoEvents();
+                #if !DEBUG
+                    YeniYazılımKontrolü.Başlat(new Uri("https://github.com/ArgeMup/IsVeDepoTakip/blob/main/%C4%B0%C5%9F%20ve%20Depo%20Takip/bin/Release/%C4%B0%C5%9F%20ve%20Depo%20Takip.exe?raw=true"));
+                #endif
+
+                Application.DoEvents();
                 Banka.Giriş_İşlemleri(AçılışYazısı);
                 Controls.Remove(AçılışYazısı);
                 AçılışYazısı.Dispose();
@@ -44,6 +48,7 @@ namespace İş_ve_Depo_Takip
                 ex.Günlük();
                 System.Threading.Thread.Sleep(100);
                 Application.Exit();
+                return;
             }
 
 #if DEBUG
@@ -73,8 +78,6 @@ namespace İş_ve_Depo_Takip
                 Parola_Giriş.Focus();
             }
 
-            YeniYazılımKontrolü.Başlat(new Uri("https://github.com/ArgeMup/IsVeDepoTakip/blob/main/%C4%B0%C5%9F%20ve%20Depo%20Takip/bin/Release/%C4%B0%C5%9F%20ve%20Depo%20Takip.exe?raw=true"));
-
             ÖndekiEkran_KlaFaGö = new KlavyeFareGozlemcisi_();
 #endif
 
@@ -84,7 +87,7 @@ namespace İş_ve_Depo_Takip
             ÖndekiEkran_Zamanlayıcı.Tick += T_Tick;
             ÖndekiEkran_Zamanlayıcı.Start();
 
-            string[] rsm_ler = System.IO.Directory.GetFiles(Ortak.Klasör_Diğer_ArkaPlanResimleri, "*.*", System.IO.SearchOption.AllDirectories);
+            string[] rsm_ler = System.IO.Directory.GetFiles(Ortak.Klasör_KullanıcıDosyaları_ArkaPlanResimleri, "*.*", System.IO.SearchOption.AllDirectories);
             if (rsm_ler != null)
             {
                 Depo_ d = new Depo_();
@@ -207,9 +210,10 @@ namespace İş_ve_Depo_Takip
         }
         private void Açılış_Ekranı_FormClosed(object sender, FormClosedEventArgs e)
         {
+            Günlük.Ekle("Kapatıldı " + e.CloseReason.ToString());
             Banka.Çıkış_İşlemleri();
-
             YeniYazılımKontrolü.Durdur();
+
             ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın = false;
         }
 
@@ -226,29 +230,33 @@ namespace İş_ve_Depo_Takip
             mesaj = mesaj.TrimEnd('\n');
 
             Hata.Clear();
-            if (!string.IsNullOrEmpty(mesaj)) Hata.SetError(Malzemeler, mesaj);
+            if (mesaj.DoluMu(true))
+            {
+                Hata.SetError(Ayarlar, mesaj);
+                Hata.SetError(Malzemeler, mesaj);
+            }
         }
 
         private void Tuş_Click(object sender, EventArgs e)
         {
             //Yeni yan uygulamayı oluştur
             switch ((sender as Button).Text)
-            {
-                case "Yeni İş Girişi":  ÖndekiEkran = new Yeni_İş_Girişi();  break;  //Tüm işler, yeni iş girişi   
-                case "Tüm İşler":       ÖndekiEkran = new Tüm_İşler();       break;
-                case "Malzemeler":      ÖndekiEkran = new Malzemeler();      break;
-                case "Müşteriler":      ÖndekiEkran = new Müşteriler();      break;
-                case "İş Türleri":      ÖndekiEkran = new İş_Türleri();      break;
-                case "Ücretler":        ÖndekiEkran = new Ücretler();        break;  //Tüm işler
-                case "Bütçe":           ÖndekiEkran = new Bütçe();           break;
-                case "Yazdırma":        ÖndekiEkran = new Yazdırma();        break;
-                case "E-posta":         ÖndekiEkran = new Ayarlar_Eposta();  break;
-                case "Diğer":           ÖndekiEkran = new Ayarlar_Diğer();   break;
+            {                                                                       //Çağıranlar
+                case "Yeni İş Girişi":  ÖndekiEkran = new Yeni_İş_Girişi(); break;  //Tüm işler, yeni iş girişi   
+                case "Tüm İşler":       ÖndekiEkran = new Tüm_İşler();      break;
+                case "Müşteriler":      ÖndekiEkran = new Müşteriler();     break;
+                case "İş Türleri":      ÖndekiEkran = new İş_Türleri();     break;
+                case "Ücretler":        ÖndekiEkran = new Ücretler();       break;  //Tüm işler
+                case "Bütçe":           ÖndekiEkran = new Bütçe();          break;
+                case "Malzemeler":      ÖndekiEkran = new Malzemeler();     break;
+                case "Yazdırma":        ÖndekiEkran = new Yazdırma();       break;
+                case "E-posta":         ÖndekiEkran = new Ayarlar_Eposta(); break;
+                case "Diğer":           ÖndekiEkran = new Ayarlar_Diğer();  break;
             }
 
             ÖndekiEkran.Shown += ÖndekiEkran_Shown;
-            ÖndekiEkran.KeyDown += ÖndekiEkran_Tuş;
-            ÖndekiEkran.KeyUp += ÖndekiEkran_Tuş;
+            ÖndekiEkran.KeyDown += ÖndekiEkran_KeyDown;
+            ÖndekiEkran.KeyUp += ÖndekiEkran_KeyUp;
             ÖndekiEkran.MouseWheel += ÖndekiEkran_MouseWheel;
             ÖndekiEkran.Resize += ÖndekiEkran_Resize;
             ÖndekiEkran.FormClosing += ÖndekiEkran_FormClosing;
@@ -290,7 +298,13 @@ namespace İş_ve_Depo_Takip
         {
             Ortak.GeçiciDepolama_PencereKonumları_Yaz(ÖndekiEkran);
         } 
-        private void ÖndekiEkran_Tuş(object sender, KeyEventArgs e)
+        private void ÖndekiEkran_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape) ÖndekiEkran.Close();
+
+            ÖndekiEkran_ctrl_tuşuna_basıldı = e.Control;
+        }
+        private void ÖndekiEkran_KeyUp(object sender, KeyEventArgs e)
         {
             ÖndekiEkran_ctrl_tuşuna_basıldı = e.Control;
         }
@@ -410,20 +424,50 @@ namespace İş_ve_Depo_Takip
             else
             {
                 //Yedekle ve kapat
-                YedekleKapat.BackColor = System.Drawing.Color.Salmon;
-                double za = 0;
-
                 ÖndekiEkran_KlaFaGö.Dispose();
+                Ortak.Gösterge.Başlat("Yedekleniyor\nBekleyiniz", false, P_AnaMenü, 0);
+
+                Banka.Yedekleme_EnAz1Kez_Değişiklikler_Kaydedildi = true;
                 Banka.Yedekle_Tümü();
-                while (Banka.Yedekleme_Tümü_Çalışıyor)
+                while (Banka.Yedekleme_Tümü_Çalışıyor && Ortak.Gösterge.Çalışsın)
                 {
-                    YedekleKapat.Text = "Bekleyiniz " + za + " sn";
-                    Application.DoEvents();
-                    System.Threading.Thread.Sleep(100);
-                    za += 0.1;
+                    System.Threading.Thread.Sleep(500);
                 }
 
                 Application.Exit();
+            }
+        }
+
+        private void Açılış_Ekranı_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (P_Parola.Visible) return;
+
+            if (P_AnaMenü.Visible)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.F1:
+                        Tuş_Click(Yeni_Talep_Girişi, null);
+                        break;
+
+                    case Keys.F2:
+                        Tuş_Click(Tüm_Talepler, null);
+                        break;
+
+                    case Keys.F3:
+                        Ortak.YeniSayfaAçmaTalebi = new string[] { "Tüm_İşler", "Arama" };
+                        Tuş_Click(Tüm_Talepler, null);
+                        break;
+                }
+            }
+            else if (P_Ayarlar.Visible)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Escape:
+                        Ayarlar_Geri_Click(null, null);
+                        break;
+                }
             }
         }
     }

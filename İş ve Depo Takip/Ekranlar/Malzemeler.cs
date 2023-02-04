@@ -45,10 +45,11 @@ namespace İş_ve_Depo_Takip
             if (!Sil.Enabled) { splitContainer1.Panel2.Enabled = false; return; }
             Yeni.Text = Liste.Text;
 
-            Banka.Malzeme_TablodaGöster(Tablo, Liste.Text, out double Miktar, out string Birim, out double UyarıVermeMiktar, out string Notları);
+            Banka.Malzeme_TablodaGöster(Tablo, Liste.Text, out double Miktar, out string Birim, out double UyarıVermeMiktar, out bool Detaylı, out string Notları);
             Miktarı.Text = Miktar.Yazıya();
             Birimi.Text = Birim;
             UyarıMiktarı.Text = UyarıVermeMiktar.Yazıya();
+            DetaylıKullanım.Checked = Detaylı;
             Notlar.Text = Notları;
 
             if (UyarıVermeMiktar > 0 && Miktar <= UyarıVermeMiktar)
@@ -66,8 +67,26 @@ namespace İş_ve_Depo_Takip
         {
             if (Liste.SelectedIndex < 0 || Liste.SelectedIndex >= Liste.Items.Count) return;
 
-            DialogResult Dr = MessageBox.Show(Liste .Text + " öğesini silmek istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-            if (Dr == DialogResult.No) return;
+            int Sayac_Kullanım = 0;
+            for (int i = 0; i < Tablo.RowCount; i++)
+            {
+                if (Tablo[0, i].Tag != null) Sayac_Kullanım++;
+            }
+
+            string soru = Liste.Text + " öğesi görünmez yapılacak. Devamında malzemeye ait mevcut kayıtları SİLMEK istiyor musunuz?" + Environment.NewLine + Environment.NewLine +
+                "Evet : Malzemeye ait TÜM KAYITLARI SİL." + Environment.NewLine +
+                "Hayır : Sadece görünmez yap." + Environment.NewLine +
+                "İptal : İşlemi iptal et" +
+                (Sayac_Kullanım > 0 ? Environment.NewLine + Environment.NewLine + Sayac_Kullanım + " adet iş türü içerisinde KULLANILIYOR." : null);
+            DialogResult Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
+            if (Dr == DialogResult.Cancel) return;
+            else if (Dr == DialogResult.Yes)
+            {
+                if (!Klasör.Sil(Ortak.Klasör_Banka_MalzemeKullanımDetayları + Liste.Text))
+                {
+                    throw new Exception("Klasör silinemedi." + Environment.NewLine + Ortak.Klasör_Banka_MalzemeKullanımDetayları + Liste.Text);
+                }
+            }
 
             Banka.Malzeme_Sil(Liste.Text);
             Banka.Değişiklikleri_Kaydet(Sil);
@@ -107,7 +126,14 @@ namespace İş_ve_Depo_Takip
             string uyarımiktarı = UyarıMiktarı.Text;
             if (!Ortak.YazıyıSayıyaDönüştür(ref uyarımiktarı, "Uyarı Miktarı kutucuğu", null, 0)) return;
 
-            Banka.Malzeme_DetaylarıKaydet(Liste.Text, mevcut, Birimi.Text, uyarımiktarı, Notlar.Text.Trim());
+            if (Birimi.Text.BoşMu(true))
+            {
+                MessageBox.Show("Lütfen birimi alanını doldurunuz.");
+                Birimi.Focus();
+                return;
+            }
+
+            Banka.Malzeme_DetaylarıKaydet(Liste.Text, mevcut, Birimi.Text, uyarımiktarı, DetaylıKullanım.Checked, Notlar.Text.Trim());
             Banka.Değişiklikleri_Kaydet(Kaydet);
 
             splitContainer1.Panel1.Enabled = true;

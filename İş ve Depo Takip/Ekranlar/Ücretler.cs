@@ -18,7 +18,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ortak.YeniSayfaAçmaTalebi = null; //tüm işler içinden çağırıldığından dolayı
         
             AramaÇubuğu_Müşteri_Liste = Banka.Müşteri_Listele();
-            AramaÇubuğu_Müşteri_Liste.Add("Tüm müşteriler için ortak");
+            AramaÇubuğu_Müşteri_Liste.Insert(0, "Tüm müşteriler için ortak");
             Müşterıler.Items.AddRange(AramaÇubuğu_Müşteri_Liste.ToArray());
 
             Tablo.Rows.Clear();

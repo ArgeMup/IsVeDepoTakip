@@ -11,10 +11,12 @@ namespace İş_ve_Depo_Takip
     public static class Ortak
     {
         public static string Klasör_Banka = Kendi.Klasörü + "\\Banka\\";
+        public static string Klasör_Banka_Müşteriler = Klasör_Banka + "Mü\\";
+        public static string Klasör_Banka_MalzemeKullanımDetayları = Klasör_Banka + "MaKD\\";
         public static string Klasör_Banka2 = Kendi.Klasörü + "\\Banka2\\";
         public static string Klasör_İçYedek = Kendi.Klasörü + "\\Yedek\\";
-        public static string Klasör_Diğer = Kendi.Klasörü + "\\Diğer\\";
-        public static string Klasör_Diğer_ArkaPlanResimleri = Klasör_Diğer + "Arka Plan Resimleri\\";
+        public static string Klasör_KullanıcıDosyaları = Kendi.Klasörü + "\\Kullanıcı Dosyaları\\";
+        public static string Klasör_KullanıcıDosyaları_ArkaPlanResimleri = Klasör_KullanıcıDosyaları + "Arka Plan Resimleri\\";
         public static string Klasör_Gecici = Klasör.Depolama(Klasör.Kapsamı.Geçici) + "\\";
 
         public static Açılış_Ekranı AnaEkran;
@@ -105,7 +107,7 @@ namespace İş_ve_Depo_Takip
             {
                 if (_Yazdırma_Logo_ == null)
                 {
-                    var l = Directory.EnumerateFiles(Klasör_Diğer, "*.*", SearchOption.TopDirectoryOnly)
+                    var l = Directory.EnumerateFiles(Klasör_KullanıcıDosyaları, "*.*", SearchOption.TopDirectoryOnly)
                     .Where(s => s.EndsWith(".bmp") || s.EndsWith(".jpg") || s.EndsWith(".png"));
                     if (l != null && l.Count() > 0) _Yazdırma_Logo_ = new Bitmap(l.ElementAt(0));
 

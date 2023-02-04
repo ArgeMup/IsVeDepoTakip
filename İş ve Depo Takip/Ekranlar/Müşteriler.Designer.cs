@@ -69,7 +69,6 @@
             this.Liste.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.Liste.Name = "Liste";
             this.Liste.Size = new System.Drawing.Size(404, 323);
-            this.Liste.Sorted = true;
             this.Liste.TabIndex = 0;
             this.Liste.SelectedValueChanged += new System.EventHandler(this.Liste_SelectedValueChanged);
             // 
@@ -81,19 +80,19 @@
             this.SağTuşMenü_Sil});
             this.SağTuşMenü.Name = "SağTuşMenü";
             this.SağTuşMenü.ShowImageMargin = false;
-            this.SağTuşMenü.Size = new System.Drawing.Size(186, 80);
+            this.SağTuşMenü.Size = new System.Drawing.Size(165, 52);
             // 
             // SağTuşMenü_YenidenAdlandır
             // 
             this.SağTuşMenü_YenidenAdlandır.Name = "SağTuşMenü_YenidenAdlandır";
-            this.SağTuşMenü_YenidenAdlandır.Size = new System.Drawing.Size(185, 24);
+            this.SağTuşMenü_YenidenAdlandır.Size = new System.Drawing.Size(164, 24);
             this.SağTuşMenü_YenidenAdlandır.Text = "Yeniden adlandır";
             this.SağTuşMenü_YenidenAdlandır.Click += new System.EventHandler(this.SağTuşMenü_YenidenAdlandır_Click);
             // 
             // SağTuşMenü_Sil
             // 
             this.SağTuşMenü_Sil.Name = "SağTuşMenü_Sil";
-            this.SağTuşMenü_Sil.Size = new System.Drawing.Size(185, 24);
+            this.SağTuşMenü_Sil.Size = new System.Drawing.Size(164, 24);
             this.SağTuşMenü_Sil.Text = "Sil";
             this.SağTuşMenü_Sil.Click += new System.EventHandler(this.SağTuşMenü_Sil_Click);
             // 

@@ -37,6 +37,10 @@ namespace İş_ve_Depo_Takip
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Notlar = new System.Windows.Forms.TextBox();
             this.Tablo = new System.Windows.Forms.DataGridView();
+            this.Tablo_İş_Türü = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tablo_Ücret = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tablo_Giriş_Tarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tablo_Çıkış_Tarihi = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Kaydet = new System.Windows.Forms.Button();
             this.Seçili_Satırı_Sil = new System.Windows.Forms.Button();
             this.İskonto = new System.Windows.Forms.TextBox();
@@ -57,10 +61,6 @@ namespace İş_ve_Depo_Takip
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.Ayraç_Kat_2_3 = new System.Windows.Forms.SplitContainer();
             this.Ayraç_Kat_1_2 = new System.Windows.Forms.SplitContainer();
-            this.Tablo_İş_Türü = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tablo_Ücret = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tablo_Kabul_Tarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tablo_Çıkış_Tarihi = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             this.Müşteriler_Grup.SuspendLayout();
             this.Hastalar_Grup.SuspendLayout();
@@ -120,7 +120,7 @@ namespace İş_ve_Depo_Takip
             this.Tablo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Tablo_İş_Türü,
             this.Tablo_Ücret,
-            this.Tablo_Kabul_Tarihi,
+            this.Tablo_Giriş_Tarihi,
             this.Tablo_Çıkış_Tarihi});
             this.Tablo.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.Tablo.Location = new System.Drawing.Point(3, 3);
@@ -140,6 +140,48 @@ namespace İş_ve_Depo_Takip
             this.Tablo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellContentClick);
             this.Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellValueChanged);
             this.Tablo.SelectionChanged += new System.EventHandler(this.Tablo_SelectionChanged);
+            // 
+            // Tablo_İş_Türü
+            // 
+            this.Tablo_İş_Türü.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Tablo_İş_Türü.FillWeight = 70F;
+            this.Tablo_İş_Türü.HeaderText = "İş Türü";
+            this.Tablo_İş_Türü.MinimumWidth = 6;
+            this.Tablo_İş_Türü.Name = "Tablo_İş_Türü";
+            this.Tablo_İş_Türü.ReadOnly = true;
+            this.Tablo_İş_Türü.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_İş_Türü.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Tablo_Ücret
+            // 
+            this.Tablo_Ücret.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Ücret.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Tablo_Ücret.FillWeight = 30F;
+            this.Tablo_Ücret.HeaderText = "Ücret ₺";
+            this.Tablo_Ücret.MinimumWidth = 6;
+            this.Tablo_Ücret.Name = "Tablo_Ücret";
+            this.Tablo_Ücret.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Tablo_Giriş_Tarihi
+            // 
+            this.Tablo_Giriş_Tarihi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Giriş_Tarihi.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Tablo_Giriş_Tarihi.HeaderText = "Kabul Tarihi";
+            this.Tablo_Giriş_Tarihi.MinimumWidth = 6;
+            this.Tablo_Giriş_Tarihi.Name = "Tablo_Giriş_Tarihi";
+            this.Tablo_Giriş_Tarihi.ReadOnly = true;
+            this.Tablo_Giriş_Tarihi.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Tablo_Giriş_Tarihi.Width = 104;
+            // 
+            // Tablo_Çıkış_Tarihi
+            // 
+            this.Tablo_Çıkış_Tarihi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Tablo_Çıkış_Tarihi.HeaderText = "Çıkış Tarihi";
+            this.Tablo_Çıkış_Tarihi.MinimumWidth = 6;
+            this.Tablo_Çıkış_Tarihi.Name = "Tablo_Çıkış_Tarihi";
+            this.Tablo_Çıkış_Tarihi.Width = 99;
             // 
             // Kaydet
             // 
@@ -204,6 +246,7 @@ namespace İş_ve_Depo_Takip
             this.Müşteriler_AramaÇubuğu.TabIndex = 0;
             this.İpUcu.SetToolTip(this.Müşteriler_AramaÇubuğu, "Arama çubuğu");
             this.Müşteriler_AramaÇubuğu.TextChanged += new System.EventHandler(this.Müşteriler_AramaÇubuğu_TextChanged);
+            this.Müşteriler_AramaÇubuğu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Müşteriler_AramaÇubuğu_KeyPress);
             // 
             // Hastalar_AramaÇubuğu
             // 
@@ -214,6 +257,7 @@ namespace İş_ve_Depo_Takip
             this.Hastalar_AramaÇubuğu.TabIndex = 2;
             this.İpUcu.SetToolTip(this.Hastalar_AramaÇubuğu, "Arama çubuğu");
             this.Hastalar_AramaÇubuğu.TextChanged += new System.EventHandler(this.Hastalar_AramaÇubuğu_TextChanged);
+            this.Hastalar_AramaÇubuğu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Hastalar_AramaÇubuğu_KeyPress);
             // 
             // İşTürleri_AramaÇubuğu
             // 
@@ -225,6 +269,7 @@ namespace İş_ve_Depo_Takip
             this.İşTürleri_AramaÇubuğu.TabIndex = 6;
             this.İpUcu.SetToolTip(this.İşTürleri_AramaÇubuğu, "Arama çubuğu");
             this.İşTürleri_AramaÇubuğu.TextChanged += new System.EventHandler(this.İşTürleri_AramaÇubuğu_TextChanged);
+            this.İşTürleri_AramaÇubuğu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.İşTürleri_AramaÇubuğu_KeyPress);
             // 
             // Müşteriler_Grup
             // 
@@ -250,9 +295,9 @@ namespace İş_ve_Depo_Takip
             this.Müşteriler_SeçimKutusu.Margin = new System.Windows.Forms.Padding(2);
             this.Müşteriler_SeçimKutusu.Name = "Müşteriler_SeçimKutusu";
             this.Müşteriler_SeçimKutusu.Size = new System.Drawing.Size(447, 44);
-            this.Müşteriler_SeçimKutusu.Sorted = true;
             this.Müşteriler_SeçimKutusu.TabIndex = 1;
             this.Müşteriler_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.Müşteriler_SeçimKutusu_SelectedIndexChanged);
+            this.Müşteriler_SeçimKutusu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Müşteriler_SeçimKutusu_KeyPress);
             // 
             // Hastalar_Grup
             // 
@@ -324,6 +369,7 @@ namespace İş_ve_Depo_Takip
             this.İşTürleri_SeçimKutusu.TabIndex = 7;
             this.İşTürleri_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.İşTürleri_SeçimKutusu_SelectedIndexChanged);
             this.İşTürleri_SeçimKutusu.DoubleClick += new System.EventHandler(this.İştürü_SeçiliSatıraKopyala_Click);
+            this.İşTürleri_SeçimKutusu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.İşTürleri_SeçimKutusu_KeyPress);
             // 
             // label6
             // 
@@ -421,48 +467,6 @@ namespace İş_ve_Depo_Takip
             this.Ayraç_Kat_1_2.SplitterDistance = 106;
             this.Ayraç_Kat_1_2.TabIndex = 26;
             // 
-            // Tablo_İş_Türü
-            // 
-            this.Tablo_İş_Türü.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Tablo_İş_Türü.FillWeight = 70F;
-            this.Tablo_İş_Türü.HeaderText = "İş Türü";
-            this.Tablo_İş_Türü.MinimumWidth = 6;
-            this.Tablo_İş_Türü.Name = "Tablo_İş_Türü";
-            this.Tablo_İş_Türü.ReadOnly = true;
-            this.Tablo_İş_Türü.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_İş_Türü.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Tablo_Ücret
-            // 
-            this.Tablo_Ücret.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Ücret.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Tablo_Ücret.FillWeight = 30F;
-            this.Tablo_Ücret.HeaderText = "Ücret ₺";
-            this.Tablo_Ücret.MinimumWidth = 6;
-            this.Tablo_Ücret.Name = "Tablo_Ücret";
-            this.Tablo_Ücret.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Tablo_Kabul_Tarihi
-            // 
-            this.Tablo_Kabul_Tarihi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Kabul_Tarihi.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Tablo_Kabul_Tarihi.HeaderText = "Kabul Tarihi";
-            this.Tablo_Kabul_Tarihi.MinimumWidth = 6;
-            this.Tablo_Kabul_Tarihi.Name = "Tablo_Kabul_Tarihi";
-            this.Tablo_Kabul_Tarihi.ReadOnly = true;
-            this.Tablo_Kabul_Tarihi.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Tablo_Kabul_Tarihi.Width = 104;
-            // 
-            // Tablo_Çıkış_Tarihi
-            // 
-            this.Tablo_Çıkış_Tarihi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Tablo_Çıkış_Tarihi.HeaderText = "Çıkış Tarihi";
-            this.Tablo_Çıkış_Tarihi.MinimumWidth = 6;
-            this.Tablo_Çıkış_Tarihi.Name = "Tablo_Çıkış_Tarihi";
-            this.Tablo_Çıkış_Tarihi.Width = 99;
-            // 
             // Yeni_İş_Girişi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -470,11 +474,13 @@ namespace İş_ve_Depo_Takip
             this.ClientSize = new System.Drawing.Size(907, 438);
             this.Controls.Add(this.Ayraç_Kat_1_2);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Yeni_İş_Girişi";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Yeni İş Girişi / Düzenleme";
             this.Shown += new System.EventHandler(this.Yeni_İş_Girişi_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Yeni_İş_Girişi_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).EndInit();
             this.Müşteriler_Grup.ResumeLayout(false);
             this.Müşteriler_Grup.PerformLayout();
@@ -528,7 +534,7 @@ namespace İş_ve_Depo_Takip
         private System.Windows.Forms.ListBox Hastalar_SeçimKutusu;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_İş_Türü;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Ücret;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Kabul_Tarihi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Giriş_Tarihi;
         private System.Windows.Forms.DataGridViewButtonColumn Tablo_Çıkış_Tarihi;
     }
 }

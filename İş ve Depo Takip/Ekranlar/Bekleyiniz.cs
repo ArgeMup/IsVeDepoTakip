@@ -82,7 +82,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void İptalEt_Click(object sender, EventArgs e)
         {
-            _Çalışsın = false;
+            if (İptalEt.Enabled) _Çalışsın = false;
         }
     }
 }

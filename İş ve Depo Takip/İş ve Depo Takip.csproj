@@ -216,6 +216,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Yeni_İş_Girişi.resx">
       <DependentUpon>Yeni_İş_Girişi.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Müşteriler.resx">
       <DependentUpon>Müşteriler.cs</DependentUpon>

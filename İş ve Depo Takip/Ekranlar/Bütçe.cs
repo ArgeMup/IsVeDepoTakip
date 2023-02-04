@@ -1,6 +1,7 @@
 ﻿using ArgeMup.HazirKod;
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
@@ -92,18 +93,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void _1_Hesapla(object sender, EventArgs e)
         {
-            _1_AltToplam.BackColor = System.Drawing.Color.Khaki;
-            Ortak.Gösterge.Başlat("Sayılıyor", true, null, 0);
-
             //ilk açılışta 1 kere hesaplat
             if (_1_Dizi == null)
             {
+                _1_AltToplam.BackColor = System.Drawing.Color.Khaki;
+                Ortak.Gösterge.Başlat("Sayılıyor", true, null, 0);
                 int kademe = 0;
 
                 System.Collections.Generic.List<string> Müşteriler = Banka.Müşteri_Listele();
                 for (int i = 0; i < Müşteriler.Count && Ortak.Gösterge.Çalışsın; i++)
                 {
-                    kademe += 2 + Banka.Dosya_Listele(Müşteriler[i], false).Length;
+                    kademe += 2 + Banka.Dosya_Listele_Müşteri(Müşteriler[i], false).Length;
                 }
 
                 Ortak.Gösterge.Başlat("Hesaplanıyor", true, null, kademe);
@@ -119,7 +119,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Ortak.Gösterge.İlerleme = 1;
                     _1_Hesapla_2(Müşteriler[i], Banka.Talep_Listele(Müşteriler[i], Banka.TabloTürü.TeslimEdildi), out gg.gelir_teslimedilen, out gg.gider_teslimedilen);
 
-                    string[] l = Banka.Dosya_Listele(Müşteriler[i], false);
+                    string[] l = Banka.Dosya_Listele_Müşteri(Müşteriler[i], false);
                     for (int s = 0; s < l.Length && Ortak.Gösterge.Çalışsın; s++)
                     {
                         Ortak.Gösterge.İlerleme = 1;
@@ -146,20 +146,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 for (int i = 0; i < _1_Tablo.RowCount; i++)
                 {
                     _1_Tablo[0, i].Value = true;
+                    _1_Tablo[1, i].Value = _1_Dizi[i].müşteri;
                 }
-            }
 
-            if (_1_Tablo.SortedColumn != null)
-            {
-                DataGridViewColumn col = _1_Tablo.SortedColumn;
-                col.SortMode = DataGridViewColumnSortMode.NotSortable;
-                col.SortMode = DataGridViewColumnSortMode.Automatic;
+                Ortak.Gösterge.Bitir();
             }
 
             //talep edilen müşterilerin talep edilen değerlerini hesapla
-            for (int i = 0; i < _1_Dizi.Length; i++)
+            for (int i = 0; i < _1_Tablo.RowCount; i++)
             {
-                Bütçe_Gelir_Gider_ gg = _1_Dizi[i];
+                Bütçe_Gelir_Gider_ gg = _1_Dizi.First(x => x.müşteri == (string)_1_Tablo[1, i].Value);
 
                 double top_gelir = 0, top_gider = 0;
                 if ((bool)_1_Tablo[0, i].Value)
@@ -172,8 +168,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     if (_1_Gider_ÖdemeTalepEdildi.Checked) top_gider += gg.gider_ödemebekleyen;
                 }
                
-                _1_Tablo[1, i].Value = gg.müşteri;
-
                 _1_Tablo[2, i].Value = Banka.Yazdır_Ücret(top_gelir);
                 _1_Tablo[2, i].Tag = top_gelir;
                 _1_Tablo[2, i].ToolTipText = gg.gelir_ipucu;
@@ -204,8 +198,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             _1_Gelir.Tag = gel;
             _1_Gider.Tag = gid;
 
-            if (Ortak.Gösterge.Çalışsın) _1_AltToplam.BackColor = gel > gid ? System.Drawing.Color.YellowGreen : System.Drawing.Color.Salmon;
-            Ortak.Gösterge.Bitir();
+            _1_AltToplam.BackColor = gel > gid ? System.Drawing.Color.YellowGreen : System.Drawing.Color.Salmon;
         }
         private void _1_Hesapla_2(string Müşteri, Banka_Tablo_ bt, out double Gelir, out double Gider)
         {
@@ -215,7 +208,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             foreach (IDepo_Eleman serino in bt.Talepler)
             {
                 string HataMesajı = "";
-                Banka.Talep_Ayıkla_İş(Müşteri, serino, ref Gelir, ref Gider, ref HataMesajı);
+                Banka.Talep_Ayıkla_SeriNoDalı(Müşteri, serino, ref Gelir, ref Gider, ref HataMesajı);
 
 #if !DEBUG
                 if (!string.IsNullOrEmpty(HataMesajı))
