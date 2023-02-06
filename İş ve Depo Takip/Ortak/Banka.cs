@@ -580,7 +580,7 @@ namespace İş_ve_Depo_Takip
                     if (!Directory.Exists(Ortak.Klasör_Banka_Müşteriler + m.KlasörAdı + "\\Mü_C")) return new string[0];
 
                     string[] l = new DirectoryInfo(Ortak.Klasör_Banka_Müşteriler + m.KlasörAdı + "\\Mü_C").GetFiles("Mü_C_*.mup", SearchOption.TopDirectoryOnly)
-                        .OrderByDescending(f => f.LastWriteTime)
+                        .OrderByDescending(f => D_TarihSaat.Tarihe(Path.GetFileNameWithoutExtension(f.FullName).Substring(5 /*"Mü_C_*/)))
                         .Select(f => f.FullName)
                         .ToArray();
 
@@ -601,7 +601,7 @@ namespace İş_ve_Depo_Takip
                     if (!Directory.Exists(Ortak.Klasör_Banka_Müşteriler + m.KlasörAdı + "\\Mü_B")) return new string[0];
 
                     string[] l = new DirectoryInfo(Ortak.Klasör_Banka_Müşteriler + m.KlasörAdı + "\\Mü_B").GetFiles("Mü_B_*.mup", SearchOption.TopDirectoryOnly)
-                        .OrderBy(f => f.LastWriteTime)
+                        .OrderByDescending(f => D_TarihSaat.Tarihe(Path.GetFileNameWithoutExtension(f.FullName).Substring(5 /*"Mü_B_*/)))
                         .Select(f => f.FullName)
                         .ToArray();
 
@@ -1565,19 +1565,20 @@ namespace İş_ve_Depo_Takip
                 seri_noya_ait_detaylar.Sil(null);
             }
 
+            IDepo_Eleman müş = Ayarlar_Müşteri(Müşteri, "Sayfa/Teslim Edildi", true);
+            müş["KDV"].Yaz(null, KDV);
+
             yeni_tablo.Yaz("Ödeme", t);
             if (!string.IsNullOrEmpty(İlaveÖdeme_Açıklama))
             {
                 yeni_tablo.Yaz("Ödeme/İlave Ödeme", İlaveÖdeme_Açıklama, 0);
                 yeni_tablo.Yaz("Ödeme/İlave Ödeme", İlaveÖdeme_Miktar, 1);
+
+                müş["İlave Ödeme"].İçeriği = new string[] { İlaveÖdeme_Açıklama, İlaveÖdeme_Miktar };
             }
 
             yeni_tablo.Yaz("Ödeme/Alt Toplam", Alt_Toplam);
             if (KDV) yeni_tablo.Yaz("Ödeme/Alt Toplam", Ayarlar_Genel("Bütçe/KDV", true).Oku_Sayı(null, 8), 1);
-
-            IDepo_Eleman müş = Ayarlar_Müşteri(Müşteri, "Sayfa/Teslim Edildi", true);
-            müş["İlave Ödeme"].İçeriği = new string[] { İlaveÖdeme_Açıklama, İlaveÖdeme_Miktar };
-            müş["KDV"].Yaz(null, KDV);
 
             return null;
         }

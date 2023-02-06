@@ -76,18 +76,19 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 case Keys.F1:
                     Ortak.YeniSayfaAçmaTalebi = new string[] { "Yeni İş Girişi", null, null }; 
                     Close();
+                    Tüm_İşler_Shown(null, null);
                     break;
 
                 case Keys.F2:
                     Seviye_Değişti(Seviye1_işTakip, null);
+                    Tüm_İşler_Shown(null, null);
                     break;
 
                 case Keys.F3:
                     Seviye_Değişti(Seviye1_Arama, null);
+                    Tüm_İşler_Shown(null, null);
                     break;
             }
-
-            Tüm_İşler_Shown(null, null);
         }
 
         private void Seviye_Değişti(object sender, EventArgs e)
@@ -312,7 +313,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama.Text = müş["İlave Ödeme"][0];
             İşTakip_TeslimEdildi_İlaveÖdeme_Miktar.Text = müş["İlave Ödeme"][1];
             İşTakip_TeslimEdildi_KDV.Checked = müş["KDV"].Oku_Bit(null, true);
-            İşTakip_TeslimEdildi_İlaveÖdeme_Düzenle.Checked = false;
+            İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt.Checked = false;
 
             //eposta gönderimi için iş adetlerinin enüde gösterilemsi
             İşTakip_Eposta_DevamEden.Checked = false;
@@ -509,20 +510,27 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 return;
             }
 
-            İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama.Text = İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama.Text.Trim();
-            if (!string.IsNullOrEmpty(İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama.Text))
+            string İlaveÖdeme_Açıklama = null, İlaveÖdeme_Miktar = null;
+            if (İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt.Checked)
             {
-                string ilave_ödeme_miktar = İşTakip_TeslimEdildi_İlaveÖdeme_Miktar.Text;
-                if (!Ortak.YazıyıSayıyaDönüştür(ref ilave_ödeme_miktar, "İlave ödeme Miktar kutucuğu"))
+                İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama.Text = İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama.Text.Trim();
+                if (!string.IsNullOrEmpty(İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama.Text))
                 {
-                    İşTakip_TeslimEdildi_İlaveÖdeme_Miktar.Focus();
-                    return;
+                    string ilave_ödeme_miktar = İşTakip_TeslimEdildi_İlaveÖdeme_Miktar.Text;
+                    if (!Ortak.YazıyıSayıyaDönüştür(ref ilave_ödeme_miktar, "İlave ödeme Miktar kutucuğu"))
+                    {
+                        İşTakip_TeslimEdildi_İlaveÖdeme_Miktar.Focus();
+                        return;
+                    }
+
+                    İşTakip_TeslimEdildi_İlaveÖdeme_Miktar.Text = ilave_ödeme_miktar;
                 }
+                else İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama.Text = null;
 
-                İşTakip_TeslimEdildi_İlaveÖdeme_Miktar.Text = ilave_ödeme_miktar;
+                İlaveÖdeme_Açıklama = İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama.Text;
+                İlaveÖdeme_Miktar = İşTakip_TeslimEdildi_İlaveÖdeme_Miktar.Text;
             }
-            else İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama.Text = null;
-
+            
             List<string> l = new List<string>();
 
         YenidenDene:
@@ -542,15 +550,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 return;
             }
 
-            Banka.Talep_İşaretle_ÖdemeTalepEdildi(İşTakip_Müşteriler.Text, l, İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama.Text, İşTakip_TeslimEdildi_İlaveÖdeme_Miktar.Text, İşTakip_TeslimEdildi_KDV.Checked);
-            Banka.Değişiklikleri_Kaydet(İşTakip_TeslimEdildi_ÖdemeTalebiOluştur);
+            İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt.Checked = false;
 
-            İşTakip_TeslimEdildi_İlaveÖdeme_Düzenle.Checked = false;
+            Banka.Talep_İşaretle_ÖdemeTalepEdildi(İşTakip_Müşteriler.Text, l, İlaveÖdeme_Açıklama, İlaveÖdeme_Miktar, İşTakip_TeslimEdildi_KDV.Checked);
+            Banka.Değişiklikleri_Kaydet(İşTakip_TeslimEdildi_ÖdemeTalebiOluştur);
         }
-        private void İşTakip_TeslimEdildi_İlaveÖdeme_Düzenle_CheckedChanged(object sender, EventArgs e)
+        private void İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt_CheckedChanged(object sender, EventArgs e)
         {
-            İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama.ReadOnly = !İşTakip_TeslimEdildi_İlaveÖdeme_Düzenle.Checked;
-            İşTakip_TeslimEdildi_İlaveÖdeme_Miktar.ReadOnly = !İşTakip_TeslimEdildi_İlaveÖdeme_Düzenle.Checked;
+            İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama.ReadOnly = !İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt.Checked;
+            İşTakip_TeslimEdildi_İlaveÖdeme_Miktar.ReadOnly = !İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt.Checked;
         }
         private void İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama_TextChanged(object sender, EventArgs e)
         {
