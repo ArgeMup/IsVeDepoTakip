@@ -27,15 +27,7 @@ namespace İş_ve_Depo_Takip
             splitContainer1.Panel2.Enabled = false;
             Liste.Items.Clear();
 
-            if (string.IsNullOrEmpty(AramaÇubuğu.Text))
-            {
-                Liste.Items.AddRange(AramaÇubuğu_Liste.ToArray());
-            }
-            else
-            {
-                AramaÇubuğu.Text = AramaÇubuğu.Text.ToLower();
-                Liste.Items.AddRange(AramaÇubuğu_Liste.FindAll(x => x.ToLower().Contains(AramaÇubuğu.Text)).ToArray());
-            }
+            Liste.Items.AddRange(Ortak.GrupArayıcı(AramaÇubuğu_Liste, AramaÇubuğu.Text));
         }
 
         List<string> Malzeme_Liste = null;
@@ -44,15 +36,7 @@ namespace İş_ve_Depo_Takip
             Malzeme_SeçiliSatıraKopyala.Enabled = false;
             Malzeme_SeçimKutusu.Items.Clear();
 
-            if (string.IsNullOrEmpty(Malzeme_AramaÇubuğu.Text))
-            {
-                Malzeme_SeçimKutusu.Items.AddRange(Malzeme_Liste.ToArray());
-            }
-            else
-            {
-                Malzeme_AramaÇubuğu.Text = Malzeme_AramaÇubuğu.Text.ToLower();
-                Malzeme_SeçimKutusu.Items.AddRange(Malzeme_Liste.FindAll(x => x.ToLower().Contains(Malzeme_AramaÇubuğu.Text)).ToArray());
-            }
+            Malzeme_SeçimKutusu.Items.AddRange(Ortak.GrupArayıcı(Malzeme_Liste, Malzeme_AramaÇubuğu.Text));
         }
         private void Malzeme_SeçimKutusu_SelectedValueChanged(object sender, System.EventArgs e)
         {

@@ -47,15 +47,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Zam_Yap.Enabled = false;
             Müşterıler.Items.Clear();
 
-            if (string.IsNullOrEmpty(AramaÇubuğu_Müşteri.Text))
-            {
-                Müşterıler.Items.AddRange(AramaÇubuğu_Müşteri_Liste.ToArray());
-            }
-            else
-            {
-                AramaÇubuğu_Müşteri.Text = AramaÇubuğu_Müşteri.Text.ToLower();
-                Müşterıler.Items.AddRange(AramaÇubuğu_Müşteri_Liste.FindAll(x => x.ToLower().Contains(AramaÇubuğu_Müşteri.Text)).ToArray());
-            }
+            Müşterıler.Items.AddRange(Ortak.GrupArayıcı(AramaÇubuğu_Müşteri_Liste, AramaÇubuğu_Müşteri.Text));
         }
 
         List<string> AramaÇubuğu_İşTürü_Liste = null;
@@ -70,10 +62,19 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             else
             {
-                AramaÇubuğu_İşTürü.Text = AramaÇubuğu_İşTürü.Text.ToLower();
+                string[] arananlar = AramaÇubuğu_İşTürü.Text.ToLower().Split(' ');
                 for (int i = 0; i < Tablo.RowCount; i++)
                 {
-                    Tablo.Rows[i].Visible = ((string)Tablo[0, i].Value).ToLower().Contains(AramaÇubuğu_İşTürü.Text);
+                    string içerik = ((string)Tablo[0, i].Value).ToLower();
+                    int bulundu_adet = 0;
+                    foreach (string arn in arananlar)
+                    {
+                        if (!içerik.Contains(arn)) break;
+
+                        bulundu_adet++;
+                    }
+
+                    Tablo.Rows[i].Visible = bulundu_adet == arananlar.Length;
                 }
             }
         }

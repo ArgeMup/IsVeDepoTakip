@@ -84,11 +84,25 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void _1_Tablo_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0 || e.ColumnIndex > 0) return;
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
 
-            _1_Tablo[0, e.RowIndex].Value = !(bool)_1_Tablo[0, e.RowIndex].Value;
+            if (e.ColumnIndex == 0)
+            {
+                //Seçme sutunu
+                _1_Tablo[0, e.RowIndex].Value = !(bool)_1_Tablo[0, e.RowIndex].Value;
 
-            _1_Hesapla(null, null);
+                _1_Hesapla(null, null);
+            }
+            else if (e.ColumnIndex == 5)
+            {
+                //Listele tuşu
+                Seklemeler_Ödemeler.Text = "Ödemeler - " + _1_Tablo[1, e.RowIndex].Value;
+                Sekmeler.SelectedIndex = 2; //ödemeler
+
+                Sekmeler.Enabled = false;
+                Banka.Müşteri_Ödemeler_TablodaGöster((string)_1_Tablo[1, e.RowIndex].Value, _3_Tablo);
+                Sekmeler.Enabled = true;
+            }
         }
 
         private void _1_Hesapla(object sender, EventArgs e)
@@ -147,6 +161,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     _1_Tablo[0, i].Value = true;
                     _1_Tablo[1, i].Value = _1_Dizi[i].müşteri;
+                    _1_Tablo[5, i].Value = Banka.Yazdır_Ücret(Banka.Müşteri_ÖnÖdemeMiktarı(_1_Dizi[i].müşteri));
                 }
 
                 Ortak.Gösterge.Bitir();
@@ -167,26 +182,23 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     if (_1_Gider_TeslimEdildi.Checked) top_gider += gg.gider_teslimedilen;
                     if (_1_Gider_ÖdemeTalepEdildi.Checked) top_gider += gg.gider_ödemebekleyen;
                 }
-               
-                _1_Tablo[2, i].Value = Banka.Yazdır_Ücret(top_gelir);
-                _1_Tablo[2, i].Tag = top_gelir;
+
+                _1_Tablo[2, i].Value = top_gelir;
                 _1_Tablo[2, i].ToolTipText = gg.gelir_ipucu;
 
-                _1_Tablo[3, i].Value = Banka.Yazdır_Ücret(top_gider);
-                _1_Tablo[3, i].Tag = top_gider;
+                _1_Tablo[3, i].Value = top_gider;
                 _1_Tablo[3, i].ToolTipText = gg.gider_ipucu;
 
-                _1_Tablo[4, i].Value = Banka.Yazdır_Ücret(top_gelir - top_gider);
-                _1_Tablo[4, i].Tag = top_gelir - top_gider;
+                _1_Tablo[4, i].Value = top_gelir - top_gider;
             }
 
             //talep edilenlerin çıktılarını topla
             double gel = 0, gid = 0, fark = 0;
             for (int i = 0; i < _1_Dizi.Length; i++)
             {
-                gel += (double)_1_Tablo[2, i].Tag;
-                gid += (double)_1_Tablo[3, i].Tag;
-                fark += (double)_1_Tablo[4, i].Tag;
+                gel += (double)_1_Tablo[2, i].Value;
+                gid += (double)_1_Tablo[3, i].Value;
+                fark += (double)_1_Tablo[4, i].Value;
             }
 
             //çıktıları yazdır

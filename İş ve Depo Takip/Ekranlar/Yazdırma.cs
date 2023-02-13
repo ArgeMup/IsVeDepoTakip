@@ -167,7 +167,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             IDepo_Eleman l = Depo.Bul("Ödeme");
             if (l != null)
             {
-                Banka.Talep_Ayıkla_ÖdemeDalı(l, out List<string> Açıklamalar, out List<string> Ödemeler, out string _, out string Ödendi, out string Notlar);
+                Banka.Talep_Ayıkla_ÖdemeDalı(l, out List<string> Açıklamalar, out List<string> Ödemeler, out string _, out string Ödendi, out _, out string Notlar);
                 if (!string.IsNullOrEmpty(Notlar))
                 {
                     Sayfa.NotlarYazısı = new Bir_Yazı_();
@@ -222,8 +222,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             Sayfa.Sutun_SıraNo_Genişlik = Grafik.MeasureString(l.Elemanları.Length.Yazıya(), Sayfa.KaKü_Diğer, s).Width + genişlik_boşluk;
-            float EnGeniş_HastaAdı = HastaAdları.Max();
-            float EnGeniş_İş = İşler.Max();
+            float EnGeniş_HastaAdı = HastaAdları.Count == 0 ? 0 : HastaAdları.Max();
+            float EnGeniş_İş = İşler.Count == 0 ? 0 : İşler.Max();
 
             float SıraNoÜcret_hariç_genişlik = Sayfa.Genişlik - Sayfa.Sutun_SıraNo_Genişlik - Sayfa.Sutun_Ödeme_Genişik;
             float fark = SıraNoÜcret_hariç_genişlik - (EnGeniş_HastaAdı + EnGeniş_İş);

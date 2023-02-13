@@ -27,15 +27,7 @@ namespace İş_ve_Depo_Takip
             splitContainer1.Panel2.Enabled = false;
             Liste.Items.Clear();
 
-            if (string.IsNullOrEmpty(AramaÇubuğu.Text))
-            {
-                Liste.Items.AddRange(AramaÇubuğu_Liste.ToArray());
-            }
-            else
-            {
-                AramaÇubuğu.Text = AramaÇubuğu.Text.ToLower();
-                Liste.Items.AddRange(AramaÇubuğu_Liste.FindAll(x => x.ToLower().Contains(AramaÇubuğu.Text)).ToArray());
-            }
+            Liste.Items.AddRange(Ortak.GrupArayıcı(AramaÇubuğu_Liste, AramaÇubuğu.Text));
         }
 
         private void Liste_SelectedValueChanged(object sender, System.EventArgs e)

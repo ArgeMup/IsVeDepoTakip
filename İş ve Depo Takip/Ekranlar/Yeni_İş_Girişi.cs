@@ -146,15 +146,7 @@ namespace İş_ve_Depo_Takip
             Müşteriler_SeçimKutusu.Items.Clear();
             Hastalar_SeçimKutusu.Items.Clear();
 
-            if (string.IsNullOrEmpty(Müşteriler_AramaÇubuğu.Text))
-            {
-                Müşteriler_SeçimKutusu.Items.AddRange(Müşteriler_Liste.ToArray());
-            }
-            else
-            {
-                Müşteriler_AramaÇubuğu.Text = Müşteriler_AramaÇubuğu.Text.ToLower();
-                Müşteriler_SeçimKutusu.Items.AddRange(Müşteriler_Liste.FindAll(x => x.ToLower().Contains(Müşteriler_AramaÇubuğu.Text)).ToArray());
-            }
+            Müşteriler_SeçimKutusu.Items.AddRange(Ortak.GrupArayıcı(Müşteriler_Liste, Müşteriler_AramaÇubuğu.Text));
         }
         private void Müşteriler_SeçimKutusu_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -260,15 +252,7 @@ namespace İş_ve_Depo_Takip
             İşTürleri_SeçimKutusu.Items.Clear();
             İştürü_SeçiliSatıraKopyala.Enabled = false;
 
-            if (string.IsNullOrEmpty(İşTürleri_AramaÇubuğu.Text))
-            {
-                İşTürleri_SeçimKutusu.Items.AddRange(İşTürleri_Liste.ToArray());
-            }
-            else
-            {
-                İşTürleri_AramaÇubuğu.Text = İşTürleri_AramaÇubuğu.Text.ToLower();
-                İşTürleri_SeçimKutusu.Items.AddRange(İşTürleri_Liste.FindAll(x => x.ToLower().Contains(İşTürleri_AramaÇubuğu.Text)).ToArray());
-            }
+            İşTürleri_SeçimKutusu.Items.AddRange(Ortak.GrupArayıcı(İşTürleri_Liste, İşTürleri_AramaÇubuğu.Text));
         }
         private void İşTürleri_AramaÇubuğu_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -299,9 +283,6 @@ namespace İş_ve_Depo_Takip
             var l = Tablo.SelectedRows;
             if (l == null || l.Count != 1) return;
 
-            int konum = l[0].Index;
-            if (konum == Tablo.RowCount - 1) Tablo.RowCount++;
-
             if (l[0].ReadOnly)
             {
                 DialogResult Dr = MessageBox.Show((l[0].Index + 1).ToString() + ". satırdaki iş önceki döneme ait" + Environment.NewLine +
@@ -311,6 +292,11 @@ namespace İş_ve_Depo_Takip
 
                 l[0].ReadOnly = false;
             }
+
+            int konum = l[0].Index;
+            l[0].Selected = false;
+            if (Tablo.RowCount < konum + 2) Tablo.RowCount++;
+            Tablo.Rows[konum + 1].Selected = true;
 
             Tablo[0, konum].Value = İşTürleri_SeçimKutusu.Text;
             Tablo[0, konum].ToolTipText = Banka.Ücretler_BirimÜcret_Detaylı(Müşteriler_SeçimKutusu.Text, İşTürleri_SeçimKutusu.Text);
