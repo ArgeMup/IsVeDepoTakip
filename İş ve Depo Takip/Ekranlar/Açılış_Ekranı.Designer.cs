@@ -76,10 +76,10 @@
             // Yeni_Talep_Girişi
             // 
             this.Yeni_Talep_Girişi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Yeni_Talep_Girişi.Location = new System.Drawing.Point(144, 31);
+            this.Yeni_Talep_Girişi.Location = new System.Drawing.Point(169, 99);
             this.Yeni_Talep_Girişi.Margin = new System.Windows.Forms.Padding(6);
             this.Yeni_Talep_Girişi.Name = "Yeni_Talep_Girişi";
-            this.Yeni_Talep_Girişi.Size = new System.Drawing.Size(257, 68);
+            this.Yeni_Talep_Girişi.Size = new System.Drawing.Size(207, 68);
             this.Yeni_Talep_Girişi.TabIndex = 0;
             this.Yeni_Talep_Girişi.Text = "Yeni İş Girişi";
             this.Yeni_Talep_Girişi.UseVisualStyleBackColor = true;
@@ -88,10 +88,10 @@
             // Tüm_Talepler
             // 
             this.Tüm_Talepler.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Tüm_Talepler.Location = new System.Drawing.Point(144, 111);
+            this.Tüm_Talepler.Location = new System.Drawing.Point(169, 179);
             this.Tüm_Talepler.Margin = new System.Windows.Forms.Padding(6);
             this.Tüm_Talepler.Name = "Tüm_Talepler";
-            this.Tüm_Talepler.Size = new System.Drawing.Size(257, 68);
+            this.Tüm_Talepler.Size = new System.Drawing.Size(207, 68);
             this.Tüm_Talepler.TabIndex = 1;
             this.Tüm_Talepler.Text = "Tüm İşler";
             this.Tüm_Talepler.UseVisualStyleBackColor = true;
@@ -256,7 +256,7 @@
             this.P_AnaMenü.Controls.Add(this.Tüm_Talepler);
             this.P_AnaMenü.Location = new System.Drawing.Point(6, 6);
             this.P_AnaMenü.Name = "P_AnaMenü";
-            this.P_AnaMenü.Size = new System.Drawing.Size(544, 330);
+            this.P_AnaMenü.Size = new System.Drawing.Size(544, 431);
             this.P_AnaMenü.TabIndex = 10;
             this.P_AnaMenü.Visible = false;
             this.P_AnaMenü.VisibleChanged += new System.EventHandler(this.P_AnaMenü_VisibleChanged);
@@ -266,22 +266,23 @@
             this.YedekleKapat.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.YedekleKapat.BackColor = System.Drawing.Color.Transparent;
             this.YedekleKapat.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.YedekleKapat.Location = new System.Drawing.Point(221, 271);
+            this.YedekleKapat.Location = new System.Drawing.Point(196, 300);
             this.YedekleKapat.Margin = new System.Windows.Forms.Padding(6);
             this.YedekleKapat.Name = "YedekleKapat";
             this.YedekleKapat.Size = new System.Drawing.Size(180, 29);
             this.YedekleKapat.TabIndex = 3;
             this.YedekleKapat.Text = "Yedekle ve kapat";
-            this.YedekleKapat.UseVisualStyleBackColor = false;
+            this.YedekleKapat.UseVisualStyleBackColor = true;
             this.YedekleKapat.Click += new System.EventHandler(this.YedekleKapat_Click);
             // 
             // Ayarlar
             // 
-            this.Ayarlar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Ayarlar.Location = new System.Drawing.Point(144, 191);
+            this.Ayarlar.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.Ayarlar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Ayarlar.Location = new System.Drawing.Point(196, 259);
             this.Ayarlar.Margin = new System.Windows.Forms.Padding(6);
             this.Ayarlar.Name = "Ayarlar";
-            this.Ayarlar.Size = new System.Drawing.Size(257, 68);
+            this.Ayarlar.Size = new System.Drawing.Size(180, 29);
             this.Ayarlar.TabIndex = 2;
             this.Ayarlar.Text = "Ayarlar";
             this.Ayarlar.UseVisualStyleBackColor = true;

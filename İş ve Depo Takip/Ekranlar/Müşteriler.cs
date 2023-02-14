@@ -66,8 +66,7 @@ namespace İş_ve_Depo_Takip
                 Liste.Text + " -> " + Yeni.Text, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
 
-            Banka.Değişiklikler_TamponuSıfırla();
-            Banka.Müşteri_İsminiDeğiştir(Liste.Text, Yeni.Text);
+            Banka.Müşteri_YenidenAdlandır(Liste.Text, Yeni.Text);
             Banka.Değişiklikleri_Kaydet(Liste);
             Banka.Değişiklikler_TamponuSıfırla();
 
@@ -101,13 +100,14 @@ namespace İş_ve_Depo_Takip
                 else if (Dr == DialogResult.Yes) Banka.Müşteri_Sil(Liste.Text);
                 else
                 {
-                    Banka.Müşteri_İsminiDeğiştir(Liste.Text, ".:Gizli:. " + Liste.Text);
+                    Banka.Müşteri_YenidenAdlandır(Liste.Text, ".:Gizli:. " + Liste.Text);
                     AramaÇubuğu_Liste.Add(".:Gizli:. " + Liste.Text);
                     Liste.Items.Add(".:Gizli:. " + Liste.Text);
                 }
             }
 
             Banka.Değişiklikleri_Kaydet(Liste);
+            Banka.Değişiklikler_TamponuSıfırla();
 
             AramaÇubuğu_Liste.Remove(Liste.Text);
             Liste.Items.RemoveAt(Liste.SelectedIndex);

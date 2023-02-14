@@ -561,8 +561,10 @@ namespace İş_ve_Depo_Takip
         {
             return Adı.DoluMu(true) && Ayarlar_Genel("Müşteriler/" + Adı) != null;
         }
-        public static void Müşteri_İsminiDeğiştir(string Eski, string Yeni)
+        public static void Müşteri_YenidenAdlandır(string Eski, string Yeni)
         {
+            Değişiklikler_TamponuSıfırla();
+
             IDepo_Eleman müş = Ayarlar_Genel("Müşteriler/" + Eski);
             if (müş != null)
             {
@@ -716,6 +718,124 @@ namespace İş_ve_Depo_Takip
         public static bool İşTürü_MevcutMu(string Adı)
         {
             return !string.IsNullOrWhiteSpace(Adı) && Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri/" + Adı) != null;
+        }
+        public static void İşTürü_YenidenAdlandır(string Eski, string Yeni)
+        {
+            Değişiklikler_TamponuSıfırla();
+
+            IDepo_Eleman iş_türü = Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri/" + Eski);
+            if (iş_türü != null) iş_türü.Adı = Yeni;
+
+            if (Directory.Exists(Ortak.Klasör_Banka_MalzemeKullanımDetayları))
+            {
+                string[] dsy_lar = Directory.GetFiles(Ortak.Klasör_Banka_MalzemeKullanımDetayları, "*.mup", SearchOption.AllDirectories);
+                if (dsy_lar != null && dsy_lar.Length > 0)
+                {
+                    foreach (string dsy in dsy_lar)
+                    {
+                        Ortak.Gösterge.İlerleme = 1;
+                        bool _ = Ortak.Gösterge.Çalışsın;
+
+                        string d_adı = dsy.Substring(Ortak.Klasör_Banka.Length);
+                        d_adı = d_adı.Remove(d_adı.Length - 4);
+                        Depo_ depo = Depo_Aç(d_adı);
+                        IDepo_Eleman İşlemler = depo.Bul("İşlemler");
+                        if (İşlemler != null && İşlemler.Elemanları.Length > 0)
+                        {
+                            foreach (IDepo_Eleman sn in İşlemler.Elemanları)
+                            {
+                                foreach (IDepo_Eleman işlem in sn.Elemanları)
+                                {
+                                    if (işlem[0] == Eski) işlem[0] = Yeni;
+                                }
+                            }
+
+                            Depo_Kaydet(d_adı, depo);
+                        }
+                    }
+                }
+            }
+
+            if (Directory.Exists(Ortak.Klasör_Banka_Müşteriler))
+            {
+                string[] dsy_lar = Directory.GetFiles(Ortak.Klasör_Banka_Müşteriler, "Mü_Ay.mup", SearchOption.AllDirectories);
+                if (dsy_lar != null && dsy_lar.Length > 0)
+                {
+                    foreach (string dsy in dsy_lar)
+                    {
+                        Ortak.Gösterge.İlerleme = 1;
+                        bool _ = Ortak.Gösterge.Çalışsın;
+
+                        string d_adı = dsy.Substring(Ortak.Klasör_Banka.Length);
+                        d_adı = d_adı.Remove(d_adı.Length - 4);
+                        Depo_ depo = Depo_Aç(d_adı);
+                        IDepo_Eleman Bütçe = depo.Bul("Bütçe");
+                        if (Bütçe != null && Bütçe.Elemanları.Length > 0)
+                        {
+                            foreach (IDepo_Eleman it in Bütçe.Elemanları)
+                            {
+                                if (it.Adı == Eski) it.Adı = Yeni;
+                            }
+
+                            Depo_Kaydet(d_adı, depo);
+                        }
+                    }
+                }
+
+                dsy_lar = Directory.GetFiles(Ortak.Klasör_Banka_Müşteriler, "Mü_A.mup", SearchOption.AllDirectories);
+                if (dsy_lar != null && dsy_lar.Length > 0)
+                {
+                    foreach (string dsy in dsy_lar)
+                    {
+                        Ortak.Gösterge.İlerleme = 1;
+                        bool _ = Ortak.Gösterge.Çalışsın;
+
+                        string d_adı = dsy.Substring(Ortak.Klasör_Banka.Length);
+                        d_adı = d_adı.Remove(d_adı.Length - 4);
+                        Depo_ depo = Depo_Aç(d_adı);
+                        IDepo_Eleman Talepler = depo.Bul("Talepler");
+                        if (Talepler != null && Talepler.Elemanları.Length > 0)
+                        {
+                            foreach (IDepo_Eleman sn in Talepler.Elemanları)
+                            {
+                                foreach (IDepo_Eleman it in sn.Elemanları)
+                                {
+                                    if (it[0] == Eski) it[0] = Yeni;
+                                }
+                            }
+
+                            Depo_Kaydet(d_adı, depo);
+                        }
+                    }
+                }
+
+                dsy_lar = Directory.GetFiles(Ortak.Klasör_Banka_Müşteriler, "Mü_B_*.mup", SearchOption.AllDirectories);
+                if (dsy_lar != null && dsy_lar.Length > 0)
+                {
+                    foreach (string dsy in dsy_lar)
+                    {
+                        Ortak.Gösterge.İlerleme = 1;
+                        bool _ = Ortak.Gösterge.Çalışsın;
+
+                        string d_adı = dsy.Substring(Ortak.Klasör_Banka.Length);
+                        d_adı = d_adı.Remove(d_adı.Length - 4);
+                        Depo_ depo = Depo_Aç(d_adı);
+                        IDepo_Eleman Talepler = depo.Bul("Talepler");
+                        if (Talepler != null && Talepler.Elemanları.Length > 0)
+                        {
+                            foreach (IDepo_Eleman sn in Talepler.Elemanları)
+                            {
+                                foreach (IDepo_Eleman it in sn.Elemanları)
+                                {
+                                    if (it[0] == Eski) it[0] = Yeni;
+                                }
+                            }
+
+                            Depo_Kaydet(d_adı, depo);
+                        }
+                    }
+                }
+            }
         }
         public static void İşTürü_Malzemeler_TablodaGöster(DataGridView Tablo, string İşTürü, out string MüşteriyeGösterilecekOlanAdı, out string Notlar)
         {
