@@ -8,7 +8,9 @@ namespace İş_ve_Depo_Takip
 {
     public partial class Yeni_İş_Girişi : Form
     {
-        string Müşteri  = null, SeriNo = null;
+        string Müşteri  = null, SeriNo = null, EkTanım = null; 
+        Banka.TabloTürü SeriNoTürü = Banka.TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi;
+        bool SadeceOkunabilir = false;
         List<string> Müşteriler_Liste = null, Hastalar_Liste = null, İşTürleri_Liste = null; 
 
         public Yeni_İş_Girişi()
@@ -17,14 +19,16 @@ namespace İş_ve_Depo_Takip
 
             Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
 
-            if (Ortak.YeniSayfaAçmaTalebi != null)
+            if (Ortak.YeniSayfaAçmaTalebi != null && Ortak.YeniSayfaAçmaTalebi.Length == 5)
             {
                 //düzenleme için açılıyor
-                Müşteri = (string)Ortak.YeniSayfaAçmaTalebi[1];
-                SeriNo = (string)Ortak.YeniSayfaAçmaTalebi[2];
+                Müşteri = Ortak.YeniSayfaAçmaTalebi[1] as string;
+                SeriNo = Ortak.YeniSayfaAçmaTalebi[2] as string;
+                SeriNoTürü = (Banka.TabloTürü)Ortak.YeniSayfaAçmaTalebi[3];
+                EkTanım = Ortak.YeniSayfaAçmaTalebi[4] as string;
                 Ortak.YeniSayfaAçmaTalebi = null;
 
-                if (string.IsNullOrEmpty(Müşteri) || string.IsNullOrEmpty(SeriNo))
+                if (string.IsNullOrWhiteSpace(Müşteri) || string.IsNullOrWhiteSpace(SeriNo))
                 {
                     Müşteri = null;
                     SeriNo = null;
@@ -52,11 +56,40 @@ namespace İş_ve_Depo_Takip
                 Müşteriler_SeçimKutusu.SelectedIndex = 0;
                 Ayraç_Kat_1_2.SplitterDistance = (Müşteriler_AramaÇubuğu.Size.Height * 2) + (Müşteriler_AramaÇubuğu.Size.Height / 2);
 
-                IDepo_Eleman seri_no_dalı = Banka.Tablo_Dal(Müşteri, Banka.TabloTürü.DevamEden, "Talepler/" + SeriNo);
+                IDepo_Eleman seri_no_dalı;
+                if (SeriNoTürü == Banka.TabloTürü.TeslimEdildi)
+                {
+                    seri_no_dalı = Banka.Tablo_Dal(Müşteri, Banka.TabloTürü.DevamEden, "Talepler/" + SeriNo);
+                }
+                else
+                {
+                    seri_no_dalı = Banka.Tablo_Dal(Müşteri, SeriNoTürü, "Talepler/" + SeriNo, false, EkTanım);
+                }
                 if (seri_no_dalı == null) throw new Exception(Müşteri + " / Devam Eden / Talepler / " + SeriNo + " bulunamadı");
 
+                Müşteriler_SeçimKutusu.Enabled = false;
+                Hastalar_SeçimKutusu.Enabled = false;
+                switch (SeriNoTürü)
+                {
+                    case Banka.TabloTürü.DevamEden:
+                    case Banka.TabloTürü.TeslimEdildi:
+                        Müşteriler_Grup.Enabled = false;
+                        break;
+
+                    case Banka.TabloTürü.ÖdemeTalepEdildi:
+                    case Banka.TabloTürü.Ödendi:
+                        SadeceOkunabilir = true;
+                        Müşteriler_AramaÇubuğu.ReadOnly = true;
+                        Hastalar_AramaÇubuğu.ReadOnly = true;
+                        İskonto.ReadOnly = true;
+                        Notlar.ReadOnly = true;
+                        İşTürleri.Enabled = false;
+                        Seçili_Satırı_Sil.Enabled = false;
+                        break;
+                }
+
                 Banka.Talep_Ayıkla_SeriNoDalı(seri_no_dalı, out string _, out string Hasta, out string İskonto_, out string Notlar_, out string _);
-                Text += " - " + SeriNo;
+                Text += " - " + SeriNo + " - " + SeriNoTürü.ToString();
                 Hastalar_AramaÇubuğu.Text = Hasta;
                 İskonto.Text = İskonto_;
                 Notlar.Text = Notlar_;
@@ -67,7 +100,7 @@ namespace İş_ve_Depo_Takip
                 {
                     Banka.Talep_Ayıkla_İşTürüDalı(seri_no_dalı.Elemanları[i], out string İşTürü, out string GirişTarihi, out string ÇıkışTarihi, out string Ücret1, out string _);
 
-                    if (!İşTürleri_Liste.Contains(İşTürü))
+                    if (!İşTürleri_Liste.Contains(İşTürü) && !SadeceOkunabilir)
                     {
                         //eskiden varolan şuanda bulunmayan bir iş türü 
                         hata_bilgilendirmesi += (i + 1) + ". satırdaki \"" + İşTürü + "\" olarak tanımlı iş türü şuanda mevcut olmadığından satır içeriği boş olarak bırakıldı" + Environment.NewLine;
@@ -93,10 +126,6 @@ namespace İş_ve_Depo_Takip
                         Tablo[3, i].ToolTipText = ÇıkışTarihi;
                     }
                 }
-
-                Müşteriler_Grup.Enabled = false;
-                Hastalar_Grup.Enabled = true;
-                Hastalar_SeçimKutusu.Enabled = false;
 
                 if (!string.IsNullOrEmpty(hata_bilgilendirmesi))
                 {
@@ -223,11 +252,14 @@ namespace İş_ve_Depo_Takip
             sn = sn.Substring(0, konum);
 
             string soru;
+            Banka.TabloTürü SeriNoTürü;
             if (hasta.EndsWith(" Devam Eden)"))
             {
                 soru = "Yeni bir iş oluşturmak yerine" + Environment.NewLine +
                 hasta + Environment.NewLine +
                 "kaydını güncellemek ister misiniz?";
+
+                SeriNoTürü = Banka.TabloTürü.DevamEden;
             }
             else if (hasta.EndsWith(" Teslim Edildi)"))
             {
@@ -236,6 +268,8 @@ namespace İş_ve_Depo_Takip
                 "Yeni bir iş oluşturmak yerine" + Environment.NewLine +
                 hasta + Environment.NewLine +
                 "kaydını güncellemek ister misiniz?";
+
+                SeriNoTürü = Banka.TabloTürü.TeslimEdildi;
             }
             else return;
 
@@ -243,7 +277,7 @@ namespace İş_ve_Depo_Takip
             if (Dr == DialogResult.No) return;
 
             Kaydet.Enabled = false;
-            Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", Müşteriler_SeçimKutusu.Text, sn };
+            Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", Müşteriler_SeçimKutusu.Text, sn, SeriNoTürü, null };
             Close();
         }
 
@@ -306,7 +340,7 @@ namespace İş_ve_Depo_Takip
         {
             if (e.ColumnIndex < 0 || e.RowIndex < 0) return;
 
-            Kaydet.Enabled = true;
+            Değişiklik_Yapılıyor(null, null);
         }
         private void Tablo_SelectionChanged(object sender, EventArgs e)
         {
@@ -320,7 +354,7 @@ namespace İş_ve_Depo_Takip
         }
         private void Tablo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || e.ColumnIndex != 3) return;
+            if (e.RowIndex < 0 || e.ColumnIndex != 3 || SadeceOkunabilir) return;
 
             if (Tablo.Rows[e.RowIndex].ReadOnly)
             {
@@ -350,6 +384,8 @@ namespace İş_ve_Depo_Takip
 
         private void Değişiklik_Yapılıyor(object sender, EventArgs e)
         {
+            if (SadeceOkunabilir) return;
+
             Kaydet.Enabled = true;
         }
 
@@ -374,7 +410,7 @@ namespace İş_ve_Depo_Takip
                 if (Dr == DialogResult.No) return;
 
                 Tablo.Rows.Remove(l[0]);
-                Kaydet.Enabled = true;
+                Değişiklik_Yapılıyor(null, null);
             }
         }
         private void Kaydet_Click(object sender, EventArgs e)

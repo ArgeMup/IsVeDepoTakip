@@ -1170,8 +1170,9 @@ namespace İş_ve_Depo_Takip
                 }
             } 
         }
-        public static void Malzeme_KullanımDetayı_TablodaGöster(DataGridView Tablo, string Malzeme)
+        public static void Malzeme_KullanımDetayı_TablodaGöster(DataGridView Tablo, string Malzeme, out string Açıklama)
         {
+            Açıklama = null;
             Tablo.Tag = 0;
             
             Tablo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
@@ -1188,6 +1189,7 @@ namespace İş_ve_Depo_Takip
             IDepo_Eleman detay_lar = Tablo_Dal(Malzeme, TabloTürü.MalzemeKullanımDetayı, "İşlemler");
             if (detay_lar == null || detay_lar.Elemanları.Length == 0) return;
             int y;
+            double kullanım = 0, iptal = 0;
 
             foreach (IDepo_Eleman sn in detay_lar.Elemanları)
             {
@@ -1203,13 +1205,32 @@ namespace İş_ve_Depo_Takip
                     Tablo[4, y].Value = Yazdır_Tarih(detay.Adı);//İş giriş tarihi
                     Tablo[4, y].Tag = detay.Adı;
                     Tablo[6, y].Value = detay[0];               //iş türü
-                    
+
                     if (detay[1].BoşMu()) Tablo[10, y].Value = null;  //miktar
-                    else Tablo[10, y].Value = (detay[1][0] == '-' ? "İptal " : "Kullanım ") + detay[1];
+                    else
+                    {
+                        double miktar = detay[1].NoktalıSayıya();
+
+                        if (miktar < 0)
+                        {
+                            Tablo[10, y].Value = "İptal " + detay[1];
+                            iptal += miktar;
+                        }
+                        else
+                        {
+                            Tablo[10, y].Value = "Kullanım " + detay[1];
+                            kullanım += miktar;
+                        }
+                    }
                 }
             }
 
-            Tablo.Columns[2].Visible = true; //iş çıkış tarihi
+            Açıklama = Tablo_Dal(null, TabloTürü.Malzemeler, "Malzemeler/" + Malzeme)[1]; //birimi
+            Açıklama = "Kullanım : " + kullanım + " " + Açıklama + Environment.NewLine +
+                "İptal : " + iptal + " " + Açıklama + Environment.NewLine +
+                "Fark : " + (kullanım + iptal) + " " + Açıklama;
+
+            Tablo.Columns[2].Visible = true;  //iş çıkış tarihi
             Tablo.Columns[5].Visible = false; //iş çıkış tarihi
             Tablo.Columns[7].Visible = false; //tarih teslim
             Tablo.Columns[8].Visible = false; //tarih ödeme talebi
@@ -1759,12 +1780,24 @@ namespace İş_ve_Depo_Takip
                 }
             }
 
-            string tar_ödeme_talep = null;
-            string tar_ödendi = null;
+            string tar_ödeme_talep = null, tar_ödendi = null;
+            object tar_ödeme_talep_t = null, tar_ödendi_t = null;
             if (İçerik.Ödeme != null)
             {
-                tar_ödeme_talep = Yazdır_Tarih(İçerik.Ödeme.Oku(null, null, 0));
-                tar_ödendi = Yazdır_Tarih(İçerik.Ödeme.Oku(null, null, 1));
+                tar_ödeme_talep = İçerik.Ödeme.Oku(null, null, 0);
+                tar_ödendi = İçerik.Ödeme.Oku(null, null, 1);
+
+                if (tar_ödeme_talep.DoluMu())
+                {
+                    tar_ödeme_talep_t = tar_ödeme_talep.TarihSaate();
+                    tar_ödeme_talep = Yazdır_Tarih(tar_ödeme_talep); 
+                }
+
+                if (tar_ödendi.DoluMu())
+                {
+                    tar_ödendi_t = tar_ödendi.TarihSaate();
+                    tar_ödendi = Yazdır_Tarih(tar_ödendi);
+                }
             }
             
             foreach (IDepo_Eleman seri_no_dalı in İçerik.Talepler)
@@ -1792,7 +1825,9 @@ namespace İş_ve_Depo_Takip
                     //teslim edildi ise
                     Tablo[6, y].ToolTipText = Yazdır_Ücret(ücreti);
                     Tablo[6, y].Tag = ücreti;
-                    Tablo[7, y].Tag = seri_no_dalı[3].DoluMu() ? seri_no_dalı[3].TarihSaate() : default; //zamanı
+                    Tablo[7, y].Tag = seri_no_dalı[3].TarihSaate(); //teslim edilme tarihi
+                    Tablo[8, y].Tag = tar_ödeme_talep_t; //ödeme talep edilme tarihi
+                    Tablo[9, y].Tag = tar_ödendi_t; //ödeme tarihi
                 }
             }
           
@@ -1842,11 +1877,7 @@ namespace İş_ve_Depo_Takip
                 Tablo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                 Tablo.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
                 Tablo.AutoResizeColumns();
-
                 Tablo.ClearSelection();
-                if (Tablo.RowCount > 0) Tablo[0, 0].Value = true; //sayım yapması için
-                Tablo.Tag = null;
-                if (Tablo.RowCount > 0) Tablo[0, 0].Value = false; //sayım yapması için
             }
 
             Tablo.Tag = null;

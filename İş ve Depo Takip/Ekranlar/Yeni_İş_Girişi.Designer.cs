@@ -52,7 +52,7 @@ namespace İş_ve_Depo_Takip
             this.Müşteriler_SeçimKutusu = new System.Windows.Forms.ListBox();
             this.Hastalar_Grup = new System.Windows.Forms.GroupBox();
             this.Hastalar_SeçimKutusu = new System.Windows.Forms.ListBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.İşTürleri = new System.Windows.Forms.GroupBox();
             this.İştürü_SeçiliSatıraKopyala = new System.Windows.Forms.Button();
             this.İşTürleri_SeçimKutusu = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -64,7 +64,7 @@ namespace İş_ve_Depo_Takip
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             this.Müşteriler_Grup.SuspendLayout();
             this.Hastalar_Grup.SuspendLayout();
-            this.groupBox4.SuspendLayout();
+            this.İşTürleri.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -326,18 +326,18 @@ namespace İş_ve_Depo_Takip
             this.Hastalar_SeçimKutusu.TabIndex = 3;
             this.Hastalar_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.Hastalar_SeçimKutusu_SelectedIndexChanged);
             // 
-            // groupBox4
+            // İşTürleri
             // 
-            this.groupBox4.Controls.Add(this.İştürü_SeçiliSatıraKopyala);
-            this.groupBox4.Controls.Add(this.İşTürleri_AramaÇubuğu);
-            this.groupBox4.Controls.Add(this.İşTürleri_SeçimKutusu);
-            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(0, 0);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(271, 247);
-            this.groupBox4.TabIndex = 14;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "İş Türleri";
+            this.İşTürleri.Controls.Add(this.İştürü_SeçiliSatıraKopyala);
+            this.İşTürleri.Controls.Add(this.İşTürleri_AramaÇubuğu);
+            this.İşTürleri.Controls.Add(this.İşTürleri_SeçimKutusu);
+            this.İşTürleri.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.İşTürleri.Location = new System.Drawing.Point(0, 0);
+            this.İşTürleri.Name = "İşTürleri";
+            this.İşTürleri.Size = new System.Drawing.Size(271, 247);
+            this.İşTürleri.TabIndex = 14;
+            this.İşTürleri.TabStop = false;
+            this.İşTürleri.Text = "İş Türleri";
             // 
             // İştürü_SeçiliSatıraKopyala
             // 
@@ -417,7 +417,7 @@ namespace İş_ve_Depo_Takip
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.groupBox4);
+            this.splitContainer2.Panel1.Controls.Add(this.İşTürleri);
             // 
             // splitContainer2.Panel2
             // 
@@ -486,8 +486,8 @@ namespace İş_ve_Depo_Takip
             this.Müşteriler_Grup.PerformLayout();
             this.Hastalar_Grup.ResumeLayout(false);
             this.Hastalar_Grup.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
+            this.İşTürleri.ResumeLayout(false);
+            this.İşTürleri.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -520,7 +520,7 @@ namespace İş_ve_Depo_Takip
         private System.Windows.Forms.TextBox Müşteriler_AramaÇubuğu;
         private System.Windows.Forms.GroupBox Hastalar_Grup;
         private System.Windows.Forms.TextBox Hastalar_AramaÇubuğu;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox İşTürleri;
         private System.Windows.Forms.TextBox İşTürleri_AramaÇubuğu;
         private System.Windows.Forms.ListBox İşTürleri_SeçimKutusu;
         private System.Windows.Forms.Label label6;

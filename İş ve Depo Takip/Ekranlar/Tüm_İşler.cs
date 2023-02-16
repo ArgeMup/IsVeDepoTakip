@@ -75,7 +75,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             switch (e.KeyCode)
             {
                 case Keys.F1:
-                    Ortak.YeniSayfaAçmaTalebi = new string[] { "Yeni İş Girişi", null, null }; 
+                    Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", null, null, Banka.TabloTürü.DevamEden, null }; 
                     Close();
                     Tüm_İşler_Shown(null, null);
                     break;
@@ -267,6 +267,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Seviye2_ÖdemeBekleyen.Checked = false;
                 Seviye2_Ödendi.Checked = false;
             }
+            Tablo_İçeriğeGöreGüncelle();
             return;
 
         AramaİçinSeçenekleriBelirle:
@@ -383,7 +384,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 return;
             }
 
-            Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", İşTakip_Müşteriler.Text, l[0] };
+            Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", İşTakip_Müşteriler.Text, l[0], Banka.TabloTürü.DevamEden, null };
             Close();
         }
         private void İşTakip_DevamEden_MüşteriyeGönder_Click(object sender, EventArgs e)
@@ -615,7 +616,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_KadarİşiSeç_Click_2(object sender, EventArgs e)
         {
-            if (!P_İşTakip_TeslimEdildi.Visible) return;
+            if (!P_İşTakip_TeslimEdildi.Visible || !Banka.Müşteri_MevcutMu(İşTakip_Müşteriler.Text)) return;
 
             Ortak.İşTakip_TeslimEdildi_İşSeç_Seç o = new Ortak.İşTakip_TeslimEdildi_İşSeç_Seç();
             İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Tag = o;
@@ -698,12 +699,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             if (!İşTakip_ÖdemeBekleyen_Dönem.Items.Contains(İşTakip_ÖdemeBekleyen_Dönem.Text))
             {
-                İşTakip_ÖdemeBekleyen_Açıklama.Text = "Tümünü seçmek / kaldırmak için çift tıklayın";
+                İşTakip_ÖdemeBekleyen_Açıklama.Text = null;
                 return;
             }
 
             Banka_Tablo_ bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.ÖdemeTalepEdildi, İşTakip_ÖdemeBekleyen_Dönem.Text);
             Banka.Talep_TablodaGöster(Tablo, bt);
+            Tablo_İçeriğeGöreGüncelle();
 
             Banka.Talep_Ayıkla_ÖdemeDalı(bt.Ödeme, out List<string> Açıklamalar, out List<string> Ücretler, out _, out _, out _, out string Notlar);
             string ipucu = "";
@@ -802,12 +804,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             if (string.IsNullOrEmpty(İşTakip_Ödendi_Dönem_Dönemler.Text))
             {
-                İşTakip_Ödendi_Dönem_Açıklama.Text = "Tümünü seçmek / kaldırmak için çift tıklayın";
+                İşTakip_Ödendi_Dönem_Açıklama.Text = null;
                 return;
             }
 
             Banka_Tablo_ bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.Ödendi, İşTakip_Ödendi_Dönem_Dönemler.Text);
             Banka.Talep_TablodaGöster(Tablo, bt);
+            Tablo_İçeriğeGöreGüncelle();
 
             Banka.Talep_Ayıkla_ÖdemeDalı(bt.Ödeme, out List<string> Açıklamalar, out List<string> Ücretler, out _, out _, out double İşlemSonrasıÖnÖdeme, out string Notlar);
             string ipucu = "";
@@ -1016,11 +1019,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
             else MessageBox.Show("Hiç kayıt bulunamadı", Text);
         }
 
-        private void Tablo_DoubleClick(object sender, EventArgs e)
+        private void Tablo_TümünüSeç_Click(object sender, EventArgs e)
         {
             if (Tablo.Tag != null || Tablo.RowCount < 1) return;
             bool b = !(bool)Tablo[0, 0].Value;
             Tablo.Tag = 0;
+            Tablo_TümünüSeç.Enabled = false;
 
             for (int i = 0; i < Tablo.RowCount; i++)
             {
@@ -1028,6 +1032,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             Tablo.Tag = null;
+            Tablo_TümünüSeç.Enabled = true;
 
             Tablo_İçeriğeGöreGüncelle();
         }
@@ -1039,32 +1044,70 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Tablo_İçeriğeGöreGüncelle();
         }
+        private void Tablo_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (Tablo.RowCount < 1 || e.ColumnIndex < 0 || e.RowIndex < 0 || (int)Seviye1_işTakip.Tag != 1) return;
+
+            string Müşteri = Tablo[2, e.RowIndex].Value as string, SeriNo = Tablo[1, e.RowIndex].Value as string, EkTanım = null;
+            if (Müşteri == null || SeriNo == null) return;
+            Banka.TabloTürü SeriNoTürü;
+
+            if (Tablo[7, e.RowIndex].Tag != null) //teslim tarihi
+            {
+                SeriNoTürü = Banka.TabloTürü.TeslimEdildi;
+
+                if (Tablo[8, e.RowIndex].Tag != null) //ödeme talep tarihi
+                {
+                    if (Tablo[9, e.RowIndex].Tag != null) //ödeme tarihi
+                    {
+                        SeriNoTürü = Banka.TabloTürü.Ödendi;
+                        EkTanım = ((DateTime)Tablo[9, e.RowIndex].Tag).Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2);
+                    }
+                    else
+                    {
+                        SeriNoTürü = Banka.TabloTürü.ÖdemeTalepEdildi;
+                        EkTanım = ((DateTime)Tablo[8, e.RowIndex].Tag).Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2);
+                    }
+                }
+            }
+            else SeriNoTürü = Banka.TabloTürü.DevamEden;
+
+            string soru;
+            if (SeriNoTürü == Banka.TabloTürü.TeslimEdildi)
+            {
+                soru = "Seçtiğiniz hastaya ait kayıt TESLİM EDİLMİŞ olarak görünüyor." + Environment.NewLine + Environment.NewLine +
+                    "İçeriğinde değişiklik yapılır ise DEVAM EDİYOR olarak işaretlenecektir." + Environment.NewLine + Environment.NewLine +
+                    "İşleme devam etmek istiyor musunuz?";
+            }
+            else if (SeriNoTürü == Banka.TabloTürü.ÖdemeTalepEdildi || SeriNoTürü == Banka.TabloTürü.Ödendi)
+            {
+                soru = "Seçtiğiniz hastaya ait kayıt içeriği artık değiştirilemez." + Environment.NewLine + 
+                    "Yapılacak değişiklikler KAYDEDİLMEYECEKTİR." + Environment.NewLine + Environment.NewLine +
+                    "İşleme devam etmek istiyor musunuz?";
+            }
+            else
+            {
+                soru = "İşleme devam etmek istiyor musunuz?";
+            }
+            DialogResult Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            if (Dr == DialogResult.No) return;
+
+            Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", Müşteri, SeriNo, SeriNoTürü, EkTanım };
+            Close();
+        }
         private void Tablo_İçeriğeGöreGüncelle()
         {
             if (Tablo.Tag != null) return;
 
             İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_KadarİşiSeç_Click_2(null, null);
 
-            string m;
-            if ((int)Seviye1_işTakip.Tag == 3 && Malzemeler_Malzeme.Text.DoluMu())
+            int seçili = 0;
+            for (int i = 0; i < Tablo.RowCount; i++)
             {
-                //İştakip -> Malzemeler Sayfası
-                m = "Miktar (" + Banka.Tablo_Dal(null, Banka.TabloTürü.Malzemeler, "Malzemeler/" + Malzemeler_Malzeme.Text)[1] + ")";
+                if ((bool)Tablo[0, i].Value) seçili++;
             }
-            else m = "Notlar";
             
-            if (Tablo.RowCount > 0)
-            {
-                int seçili = 0;
-                for (int i = 0; i < Tablo.RowCount; i++)
-                {
-                    if ((bool)Tablo[0, i].Value) seçili++;
-                }
-
-                m += " ( " + seçili + " / " + Tablo.RowCount + " )";
-            }
-
-            Tablo_Notlar.HeaderText = m;
+            Tablo_Notlar.HeaderText = "Notlar ( " + seçili + " / " + Tablo.RowCount + " )";
         }
 
         bool TabloİçeriğiArama_Çalışıyor = false;
@@ -1088,7 +1131,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     TabloİçeriğiArama.BackColor = Color.White;
                     TabloİçeriğiArama_Sayac_Bulundu = 0;
-                    Tablo_İçeriğeGöreGüncelle();
+                    Tablo_Notlar.HeaderText = "Notlar";
                 }
 
                 return;
@@ -1202,6 +1245,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Banka_Tablo_ bt = new Banka_Tablo_(null);
             bt.Türü = Banka.TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi;
             Banka.Talep_TablodaGöster(Tablo, bt);
+
             Tablo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             Tablo.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
 
@@ -1255,9 +1299,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Tablo.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             Tablo.AutoResizeColumns();
             Tablo.ClearSelection();
-            if (Tablo.RowCount > 0) Tablo[0, 0].Value = true; //sayım yapması için
-            Tablo.Tag = null;
-            if (Tablo.RowCount > 0) Tablo[0, 0].Value = false; //sayım yapması için
+            Tablo_İçeriğeGöreGüncelle();
 
             Ortak.Gösterge.Bitir();
             TabloİçeriğiArama.Focus();
@@ -1306,7 +1348,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if (bt.Türü == Banka.TabloTürü.Ödendi) sn_ler += Environment.NewLine + "Ödeme : " + D_TarihSaat.Yazıya(bt.Ödeme.Oku_TarihSaat(null, default, 1), D_TarihSaat.Şablon_DosyaAdı2);
 
                 //sn ler + tarihler
-                y.Yaz("1", sn_ler);
+                y.Yaz(" ", sn_ler);
 
                 sn_ler = "";
                 Banka.Talep_Ayıkla_ÖdemeDalı(bt.Ödeme, out List<string> Açıklamalar, out List<string> Ücretler, out _, out _, out _, out string Notlar);
@@ -1360,7 +1402,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Malzemeler_Malzeme_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Banka.Malzeme_KullanımDetayı_TablodaGöster(Tablo, Malzemeler_Malzeme.Text);
+            Banka.Malzeme_KullanımDetayı_TablodaGöster(Tablo, Malzemeler_Malzeme.Text, out string Açıklama);
+            Malzemeler_Açıklama.Text = Açıklama;
+            Tablo_İçeriğeGöreGüncelle();
         }
         private void Malzemeler_SeçilenleriSil_Click(object sender, EventArgs e)
         {
