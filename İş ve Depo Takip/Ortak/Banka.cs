@@ -512,18 +512,17 @@ namespace İş_ve_Depo_Takip
             List<string> l_gizli = new List<string>();
 
             IDepo_Eleman d = Ayarlar_Genel("Müşteriler");
-            if (d != null)
+            if (d == null || d.Elemanları.Length == 0) return l;
+            
+            foreach (IDepo_Eleman e in d.Elemanları)
             {
-                foreach (IDepo_Eleman e in d.Elemanları)
-                {
-                    if (e.İçiBoşOlduğuİçinSilinecek) continue;
+                if (e.İçiBoşOlduğuİçinSilinecek) continue;
                     
-                    if (e.Adı.StartsWith(".:Gizli:. "))
-                    {
-                        if (GizlilerDahil) l_gizli.Add(e.Adı);
-                    }
-                    else l.Add(e.Adı);
+                if (e.Adı.StartsWith(".:Gizli:. "))
+                {
+                    if (GizlilerDahil) l_gizli.Add(e.Adı);
                 }
+                else l.Add(e.Adı);
             }
 
             l.Sort();
@@ -691,7 +690,7 @@ namespace İş_ve_Depo_Takip
 
                 l.Add(e.Adı);
             }
-
+            
             return l;
         }
         public static void İşTürü_Ekle(string Adı)
@@ -961,6 +960,38 @@ namespace İş_ve_Depo_Takip
         public static bool Malzeme_MevcutMu(string Adı)
         {
             return !string.IsNullOrWhiteSpace(Adı) && Tablo_Dal(null, TabloTürü.Malzemeler, "Malzemeler/" + Adı) != null;
+        }
+        public static void Malzeme_YenidenAdlandır(string Eski, string Yeni)
+        {
+            Değişiklikler_TamponuSıfırla();
+
+            IDepo_Eleman iş_türleri = Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri");
+            if (iş_türleri != null && iş_türleri.Elemanları.Length > 0)
+            {
+                foreach (IDepo_Eleman iş_türü in iş_türleri.Elemanları)
+                {
+                    IDepo_Eleman malzemeler = iş_türü.Bul("Malzemeler");
+                    if (malzemeler != null && malzemeler.Elemanları.Length > 0)
+                    {
+                        foreach (IDepo_Eleman malzeme in malzemeler.Elemanları)
+                        {
+                            if (malzeme.Adı == Eski) malzeme.Adı = Yeni;
+                        }
+                    }
+                }
+            }
+
+            IDepo_Eleman Malzeme = Tablo_Dal(null, TabloTürü.Malzemeler, "Malzemeler/" + Eski);
+            if (Malzeme != null)
+            {
+                IDepo_Eleman tür = Tablo_Dal(Eski, TabloTürü.MalzemeKullanımDetayı, "Tür");
+                if (tür != null)
+                {
+                    tür.Yaz(null, Yeni, 1);
+                }
+
+                Malzeme.Adı = Yeni;
+            }
         }
         public static void Malzeme_TablodaGöster(DataGridView Tablo, string Malzeme, out double Miktarı, out string Birimi, out double UyarıVermeMiktarı, out bool Detaylı, out string Notlar)
         {

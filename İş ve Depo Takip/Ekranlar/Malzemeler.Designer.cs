@@ -29,10 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Liste = new System.Windows.Forms.ListBox();
-            this.Sil = new System.Windows.Forms.Button();
             this.Yeni = new System.Windows.Forms.TextBox();
             this.Ekle = new System.Windows.Forms.Button();
             this.UyarıMiktarı = new System.Windows.Forms.TextBox();
@@ -52,6 +51,9 @@
             this.DetaylıKullanım = new System.Windows.Forms.CheckBox();
             this.Notlar = new System.Windows.Forms.TextBox();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
+            this.SağTuşMenü = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.SağTuşMenü_YenidenAdlandır = new System.Windows.Forms.ToolStripMenuItem();
+            this.SağTuşMenü_Sil = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -62,6 +64,7 @@
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.SağTuşMenü.SuspendLayout();
             this.SuspendLayout();
             // 
             // Liste
@@ -69,30 +72,16 @@
             this.Liste.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Liste.ContextMenuStrip = this.SağTuşMenü;
             this.Liste.FormattingEnabled = true;
             this.Liste.ItemHeight = 29;
             this.Liste.Location = new System.Drawing.Point(15, 59);
             this.Liste.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.Liste.Name = "Liste";
-            this.Liste.Size = new System.Drawing.Size(341, 323);
+            this.Liste.Size = new System.Drawing.Size(341, 381);
             this.Liste.Sorted = true;
             this.Liste.TabIndex = 1;
             this.Liste.SelectedValueChanged += new System.EventHandler(this.Liste_SelectedValueChanged);
-            // 
-            // Sil
-            // 
-            this.Sil.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Sil.Enabled = false;
-            this.Sil.Image = global::İş_ve_Depo_Takip.Properties.Resources.sil;
-            this.Sil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Sil.Location = new System.Drawing.Point(15, 392);
-            this.Sil.Name = "Sil";
-            this.Sil.Size = new System.Drawing.Size(341, 52);
-            this.Sil.TabIndex = 2;
-            this.Sil.Text = "Sil";
-            this.Sil.UseVisualStyleBackColor = true;
-            this.Sil.Click += new System.EventHandler(this.Sil_Click);
             // 
             // Yeni
             // 
@@ -211,7 +200,6 @@
             // 
             this.splitContainer1.Panel1.Controls.Add(this.AramaÇubuğu);
             this.splitContainer1.Panel1.Controls.Add(this.Liste);
-            this.splitContainer1.Panel1.Controls.Add(this.Sil);
             this.splitContainer1.Panel1.Controls.Add(this.Yeni);
             this.splitContainer1.Panel1.Controls.Add(this.Ekle);
             // 
@@ -269,14 +257,14 @@
             this.Tablo.AllowUserToResizeRows = false;
             this.Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.Tablo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Tablo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Tablo_Kullanım,
@@ -307,8 +295,8 @@
             // 
             // Tablo_Miktarı
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Miktarı.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Miktarı.DefaultCellStyle = dataGridViewCellStyle4;
             this.Tablo_Miktarı.FillWeight = 20F;
             this.Tablo_Miktarı.HeaderText = "Miktar";
             this.Tablo_Miktarı.MinimumWidth = 6;
@@ -358,6 +346,31 @@
             this.İpUcu.UseAnimation = false;
             this.İpUcu.UseFading = false;
             // 
+            // SağTuşMenü
+            // 
+            this.SağTuşMenü.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.SağTuşMenü.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SağTuşMenü_YenidenAdlandır,
+            this.SağTuşMenü_Sil});
+            this.SağTuşMenü.Name = "SağTuşMenü";
+            this.SağTuşMenü.ShowImageMargin = false;
+            this.SağTuşMenü.Size = new System.Drawing.Size(167, 52);
+            // 
+            // SağTuşMenü_YenidenAdlandır
+            // 
+            this.SağTuşMenü_YenidenAdlandır.Name = "SağTuşMenü_YenidenAdlandır";
+            this.SağTuşMenü_YenidenAdlandır.Size = new System.Drawing.Size(166, 24);
+            this.SağTuşMenü_YenidenAdlandır.Text = "Yeniden Adlandır";
+            this.SağTuşMenü_YenidenAdlandır.ToolTipText = "Ödendi olarak işaretlenen işler HARİÇ";
+            this.SağTuşMenü_YenidenAdlandır.Click += new System.EventHandler(this.SağTuşMenü_YenidenAdlandır_Click);
+            // 
+            // SağTuşMenü_Sil
+            // 
+            this.SağTuşMenü_Sil.Name = "SağTuşMenü_Sil";
+            this.SağTuşMenü_Sil.Size = new System.Drawing.Size(166, 24);
+            this.SağTuşMenü_Sil.Text = "Sil";
+            this.SağTuşMenü_Sil.Click += new System.EventHandler(this.SağTuşMenü_Sil_Click);
+            // 
             // Malzemeler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
@@ -382,6 +395,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.SağTuşMenü.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -389,7 +403,6 @@
         #endregion
 
         private System.Windows.Forms.ListBox Liste;
-        private System.Windows.Forms.Button Sil;
         private System.Windows.Forms.TextBox Yeni;
         private System.Windows.Forms.Button Ekle;
         private System.Windows.Forms.TextBox UyarıMiktarı;
@@ -409,5 +422,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Miktarı;
         private System.Windows.Forms.TextBox AramaÇubuğu;
         private System.Windows.Forms.CheckBox DetaylıKullanım;
+        private System.Windows.Forms.ContextMenuStrip SağTuşMenü;
+        private System.Windows.Forms.ToolStripMenuItem SağTuşMenü_YenidenAdlandır;
+        private System.Windows.Forms.ToolStripMenuItem SağTuşMenü_Sil;
     }
 }

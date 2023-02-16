@@ -396,11 +396,11 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.P_İşTakip_TeslimEdildi);
-            this.tabPage4.Location = new System.Drawing.Point(4, 29);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage4.Size = new System.Drawing.Size(616, 316);
+            this.tabPage4.Size = new System.Drawing.Size(616, 320);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Teslim Edildi";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -577,10 +577,10 @@
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Controls.Add(this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_ÖdendiOlarakİşsaretle);
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Controls.Add(this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_KadarİşiSeç);
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Controls.Add(this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar);
-            this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Location = new System.Drawing.Point(4, 29);
+            this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Location = new System.Drawing.Point(4, 25);
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Name = "İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl";
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Padding = new System.Windows.Forms.Padding(3);
-            this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Size = new System.Drawing.Size(492, 169);
+            this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Size = new System.Drawing.Size(492, 173);
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.TabIndex = 1;
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Text = "Ödeme Al";
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.UseVisualStyleBackColor = true;
@@ -655,11 +655,11 @@
             // 
             this.tabPage5.AutoScroll = true;
             this.tabPage5.Controls.Add(this.P_İşTakip_ÖdemeBekleyen);
-            this.tabPage5.Location = new System.Drawing.Point(4, 29);
+            this.tabPage5.Location = new System.Drawing.Point(4, 25);
             this.tabPage5.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage5.Size = new System.Drawing.Size(616, 316);
+            this.tabPage5.Size = new System.Drawing.Size(616, 320);
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "Ödeme Bekleyen";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -855,10 +855,10 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.P_Arama);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(616, 320);
+            this.tabPage1.Size = new System.Drawing.Size(616, 316);
             this.tabPage1.TabIndex = 4;
             this.tabPage1.Text = "Arama";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -974,7 +974,7 @@
             // Arama_Müşteriler_Seç
             // 
             this.Arama_Müşteriler_Seç.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Arama_Müşteriler_Seç.Location = new System.Drawing.Point(147, 139);
+            this.Arama_Müşteriler_Seç.Location = new System.Drawing.Point(145, 138);
             this.Arama_Müşteriler_Seç.Name = "Arama_Müşteriler_Seç";
             this.Arama_Müşteriler_Seç.Size = new System.Drawing.Size(54, 33);
             this.Arama_Müşteriler_Seç.TabIndex = 14;
@@ -997,7 +997,7 @@
             // Arama_İşTürleri_Seç
             // 
             this.Arama_İşTürleri_Seç.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Arama_İşTürleri_Seç.Location = new System.Drawing.Point(180, 139);
+            this.Arama_İşTürleri_Seç.Location = new System.Drawing.Point(157, 138);
             this.Arama_İşTürleri_Seç.Name = "Arama_İşTürleri_Seç";
             this.Arama_İşTürleri_Seç.Size = new System.Drawing.Size(54, 33);
             this.Arama_İşTürleri_Seç.TabIndex = 16;
@@ -1106,7 +1106,7 @@
             this.Malzemeler_SeçilenleriSil.Location = new System.Drawing.Point(9, 12);
             this.Malzemeler_SeçilenleriSil.Margin = new System.Windows.Forms.Padding(2);
             this.Malzemeler_SeçilenleriSil.Name = "Malzemeler_SeçilenleriSil";
-            this.Malzemeler_SeçilenleriSil.Size = new System.Drawing.Size(281, 32);
+            this.Malzemeler_SeçilenleriSil.Size = new System.Drawing.Size(265, 32);
             this.Malzemeler_SeçilenleriSil.TabIndex = 12;
             this.Malzemeler_SeçilenleriSil.Text = "Seçilenleri Sil (Sadece Alttaki Tablodan)";
             this.Malzemeler_SeçilenleriSil.UseVisualStyleBackColor = true;
@@ -1390,7 +1390,6 @@
             this.Tablo.Size = new System.Drawing.Size(1003, 52);
             this.Tablo.TabIndex = 0;
             this.Tablo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellClick);
-            this.Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellValueChanged);
             this.Tablo.DoubleClick += new System.EventHandler(this.Tablo_DoubleClick);
             // 
             // Tablo_Seç

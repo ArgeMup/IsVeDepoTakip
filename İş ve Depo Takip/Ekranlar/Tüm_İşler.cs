@@ -1029,7 +1029,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Tablo.Tag = null;
 
-            İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_KadarİşiSeç_Click_2(null, null);
+            Tablo_İçeriğeGöreGüncelle();
         }
         private void Tablo_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1037,11 +1037,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Tablo[0, e.RowIndex].Value = !(bool)Tablo[0, e.RowIndex].Value;
 
-            İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_KadarİşiSeç_Click_2(null, null);
+            Tablo_İçeriğeGöreGüncelle();
         }
-        private void Tablo_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void Tablo_İçeriğeGöreGüncelle()
         {
-            if (Tablo.Tag != null || e.RowIndex < 0) return;
+            if (Tablo.Tag != null) return;
+
+            İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_KadarİşiSeç_Click_2(null, null);
 
             string m;
             if ((int)Seviye1_işTakip.Tag == 3 && Malzemeler_Malzeme.Text.DoluMu())
@@ -1086,7 +1088,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     TabloİçeriğiArama.BackColor = Color.White;
                     TabloİçeriğiArama_Sayac_Bulundu = 0;
-                    Tablo_CellValueChanged(null, new DataGridViewCellEventArgs(0, 0));
+                    Tablo_İçeriğeGöreGüncelle();
                 }
 
                 return;
@@ -1396,7 +1398,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     goto YenidenDene;
                 }
             }
-            if (Tablo.RowCount > 0) Tablo_CellValueChanged(null, new DataGridViewCellEventArgs(0, 0));
+            
+            Tablo_İçeriğeGöreGüncelle();
         }
     }
 }
