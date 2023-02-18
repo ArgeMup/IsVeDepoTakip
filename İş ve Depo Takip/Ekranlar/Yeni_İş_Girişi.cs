@@ -10,7 +10,7 @@ namespace İş_ve_Depo_Takip
     {
         string Müşteri  = null, SeriNo = null, EkTanım = null; 
         Banka.TabloTürü SeriNoTürü = Banka.TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi;
-        bool SadeceOkunabilir = false;
+        bool SadeceOkunabilir = false, HastaAdıEnAz1KezDüzeltildi = false;
         List<string> Müşteriler_Liste = null, Hastalar_Liste = null, İşTürleri_Liste = null; 
 
         public Yeni_İş_Girişi()
@@ -83,7 +83,8 @@ namespace İş_ve_Depo_Takip
                         Hastalar_AramaÇubuğu.ReadOnly = true;
                         İskonto.ReadOnly = true;
                         Notlar.ReadOnly = true;
-                        İşTürleri.Enabled = false;
+                        Ayraç_Kat_3_SolSağ.Panel1Collapsed = true;
+                        Tablo.ReadOnly = true;
                         Seçili_Satırı_Sil.Enabled = false;
                         break;
                 }
@@ -235,6 +236,23 @@ namespace İş_ve_Depo_Takip
                 İşTürleri_AramaÇubuğu.Focus();
             }
         }
+        private void Hastalar_AramaÇubuğu_Leave(object sender, EventArgs e)
+        {
+            if (HastaAdıEnAz1KezDüzeltildi) return;
+
+            string[] dizi = Hastalar_AramaÇubuğu.Text.Trim().Split(' ');
+            if (dizi.Length < 2 || dizi.Length > 3) return;
+
+            string yeni = "";
+            for (int i = 0; i < dizi.Length - 1; i++)
+            {
+                yeni += dizi[i][0].ToString().ToUpper() + dizi[i].Substring(1).ToLower() + " ";
+            }
+            yeni += dizi[dizi.Length - 1].ToUpper();
+
+            Hastalar_AramaÇubuğu.Text = yeni;
+            HastaAdıEnAz1KezDüzeltildi = true;
+        }
         private void Hastalar_SeçimKutusu_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!Hastalar_Liste.Contains(Hastalar_SeçimKutusu.Text)) return;
@@ -315,7 +333,7 @@ namespace İş_ve_Depo_Takip
         private void İştürü_SeçiliSatıraKopyala_Click(object sender, EventArgs e)
         {
             var l = Tablo.SelectedRows;
-            if (l == null || l.Count != 1) return;
+            if (l == null || l.Count != 1 || İşTürleri_SeçimKutusu.Text.BoşMu()) return;
 
             if (l[0].ReadOnly)
             {

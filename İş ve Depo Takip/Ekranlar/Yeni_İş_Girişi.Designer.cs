@@ -58,7 +58,7 @@ namespace İş_ve_Depo_Takip
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.Ayraç_Kat_3_SolSağ = new System.Windows.Forms.SplitContainer();
             this.Ayraç_Kat_2_3 = new System.Windows.Forms.SplitContainer();
             this.Ayraç_Kat_1_2 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
@@ -69,10 +69,10 @@ namespace İş_ve_Depo_Takip
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Kat_3_SolSağ)).BeginInit();
+            this.Ayraç_Kat_3_SolSağ.Panel1.SuspendLayout();
+            this.Ayraç_Kat_3_SolSağ.Panel2.SuspendLayout();
+            this.Ayraç_Kat_3_SolSağ.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Kat_2_3)).BeginInit();
             this.Ayraç_Kat_2_3.Panel1.SuspendLayout();
             this.Ayraç_Kat_2_3.Panel2.SuspendLayout();
@@ -258,6 +258,7 @@ namespace İş_ve_Depo_Takip
             this.İpUcu.SetToolTip(this.Hastalar_AramaÇubuğu, "Arama çubuğu");
             this.Hastalar_AramaÇubuğu.TextChanged += new System.EventHandler(this.Hastalar_AramaÇubuğu_TextChanged);
             this.Hastalar_AramaÇubuğu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Hastalar_AramaÇubuğu_KeyPress);
+            this.Hastalar_AramaÇubuğu.Leave += new System.EventHandler(this.Hastalar_AramaÇubuğu_Leave);
             // 
             // İşTürleri_AramaÇubuğu
             // 
@@ -409,24 +410,24 @@ namespace İş_ve_Depo_Takip
             this.splitContainer1.SplitterDistance = 453;
             this.splitContainer1.TabIndex = 23;
             // 
-            // splitContainer2
+            // Ayraç_Kat_3_SolSağ
             // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
+            this.Ayraç_Kat_3_SolSağ.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Ayraç_Kat_3_SolSağ.Location = new System.Drawing.Point(0, 0);
+            this.Ayraç_Kat_3_SolSağ.Name = "Ayraç_Kat_3_SolSağ";
             // 
-            // splitContainer2.Panel1
+            // Ayraç_Kat_3_SolSağ.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.İşTürleri);
+            this.Ayraç_Kat_3_SolSağ.Panel1.Controls.Add(this.İşTürleri);
             // 
-            // splitContainer2.Panel2
+            // Ayraç_Kat_3_SolSağ.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.Tablo);
-            this.splitContainer2.Panel2.Controls.Add(this.Kaydet);
-            this.splitContainer2.Panel2.Controls.Add(this.Seçili_Satırı_Sil);
-            this.splitContainer2.Size = new System.Drawing.Size(907, 247);
-            this.splitContainer2.SplitterDistance = 271;
-            this.splitContainer2.TabIndex = 24;
+            this.Ayraç_Kat_3_SolSağ.Panel2.Controls.Add(this.Tablo);
+            this.Ayraç_Kat_3_SolSağ.Panel2.Controls.Add(this.Kaydet);
+            this.Ayraç_Kat_3_SolSağ.Panel2.Controls.Add(this.Seçili_Satırı_Sil);
+            this.Ayraç_Kat_3_SolSağ.Size = new System.Drawing.Size(907, 247);
+            this.Ayraç_Kat_3_SolSağ.SplitterDistance = 271;
+            this.Ayraç_Kat_3_SolSağ.TabIndex = 24;
             // 
             // Ayraç_Kat_2_3
             // 
@@ -444,7 +445,7 @@ namespace İş_ve_Depo_Takip
             // 
             // Ayraç_Kat_2_3.Panel2
             // 
-            this.Ayraç_Kat_2_3.Panel2.Controls.Add(this.splitContainer2);
+            this.Ayraç_Kat_2_3.Panel2.Controls.Add(this.Ayraç_Kat_3_SolSağ);
             this.Ayraç_Kat_2_3.Size = new System.Drawing.Size(907, 328);
             this.Ayraç_Kat_2_3.SplitterDistance = 77;
             this.Ayraç_Kat_2_3.TabIndex = 25;
@@ -492,10 +493,10 @@ namespace İş_ve_Depo_Takip
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
+            this.Ayraç_Kat_3_SolSağ.Panel1.ResumeLayout(false);
+            this.Ayraç_Kat_3_SolSağ.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Kat_3_SolSağ)).EndInit();
+            this.Ayraç_Kat_3_SolSağ.ResumeLayout(false);
             this.Ayraç_Kat_2_3.Panel1.ResumeLayout(false);
             this.Ayraç_Kat_2_3.Panel1.PerformLayout();
             this.Ayraç_Kat_2_3.Panel2.ResumeLayout(false);
@@ -527,7 +528,7 @@ namespace İş_ve_Depo_Takip
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button İştürü_SeçiliSatıraKopyala;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.SplitContainer Ayraç_Kat_3_SolSağ;
         private System.Windows.Forms.SplitContainer Ayraç_Kat_2_3;
         private System.Windows.Forms.SplitContainer Ayraç_Kat_1_2;
         private System.Windows.Forms.ListBox Müşteriler_SeçimKutusu;

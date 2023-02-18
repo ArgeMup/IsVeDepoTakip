@@ -1603,11 +1603,9 @@ namespace İş_ve_Depo_Takip
                 IDepo_Eleman seri_no_dalı = Talepler.Bul(SeriNo);
                 if (seri_no_dalı == null) throw new Exception(Müşteri + " / Devam Eden / Talepler / " + SeriNo + " bulunamadı");
 
-                foreach (IDepo_Eleman iştürü in seri_no_dalı.Elemanları)
-                {
-                    //iş çıkış tarihi
-                    if (string.IsNullOrEmpty(iştürü.Oku(null, null, 1))) iştürü.Yaz(null, DateTime.Now, 1);
-                }
+                IDepo_Eleman iştürü = seri_no_dalı.Elemanları.Last();
+                //iş çıkış tarihi
+                if (string.IsNullOrEmpty(iştürü.Oku(null, null, 1))) iştürü.Yaz(null, DateTime.Now, 1);
             }
         }
         public static string Talep_İşaretle_DevamEden_TeslimEdilen(string Müşteri, List<string> SeriNolar, bool TeslimEdildi_1_DevamEden_0)

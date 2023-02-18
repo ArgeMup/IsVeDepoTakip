@@ -292,6 +292,9 @@ namespace İş_ve_Depo_Takip
                     "Lütfen son işleminizi tekrar deneyiniz." + Environment.NewLine + Environment.NewLine + ex.Message, Text);
 
                 ÖndekiEkran_FormClosed(null, null);
+
+                Ayarlar_Eposta epst = new Ayarlar_Eposta();
+                epst.EpostaGönder_İstisna(ex);
             }
         }
         private void ÖndekiEkran_Shown(object sender, EventArgs e)

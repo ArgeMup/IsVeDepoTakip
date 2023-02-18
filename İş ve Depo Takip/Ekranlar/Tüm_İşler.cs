@@ -587,25 +587,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
             IDepo_Eleman müş = Banka.Tablo_Dal(İşTakip_Müşteriler.Text, Banka.TabloTürü.Ödemeler, "Mevcut Ön Ödeme");
             if (müş != null) o.MevcutÖnÖdeme = müş.Oku_Sayı(null);
 
-            //talepleri sıralama
-            Dictionary<DateTime, double> Liste = new Dictionary<DateTime, double>();
-            for (int i = 0; i < Tablo.RowCount; i++)
-            {
-                Tablo[0, i].Value = false;
-                Liste.Add((DateTime)Tablo[7, i].Tag, (double)Tablo[6, i].Tag);
-            }
-
+            for (int i = 0; i < Tablo.RowCount; i++) Tablo[0, i].Value = false;
             if (İşTakip_TeslimEdildi_KDV.Checked) o.KDV_Oranı = Banka.Ayarlar_Genel("Bütçe/KDV", true).Oku_Sayı(null, 8);
 
             double YapılanÖdeme = o.MevcutÖnÖdeme + o.AlınanÖdeme;
-            for (int i = 0; i < Liste.Count; i++)
+            for (int i = 0; i < Tablo.RowCount; i++)
             {
                 double Hesaplanan_KDV = 0;
-                if (İşTakip_TeslimEdildi_KDV.Checked) Hesaplanan_KDV = Liste.ElementAt(i).Value / 100 * o.KDV_Oranı;
+                if (İşTakip_TeslimEdildi_KDV.Checked) Hesaplanan_KDV = (double)Tablo[6, i].Tag / 100 * o.KDV_Oranı;
 
-                if (Liste.ElementAt(i).Value + Hesaplanan_KDV + o.ToplamHarcama + o.ToplamKDV > YapılanÖdeme) break;
+                if ((double)Tablo[6, i].Tag + Hesaplanan_KDV + o.ToplamHarcama + o.ToplamKDV > YapılanÖdeme) break;
 
-                o.ToplamHarcama += Liste.ElementAt(i).Value;
+                o.ToplamHarcama += (double)Tablo[6, i].Tag;
                 o.ToplamKDV += Hesaplanan_KDV;
                 Tablo[0, i].Value = true;
             }
@@ -1444,6 +1437,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             
             Tablo_İçeriğeGöreGüncelle();
+            Malzemeler_Açıklama.Text = null;
         }
     }
 }

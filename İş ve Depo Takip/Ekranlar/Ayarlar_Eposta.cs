@@ -1,9 +1,9 @@
 ﻿using ArgeMup.HazirKod;
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Mail;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
@@ -118,10 +118,84 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
                 catch (Exception ex) { HataMesajı = ex.Message; }
 
-                Thread.Sleep(100);
+                System.Threading.Thread.Sleep(100);
             }
 
             return HataMesajı;
+        }
+        public void EpostaGönder_İstisna(Exception İstisna, int ZamanAşımı_msn = 60000)
+        {
+            if (!Ortak.Kullanıcı_Eposta_hesabı_mevcut) return;
+
+            System.Threading.Tasks.Task.Run(() =>
+            {
+                List<string> DosyaEkleri = new List<string>();
+                string HataMesajı = "İstisna " + DateTime.Now.Yazıya();
+
+                try
+                {
+                    while (İstisna != null)
+                    {
+                        HataMesajı += Environment.NewLine + İstisna.ToString();
+                        İstisna = İstisna.InnerException;
+                    }
+                }
+                catch (Exception) { }
+
+                try
+                {
+                    //Son 15 günlük dosyası
+                    System.Threading.Thread.Sleep(100); //Günlük dosyalarının oluşması için
+                    Klasör_ gnlk = new Klasör_(Kendi.Klasörü + "\\Günlük");
+                    gnlk.Sırala_EskidenYeniye();
+                    gnlk.Klasörler = new List<string>();
+                    if (gnlk.Dosyalar.Count > 15) gnlk.Dosyalar.RemoveRange(0, gnlk.Dosyalar.Count - 15);
+                    string dsy_gnlk = Ortak.Klasör_Gecici + Path.GetRandomFileName() + "_Günlük.zip";
+                    if (SıkıştırılmışDosya.Klasörden(gnlk, dsy_gnlk)) DosyaEkleri.Add(dsy_gnlk);
+                }
+                catch (Exception) { }
+
+                try
+                {
+                    //Banka içeriği
+                    string dsy_bnk = Ortak.Klasör_Gecici + Path.GetRandomFileName() + "_Banka.zip";
+                    if (SıkıştırılmışDosya.Klasörden(Ortak.Klasör_Banka, dsy_bnk)) DosyaEkleri.Add(dsy_bnk);
+                }
+                catch (Exception) { }
+
+                int za = Environment.TickCount + ZamanAşımı_msn;
+                while (za > Environment.TickCount)
+                {
+                    try
+                    {
+                        MailMessage mail = new MailMessage();
+                        mail.From = new MailAddress(Gönderici_Adres.Text, Gönderici_Ad.Text, System.Text.Encoding.UTF8);
+
+                        mail.To.Add("ArgeMup@yandex.com");
+                        mail.Subject = "İstisna Hk.";
+                        mail.SubjectEncoding = System.Text.Encoding.UTF8;
+                        mail.Body = "Oluşan hataya dair detaylar :" + Environment.NewLine + HataMesajı.Replace("|", Environment.NewLine);
+                        mail.BodyEncoding = System.Text.Encoding.UTF8;
+                        mail.IsBodyHtml = true;
+                        foreach (string ek in DosyaEkleri)
+                        {
+                            mail.Attachments.Add(new Attachment(ek));
+                        }
+
+                        SmtpClient client = new SmtpClient();
+                        client.Credentials = new System.Net.NetworkCredential(Gönderici_Adres.Text, Gönderici_Şifre.Text);
+                        client.Port = int.Parse(Sunucu_ErişimNoktası.Text);
+                        client.Host = Sunucu_Adres.Text;
+                        client.EnableSsl = Sunucu_SSL.Checked;
+                        client.Send(mail);
+
+                        break;
+                    }
+                    catch (Exception) { }
+
+                    System.Threading.Thread.Sleep(1000);
+                }
+            });
         }
     }
 }
