@@ -16,6 +16,7 @@ namespace İş_ve_Depo_Takip
         public static string Klasör_Banka2 = Kendi.Klasörü + "\\Banka2\\";
         public static string Klasör_İçYedek = Kendi.Klasörü + "\\Yedek\\";
         public static string Klasör_KullanıcıDosyaları = Kendi.Klasörü + "\\Kullanıcı Dosyaları\\";
+        public static string Klasör_KullanıcıDosyaları_Ayarlar = Klasör_KullanıcıDosyaları + "Ay\\";
         public static string Klasör_KullanıcıDosyaları_ArkaPlanResimleri = Klasör_KullanıcıDosyaları + "Arka Plan Resimleri\\";
         public static string Klasör_Gecici = Klasör.Depolama(Klasör.Kapsamı.Geçici) + "\\";
 

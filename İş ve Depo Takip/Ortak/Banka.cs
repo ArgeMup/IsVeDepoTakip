@@ -294,6 +294,21 @@ namespace İş_ve_Depo_Takip
                         depo = Malzemeler;
                         break;
 
+                    case TabloTürü.Kullanıcılar:
+                        if (Kullanıcılar == null)
+                        {
+                            if (!Depo_DosyaVarMı("Ku", Ortak.Klasör_KullanıcıDosyaları_Ayarlar))
+                            {
+                                if (!YoksaOluştur) return null;
+                            }
+
+                            Kullanıcılar = Depo_Aç("Ku", Ortak.Klasör_KullanıcıDosyaları_Ayarlar);
+                        }
+                        else KontrolEdildi = true;
+
+                        depo = Kullanıcılar;
+                        break;
+
                     default: 
                         return null;
                 }
@@ -504,6 +519,10 @@ namespace İş_ve_Depo_Takip
         public static IDepo_Eleman Ayarlar_Müşteri(string Müşteri, string Dal, bool YoksaOluştur = false)
         {
             return Tablo_Dal(Müşteri, TabloTürü.Ayarlar, Dal, YoksaOluştur);
+        }
+        public static IDepo_Eleman Ayarlar_Kullanıcı(string Sayfa, string Dal)
+        {
+            return Tablo_Dal(null, TabloTürü.Kullanıcılar, Sayfa + (Dal.DoluMu() ? "/" + Dal : null), true);
         }
 
         public static List<string> Müşteri_Listele(bool GizlilerDahil = false)
@@ -1577,6 +1596,8 @@ namespace İş_ve_Depo_Takip
                         {
                             if (!string.IsNullOrEmpty(seri_no_dalı[3 /*teslim tarihi*/])) bt.Talepler.Add(seri_no_dalı);
                         }
+
+                        if (bt.Talepler.Count > 0) bt.Talepler.Sort(new _Sıralayıcı_SeriNoDalı_TeslimEdildi_EskidenYeniye());
                     }
                     break;
 
@@ -2069,7 +2090,7 @@ namespace İş_ve_Depo_Takip
             }
             
             bool EnAzBirDeğişiklikYapıldı = false;
-            Ortak.Gösterge.Başlat("Kaydediliyor", false, Tetikleyen, 4 + (Müşteriler == null ? 0 : Müşteriler.Count * 4) + (MalzemeKullanımDetayları == null ? 0 : MalzemeKullanımDetayları.Count * 1));
+            Ortak.Gösterge.Başlat("Kaydediliyor", false, Tetikleyen, 5 + (Müşteriler == null ? 0 : Müşteriler.Count * 4) + (MalzemeKullanımDetayları == null ? 0 : MalzemeKullanımDetayları.Count * 1));
 
             if (Müşteriler != null && Müşteriler.Count > 0)
             {
@@ -2119,6 +2140,9 @@ namespace İş_ve_Depo_Takip
             if (Malzemeler != null && Malzemeler.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Ma", Malzemeler); EnAzBirDeğişiklikYapıldı = true; }
 
             Ortak.Gösterge.İlerleme = 1;
+            if (Kullanıcılar != null && Kullanıcılar.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Ku", Kullanıcılar, Ortak.Klasör_KullanıcıDosyaları_Ayarlar); }
+
+            Ortak.Gösterge.İlerleme = 1;
             if (EnAzBirDeğişiklikYapıldı || (Ayarlar != null && Ayarlar.EnAzBir_ElemanAdıVeyaİçeriği_Değişti))
             {
                 IDepo_Eleman d = Tablo_Dal(null, TabloTürü.Ayarlar, "Son Banka Kayıt", true);
@@ -2153,6 +2177,7 @@ namespace İş_ve_Depo_Takip
             İşTürleri = null;
             Malzemeler = null;
             Müşteriler = null;
+            Kullanıcılar = null;
             MalzemeKullanımDetayları = null;
         }
 
@@ -2168,12 +2193,13 @@ namespace İş_ve_Depo_Takip
         }
 
         #region Demirbaşlar
-        public enum TabloTürü { Ayarlar, İşTürleri, Malzemeler, MalzemeKullanımDetayı, Ödemeler,
+        public enum TabloTürü { Ayarlar, İşTürleri, Malzemeler, MalzemeKullanımDetayı, Ödemeler, Kullanıcılar,
                                 DevamEden, TeslimEdildi, ÖdemeTalepEdildi, Ödendi,
                                 DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi         }
         static Depo_ Ayarlar = null;
         static Depo_ İşTürleri = null;
         static Depo_ Malzemeler = null;
+        static Depo_ Kullanıcılar = null;
 
         class Müşteri_
         {
@@ -2211,14 +2237,27 @@ namespace İş_ve_Depo_Takip
             }
         }
         static Dictionary<string, MalzemeKullanımDetayı_> MalzemeKullanımDetayları = null;
+
+        class _Sıralayıcı_SeriNoDalı_TeslimEdildi_EskidenYeniye : IComparer<IDepo_Eleman>
+        {
+            public int Compare(IDepo_Eleman x, IDepo_Eleman y)
+            {
+                DateTime x_t = x.Oku_TarihSaat(null, default, 3);
+                DateTime y_t = y.Oku_TarihSaat(null, default, 3);
+
+                if (x_t > y_t) return 1;
+                else if (x_t == y_t) return 0;
+                else return -1;
+            }
+        }
         #endregion
 
         #region Depo + Sıkıştırma + Şifreleme
         static DahaCokKarmasiklastirma_ DaÇoKa = new DahaCokKarmasiklastirma_();
 
-        static bool Depo_DosyaVarMı(string DosyaYolu)
+        static bool Depo_DosyaVarMı(string DosyaYolu, string BankaYolu = null)
         {
-            DosyaYolu = Ortak.Klasör_Banka + DosyaYolu + ".mup";
+            DosyaYolu = (BankaYolu == null ? Ortak.Klasör_Banka : BankaYolu) + DosyaYolu + ".mup";
             return File.Exists(DosyaYolu);
         }
         static void Depo_Kaydet(string DosyaYolu, Depo_ Depo, string BankaYolu = null)
@@ -2539,6 +2578,12 @@ namespace İş_ve_Depo_Takip
             if (!Ortak.Klasör_TamKopya(Ortak.Klasör_Banka2, Ortak.Klasör_Banka))
             {
                 throw new Exception("Yedekle_Banka_Kurtar>" + Ortak.Klasör_Banka2 + ">" + Ortak.Klasör_Banka);
+            }
+
+            DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı, Ortak.EşZamanlıİşlemSayısı);
+            if (snç != DoğrulamaKodu.KontrolEt.Durum_.Aynı)
+            {
+                throw new Exception("Yedekle_Banka_Kurtar>Banka>" + snç.ToString());
             }
         }
         static void Yedekle_DahaYeniYedekVarsa_KullanıcıyaSor()

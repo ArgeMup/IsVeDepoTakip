@@ -239,29 +239,47 @@ namespace İş_ve_Depo_Takip
 
         private void Tuş_Click(object sender, EventArgs e)
         {
-            //Yeni yan uygulamayı oluştur
-            switch ((sender as Button).Text)
-            {                                                                       //Çağıranlar
-                case "Yeni İş Girişi":  ÖndekiEkran = new Yeni_İş_Girişi(); break;  //Tüm işler, yeni iş girişi   
-                case "Tüm İşler":       ÖndekiEkran = new Tüm_İşler();      break;
-                case "Müşteriler":      ÖndekiEkran = new Müşteriler();     break;
-                case "İş Türleri":      ÖndekiEkran = new İş_Türleri();     break;
-                case "Ücretler":        ÖndekiEkran = new Ücretler();       break;  //Tüm işler
-                case "Bütçe":           ÖndekiEkran = new Bütçe();          break;
-                case "Malzemeler":      ÖndekiEkran = new Malzemeler();     break;
-                case "Yazdırma":        ÖndekiEkran = new Yazdırma();       break;
-                case "E-posta":         ÖndekiEkran = new Ayarlar_Eposta(); break;
-                case "Diğer":           ÖndekiEkran = new Ayarlar_Diğer();  break;
+            try
+            {
+                //Yeni yan uygulamayı oluştur
+                switch ((sender as Button).Text)
+                {                                                                       //Çağıranlar
+                    case "Yeni İş Girişi":  ÖndekiEkran = new Yeni_İş_Girişi(); break;  //Tüm işler, yeni iş girişi   
+                    case "Tüm İşler":       ÖndekiEkran = new Tüm_İşler(); break;
+                    case "Müşteriler":      ÖndekiEkran = new Müşteriler(); break;
+                    case "İş Türleri":      ÖndekiEkran = new İş_Türleri(); break;
+                    case "Ücretler":        ÖndekiEkran = new Ücretler(); break;        //Tüm işler
+                    case "Bütçe":           ÖndekiEkran = new Bütçe(); break;
+                    case "Malzemeler":      ÖndekiEkran = new Malzemeler(); break;
+                    case "Yazdırma":        ÖndekiEkran = new Yazdırma(); break;
+                    case "E-posta":         ÖndekiEkran = new Ayarlar_Eposta(); break;
+                    case "Diğer":           ÖndekiEkran = new Ayarlar_Diğer(); break;
+                }
+
+                ÖndekiEkran.Shown += ÖndekiEkran_Shown;
+                ÖndekiEkran.KeyDown += ÖndekiEkran_KeyDown;
+                ÖndekiEkran.KeyUp += ÖndekiEkran_KeyUp;
+                ÖndekiEkran.MouseWheel += ÖndekiEkran_MouseWheel;
+                ÖndekiEkran.Resize += ÖndekiEkran_Resize;
+                ÖndekiEkran.FormClosing += ÖndekiEkran_FormClosing;
+                ÖndekiEkran.FormClosed += ÖndekiEkran_FormClosed;
+                ÖndekiEkran.KeyPreview = true;
+            }
+            catch (Exception ex)
+            {
+                ex.Günlük();
+                Banka.Yedekle_Banka_Kurtar();
+
+                MessageBox.Show("Bir sorun oluştu, uygulama yedekler ile kontrol edildi ve bir sorun görülmedi" + Environment.NewLine +
+                    "Lütfen son işleminizi tekrar deneyiniz." + Environment.NewLine + Environment.NewLine + ex.Message, Text);
+
+                ÖndekiEkran = null;
+
+                Ayarlar_Eposta epst = new Ayarlar_Eposta();
+                epst.EpostaGönder_İstisna(ex);
+                return;
             }
 
-            ÖndekiEkran.Shown += ÖndekiEkran_Shown;
-            ÖndekiEkran.KeyDown += ÖndekiEkran_KeyDown;
-            ÖndekiEkran.KeyUp += ÖndekiEkran_KeyUp;
-            ÖndekiEkran.MouseWheel += ÖndekiEkran_MouseWheel;
-            ÖndekiEkran.Resize += ÖndekiEkran_Resize;
-            ÖndekiEkran.FormClosing += ÖndekiEkran_FormClosing;
-            ÖndekiEkran.FormClosed += ÖndekiEkran_FormClosed;
-            ÖndekiEkran.KeyPreview = true;
             YanUygulamayaGeç();
         }
         void YanUygulamayaGeç()

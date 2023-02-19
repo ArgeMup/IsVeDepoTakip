@@ -24,6 +24,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Arama_İş_Türleri.Items.AddRange(Banka.İşTürü_Listele().ToArray());
 
+            IDepo_Eleman Ayrl_Kullanıcı = Banka.Ayarlar_Kullanıcı(Name, null);
+            İşTakip_Yazdırma_VeGörüntüle.Checked = Ayrl_Kullanıcı.Oku_Bit("İşTakip_Yazdırma_VeGörüntüle", true);
+            İşTakip_Yazdırma_VeKlasörüAç.Checked = Ayrl_Kullanıcı.Oku_Bit("İşTakip_Yazdırma_VeKlasörüAç", true);
+
             DateTime t = DateTime.Now;
             Arama_GirişTarihi_Bitiş.Value = new DateTime(t.Year, t.Month, t.Day, 23, 59, 59);
             t = t.AddMonths(-6);
@@ -903,6 +907,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if (İşTakip_Yazdırma_VeGörüntüle.Checked) System.Diagnostics.Process.Start(dosyayolu);
                 if (İşTakip_Yazdırma_VeKlasörüAç.Checked) System.Diagnostics.Process.Start("explorer.exe", "/select, " + dosyayolu);
             }
+
+            IDepo_Eleman Ayrl_Kullanıcı = Banka.Ayarlar_Kullanıcı(Name, null);
+            Ayrl_Kullanıcı.Yaz("İşTakip_Yazdırma_VeGörüntüle", İşTakip_Yazdırma_VeGörüntüle.Checked);
+            Ayrl_Kullanıcı.Yaz("İşTakip_Yazdırma_VeKlasörüAç", İşTakip_Yazdırma_VeKlasörüAç.Checked);
         }
         private void İşTakip_Eposta_CheckedChanged(object sender, EventArgs e)
         {
@@ -1012,22 +1020,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
             else MessageBox.Show("Hiç kayıt bulunamadı", Text);
         }
 
-        private void Tablo_TümünüSeç_Click(object sender, EventArgs e)
+        private void Tablo_TümünüSeçVeyaAç_Click(object sender, EventArgs e)
         {
-            if (Tablo.Tag != null || Tablo.RowCount < 1) return;
-            bool b = !(bool)Tablo[0, 0].Value;
-            Tablo.Tag = 0;
-            Tablo_TümünüSeç.Enabled = false;
-
-            for (int i = 0; i < Tablo.RowCount; i++)
+            if (Tablo_TümünüSeçVeyaAç.Tag == null)
             {
-                Tablo[0, i].Value = b;
+                Tablo_TümünüSeçVeyaAç.Tag = 0;
+                Tablo_TümünüSeçVeyaAç.Text = "Aç";
             }
-
-            Tablo.Tag = null;
-            Tablo_TümünüSeç.Enabled = true;
-
-            Tablo_İçeriğeGöreGüncelle();
+            else
+            {
+                Tablo_TümünüSeçVeyaAç.Tag = null;
+                Tablo_TümünüSeçVeyaAç.Text = "Tümünü Seç";
+            }
         }
         private void Tablo_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1039,54 +1043,75 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Tablo_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (Tablo.RowCount < 1 || e.ColumnIndex < 0 || e.RowIndex < 0 || (int)Seviye1_işTakip.Tag != 1) return;
+            if (Tablo.Tag != null || Tablo.RowCount < 1 || e.ColumnIndex < 0 || e.RowIndex < 0 || (int)Seviye1_işTakip.Tag != 1) return;
 
-            string Müşteri = Tablo[2, e.RowIndex].Value as string, SeriNo = Tablo[1, e.RowIndex].Value as string, EkTanım = null;
-            if (Müşteri == null || SeriNo == null) return;
-            Banka.TabloTürü SeriNoTürü;
-
-            if (Tablo[7, e.RowIndex].Tag != null) //teslim tarihi
+            if (Tablo_TümünüSeçVeyaAç.Tag == null)
             {
-                SeriNoTürü = Banka.TabloTürü.TeslimEdildi;
+                //Tümünü Seç
+                bool b = !(bool)Tablo[0, 0].Value;
+                Tablo.Tag = 0;
+                Tablo_TümünüSeçVeyaAç.Enabled = false;
 
-                if (Tablo[8, e.RowIndex].Tag != null) //ödeme talep tarihi
+                for (int i = 0; i < Tablo.RowCount; i++)
                 {
-                    if (Tablo[9, e.RowIndex].Tag != null) //ödeme tarihi
-                    {
-                        SeriNoTürü = Banka.TabloTürü.Ödendi;
-                        EkTanım = ((DateTime)Tablo[9, e.RowIndex].Tag).Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2);
-                    }
-                    else
-                    {
-                        SeriNoTürü = Banka.TabloTürü.ÖdemeTalepEdildi;
-                        EkTanım = ((DateTime)Tablo[8, e.RowIndex].Tag).Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2);
-                    }
+                    Tablo[0, i].Value = b;
                 }
-            }
-            else SeriNoTürü = Banka.TabloTürü.DevamEden;
 
-            string soru;
-            if (SeriNoTürü == Banka.TabloTürü.TeslimEdildi)
-            {
-                soru = "Seçtiğiniz hastaya ait kayıt TESLİM EDİLMİŞ olarak görünüyor." + Environment.NewLine + Environment.NewLine +
-                    "İçeriğinde değişiklik yapılır ise DEVAM EDİYOR olarak işaretlenecektir." + Environment.NewLine + Environment.NewLine +
-                    "İşleme devam etmek istiyor musunuz?";
-            }
-            else if (SeriNoTürü == Banka.TabloTürü.ÖdemeTalepEdildi || SeriNoTürü == Banka.TabloTürü.Ödendi)
-            {
-                soru = "Seçtiğiniz hastaya ait kayıt içeriği artık değiştirilemez." + Environment.NewLine + 
-                    "Yapılacak değişiklikler KAYDEDİLMEYECEKTİR." + Environment.NewLine + Environment.NewLine +
-                    "İşleme devam etmek istiyor musunuz?";
+                Tablo.Tag = null;
+                Tablo_TümünüSeçVeyaAç.Enabled = true;
+
+                Tablo_İçeriğeGöreGüncelle();
             }
             else
             {
-                soru = "İşleme devam etmek istiyor musunuz?";
-            }
-            DialogResult Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-            if (Dr == DialogResult.No) return;
+                //Aç
+                string Müşteri = Tablo[2, e.RowIndex].Value as string, SeriNo = Tablo[1, e.RowIndex].Value as string, EkTanım = null;
+                if (Müşteri == null || SeriNo == null) return;
+                Banka.TabloTürü SeriNoTürü;
 
-            Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", Müşteri, SeriNo, SeriNoTürü, EkTanım };
-            Close();
+                if (Tablo[7, e.RowIndex].Tag != null) //teslim tarihi
+                {
+                    SeriNoTürü = Banka.TabloTürü.TeslimEdildi;
+
+                    if (Tablo[8, e.RowIndex].Tag != null) //ödeme talep tarihi
+                    {
+                        if (Tablo[9, e.RowIndex].Tag != null) //ödeme tarihi
+                        {
+                            SeriNoTürü = Banka.TabloTürü.Ödendi;
+                            EkTanım = ((DateTime)Tablo[9, e.RowIndex].Tag).Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2);
+                        }
+                        else
+                        {
+                            SeriNoTürü = Banka.TabloTürü.ÖdemeTalepEdildi;
+                            EkTanım = ((DateTime)Tablo[8, e.RowIndex].Tag).Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2);
+                        }
+                    }
+                }
+                else SeriNoTürü = Banka.TabloTürü.DevamEden;
+
+                string soru;
+                if (SeriNoTürü == Banka.TabloTürü.TeslimEdildi)
+                {
+                    soru = "Seçtiğiniz hastaya ait kayıt TESLİM EDİLMİŞ olarak görünüyor." + Environment.NewLine + Environment.NewLine +
+                        "İçeriğinde değişiklik yapılır ise DEVAM EDİYOR olarak işaretlenecektir." + Environment.NewLine + Environment.NewLine +
+                        "İşleme devam etmek istiyor musunuz?";
+                }
+                else if (SeriNoTürü == Banka.TabloTürü.ÖdemeTalepEdildi || SeriNoTürü == Banka.TabloTürü.Ödendi)
+                {
+                    soru = "Seçtiğiniz hastaya ait kayıt içeriği artık değiştirilemez." + Environment.NewLine +
+                        "Yapılacak değişiklikler KAYDEDİLMEYECEKTİR." + Environment.NewLine + Environment.NewLine +
+                        "İşleme devam etmek istiyor musunuz?";
+                }
+                else
+                {
+                    soru = "İşleme devam etmek istiyor musunuz?";
+                }
+                DialogResult Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (Dr == DialogResult.No) return;
+
+                Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", Müşteri, SeriNo, SeriNoTürü, EkTanım };
+                Close();
+            }
         }
         private void Tablo_İçeriğeGöreGüncelle()
         {

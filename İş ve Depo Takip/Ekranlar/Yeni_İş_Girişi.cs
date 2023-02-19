@@ -10,7 +10,7 @@ namespace İş_ve_Depo_Takip
     {
         string Müşteri  = null, SeriNo = null, EkTanım = null; 
         Banka.TabloTürü SeriNoTürü = Banka.TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi;
-        bool SadeceOkunabilir = false, HastaAdıEnAz1KezDüzeltildi = false;
+        bool SadeceOkunabilir = false;
         List<string> Müşteriler_Liste = null, Hastalar_Liste = null, İşTürleri_Liste = null; 
 
         public Yeni_İş_Girişi()
@@ -38,6 +38,21 @@ namespace İş_ve_Depo_Takip
             İşTürleri_SeçimKutusu.Items.Clear();
             İşTürleri_Liste = Banka.İşTürü_Listele();
             İşTürleri_SeçimKutusu.Items.AddRange(İşTürleri_Liste.ToArray());
+            string ipucu = "Arama Çubuğu";
+            if (İşTürleri_Liste.Count > 0)
+            {
+                ipucu += Environment.NewLine + Environment.NewLine + "Alttaki şekilde arattırabilirsiniz." + Environment.NewLine + Environment.NewLine + İşTürleri_Liste[0] + Environment.NewLine + Environment.NewLine;
+                string[] d = İşTürleri_Liste[0].Trim().ToLower().Split(' ');
+                foreach (string dd in d)
+                {
+                    string ddd = dd.Trim();
+                    if (ddd.BoşMu(true)) continue;
+                    if (ddd.Length > 2) ipucu += ddd.Substring(0, 2) + " ";
+                    else ipucu += ddd + " ";
+                }
+            }
+            İpUcu_Genel.SetToolTip(İşTürleri_AramaÇubuğu, ipucu);
+            Hastalar_AdVeSoyadıDüzelt.Checked = Banka.Ayarlar_Kullanıcı(Name, "Hastalar_AdVeSoyadıDüzelt").Oku_Bit(null, true);
 
             if (Müşteri == null)
             {
@@ -81,6 +96,7 @@ namespace İş_ve_Depo_Takip
                         SadeceOkunabilir = true;
                         Müşteriler_AramaÇubuğu.ReadOnly = true;
                         Hastalar_AramaÇubuğu.ReadOnly = true;
+                        Hastalar_AdVeSoyadıDüzelt.Enabled = false;
                         İskonto.ReadOnly = true;
                         Notlar.ReadOnly = true;
                         Ayraç_Kat_3_SolSağ.Panel1Collapsed = true;
@@ -238,7 +254,7 @@ namespace İş_ve_Depo_Takip
         }
         private void Hastalar_AramaÇubuğu_Leave(object sender, EventArgs e)
         {
-            if (HastaAdıEnAz1KezDüzeltildi) return;
+            if (!Hastalar_AdVeSoyadıDüzelt.Checked) return;
 
             string[] dizi = Hastalar_AramaÇubuğu.Text.Trim().Split(' ');
             if (dizi.Length < 2 || dizi.Length > 3) return;
@@ -251,7 +267,6 @@ namespace İş_ve_Depo_Takip
             yeni += dizi[dizi.Length - 1].ToUpper();
 
             Hastalar_AramaÇubuğu.Text = yeni;
-            HastaAdıEnAz1KezDüzeltildi = true;
         }
         private void Hastalar_SeçimKutusu_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -511,6 +526,7 @@ namespace İş_ve_Depo_Takip
             }
 
             Banka.Talep_Ekle(Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, İskonto.Text, Notlar.Text.Trim(), it_leri, ücret_ler, giriş_tarih_ler, çıkış_tarih_ler, SeriNo);
+            Banka.Ayarlar_Kullanıcı(Name, "Hastalar_AdVeSoyadıDüzelt").Yaz(null, Hastalar_AdVeSoyadıDüzelt.Checked);
             Banka.Değişiklikleri_Kaydet(Kaydet);
 
             Kaydet.Enabled = false;
