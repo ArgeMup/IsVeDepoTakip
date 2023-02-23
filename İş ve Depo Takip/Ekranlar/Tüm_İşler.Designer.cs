@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle91 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle92 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle93 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle94 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle95 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle96 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle97 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle98 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle99 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle100 = new System.Windows.Forms.DataGridViewCellStyle();
             this.P_Üst_Alt = new System.Windows.Forms.SplitContainer();
             this.Tablo_TümünüSeçVeyaAç = new System.Windows.Forms.Button();
             this.P_SolOrta_Sağ = new System.Windows.Forms.SplitContainer();
@@ -77,6 +77,8 @@
             this.P_İşTakip_ÖdemeBekleyen = new System.Windows.Forms.Panel();
             this.İşTakip_ÖdemeBekleyen_Açıklama = new System.Windows.Forms.Label();
             this.İşTakip_ÖdemeBekleyen_ÖdemeAlındı = new System.Windows.Forms.GroupBox();
+            this.İşTakip_ÖdemeBekleyen_ÖdemeMiktarı = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle = new System.Windows.Forms.Button();
             this.İşTakip_ÖdemeBekleyen_Notlar = new System.Windows.Forms.TextBox();
@@ -209,8 +211,8 @@
             // P_Üst_Alt.Panel2
             // 
             this.P_Üst_Alt.Panel2.Controls.Add(this.Tablo);
-            this.P_Üst_Alt.Size = new System.Drawing.Size(1003, 472);
-            this.P_Üst_Alt.SplitterDistance = 417;
+            this.P_Üst_Alt.Size = new System.Drawing.Size(1003, 489);
+            this.P_Üst_Alt.SplitterDistance = 431;
             this.P_Üst_Alt.SplitterWidth = 3;
             this.P_Üst_Alt.TabIndex = 14;
             // 
@@ -218,7 +220,7 @@
             // 
             this.Tablo_TümünüSeçVeyaAç.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Tablo_TümünüSeçVeyaAç.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.Tablo_TümünüSeçVeyaAç.Location = new System.Drawing.Point(-4, 401);
+            this.Tablo_TümünüSeçVeyaAç.Location = new System.Drawing.Point(-4, 415);
             this.Tablo_TümünüSeçVeyaAç.Name = "Tablo_TümünüSeçVeyaAç";
             this.Tablo_TümünüSeçVeyaAç.Size = new System.Drawing.Size(73, 24);
             this.Tablo_TümünüSeçVeyaAç.TabIndex = 15;
@@ -242,7 +244,7 @@
             // 
             this.P_SolOrta_Sağ.Panel2.Controls.Add(this.groupBox3);
             this.P_SolOrta_Sağ.Panel2.Controls.Add(this.groupBox2);
-            this.P_SolOrta_Sağ.Size = new System.Drawing.Size(985, 359);
+            this.P_SolOrta_Sağ.Size = new System.Drawing.Size(985, 373);
             this.P_SolOrta_Sağ.SplitterDistance = 780;
             this.P_SolOrta_Sağ.TabIndex = 27;
             // 
@@ -261,7 +263,7 @@
             // P_Sol_Orta.Panel2
             // 
             this.P_Sol_Orta.Panel2.Controls.Add(this.Seçim_Seviye_1_Seviye_2);
-            this.P_Sol_Orta.Size = new System.Drawing.Size(780, 359);
+            this.P_Sol_Orta.Size = new System.Drawing.Size(780, 373);
             this.P_Sol_Orta.SplitterDistance = 125;
             this.P_Sol_Orta.TabIndex = 10;
             // 
@@ -285,7 +287,7 @@
             this.İşTakip_Müşteriler.Location = new System.Drawing.Point(10, 81);
             this.İşTakip_Müşteriler.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.İşTakip_Müşteriler.Name = "İşTakip_Müşteriler";
-            this.İşTakip_Müşteriler.Size = new System.Drawing.Size(110, 264);
+            this.İşTakip_Müşteriler.Size = new System.Drawing.Size(110, 284);
             this.İşTakip_Müşteriler.TabIndex = 8;
             this.İşTakip_Müşteriler.SelectedIndexChanged += new System.EventHandler(this.İşTakip_Müşteriler_SelectedIndexChanged);
             this.İşTakip_Müşteriler.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.İşTakip_Müşteriler_KeyPress);
@@ -319,7 +321,7 @@
             this.Seçim_Seviye_1_Seviye_2.Margin = new System.Windows.Forms.Padding(2);
             this.Seçim_Seviye_1_Seviye_2.Name = "Seçim_Seviye_1_Seviye_2";
             this.Seçim_Seviye_1_Seviye_2.SelectedIndex = 0;
-            this.Seçim_Seviye_1_Seviye_2.Size = new System.Drawing.Size(624, 349);
+            this.Seçim_Seviye_1_Seviye_2.Size = new System.Drawing.Size(624, 363);
             this.Seçim_Seviye_1_Seviye_2.TabIndex = 0;
             this.Seçim_Seviye_1_Seviye_2.Visible = false;
             // 
@@ -331,7 +333,7 @@
             this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage3.Size = new System.Drawing.Size(616, 316);
+            this.tabPage3.Size = new System.Drawing.Size(616, 330);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Devam Eden";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -415,7 +417,7 @@
             this.tabPage4.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage4.Size = new System.Drawing.Size(616, 316);
+            this.tabPage4.Size = new System.Drawing.Size(616, 330);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Teslim Edildi";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -448,7 +450,7 @@
             // İşTakip_TeslimEdildi_Açıklama
             // 
             this.İşTakip_TeslimEdildi_Açıklama.AutoSize = true;
-            this.İşTakip_TeslimEdildi_Açıklama.Location = new System.Drawing.Point(8, 267);
+            this.İşTakip_TeslimEdildi_Açıklama.Location = new System.Drawing.Point(5, 267);
             this.İşTakip_TeslimEdildi_Açıklama.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.İşTakip_TeslimEdildi_Açıklama.Name = "İşTakip_TeslimEdildi_Açıklama";
             this.İşTakip_TeslimEdildi_Açıklama.Size = new System.Drawing.Size(77, 20);
@@ -664,6 +666,7 @@
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar.Text = "0";
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.İpUcu.SetToolTip(this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar, "Alınan Ödeme");
+            this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar.TextChanged += new System.EventHandler(this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_KadarİşiSeç_Click_2);
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar_KeyPress);
             // 
             // tabPage5
@@ -674,7 +677,7 @@
             this.tabPage5.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage5.Size = new System.Drawing.Size(616, 316);
+            this.tabPage5.Size = new System.Drawing.Size(616, 330);
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "Ödeme Bekleyen";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -688,16 +691,13 @@
             this.P_İşTakip_ÖdemeBekleyen.Controls.Add(this.İşTakip_ÖdemeBekleyen_Dönem);
             this.P_İşTakip_ÖdemeBekleyen.Location = new System.Drawing.Point(5, 5);
             this.P_İşTakip_ÖdemeBekleyen.Name = "P_İşTakip_ÖdemeBekleyen";
-            this.P_İşTakip_ÖdemeBekleyen.Size = new System.Drawing.Size(506, 282);
+            this.P_İşTakip_ÖdemeBekleyen.Size = new System.Drawing.Size(506, 258);
             this.P_İşTakip_ÖdemeBekleyen.TabIndex = 26;
             // 
             // İşTakip_ÖdemeBekleyen_Açıklama
             // 
-            this.İşTakip_ÖdemeBekleyen_Açıklama.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.İşTakip_ÖdemeBekleyen_Açıklama.AutoSize = true;
-            this.İşTakip_ÖdemeBekleyen_Açıklama.Location = new System.Drawing.Point(12, 250);
+            this.İşTakip_ÖdemeBekleyen_Açıklama.Location = new System.Drawing.Point(1, 226);
             this.İşTakip_ÖdemeBekleyen_Açıklama.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.İşTakip_ÖdemeBekleyen_Açıklama.Name = "İşTakip_ÖdemeBekleyen_Açıklama";
             this.İşTakip_ÖdemeBekleyen_Açıklama.Size = new System.Drawing.Size(77, 20);
@@ -708,6 +708,8 @@
             // 
             this.İşTakip_ÖdemeBekleyen_ÖdemeAlındı.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.İşTakip_ÖdemeBekleyen_ÖdemeAlındı.Controls.Add(this.İşTakip_ÖdemeBekleyen_ÖdemeMiktarı);
+            this.İşTakip_ÖdemeBekleyen_ÖdemeAlındı.Controls.Add(this.label10);
             this.İşTakip_ÖdemeBekleyen_ÖdemeAlındı.Controls.Add(this.label7);
             this.İşTakip_ÖdemeBekleyen_ÖdemeAlındı.Controls.Add(this.İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle);
             this.İşTakip_ÖdemeBekleyen_ÖdemeAlındı.Controls.Add(this.İşTakip_ÖdemeBekleyen_Notlar);
@@ -715,15 +717,39 @@
             this.İşTakip_ÖdemeBekleyen_ÖdemeAlındı.Margin = new System.Windows.Forms.Padding(2);
             this.İşTakip_ÖdemeBekleyen_ÖdemeAlındı.Name = "İşTakip_ÖdemeBekleyen_ÖdemeAlındı";
             this.İşTakip_ÖdemeBekleyen_ÖdemeAlındı.Padding = new System.Windows.Forms.Padding(2);
-            this.İşTakip_ÖdemeBekleyen_ÖdemeAlındı.Size = new System.Drawing.Size(496, 117);
+            this.İşTakip_ÖdemeBekleyen_ÖdemeAlındı.Size = new System.Drawing.Size(496, 93);
             this.İşTakip_ÖdemeBekleyen_ÖdemeAlındı.TabIndex = 26;
             this.İşTakip_ÖdemeBekleyen_ÖdemeAlındı.TabStop = false;
             this.İşTakip_ÖdemeBekleyen_ÖdemeAlındı.Text = "Ödeme Alındı";
             // 
+            // İşTakip_ÖdemeBekleyen_ÖdemeMiktarı
+            // 
+            this.İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Location = new System.Drawing.Point(78, 24);
+            this.İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Margin = new System.Windows.Forms.Padding(10, 3, 5, 3);
+            this.İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Name = "İşTakip_ÖdemeBekleyen_ÖdemeMiktarı";
+            this.İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Size = new System.Drawing.Size(71, 26);
+            this.İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.TabIndex = 27;
+            this.İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text = "0";
+            this.İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.İpUcu.SetToolTip(this.İşTakip_ÖdemeBekleyen_ÖdemeMiktarı, "Alınan Ödeme\r\n\r\nÖdeme alınmadan ilerlenecek ise 0 olarak bırakınız\r\n\r\nBu döneme a" +
+        "it borcu getirmek için çift tıklayınız.");
+            this.İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.TextChanged += new System.EventHandler(this.İşTakip_ÖdemeBekleyen_Dönem_TextChanged);
+            this.İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.DoubleClick += new System.EventHandler(this.İşTakip_ÖdemeBekleyen_ÖdemeMiktarı_DoubleClick);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 27);
+            this.label10.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(69, 20);
+            this.label10.TabIndex = 23;
+            this.label10.Text = "Miktar ₺";
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(5, 28);
+            this.label7.Location = new System.Drawing.Point(162, 27);
             this.label7.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(54, 20);
@@ -736,10 +762,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.Location = new System.Drawing.Point(4, 77);
+            this.İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.Location = new System.Drawing.Point(10, 55);
             this.İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.Margin = new System.Windows.Forms.Padding(2);
             this.İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.Name = "İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle";
-            this.İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.Size = new System.Drawing.Size(485, 32);
+            this.İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.Size = new System.Drawing.Size(477, 32);
             this.İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.TabIndex = 13;
             this.İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.Text = "Seçilen Dönemi Ödendi Olarak İşaretle";
             this.İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle.UseVisualStyleBackColor = true;
@@ -749,18 +775,19 @@
             // 
             this.İşTakip_ÖdemeBekleyen_Notlar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.İşTakip_ÖdemeBekleyen_Notlar.Location = new System.Drawing.Point(67, 26);
+            this.İşTakip_ÖdemeBekleyen_Notlar.Location = new System.Drawing.Point(226, 12);
             this.İşTakip_ÖdemeBekleyen_Notlar.Margin = new System.Windows.Forms.Padding(2);
             this.İşTakip_ÖdemeBekleyen_Notlar.Multiline = true;
             this.İşTakip_ÖdemeBekleyen_Notlar.Name = "İşTakip_ÖdemeBekleyen_Notlar";
-            this.İşTakip_ÖdemeBekleyen_Notlar.Size = new System.Drawing.Size(422, 47);
+            this.İşTakip_ÖdemeBekleyen_Notlar.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.İşTakip_ÖdemeBekleyen_Notlar.Size = new System.Drawing.Size(261, 42);
             this.İşTakip_ÖdemeBekleyen_Notlar.TabIndex = 12;
             this.İpUcu.SetToolTip(this.İşTakip_ÖdemeBekleyen_Notlar, "Fatura no benzeri bir bilgi kaydedilebilir");
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 65);
+            this.label3.Location = new System.Drawing.Point(11, 65);
             this.label3.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(63, 20);
@@ -802,11 +829,11 @@
             // 
             this.tabPage6.AutoScroll = true;
             this.tabPage6.Controls.Add(this.P_İşTakip_Ödendi);
-            this.tabPage6.Location = new System.Drawing.Point(4, 29);
+            this.tabPage6.Location = new System.Drawing.Point(4, 25);
             this.tabPage6.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage6.Size = new System.Drawing.Size(616, 316);
+            this.tabPage6.Size = new System.Drawing.Size(616, 334);
             this.tabPage6.TabIndex = 3;
             this.tabPage6.Text = "Ödendi";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -872,10 +899,10 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.P_Arama);
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(616, 316);
+            this.tabPage1.Size = new System.Drawing.Size(616, 334);
             this.tabPage1.TabIndex = 4;
             this.tabPage1.Text = "Arama";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1014,7 +1041,7 @@
             // Arama_İşTürleri_Seç
             // 
             this.Arama_İşTürleri_Seç.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Arama_İşTürleri_Seç.Location = new System.Drawing.Point(162, 138);
+            this.Arama_İşTürleri_Seç.Location = new System.Drawing.Point(165, 138);
             this.Arama_İşTürleri_Seç.Name = "Arama_İşTürleri_Seç";
             this.Arama_İşTürleri_Seç.Size = new System.Drawing.Size(54, 33);
             this.Arama_İşTürleri_Seç.TabIndex = 16;
@@ -1038,10 +1065,10 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.P_Malzemeler);
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(616, 316);
+            this.tabPage2.Size = new System.Drawing.Size(616, 334);
             this.tabPage2.TabIndex = 5;
             this.tabPage2.Text = "Malzemeler";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1137,7 +1164,7 @@
             this.Malzemeler_SeçilenleriSil.Location = new System.Drawing.Point(9, 12);
             this.Malzemeler_SeçilenleriSil.Margin = new System.Windows.Forms.Padding(2);
             this.Malzemeler_SeçilenleriSil.Name = "Malzemeler_SeçilenleriSil";
-            this.Malzemeler_SeçilenleriSil.Size = new System.Drawing.Size(270, 32);
+            this.Malzemeler_SeçilenleriSil.Size = new System.Drawing.Size(273, 32);
             this.Malzemeler_SeçilenleriSil.TabIndex = 12;
             this.Malzemeler_SeçilenleriSil.Text = "Seçilenleri Sil (Sadece Alttaki Tablodan)";
             this.Malzemeler_SeçilenleriSil.UseVisualStyleBackColor = true;
@@ -1204,7 +1231,7 @@
             this.groupBox2.Controls.Add(this.İşTakip_Eposta_ÖdemeBekleyen);
             this.groupBox2.Location = new System.Drawing.Point(5, 124);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(186, 227);
+            this.groupBox2.Size = new System.Drawing.Size(186, 241);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Müşteriye e-posta";
@@ -1384,14 +1411,14 @@
             this.Tablo.AllowUserToDeleteRows = false;
             this.Tablo.AllowUserToResizeRows = false;
             this.Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle91.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle91.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle91.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle91.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle91.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle91.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle91.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle91;
             this.Tablo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Tablo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Tablo_Seç,
@@ -1418,7 +1445,7 @@
             this.Tablo.ShowCellErrors = false;
             this.Tablo.ShowEditingIcon = false;
             this.Tablo.ShowRowErrors = false;
-            this.Tablo.Size = new System.Drawing.Size(1003, 52);
+            this.Tablo.Size = new System.Drawing.Size(1003, 55);
             this.Tablo.TabIndex = 0;
             this.Tablo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellClick);
             this.Tablo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellDoubleClick);
@@ -1433,8 +1460,8 @@
             // 
             // Tablo_SeriNo
             // 
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_SeriNo.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle92.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_SeriNo.DefaultCellStyle = dataGridViewCellStyle92;
             this.Tablo_SeriNo.HeaderText = "Seri No";
             this.Tablo_SeriNo.MinimumWidth = 6;
             this.Tablo_SeriNo.Name = "Tablo_SeriNo";
@@ -1452,8 +1479,8 @@
             // Tablo_Hasta
             // 
             this.Tablo_Hasta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_Hasta.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle93.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_Hasta.DefaultCellStyle = dataGridViewCellStyle93;
             this.Tablo_Hasta.HeaderText = "Hasta";
             this.Tablo_Hasta.MinimumWidth = 6;
             this.Tablo_Hasta.Name = "Tablo_Hasta";
@@ -1462,9 +1489,9 @@
             // 
             // Tablo_İşGiriş
             // 
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_İşGiriş.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle94.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle94.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_İşGiriş.DefaultCellStyle = dataGridViewCellStyle94;
             this.Tablo_İşGiriş.HeaderText = "İş Kabul";
             this.Tablo_İşGiriş.MinimumWidth = 6;
             this.Tablo_İşGiriş.Name = "Tablo_İşGiriş";
@@ -1473,9 +1500,9 @@
             // 
             // Tablo_İşÇıkış
             // 
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_İşÇıkış.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle95.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle95.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_İşÇıkış.DefaultCellStyle = dataGridViewCellStyle95;
             this.Tablo_İşÇıkış.HeaderText = "İş Çıkış";
             this.Tablo_İşÇıkış.MinimumWidth = 6;
             this.Tablo_İşÇıkış.Name = "Tablo_İşÇıkış";
@@ -1485,9 +1512,9 @@
             // Tablo_İş
             // 
             this.Tablo_İş.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_İş.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle96.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle96.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_İş.DefaultCellStyle = dataGridViewCellStyle96;
             this.Tablo_İş.HeaderText = "İş";
             this.Tablo_İş.MinimumWidth = 6;
             this.Tablo_İş.Name = "Tablo_İş";
@@ -1496,8 +1523,8 @@
             // 
             // Tablo_Teslim_Edildi
             // 
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Teslim_Edildi.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle97.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Teslim_Edildi.DefaultCellStyle = dataGridViewCellStyle97;
             this.Tablo_Teslim_Edildi.HeaderText = "Teslim Edildi";
             this.Tablo_Teslim_Edildi.MinimumWidth = 6;
             this.Tablo_Teslim_Edildi.Name = "Tablo_Teslim_Edildi";
@@ -1506,8 +1533,8 @@
             // 
             // Tablo_Ödeme_Talep_Edildi
             // 
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Ödeme_Talep_Edildi.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle98.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Ödeme_Talep_Edildi.DefaultCellStyle = dataGridViewCellStyle98;
             this.Tablo_Ödeme_Talep_Edildi.HeaderText = "Ödeme Talebi";
             this.Tablo_Ödeme_Talep_Edildi.MinimumWidth = 6;
             this.Tablo_Ödeme_Talep_Edildi.Name = "Tablo_Ödeme_Talep_Edildi";
@@ -1516,8 +1543,8 @@
             // 
             // Tablo_Ödendi
             // 
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Ödendi.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle99.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Ödendi.DefaultCellStyle = dataGridViewCellStyle99;
             this.Tablo_Ödendi.HeaderText = "Ödendi";
             this.Tablo_Ödendi.MinimumWidth = 6;
             this.Tablo_Ödendi.Name = "Tablo_Ödendi";
@@ -1527,8 +1554,8 @@
             // Tablo_Notlar
             // 
             this.Tablo_Notlar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_Notlar.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle100.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_Notlar.DefaultCellStyle = dataGridViewCellStyle100;
             this.Tablo_Notlar.HeaderText = "Notlar";
             this.Tablo_Notlar.MinimumWidth = 6;
             this.Tablo_Notlar.Name = "Tablo_Notlar";
@@ -1537,6 +1564,10 @@
             // 
             // İpUcu
             // 
+            this.İpUcu.AutomaticDelay = 100;
+            this.İpUcu.AutoPopDelay = 10000;
+            this.İpUcu.InitialDelay = 100;
+            this.İpUcu.ReshowDelay = 20;
             this.İpUcu.UseAnimation = false;
             this.İpUcu.UseFading = false;
             // 
@@ -1544,7 +1575,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1003, 472);
+            this.ClientSize = new System.Drawing.Size(1003, 489);
             this.Controls.Add(this.P_Üst_Alt);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -1717,5 +1748,7 @@
         private System.Windows.Forms.TextBox İşTakip_Ödendi_Dönem_AramaÇubuğu;
         private System.Windows.Forms.Label Malzemeler_Açıklama;
         private System.Windows.Forms.Button Tablo_TümünüSeçVeyaAç;
+        private System.Windows.Forms.TextBox İşTakip_ÖdemeBekleyen_ÖdemeMiktarı;
+        private System.Windows.Forms.Label label10;
     }
 }

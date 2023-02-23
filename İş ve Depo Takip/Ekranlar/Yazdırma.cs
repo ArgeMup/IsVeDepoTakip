@@ -167,7 +167,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             IDepo_Eleman l = Depo.Bul("Ödeme");
             if (l != null)
             {
-                Banka.Talep_Ayıkla_ÖdemeDalı(l, out List<string> Açıklamalar, out List<string> Ödemeler, out string _, out string Ödendi, out _, out string Notlar);
+                Banka.Talep_Ayıkla_ÖdemeDalı(l, out List<string> Açıklamalar, out List<string> Ödemeler, out string _, out string Ödendi, out string Notlar, out _);
                 if (!string.IsNullOrEmpty(Notlar))
                 {
                     Sayfa.NotlarYazısı = new Bir_Yazı_();
