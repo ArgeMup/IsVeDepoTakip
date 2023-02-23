@@ -2001,8 +2001,7 @@ namespace İş_ve_Depo_Takip
 
             İskontaDahilÜcretler_Toplamı += Toplam_Ücret;
             Maliyetler_Toplamı += Toplam_Maliyet;
-        }
-        
+        }    
         public static void Talep_Ayıkla_ÖdemeDalı(IDepo_Eleman ÖdemeDalı, out List<string> Açıklamalar, out List<string> Ücretler, out string ÖdemeTalepEdildi, out string Ödendi, out string Notlar, out bool MüşteriBorçluMu)
         {
             _Talep_Ayıkla_ÖdemeDalı o = new _Talep_Ayıkla_ÖdemeDalı(ÖdemeDalı);
@@ -2019,7 +2018,7 @@ namespace İş_ve_Depo_Takip
             {
                 //Mevcut Ön Ödeme (2.00 ₺) + Alınan Ödeme (2.00 ₺)    4.00 ₺
                 //Alt Toplam (1.00 ₺) + KDV % 10 (0.10 ₺)             1.10 ₺
-                //İlave Ödeme Açıklaması                              0.50 ₺
+                //İlave Ödeme Açıklaması                              0.50 ₺ (varsa)
                 //İşlem Sonrası / Müşterinin Borcu / Kalan Ön Ödeme   2.40 ₺
 
                 Açıklamalar.Add("Mevcut Ön Ödeme (" + Yazdır_Ücret(o.MevcutÖnÖdeme) + ") + Alınan Ödeme (" + Yazdır_Ücret(o.AlınanÖdeme) + ")"); Ücretler.Add(Yazdır_Ücret(o.MevcutÖnÖdeme + o.AlınanÖdeme));
