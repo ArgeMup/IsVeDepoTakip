@@ -81,7 +81,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 case Keys.F1:
                     Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", null, null, Banka.TabloTürü.DevamEden, null }; 
                     Close();
-                    Tüm_İşler_Shown(null, null);
                     break;
 
                 case Keys.F2:
@@ -92,6 +91,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 case Keys.F3:
                     Seviye_Değişti(Seviye1_Arama, null);
                     Tüm_İşler_Shown(null, null);
+                    break;
+
+                case Keys.F4:
+                    Ortak.YeniSayfaAçmaTalebi = new object[] { "Takvim" };
+                    Close();
                     break;
             }
         }

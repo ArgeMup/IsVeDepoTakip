@@ -26,6 +26,7 @@ namespace İş_ve_Depo_Takip
         //"Yeni İş Girişi", Müşteri, SeriNo, SeriNoTürü, EkTanım
         //"Tüm İşler", null veya "Arama"
         //"Ücretler"
+        //"Takvim"
 
         public static string[] Kullanıcı_Klasör_Yedek = null;
         public static string Kullanıcı_Klasör_Pdf = null;

@@ -15,6 +15,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         public Takvim()
         {
             InitializeComponent();
+            Ortak.YeniSayfaAçmaTalebi = null;
 
             Gecici_Ayarlar = Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
             Hatırlatıcılar_Filtrele_Yaklaşanlar.Checked = Gecici_Ayarlar.Oku_Bit("Hatırlatıcılar_Filtrele", false, 0);
@@ -39,6 +40,27 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void Takvim_Shown(object sender, EventArgs e)
         {
             Hatırlatıcılar_Filtrele_CheckedChanged(null, null);
+            TabloİçeriğiArama.Focus();
+        }
+        private void Takvim_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.F1:
+                    Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", null, null, Banka.TabloTürü.DevamEden, null };
+                    Close();
+                    break;
+
+                case Keys.F2:
+                    Ortak.YeniSayfaAçmaTalebi = new string[] { "Tüm İşler", null };
+                    Close();
+                    break;
+
+                case Keys.F3:
+                    Ortak.YeniSayfaAçmaTalebi = new string[] { "Tüm İşler", "Arama" };
+                    Close();
+                    break;
+            }
         }
         private void Hatırlatıcılar_Filtrele_CheckedChanged(object sender, EventArgs e)
         {
@@ -394,6 +416,19 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Hatırlatıcılar_Filtrele_CheckedChanged(null, null);
 
             YeniOluştur_Oluştur.Enabled = false;
+        }
+
+        private void Tablo_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Ortak.Hatırlatıcılar.Hatırlatıcı_ h = Tablo.SelectedRows[0].Tag as Ortak.Hatırlatıcılar.Hatırlatıcı_;
+            if (h.Tip != Ortak.Hatırlatıcılar.Tip_.SeriNoluİş_DevamEdenTablosundan && h.Tip != Ortak.Hatırlatıcılar.Tip_.SeriNoluİş_TakvimTablosundan) return;
+
+            string soru = "Seçtiğiniz iş açılacak." + Environment.NewLine + Environment.NewLine + "İşleme devam etmek istiyor musunuz?";
+            DialogResult Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            if (Dr == DialogResult.No) return;
+
+            Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", h.Müşteri, h.İçerik, Banka.TabloTürü.DevamEden, null };
+            Close();
         }
     }
 }

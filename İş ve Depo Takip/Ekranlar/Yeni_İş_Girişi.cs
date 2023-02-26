@@ -173,6 +173,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Ortak.YeniSayfaAçmaTalebi = new string[] { "Tüm İşler", "Arama" };
                     Close();
                     break;
+
+                case Keys.F4:
+                    Ortak.YeniSayfaAçmaTalebi = new string[] { "Takvim" };
+                    Close();
+                    break;
             }
         }
 

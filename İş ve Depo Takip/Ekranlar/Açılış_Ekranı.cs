@@ -245,7 +245,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 //Yeni yan uygulamayı oluştur
                 switch ((sender as Button).Text)
                 {                                                                       //Çağıranlar
-                    case "Yeni İş Girişi":  ÖndekiEkran = new Yeni_İş_Girişi(); break;  //Tüm işler, yeni iş girişi   
+                    case "Yeni İş Girişi":  ÖndekiEkran = new Yeni_İş_Girişi(); break;  //Tüm işler, yeni iş girişi  
                     case "Tüm İşler":       ÖndekiEkran = new Tüm_İşler(); break;
                     case "Takvim":          ÖndekiEkran = new Takvim(); break;
                     case "Müşteriler":      ÖndekiEkran = new Müşteriler(); break;
@@ -480,6 +480,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     case Keys.F3:
                         Ortak.YeniSayfaAçmaTalebi = new string[] { "Tüm İşler", "Arama" };
                         Tuş_Click(Tüm_Talepler, null);
+                        break;
+
+                    case Keys.F4:
+                        Tuş_Click(Takvim, null);
                         break;
                 }
             }
