@@ -1,11 +1,10 @@
 ﻿using ArgeMup.HazirKod;
 using ArgeMup.HazirKod.Ekİşlemler;
-using İş_ve_Depo_Takip.Ekranlar;
 using System;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace İş_ve_Depo_Takip
+namespace İş_ve_Depo_Takip.Ekranlar
 {
     public partial class Açılış_Ekranı : Form
     {
@@ -235,6 +234,8 @@ namespace İş_ve_Depo_Takip
                 Hata.SetError(Ayarlar, mesaj);
                 Hata.SetError(Malzemeler, mesaj);
             }
+
+            if (Ortak.Hatırlatıcılar.EnAz1GecikmişVar) Hata.SetError(Takvim, "Süresi dolan hatırlatıcılarınız var.");
         }
 
         private void Tuş_Click(object sender, EventArgs e)
@@ -246,6 +247,7 @@ namespace İş_ve_Depo_Takip
                 {                                                                       //Çağıranlar
                     case "Yeni İş Girişi":  ÖndekiEkran = new Yeni_İş_Girişi(); break;  //Tüm işler, yeni iş girişi   
                     case "Tüm İşler":       ÖndekiEkran = new Tüm_İşler(); break;
+                    case "Takvim":          ÖndekiEkran = new Takvim(); break;
                     case "Müşteriler":      ÖndekiEkran = new Müşteriler(); break;
                     case "İş Türleri":      ÖndekiEkran = new İş_Türleri(); break;
                     case "Ücretler":        ÖndekiEkran = new Ücretler(); break;        //Tüm işler

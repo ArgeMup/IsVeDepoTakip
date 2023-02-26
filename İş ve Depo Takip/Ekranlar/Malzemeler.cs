@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace İş_ve_Depo_Takip
+namespace İş_ve_Depo_Takip.Ekranlar
 {
     public partial class Malzemeler : Form
     {

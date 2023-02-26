@@ -137,6 +137,9 @@ namespace İş_ve_Depo_Takip
             //Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Yeni Sürüme Uygunlaştırma", ref Açılışİşlemi_Tik);
             #endregion
 
+            Ortak.Hatırlatıcılar.KontrolEt();
+            Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Takvim", ref Açılışİşlemi_Tik);
+
             Malzeme_KritikMiktarKontrolü();
             Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Malzeme Durumu", ref Açılışİşlemi_Tik);
         }
@@ -307,6 +310,21 @@ namespace İş_ve_Depo_Takip
                         else KontrolEdildi = true;
 
                         depo = Kullanıcılar;
+                        break;
+
+                    case TabloTürü.Takvim:
+                        if (Takvim == null)
+                        {
+                            if (!Depo_DosyaVarMı("Ta"))
+                            {
+                                if (!YoksaOluştur) return null;
+                            }
+
+                            Takvim = Depo_Aç("Ta");
+                        }
+                        else KontrolEdildi = true;
+
+                        depo = Takvim;
                         break;
 
                     default:
@@ -2063,11 +2081,17 @@ namespace İş_ve_Depo_Takip
             {
                 Açıklama += Açıklamalar[i] + " " + Ücretler[i] + Environment.NewLine;
             }
+
             if (Notlar.DoluMu()) Açıklama += Notlar;
+            else Açıklama = Açıklama.TrimEnd('\r', '\n');
 
             _Talep_Ayıkla_ÖdemeDalı o = new _Talep_Ayıkla_ÖdemeDalı(eleman);
             İşlemSonucundaMüşteriBorçlu = o.MüşteriBorçluMu;
             MüşterininÖdemesiGerekenMiktar = o.Genel_Toplam - o.MevcutÖnÖdeme;
+        }
+        public static IDepo_Eleman Talep_Bul_DevamEden(string Müşteri, string SeriNo)
+        {
+            return Tablo_Dal(Müşteri, TabloTürü.DevamEden, "Talepler/" + SeriNo);
         }
 
         public static void Değişiklikleri_Kaydet(Control Tetikleyen)
@@ -2099,9 +2123,9 @@ namespace İş_ve_Depo_Takip
 
                 Yedekleme_İzleyici_DeğişiklikYapıldı = null;
             }
-            
+
             bool EnAzBirDeğişiklikYapıldı = false;
-            Ortak.Gösterge.Başlat("Kaydediliyor", false, Tetikleyen, 5 + (Müşteriler == null ? 0 : Müşteriler.Count * 4) + (MalzemeKullanımDetayları == null ? 0 : MalzemeKullanımDetayları.Count * 1));
+            Ortak.Gösterge.Başlat("Kaydediliyor", false, Tetikleyen, 6 + (Müşteriler == null ? 0 : Müşteriler.Count * 4) + (MalzemeKullanımDetayları == null ? 0 : MalzemeKullanımDetayları.Count * 1));
 
             if (Müşteriler != null && Müşteriler.Count > 0)
             {
@@ -2154,6 +2178,9 @@ namespace İş_ve_Depo_Takip
             if (Kullanıcılar != null && Kullanıcılar.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Ku", Kullanıcılar, Ortak.Klasör_KullanıcıDosyaları_Ayarlar); }
 
             Ortak.Gösterge.İlerleme = 1;
+            if (Takvim != null && Takvim.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Ta", Takvim); EnAzBirDeğişiklikYapıldı = true; }
+
+            Ortak.Gösterge.İlerleme = 1;
             if (EnAzBirDeğişiklikYapıldı || (Ayarlar != null && Ayarlar.EnAzBir_ElemanAdıVeyaİçeriği_Değişti))
             {
                 IDepo_Eleman d = Tablo_Dal(null, TabloTürü.Ayarlar, "Son Banka Kayıt", true);
@@ -2178,6 +2205,7 @@ namespace İş_ve_Depo_Takip
                 DoğrulamaKodu.Üret.Klasörden(Ortak.Klasör_Banka, true, SearchOption.AllDirectories, Parola.Yazı);
                 Yedekle_Banka();
                 Yedekleme_EnAz1Kez_Değişiklikler_Kaydedildi = true;
+                Ortak.Hatırlatıcılar.YenidenKontrolEdilmeli = true;
             }
 
             Ortak.Gösterge.Bitir();
@@ -2189,6 +2217,7 @@ namespace İş_ve_Depo_Takip
             Malzemeler = null;
             Müşteriler = null;
             Kullanıcılar = null;
+            Takvim = null;
             MalzemeKullanımDetayları = null;
         }
 
@@ -2204,13 +2233,14 @@ namespace İş_ve_Depo_Takip
         }
 
         #region Demirbaşlar
-        public enum TabloTürü { Ayarlar, İşTürleri, Malzemeler, MalzemeKullanımDetayı, Ödemeler, Kullanıcılar,
+        public enum TabloTürü { Ayarlar, İşTürleri, Malzemeler, MalzemeKullanımDetayı, Ödemeler, Kullanıcılar, Takvim,
                                 DevamEden, TeslimEdildi, ÖdemeTalepEdildi, Ödendi,
                                 DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi         }
         static Depo_ Ayarlar = null;
         static Depo_ İşTürleri = null;
         static Depo_ Malzemeler = null;
         static Depo_ Kullanıcılar = null;
+        static Depo_ Takvim = null;
 
         class Müşteri_
         {

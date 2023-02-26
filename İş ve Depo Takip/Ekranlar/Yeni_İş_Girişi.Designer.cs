@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace İş_ve_Depo_Takip
+namespace İş_ve_Depo_Takip.Ekranlar
 {
     partial class Yeni_İş_Girişi
     {

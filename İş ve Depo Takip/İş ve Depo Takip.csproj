@@ -94,6 +94,12 @@
     <Compile Include="Ekranlar\Açılış_Ekranı.Designer.cs">
       <DependentUpon>Açılış_Ekranı.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ekranlar\Takvim.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ekranlar\Takvim.Designer.cs">
+      <DependentUpon>Takvim.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ekranlar\Malzemeler.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -194,6 +200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Açılış_Ekranı.resx">
       <DependentUpon>Açılış_Ekranı.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ekranlar\Takvim.resx">
+      <DependentUpon>Takvim.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Malzemeler.resx">
       <DependentUpon>Malzemeler.cs</DependentUpon>

@@ -6,7 +6,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 {
     public partial class Ayarlar_Diğer : Form
     {
-        IDepo_Eleman Ayarlar_Küçültüldüğünde = null, Ayarlar_Bilgisayar = null;
+        IDepo_Eleman Ayarlar_Küçültüldüğünde = null, Ayarlar_Bilgisayar = null, Ayarlar_Takvim = null;
 
         public Ayarlar_Diğer()
         {
@@ -14,8 +14,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
 
+            Ayarlar_Takvim = Banka.Tablo_Dal(null, Banka.TabloTürü.Takvim, "Erteleme Süresi", true);
             Ayarlar_Bilgisayar = Banka.Ayarlar_BilgisayarVeKullanıcı("Klasör", true);
             Ayarlar_Küçültüldüğünde = Banka.Ayarlar_Genel("Küçültüldüğünde Parola Sor", true);
+
+            Takvim_Erteleme_İşKabulTarihi.Text = Ayarlar_Takvim.Oku(null, "2", 0);
+            Takvim_Erteleme_ÖdemeTalepTarihi.Text = Ayarlar_Takvim.Oku(null, "7", 1);
+            Takvim_Erteleme_1.Text = Ayarlar_Takvim.Oku(null, "4", 2);
+            Takvim_Erteleme_2.Text = Ayarlar_Takvim.Oku(null, "6", 3);
+            Takvim_Erteleme_3.Text = Ayarlar_Takvim.Oku(null, "10", 4);
+            Takvim_Erteleme_4.Text = Ayarlar_Takvim.Oku(null, "12", 5);
+            Takvim_Erteleme_5.Text = Ayarlar_Takvim.Oku(null, "14", 6);
 
             Klasör_Yedekleme_1.Text = Ayarlar_Bilgisayar.Oku("Yedek", null, 0);
             Klasör_Yedekleme_2.Text = Ayarlar_Bilgisayar.Oku("Yedek", null, 1);
@@ -23,11 +32,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Klasör_Yedekleme_4.Text = Ayarlar_Bilgisayar.Oku("Yedek", null, 3);
             Klasör_Yedekleme_5.Text = Ayarlar_Bilgisayar.Oku("Yedek", null, 4);
             Klasör_Pdf.Text = Ayarlar_Bilgisayar.Oku("Pdf");
+
             KüçültüldüğündeParolaSor.Checked = Ayarlar_Küçültüldüğünde.Oku_Bit(null, true, 0);
             KüçültüldüğündeParolaSor_sn.Value = Ayarlar_Küçültüldüğünde.Oku_TamSayı(null, 60, 1);
+
             Kaydet.Enabled = false;
         }
-        
+
         private void Ayar_Değişti(object sender, EventArgs e)
         {
             Kaydet.Enabled = true;
@@ -105,12 +116,77 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
             }
 
+            string gecici = Takvim_Erteleme_İşKabulTarihi.Text;
+            if (!Ortak.YazıyıSayıyaDönüştür(ref gecici, "İş kabul tarihi erteleme kutucuğu", null, 0.1))
+            {
+                Takvim_Erteleme_İşKabulTarihi.Focus();
+                return;
+            }
+            Takvim_Erteleme_İşKabulTarihi.Text = gecici;
+
+            gecici = Takvim_Erteleme_ÖdemeTalepTarihi.Text;
+            if (!Ortak.YazıyıSayıyaDönüştür(ref gecici, "Ödeme talep tarihi erteleme kutucuğu", null, 0.1))
+            {
+                Takvim_Erteleme_ÖdemeTalepTarihi.Focus();
+                return;
+            }
+            Takvim_Erteleme_ÖdemeTalepTarihi.Text = gecici;
+
+            gecici = Takvim_Erteleme_1.Text;
+            if (!Ortak.YazıyıSayıyaDönüştür(ref gecici, "Erteleme seçeneği 1 kutucuğu", null, 0.1))
+            {
+                Takvim_Erteleme_1.Focus();
+                return;
+            }
+            Takvim_Erteleme_1.Text = gecici;
+
+            gecici = Takvim_Erteleme_2.Text;
+            if (!Ortak.YazıyıSayıyaDönüştür(ref gecici, "Erteleme seçeneği 2 kutucuğu", null, 0.1))
+            {
+                Takvim_Erteleme_2.Focus();
+                return;
+            }
+            Takvim_Erteleme_2.Text = gecici;
+
+            gecici = Takvim_Erteleme_3.Text;
+            if (!Ortak.YazıyıSayıyaDönüştür(ref gecici, "Erteleme seçeneği 3 kutucuğu", null, 0.1))
+            {
+                Takvim_Erteleme_3.Focus();
+                return;
+            }
+            Takvim_Erteleme_3.Text = gecici;
+
+            gecici = Takvim_Erteleme_4.Text;
+            if (!Ortak.YazıyıSayıyaDönüştür(ref gecici, "Erteleme seçeneği 4 kutucuğu", null, 0.1))
+            {
+                Takvim_Erteleme_4.Focus();
+                return;
+            }
+            Takvim_Erteleme_4.Text = gecici;
+
+            gecici = Takvim_Erteleme_5.Text;
+            if (!Ortak.YazıyıSayıyaDönüştür(ref gecici, "Erteleme seçeneği 5 kutucuğu", null, 0.1))
+            {
+                Takvim_Erteleme_5.Focus();
+                return;
+            }
+            Takvim_Erteleme_5.Text = gecici;
+
+            Ayarlar_Takvim[0] = Takvim_Erteleme_İşKabulTarihi.Text;
+            Ayarlar_Takvim[1] = Takvim_Erteleme_ÖdemeTalepTarihi.Text;
+            Ayarlar_Takvim[2] = Takvim_Erteleme_1.Text;
+            Ayarlar_Takvim[3] = Takvim_Erteleme_2.Text;
+            Ayarlar_Takvim[4] = Takvim_Erteleme_3.Text;
+            Ayarlar_Takvim[5] = Takvim_Erteleme_4.Text;
+            Ayarlar_Takvim[6] = Takvim_Erteleme_5.Text;
+
             Ayarlar_Bilgisayar.Yaz("Yedek", Klasör_Yedekleme_1.Text, 0);
             Ayarlar_Bilgisayar.Yaz("Yedek", Klasör_Yedekleme_2.Text, 1);
             Ayarlar_Bilgisayar.Yaz("Yedek", Klasör_Yedekleme_3.Text, 2);
             Ayarlar_Bilgisayar.Yaz("Yedek", Klasör_Yedekleme_4.Text, 3);
             Ayarlar_Bilgisayar.Yaz("Yedek", Klasör_Yedekleme_5.Text, 4);
             Ayarlar_Bilgisayar.Yaz("Pdf", Klasör_Pdf.Text);
+
             Ayarlar_Küçültüldüğünde.Yaz(null, KüçültüldüğündeParolaSor.Checked, 0);
             Ayarlar_Küçültüldüğünde.Yaz(null, (int)KüçültüldüğündeParolaSor_sn.Value, 1);
             Banka.Değişiklikleri_Kaydet(Kaydet);

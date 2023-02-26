@@ -1,4 +1,4 @@
-﻿namespace İş_ve_Depo_Takip
+﻿namespace İş_ve_Depo_Takip.Ekranlar
 {
     partial class Açılış_Ekranı
     {
@@ -45,8 +45,9 @@
             this.Parola_Kontrol = new System.Windows.Forms.Button();
             this.Parola_Giriş = new System.Windows.Forms.MaskedTextBox();
             this.P_AnaMenü = new System.Windows.Forms.Panel();
-            this.YedekleKapat = new System.Windows.Forms.Button();
             this.Ayarlar = new System.Windows.Forms.Button();
+            this.Takvim = new System.Windows.Forms.Button();
+            this.YedekleKapat = new System.Windows.Forms.Button();
             this.Ayarlar_Geri = new System.Windows.Forms.Button();
             this.tab_sayfası = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -75,11 +76,12 @@
             // 
             // Yeni_Talep_Girişi
             // 
-            this.Yeni_Talep_Girişi.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Yeni_Talep_Girişi.Location = new System.Drawing.Point(55, 28);
+            this.Yeni_Talep_Girişi.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.Yeni_Talep_Girişi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Yeni_Talep_Girişi.Location = new System.Drawing.Point(108, 6);
             this.Yeni_Talep_Girişi.Margin = new System.Windows.Forms.Padding(6);
             this.Yeni_Talep_Girişi.Name = "Yeni_Talep_Girişi";
-            this.Yeni_Talep_Girişi.Size = new System.Drawing.Size(180, 50);
+            this.Yeni_Talep_Girişi.Size = new System.Drawing.Size(130, 40);
             this.Yeni_Talep_Girişi.TabIndex = 0;
             this.Yeni_Talep_Girişi.Text = "Yeni İş Girişi";
             this.Yeni_Talep_Girişi.UseVisualStyleBackColor = true;
@@ -87,11 +89,12 @@
             // 
             // Tüm_Talepler
             // 
-            this.Tüm_Talepler.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Tüm_Talepler.Location = new System.Drawing.Point(55, 90);
+            this.Tüm_Talepler.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.Tüm_Talepler.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Tüm_Talepler.Location = new System.Drawing.Point(250, 6);
             this.Tüm_Talepler.Margin = new System.Windows.Forms.Padding(6);
             this.Tüm_Talepler.Name = "Tüm_Talepler";
-            this.Tüm_Talepler.Size = new System.Drawing.Size(180, 50);
+            this.Tüm_Talepler.Size = new System.Drawing.Size(130, 40);
             this.Tüm_Talepler.TabIndex = 1;
             this.Tüm_Talepler.Text = "Tüm İşler";
             this.Tüm_Talepler.UseVisualStyleBackColor = true;
@@ -219,14 +222,14 @@
             this.P_Parola.Controls.Add(this.Parola_Giriş);
             this.P_Parola.Location = new System.Drawing.Point(16, 16);
             this.P_Parola.Name = "P_Parola";
-            this.P_Parola.Size = new System.Drawing.Size(257, 166);
+            this.P_Parola.Size = new System.Drawing.Size(441, 364);
             this.P_Parola.TabIndex = 10;
             this.P_Parola.Visible = false;
             // 
             // Parola_Kontrol
             // 
-            this.Parola_Kontrol.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Parola_Kontrol.Location = new System.Drawing.Point(80, 86);
+            this.Parola_Kontrol.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.Parola_Kontrol.Location = new System.Drawing.Point(226, 318);
             this.Parola_Kontrol.Margin = new System.Windows.Forms.Padding(6);
             this.Parola_Kontrol.Name = "Parola_Kontrol";
             this.Parola_Kontrol.Size = new System.Drawing.Size(100, 40);
@@ -237,8 +240,8 @@
             // 
             // Parola_Giriş
             // 
-            this.Parola_Giriş.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Parola_Giriş.Location = new System.Drawing.Point(80, 41);
+            this.Parola_Giriş.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.Parola_Giriş.Location = new System.Drawing.Point(117, 321);
             this.Parola_Giriş.Name = "Parola_Giriş";
             this.Parola_Giriş.Size = new System.Drawing.Size(100, 36);
             this.Parola_Giriş.TabIndex = 0;
@@ -250,23 +253,50 @@
             // 
             this.P_AnaMenü.BackgroundImage = global::İş_ve_Depo_Takip.Properties.Resources.logo_512_seffaf;
             this.P_AnaMenü.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.P_AnaMenü.Controls.Add(this.YedekleKapat);
             this.P_AnaMenü.Controls.Add(this.Ayarlar);
+            this.P_AnaMenü.Controls.Add(this.Takvim);
+            this.P_AnaMenü.Controls.Add(this.YedekleKapat);
             this.P_AnaMenü.Controls.Add(this.Yeni_Talep_Girişi);
             this.P_AnaMenü.Controls.Add(this.Tüm_Talepler);
             this.P_AnaMenü.Location = new System.Drawing.Point(6, 6);
             this.P_AnaMenü.Name = "P_AnaMenü";
-            this.P_AnaMenü.Size = new System.Drawing.Size(289, 248);
+            this.P_AnaMenü.Size = new System.Drawing.Size(487, 391);
             this.P_AnaMenü.TabIndex = 10;
             this.P_AnaMenü.Visible = false;
             this.P_AnaMenü.VisibleChanged += new System.EventHandler(this.P_AnaMenü_VisibleChanged);
             // 
+            // Ayarlar
+            // 
+            this.Ayarlar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.Ayarlar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Ayarlar.Location = new System.Drawing.Point(202, 356);
+            this.Ayarlar.Margin = new System.Windows.Forms.Padding(6);
+            this.Ayarlar.Name = "Ayarlar";
+            this.Ayarlar.Size = new System.Drawing.Size(81, 29);
+            this.Ayarlar.TabIndex = 2;
+            this.Ayarlar.Text = "Ayarlar";
+            this.Ayarlar.UseVisualStyleBackColor = true;
+            this.Ayarlar.Click += new System.EventHandler(this.Ayarlar_Click);
+            // 
+            // Takvim
+            // 
+            this.Takvim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Takvim.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Takvim.Location = new System.Drawing.Point(6, 356);
+            this.Takvim.Margin = new System.Windows.Forms.Padding(6);
+            this.Takvim.Name = "Takvim";
+            this.Takvim.Size = new System.Drawing.Size(81, 29);
+            this.Takvim.TabIndex = 4;
+            this.Takvim.Text = "Takvim";
+            this.Takvim.UseVisualStyleBackColor = true;
+            this.Takvim.Click += new System.EventHandler(this.Tuş_Click);
+            // 
             // YedekleKapat
             // 
-            this.YedekleKapat.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.YedekleKapat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.YedekleKapat.BackColor = System.Drawing.Color.Transparent;
             this.YedekleKapat.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.YedekleKapat.Location = new System.Drawing.Point(104, 193);
+            this.YedekleKapat.Location = new System.Drawing.Point(351, 356);
             this.YedekleKapat.Margin = new System.Windows.Forms.Padding(6);
             this.YedekleKapat.Name = "YedekleKapat";
             this.YedekleKapat.Size = new System.Drawing.Size(130, 29);
@@ -274,19 +304,6 @@
             this.YedekleKapat.Text = "Yedekle ve kapat";
             this.YedekleKapat.UseVisualStyleBackColor = true;
             this.YedekleKapat.Click += new System.EventHandler(this.YedekleKapat_Click);
-            // 
-            // Ayarlar
-            // 
-            this.Ayarlar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Ayarlar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.Ayarlar.Location = new System.Drawing.Point(104, 152);
-            this.Ayarlar.Margin = new System.Windows.Forms.Padding(6);
-            this.Ayarlar.Name = "Ayarlar";
-            this.Ayarlar.Size = new System.Drawing.Size(130, 29);
-            this.Ayarlar.TabIndex = 2;
-            this.Ayarlar.Text = "Ayarlar";
-            this.Ayarlar.UseVisualStyleBackColor = true;
-            this.Ayarlar.Click += new System.EventHandler(this.Ayarlar_Click);
             // 
             // Ayarlar_Geri
             // 
@@ -527,6 +544,7 @@
         private System.Windows.Forms.Button Bütçe;
         public System.Windows.Forms.Button YedekleKapat;
         private System.Windows.Forms.Button Malzemeler;
+        private System.Windows.Forms.Button Takvim;
     }
 }
 

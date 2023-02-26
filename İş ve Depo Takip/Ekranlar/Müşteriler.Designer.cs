@@ -1,4 +1,4 @@
-﻿namespace İş_ve_Depo_Takip
+﻿namespace İş_ve_Depo_Takip.Ekranlar
 {
     partial class Müşteriler
     {

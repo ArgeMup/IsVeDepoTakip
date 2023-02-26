@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace İş_ve_Depo_Takip
+namespace İş_ve_Depo_Takip.Ekranlar
 {
     public partial class İş_Türleri : Form
     {

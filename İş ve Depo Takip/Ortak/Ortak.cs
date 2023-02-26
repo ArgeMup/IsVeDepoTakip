@@ -1,6 +1,7 @@
 ﻿using ArgeMup.HazirKod;
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace İş_ve_Depo_Takip
         public static string Klasör_KullanıcıDosyaları_ArkaPlanResimleri = Klasör_KullanıcıDosyaları + "Arka Plan Resimleri\\";
         public static string Klasör_Gecici = Klasör.Depolama(Klasör.Kapsamı.Geçici) + "\\";
 
-        public static Açılış_Ekranı AnaEkran;
+        public static Ekranlar.Açılış_Ekranı AnaEkran;
         public static object[] YeniSayfaAçmaTalebi = null; //[0] Sayfanın tuşunun adı [1 ... ] varsa girdileri
         //"Yeni İş Girişi", Müşteri, SeriNo, SeriNoTürü, EkTanım
         //"Tüm İşler", null veya "Arama"
@@ -124,7 +125,7 @@ namespace İş_ve_Depo_Takip
 
         #region Pencere Konumları vb. için Geçici Depolama
         static Depo_ GeçiciDepolama = new Depo_();
-        public static void GeçiciDepolama_PencereKonumları_Oku(Form Sayfa)
+        public static IDepo_Eleman GeçiciDepolama_PencereKonumları_Oku(Form Sayfa)
         {
             IDepo_Eleman p = GeçiciDepolama.Bul(Sayfa.Name, true);
             Sayfa.WindowState = (FormWindowState)p.Oku_Sayı("konum", (double)Sayfa.WindowState);
@@ -140,6 +141,8 @@ namespace İş_ve_Depo_Takip
                 Sayfa.Text = "ArGeMuP " + Kendi.Adı + " V" + Kendi.Sürümü_Dosya + " " + Sayfa.Text;
                 Sayfa.Icon = Properties.Resources.kendi;
             }
+
+            return p;
         }
         public static void GeçiciDepolama_PencereKonumları_Yaz(Form Sayfa)
         {
@@ -242,6 +245,150 @@ namespace İş_ve_Depo_Takip
                 return "Alt Toplam" + (KDV_Oranı > 0 ? " + KDV" : null) + " = " + Banka.Yazdır_Ücret(ToplamHarcama + ToplamKDV) + Environment.NewLine +
                     "Mevcut Ön Ödeme + Alınan Ödeme : " + Banka.Yazdır_Ücret(MevcutÖnÖdeme + AlınanÖdeme) + Environment.NewLine +
                     (İşlemSonrasıÖnÖdeme < 0 ? "Müşterinin Borcu = " : "Kalan Ön Ödeme = ") + Banka.Yazdır_Ücret(Math.Abs(İşlemSonrasıÖnÖdeme));
+            }
+        }
+
+        public static class Hatırlatıcılar
+        {
+            public enum Tip_ {  Boşta, KullanıcıNotu,
+                                SeriNoluİş_DevamEdenTablosundan, SeriNoluİş_TakvimTablosundan, 
+                                ÖdemeTalebi_KendiTablosundan, ÖdemeTalebi_TakvimTablosundan };
+            public class Hatırlatıcı_
+            {
+                public Tip_ Tip;                    //SeriNoluİş            ÖdemeTalebi         KullanıcıNotu
+                public DateTime BaşlangışTarihi;    //İş Giriş Tarihi       Dönem               Giriş Tarihi  
+                public DateTime UyarıTarihi;        //Ertelenmiş Tarih      Ertelenmiş Tarih    Ertelenmiş Tarih
+                public string Müşteri;              //Müşteri               Müşteri                     
+                public string İçerik;               //Seri No                                   Kullanıcı Notu
+            }
+
+            public static Hatırlatıcı_[] Tümü;
+            public static bool EnAz1GecikmişVar, YenidenKontrolEdilmeli = true;
+            
+            public static void KontrolEt()
+            {
+                EnAz1GecikmişVar = false;
+                List<Hatırlatıcı_> Liste = new List<Hatırlatıcı_>();
+                DateTime şimdi = DateTime.Now;
+                List<string> Müşteriler = Banka.Müşteri_Listele();
+
+                //Kullanıcı tanımlı hatırlatıcıların kontrolü
+                IDepo_Eleman Hatırlatıcılar = Banka.Tablo_Dal(null, Banka.TabloTürü.Takvim, "Hatırlatıcılar KullanıcıNotu");
+                if (Hatırlatıcılar != null && Hatırlatıcılar.Elemanları.Length > 0)
+                {
+                    foreach (IDepo_Eleman h in Hatırlatıcılar.Elemanları)
+                    {
+                        Hatırlatıcı_ yeni = new Hatırlatıcı_();
+                        yeni.Tip = Tip_.KullanıcıNotu;
+                        yeni.BaşlangışTarihi = h.Adı.TarihSaate();
+                        yeni.UyarıTarihi = h.Oku_TarihSaat(null, default, 0);
+                        yeni.İçerik = h.Oku(null, null, 1);
+                        Liste.Add(yeni);
+
+                        if (yeni.UyarıTarihi < şimdi) EnAz1GecikmişVar = true;
+                    }
+                }
+
+                //müşterilere ait ödeme taleplerinin kontrolü
+                double ZamanAşımı_gün = Banka.Tablo_Dal(null, Banka.TabloTürü.Takvim, "Erteleme Süresi", true).Oku_Sayı(null, 7, 1);
+                Hatırlatıcılar = Banka.Tablo_Dal(null, Banka.TabloTürü.Takvim, "Hatırlatıcılar ÖdemeTalebi", true);
+                foreach (string müşteri in Müşteriler)
+                {
+                    string[] ÖdemeTalepleri = Banka.Dosya_Listele_Müşteri(müşteri, false);
+                    foreach (string ödemetalebi in ÖdemeTalepleri)
+                    {
+                        Hatırlatıcı_ yeni = new Hatırlatıcı_();
+                        yeni.Müşteri = müşteri;
+                        yeni.BaşlangışTarihi = ödemetalebi.TarihSaate(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2);
+
+                        IDepo_Eleman h = Hatırlatıcılar.Bul(ödemetalebi);
+                        if (h == null)
+                        {
+                            yeni.Tip = Tip_.ÖdemeTalebi_KendiTablosundan;
+                            yeni.UyarıTarihi = yeni.BaşlangışTarihi.AddDays(ZamanAşımı_gün);
+                        }
+                        else
+                        {
+                            yeni.Tip = Tip_.ÖdemeTalebi_TakvimTablosundan;
+                            yeni.UyarıTarihi = h.Oku_TarihSaat(null, default, 0);
+                        }
+
+                        Liste.Add(yeni);
+                        if (yeni.UyarıTarihi < şimdi) EnAz1GecikmişVar = true;
+                    }
+                }
+
+                //takvim tablosunda bulunan fakat ödendiği için artık geçersiz olan girdilerin kontrolü
+                foreach (IDepo_Eleman h in Hatırlatıcılar.Elemanları)
+                {
+                    Hatırlatıcı_ h_listedeki = Liste.Find(x => x.BaşlangışTarihi.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) == h.Adı);
+                    if (h_listedeki == null) h.Sil(null);
+                }
+
+                //işlere ait serinoların kontrolü
+                ZamanAşımı_gün = Banka.Tablo_Dal(null, Banka.TabloTürü.Takvim, "Erteleme Süresi", true).Oku_Sayı(null, 2, 0);
+                Hatırlatıcılar = Banka.Tablo_Dal(null, Banka.TabloTürü.Takvim, "Hatırlatıcılar SeriNoluİş", true);
+                foreach (string müşteri in Müşteriler)
+                {
+                    IDepo_Eleman Talepler = Banka.Tablo_Dal(müşteri, Banka.TabloTürü.DevamEden, "Talepler");
+                    if (Talepler == null || Talepler.Elemanları.Length == 0) continue;
+
+                    foreach (IDepo_Eleman sn in Talepler.Elemanları)
+                    {
+                        Banka.Talep_Ayıkla_SeriNoDalı(sn, out string seri_no_yazısı, out _, out _, out _, out string TeslimEdilmeTarihi);
+
+                        //Teslim edildi ise atla
+                        if (TeslimEdilmeTarihi.DoluMu()) continue;
+
+                        //son iş giriş tarihini kontrol et
+                        Banka.Talep_Ayıkla_İşTürüDalı(sn.Elemanları[sn.Elemanları.Length - 1], out _, out string GirişTarihi, out string ÇıkışTarihi, out _, out _);
+
+                        //tamamlanmış bir iş ise atla
+                        if (ÇıkışTarihi.DoluMu()) continue;
+
+                        //devam eden bir iş
+                        Hatırlatıcı_ yeni = new Hatırlatıcı_();
+                        yeni.Müşteri = müşteri;
+                        yeni.İçerik = seri_no_yazısı;
+                        yeni.BaşlangışTarihi = GirişTarihi.TarihSaate();
+
+                        IDepo_Eleman h = Hatırlatıcılar.Bul(seri_no_yazısı);
+                        if (h == null)
+                        {
+                            yeni.Tip = Tip_.SeriNoluİş_DevamEdenTablosundan;
+                            yeni.UyarıTarihi = yeni.BaşlangışTarihi.AddDays(ZamanAşımı_gün);
+                        }
+                        else
+                        {
+                            yeni.Tip = Tip_.SeriNoluİş_TakvimTablosundan;
+                            yeni.UyarıTarihi = h.Oku_TarihSaat(null, default, 0);
+                        }
+
+                        Liste.Add(yeni);
+                        if (yeni.UyarıTarihi < şimdi) EnAz1GecikmişVar = true;
+                    }
+                }
+
+                //takvim tablosunda bulunan fakat teslim edildiği için artık geçersiz olan girdilerin kontrolü
+                foreach (IDepo_Eleman h in Hatırlatıcılar.Elemanları)
+                {
+                    Hatırlatıcı_ h_listedeki = Liste.Find(x => x.İçerik == h.Adı);
+                    if (h_listedeki == null) h.Sil(null);
+                }
+
+                Liste.Sort(new _Sıralayıcı_UyarıTarihi_EskidenYeniye());
+                Tümü = Liste.ToArray();
+                YenidenKontrolEdilmeli = false;
+            }
+
+            class _Sıralayıcı_UyarıTarihi_EskidenYeniye : IComparer<Hatırlatıcı_>
+            {
+                public int Compare(Hatırlatıcı_ x, Hatırlatıcı_ y)
+                {
+                    if (x.UyarıTarihi > y.UyarıTarihi) return 1;
+                    else if (x.UyarıTarihi == y.UyarıTarihi) return 0;
+                    else return -1;
+                }
             }
         }
         #endregion

@@ -25,7 +25,7 @@ namespace İş_ve_Depo_Takip
                 {
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
-                    Application.Run(new Açılış_Ekranı());
+                    Application.Run(new Ekranlar.Açılış_Ekranı());
                 }
             }
             catch (Exception ex) { ex.Günlük(); System.Threading.Thread.Sleep(100); }
