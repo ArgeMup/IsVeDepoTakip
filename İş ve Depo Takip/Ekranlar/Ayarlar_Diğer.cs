@@ -6,7 +6,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 {
     public partial class Ayarlar_Diğer : Form
     {
-        IDepo_Eleman Ayarlar_Küçültüldüğünde = null, Ayarlar_Bilgisayar = null, Ayarlar_Takvim = null;
+        IDepo_Eleman Ayarlar_Küçültüldüğünde = null, Ayarlar_Bilgisayar = null, Ayarlar_Takvim = null, Ayarlar_SürümKontrol = null;
 
         public Ayarlar_Diğer()
         {
@@ -17,6 +17,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar_Takvim = Banka.Tablo_Dal(null, Banka.TabloTürü.Takvim, "Erteleme Süresi", true);
             Ayarlar_Bilgisayar = Banka.Ayarlar_BilgisayarVeKullanıcı("Klasör", true);
             Ayarlar_Küçültüldüğünde = Banka.Ayarlar_Genel("Küçültüldüğünde Parola Sor", true);
+            Ayarlar_SürümKontrol = Banka.Tablo_Dal(null, Banka.TabloTürü.KorumalıAlan, "Sürüm Sayısı", true);
 
             Takvim_Erteleme_İşKabulTarihi.Text = Ayarlar_Takvim.Oku(null, "2", 0);
             Takvim_Erteleme_ÖdemeTalepTarihi.Text = Ayarlar_Takvim.Oku(null, "7", 1);
@@ -35,6 +36,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             KüçültüldüğündeParolaSor.Checked = Ayarlar_Küçültüldüğünde.Oku_Bit(null, true, 0);
             KüçültüldüğündeParolaSor_sn.Value = Ayarlar_Küçültüldüğünde.Oku_TamSayı(null, 60, 1);
+
+            KorumalıAlan_SürümSayısı.Value = Ayarlar_SürümKontrol.Oku_TamSayı(null, 15);
 
             Kaydet.Enabled = false;
         }
@@ -189,6 +192,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Ayarlar_Küçültüldüğünde.Yaz(null, KüçültüldüğündeParolaSor.Checked, 0);
             Ayarlar_Küçültüldüğünde.Yaz(null, (int)KüçültüldüğündeParolaSor_sn.Value, 1);
+
+            Ayarlar_SürümKontrol.Yaz(null, (int)KorumalıAlan_SürümSayısı.Value);
+
             Banka.Değişiklikleri_Kaydet(Kaydet);
 
             Ortak.Kullanıcı_Klasör_Yedek = Ayarlar_Bilgisayar.Bul("Yedek", true).İçeriği;

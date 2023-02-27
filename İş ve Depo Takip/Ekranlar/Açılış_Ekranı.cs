@@ -53,7 +53,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 #if DEBUG
             P_AnaMenü.Visible = true;
 
-            //Tuş_Click(Bütçe, null);
+            //Tuş_Click(KorumalıAlan, null);
 
             ÖndekiEkran_KlaFaGö = new KlavyeFareGozlemcisi_(false, false, false);//denemelerde kasıyor
 #else
@@ -256,6 +256,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     case "Yazdırma":        ÖndekiEkran = new Yazdırma(); break;
                     case "E-posta":         ÖndekiEkran = new Ayarlar_Eposta(); break;
                     case "Diğer":           ÖndekiEkran = new Ayarlar_Diğer(); break;
+                    case "Korumalı Alan":   ÖndekiEkran = new KorumalıAlan(); break;
                 }
 
                 ÖndekiEkran.Shown += ÖndekiEkran_Shown;

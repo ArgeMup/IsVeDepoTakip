@@ -62,6 +62,8 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.Hata = new System.Windows.Forms.ErrorProvider(this.components);
             this.AçılışYazısı = new System.Windows.Forms.Label();
+            this.KorumalıAlan = new System.Windows.Forms.Button();
+            this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
             this.P_YeniParola.SuspendLayout();
             this.P_Parola.SuspendLayout();
             this.P_AnaMenü.SuspendLayout();
@@ -84,6 +86,7 @@
             this.Yeni_Talep_Girişi.Size = new System.Drawing.Size(130, 40);
             this.Yeni_Talep_Girişi.TabIndex = 0;
             this.Yeni_Talep_Girişi.Text = "Yeni İş Girişi";
+            this.İpUcu.SetToolTip(this.Yeni_Talep_Girişi, "F1");
             this.Yeni_Talep_Girişi.UseVisualStyleBackColor = true;
             this.Yeni_Talep_Girişi.Click += new System.EventHandler(this.Tuş_Click);
             // 
@@ -97,6 +100,7 @@
             this.Tüm_Talepler.Size = new System.Drawing.Size(130, 40);
             this.Tüm_Talepler.TabIndex = 1;
             this.Tüm_Talepler.Text = "Tüm İşler";
+            this.İpUcu.SetToolTip(this.Tüm_Talepler, "F2 İş Takip\r\nF3 Arama");
             this.Tüm_Talepler.UseVisualStyleBackColor = true;
             this.Tüm_Talepler.Click += new System.EventHandler(this.Tuş_Click);
             // 
@@ -253,6 +257,7 @@
             // 
             this.P_AnaMenü.BackgroundImage = global::İş_ve_Depo_Takip.Properties.Resources.logo_512_seffaf;
             this.P_AnaMenü.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.P_AnaMenü.Controls.Add(this.KorumalıAlan);
             this.P_AnaMenü.Controls.Add(this.Ayarlar);
             this.P_AnaMenü.Controls.Add(this.Takvim);
             this.P_AnaMenü.Controls.Add(this.YedekleKapat);
@@ -267,9 +272,9 @@
             // 
             // Ayarlar
             // 
-            this.Ayarlar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.Ayarlar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Ayarlar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.Ayarlar.Location = new System.Drawing.Point(202, 356);
+            this.Ayarlar.Location = new System.Drawing.Point(253, 356);
             this.Ayarlar.Margin = new System.Windows.Forms.Padding(6);
             this.Ayarlar.Name = "Ayarlar";
             this.Ayarlar.Size = new System.Drawing.Size(81, 29);
@@ -288,6 +293,7 @@
             this.Takvim.Size = new System.Drawing.Size(81, 29);
             this.Takvim.TabIndex = 4;
             this.Takvim.Text = "Takvim";
+            this.İpUcu.SetToolTip(this.Takvim, "F4");
             this.Takvim.UseVisualStyleBackColor = true;
             this.Takvim.Click += new System.EventHandler(this.Tuş_Click);
             // 
@@ -475,6 +481,26 @@
             this.AçılışYazısı.Text = "Lütfen bekleyiniz";
             this.AçılışYazısı.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // KorumalıAlan
+            // 
+            this.KorumalıAlan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.KorumalıAlan.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.KorumalıAlan.Location = new System.Drawing.Point(104, 356);
+            this.KorumalıAlan.Margin = new System.Windows.Forms.Padding(6);
+            this.KorumalıAlan.Name = "KorumalıAlan";
+            this.KorumalıAlan.Size = new System.Drawing.Size(116, 29);
+            this.KorumalıAlan.TabIndex = 5;
+            this.KorumalıAlan.Text = "Korumalı Alan";
+            this.KorumalıAlan.UseVisualStyleBackColor = true;
+            this.KorumalıAlan.Click += new System.EventHandler(this.Tuş_Click);
+            // 
+            // İpUcu
+            // 
+            this.İpUcu.AutomaticDelay = 100;
+            this.İpUcu.AutoPopDelay = 10000;
+            this.İpUcu.InitialDelay = 100;
+            this.İpUcu.ReshowDelay = 20;
+            // 
             // Açılış_Ekranı
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
@@ -545,6 +571,8 @@
         public System.Windows.Forms.Button YedekleKapat;
         private System.Windows.Forms.Button Malzemeler;
         private System.Windows.Forms.Button Takvim;
+        private System.Windows.Forms.Button KorumalıAlan;
+        private System.Windows.Forms.ToolTip İpUcu;
     }
 }
 

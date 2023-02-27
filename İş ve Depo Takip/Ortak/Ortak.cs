@@ -18,8 +18,9 @@ namespace İş_ve_Depo_Takip
         public static string Klasör_İçYedek = Kendi.Klasörü + "\\Yedek\\";
         public static string Klasör_KullanıcıDosyaları = Kendi.Klasörü + "\\Kullanıcı Dosyaları\\";
         public static string Klasör_KullanıcıDosyaları_Ayarlar = Klasör_KullanıcıDosyaları + "Ay\\";
+        public static string Klasör_KullanıcıDosyaları_KorumalıAlan = Klasör_KullanıcıDosyaları + "KoAl\\";
         public static string Klasör_KullanıcıDosyaları_ArkaPlanResimleri = Klasör_KullanıcıDosyaları + "Arka Plan Resimleri\\";
-        public static string Klasör_Gecici = Klasör.Depolama(Klasör.Kapsamı.Geçici) + "\\";
+        public static string Klasör_Gecici = Klasör.Depolama(Klasör.Kapsamı.Geçici, Sürüm:"") + "\\";
 
         public static Ekranlar.Açılış_Ekranı AnaEkran;
         public static object[] YeniSayfaAçmaTalebi = null; //[0] Sayfanın tuşunun adı [1 ... ] varsa girdileri
@@ -190,8 +191,12 @@ namespace İş_ve_Depo_Takip
             int ZamanAşımı_msn = Environment.TickCount + 15000;
             while (ZamanAşımı_msn > Environment.TickCount)
             {
-                if (Klasör.AslınaUygunHaleGetir(Kaynak, Hedef, true, EşZamanlıİşlemSayısı)) return true;
-
+                try
+                {
+                    if (Klasör.AslınaUygunHaleGetir(Kaynak, Hedef, true, EşZamanlıİşlemSayısı)) return true;
+                }
+                catch (Exception ex) { ex.Günlük(); }
+                
                 System.Threading.Thread.Sleep(100);
             }
 
