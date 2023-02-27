@@ -45,6 +45,7 @@
             this.Parola_Kontrol = new System.Windows.Forms.Button();
             this.Parola_Giriş = new System.Windows.Forms.MaskedTextBox();
             this.P_AnaMenü = new System.Windows.Forms.Panel();
+            this.KorumalıAlan = new System.Windows.Forms.Button();
             this.Ayarlar = new System.Windows.Forms.Button();
             this.Takvim = new System.Windows.Forms.Button();
             this.YedekleKapat = new System.Windows.Forms.Button();
@@ -62,7 +63,6 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.Hata = new System.Windows.Forms.ErrorProvider(this.components);
             this.AçılışYazısı = new System.Windows.Forms.Label();
-            this.KorumalıAlan = new System.Windows.Forms.Button();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
             this.P_YeniParola.SuspendLayout();
             this.P_Parola.SuspendLayout();
@@ -270,11 +270,24 @@
             this.P_AnaMenü.Visible = false;
             this.P_AnaMenü.VisibleChanged += new System.EventHandler(this.P_AnaMenü_VisibleChanged);
             // 
+            // KorumalıAlan
+            // 
+            this.KorumalıAlan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.KorumalıAlan.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.KorumalıAlan.Location = new System.Drawing.Point(104, 356);
+            this.KorumalıAlan.Margin = new System.Windows.Forms.Padding(6);
+            this.KorumalıAlan.Name = "KorumalıAlan";
+            this.KorumalıAlan.Size = new System.Drawing.Size(116, 29);
+            this.KorumalıAlan.TabIndex = 5;
+            this.KorumalıAlan.Text = "Korumalı Alan";
+            this.KorumalıAlan.UseVisualStyleBackColor = true;
+            this.KorumalıAlan.Click += new System.EventHandler(this.Tuş_Click);
+            // 
             // Ayarlar
             // 
-            this.Ayarlar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Ayarlar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Ayarlar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.Ayarlar.Location = new System.Drawing.Point(253, 356);
+            this.Ayarlar.Location = new System.Drawing.Point(237, 356);
             this.Ayarlar.Margin = new System.Windows.Forms.Padding(6);
             this.Ayarlar.Name = "Ayarlar";
             this.Ayarlar.Size = new System.Drawing.Size(81, 29);
@@ -480,19 +493,6 @@
             this.AçılışYazısı.TabIndex = 12;
             this.AçılışYazısı.Text = "Lütfen bekleyiniz";
             this.AçılışYazısı.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // KorumalıAlan
-            // 
-            this.KorumalıAlan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.KorumalıAlan.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.KorumalıAlan.Location = new System.Drawing.Point(104, 356);
-            this.KorumalıAlan.Margin = new System.Windows.Forms.Padding(6);
-            this.KorumalıAlan.Name = "KorumalıAlan";
-            this.KorumalıAlan.Size = new System.Drawing.Size(116, 29);
-            this.KorumalıAlan.TabIndex = 5;
-            this.KorumalıAlan.Text = "Korumalı Alan";
-            this.KorumalıAlan.UseVisualStyleBackColor = true;
-            this.KorumalıAlan.Click += new System.EventHandler(this.Tuş_Click);
             // 
             // İpUcu
             // 
