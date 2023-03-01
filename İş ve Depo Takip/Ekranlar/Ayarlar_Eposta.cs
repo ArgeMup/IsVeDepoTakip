@@ -66,6 +66,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 return;
             }
 
+            GöndermeyiDene.Enabled = false;
+
             ArgeMup.HazirKod.Depo_ d = Banka.ÖrnekMüşteriTablosuOluştur();
             string dosyayolu = Ortak.Klasör_Gecici + Path.GetRandomFileName() + ".pdf";
 
@@ -75,6 +77,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             d.Yaz("Eposta/Kime", Gönderici_Adres.Text);
             string snç = EpostaGönder(d, new string[] { dosyayolu });
             if (!string.IsNullOrEmpty(snç)) MessageBox.Show(snç, Text);
+
+            GöndermeyiDene.Enabled = true;
         }
 
         public string EpostaGönder(ArgeMup.HazirKod.Depo_ Müşteri, string[] DosyaEkleri, int ZamanAşımı_msn = 15000)

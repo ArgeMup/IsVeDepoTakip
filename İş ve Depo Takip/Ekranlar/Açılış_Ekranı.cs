@@ -46,6 +46,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 ex.Günlük();
                 System.Threading.Thread.Sleep(100);
+                MessageBox.Show("Dosyalarınızda tespit edilemeyen bir sorun olabilir." + Environment.NewLine + Environment.NewLine +
+                    "Bu mesajı üst üste 3. kez görüyorsanız alttakileri deneyebilirsiniz." + Environment.NewLine + Environment.NewLine +
+                    "1. Uygulama kapandıktan sonra BANKA klasörü içeriğini tümüyle silin." + Environment.NewLine +
+                    "2. YEDEK klasöründeki en yeni yedeği (zip dosyası) BANKA klasörü içerisine çıkartın", Text);
                 Application.Exit();
                 return;
             }
@@ -195,6 +199,42 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             else if (P_Parola.Visible) Parola_Giriş.Focus();
         }
+        private void Açılış_Ekranı_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (P_Parola.Visible) return;
+
+            if (P_AnaMenü.Visible)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.F1:
+                        Tuş_Click(Yeni_Talep_Girişi, null);
+                        break;
+
+                    case Keys.F2:
+                        Tuş_Click(Tüm_Talepler, null);
+                        break;
+
+                    case Keys.F3:
+                        Ortak.YeniSayfaAçmaTalebi = new string[] { "Tüm İşler", "Arama" };
+                        Tuş_Click(Tüm_Talepler, null);
+                        break;
+
+                    case Keys.F4:
+                        Tuş_Click(Takvim, null);
+                        break;
+                }
+            }
+            else if (P_Ayarlar.Visible)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Escape:
+                        Ayarlar_Geri_Click(null, null);
+                        break;
+                }
+            }
+        }
         private void Açılış_Ekranı_FormClosing(object sender, FormClosingEventArgs e)
         {
 #if DEBUG
@@ -240,82 +280,49 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void Tuş_Click(object sender, EventArgs e)
         {
-            try
-            {
-                //Yeni yan uygulamayı oluştur
-                switch ((sender as Button).Text)
-                {                                                                       //Çağıranlar
-                    case "Yeni İş Girişi":  ÖndekiEkran = new Yeni_İş_Girişi(); break;  //Tüm işler, yeni iş girişi  
-                    case "Tüm İşler":       ÖndekiEkran = new Tüm_İşler(); break;
-                    case "Takvim":          ÖndekiEkran = new Takvim(); break;
-                    case "Müşteriler":      ÖndekiEkran = new Müşteriler(); break;
-                    case "İş Türleri":      ÖndekiEkran = new İş_Türleri(); break;
-                    case "Ücretler":        ÖndekiEkran = new Ücretler(); break;        //Tüm işler
-                    case "Bütçe":           ÖndekiEkran = new Bütçe(); break;
-                    case "Malzemeler":      ÖndekiEkran = new Malzemeler(); break;
-                    case "Yazdırma":        ÖndekiEkran = new Yazdırma(); break;
-                    case "E-posta":         ÖndekiEkran = new Ayarlar_Eposta(); break;
-                    case "Diğer":           ÖndekiEkran = new Ayarlar_Diğer(); break;
-                    case "Korumalı Alan":   ÖndekiEkran = new KorumalıAlan(); break;
-                }
-
-                ÖndekiEkran.Shown += ÖndekiEkran_Shown;
-                ÖndekiEkran.KeyDown += ÖndekiEkran_KeyDown;
-                ÖndekiEkran.KeyUp += ÖndekiEkran_KeyUp;
-                ÖndekiEkran.MouseWheel += ÖndekiEkran_MouseWheel;
-                ÖndekiEkran.Resize += ÖndekiEkran_Resize;
-                ÖndekiEkran.FormClosing += ÖndekiEkran_FormClosing;
-                ÖndekiEkran.FormClosed += ÖndekiEkran_FormClosed;
-                ÖndekiEkran.KeyPreview = true;
-            }
-            catch (Exception ex)
-            {
-                ex.Günlük();
-                Banka.Yedekle_Banka_Kurtar();
-
-                MessageBox.Show("Bir sorun oluştu, uygulama yedekler ile kontrol edildi ve bir sorun görülmedi" + Environment.NewLine +
-                    "Lütfen son işleminizi tekrar deneyiniz." + Environment.NewLine + Environment.NewLine + ex.Message, Text);
-
-                ÖndekiEkran = null;
-
-                Ayarlar_Eposta epst = new Ayarlar_Eposta();
-                epst.EpostaGönder_İstisna(ex);
-                return;
+            //Yeni yan uygulamayı oluştur
+            switch ((sender as Button).Text)
+            {                                                                       //Çağıranlar
+                case "Yeni İş Girişi":  ÖndekiEkran = new Yeni_İş_Girişi(); break;  //Tüm işler, yeni iş girişi  
+                case "Tüm İşler":       ÖndekiEkran = new Tüm_İşler(); break;
+                case "Takvim":          ÖndekiEkran = new Takvim(); break;
+                case "Müşteriler":      ÖndekiEkran = new Müşteriler(); break;
+                case "İş Türleri":      ÖndekiEkran = new İş_Türleri(); break;
+                case "Ücretler":        ÖndekiEkran = new Ücretler(); break;        //Tüm işler
+                case "Bütçe":           ÖndekiEkran = new Bütçe(); break;
+                case "Malzemeler":      ÖndekiEkran = new Malzemeler(); break;
+                case "Yazdırma":        ÖndekiEkran = new Yazdırma(); break;
+                case "E-posta":         ÖndekiEkran = new Ayarlar_Eposta(); break;
+                case "Diğer":           ÖndekiEkran = new Ayarlar_Diğer(); break;
+                case "Korumalı Alan":   ÖndekiEkran = new KorumalıAlan(); break;
             }
 
+            ÖndekiEkran.Shown += ÖndekiEkran_Shown;
+            ÖndekiEkran.KeyDown += ÖndekiEkran_KeyDown;
+            ÖndekiEkran.KeyUp += ÖndekiEkran_KeyUp;
+            ÖndekiEkran.MouseWheel += ÖndekiEkran_MouseWheel;
+            ÖndekiEkran.Resize += ÖndekiEkran_Resize;
+            ÖndekiEkran.FormClosing += ÖndekiEkran_FormClosing;
+            ÖndekiEkran.FormClosed += ÖndekiEkran_FormClosed;
+            ÖndekiEkran.KeyPreview = true;
+            
             YanUygulamayaGeç();
         }
         void YanUygulamayaGeç()
         {
-            try
+            Hide();
+
+            Ortak.GeçiciDepolama_PencereKonumları_Oku(ÖndekiEkran);
+
+            ÖndekiEkran.Opacity = 1;
+            ÖndekiEkran.ShowDialog();
+
+            if (Ortak.YeniSayfaAçmaTalebi != null)
             {
-                Hide();
-
-                Ortak.GeçiciDepolama_PencereKonumları_Oku(ÖndekiEkran);
-
-                ÖndekiEkran.Opacity = 1;
-                ÖndekiEkran.ShowDialog();
-
-                if (Ortak.YeniSayfaAçmaTalebi != null)
-                {
-                    Button b = new Button();
-                    b.Text = (string)Ortak.YeniSayfaAçmaTalebi[0];
-                    Tuş_Click(b, null);
-                    Banka.Değişiklikler_TamponuSıfırla();
-                }
-            }
-            catch (Exception ex)
-            {
-                ex.Günlük();
-                Banka.Yedekle_Banka_Kurtar();
-
-                MessageBox.Show("Bir sorun oluştu, uygulama yedekler ile kontrol edildi ve bir sorun görülmedi" + Environment.NewLine +
-                    "Lütfen son işleminizi tekrar deneyiniz." + Environment.NewLine + Environment.NewLine + ex.Message, Text);
-
-                ÖndekiEkran_FormClosed(null, null);
-
-                Ayarlar_Eposta epst = new Ayarlar_Eposta();
-                epst.EpostaGönder_İstisna(ex);
+                Button b = new Button();
+                b.Text = (string)Ortak.YeniSayfaAçmaTalebi[0];
+                Tuş_Click(b, null);
+                Banka.Değişiklikler_TamponuSıfırla();
             }
         }
         private void ÖndekiEkran_Shown(object sender, EventArgs e)
@@ -459,43 +466,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
 
                 Application.Exit();
-            }
-        }
-
-        private void Açılış_Ekranı_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (P_Parola.Visible) return;
-
-            if (P_AnaMenü.Visible)
-            {
-                switch (e.KeyCode)
-                {
-                    case Keys.F1:
-                        Tuş_Click(Yeni_Talep_Girişi, null);
-                        break;
-
-                    case Keys.F2:
-                        Tuş_Click(Tüm_Talepler, null);
-                        break;
-
-                    case Keys.F3:
-                        Ortak.YeniSayfaAçmaTalebi = new string[] { "Tüm İşler", "Arama" };
-                        Tuş_Click(Tüm_Talepler, null);
-                        break;
-
-                    case Keys.F4:
-                        Tuş_Click(Takvim, null);
-                        break;
-                }
-            }
-            else if (P_Ayarlar.Visible)
-            {
-                switch (e.KeyCode)
-                {
-                    case Keys.Escape:
-                        Ayarlar_Geri_Click(null, null);
-                        break;
-                }
             }
         }
     }

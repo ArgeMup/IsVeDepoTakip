@@ -43,7 +43,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;HazirKod_Cdiyez_Görsel HazirKod_Cdiyez_Sıkıştırma</DefineConstants>
+    <DefineConstants>HazirKod_Cdiyez_Görsel HazirKod_Cdiyez_Sıkıştırma</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>

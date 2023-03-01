@@ -1,6 +1,8 @@
 ﻿using ArgeMup.HazirKod;
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -112,7 +114,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (_1_Dizi == null)
             {
                 _1_AltToplam.BackColor = System.Drawing.Color.Khaki;
-                Ortak.Gösterge.Başlat("Sayılıyor", true, null, 0);
+                Ortak.Gösterge.Başlat("Sayılıyor", true, Sekmeler, 0);
                 int kademe = 0;
 
                 System.Collections.Generic.List<string> Müşteriler = Banka.Müşteri_Listele();
@@ -121,7 +123,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     kademe += 2 + Banka.Dosya_Listele_Müşteri(Müşteriler[i], false).Length;
                 }
 
-                Ortak.Gösterge.Başlat("Hesaplanıyor", true, null, kademe);
+                Ortak.Gösterge.Başlat("Hesaplanıyor", true, Sekmeler, kademe);
                 _1_Dizi = new Bütçe_Gelir_Gider_[Müşteriler.Count];
 
                 for (int i = 0; i < Müşteriler.Count && Ortak.Gösterge.Çalışsın; i++)
@@ -237,6 +239,289 @@ namespace İş_ve_Depo_Takip.Ekranlar
 #endif
             }
         }
+
+        private void _1_GenelDurumRaporu_Click(object sender, EventArgs e)
+        {
+            List<string> l_Dallar = new List<string>();
+            Dictionary<string, double> l_MüşteriÖdemeleri = new Dictionary<string, double>(); //Müşteri Ödemeleri (₺)
+            Dictionary<string, double> l_İşTürleri_GenelKullanım = new Dictionary<string, double>(); //İş Türleri|Genel Kullanım (adet)
+            Dictionary<string, double> l_İşTürleri_MüşterilereGöreKullanım = new Dictionary<string, double>(); //İş Türleri|Müşterilere Göre Kullanım (adet)
+            Dictionary<string, double> l_MalzemeKullanımı = new Dictionary<string, double>(); //Malzeme Kullanımı
+
+            Ortak.Gösterge.Başlat("Sayılıyor", true, Sekmeler, 0);
+            int kademe = 0;
+            List<string> Müşteriler = Banka.Müşteri_Listele();
+            List<string> Malzemeler = Banka.Malzeme_Listele();
+            for (int i = 0; i < Müşteriler.Count && Ortak.Gösterge.Çalışsın; i++)
+            {
+                kademe += Banka.Dosya_Listele_Müşteri(Müşteriler[i], true).Length;
+            }
+            kademe += Malzemeler.Count;
+            string başlık, anahtar;
+            string[] başlıklar;
+
+            string çizelgeç_dosyayolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Çizelgeç", "") + "\\Çizelgeç.exe";
+            bool çizelgeç_tamamlandı = false;
+            if (File.Exists(çizelgeç_dosyayolu)) çizelgeç_tamamlandı = true;
+            else
+            {
+                Klasör.Oluştur(Path.GetDirectoryName(çizelgeç_dosyayolu));
+
+                System.Net.WebClient İstemci = new System.Net.WebClient();
+                İstemci.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(İstemci_DownloadFileCompleted);
+                İstemci.DownloadFileAsync(new Uri("https://github.com/ArgeMup/Cizelgec/blob/main/%C3%87izelge%C3%A7/bin/Release/%C3%87izelge%C3%A7.exe?raw=true"), çizelgeç_dosyayolu);
+
+                void İstemci_DownloadFileCompleted(object senderrr, System.ComponentModel.AsyncCompletedEventArgs eee)
+                {
+                    if (eee.Error == null) çizelgeç_tamamlandı = true;
+                    İstemci.Dispose();
+                }
+            }
+
+            Ortak.Gösterge.Başlat("Hesaplanıyor", true, Sekmeler, kademe);
+            DateTime EnEskiTarih = DateTime.MaxValue;
+
+            foreach (string Müşteri in Müşteriler)
+            {
+                if (!Ortak.Gösterge.Çalışsın) break;
+
+                foreach (string Ödeme_Tarihi_dosyaadı in Banka.Dosya_Listele_Müşteri(Müşteri, true))
+                {
+                    if (!Ortak.Gösterge.Çalışsın) break;
+
+                    Ortak.Gösterge.İlerleme = 1;
+                    Depo_ d = Banka.Tablo(Müşteri, Banka.TabloTürü.Ödendi, false, Ödeme_Tarihi_dosyaadı);
+                    Banka.Talep_Ayıkla_ÖdemeDalı(d["Ödeme"], out _, out _, out _, out string Ödeme_Tarihi, out _, out _);
+                    Banka.Talep_Ayıkla_ÖdemeDalı_Açıklama(d["Ödeme"], "0", "0", out _, out _, out double MüşterininÖdemesiGerekenMiktar);
+                    DateTime Ödeme_Tarihi_t = Ödeme_Tarihi.TarihSaate();
+                    if (Ödeme_Tarihi_t < EnEskiTarih) EnEskiTarih = Ödeme_Tarihi_t;
+                    string Ödeme_Tarihi_yıl_ay = Ödeme_Tarihi_t.ToString("yyyy M");
+
+                    //Müşteri Ödemeleri (₺)|Müşteri 1|2022 12
+                    anahtar = Müşteri + "|" + Ödeme_Tarihi_yıl_ay;
+                    if (!l_MüşteriÖdemeleri.ContainsKey(anahtar)) l_MüşteriÖdemeleri.Add(anahtar, 0);
+                    l_MüşteriÖdemeleri[anahtar] += MüşterininÖdemesiGerekenMiktar;
+                    if (!l_Dallar.Contains("Mö|" + Müşteri)) l_Dallar.Add("Mö|" + Müşteri);
+
+                    //sn göre ayıklama
+                    foreach (IDepo_Eleman sn in d["Talepler"].Elemanları)
+                    {
+                        if (!Ortak.Gösterge.Çalışsın) break;
+
+                        //İş türlerine göre ayıklama
+                        foreach (IDepo_Eleman it in sn.Elemanları)
+                        {
+                            if (!Ortak.Gösterge.Çalışsın) break;
+                            
+                            Banka.Talep_Ayıkla_İşTürüDalı(it, out string İşTürü, out _, out _, out _, out _);
+
+                            //İş Türleri|Genel Kullanım (adet)|iştürü|2022 12
+                            anahtar = İşTürü + "|" + Ödeme_Tarihi_yıl_ay;
+                            if (!l_İşTürleri_GenelKullanım.ContainsKey(anahtar)) l_İşTürleri_GenelKullanım.Add(anahtar, 0);
+                            l_İşTürleri_GenelKullanım[anahtar] += 1;
+                            if (!l_Dallar.Contains("İg|" + İşTürü)) l_Dallar.Add("İg|" + İşTürü);
+
+                            //İş Türleri|Müşterilere Göre Kullanım (adet)|Müşteri|iştürü|2022 12
+                            başlık = Müşteri + "|" + İşTürü;
+                            anahtar = başlık + "|" + Ödeme_Tarihi_yıl_ay;
+                            if (!l_İşTürleri_MüşterilereGöreKullanım.ContainsKey(anahtar)) l_İşTürleri_MüşterilereGöreKullanım.Add(anahtar, 0);
+                            l_İşTürleri_MüşterilereGöreKullanım[anahtar] += 1;
+                            if (!l_Dallar.Contains("İm|" + başlık)) l_Dallar.Add("İm|" + başlık);
+                        }
+                    }
+                }
+            }
+
+            foreach (string Malzeme in Malzemeler)
+            {
+                if (!Ortak.Gösterge.Çalışsın) break;
+
+                Ortak.Gösterge.İlerleme = 1;
+                IDepo_Eleman mlz = Banka.Tablo_Dal(null, Banka.TabloTürü.Malzemeler, "Malzemeler/" + Malzeme);
+                Banka.Malzeme_Ayıkla_MalzemeDalı(mlz, out _, out _, out string Birimi, out _, out _, out _);
+                Banka.Malzeme_Ayıkla_MalzemeDalı_Tüketim(mlz, out _, out DateTime[] Dönemler, out double[] Dönemler_Kullanım);
+
+                for (int i = 0; i < Dönemler.Length; i++)
+                {
+                    if (Dönemler[i] < EnEskiTarih) EnEskiTarih = Dönemler[i];
+
+                    //Malzeme Kullanımı|malzeme|2022 12
+                    başlık = Malzeme + (Birimi.DoluMu() ? " (" + Birimi + ")" : null);
+                    anahtar = başlık + "|" + Dönemler[i].ToString("yyyy M");
+                    if (!l_MalzemeKullanımı.ContainsKey(anahtar)) l_MalzemeKullanımı.Add(anahtar, 0);
+                    l_MalzemeKullanımı[anahtar] += Dönemler_Kullanım[i];
+                    if (!l_Dallar.Contains("Mk|" + başlık)) l_Dallar.Add("Mk|" + başlık);
+                }
+            }
+
+            EnEskiTarih = new DateTime(EnEskiTarih.Year, EnEskiTarih.Month, 15);
+            DateTime şimdi = DateTime.Now.AddMonths(1);
+            l_Dallar = l_Dallar.Distinct().OrderBy(x => x).ToList();
+
+            double[][] tümü = new double[l_Dallar.Count][];
+            DateTime[] Tarihler = new DateTime[1024];
+            for (int i = 0; i < l_Dallar.Count; i++) tümü[i] = new double[Tarihler.Length];
+            int tümü_sayac = 1, konum_l_dallar;
+            while (EnEskiTarih < şimdi && Ortak.Gösterge.Çalışsın)
+            {
+                //daralan dizinin genişletilmesi
+                if (Tarihler.Length <= tümü_sayac)
+                {
+                    int yeni_adet = Tarihler.Length + 1024;
+
+                    Array.Resize(ref Tarihler, yeni_adet);
+
+                    for (int i = 0; i < tümü.Length && Ortak.Gösterge.Çalışsın; i++)
+                    {
+                        Array.Resize(ref tümü[i], yeni_adet);
+                    }
+                }
+
+                //eskinin yeni tarih alanına kopyalanması
+                Tarihler[tümü_sayac] = Tarihler[tümü_sayac - 1];
+                for (int i = 0; i < tümü.Length && Ortak.Gösterge.Çalışsın; i++)
+                {
+                    tümü[i][tümü_sayac] = tümü[i][tümü_sayac - 1];
+                }
+
+                string yıl_ay = "|" + EnEskiTarih.ToString("yyyy M");
+
+                KeyValuePair<string, double>[] bulunanlar = l_MüşteriÖdemeleri.Where(x => x.Key.EndsWith(yıl_ay)).ToArray();
+                foreach (KeyValuePair<string, double> biri in bulunanlar)
+                {
+                    if (!Ortak.Gösterge.Çalışsın) break;
+
+                    if (biri.Key.DoluMu())
+                    {
+                        //Müşteri Ödemeleri (₺) - Mö
+                        //string anahtar = Müşteri + "|" + Ödeme_Tarihi_yıl_ay;
+                        başlık = "Mö|" + biri.Key.Split('|')[0];
+                        konum_l_dallar = l_Dallar.IndexOf(başlık);
+                        tümü[konum_l_dallar][tümü_sayac] = biri.Value;
+
+                        l_MüşteriÖdemeleri.Remove(biri.Key);
+                    }
+                }
+
+                bulunanlar = l_İşTürleri_GenelKullanım.Where(x => x.Key.EndsWith(yıl_ay)).ToArray();
+                foreach (KeyValuePair<string, double> biri in bulunanlar)
+                {
+                    if (!Ortak.Gösterge.Çalışsın) break;
+
+                    if (biri.Key.DoluMu())
+                    {
+                        //İş Türleri|Genel Kullanım (adet) - İg
+                        //anahtar = İşTürü + "|" + Ödeme_Tarihi_yıl_ay;
+                        başlık = "İg|" + biri.Key.Split('|')[0];
+                        konum_l_dallar = l_Dallar.IndexOf(başlık);
+                        tümü[konum_l_dallar][tümü_sayac] = biri.Value;
+
+                        l_İşTürleri_GenelKullanım.Remove(biri.Key);
+                    }
+                }
+
+                bulunanlar = l_İşTürleri_MüşterilereGöreKullanım.Where(x => x.Key.EndsWith(yıl_ay)).ToArray();
+                foreach (KeyValuePair<string, double> biri in bulunanlar)
+                {
+                    if (!Ortak.Gösterge.Çalışsın) break;
+
+                    if (biri.Key.DoluMu())
+                    {
+                        //İş Türleri|Müşterilere Göre Kullanım (adet) - İm
+                        //anahtar = Müşteri + "|" + İşTürü + "|" + Ödeme_Tarihi_yıl_ay;
+                        başlıklar = biri.Key.Split('|');
+                        başlık = "İm|" + başlıklar[0] + "|" + başlıklar[1];
+                        konum_l_dallar = l_Dallar.IndexOf(başlık);
+                        tümü[konum_l_dallar][tümü_sayac] = biri.Value;
+
+                        l_İşTürleri_MüşterilereGöreKullanım.Remove(biri.Key);
+                    }
+                }
+                
+                bulunanlar = l_MalzemeKullanımı.Where(x => x.Key.EndsWith(yıl_ay)).ToArray();
+                foreach (KeyValuePair<string, double> biri in bulunanlar)
+                {
+                    if (!Ortak.Gösterge.Çalışsın) break;
+
+                    if (biri.Key.DoluMu())
+                    {
+                        //Malzeme Kullanımı - Mk
+                        //string anahtar = Malzeme + (Birimi.DoluMu() ? " (" + Birimi + ")" : null) + "|" + Dönemler[i].ToString("yyyy M");
+                        başlık = "Mk|" + biri.Key.Split('|')[0];
+                        konum_l_dallar = l_Dallar.IndexOf(başlık);
+                        tümü[konum_l_dallar][tümü_sayac] = biri.Value;
+
+                        l_MalzemeKullanımı.Remove(biri.Key);
+                    }
+                }
+
+                Tarihler[tümü_sayac] = EnEskiTarih;
+                tümü_sayac++;
+                EnEskiTarih = EnEskiTarih.AddMonths(1);
+            }
+
+            if (l_MüşteriÖdemeleri.Count > 0 ||
+                l_İşTürleri_GenelKullanım.Count > 0 ||
+                l_İşTürleri_MüşterilereGöreKullanım.Count > 0 ||
+                l_MalzemeKullanımı.Count > 0) throw new Exception("Bütçe/Rapor/En az 1 adet kullanılmayan bilgi kaldı");
+
+            string DosyaAdı = Path.GetRandomFileName();
+            while (File.Exists(Ortak.Klasör_Gecici + DosyaAdı)) DosyaAdı = Path.GetRandomFileName();
+            DosyaAdı = Ortak.Klasör_Gecici + DosyaAdı + ".csv";
+            şimdi = DateTime.Now;
+            using (FileStream fs = File.OpenWrite(DosyaAdı))
+            {
+                //27.02.2023 17:44:57.701;Başlıklar;Başlık1;... 
+                başlık = şimdi.Yazıya() + ";Başlıklar";
+                for (int i = 0; i < l_Dallar.Count && Ortak.Gösterge.Çalışsın; i++)
+                {
+                    başlıklar = l_Dallar[i].Split('|');
+                    if (başlıklar[0] == "Mö") başlık += ";Müşteri Ödemeleri (₺)|" + başlıklar[1];
+                    else if (başlıklar[0] == "İg") başlık += ";İş Türleri|Genel Kullanım (adet)|" + başlıklar[1];
+                    else if (başlıklar[0] == "İm") başlık += ";İş Türleri|Müşterilere Göre Kullanım (adet)|" + başlıklar[1] + "|" + başlıklar[2];
+                    else if (başlıklar[0] == "Mk") başlık += ";Malzeme Kullanımı|" + başlıklar[1];
+                }
+                byte[] içerik = (başlık + Environment.NewLine).BaytDizisine();
+                fs.Write(içerik, 0, içerik.Length);
+
+                Ortak.Gösterge.Başlat("Kaydediliyor", true, Sekmeler, tümü_sayac);
+                for (int y = 1; y < tümü_sayac && Ortak.Gösterge.Çalışsın; y++)
+                {
+                    Ortak.Gösterge.İlerleme = 1;
+
+                    //27.02.2023 17:43:53.833;Sinyaller;Sinyal1;...
+                    başlık = Tarihler[y].Yazıya() + ";Sinyaller";
+                    for (int x = 0; x < l_Dallar.Count && Ortak.Gösterge.Çalışsın; x++)
+                    {
+                        başlık += ";" + tümü[x][y].Yazıya();
+                    }
+
+                    içerik = (başlık + Environment.NewLine).BaytDizisine();
+                    fs.Write(içerik, 0, içerik.Length);
+                }
+
+                //27.02.2023 17:46:17.005;Bilgi;ArGeMuP uygulama V0.20
+                başlık = şimdi.Yazıya() + ";Bilgi;ArGeMuP " + Kendi.Adı + " " + Kendi.Sürüm;
+                içerik = (başlık + Environment.NewLine).BaytDizisine();
+                fs.Write(içerik, 0, içerik.Length);
+            }
+
+            if (!çizelgeç_tamamlandı)
+            {
+                Ortak.Gösterge.Başlat("Çizelgeç indiriliyor", true, Sekmeler, 15);
+                tümü_sayac = 15;
+                while (!çizelgeç_tamamlandı && Ortak.Gösterge.Çalışsın && --tümü_sayac > 0)
+                {
+                    Ortak.Gösterge.İlerleme = 1;
+                    System.Threading.Thread.Sleep(1000);
+                }
+            }
+
+            if (!çizelgeç_tamamlandı) System.Diagnostics.Process.Start("explorer.exe", "/select, " + DosyaAdı);
+            else System.Diagnostics.Process.Start(çizelgeç_dosyayolu, "\"" + DosyaAdı + "\"");
+
+            Ortak.Gösterge.Bitir();
+        }
         #endregion
 
         #region _2_
@@ -263,7 +548,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             if (e.RowIndex < 0) return;
 
-            if (e.ColumnIndex >= 1 && e.ColumnIndex <= 3) Kaydet.Enabled = true;
+            if (e.ColumnIndex >= 1 && e.ColumnIndex <= 3) _2_Kaydet.Enabled = true;
 
             if (e.ColumnIndex == 0 || e.ColumnIndex == 2 || e.ColumnIndex == 3) _2_Hesapla(null, null);
         }
@@ -326,9 +611,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             _2_AltToplam.BackColor = gelir_top > gider_top ? System.Drawing.Color.YellowGreen : System.Drawing.Color.Salmon;
         }
-        #endregion
 
-        private void Kaydet_Click(object sender, EventArgs e)
+        private void _2_Kaydet_Click(object sender, EventArgs e)
         {
             IDepo_Eleman Ayarlar_GenelAnlamda = Banka.Ayarlar_Genel("Bütçe/Genel Anlamda", true);
             Ayarlar_GenelAnlamda.Sil(null, false, true);
@@ -341,9 +625,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Ayarlar_GenelAnlamda.Yaz(i.ToString(), (string)_2_Tablo[3, i].Value, 2);
             }
 
-            Banka.Değişiklikleri_Kaydet(Kaydet);
-            Kaydet.Enabled = false;
+            Banka.Değişiklikleri_Kaydet(_2_Kaydet);
+            _2_Kaydet.Enabled = false;
         }
+        #endregion
 
         bool TabloİçeriğiArama_Çalışıyor = false;
         bool TabloİçeriğiArama_KapatmaTalebi = false;

@@ -284,7 +284,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void İşTakip_Müşteriler_KeyPress(object sender, KeyPressEventArgs e)
         {
-            İşTakip_Müşteriler_AramaÇubuğu.Focus();
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                İşTakip_Müşteriler_AramaÇubuğu.Focus();
+            }
         }
         List<string> İşTakip_Müşteriler_AramaÇubuğu_Liste = null;
         private void İşTakip_Müşteriler_AramaÇubuğu_KeyPress(object sender, KeyPressEventArgs e)
@@ -306,6 +309,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İşTakip_Müşteriler_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (İşTakip_Müşteriler.Text.BoşMu()) return;
+
             CheckBox c = null;
             if (Seviye2_DevamEden.Checked) c = Seviye2_DevamEden;
             else if (Seviye2_TeslimEdildi.Checked) c = Seviye2_TeslimEdildi;

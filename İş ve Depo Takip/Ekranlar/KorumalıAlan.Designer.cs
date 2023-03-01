@@ -34,8 +34,8 @@
             this.MasaüstüneKopyala = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.AramaÇubuğu = new System.Windows.Forms.TextBox();
-            this.İçeriAl = new System.Windows.Forms.Button();
             this.Sürümler = new System.Windows.Forms.ListBox();
+            this.İçeriAl = new System.Windows.Forms.Button();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -87,9 +87,9 @@
             this.MasaüstüneKopyala.Location = new System.Drawing.Point(12, 361);
             this.MasaüstüneKopyala.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MasaüstüneKopyala.Name = "MasaüstüneKopyala";
-            this.MasaüstüneKopyala.Size = new System.Drawing.Size(342, 45);
+            this.MasaüstüneKopyala.Size = new System.Drawing.Size(343, 45);
             this.MasaüstüneKopyala.TabIndex = 4;
-            this.MasaüstüneKopyala.Text = "Masaüstüne Kopyala";
+            this.MasaüstüneKopyala.Text = "Masa Üstüne Kopyala";
             this.İpUcu.SetToolTip(this.MasaüstüneKopyala, "Seçtiğiniz sürümü masaüstünüze kopyalar.");
             this.MasaüstüneKopyala.UseVisualStyleBackColor = true;
             this.MasaüstüneKopyala.Click += new System.EventHandler(this.MasaüstüneKopyala_Click);
@@ -131,6 +131,21 @@
             this.İpUcu.SetToolTip(this.AramaÇubuğu, "Arama çubuğu");
             this.AramaÇubuğu.TextChanged += new System.EventHandler(this.AramaÇubuğu_TextChanged);
             // 
+            // Sürümler
+            // 
+            this.Sürümler.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Sürümler.FormattingEnabled = true;
+            this.Sürümler.ItemHeight = 25;
+            this.Sürümler.Location = new System.Drawing.Point(12, 12);
+            this.Sürümler.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.Sürümler.Name = "Sürümler";
+            this.Sürümler.Size = new System.Drawing.Size(343, 329);
+            this.Sürümler.TabIndex = 7;
+            this.İpUcu.SetToolTip(this.Sürümler, "Seçtiğiniz dosyaya ait tüm eski sürümler listelenmektedir");
+            this.Sürümler.SelectedIndexChanged += new System.EventHandler(this.Sürümler_SelectedIndexChanged);
+            // 
             // İçeriAl
             // 
             this.İçeriAl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -142,25 +157,10 @@
             this.İçeriAl.Name = "İçeriAl";
             this.İçeriAl.Size = new System.Drawing.Size(729, 72);
             this.İçeriAl.TabIndex = 8;
-            this.İçeriAl.Text = "Masaüstünde bulunan korunan içeriği yeni bir sürüm olarak içeri al ve masaüstünde" +
-    "ki kopyalarını KALICI olarak SİL";
+            this.İçeriAl.Text = "Masa üstünde bulunan korunan içeriği yeni bir sürüm olarak içeri al\r\nve masa üstü" +
+    "ndeki kopyalarını KALICI olarak SİL";
             this.İçeriAl.UseVisualStyleBackColor = true;
             this.İçeriAl.Click += new System.EventHandler(this.İçeriAl_Click);
-            // 
-            // Sürümler
-            // 
-            this.Sürümler.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Sürümler.FormattingEnabled = true;
-            this.Sürümler.ItemHeight = 25;
-            this.Sürümler.Location = new System.Drawing.Point(12, 12);
-            this.Sürümler.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.Sürümler.Name = "Sürümler";
-            this.Sürümler.Size = new System.Drawing.Size(342, 329);
-            this.Sürümler.TabIndex = 7;
-            this.İpUcu.SetToolTip(this.Sürümler, "Seçtiğiniz dosyaya ait tüm eski sürümler listelenmektedir");
-            this.Sürümler.SelectedIndexChanged += new System.EventHandler(this.Sürümler_SelectedIndexChanged);
             // 
             // İpUcu
             // 

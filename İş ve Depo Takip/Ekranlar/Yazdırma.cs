@@ -179,7 +179,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if (!string.IsNullOrEmpty(Ödendi))
                 {
                     Sayfa.ÖdendiğiTarihYazısı = new Bir_Yazı_();
-                    Sayfa.ÖdendiğiTarihYazısı.Yazı = "Ödendi : " + Ödendi;
+                    Sayfa.ÖdendiğiTarihYazısı.Yazı = "Ödendi : " + Banka.Yazdır_Tarih(Ödendi);
                     Sayfa.ÖdendiğiTarihYazısı.Boyut = Grafik.MeasureString(Sayfa.ÖdendiğiTarihYazısı.Yazı, Sayfa.KaKü_Diğer, sf_ss);
                 }
 

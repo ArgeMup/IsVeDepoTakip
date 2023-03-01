@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip
@@ -1044,6 +1043,40 @@ namespace İş_ve_Depo_Takip
                 Malzeme.Adı = Yeni;
             }
         }
+        public static void Malzeme_Ayıkla_MalzemeDalı(IDepo_Eleman MalzemeDalı, out string Adı, out double Miktarı, out string Birimi, out double UyarıVermeMiktarı, out bool Detaylı, out string Notlar)
+        {
+            Adı = MalzemeDalı.Adı;
+            Miktarı = MalzemeDalı.Oku_Sayı(null, 0, 0);
+            Birimi = MalzemeDalı[1];
+            UyarıVermeMiktarı = MalzemeDalı.Oku_Sayı(null, 0, 2);
+            Detaylı = MalzemeDalı.Oku_Bit(null, false, 3);
+            Notlar = MalzemeDalı.Oku("Notlar");
+        }
+        public static void Malzeme_Ayıkla_MalzemeDalı_Tüketim(IDepo_Eleman MalzemeDalı, out double Toplam, out DateTime[] Dönemler, out double[] Dönemler_Kullanım)
+        {
+            Toplam = 0;
+            Dönemler = new DateTime[0];
+            Dönemler_Kullanım = new double[0];
+
+            IDepo_Eleman TüketimDalı = MalzemeDalı.Bul("Tüketim");
+            if (TüketimDalı == null) return;
+
+            Toplam = TüketimDalı.Oku_Sayı(null, 0, 0);
+            Dönemler = new DateTime[TüketimDalı.İçeriği.Length - 1 /*toplam*/];
+            Dönemler_Kullanım = new double[Dönemler.Length];
+
+            //önceki dönemler
+            DateTime t = DateTime.Now;
+            for (int i = 0; i < Malzemeler_GeriyeDönükİstatistik_Ay; i++)
+            {
+                if (string.IsNullOrEmpty(TüketimDalı[i + 1])) break;
+
+                Dönemler[i] = t;
+                Dönemler_Kullanım[i] = TüketimDalı.Oku_Sayı(null, 0, i + 1);
+               
+                t = t.AddMonths(-1);
+            }
+        }
         public static void Malzeme_TablodaGöster(DataGridView Tablo, string Malzeme, out double Miktarı, out string Birimi, out double UyarıVermeMiktarı, out bool Detaylı, out string Notlar)
         {
             Tablo.Rows.Clear();
@@ -1061,16 +1094,11 @@ namespace İş_ve_Depo_Takip
             Notlar = null;
             IDepo_Eleman d = Tablo_Dal(null, TabloTürü.Malzemeler, "Malzemeler/" + Malzeme);
             if (d == null) return;
-            int y;
-
-            Miktarı = d.Oku_Sayı(null, 0, 0);
-            Birimi = d[1];
-            UyarıVermeMiktarı = d.Oku_Sayı(null, 0, 2);
-            Detaylı = d.Oku_Bit(null, false, 3);
-            Notlar = d.Oku("Notlar");
+            Malzeme_Ayıkla_MalzemeDalı(d, out _, out Miktarı, out Birimi, out UyarıVermeMiktarı, out Detaylı, out Notlar);
 
             //bu malzemeyi kullanan iş türlerinin bulunması
-            IDepo_Eleman iş_türleri = Banka.Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri");
+            int y;
+            IDepo_Eleman iş_türleri = Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri");
             if (iş_türleri != null)
             {
                 foreach (IDepo_Eleman it in iş_türleri.Elemanları)
@@ -1095,27 +1123,22 @@ namespace İş_ve_Depo_Takip
             }
 
             //istatistikleri ekleme
-            d = d.Bul("Tüketim");
-            if (d == null) return;
+            Malzeme_Ayıkla_MalzemeDalı_Tüketim(d, out double Toplam, out DateTime[] Dönemler, out double[] Dönemler_Kullanım);
+            if (Dönemler.Length == 0) return;
 
             //genel toplam
             y = Tablo.RowCount;
             Tablo.RowCount++;
             Tablo[0, y].Value = "Genel kullanım miktarı";
-            Tablo[1, y].Value = d[0];
+            Tablo[1, y].Value = Toplam.Yazıya();
 
             //önceki dönemler
-            DateTime t = DateTime.Now;
-            for (int i = 1; i < Malzemeler_GeriyeDönükİstatistik_Ay + 1; i++)
+            for (int i = 0; i < Dönemler.Length; i++)
             {
-                if (string.IsNullOrEmpty(d[i])) break;
-
                 y = Tablo.RowCount;
                 Tablo.RowCount++;
-                Tablo[0, y].Value = t.Year + " " + t.Yazıya("MMMM", System.Threading.Thread.CurrentThread.CurrentCulture) + " ayı kullanımı";
-                Tablo[1, y].Value = d[i];
-
-                t = t.AddMonths(-1);
+                Tablo[0, y].Value = Dönemler[i].ToString("yyyy MMMM", System.Threading.Thread.CurrentThread.CurrentCulture) + " ayı kullanımı";
+                Tablo[1, y].Value = Dönemler_Kullanım[i].Yazıya();
             }
 
             Tablo.ClearSelection();
@@ -2462,8 +2485,8 @@ namespace İş_ve_Depo_Takip
 
                 Genel_Toplam = İlaveÖdeme + AltToplam + KDV_Hesaplanan;
 
-                Tarih_ÖdemeTalebi = Yazdır_Tarih(ÖdemeDalı[0]);
-                Tarih_Ödendi = Yazdır_Tarih(ÖdemeDalı[1]);
+                Tarih_ÖdemeTalebi = ÖdemeDalı[0];
+                Tarih_Ödendi = ÖdemeDalı[1];
                 Notlar = ÖdemeDalı[2];
 
                 if (ÖdemeDalı.Oku("Ön Ödeme").DoluMu())
@@ -2826,16 +2849,28 @@ namespace İş_ve_Depo_Takip
         {
             Değişiklikler_TamponuSıfırla();
 
-            if (!Ortak.Klasör_TamKopya(Ortak.Klasör_Banka2, Ortak.Klasör_Banka))
-            {
-                throw new Exception("Yedekle_Banka_Kurtar>" + Ortak.Klasör_Banka2 + ">" + Ortak.Klasör_Banka);
-            }
-
             DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı, Ortak.EşZamanlıİşlemSayısı);
             if (snç != DoğrulamaKodu.KontrolEt.Durum_.Aynı)
             {
-                throw new Exception("Yedekle_Banka_Kurtar>Banka>" + snç.ToString());
+                snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka2, SearchOption.AllDirectories, Parola.Yazı, Ortak.EşZamanlıİşlemSayısı);
+                if (snç != DoğrulamaKodu.KontrolEt.Durum_.Aynı)
+                {
+                    throw new Exception("Yedekle_Banka_Kurtar>Banka2>" + snç.ToString());
+                }
+
+                if (!Ortak.Klasör_TamKopya(Ortak.Klasör_Banka2, Ortak.Klasör_Banka))
+                {
+                    throw new Exception("Yedekle_Banka_Kurtar>Banka2>Banka");
+                }
+
+                snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı, Ortak.EşZamanlıİşlemSayısı);
+                if (snç != DoğrulamaKodu.KontrolEt.Durum_.Aynı)
+                {
+                    throw new Exception("Yedekle_Banka_Kurtar>Banka>" + snç.ToString());
+                }
             }
+
+            Günlük.Ekle("Yedekle_Banka_Kurtar>Başarılı");
         }
         static void Yedekle_DahaYeniYedekVarsa_KullanıcıyaSor()
         {
