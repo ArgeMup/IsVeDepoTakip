@@ -149,7 +149,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             public float YazılarİçinToplamYükseklik = 0;
             public int ŞimdikiSayfaSayısı = 1, ToplamSayfaSayısı = 0;
 
-            public Bir_Yazı_ NotlarYazısı = null, ÖdendiğiTarihYazısı = null;
+            public Bir_Yazı_ NotlarYazısı = null;
             public List<Bir_Satır_Bilgi_> Ödemeler = new List<Bir_Satır_Bilgi_>();
             public float Ödemeler_Notlar_Yükseklik = 0;
         }
@@ -159,7 +159,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             List<float> İşler = new List<float>();
 
             SizeF s = new SizeF(100, 100);//a4 ten büyük
-            float genişlik_boşluk = Grafik.MeasureString("Ğ", Sayfa.KaKü_Diğer, s).Width;
+            float genişlik_boşluk = Grafik.MeasureString("Ğ", Sayfa.KaKü_Başlık, s).Width;
             Sayfa.Sutun_Ödeme_Genişik = 0;
 
             //son sayfanın ölçülmesi
@@ -167,7 +167,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             IDepo_Eleman l = Depo.Bul("Ödeme");
             if (l != null)
             {
-                Banka.Talep_Ayıkla_ÖdemeDalı(l, out List<string> Açıklamalar, out List<string> Ödemeler, out string _, out string Ödendi, out string Notlar, out _);
+                Banka.Talep_Ayıkla_ÖdemeDalı(l, out List<string> Açıklamalar, out List<string> Ödemeler, out string _, out string Notlar, out _);
                 if (!string.IsNullOrEmpty(Notlar))
                 {
                     Sayfa.NotlarYazısı = new Bir_Yazı_();
@@ -176,22 +176,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Sayfa.Ödemeler_Notlar_Yükseklik += Sayfa.NotlarYazısı.Boyut.Height;
                 }
 
-                if (!string.IsNullOrEmpty(Ödendi))
-                {
-                    Sayfa.ÖdendiğiTarihYazısı = new Bir_Yazı_();
-                    Sayfa.ÖdendiğiTarihYazısı.Yazı = "Ödendi : " + Banka.Yazdır_Tarih(Ödendi);
-                    Sayfa.ÖdendiğiTarihYazısı.Boyut = Grafik.MeasureString(Sayfa.ÖdendiğiTarihYazısı.Yazı, Sayfa.KaKü_Diğer, sf_ss);
-                }
-
                 for (int i = 0; i < Açıklamalar.Count; i++)
                 {
                     Bir_Satır_Bilgi_ a = new Bir_Satır_Bilgi_();
                     a.Hasta.Yazı = Açıklamalar[i];
-                    a.Hasta.Boyut = Grafik.MeasureString(a.Hasta.Yazı, Sayfa.KaKü_Diğer, sf_ss);
+                    a.Hasta.Boyut = Grafik.MeasureString(a.Hasta.Yazı, Sayfa.KaKü_Başlık, sf_ss);
                     HastaAdları.Add(a.Hasta.Boyut.Width);
 
                     a.İş.Yazı = Ödemeler[i];
-                    a.İş.Boyut = Grafik.MeasureString(a.İş.Yazı, Sayfa.KaKü_Diğer, sf_ss);
+                    a.İş.Boyut = Grafik.MeasureString(a.İş.Yazı, Sayfa.KaKü_Başlık, sf_ss);
                     İşler.Add(a.İş.Boyut.Width);
 
                     Sayfa.Ödemeler.Add(a);
@@ -204,6 +197,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             HastaAdları.Clear();
             İşler.Clear();
+            genişlik_boşluk = Grafik.MeasureString("Ğ", Sayfa.KaKü_Diğer, s).Width;
             l = Depo.Bul("Talepler");
             for (int i = 0; i < l.Elemanları.Length; i++)
             {
@@ -497,19 +491,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         YazdırmaKonumu_Üst += y.Yazı.Boyut.Height;
                     }
 
-                    if (Sayfa.ÖdendiğiTarihYazısı != null)
-                    {
-                        y.Yazı = Sayfa.ÖdendiğiTarihYazısı;
-                        y.Sol = Sayfa.Sol;
-                        y.Üst = YazdırmaKonumu_Üst;
-                        y.Genişlik = Sayfa.Genişlik;
-                        y.Yükseklik = y.Yazı.Boyut.Height;
-                        y.Çerçeve = false;
-                        Yazdır(y);
-                    }
-
-                    y.Çerçeve = true;
                     y.SağaYaslanmış = true;
+                    y.KarakterKümesi = Sayfa.KaKü_Başlık;
                     foreach (Bir_Satır_Bilgi_ a in Sayfa.Ödemeler)
                     {
                         y.Yazı = a.Hasta;
@@ -529,6 +512,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     }
                 }
 
+                y.KarakterKümesi = Sayfa.KaKü_Diğer;
                 SonrakiSayfaYazısınıYazdır();
                 #endregion
 
@@ -536,6 +520,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     y.YataydaOrtalanmış = false;
                     y.SağaYaslanmış = false;
+                    y.Çerçeve = false;
 
                     y.Yazı.Yazı = Sayfa.SonrakiSayfaYazısı.Yazı.Replace("_ArGeMuP_", (Sayfa.ŞimdikiSayfaSayısı++).ToString());
                     y.Yazı.Boyut = ev.Graphics.MeasureString(y.Yazı.Yazı, y.KarakterKümesi, new SizeF(Sayfa.Genişlik, Sayfa.SonrakiSayfaYazısı.Boyut.Height));

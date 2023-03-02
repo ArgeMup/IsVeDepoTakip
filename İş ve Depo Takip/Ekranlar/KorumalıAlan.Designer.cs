@@ -87,7 +87,7 @@
             this.MasaüstüneKopyala.Location = new System.Drawing.Point(12, 361);
             this.MasaüstüneKopyala.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MasaüstüneKopyala.Name = "MasaüstüneKopyala";
-            this.MasaüstüneKopyala.Size = new System.Drawing.Size(343, 45);
+            this.MasaüstüneKopyala.Size = new System.Drawing.Size(344, 45);
             this.MasaüstüneKopyala.TabIndex = 4;
             this.MasaüstüneKopyala.Text = "Masa Üstüne Kopyala";
             this.İpUcu.SetToolTip(this.MasaüstüneKopyala, "Seçtiğiniz sürümü masaüstünüze kopyalar.");
@@ -141,10 +141,11 @@
             this.Sürümler.Location = new System.Drawing.Point(12, 12);
             this.Sürümler.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Sürümler.Name = "Sürümler";
-            this.Sürümler.Size = new System.Drawing.Size(343, 329);
+            this.Sürümler.Size = new System.Drawing.Size(344, 329);
             this.Sürümler.TabIndex = 7;
             this.İpUcu.SetToolTip(this.Sürümler, "Seçtiğiniz dosyaya ait tüm eski sürümler listelenmektedir");
             this.Sürümler.SelectedIndexChanged += new System.EventHandler(this.Sürümler_SelectedIndexChanged);
+            this.Sürümler.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Sürümler_MouseDoubleClick);
             // 
             // İçeriAl
             // 

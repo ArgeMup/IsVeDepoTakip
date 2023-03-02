@@ -89,11 +89,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         Liste.Text = adı;
                     }
 
+                    Banka.Değişiklikleri_Kaydet(null);
                     Liste_SelectedValueChanged(null, null);
-                    Banka.Değişiklikleri_Kaydet(Liste);
+                    
                 }
                 catch (Exception ex)
                 {
+                    Banka.Değişiklikler_TamponuSıfırla();
                     MessageBox.Show("İşlem başarısız, gerekli izin veya yetkilere sahip olduğunuzu teyit ediniz." + Environment.NewLine + Environment.NewLine + ex.Günlük().Message, Text);
                 }
             }
@@ -126,10 +128,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             MasaüstüneKopyala.Enabled = true;
         }
+        private void Sürümler_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            MasaüstüneKopyala_Click(null, null);
+        }
 
         private void Sil_Click(object sender, System.EventArgs e)
         {
-            if (!Liste.Enabled || string.IsNullOrEmpty(Liste.Text)) return;
+            if (string.IsNullOrEmpty(Liste.Text)) return;
 
             string soru = Liste.Text + " dosyası tüm sürümleriyle birlikte KALICI olarak SİLİNECEK." + Environment.NewLine + Environment.NewLine +
                 "Geri Dönüşüm Kutusundan ERİŞİLEMEYECEK." + Environment.NewLine + Environment.NewLine +
@@ -190,9 +196,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (Dr == DialogResult.No) return;
 
             splitContainer1.Enabled = false;
-            foreach (string eleman in Banka.KorumalıAlan_Listele_Dosyalar())
+            try
             {
-                try
+                foreach (string eleman in Banka.KorumalıAlan_Listele_Dosyalar())
                 {
                     if (eleman.StartsWith(":"))
                     {
@@ -217,15 +223,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     Liste.Text = eleman;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Bİr sorunla karşılaşıldı. Lütfen tekrar deneyiniz" + Environment.NewLine + Environment.NewLine + ex.Günlük().Message, Text);
-                    break;
-                }
-            }
 
+                Banka.Değişiklikleri_Kaydet(null);
+                Liste_SelectedValueChanged(null, null);
+            }
+            catch (Exception ex)
+            {
+                Banka.Değişiklikler_TamponuSıfırla();
+                MessageBox.Show("Bİr sorunla karşılaşıldı. Lütfen tekrar deneyiniz" + Environment.NewLine + Environment.NewLine + ex.Günlük().Message, Text);
+            }
             splitContainer1.Enabled = true;
-            Liste_SelectedValueChanged(null, null);
         }
+
+        
     }
 }

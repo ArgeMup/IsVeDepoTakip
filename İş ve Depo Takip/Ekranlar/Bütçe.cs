@@ -291,9 +291,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     Ortak.Gösterge.İlerleme = 1;
                     Depo_ d = Banka.Tablo(Müşteri, Banka.TabloTürü.Ödendi, false, Ödeme_Tarihi_dosyaadı);
-                    Banka.Talep_Ayıkla_ÖdemeDalı(d["Ödeme"], out _, out _, out _, out string Ödeme_Tarihi, out _, out _);
                     Banka.Talep_Ayıkla_ÖdemeDalı_Açıklama(d["Ödeme"], "0", "0", out _, out _, out double MüşterininÖdemesiGerekenMiktar);
-                    DateTime Ödeme_Tarihi_t = Ödeme_Tarihi.TarihSaate();
+                    DateTime Ödeme_Tarihi_t = Ödeme_Tarihi_dosyaadı.TarihSaate(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2);
                     if (Ödeme_Tarihi_t < EnEskiTarih) EnEskiTarih = Ödeme_Tarihi_t;
                     string Ödeme_Tarihi_yıl_ay = Ödeme_Tarihi_t.ToString("yyyy M");
 

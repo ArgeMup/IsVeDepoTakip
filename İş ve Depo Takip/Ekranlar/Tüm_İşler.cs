@@ -849,7 +849,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Banka.Talep_TablodaGöster(Tablo, bt);
             Tablo_İçeriğeGöreGüncelle();
 
-            Banka.Talep_Ayıkla_ÖdemeDalı(bt.Ödeme, out List<string> Açıklamalar, out List<string> Ücretler, out _, out _, out string Notlar, out bool MüşteriBorçluMu);
+            Banka.Talep_Ayıkla_ÖdemeDalı(bt.Ödeme, out List<string> Açıklamalar, out List<string> Ücretler, out _, out string Notlar, out bool MüşteriBorçluMu);
             string ipucu = "";
             for (int i = 0; i < Açıklamalar.Count; i++)
             {
@@ -907,6 +907,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             else if (Seviye2_ÖdemeBekleyen.Checked)
             {
                 depo = Banka.Tablo(İşTakip_Müşteriler.Text, Banka.TabloTürü.ÖdemeTalepEdildi, false, İşTakip_ÖdemeBekleyen_Dönem.Text);
+                Banka.Müşteri_Tablo_BağımsızKopyaYap_NotlaraMevcutÖnÖdemeyiEkle(İşTakip_Müşteriler.Text, ref depo);
                 gerçekdosyadı = "Ödeme_Talebi_" + İşTakip_ÖdemeBekleyen_Dönem.Text + ".pdf";
             }
             else if (Seviye2_Ödendi.Checked)
@@ -1036,7 +1037,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         if (de != null && de.Elemanları.Length > 0)
                         {
                             gecici_dosyadı = gecici_klasör + "Ödeme_Talebi_" + ö + ".pdf";
-
+                            Banka.Müşteri_Tablo_BağımsızKopyaYap_NotlaraMevcutÖnÖdemeyiEkle(İşTakip_Müşteriler.Text, ref depo);
                             y.Yazdır_Depo(depo, gecici_dosyadı);
                         }
                     }
@@ -1409,7 +1410,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 y.Yaz(" ", sn_ler);
 
                 sn_ler = "";
-                Banka.Talep_Ayıkla_ÖdemeDalı(bt.Ödeme, out List<string> Açıklamalar, out List<string> Ücretler, out _, out _, out string Notlar, out _);
+                Banka.Talep_Ayıkla_ÖdemeDalı(bt.Ödeme, out List<string> Açıklamalar, out List<string> Ücretler, out _, out string Notlar, out _);
                 for (int i = 0; i < Açıklamalar.Count; i++) sn_ler += Açıklamalar[i] + " : " + Ücretler[i] + "\n";
                 sn_ler = sn_ler.TrimEnd('\n');
 
