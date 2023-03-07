@@ -353,7 +353,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void İştürü_SeçiliSatıraKopyala_Click(object sender, EventArgs e)
         {
             var l = Tablo.SelectedRows;
-            if (l == null || l.Count != 1 || İşTürleri_SeçimKutusu.Text.BoşMu()) return;
+            if (l == null || l.Count != 1 || İşTürleri_SeçimKutusu.SelectedIndex < 0) return;
 
             if (l[0].ReadOnly)
             {

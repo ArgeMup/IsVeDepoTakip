@@ -373,6 +373,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 y.Üst = Sayfa.Üst;
                 y.Genişlik = s1.Width;
                 y.Yükseklik = s1.Height;
+                y.Çerçeve = false;
                 Yazdır(y);
                 YazdırmaKonumu_Üst += y.Yükseklik;
                 YazdırmaKonumu_Yükseklik -= y.Yükseklik;
@@ -396,6 +397,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 y.Üst = YazdırmaKonumu_Üst;
                 y.Genişlik = Sayfa.Sutun_SıraNo_Genişlik + Sayfa.Sutun_Hasta_Genişlik;
                 y.Yükseklik = y.Yazı.Boyut.Height;
+                y.Çerçeve = true;
                 Yazdır(y);
 
                 y.Yazı.Yazı = "İşler";

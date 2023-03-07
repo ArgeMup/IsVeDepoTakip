@@ -91,7 +91,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     Banka.Değişiklikleri_Kaydet(null);
                     Liste_SelectedValueChanged(null, null);
-                    
                 }
                 catch (Exception ex)
                 {
@@ -115,7 +114,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void Liste_SelectedValueChanged(object sender, System.EventArgs e)
         {
-            if (string.IsNullOrEmpty(Liste.Text)) { splitContainer1.Panel2.Enabled = false; return; }
+            if (Liste.SelectedIndex < 0) { splitContainer1.Panel2.Enabled = false; return; }
 
             Sürümler.Items.Clear();
             Sürümler.Items.AddRange(Banka.KorumalıAlan_Listele_Sürümler(Liste.Text).ToArray());
@@ -135,7 +134,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void Sil_Click(object sender, System.EventArgs e)
         {
-            if (string.IsNullOrEmpty(Liste.Text)) return;
+            if (Liste.SelectedIndex < 0) return;
 
             string soru = Liste.Text + " dosyası tüm sürümleriyle birlikte KALICI olarak SİLİNECEK." + Environment.NewLine + Environment.NewLine +
                 "Geri Dönüşüm Kutusundan ERİŞİLEMEYECEK." + Environment.NewLine + Environment.NewLine +
@@ -156,7 +155,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void MasaüstüneKopyala_Click(object sender, EventArgs e)
         {
-            if (Liste.Text.BoşMu() || Sürümler.Text.BoşMu()) return;
+            if (Liste.SelectedIndex < 0 || Sürümler.SelectedIndex < 0) return;
 
             if (Liste.Text.StartsWith(":"))
             {
@@ -234,7 +233,5 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             splitContainer1.Enabled = true;
         }
-
-        
     }
 }

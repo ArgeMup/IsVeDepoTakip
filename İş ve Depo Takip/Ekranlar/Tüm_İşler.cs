@@ -309,7 +309,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İşTakip_Müşteriler_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (İşTakip_Müşteriler.Text.BoşMu()) return;
+            if (İşTakip_Müşteriler.SelectedIndex < 0) return;
 
             CheckBox c = null;
             if (Seviye2_DevamEden.Checked) c = Seviye2_DevamEden;
@@ -707,6 +707,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İşTakip_ÖdemeBekleyen_Dönem_TextChanged(object sender, EventArgs e)
         {
+            İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Tag = null;
+
             if (!Banka.Müşteri_MevcutMu(İşTakip_Müşteriler.Text))
             {
                 MessageBox.Show("Lütfen geçerli bir müşteri seçiniz", Text);
@@ -732,12 +734,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Banka.Talep_TablodaGöster(Tablo, bt);
             Tablo_İçeriğeGöreGüncelle();
 
-            IDepo_Eleman müş = Banka.Tablo_Dal(İşTakip_Müşteriler.Text, Banka.TabloTürü.Ödemeler, "Mevcut Ön Ödeme");
-
-            Banka.Talep_Ayıkla_ÖdemeDalı_Açıklama(bt.Ödeme, müş != null ? müş.Oku(null, "0") : "0", İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text, out string Açıklama, out bool İşlemSonucundaMüşteriBorçlu, out double MüşterininÖdemesiGerekenMiktar);
+            bool ÖdemeİşlemiYapılmış = Banka.Müşteri_ÖdemeTalebi_GeciciDetaylarıEkle(İşTakip_Müşteriler.Text, ref bt.Ödeme);
+            Banka.Talep_Ayıkla_ÖdemeDalı_Açıklama(bt.Ödeme, out string Açıklama, out bool İşlemSonucundaMüşteriBorçlu, out double GenelToplam);
             İşTakip_ÖdemeBekleyen_Açıklama.Text = Açıklama;
             İşTakip_ÖdemeBekleyen_Açıklama.ForeColor = İşlemSonucundaMüşteriBorçlu ? Color.Red : SystemColors.ControlText;
-            İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Tag = MüşterininÖdemesiGerekenMiktar;
+            İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Tag = ÖdemeİşlemiYapılmış ? GenelToplam - Banka.Müşteri_ÖnÖdemeMiktarı(İşTakip_Müşteriler.Text) : (object)null;
         }
         private void İşTakip_ÖdemeBekleyen_İptalEt_Click(object sender, EventArgs e)
         {
@@ -769,7 +770,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text == "0")
             {
                 if (İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Tag == null) return;
-                İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text = ((double)İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Tag).Yazıya();
+                İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text = string.Format("{0:,0.00}", (double)İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Tag);
             }
             else İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text = "0";
         }
@@ -800,7 +801,28 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (string.IsNullOrWhiteSpace(İşTakip_ÖdemeBekleyen_Notlar.Text)) İşTakip_ÖdemeBekleyen_Notlar.Text = null;
 
             İşTakip_ÖdemeBekleyen_Dönem_TextChanged(null, null);
-            DialogResult Dr = MessageBox.Show("Seçilen döneme ait işleri KALICI olarak ÖDENDİ olarak işaretlemek istediğinize emin misiniz?" + Environment.NewLine + Environment.NewLine + İşTakip_ÖdemeBekleyen_Açıklama.Text, Text, MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button2);
+            string soru = İşTakip_ÖdemeBekleyen_Açıklama.Text + Environment.NewLine + Environment.NewLine;
+            if (İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Tag != null || İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text != "0")
+            {
+                double ÖdenenÜcret = İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text.NoktalıSayıya();
+                soru += "Alınan Ödeme : " + Banka.Yazdır_Ücret(ÖdenenÜcret) + Environment.NewLine;
+
+                if (İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Tag == null)
+                {
+                    soru += "Bu işlem ile müşteriniz ön ödeme sistemine dahil edilecek ve kalan miktar kayda geçirilecektir.";
+                }
+                else
+                {
+                    double İşlemSonrasıÖnÖdeme = ÖdenenÜcret - (double)İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Tag;
+                    if (İşlemSonrasıÖnÖdeme > 0) soru += "İşlem sonrasında müşterinizin " + Banka.Yazdır_Ücret(İşlemSonrasıÖnÖdeme) + " alacağı kalacaktır.";
+                    else if (İşlemSonrasıÖnÖdeme < 0) soru += "İşlem sonrasında müşterinizin " + Banka.Yazdır_Ücret(Math.Abs(İşlemSonrasıÖnÖdeme)) + " borcu olacaktır.";
+                    else soru += "İşlem sonrasında alacak ve verecek kalmayacaktır.";
+                }
+
+                soru += Environment.NewLine + Environment.NewLine;
+            }
+            soru += "Seçilen döneme ait işleri KALICI olarak ÖDENDİ olarak işaretlemek istediğinize emin misiniz?"; 
+            DialogResult Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
 
             Banka.Talep_İşaretle_ÖdemeTalepEdildi_Ödendi(İşTakip_Müşteriler.Text, İşTakip_ÖdemeBekleyen_Dönem.Text, İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text, İşTakip_ÖdemeBekleyen_Notlar.Text);
@@ -839,7 +861,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 return;
             }
 
-            if (string.IsNullOrEmpty(İşTakip_Ödendi_Dönem_Dönemler.Text))
+            if (!İşTakip_Ödendi_Dönem_AramaÇubuğu_Liste.Contains(İşTakip_Ödendi_Dönem_Dönemler.Text))
             {
                 İşTakip_Ödendi_Dönem_Açıklama.Text = null;
                 return;
@@ -906,12 +928,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             else if (Seviye2_ÖdemeBekleyen.Checked)
             {
+                if (!İşTakip_ÖdemeBekleyen_Dönem.Items.Contains(İşTakip_ÖdemeBekleyen_Dönem.Text)) return;
+                
                 depo = Banka.Tablo(İşTakip_Müşteriler.Text, Banka.TabloTürü.ÖdemeTalepEdildi, false, İşTakip_ÖdemeBekleyen_Dönem.Text);
-                Banka.Müşteri_Tablo_BağımsızKopyaYap_NotlaraMevcutÖnÖdemeyiEkle(İşTakip_Müşteriler.Text, ref depo);
+                Banka.Müşteri_ÖdemeTalebi_GeciciDetaylarıEkle(İşTakip_Müşteriler.Text, ref depo);
+
                 gerçekdosyadı = "Ödeme_Talebi_" + İşTakip_ÖdemeBekleyen_Dönem.Text + ".pdf";
             }
             else if (Seviye2_Ödendi.Checked)
             {
+                if (!İşTakip_Ödendi_Dönem_AramaÇubuğu_Liste.Contains(İşTakip_Ödendi_Dönem_Dönemler.Text)) return;
+
                 depo = Banka.Tablo(İşTakip_Müşteriler.Text, Banka.TabloTürü.Ödendi, false, İşTakip_Ödendi_Dönem_Dönemler.Text);
                 gerçekdosyadı = "Ödendi_" + İşTakip_Ödendi_Dönem_Dönemler.Text + ".pdf";
             }
@@ -1036,8 +1063,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         IDepo_Eleman de = depo.Bul("Talepler");
                         if (de != null && de.Elemanları.Length > 0)
                         {
+                            Banka.Müşteri_ÖdemeTalebi_GeciciDetaylarıEkle(İşTakip_Müşteriler.Text, ref depo);
+
                             gecici_dosyadı = gecici_klasör + "Ödeme_Talebi_" + ö + ".pdf";
-                            Banka.Müşteri_Tablo_BağımsızKopyaYap_NotlaraMevcutÖnÖdemeyiEkle(İşTakip_Müşteriler.Text, ref depo);
                             y.Yazdır_Depo(depo, gecici_dosyadı);
                         }
                     }
@@ -1461,6 +1489,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Malzemeler_Malzeme_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!Malzemeler_Malzeme_AramaÇubuğu_Liste.Contains(Malzemeler_Malzeme.Text))
+            {
+                Malzemeler_Açıklama.Text = null;
+                return;
+            }
+
             Banka.Malzeme_KullanımDetayı_TablodaGöster(Tablo, Malzemeler_Malzeme.Text, out string Açıklama);
             Malzemeler_Açıklama.Text = Açıklama;
             Tablo_İçeriğeGöreGüncelle();

@@ -114,7 +114,7 @@ namespace İş_ve_Depo_Takip
             {
                 if (_Yazdırma_Logo_ == null)
                 {
-                    var l = Directory.EnumerateFiles(Klasör_KullanıcıDosyaları, "*.*", SearchOption.TopDirectoryOnly)
+                    var l = Directory.EnumerateFiles(Klasör_KullanıcıDosyaları, "LOGO.*", SearchOption.TopDirectoryOnly)
                     .Where(s => s.EndsWith(".bmp") || s.EndsWith(".jpg") || s.EndsWith(".png"));
                     if (l != null && l.Count() > 0) _Yazdırma_Logo_ = new Bitmap(l.ElementAt(0));
 

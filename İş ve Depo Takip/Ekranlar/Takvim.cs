@@ -79,6 +79,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 col.SortMode = DataGridViewColumnSortMode.Automatic;
             }
 
+            int satır = 0, sayac_SeriNoluİş = 0, sayac_ÖdemeTalebi = 0, sayac_KullanıcıNotu = 0;
             foreach (Ortak.Hatırlatıcılar.Hatırlatıcı_ h in Ortak.Hatırlatıcılar.Tümü)
             {
                 if (!Ortak.Gösterge.Çalışsın) break;
@@ -111,7 +112,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         break;
                 }
 
-                int satır = 0;
                 switch (h.Tip)
                 {
                     case Ortak.Hatırlatıcılar.Tip_.SeriNoluİş_DevamEdenTablosundan:
@@ -121,17 +121,20 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         Banka.Talep_Ayıkla_SeriNoDalı(seri_no_dalı, out string Hasta, out string İşGirişTarihleri, out string İşÇıkışTarihleri, out string İşler, ref Toplam);
                         Banka.Talep_Ayıkla_SeriNoDalı(seri_no_dalı, out _, out _, out _, out string Notlar, out _);
                         satır = Tablo.Rows.Add(new object[] { h.İçerik, h.Müşteri, Hasta, İşGirişTarihleri, İşÇıkışTarihleri, İşler, h.UyarıTarihi, Notlar });
+                        sayac_SeriNoluİş++;
                         break;
 
                     case Ortak.Hatırlatıcılar.Tip_.ÖdemeTalebi_KendiTablosundan:
                     case Ortak.Hatırlatıcılar.Tip_.ÖdemeTalebi_TakvimTablosundan:
                         IDepo_Eleman ödemedalı = Banka.Tablo_Dal(h.Müşteri, Banka.TabloTürü.ÖdemeTalepEdildi, "Ödeme", false, h.BaşlangışTarihi.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2));
-                        Banka.Talep_Ayıkla_ÖdemeDalı_Açıklama(ödemedalı, "0", "0", out string Açıklama, out _, out _);
+                        Banka.Talep_Ayıkla_ÖdemeDalı_Açıklama(ödemedalı, out string Açıklama, out _, out _);
                         satır = Tablo.Rows.Add(new object[] { "Ödeme Talebi", h.Müşteri, null, Banka.Yazdır_Tarih(h.BaşlangışTarihi.Yazıya()), null, Açıklama, h.UyarıTarihi, null });
+                        sayac_ÖdemeTalebi++;
                         break;
 
                     case Ortak.Hatırlatıcılar.Tip_.KullanıcıNotu:
                         satır = Tablo.Rows.Add(new object[] { "Not", null, null, Banka.Yazdır_Tarih(h.BaşlangışTarihi.Yazıya()), null, h.İçerik, h.UyarıTarihi, null });
+                        sayac_KullanıcıNotu++;
                         break;
                 }
 
@@ -163,6 +166,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Gecici_Ayarlar.Yaz("Hatırlatıcılar_Filtrele", Hatırlatıcılar_Filtrele_İşler.Checked, 2);
             Gecici_Ayarlar.Yaz("Hatırlatıcılar_Filtrele", Hatırlatıcılar_Filtrele_Notlar.Checked, 3);
             Gecici_Ayarlar.Yaz("Hatırlatıcılar_Filtrele", Hatırlatıcılar_Filtrele_ÖdemeTalepleri.Checked, 4);
+
+            Hatırlatıcılar_Filtrele_İşler.Text = "İşler (" + sayac_SeriNoluİş + ")";
+            Hatırlatıcılar_Filtrele_Notlar.Text = "Notlar (" + sayac_KullanıcıNotu + ")";
+            Hatırlatıcılar_Filtrele_ÖdemeTalepleri.Text = "Ödeme Talepleri (" + sayac_ÖdemeTalebi + ")";
 
             Tablo.ClearSelection();
             Ortak.Gösterge.Bitir();

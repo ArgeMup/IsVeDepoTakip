@@ -31,7 +31,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void Liste_SelectedValueChanged(object sender, System.EventArgs e)
         {
-            if (string.IsNullOrEmpty(Liste.Text)) { splitContainer1.Panel2.Enabled = false; return; }
+            if (Liste.SelectedIndex < 0) { splitContainer1.Panel2.Enabled = false; return; }
             Yeni.Text = Liste.Text;
 
             Banka.Malzeme_TablodaGöster(Tablo, Liste.Text, out double Miktar, out string Birim, out double UyarıVermeMiktar, out bool Detaylı, out string Notları);
@@ -58,7 +58,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void SağTuşMenü_YenidenAdlandır_Click(object sender, EventArgs e)
         {
-            if (!Liste.Enabled || string.IsNullOrEmpty(Liste.Text) || string.IsNullOrWhiteSpace(Yeni.Text)) return;
+            if (!Liste.Enabled || Liste.SelectedIndex < 0 || string.IsNullOrWhiteSpace(Yeni.Text)) return;
 
             if (Liste.Text == Yeni.Text)
             {

@@ -275,7 +275,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Hata.SetError(Malzemeler, mesaj);
             }
 
-            if (Ortak.Hatırlatıcılar.EnAz1GecikmişVar) Hata.SetError(Takvim, "Süresi dolan hatırlatıcılarınız var.");
+            if (Ortak.Hatırlatıcılar.YenidenKontrolEdilmeli || Ortak.Hatırlatıcılar.EnAz1GecikmişVar) Hata.SetError(Takvim, "Süresi dolan hatırlatıcılarınız var.");
+
+            if (Banka.Yedekleme_Hatalar.DoluMu())
+            {
+                İpUcu.SetToolTip(YedekleKapat, Banka.Yedekleme_Hatalar);
+                YedekleKapat.BackColor = System.Drawing.Color.Salmon;
+            }
+            else
+            {
+                İpUcu.SetToolTip(YedekleKapat, null);
+                YedekleKapat.BackColor = System.Drawing.Color.Transparent;
+            }
         }
 
         private void Tuş_Click(object sender, EventArgs e)

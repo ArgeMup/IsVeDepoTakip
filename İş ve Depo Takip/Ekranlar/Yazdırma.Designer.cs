@@ -336,11 +336,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FirmaLogo_Genişlik.Location = new System.Drawing.Point(11, 46);
             this.FirmaLogo_Genişlik.Margin = new System.Windows.Forms.Padding(4);
-            this.FirmaLogo_Genişlik.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.FirmaLogo_Genişlik.Name = "FirmaLogo_Genişlik";
             this.FirmaLogo_Genişlik.Size = new System.Drawing.Size(127, 26);
             this.FirmaLogo_Genişlik.TabIndex = 18;

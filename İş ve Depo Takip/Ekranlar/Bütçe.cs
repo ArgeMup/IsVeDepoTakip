@@ -291,7 +291,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     Ortak.Gösterge.İlerleme = 1;
                     Depo_ d = Banka.Tablo(Müşteri, Banka.TabloTürü.Ödendi, false, Ödeme_Tarihi_dosyaadı);
-                    Banka.Talep_Ayıkla_ÖdemeDalı_Açıklama(d["Ödeme"], "0", "0", out _, out _, out double MüşterininÖdemesiGerekenMiktar);
+                    Banka.Talep_Ayıkla_ÖdemeDalı_Açıklama(d["Ödeme"], out _, out _, out double GenelToplam);
                     DateTime Ödeme_Tarihi_t = Ödeme_Tarihi_dosyaadı.TarihSaate(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2);
                     if (Ödeme_Tarihi_t < EnEskiTarih) EnEskiTarih = Ödeme_Tarihi_t;
                     string Ödeme_Tarihi_yıl_ay = Ödeme_Tarihi_t.ToString("yyyy M");
@@ -299,7 +299,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     //Müşteri Ödemeleri (₺)|Müşteri 1|2022 12
                     anahtar = Müşteri + "|" + Ödeme_Tarihi_yıl_ay;
                     if (!l_MüşteriÖdemeleri.ContainsKey(anahtar)) l_MüşteriÖdemeleri.Add(anahtar, 0);
-                    l_MüşteriÖdemeleri[anahtar] += MüşterininÖdemesiGerekenMiktar;
+                    l_MüşteriÖdemeleri[anahtar] += GenelToplam;
                     if (!l_Dallar.Contains("Mö|" + Müşteri)) l_Dallar.Add("Mö|" + Müşteri);
 
                     //sn göre ayıklama
