@@ -149,7 +149,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     MessageBox.Show(hata_bilgilendirmesi + Environment.NewLine + "Bu mesaj Notlar içerisine aktarıldı", Text);
                     Notlar.Text = hata_bilgilendirmesi + Notlar.Text;
                     Ayraç_Kat_2_3.SplitterDistance *= 2;
-                }
+                } 
+            }
+
+            if (!Notlar.ReadOnly)
+            {
+                if (Notlar.Text.DoluMu(true)) Notlar.Text += Environment.NewLine;
+                Notlar.Text += DateTime.Now.ToString("dd MMM ddd");
             }
         }
         private void Yeni_İş_Girişi_Shown(object sender, EventArgs e)

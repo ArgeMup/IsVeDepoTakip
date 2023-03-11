@@ -275,7 +275,6 @@ namespace İş_ve_Depo_Takip
             {
                 EnAz1GecikmişVar = false;
                 List<Hatırlatıcı_> Liste = new List<Hatırlatıcı_>();
-                DateTime şimdi = DateTime.Now;
                 List<string> Müşteriler = Banka.Müşteri_Listele();
 
                 //Kullanıcı tanımlı hatırlatıcıların kontrolü
@@ -290,8 +289,6 @@ namespace İş_ve_Depo_Takip
                         yeni.UyarıTarihi = h.Oku_TarihSaat(null, default, 0);
                         yeni.İçerik = h.Oku(null, null, 1);
                         Liste.Add(yeni);
-
-                        if (yeni.UyarıTarihi < şimdi) EnAz1GecikmişVar = true;
                     }
                 }
 
@@ -318,9 +315,8 @@ namespace İş_ve_Depo_Takip
                             yeni.Tip = Tip_.ÖdemeTalebi_TakvimTablosundan;
                             yeni.UyarıTarihi = h.Oku_TarihSaat(null, default, 0);
                         }
-
+                        
                         Liste.Add(yeni);
-                        if (yeni.UyarıTarihi < şimdi) EnAz1GecikmişVar = true;
                     }
                 }
 
@@ -371,7 +367,6 @@ namespace İş_ve_Depo_Takip
                         }
 
                         Liste.Add(yeni);
-                        if (yeni.UyarıTarihi < şimdi) EnAz1GecikmişVar = true;
                     }
                 }
 
@@ -384,6 +379,16 @@ namespace İş_ve_Depo_Takip
 
                 Liste.Sort(new _Sıralayıcı_UyarıTarihi_EskidenYeniye());
                 Tümü = Liste.ToArray();
+
+                DateTime şimdi = DateTime.Now;
+                bool Süreler_GecikmeleriGünBazındaHesapla = Banka.Tablo_Dal(null, Banka.TabloTürü.Takvim, "Erteleme Süresi", true).Oku_Bit("Gecikmeleri gün bazında hesapla", true);
+                foreach (Hatırlatıcı_ h in Liste)
+                {
+                    if (Süreler_GecikmeleriGünBazındaHesapla) h.UyarıTarihi = new DateTime(h.UyarıTarihi.Year, h.UyarıTarihi.Month, h.UyarıTarihi.Day, 0, 0, 0);
+                    
+                    if (!EnAz1GecikmişVar && h.UyarıTarihi < şimdi) EnAz1GecikmişVar = true;
+                }
+
                 YenidenKontrolEdilmeli = false;
             }
 

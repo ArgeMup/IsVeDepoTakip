@@ -36,6 +36,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             SağTuşMenü_Ertele_3.Tag = 4;
             SağTuşMenü_Ertele_4.Tag = 5;
             SağTuşMenü_Ertele_5.Tag = 6;
+
+            if (!Ayarlar.Oku_Bit("Gecikmeleri gün bazında hesapla", true)) Tablo_Gerçekleşme_Tarihi.DefaultCellStyle.Format = "f";
         }
         private void Takvim_Shown(object sender, EventArgs e)
         {
@@ -65,6 +67,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void Hatırlatıcılar_Filtrele_CheckedChanged(object sender, EventArgs e)
         {
             if (Süreler == null) return;
+
             DateTime şimdi = DateTime.Now;
             Ortak.Gösterge.Başlat("Bekleyiniz", true, Tablo, Ortak.Hatırlatıcılar.Tümü.Length);
 
@@ -79,7 +82,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 col.SortMode = DataGridViewColumnSortMode.Automatic;
             }
 
-            int satır = 0, sayac_SeriNoluİş = 0, sayac_ÖdemeTalebi = 0, sayac_KullanıcıNotu = 0;
+            int satır = 0, sayac_Yaklaşanlar = 0, sayac_Gecikenler = 0, sayac_SeriNoluİş = 0, sayac_ÖdemeTalebi = 0, sayac_KullanıcıNotu = 0;
             foreach (Ortak.Hatırlatıcılar.Hatırlatıcı_ h in Ortak.Hatırlatıcılar.Tümü)
             {
                 if (!Ortak.Gösterge.Çalışsın) break;
@@ -143,6 +146,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     //geciken
                     Tablo[6, satır].ToolTipText = "Gecikti";
                     Tablo[6, satır].Style.BackColor = System.Drawing.Color.Salmon;
+                    sayac_Gecikenler++;
                 }
                 else
                 {
@@ -155,6 +159,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         Tablo[6, satır].ToolTipText = "En az 1 kere ertelendi, yaklaşıyor";
                     }
                     else Tablo[6, satır].ToolTipText = "Yaklaşıyor";
+                    sayac_Yaklaşanlar++;
                 }
 
                 Tablo[6, satır].ToolTipText += Environment.NewLine + string.Format("{0:,0.0}", (h.UyarıTarihi - şimdi).TotalDays) + " gün"; 
@@ -167,6 +172,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Gecici_Ayarlar.Yaz("Hatırlatıcılar_Filtrele", Hatırlatıcılar_Filtrele_Notlar.Checked, 3);
             Gecici_Ayarlar.Yaz("Hatırlatıcılar_Filtrele", Hatırlatıcılar_Filtrele_ÖdemeTalepleri.Checked, 4);
 
+            Hatırlatıcılar_Filtrele_Yaklaşanlar.Text = "Yaklaşanlar (" + sayac_Yaklaşanlar + ")";
+            Hatırlatıcılar_Filtrele_Gecikenler.Text = "Gecikenler (" + sayac_Gecikenler + ")";
             Hatırlatıcılar_Filtrele_İşler.Text = "İşler (" + sayac_SeriNoluİş + ")";
             Hatırlatıcılar_Filtrele_Notlar.Text = "Notlar (" + sayac_KullanıcıNotu + ")";
             Hatırlatıcılar_Filtrele_ÖdemeTalepleri.Text = "Ödeme Talepleri (" + sayac_ÖdemeTalebi + ")";

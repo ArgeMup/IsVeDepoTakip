@@ -478,7 +478,6 @@
             // 
             // Hata
             // 
-            this.Hata.BlinkRate = 500;
             this.Hata.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.AlwaysBlink;
             this.Hata.ContainerControl = this;
             // 

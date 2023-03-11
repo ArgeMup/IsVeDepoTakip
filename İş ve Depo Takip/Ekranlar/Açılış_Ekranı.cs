@@ -275,7 +275,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Hata.SetError(Malzemeler, mesaj);
             }
 
-            if (Ortak.Hatırlatıcılar.YenidenKontrolEdilmeli || Ortak.Hatırlatıcılar.EnAz1GecikmişVar) Hata.SetError(Takvim, "Süresi dolan hatırlatıcılarınız var.");
+            if (Ortak.Hatırlatıcılar.YenidenKontrolEdilmeli || Ortak.Hatırlatıcılar.EnAz1GecikmişVar)
+            {
+                Hata.SetError(Takvim, "Süresi dolan hatırlatıcılarınız var.");
+                Takvim.BackColor = System.Drawing.Color.Salmon;
+            }
+            else Takvim.BackColor = System.Drawing.Color.Transparent;
 
             if (Banka.Yedekleme_Hatalar.DoluMu())
             {

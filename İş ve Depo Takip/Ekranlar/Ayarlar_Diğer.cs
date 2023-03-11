@@ -26,6 +26,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Takvim_Erteleme_3.Text = Ayarlar_Takvim.Oku(null, "10", 4);
             Takvim_Erteleme_4.Text = Ayarlar_Takvim.Oku(null, "12", 5);
             Takvim_Erteleme_5.Text = Ayarlar_Takvim.Oku(null, "14", 6);
+            Takvim_GecikmeleriGünBazındaHesapla.Checked = Ayarlar_Takvim.Oku_Bit("Gecikmeleri gün bazında hesapla", true);
 
             Klasör_Yedekleme_1.Text = Ayarlar_Bilgisayar.Oku("Yedek", null, 0);
             Klasör_Yedekleme_2.Text = Ayarlar_Bilgisayar.Oku("Yedek", null, 1);
@@ -182,6 +183,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar_Takvim[4] = Takvim_Erteleme_3.Text;
             Ayarlar_Takvim[5] = Takvim_Erteleme_4.Text;
             Ayarlar_Takvim[6] = Takvim_Erteleme_5.Text;
+            Ayarlar_Takvim.Yaz("Gecikmeleri gün bazında hesapla", Takvim_GecikmeleriGünBazındaHesapla.Checked);
 
             Ayarlar_Bilgisayar.Yaz("Yedek", Klasör_Yedekleme_1.Text, 0);
             Ayarlar_Bilgisayar.Yaz("Yedek", Klasör_Yedekleme_2.Text, 1);
