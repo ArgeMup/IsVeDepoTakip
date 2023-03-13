@@ -376,13 +376,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     }
                 }
 
-                //eskinin yeni tarih alanına kopyalanması
-                Tarihler[tümü_sayac] = Tarihler[tümü_sayac - 1];
-                for (int i = 0; i < tümü.Length && Ortak.Gösterge.Çalışsın; i++)
-                {
-                    tümü[i][tümü_sayac] = tümü[i][tümü_sayac - 1];
-                }
-
                 string yıl_ay = "|" + EnEskiTarih.ToString("yyyy M");
 
                 KeyValuePair<string, double>[] bulunanlar = l_MüşteriÖdemeleri.Where(x => x.Key.EndsWith(yıl_ay)).ToArray();

@@ -35,9 +35,10 @@ namespace İş_ve_Depo_Takip
             Klasör.Oluştur(Ortak.Klasör_Banka);
             Klasör.Oluştur(Ortak.Klasör_İçYedek);
             Klasör.Oluştur(Ortak.Klasör_KullanıcıDosyaları);
+            Klasör.Oluştur(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri);
             Klasör.Oluştur(Ortak.Klasör_KullanıcıDosyaları_KorumalıAlan);
             Klasör.Oluştur(Ortak.Klasör_KullanıcıDosyaları_ArkaPlanResimleri);
-            Klasör.Oluştur(Ortak.Klasör_Gecici);
+            Klasör.Oluştur(Ortak.Klasör_Gecici + "DoEk");
             Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Klasörler", ref Açılışİşlemi_Tik);
 
             DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı, Ortak.EşZamanlıİşlemSayısı);
@@ -143,6 +144,11 @@ namespace İş_ve_Depo_Takip
 
             Malzeme_KritikMiktarKontrolü();
             Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Malzeme Durumu", ref Açılışİşlemi_Tik);
+
+            DosyaEkleri_İlkAçılışKontrolü();
+            Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Dosya Ekleri Durumu", ref Açılışİşlemi_Tik);
+
+            Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Tamamlandı", ref Açılışİşlemi_Tik);
         }
         public static void Çıkış_İşlemleri()
         {
@@ -341,6 +347,21 @@ namespace İş_ve_Depo_Takip
                         else KontrolEdildi = true;
 
                         depo = KorumalıAlan;
+                        break;
+
+                    case TabloTürü.DosyaEkleri:
+                        if (DosyaEkleri == null)
+                        {
+                            if (!Depo_DosyaVarMı("DoEk"))
+                            {
+                                if (!YoksaOluştur) return null;
+                            }
+
+                            DosyaEkleri = Depo_Aç("DoEk");
+                        }
+                        else KontrolEdildi = true;
+
+                        depo = DosyaEkleri;
                         break;
 
                     default:
@@ -1550,7 +1571,7 @@ namespace İş_ve_Depo_Takip
             else return 0;
         }
 
-        public static void Talep_Ekle(string Müşteri, string Hasta, string İskonto, string Notlar, List<string> İşTürleri, List<string> Ücretler, List<string> GirişTarihleri, List<string> ÇıkışTarihleri, string SeriNo = null)
+        public static void Talep_Ekle(string Müşteri, string Hasta, string İskonto, string Notlar, List<string> İşTürleri, List<string> Ücretler, List<string> GirişTarihleri, List<string> ÇıkışTarihleri, string[] DosyaEkleri, string SeriNo = null)
         {
             bool YeniKayıt = false;
             if (string.IsNullOrEmpty(SeriNo))
@@ -1579,7 +1600,7 @@ namespace İş_ve_Depo_Takip
             if (YeniKayıt) Malzeme_İştürüneGöreHareket(İşTürleri, true, SeriNo, Müşteri, Hasta, GirişTarihleri); //Depodaki malzemeyi işlere harca
             else
             {
-                //farkın bulunması
+                //farkların bulunması
                 IDepo_Eleman eklenecekler = sn_dalı.Bul(null, false, true);
 
                 foreach (IDepo_Eleman biri_sil in silinecekler.Elemanları)
@@ -1621,6 +1642,8 @@ namespace İş_ve_Depo_Takip
                     Malzeme_İştürüneGöreHareket(l_it, true, SeriNo, Müşteri, Hasta, l_gt);
                 }
             }
+
+            DosyaEkleri_Düzenle(SeriNo, DosyaEkleri);
         }
         public static void Talep_Sil(string Müşteri, List<string> Seri_No_lar)
         {
@@ -1646,6 +1669,8 @@ namespace İş_ve_Depo_Takip
 
                 Malzeme_İştürüneGöreHareket(işler_silinecek, false, sn, Müşteri, seri_no_dalı[0]/*hasta*/); //depoya geri teslim et
                 seri_no_dalı.Sil(null);
+
+                DosyaEkleri_Düzenle(sn, new string[0]);
             }
         }
         public static Banka_Tablo_ Talep_Listele(string Müşteri, TabloTürü Tür, string EkTanım = null)
@@ -1863,6 +1888,8 @@ namespace İş_ve_Depo_Takip
                 };
             }
 
+            DosyaEkleri_ÖdendiOlarakİşaretle(yeni_tablo["Talepler"]);
+
             Depo_Kaydet("Mü\\" + müş[0] + "\\Mü_C\\Mü_C_" + t.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2), yeni_tablo);
             
             depo.Yaz("Silinecek", "Evet");
@@ -1905,6 +1932,8 @@ namespace İş_ve_Depo_Takip
                 }
             }
 
+            IDepo_Eleman DosyaEkleri = Tablo_Dal(null, TabloTürü.DosyaEkleri, "Dosya Ekleri", true);
+
             foreach (IDepo_Eleman seri_no_dalı in İçerik.Talepler)
             {
                 int y = Tablo.RowCount;
@@ -1924,6 +1953,22 @@ namespace İş_ve_Depo_Takip
                 Tablo[8, y].Value = tar_ödeme_talep;
                 Tablo[9, y].Value = tar_ödendi;
                 Tablo[10, y].Value = seri_no_dalı[2]; //notlar
+
+                //Eğer varsa dosya eki sayısının notlar eklenmesi
+                if (seri_no_dalı.Adı.DoluMu())
+                {
+                    IDepo_Eleman SeriNonun_DosyaEkleri = DosyaEkleri.Bul(seri_no_dalı.Adı);
+                    if (SeriNonun_DosyaEkleri != null)
+                    {
+                        int DosyaEkiSayısı = SeriNonun_DosyaEkleri.Elemanları.Length;
+                        if (DosyaEkiSayısı > 0)
+                        {
+                            if (seri_no_dalı[2].DoluMu()) Tablo[10, y].Value += Environment.NewLine + Environment.NewLine;
+                            
+                            Tablo[10, y].Value += "Dosya ekleri : " + DosyaEkiSayısı;
+                        }
+                    }  
+                }
 
                 if (seri_no_dalı[3].DoluMu())
                 {
@@ -2330,6 +2375,130 @@ namespace İş_ve_Depo_Takip
             }
         }
 
+        static void DosyaEkleri_İlkAçılışKontrolü()
+        {
+            Depo_ DosyaEkleri = Tablo(null, TabloTürü.DosyaEkleri);
+            if (DosyaEkleri == null) return;
+
+            double DosyaSilmeBoyutu = DosyaEkleri.Oku_Sayı("Dosya Silme Boyutu", 1000) * 1024 * 1024 /*MB -> B dönüşümü*/;
+            double ToplamDosyaBoyutu = DosyaEkleri.Oku_Sayı("Toplam Dosya Boyutu");
+
+            if (ToplamDosyaBoyutu > DosyaSilmeBoyutu)
+            {
+                List<IDepo_Eleman> ÖdenmişİşlerinDosyaEkleri = DosyaEkleri.Bul("Dosya Ekleri", true).Elemanları.Where(x => x.Oku_Bit(null)).ToList();
+
+                while (ToplamDosyaBoyutu > DosyaSilmeBoyutu && ÖdenmişİşlerinDosyaEkleri.Count > 0)
+                {
+                    DosyaEkleri_Düzenle(ÖdenmişİşlerinDosyaEkleri[0].Adı, new string[0]);
+                    ÖdenmişİşlerinDosyaEkleri.RemoveAt(0);
+
+                    ToplamDosyaBoyutu = DosyaEkleri.Oku_Sayı("Toplam Dosya Boyutu");
+                }
+
+                Değişiklikleri_Kaydet(null);
+            }
+        }
+        public static void DosyaEkleri_Düzenle(string SeriNo, string[] DosyaEkleri)
+        {
+            IDepo_Eleman SeriNonun_DosyaEkleri = Tablo_Dal(null, TabloTürü.DosyaEkleri, "Dosya Ekleri/" + SeriNo, true);
+            long FarkDosyaBoyutu = 0;
+
+            //Güncel tabloda olmayan önceden kayıtlı eklerin silinmesi
+            foreach (IDepo_Eleman biri in SeriNonun_DosyaEkleri.Elemanları)
+            {
+                if (!DosyaEkleri.Contains(biri[1]))
+                {
+                    FarkDosyaBoyutu -= new FileInfo(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri + biri[0]).Length;
+                    Dosya.Sil(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri + biri[0]);
+                    biri.Sil(null);
+                }
+            }
+
+            //Yeni girdilerin eklenmesi
+            DateTime t = DateTime.Now;
+            foreach (string biri in DosyaEkleri)
+            {
+                if (File.Exists(biri))
+                {
+                    //gerçek bir dosya yolu - bu yeni bir ek
+
+                    //Kapalı adının oluşturulması
+                    string KapalıAdı = Path.GetRandomFileName();
+                    while (File.Exists(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri + KapalıAdı)) KapalıAdı = Path.GetRandomFileName();
+
+                    //Dahil edilmesi
+                    SeriNonun_DosyaEkleri[t.Yazıya()].İçeriği = new string[] { KapalıAdı, Path.GetFileName(biri) };
+                    byte[] içerik = File.ReadAllBytes(biri);
+                    içerik = Dosya_Karıştır(içerik);
+                    File.WriteAllBytes(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri + KapalıAdı, içerik);
+
+                    FarkDosyaBoyutu += içerik.Length;
+
+                    t = t.AddMilliseconds(2);
+                }
+            }
+
+            if (SeriNonun_DosyaEkleri.Elemanları.Length == 0) SeriNonun_DosyaEkleri.Sil(null);
+
+            IDepo_Eleman ToplamDosyaBoyutu = Tablo_Dal(null, TabloTürü.DosyaEkleri, "Toplam Dosya Boyutu", true);
+            ToplamDosyaBoyutu.Yaz(null, ToplamDosyaBoyutu.Oku_Sayı(null) + FarkDosyaBoyutu);
+        }
+        public static List<string> DosyaEkleri_Listele(string SeriNo)
+        {
+            List<string> l = new List<string>();
+
+            IDepo_Eleman SeriNonun_DosyaEkleri = Tablo_Dal(null, TabloTürü.DosyaEkleri, "Dosya Ekleri/" + SeriNo);
+            if (SeriNonun_DosyaEkleri == null || SeriNonun_DosyaEkleri.Elemanları.Length == 0) return l;
+
+            foreach (IDepo_Eleman DosyaEki in SeriNonun_DosyaEkleri.Elemanları)
+            {
+                if (DosyaEki.İçiBoşOlduğuİçinSilinecek) continue;
+
+                l.Add(DosyaEki[1]);
+            }
+
+            return l;
+        }
+        public static string DosyaEkleri_GeciciKlasöreKopyala(string SeriNo, string DosyaAdı)
+        {
+            IDepo_Eleman SeriNonun_DosyaEkleri = Tablo_Dal(null, TabloTürü.DosyaEkleri, "Dosya Ekleri/" + SeriNo);
+            if (SeriNonun_DosyaEkleri == null || SeriNonun_DosyaEkleri.Elemanları.Length == 0) return null;
+
+            foreach (IDepo_Eleman biri in SeriNonun_DosyaEkleri.Elemanları)
+            {
+                if (biri[1] == DosyaAdı)
+                {
+                    if (File.Exists(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri + biri[0]))
+                    {
+                        string HedefDosyaAdı = Ortak.Klasör_Gecici + "DoEk\\" + biri[0];
+
+                        if (!File.Exists(HedefDosyaAdı))
+                        {
+                            byte[] içerik = File.ReadAllBytes(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri + biri[0]);
+                            içerik = Dosya_Düzelt(içerik);
+                            File.WriteAllBytes(HedefDosyaAdı, içerik);
+                        }
+
+                        return HedefDosyaAdı;
+                    }
+
+                    break;
+                }
+            }
+
+            return null;
+        }
+        public static void DosyaEkleri_ÖdendiOlarakİşaretle(IDepo_Eleman TaleplerDalı)
+        {
+            IDepo_Eleman DosyaEkleri = Tablo_Dal(null, TabloTürü.DosyaEkleri, "Dosya Ekleri", true);
+
+            foreach (IDepo_Eleman sn in TaleplerDalı.Elemanları)
+            {
+                IDepo_Eleman sıradaki = DosyaEkleri.Bul(sn.Adı);
+                if (sıradaki != null) sıradaki.Yaz(null, true);
+            }
+        }
+
         public static void Değişiklikleri_Kaydet(Control Tetikleyen)
         {
             if (Yedekleme_Tümü_Çalışıyor)
@@ -2361,7 +2530,7 @@ namespace İş_ve_Depo_Takip
             }
 
             bool EnAzBirDeğişiklikYapıldı = false;
-            Ortak.Gösterge.Başlat("Kaydediliyor", false, Tetikleyen, 7 + (Müşteriler == null ? 0 : Müşteriler.Count * 4) + (MalzemeKullanımDetayları == null ? 0 : MalzemeKullanımDetayları.Count * 1));
+            Ortak.Gösterge.Başlat("Kaydediliyor", false, Tetikleyen, 8 + (Müşteriler == null ? 0 : Müşteriler.Count * 4) + (MalzemeKullanımDetayları == null ? 0 : MalzemeKullanımDetayları.Count * 1));
 
             if (Müşteriler != null && Müşteriler.Count > 0)
             {
@@ -2420,6 +2589,9 @@ namespace İş_ve_Depo_Takip
             if (KorumalıAlan != null && KorumalıAlan.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("KoAl", KorumalıAlan); EnAzBirDeğişiklikYapıldı = true; }
 
             Ortak.Gösterge.İlerleme = 1;
+            if (DosyaEkleri != null && DosyaEkleri.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("DoEk", DosyaEkleri); EnAzBirDeğişiklikYapıldı = true; }
+
+            Ortak.Gösterge.İlerleme = 1;
             if (EnAzBirDeğişiklikYapıldı || (Ayarlar != null && Ayarlar.EnAzBir_ElemanAdıVeyaİçeriği_Değişti))
             {
                 IDepo_Eleman d = Tablo_Dal(null, TabloTürü.Ayarlar, "Son Banka Kayıt", true);
@@ -2455,6 +2627,7 @@ namespace İş_ve_Depo_Takip
             İşTürleri = null;
             Malzemeler = null;
             Müşteriler = null;
+            DosyaEkleri = null;
             Kullanıcılar = null;
             KorumalıAlan = null;
             Takvim = null;
@@ -2476,12 +2649,13 @@ namespace İş_ve_Depo_Takip
         }
 
         #region Demirbaşlar
-        public enum TabloTürü { Ayarlar, İşTürleri, Malzemeler, MalzemeKullanımDetayı, Ödemeler, Kullanıcılar, Takvim, KorumalıAlan,
+        public enum TabloTürü { Ayarlar, İşTürleri, Malzemeler, MalzemeKullanımDetayı, Ödemeler, Kullanıcılar, Takvim, KorumalıAlan, DosyaEkleri,
                                 DevamEden, TeslimEdildi, ÖdemeTalepEdildi, Ödendi,
                                 DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi         }
         static Depo_ Ayarlar = null;
         static Depo_ İşTürleri = null;
         static Depo_ Malzemeler = null;
+        static Depo_ DosyaEkleri = null; 
         static Depo_ Kullanıcılar = null;
         static Depo_ KorumalıAlan = null;
         static Depo_ Takvim = null;
@@ -2752,6 +2926,19 @@ namespace İş_ve_Depo_Takip
             Dosya.Sil(Gecici_zip_dosyası);
 
             return çıktı;
+        }
+        static byte[] Dosya_Karıştır(byte[] İçerik)
+        {
+            if (İçerik == null || İçerik.Length == 0) return İçerik;
+
+            return DaÇoKa.Karıştır(İçerik, Parola.Dizi);
+        }
+        static byte[] Dosya_Düzelt(byte[] İçerik)
+        {
+            if (İçerik == null || İçerik.Length == 0) return İçerik;
+
+            //Şifre çözme
+            return DaÇoKa.Düzelt(İçerik, Parola.Dizi);
         }
         #endregion
 

@@ -1,7 +1,6 @@
 ﻿using ArgeMup.HazirKod;
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -11,6 +10,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
     {
         double[] Süreler = null;
         IDepo_Eleman Gecici_Ayarlar;
+        bool Gecikmeleri_gün_bazında_hesapla;
 
         public Takvim()
         {
@@ -18,7 +18,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ortak.YeniSayfaAçmaTalebi = null;
 
             Gecici_Ayarlar = Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
-            Hatırlatıcılar_Filtrele_Yaklaşanlar.Checked = Gecici_Ayarlar.Oku_Bit("Hatırlatıcılar_Filtrele", false, 0);
+            Hatırlatıcılar_Filtrele_Yaklaşanlar.Checked = Gecici_Ayarlar.Oku_Bit("Hatırlatıcılar_Filtrele", true, 0);
             Hatırlatıcılar_Filtrele_Gecikenler.Checked = Gecici_Ayarlar.Oku_Bit("Hatırlatıcılar_Filtrele", true, 1);
             Hatırlatıcılar_Filtrele_İşler.Checked = Gecici_Ayarlar.Oku_Bit("Hatırlatıcılar_Filtrele", true, 2);
             Hatırlatıcılar_Filtrele_Notlar.Checked = Gecici_Ayarlar.Oku_Bit("Hatırlatıcılar_Filtrele", true, 3);
@@ -37,7 +37,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             SağTuşMenü_Ertele_4.Tag = 5;
             SağTuşMenü_Ertele_5.Tag = 6;
 
-            if (!Ayarlar.Oku_Bit("Gecikmeleri gün bazında hesapla", true)) Tablo_Gerçekleşme_Tarihi.DefaultCellStyle.Format = "f";
+            Gecikmeleri_gün_bazında_hesapla = Ayarlar.Oku_Bit("Gecikmeleri gün bazında hesapla", true);
         }
         private void Takvim_Shown(object sender, EventArgs e)
         {
@@ -82,6 +82,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 col.SortMode = DataGridViewColumnSortMode.Automatic;
             }
 
+            IDepo_Eleman DosyaEkleri = Banka.Tablo_Dal(null, Banka.TabloTürü.DosyaEkleri, "Dosya Ekleri", true);
             int satır = 0, sayac_Yaklaşanlar = 0, sayac_Gecikenler = 0, sayac_SeriNoluİş = 0, sayac_ÖdemeTalebi = 0, sayac_KullanıcıNotu = 0;
             foreach (Ortak.Hatırlatıcılar.Hatırlatıcı_ h in Ortak.Hatırlatıcılar.Tümü)
             {
@@ -115,6 +116,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         break;
                 }
 
+                string UyarıTarihi_yazı = h.UyarıTarihi.ToString("dd MMM ddd" + (Gecikmeleri_gün_bazında_hesapla ? null : " hh:mm" ) );
                 switch (h.Tip)
                 {
                     case Ortak.Hatırlatıcılar.Tip_.SeriNoluİş_DevamEdenTablosundan:
@@ -123,7 +125,21 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         double Toplam = 0;
                         Banka.Talep_Ayıkla_SeriNoDalı(seri_no_dalı, out string Hasta, out string İşGirişTarihleri, out string İşÇıkışTarihleri, out string İşler, ref Toplam);
                         Banka.Talep_Ayıkla_SeriNoDalı(seri_no_dalı, out _, out _, out _, out string Notlar, out _);
-                        satır = Tablo.Rows.Add(new object[] { h.İçerik, h.Müşteri, Hasta, İşGirişTarihleri, İşÇıkışTarihleri, İşler, h.UyarıTarihi, Notlar });
+
+                        //Eğer varsa dosya eki sayısının notlar eklenmesi
+                        IDepo_Eleman SeriNonun_DosyaEkleri = DosyaEkleri.Bul(seri_no_dalı.Adı);
+                        if (SeriNonun_DosyaEkleri != null)
+                        {
+                            int DosyaEkiSayısı = SeriNonun_DosyaEkleri.Elemanları.Length;
+                            if (DosyaEkiSayısı > 0)
+                            {
+                                if (Notlar.DoluMu()) Notlar += Environment.NewLine + Environment.NewLine;
+
+                                Notlar += "Dosya ekleri : " + DosyaEkiSayısı;
+                            }
+                        }
+                        
+                        satır = Tablo.Rows.Add(new object[] { h.İçerik, h.Müşteri, Hasta, İşGirişTarihleri, İşÇıkışTarihleri, İşler, UyarıTarihi_yazı, Notlar });
                         sayac_SeriNoluİş++;
                         break;
 
@@ -131,12 +147,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     case Ortak.Hatırlatıcılar.Tip_.ÖdemeTalebi_TakvimTablosundan:
                         IDepo_Eleman ödemedalı = Banka.Tablo_Dal(h.Müşteri, Banka.TabloTürü.ÖdemeTalepEdildi, "Ödeme", false, h.BaşlangışTarihi.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2));
                         Banka.Talep_Ayıkla_ÖdemeDalı_Açıklama(ödemedalı, out string Açıklama, out _, out _);
-                        satır = Tablo.Rows.Add(new object[] { "Ödeme Talebi", h.Müşteri, null, Banka.Yazdır_Tarih(h.BaşlangışTarihi.Yazıya()), null, Açıklama, h.UyarıTarihi, null });
+                        satır = Tablo.Rows.Add(new object[] { "Ödeme Talebi", h.Müşteri, null, Banka.Yazdır_Tarih(h.BaşlangışTarihi.Yazıya()), null, Açıklama, UyarıTarihi_yazı, null });
                         sayac_ÖdemeTalebi++;
                         break;
 
                     case Ortak.Hatırlatıcılar.Tip_.KullanıcıNotu:
-                        satır = Tablo.Rows.Add(new object[] { "Not", null, null, Banka.Yazdır_Tarih(h.BaşlangışTarihi.Yazıya()), null, h.İçerik, h.UyarıTarihi, null });
+                        satır = Tablo.Rows.Add(new object[] { "Not", null, null, Banka.Yazdır_Tarih(h.BaşlangışTarihi.Yazıya()), null, h.İçerik, UyarıTarihi_yazı, null });
                         sayac_KullanıcıNotu++;
                         break;
                 }

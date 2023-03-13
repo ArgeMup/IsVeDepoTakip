@@ -79,6 +79,8 @@
             this.Önizleme.Name = "Önizleme";
             this.Önizleme.Size = new System.Drawing.Size(595, 406);
             this.Önizleme.TabIndex = 0;
+            this.İpucu.SetToolTip(this.Önizleme, "Buradaki seçenekler <Bilgisayar Adı>/<Kullanıcı Adı> \'na özeldir.\r\nFarklı bir bil" +
+        "gisayarda kullanılacak ise yeniden girilmelidir.");
             this.Önizleme.Zoom = 1D;
             // 
             // printPreviewDialog1
@@ -312,8 +314,8 @@
             this.FirmaLogo_Yükseklik.Name = "FirmaLogo_Yükseklik";
             this.FirmaLogo_Yükseklik.Size = new System.Drawing.Size(127, 26);
             this.FirmaLogo_Yükseklik.TabIndex = 9;
-            this.İpucu.SetToolTip(this.FirmaLogo_Yükseklik, "Logo dosyası DİĞER klasörünün içinde\r\nLOGO.jpg,  LOGO.png veya LOGO.bmp \r\nolarak " +
-        "bulunmalıdır");
+            this.İpucu.SetToolTip(this.FirmaLogo_Yükseklik, "Logo dosyası <Kullanıcı Dosyaları> klasörünün içinde\r\nLOGO.jpg,  LOGO.png veya LO" +
+        "GO.bmp \r\nolarak bulunmalıdır");
             this.FirmaLogo_Yükseklik.Value = new decimal(new int[] {
             1,
             0,
@@ -339,8 +341,8 @@
             this.FirmaLogo_Genişlik.Name = "FirmaLogo_Genişlik";
             this.FirmaLogo_Genişlik.Size = new System.Drawing.Size(127, 26);
             this.FirmaLogo_Genişlik.TabIndex = 18;
-            this.İpucu.SetToolTip(this.FirmaLogo_Genişlik, "Logo dosyası DİĞER klasörünün içinde\r\nLOGO.jpg,  LOGO.png veya LOGO.bmp \r\nolarak " +
-        "bulunmalıdır");
+            this.İpucu.SetToolTip(this.FirmaLogo_Genişlik, "Logo dosyası <Kullanıcı Dosyaları> klasörünün içinde\r\nLOGO.jpg,  LOGO.png veya LO" +
+        "GO.bmp \r\nolarak bulunmalıdır");
             this.FirmaLogo_Genişlik.Value = new decimal(new int[] {
             1,
             0,
@@ -349,9 +351,11 @@
             // 
             // İpucu
             // 
-            this.İpucu.AutomaticDelay = 0;
+            this.İpucu.AutomaticDelay = 100;
+            this.İpucu.AutoPopDelay = 10000;
+            this.İpucu.InitialDelay = 100;
             this.İpucu.IsBalloon = true;
-            this.İpucu.ShowAlways = true;
+            this.İpucu.ReshowDelay = 20;
             this.İpucu.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.İpucu.ToolTipTitle = "Yazdırma";
             this.İpucu.UseAnimation = false;
