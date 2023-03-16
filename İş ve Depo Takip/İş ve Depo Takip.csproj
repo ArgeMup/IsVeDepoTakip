@@ -185,6 +185,7 @@
     <Compile Include="HazirKod_Cdiyez\YeniYazılımKontrolü.cs" />
     <Compile Include="Ortak\Banka.cs" />
     <Compile Include="Ortak\Ortak.cs" />
+    <Compile Include="Ortak\HttpSunucu.cs" />
     <Compile Include="Ortak\Parola.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -293,6 +294,7 @@
     <None Include="Resources\sil.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\SeriNoDetayları.html" />
     <Content Include="Resources\sol_mavi.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

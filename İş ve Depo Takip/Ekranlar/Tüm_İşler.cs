@@ -1112,7 +1112,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Tablo_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (Tablo.Tag != null || Tablo.RowCount < 1 || e.ColumnIndex < 0 || e.RowIndex < 0 || (int)Seviye1_işTakip.Tag != 1) return;
+            if (Tablo.Tag != null || Tablo.RowCount < 1 || e.ColumnIndex < 0 || e.RowIndex < 0) return;
 
             if (Tablo_TümünüSeçVeyaAç.Tag == null)
             {
@@ -1133,6 +1133,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             else
             {
+                if ((int)Seviye1_işTakip.Tag != 1) return;
+
                 //Aç
                 string Müşteri = Tablo[2, e.RowIndex].Value as string, SeriNo = Tablo[1, e.RowIndex].Value as string, EkTanım = null;
                 if (Müşteri == null || SeriNo == null) return;
@@ -1477,15 +1479,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             Malzemeler_Malzeme.Items.Clear();
 
-            if (string.IsNullOrEmpty(Malzemeler_Malzeme_AramaÇubuğu.Text))
-            {
-                Malzemeler_Malzeme.Items.AddRange(Malzemeler_Malzeme_AramaÇubuğu_Liste.ToArray());
-            }
-            else
-            {
-                string gecici = Malzemeler_Malzeme_AramaÇubuğu.Text.ToLower();
-                Malzemeler_Malzeme.Items.AddRange(Malzemeler_Malzeme_AramaÇubuğu_Liste.FindAll(x => x.ToLower().Contains(gecici)).ToArray());
-            }
+            Malzemeler_Malzeme.Items.AddRange(Ortak.GrupArayıcı(Malzemeler_Malzeme_AramaÇubuğu_Liste, Malzemeler_Malzeme_AramaÇubuğu.Text));
         }
         private void Malzemeler_Malzeme_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>?=? Uygulama Adi ?=?</title>
+    <link rel="icon" type="image/x-icon" href="DoEk/Uygulama.ico">
+  </head>
+  <body>
+    <div class="ust">
+      <div class="kaydir sol">
+        <img src="DoEk/LOGO.png" alt="LOGO" width="90%" onclick="Degistir()">
+      </div>
+      <div class="kaydir sag">
+          <div id="Detaylar">
+            <h2>?=? Müşteri ?=?<br>?=? Hasta ?=?<br>?=? Seri No ?=?</h2>
+          </div>
+          <div id="YeniSorgu" hidden>
+            <label for="YeniSeriNo"> <h2>Yeni Seri No</h2> </label>
+            <input type="text" id="YeniSeriNo">
+            <button onclick="location.href=window.location.origin + '/' + document.getElementById('YeniSeriNo').value" type="button">Sorgula</button>
+          </div>
+      </div>
+    </div>
+    <br>
+    <table>
+      <tr>
+        <th>İş Kabul</th>
+        <th>İş</th>
+      </tr>
+      <!--?=? Tablo İş Giriş Tarihi Ve İş ?=?-->
+      <!-- <tr>
+        <td>31.12.2023</td>
+        <td>Levente iskelet üretimi</td>
+      </tr>-->
+    </table>
+    <br>
+    <table>
+      <tr>
+        <th>Notlar</th>
+      </tr>
+      <tr>
+        <td>?=? Notlar ?=?</td>
+      </tr>
+    </table>
+    <br>
+    <!--?=? Dosya Ekleri ?=?-->
+    <!--<a href="DoEk/a.pdf" target="_blank">DosyaAdı</a><br>-->
+    <!--<img src="DoEk/1.jpg" alt="1" width="32%" onclick="Buyut(this)">-->
+  </body>
+</html>
+
+<style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  td, th {
+    border: 1px solid #000000;
+    padding: 10px;
+  }
+  .ust {
+    margin: 0;
+    display: inline-flex;
+  }
+  .kaydir {
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .sol {
+    width: 25%;
+  }
+  .sag {
+    flex-grow: 1;
+  }
+</style> 
+
+<script>
+  function Degistir() {
+    var Detaylar = document.getElementById("Detaylar");
+    var YeniSorgu = document.getElementById("YeniSorgu");
+
+    Detaylar.hidden = YeniSorgu.hidden;
+    YeniSorgu.hidden = !YeniSorgu.hidden ;
+  }
+  function Buyut(Resim) {
+    if (Resim.style.width == "") Resim.style.width = "100%";
+    else if (Resim.style.width == "100%") Resim.style.width = "200%";
+    else if (Resim.style.width == "200%") Resim.style.width = "300%";
+    else Resim.style.width = "";
+    Resim.scrollIntoView();
+  }
+</script>

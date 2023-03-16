@@ -121,13 +121,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     case Ortak.Hatırlatıcılar.Tip_.SeriNoluİş_DevamEdenTablosundan:
                     case Ortak.Hatırlatıcılar.Tip_.SeriNoluİş_TakvimTablosundan:
-                        IDepo_Eleman seri_no_dalı = Banka.Talep_Bul_DevamEden(h.Müşteri, h.İçerik);
+                        Banka.Talep_Bul_Detaylar_ Detaylar = Banka.Talep_Bul(h.İçerik, h.Müşteri, Banka.TabloTürü.DevamEden);
                         double Toplam = 0;
-                        Banka.Talep_Ayıkla_SeriNoDalı(seri_no_dalı, out string Hasta, out string İşGirişTarihleri, out string İşÇıkışTarihleri, out string İşler, ref Toplam);
-                        Banka.Talep_Ayıkla_SeriNoDalı(seri_no_dalı, out _, out _, out _, out string Notlar, out _);
+                        Banka.Talep_Ayıkla_SeriNoDalı(Detaylar.SeriNoDalı, out string Hasta, out string İşGirişTarihleri, out string İşÇıkışTarihleri, out string İşler, ref Toplam);
+                        Banka.Talep_Ayıkla_SeriNoDalı(Detaylar.SeriNoDalı, out _, out _, out _, out string Notlar, out _);
 
                         //Eğer varsa dosya eki sayısının notlar eklenmesi
-                        IDepo_Eleman SeriNonun_DosyaEkleri = DosyaEkleri.Bul(seri_no_dalı.Adı);
+                        IDepo_Eleman SeriNonun_DosyaEkleri = DosyaEkleri.Bul(Detaylar.SeriNoDalı.Adı);
                         if (SeriNonun_DosyaEkleri != null)
                         {
                             int DosyaEkiSayısı = SeriNonun_DosyaEkleri.Elemanları.Length;

@@ -41,6 +41,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Banka.Giriş_İşlemleri(AçılışYazısı);
                 Controls.Remove(AçılışYazısı);
                 AçılışYazısı.Dispose();
+
+                HttpSunucu.Başlat();
             }
             catch (Exception ex)
             {
@@ -49,7 +51,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 MessageBox.Show("Dosyalarınızda tespit edilemeyen bir sorun olabilir." + Environment.NewLine + Environment.NewLine +
                     "Bu mesajı üst üste 3. kez görüyorsanız alttakileri deneyebilirsiniz." + Environment.NewLine + Environment.NewLine +
                     "1. Uygulama kapandıktan sonra BANKA klasörü içeriğini tümüyle silin." + Environment.NewLine +
-                    "2. YEDEK klasöründeki en yeni yedeği (zip dosyası) BANKA klasörü içerisine çıkartın", Text);
+                    "2. YEDEK klasöründeki en yeni yedeği (zip dosyası) BANKA klasörü içerisine çıkartın" + Environment.NewLine + Environment.NewLine + ex.Message, Text);
                 Application.Exit();
                 return;
             }
@@ -250,9 +252,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void Açılış_Ekranı_FormClosed(object sender, FormClosedEventArgs e)
         {
             Günlük.Ekle("Kapatıldı " + e.CloseReason.ToString());
+            HttpSunucu.Bitir();
             Banka.Çıkış_İşlemleri();
             YeniYazılımKontrolü.Durdur();
-
+ 
             ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın = false;
         }
 

@@ -298,15 +298,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Hastalar_SeçimKutusu.Items.Clear();
 
-            if (string.IsNullOrEmpty(Hastalar_AramaÇubuğu.Text))
-            {
-                Hastalar_SeçimKutusu.Items.AddRange(Hastalar_Liste.ToArray());
-            }
-            else
-            {
-                string aranan = Hastalar_AramaÇubuğu.Text.ToLower();
-                Hastalar_SeçimKutusu.Items.AddRange(Hastalar_Liste.FindAll(x => x.ToLower().Contains(aranan)).ToArray());
-            }
+            Hastalar_SeçimKutusu.Items.AddRange(Ortak.GrupArayıcı(Hastalar_Liste, Hastalar_AramaÇubuğu.Text));
         }
         private void Hastalar_AramaÇubuğu_KeyPress(object sender, KeyPressEventArgs e)
         {
