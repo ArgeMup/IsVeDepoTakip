@@ -2,12 +2,7 @@
 using ArgeMup.HazirKod.DonanımHaberleşmesi;
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Net.Sockets;
-using System.Runtime.InteropServices.ComTypes;
-using static ArgeMup.HazirKod.Depo_Xml;
 
 namespace İş_ve_Depo_Takip
 {
@@ -119,7 +114,7 @@ namespace İş_ve_Depo_Takip
                         }
 
                         string dosya_eki_resim = "", dosya_eki_diğer = "";
-                        List<string> l_DosyaEkleri = Banka.DosyaEkleri_Listele(Sayfa_İçeriği[0]);
+                        System.Collections.Generic.List<string> l_DosyaEkleri = Banka.DosyaEkleri_Listele(Sayfa_İçeriği[0]);
                         foreach (string DosyaEki in l_DosyaEkleri)
                         {
                             string soyadı = Path.GetExtension(DosyaEki).Remove(0, 1).ToLower();

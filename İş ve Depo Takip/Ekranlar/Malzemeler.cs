@@ -24,9 +24,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void AramaÇubuğu_TextChanged(object sender, EventArgs e)
         {
             splitContainer1.Panel2.Enabled = false;
-            Liste.Items.Clear();
 
-            Liste.Items.AddRange(Ortak.GrupArayıcı(AramaÇubuğu_Liste, AramaÇubuğu.Text));
+            Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);
         }
 
         private void Liste_SelectedValueChanged(object sender, System.EventArgs e)

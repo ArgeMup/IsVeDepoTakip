@@ -303,9 +303,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İşTakip_Müşteriler_AramaÇubuğu_TextChanged(object sender, EventArgs e)
         {
-            İşTakip_Müşteriler.Items.Clear();
-
-            İşTakip_Müşteriler.Items.AddRange(Ortak.GrupArayıcı(İşTakip_Müşteriler_AramaÇubuğu_Liste, İşTakip_Müşteriler_AramaÇubuğu.Text));
+            Ortak.GrupArayıcı(İşTakip_Müşteriler, İşTakip_Müşteriler_AramaÇubuğu_Liste, İşTakip_Müşteriler_AramaÇubuğu.Text);
         }
         private void İşTakip_Müşteriler_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -848,9 +846,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İşTakip_Ödendi_Dönem_AramaÇubuğu_TextChanged(object sender, EventArgs e)
         {
-            İşTakip_Ödendi_Dönem_Dönemler.Items.Clear();
-
-            İşTakip_Ödendi_Dönem_Dönemler.Items.AddRange(Ortak.GrupArayıcı(İşTakip_Ödendi_Dönem_AramaÇubuğu_Liste, İşTakip_Ödendi_Dönem_AramaÇubuğu.Text));
+            Ortak.GrupArayıcı(İşTakip_Ödendi_Dönem_Dönemler, İşTakip_Ödendi_Dönem_AramaÇubuğu_Liste, İşTakip_Ödendi_Dönem_AramaÇubuğu.Text);
         }
         private void İşTakip_Ödendi_Dönem_Dönemler_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -861,7 +857,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 return;
             }
 
-            if (!İşTakip_Ödendi_Dönem_AramaÇubuğu_Liste.Contains(İşTakip_Ödendi_Dönem_Dönemler.Text))
+            if (İşTakip_Ödendi_Dönem_Dönemler.SelectedIndex < 0 || !İşTakip_Ödendi_Dönem_AramaÇubuğu_Liste.Contains(İşTakip_Ödendi_Dönem_Dönemler.Text))
             {
                 İşTakip_Ödendi_Dönem_Açıklama.Text = null;
                 return;
@@ -1477,9 +1473,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         List<string> Malzemeler_Malzeme_AramaÇubuğu_Liste = null;
         private void Malzemeler_Malzeme_AramaÇubuğu_TextChanged(object sender, EventArgs e)
         {
-            Malzemeler_Malzeme.Items.Clear();
-
-            Malzemeler_Malzeme.Items.AddRange(Ortak.GrupArayıcı(Malzemeler_Malzeme_AramaÇubuğu_Liste, Malzemeler_Malzeme_AramaÇubuğu.Text));
+            Ortak.GrupArayıcı(Malzemeler_Malzeme, Malzemeler_Malzeme_AramaÇubuğu_Liste, Malzemeler_Malzeme_AramaÇubuğu.Text);
         }
         private void Malzemeler_Malzeme_SelectedIndexChanged(object sender, EventArgs e)
         {

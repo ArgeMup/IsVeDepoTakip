@@ -1,7 +1,6 @@
 ﻿using ArgeMup.HazirKod;
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -204,28 +203,37 @@ namespace İş_ve_Depo_Takip
             return false;
         }
 
-        public static string[] GrupArayıcı(System.Collections.Generic.List<string> Liste, string Aranan)
+        public static void GrupArayıcı(ListBox ListeKutucuğu, System.Collections.Generic.List<string> Liste, string Aranan = null)
         {
-            string[] arananlar;
+            ListeKutucuğu.Items.Clear();
 
-            if (string.IsNullOrEmpty(Aranan)) return Liste.ToArray();
-            else
+            if (Liste != null)
             {
-                arananlar = Aranan.ToLower().Split(' ');
-                return Liste.FindAll(x => KontrolEt(x)).ToArray();
-            }
+                string[] arananlar, bulunanlar;
 
-            bool KontrolEt(string Girdi)
-            {
-                Girdi = Girdi.ToLower();
-
-                foreach (string arn in arananlar)
+                if (string.IsNullOrEmpty(Aranan)) bulunanlar = Liste.ToArray();
+                else
                 {
-                    if (!Girdi.Contains(arn)) return false;
+                    arananlar = Aranan.Trim().ToLower().Split(' ');
+                    bulunanlar = Liste.FindAll(x => KontrolEt(x)).ToArray();
                 }
 
-                return true;
+                ListeKutucuğu.Items.AddRange(bulunanlar);
+
+                bool KontrolEt(string Girdi)
+                {
+                    Girdi = Girdi.ToLower();
+
+                    foreach (string arn in arananlar)
+                    {
+                        if (!Girdi.Contains(arn)) return false;
+                    }
+
+                    return true;
+                }
             }
+
+            //ListeKutucuğu.Enabled = ListeKutucuğu.Items.Count > 0;            
         }
 
         #region Yardımcı Sınıflar
@@ -275,8 +283,8 @@ namespace İş_ve_Depo_Takip
             public static void KontrolEt()
             {
                 EnAz1GecikmişVar = false;
-                List<Hatırlatıcı_> Liste = new List<Hatırlatıcı_>();
-                List<string> Müşteriler = Banka.Müşteri_Listele();
+                System.Collections.Generic.List<Hatırlatıcı_> Liste = new System.Collections.Generic.List<Hatırlatıcı_>();
+                System.Collections.Generic.List<string> Müşteriler = Banka.Müşteri_Listele();
 
                 //Kullanıcı tanımlı hatırlatıcıların kontrolü
                 IDepo_Eleman Hatırlatıcılar = Banka.Tablo_Dal(null, Banka.TabloTürü.Takvim, "Hatırlatıcılar KullanıcıNotu");
@@ -393,7 +401,7 @@ namespace İş_ve_Depo_Takip
                 YenidenKontrolEdilmeli = false;
             }
 
-            class _Sıralayıcı_UyarıTarihi_EskidenYeniye : IComparer<Hatırlatıcı_>
+            class _Sıralayıcı_UyarıTarihi_EskidenYeniye : System.Collections.Generic.IComparer<Hatırlatıcı_>
             {
                 public int Compare(Hatırlatıcı_ x, Hatırlatıcı_ y)
                 {

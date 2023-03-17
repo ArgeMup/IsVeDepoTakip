@@ -24,18 +24,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void AramaÇubuğu_TextChanged(object sender, EventArgs e)
         {
             splitContainer1.Panel2.Enabled = false;
-            Liste.Items.Clear();
 
-            Liste.Items.AddRange(Ortak.GrupArayıcı(AramaÇubuğu_Liste, AramaÇubuğu.Text));
+            Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);   
         }
 
         List<string> Malzeme_Liste = null;
         private void Malzeme_TextChanged(object sender, EventArgs e)
         {
             Malzeme_SeçiliSatıraKopyala.Enabled = false;
-            Malzeme_SeçimKutusu.Items.Clear();
 
-            Malzeme_SeçimKutusu.Items.AddRange(Ortak.GrupArayıcı(Malzeme_Liste, Malzeme_AramaÇubuğu.Text));
+            Ortak.GrupArayıcı(Malzeme_SeçimKutusu, Malzeme_Liste, Malzeme_AramaÇubuğu.Text);
         }
         private void Malzeme_SeçimKutusu_SelectedValueChanged(object sender, System.EventArgs e)
         {

@@ -15,9 +15,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
 
-            Liste.Items.Clear();
             AramaÇubuğu_Liste = Banka.KorumalıAlan_Listele_Dosyalar();
-            Liste.Items.AddRange(AramaÇubuğu_Liste.ToArray());
+            Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste);
         }
         private void KorumalıAlan_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -107,18 +106,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             splitContainer1.Panel2.Enabled = false;
             Sil.Enabled = false;
-            Liste.Items.Clear();
-
-            Liste.Items.AddRange(Ortak.GrupArayıcı(AramaÇubuğu_Liste, AramaÇubuğu.Text));
+         
+            Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);
         }
 
         private void Liste_SelectedValueChanged(object sender, System.EventArgs e)
         {
             if (Liste.SelectedIndex < 0) { splitContainer1.Panel2.Enabled = false; return; }
 
-            Sürümler.Items.Clear();
-            Sürümler.Items.AddRange(Banka.KorumalıAlan_Listele_Sürümler(Liste.Text).ToArray());
-            Sürümler.SelectedIndex = 0;
+            Ortak.GrupArayıcı(Sürümler, Banka.KorumalıAlan_Listele_Sürümler(Liste.Text));
+            if (Sürümler.Items.Count > 0) Sürümler.SelectedIndex = 0;
 
             splitContainer1.Panel2.Enabled = true;
             Sil.Enabled = true;
@@ -142,11 +139,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             DialogResult Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
 
-            Sil.Enabled = false;
             splitContainer1.Enabled = false;
+            Sil.Enabled = false;
 
             Banka.KorumalıAlan_Sil(Liste.Text);
-            Banka.Değişiklikleri_Kaydet(Sil);
+            Banka.Değişiklikleri_Kaydet(null);
 
             AramaÇubuğu_Liste.Remove(Liste.Text);
             Liste.Items.RemoveAt(Liste.SelectedIndex);

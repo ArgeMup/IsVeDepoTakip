@@ -45,9 +45,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             splitContainer1.Panel2.Enabled = false;
             Zam_Yap.Enabled = false;
-            Müşterıler.Items.Clear();
 
-            Müşterıler.Items.AddRange(Ortak.GrupArayıcı(AramaÇubuğu_Müşteri_Liste, AramaÇubuğu_Müşteri.Text));
+            Ortak.GrupArayıcı(Müşterıler, AramaÇubuğu_Müşteri_Liste, AramaÇubuğu_Müşteri.Text);
         }
 
         List<string> AramaÇubuğu_İşTürü_Liste = null;
