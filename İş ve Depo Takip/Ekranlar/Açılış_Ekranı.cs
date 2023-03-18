@@ -42,7 +42,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Controls.Remove(AçılışYazısı);
                 AçılışYazısı.Dispose();
 
-                HttpSunucu.Başlat();
+                #if DEBUG
+                    HttpSunucu.Başlat();
+                #endif
             }
             catch (Exception ex)
             {
@@ -445,6 +447,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             P_Parola.Visible = false;
             P_AnaMenü.Visible = true;
+
+            HttpSunucu.Başlat();
 
             if (ÖndekiEkran != null) YanUygulamayaGeç();
         }

@@ -62,6 +62,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 Tablo_Giriş_Tarihi.Visible = false;
                 Tablo_Çıkış_Tarihi.Visible = false;
+
+                SeriNoGörseli.Text = Banka.SeriNo_Üret(false);
+                SeriNoGörseli.Visible = true;
+                Text += " - " + SeriNoGörseli.Text + " - YENİ";
             }
             else
             {
@@ -266,7 +270,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             Hastalar_Liste.Clear();
             Hastalar_SeçimKutusu.Items.Clear();
-            Hastalar_SeçimKutusu.Enabled = false;
             if (Müşteriler_SeçimKutusu.SelectedIndex < 0 || !Banka.Müşteri_MevcutMu(Müşteriler_SeçimKutusu.Text)) return;
 
             IDepo_Eleman Talepler = Banka.Tablo_Dal(Müşteriler_SeçimKutusu.Text, Banka.TabloTürü.DevamEden, "Talepler");

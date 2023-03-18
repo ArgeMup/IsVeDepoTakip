@@ -41,6 +41,7 @@ namespace İş_ve_Depo_Takip
             Klasör.Oluştur(Ortak.Klasör_KullanıcıDosyaları_KorumalıAlan);
             Klasör.Oluştur(Ortak.Klasör_KullanıcıDosyaları_ArkaPlanResimleri);
             Klasör.Oluştur(Ortak.Klasör_Gecici + "DoEk");
+            File.WriteAllText(Kendi.Klasörü + "\\Önemli Bilgiler.txt", Properties.Resources.Önemli_Bilgiler);
             Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Klasörler", ref Açılışİşlemi_Tik);
 
             DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı, Ortak.EşZamanlıİşlemSayısı);
@@ -1387,7 +1388,7 @@ namespace İş_ve_Depo_Takip
             }
         }
 
-        public static string SeriNo_Üret()
+        public static string SeriNo_Üret(bool Kaydet)
         {
             //<ay><yıl><no>
             //A:Ocak, B:Şubat, 2023:23, 2035:35, sn
@@ -1395,10 +1396,10 @@ namespace İş_ve_Depo_Takip
             //Mart 3071 no:6789 -> C716789
 
             IDepo_Eleman o = Ayarlar_Genel("Seri No", true);
-            string yeni_sn = "";
+            string yeni_sn;
             DateTime t = DateTime.Now;
 
-            if (string.IsNullOrEmpty(o[0]) || o[0] == "ArGeMuP" || string.IsNullOrEmpty(o[1]))
+            if (string.IsNullOrEmpty(o[0]) || string.IsNullOrEmpty(o[1]))
             {
                 yeni_sn = "1";
             }
@@ -1408,8 +1409,6 @@ namespace İş_ve_Depo_Takip
                 {
                     if (o[0] != t.Year.ToString())
                     {
-                        if (t.Month != 1) throw new Exception();
-
                         yeni_sn = "1";
                     }
                     else yeni_sn = (int.Parse(o[1]) + 1).ToString();
@@ -1420,8 +1419,12 @@ namespace İş_ve_Depo_Takip
                 }
             }
 
-            o[0] = t.Year.ToString();
-            o[1] = yeni_sn;
+            if (Kaydet)
+            {
+                o[0] = t.Year.ToString();
+                o[1] = yeni_sn;
+            }
+
             yeni_sn = ((char)('A' + t.Month - 1)).ToString() + (t.Year - 2000) + yeni_sn;
 
             return yeni_sn;
@@ -1582,7 +1585,7 @@ namespace İş_ve_Depo_Takip
             if (string.IsNullOrEmpty(SeriNo))
             {
                 YeniKayıt = true;
-                SeriNo = SeriNo_Üret();
+                SeriNo = SeriNo_Üret(true);
             }
 
             IDepo_Eleman sn_dalı = Tablo_Dal(Müşteri, TabloTürü.DevamEden, "Talepler/" + SeriNo, true);
@@ -3132,6 +3135,9 @@ namespace İş_ve_Depo_Takip
 
             System.Threading.Tasks.Task.Run(() =>
             {
+                Ortak.BatDosyasıCalistir("YedekOncesi.bat");
+                Ortak.BatDosyasıCalistir("YedekOncesi_Bekle.bat");
+
                 try
                 {
                     Klasör_ ydk_ler = new Klasör_(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip", EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
@@ -3192,6 +3198,9 @@ namespace İş_ve_Depo_Takip
                     Yedekleme_EnAz1Kez_Değişiklikler_Kaydedildi = false;
                 }
                 catch (Exception ex) { Yedekleme_Hatalar += ex.Günlük().Message + Environment.NewLine; }
+
+                Ortak.BatDosyasıCalistir("YedekSonrasi.bat");
+                Ortak.BatDosyasıCalistir("YedekSonrasi_Bekle.bat");
 
                 Yedekleme_Tümü_Çalışıyor = false;
             });

@@ -1,4 +1,5 @@
 ﻿using ArgeMup.HazirKod;
+using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Windows.Forms;
 
@@ -15,7 +16,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
 
             Ayarlar_Takvim = Banka.Tablo_Dal(null, Banka.TabloTürü.Takvim, "Erteleme Süresi", true);
-            Ayarlar_Bilgisayar = Banka.Ayarlar_BilgisayarVeKullanıcı("Klasör", true);
+            Ayarlar_Bilgisayar = Banka.Ayarlar_BilgisayarVeKullanıcı(null, true);
             Ayarlar_Küçültüldüğünde = Banka.Ayarlar_Genel("Küçültüldüğünde Parola Sor", true);
             Ayarlar_SürümKontrol = Banka.Tablo_Dal(null, Banka.TabloTürü.KorumalıAlan, "Sürüm Sayısı", true);
             Ayarlar_DosyaEkleri = Banka.Tablo_Dal(null, Banka.TabloTürü.DosyaEkleri, "Dosya Silme Boyutu", true);
@@ -29,12 +30,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Takvim_Erteleme_5.Text = Ayarlar_Takvim.Oku(null, "14", 6);
             Takvim_GecikmeleriGünBazındaHesapla.Checked = Ayarlar_Takvim.Oku_Bit("Gecikmeleri gün bazında hesapla", true);
 
-            Klasör_Yedekleme_1.Text = Ayarlar_Bilgisayar.Oku("Yedek", null, 0);
-            Klasör_Yedekleme_2.Text = Ayarlar_Bilgisayar.Oku("Yedek", null, 1);
-            Klasör_Yedekleme_3.Text = Ayarlar_Bilgisayar.Oku("Yedek", null, 2);
-            Klasör_Yedekleme_4.Text = Ayarlar_Bilgisayar.Oku("Yedek", null, 3);
-            Klasör_Yedekleme_5.Text = Ayarlar_Bilgisayar.Oku("Yedek", null, 4);
-            Klasör_Pdf.Text = Ayarlar_Bilgisayar.Oku("Pdf");
+            Klasör_Yedekleme_1.Text = Ayarlar_Bilgisayar.Oku("Klasör/Yedek", null, 0);
+            Klasör_Yedekleme_2.Text = Ayarlar_Bilgisayar.Oku("Klasör/Yedek", null, 1);
+            Klasör_Yedekleme_3.Text = Ayarlar_Bilgisayar.Oku("Klasör/Yedek", null, 2);
+            Klasör_Yedekleme_4.Text = Ayarlar_Bilgisayar.Oku("Klasör/Yedek", null, 3);
+            Klasör_Yedekleme_5.Text = Ayarlar_Bilgisayar.Oku("Klasör/Yedek", null, 4);
+            Klasör_Pdf.Text = Ayarlar_Bilgisayar.Oku("Klasör/Pdf");
 
             KüçültüldüğündeParolaSor.Checked = Ayarlar_Küçültüldüğünde.Oku_Bit(null, true, 0);
             KüçültüldüğündeParolaSor_sn.Value = Ayarlar_Küçültüldüğünde.Oku_TamSayı(null, 60, 1);
@@ -42,6 +43,23 @@ namespace İş_ve_Depo_Takip.Ekranlar
             KorumalıAlan_SürümSayısı.Value = Ayarlar_SürümKontrol.Oku_TamSayı(null, 15);
 
             DosyaEkleri_BoyutuMB.Value = Ayarlar_DosyaEkleri.Oku_TamSayı(null, 1000);
+
+            HttpSunucu_Etkin.Checked = Ayarlar_Bilgisayar.Oku_Bit("HttpSunucu/Etkin");
+            string bilgisayar_adı = System.Net.Dns.GetHostName();
+            System.Net.IPHostEntry ev = System.Net.Dns.GetHostEntry(bilgisayar_adı.DoluMu() ? bilgisayar_adı : "");
+            if (ev != null && ev.AddressList != null)
+            {
+                bilgisayar_adı = "";
+                foreach (var ip in ev.AddressList)
+                {
+                    if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                    {
+                        bilgisayar_adı += Environment.NewLine + ip.ToString() + "/A" + (DateTime.Now.Year - 2000).ToString() + "1";
+                    }
+                }
+
+                İpUcu_Genel.SetToolTip(HttpSunucu_Açıklama, bilgisayar_adı);
+            }
 
             Kaydet.Enabled = false;
         }
@@ -188,12 +206,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar_Takvim[6] = Takvim_Erteleme_5.Text;
             Ayarlar_Takvim.Yaz("Gecikmeleri gün bazında hesapla", Takvim_GecikmeleriGünBazındaHesapla.Checked);
 
-            Ayarlar_Bilgisayar.Yaz("Yedek", Klasör_Yedekleme_1.Text, 0);
-            Ayarlar_Bilgisayar.Yaz("Yedek", Klasör_Yedekleme_2.Text, 1);
-            Ayarlar_Bilgisayar.Yaz("Yedek", Klasör_Yedekleme_3.Text, 2);
-            Ayarlar_Bilgisayar.Yaz("Yedek", Klasör_Yedekleme_4.Text, 3);
-            Ayarlar_Bilgisayar.Yaz("Yedek", Klasör_Yedekleme_5.Text, 4);
-            Ayarlar_Bilgisayar.Yaz("Pdf", Klasör_Pdf.Text);
+            Ayarlar_Bilgisayar.Yaz("Klasör/Yedek", Klasör_Yedekleme_1.Text, 0);
+            Ayarlar_Bilgisayar.Yaz("Klasör/Yedek", Klasör_Yedekleme_2.Text, 1);
+            Ayarlar_Bilgisayar.Yaz("Klasör/Yedek", Klasör_Yedekleme_3.Text, 2);
+            Ayarlar_Bilgisayar.Yaz("Klasör/Yedek", Klasör_Yedekleme_4.Text, 3);
+            Ayarlar_Bilgisayar.Yaz("Klasör/Yedek", Klasör_Yedekleme_5.Text, 4);
+            Ayarlar_Bilgisayar.Yaz("Klasör/Pdf", Klasör_Pdf.Text);
 
             Ayarlar_Küçültüldüğünde.Yaz(null, KüçültüldüğündeParolaSor.Checked, 0);
             Ayarlar_Küçültüldüğünde.Yaz(null, (int)KüçültüldüğündeParolaSor_sn.Value, 1);
@@ -202,9 +220,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Ayarlar_DosyaEkleri.Yaz(null, (int)DosyaEkleri_BoyutuMB.Value);
 
+            Ayarlar_Bilgisayar.Yaz("HttpSunucu/Etkin", HttpSunucu_Etkin.Checked);
+
             Banka.Değişiklikleri_Kaydet(Kaydet);
 
-            Ortak.Kullanıcı_Klasör_Yedek = Ayarlar_Bilgisayar.Bul("Yedek", true).İçeriği;
+            Ortak.Kullanıcı_Klasör_Yedek = Ayarlar_Bilgisayar.Bul("Klasör/Yedek", true).İçeriği;
             Ortak.Kullanıcı_Klasör_Pdf = Klasör_Pdf.Text;
             Ortak.Kullanıcı_KüçültüldüğündeParolaSor = KüçültüldüğündeParolaSor.Checked;
             Ortak.Kullanıcı_KüçültüldüğündeParolaSor_sn = (int)KüçültüldüğündeParolaSor_sn.Value;

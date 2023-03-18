@@ -294,6 +294,7 @@
     <None Include="Resources\sil.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Önemli Bilgiler.txt" />
     <None Include="Resources\SeriNoDetayları.html" />
     <Content Include="Resources\sol_mavi.png" />
   </ItemGroup>

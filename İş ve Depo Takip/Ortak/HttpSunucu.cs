@@ -13,19 +13,15 @@ namespace İş_ve_Depo_Takip
 
         public static void Başlat()
         {
+            if (Sunucu != null || !Banka.Ayarlar_BilgisayarVeKullanıcı("HttpSunucu", true).Oku_Bit("Etkin")) return;
+
             //Sayfadaki görsellerin oluşturulması
-            if (!File.Exists(Ortak.Klasör_Gecici + "DoEk\\Uygulama.ico"))
+            using (MemoryStream ms = new MemoryStream())
             {
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    Properties.Resources.kendi.Save(ms);
-                    File.WriteAllBytes(Ortak.Klasör_Gecici + "DoEk\\Uygulama.ico", ms.ToArray());
-                }
+                Properties.Resources.kendi.Save(ms);
+                File.WriteAllBytes(Ortak.Klasör_Gecici + "DoEk\\Uygulama.ico", ms.ToArray());
             }
-            if (!File.Exists(Ortak.Klasör_Gecici + "DoEk\\LOGO.png"))
-            {
-                Properties.Resources.logo_512_seffaf.Save(Ortak.Klasör_Gecici + "DoEk\\LOGO.png");
-            }
+            Ortak.Yazdırma_Logo.Save(Ortak.Klasör_Gecici + "DoEk\\LOGO.bmp");
 
             Sunucu = new TcpSunucu_(80, GeriBildirim_Islemi, SatırSatırGönderVeAl:false, SadeceYerel: false, Sessizlik_ZamanAşımı_msn:15000);
             Sunucu_DoHa = Sunucu;
@@ -57,7 +53,6 @@ namespace İş_ve_Depo_Takip
                     }
                     else if (Sayfa_İçeriği.Length == 3)
                     {
-                        
                         while (Sayfa_İçeriği[2].Contains("%"))
                         {
                             int k = Sayfa_İçeriği[2].IndexOf("%");                                      //%C3%96deme
@@ -165,7 +160,7 @@ namespace İş_ve_Depo_Takip
 
         #region Seri Nolu İstek
         //GET /DoEk/Uygulama.ico HTTP/1.1
-        //GET /DoEk/LOGO.png HTTP/1.1
+        //GET /DoEk/LOGO.bmp HTTP/1.1
         //GET /DoEk/asdfg.hjk.jpg HTTP/1.1
         //GET /A2389 HTTP/1.1
         //Host: localhost

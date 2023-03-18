@@ -118,6 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <metadata name="İpUcu_Genel.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>23, 22</value>
+    <value>18, 11</value>
+  </metadata>
+  <data name="groupBox5.ToolTip" xml:space="preserve">
+    <value>Buradaki seçenekler &lt;Bilgisayar Adı&gt;/&lt;Kullanıcı Adı&gt; 'na özeldir.
+Farklı bir bilgisayarda kullanılacak ise yeniden girilmelidir.
+
+Sunucunun çalışabilmesi için alttaki konulara dikkat ediniz.
+1.İşletim sistemi güvenlik duvarı uyarısı gösterecektir. İzin verilmesi gerekmektedir.
+2.Uygulama çalıştırıldığında uygulama parolasını bilmeyen kişilerin
+işlere ait detayları görmesine engel olabilmek için
+uygulamaya en az 1 kere doğru parola girilip ana ekrana ulaşılmalıdır.
+Bu noktadan sonra uygulama küçültülerek uygulama parola ekranına düşürülüp devam edilebilir.
+
+Değişikliklerin işlenebilmesi için uygulamayı kapatıp açınız.
+</value>
+  </data>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>38</value>
   </metadata>
 </root>

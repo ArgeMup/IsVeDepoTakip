@@ -81,6 +81,26 @@ namespace İş_ve_Depo_Takip.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kök Klasör
+        ///    İş ve Depo Takip.exe dosyasının bulunduğu klasördür.
+        ///    Örneğin exe dosyası C:\\Klasör\İş ve Depo Takip.exe içerisinde ise
+        ///    &lt;Kök Klasör&gt; -&gt; C:\\Klasör
+        ///
+        ///Kullanıcı Logosunun değiştirilmesi
+        ///    &lt;Kök Klasör&gt;\Kullanıcı Dosyaları\&lt;LOGO.bmp|png|jpg&gt;
+        ///    Örneğin -&gt; &lt;Kök Klasör&gt;\Kullanıcı Dosyaları\LOGO.bmp
+        ///
+        ///Ugulama içerisinde gösterilen resimlerin değiştirilmesi
+        ///    &lt;Kök Klasör&gt;\Kullanıcı Dosyaları\Arka Plan Resimleri
+        ///    klasörü altına &lt;*.bmp|png|jpg&gt; şeklindeki istenilen resimler ekl [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Önemli_Bilgiler {
+            get {
+                return ResourceManager.GetString("Önemli_Bilgiler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap sag {
@@ -97,16 +117,16 @@ namespace İş_ve_Depo_Takip.Properties {
         ///    &lt;meta charset=&quot;utf-8&quot;&gt;
         ///    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
         ///    &lt;title&gt;?=? Uygulama Adi ?=?&lt;/title&gt;
-        ///    &lt;link rel=&quot;icon&quot; type=&quot;image/x-icon&quot; href=&quot;Resimler/Uygulama.ico&quot;&gt;
+        ///    &lt;link rel=&quot;icon&quot; type=&quot;image/x-icon&quot; href=&quot;DoEk/Uygulama.ico&quot;&gt;
         ///  &lt;/head&gt;
         ///  &lt;body&gt;
         ///    &lt;div class=&quot;ust&quot;&gt;
         ///      &lt;div class=&quot;kaydir sol&quot;&gt;
-        ///        &lt;img src=&quot;Resimler/LOGO.png&quot; alt=&quot;LOGO&quot; width=&quot;90%&quot; onclick=&quot;Degistir()&quot;&gt;
+        ///        &lt;img src=&quot;DoEk/LOGO.bmp&quot; alt=&quot;LOGO&quot; width=&quot;90%&quot; onclick=&quot;Degistir()&quot;&gt;
         ///      &lt;/div&gt;
         ///      &lt;div class=&quot;kaydir sag&quot;&gt;
         ///          &lt;div id=&quot;Detaylar&quot;&gt;
-        ///            &lt;h2&gt;?=? Müşter [rest of string was truncated]&quot;;.
+        ///            &lt;h2&gt;?=? Müşteri ?=?&lt;br [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SeriNoDetayları {
             get {

@@ -236,6 +236,23 @@ namespace İş_ve_Depo_Takip
             //ListeKutucuğu.Enabled = ListeKutucuğu.Items.Count > 0;            
         }
 
+        public static void BatDosyasıCalistir(string DosyaAdı)
+        {
+            if (!File.Exists(Klasör_KullanıcıDosyaları + DosyaAdı)) return;
+            
+            try
+            {
+                System.Diagnostics.ProcessStartInfo Detaylar = new System.Diagnostics.ProcessStartInfo("\"" + Klasör_KullanıcıDosyaları + DosyaAdı + "\"");
+                Detaylar.UseShellExecute = false;
+                Detaylar.CreateNoWindow = true;
+                System.Diagnostics.Process İşlem = new System.Diagnostics.Process();
+                İşlem.StartInfo = Detaylar;
+                İşlem.Start();
+                if (DosyaAdı.EndsWith("_Bekle.bat")) İşlem.WaitForExit();
+            }
+            catch (Exception) { }
+        }
+
         #region Yardımcı Sınıflar
         public class İşTakip_TeslimEdildi_İşSeç_Seç
         {
