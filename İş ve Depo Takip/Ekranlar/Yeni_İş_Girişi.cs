@@ -318,7 +318,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Hastalar_SeçimKutusu_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Hastalar_SeçimKutusu.SelectedIndex < 0) return;
+            if (Hastalar_SeçimKutusu.SelectedIndex < 0 || !Hastalar_Liste.Contains(Hastalar_SeçimKutusu.Text)) return;
 
             DialogResult Dr;
             string hasta = Hastalar_SeçimKutusu.Text;
