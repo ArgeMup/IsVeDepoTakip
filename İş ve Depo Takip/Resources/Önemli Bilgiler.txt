@@ -18,3 +18,7 @@ Yedek alma işlemi
     <Kök Klasör>\Kullanıcı Dosyaları\YedekOncesi_Bekle.bat
     <Kök Klasör>\Kullanıcı Dosyaları\YedekSonrasi.bat
     <Kök Klasör>\Kullanıcı Dosyaları\YedekSonrasi_Bekle.bat
+
+Yeni yazılım sürüm kontrolü
+    Uygulama çalıştırıldığında, sunucuda yeni bir sürüm varsa, ilgili dosya indirilir, bir sonraki çalıştırılmada devreye alınır. Bu işlevi kapatmak için alttaki dosya oluşturulabilir.
+     <Kök Klasör>\Kullanıcı Dosyaları\YeniSurumuKontrolEtme.txt

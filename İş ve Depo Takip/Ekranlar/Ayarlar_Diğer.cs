@@ -44,24 +44,35 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             DosyaEkleri_BoyutuMB.Value = Ayarlar_DosyaEkleri.Oku_TamSayı(null, 1000);
 
-            HttpSunucu_Etkin.Checked = Ayarlar_Bilgisayar.Oku_Bit("HttpSunucu/Etkin");
+            HttpSunucu_ErişimNoktası.Value = Ayarlar_Bilgisayar.Oku_TamSayı("Http Sunucu");
+            HttpSunucu_ErişimNoktası_ValueChanged(null, null);
+
+            Kaydet.Enabled = false;
+        }
+
+        private void HttpSunucu_ErişimNoktası_ValueChanged(object sender, EventArgs e)
+        {
             string bilgisayar_adı = System.Net.Dns.GetHostName();
             System.Net.IPHostEntry ev = System.Net.Dns.GetHostEntry(bilgisayar_adı.DoluMu() ? bilgisayar_adı : "");
-            if (ev != null && ev.AddressList != null)
+            if (ev != null && ev.AddressList != null && HttpSunucu_ErişimNoktası.Value > 0)
             {
-                bilgisayar_adı = "";
+                string ek = (HttpSunucu_ErişimNoktası.Value != 80 ? ":" + HttpSunucu_ErişimNoktası.Value : null) + "/A" + (DateTime.Now.Year - 2000).ToString() + "1";
+                bilgisayar_adı += ek;
                 foreach (var ip in ev.AddressList)
                 {
                     if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                     {
-                        bilgisayar_adı += Environment.NewLine + ip.ToString() + "/A" + (DateTime.Now.Year - 2000).ToString() + "1";
+                        bilgisayar_adı += Environment.NewLine + ip.ToString() + ek;
                     }
                 }
 
                 İpUcu_Genel.SetToolTip(HttpSunucu_Açıklama, bilgisayar_adı);
-            }
 
-            Kaydet.Enabled = false;
+                HttpSunucu_Açıklama.Text = "Tarayıcınızın adres çubuğuna <IP>" + (HttpSunucu_ErişimNoktası.Value != 80 ? ":" + HttpSunucu_ErişimNoktası.Value : null) + "/<SeriNo>\r\nyazarak işlere ait detayları görebilirsiniz.";
+            }
+            else HttpSunucu_Açıklama.Text = "Sunucu çalışmıyor";
+
+            Ayar_Değişti(null, null);
         }
 
         private void Ayar_Değişti(object sender, EventArgs e)
@@ -220,7 +231,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Ayarlar_DosyaEkleri.Yaz(null, (int)DosyaEkleri_BoyutuMB.Value);
 
-            Ayarlar_Bilgisayar.Yaz("HttpSunucu/Etkin", HttpSunucu_Etkin.Checked);
+            Ayarlar_Bilgisayar.Yaz("Http Sunucu", (int)HttpSunucu_ErişimNoktası.Value);
 
             Banka.Değişiklikleri_Kaydet(Kaydet);
 

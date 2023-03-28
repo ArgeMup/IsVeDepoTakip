@@ -32,9 +32,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Yeni_İş_Girişi));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Notlar = new System.Windows.Forms.TextBox();
             this.Tablo = new System.Windows.Forms.DataGridView();
             this.Tablo_İş_Türü = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -110,6 +110,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Notlar.TabIndex = 5;
             this.İpUcu_Ücretlendirme.SetToolTip(this.Notlar, resources.GetString("Notlar.ToolTip"));
             this.Notlar.TextChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.Notlar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Notlar_KeyDown);
             // 
             // Tablo
             // 
@@ -121,14 +122,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.Tablo.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.Tablo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Tablo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Tablo_İş_Türü,
@@ -168,8 +169,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // Tablo_Ücret
             // 
             this.Tablo_Ücret.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Ücret.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Ücret.DefaultCellStyle = dataGridViewCellStyle2;
             this.Tablo_Ücret.FillWeight = 30F;
             this.Tablo_Ücret.HeaderText = "Ücret ₺";
             this.Tablo_Ücret.MinimumWidth = 6;
@@ -179,8 +180,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // Tablo_Giriş_Tarihi
             // 
             this.Tablo_Giriş_Tarihi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Giriş_Tarihi.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Giriş_Tarihi.DefaultCellStyle = dataGridViewCellStyle3;
             this.Tablo_Giriş_Tarihi.HeaderText = "Kabul Tarihi";
             this.Tablo_Giriş_Tarihi.MinimumWidth = 6;
             this.Tablo_Giriş_Tarihi.Name = "Tablo_Giriş_Tarihi";

@@ -10,7 +10,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
     {
         string Müşteri  = null, SeriNo = null, EkTanım = null; 
         Banka.TabloTürü SeriNoTürü = Banka.TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi;
-        bool SadeceOkunabilir = false;
+        bool SadeceOkunabilir = false, Notlar_TarihSaatEklendi = false;
         List<string> Müşteriler_Liste = null, Hastalar_Liste = new List<string>(), İşTürleri_Liste = null;
         WebBrowser P_DosyaEkleri_Tarayıcı = null;
 
@@ -157,12 +157,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 P_DosyaEkleri_Liste.Items.AddRange(Banka.DosyaEkleri_Listele(SeriNo).ToArray());
                 P_DosyaEkleri_TuşunuGüncelle();
-            }
-
-            if (!Notlar.ReadOnly)
-            {
-                if (Notlar.Text.DoluMu(true)) Notlar.Text += Environment.NewLine;
-                Notlar.Text += DateTime.Now.ToString("dd MMM ddd");
             }
 
             //Panelin görüntilenebilmesi için eklentiler
@@ -460,6 +454,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Tablo[e.ColumnIndex, e.RowIndex].Value = Banka.Yazdır_Tarih(t.Yazıya());
                 Tablo[e.ColumnIndex, e.RowIndex].Tag = t;
             }
+        }
+
+        private void Notlar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Notlar_TarihSaatEklendi) return;
+            Notlar_TarihSaatEklendi = true;
+
+            if (Notlar.Text.DoluMu(true)) Notlar.Text += Environment.NewLine;
+            Notlar.Text += DateTime.Now.ToString("dd MMM ddd") + " ";
+            Notlar.Select(Notlar.Text.Length, 0);
         }
 
         #region Dosya Ekleri

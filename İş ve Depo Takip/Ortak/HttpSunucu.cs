@@ -13,7 +13,10 @@ namespace İş_ve_Depo_Takip
 
         public static void Başlat()
         {
-            if (Sunucu != null || !Banka.Ayarlar_BilgisayarVeKullanıcı("HttpSunucu", true).Oku_Bit("Etkin")) return;
+            if (Sunucu != null) return;
+
+            IDepo_Eleman snc = Banka.Ayarlar_BilgisayarVeKullanıcı("Http Sunucu");
+            if (snc == null || snc.Oku_TamSayı(null) <= 0) return;
 
             //Sayfadaki görsellerin oluşturulması
             using (MemoryStream ms = new MemoryStream())
@@ -23,7 +26,7 @@ namespace İş_ve_Depo_Takip
             }
             Ortak.Yazdırma_Logo.Save(Ortak.Klasör_Gecici + "DoEk\\LOGO.bmp");
 
-            Sunucu = new TcpSunucu_(80, GeriBildirim_Islemi, SatırSatırGönderVeAl:false, SadeceYerel: false, Sessizlik_ZamanAşımı_msn:15000);
+            Sunucu = new TcpSunucu_(snc.Oku_TamSayı(null), GeriBildirim_Islemi, SatırSatırGönderVeAl:false, SadeceYerel: false, Sessizlik_ZamanAşımı_msn:15000);
             Sunucu_DoHa = Sunucu;
         }
         public static void Bitir()
@@ -104,8 +107,8 @@ namespace İş_ve_Depo_Takip
                         foreach (IDepo_Eleman it in Detaylar.SeriNoDalı.Elemanları)
                         {
                             //<tr><td>31.12.2023</td><td>Levente iskelet üretimi</td></tr>
-                            Banka.Talep_Ayıkla_İşTürüDalı(it, out string İşTürü, out string GirişTarihi, out _, out _, out _);
-                            İşler += "<tr><td>" + Banka.Yazdır_Tarih(GirişTarihi) + "</td><td>" + İşTürü + "</td></tr>";
+                            Banka.Talep_Ayıkla_İşTürüDalı(it, out string İşTürü, out string GirişTarihi, out string ÇıkışTarihi, out _, out _);
+                            İşler += "<tr><td>" + Banka.Yazdır_Tarih(GirişTarihi) + "</td><td>" + Banka.Yazdır_Tarih(ÇıkışTarihi) + "</td><td>" + İşTürü + "</td></tr>";
                         }
 
                         string dosya_eki_resim = "", dosya_eki_diğer = "";
