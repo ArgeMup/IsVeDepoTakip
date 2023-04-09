@@ -318,6 +318,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 case "Malzemeler":      ÖndekiEkran = new Malzemeler(); break;
                 case "Yazdırma":        ÖndekiEkran = new Yazdırma(); break;
                 case "E-posta":         ÖndekiEkran = new Ayarlar_Eposta(); break;
+                case "Etiketleme":      ÖndekiEkran = new Etiketleme(); break;
                 case "Diğer":           ÖndekiEkran = new Ayarlar_Diğer(); break;
                 case "Korumalı Alan":   ÖndekiEkran = new KorumalıAlan(); break;
             }

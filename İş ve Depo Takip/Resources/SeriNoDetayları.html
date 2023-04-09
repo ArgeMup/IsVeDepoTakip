@@ -7,48 +7,45 @@
     <link rel="icon" type="image/x-icon" href="DoEk/Uygulama.ico">
   </head>
   <body>
-    <div class="ust">
-      <div class="kaydir sol">
-        <img src="DoEk/LOGO.bmp" alt="LOGO" width="90%" onclick="Degistir()">
-      </div>
-      <div class="kaydir sag">
-          <div id="Detaylar">
-            <h2>?=? Müşteri ?=?<br>?=? Hasta ?=?<br>?=? Seri No ?=?</h2>
+      <div class="ust">
+          <div class="kaydir sol">
+              <img src="DoEk/LOGO.bmp" alt="LOGO" width="90%" onclick="Degistir()">
           </div>
-          <div id="YeniSorgu" hidden>
-            <label for="YeniSeriNo"> <h2>Yeni Seri No</h2> </label>
-            <input type="text" id="YeniSeriNo">
-            <button onclick="location.href=window.location.origin + '/' + document.getElementById('YeniSeriNo').value" type="button">Sorgula</button>
+          <div class="kaydir sag">
+              <div id="Detaylar">
+                  <h2>?=? Müşteri ?=?<br>?=? Hasta ?=?<br>?=? Seri No ?=?</h2>
+              </div>
+              <div id="YeniSorgu" hidden>
+                  <label for="YeniSeriNo"> <h2>Yeni Seri No</h2> </label>
+                  <input type="text" id="YeniSeriNo">
+                  <button onclick="location.href=window.location.origin + '/' + document.getElementById('YeniSeriNo').value" type="button">Sorgula</button>
+              </div>
           </div>
       </div>
-    </div>
-    <br>
-    <table>
-      <tr>
-        <th>Kabul Tarihi</th>
-        <th>Çıkış Tarihi</th>
-        <th>İş</th>
-      </tr>
-      <!--?=? Tablo İş Giriş Tarihi Ve İş ?=?-->
-      <!-- <tr>
-        <td>31.12.2023</td>
-        <td>02.01.2024</td>
-        <td>iskelet üretimi</td>
-      </tr>-->
-    </table>
-    <br>
-    <table>
-      <tr>
-        <th>Notlar</th>
-      </tr>
-      <tr>
-        <td>?=? Notlar ?=?</td>
-      </tr>
-    </table>
-    <br>
-    <!--?=? Dosya Ekleri ?=?-->
-    <!--<a href="DoEk/a.pdf" target="_blank">DosyaAdı</a><br>-->
-    <!--<img src="DoEk/1.jpg" alt="1" width="32%" onclick="Buyut(this)">-->
+      <br>
+      <table>
+          <tr>
+              <th>Kabul Tarihi</th>
+              <th>Çıkış Tarihi</th>
+              <th>İş</th>
+          </tr>
+          <!--?=? Tablo İş Giriş Tarihi Ve İş ?=?-->
+          <!-- <tr>
+          <td>31.12.2023</td>
+          <td>02.01.2024</td>
+          <td>iskelet üretimi</td>
+        </tr>-->
+      </table>
+      <!--?=? Notlar ?=?-->
+        <!--<br><table><tr><th>Notlar</th></tr>
+            <tr><td>İçerik</td></tr></table>-->
+      <!--?=? Müşteri Notları ?=?-->
+        <!--<br><table><tr><th>Müşteri Notları</th></tr>
+            <tr><td>İçerik</td></tr></table>-->
+      <br>
+      <!--?=? Dosya Ekleri ?=?-->
+      <!--<a href="DoEk/a.pdf" target="_blank">DosyaAdı</a><br>-->
+      <!--<img src="DoEk/1.jpg" alt="1" width="32%" onclick="Buyut(this)">-->
   </body>
 </html>
 

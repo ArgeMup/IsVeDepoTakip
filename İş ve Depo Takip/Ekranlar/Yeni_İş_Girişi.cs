@@ -8,7 +8,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 {
     public partial class Yeni_İş_Girişi : Form
     {
-        string Müşteri  = null, SeriNo = null, EkTanım = null; 
+        string Müşteri  = null, SeriNo = null, YeniKayıtİçinTutulanSeriNo = null, EkTanım = null; 
         Banka.TabloTürü SeriNoTürü = Banka.TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi;
         bool SadeceOkunabilir = false, Notlar_TarihSaatEklendi = false;
         List<string> Müşteriler_Liste = null, Hastalar_Liste = new List<string>(), İşTürleri_Liste = null;
@@ -63,9 +63,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Tablo_Giriş_Tarihi.Visible = false;
                 Tablo_Çıkış_Tarihi.Visible = false;
 
-                SeriNoGörseli.Text = Banka.SeriNo_Üret(false);
-                SeriNoGörseli.Visible = true;
-                Text += " - " + SeriNoGörseli.Text + " - YENİ";
+                YeniKayıtİçinTutulanSeriNo = Banka.SeriNo_Üret(false);
+                Text += " - " + YeniKayıtİçinTutulanSeriNo + " - YENİ";
             }
             else
             {
@@ -169,7 +168,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             Tablo.Rows[Tablo.RowCount - 1].Selected = true;
 
-            Kaydet.Enabled = false;
+            Kaydet_TuşGörünürlüğü(false);
 
             Müşteriler_AramaÇubuğu.Focus();
         }
@@ -221,10 +220,33 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 void _Ekle_(string Girdi)
                 {
+                    if (System.IO.Path.GetExtension(Girdi) == ".zip")
+                    {
+                        string soru = "Zip dosyasının kendisini değil içindeki dosyaları dahil etmek ister misiniz?" + Environment.NewLine + Environment.NewLine +
+                            "Evet : Zip dosyası bir klasöre geçici olarak çıkartılır ve dosyalar dahil edilir." + Environment.NewLine +
+                            "Hayır : Zip dosyası olduğu gibi dahil edilir." + Environment.NewLine +
+                            "İptal : Zip dosyası görmezden gelinir";
+
+                        DialogResult Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
+                        if (Dr == DialogResult.Cancel) return;
+                        else if (Dr == DialogResult.Yes)
+                        {
+                            string gecici_kls = Ortak.Klasör_Gecici + System.IO.Path.GetRandomFileName();
+                            while (System.IO.Directory.Exists(gecici_kls)) gecici_kls = Ortak.Klasör_Gecici + System.IO.Path.GetRandomFileName();
+                            SıkıştırılmışDosya.Klasöre(Girdi, gecici_kls);
+
+                            foreach (string dsy in System.IO.Directory.GetFiles(gecici_kls, "*.*", System.IO.SearchOption.AllDirectories))
+                            {
+                                _Ekle_(dsy);
+                            }
+                            return;
+                        }
+                    }
+
                     if (!P_DosyaEkleri_Liste.Items.Contains(Girdi))
                     {
                         P_DosyaEkleri_Liste.Items.Add(Girdi);
-                        Kaydet.Enabled = true;
+                        Kaydet_TuşGörünürlüğü(true);
                     }
                 }
             }
@@ -351,7 +373,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
 
-            Kaydet.Enabled = false;
+            Kaydet_TuşGörünürlüğü(false);
             Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", Müşteriler_SeçimKutusu.Text, sn, SeriNoTürü, null };
             Close();
         }
@@ -525,7 +547,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             P_DosyaEkleri_Liste.Items.RemoveAt(P_DosyaEkleri_Liste.SelectedIndex);
             P_DosyaEkleri_TuşunuGüncelle();
 
-            Kaydet.Enabled = true;
+            Kaydet_TuşGörünürlüğü(true);
         }
         void P_DosyaEkleri_TuşunuGüncelle()
         {
@@ -538,7 +560,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             if (SadeceOkunabilir) return;
 
-            Kaydet.Enabled = true;
+            Kaydet_TuşGörünürlüğü(true);
         }
 
         private void Seçili_Satırı_Sil_Click(object sender, EventArgs e)
@@ -567,18 +589,60 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Kaydet_Click(object sender, EventArgs e)
         {
+            if (!_Kaydet_()) return;
+
+            Kaydet_TuşGörünürlüğü(false);
+            Close();
+        }
+        private void KaydetVeEtiketiYazdır_Click(object sender, EventArgs e)
+        {
+            bool İşKaydıYapıldı = false;
+            if (Kaydet.Enabled)
+            {
+                if (!_Kaydet_()) return;
+                else Kaydet_TuşGörünürlüğü(false);
+
+                İşKaydıYapıldı = true;
+            }
+
+            string sonuç = Etiketleme.YeniİşGirişi_Etiket_Üret(Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, SeriNo ?? YeniKayıtİçinTutulanSeriNo, Banka.Yazdır_Tarih((string)Tablo[2, Tablo.RowCount - 2].Value), (string)Tablo[0, Tablo.RowCount - 2].Value, false);
+            if (sonuç.DoluMu()) MessageBox.Show((İşKaydıYapıldı ? "İş kaydı yapıldı fakat y" : "Y") + "azdırma aşamasında bir sorun ile karşılaşıldı" + Environment.NewLine + Environment.NewLine + sonuç, Text);
+
+            Close();
+        }
+        void Kaydet_TuşGörünürlüğü(bool Görünsün)
+        {
+            Kaydet.Enabled = Görünsün;
+
+            if (Görünsün)
+            {
+                KaydetVeEtiketiYazdır.Enabled = true;
+                KaydetVeEtiketiYazdır.Text = "Kaydet ve Etiketi Yazdır";
+            }
+            else
+            {
+                if (SeriNo == null) KaydetVeEtiketiYazdır.Enabled = false;
+                else
+                {
+                    KaydetVeEtiketiYazdır.Enabled = true;
+                    KaydetVeEtiketiYazdır.Text = "Etiket Yazdır ve Kapat";
+                }
+            }
+        }
+        bool _Kaydet_()
+        {
             if (!Banka.Müşteri_MevcutMu(Müşteriler_SeçimKutusu.Text))
             {
                 MessageBox.Show("Geçerli bir müşteri seçiniz", Text);
                 Müşteriler_SeçimKutusu.Focus();
-                return;
+                return false;
             }
 
             if (string.IsNullOrWhiteSpace(Hastalar_AramaÇubuğu.Text))
             {
                 MessageBox.Show("Hasta kutucuğu boş olmamalıdır" + Environment.NewLine + "örneğin hasta adı veya iş talep numarası yazılabilir", Text);
                 Hastalar_AramaÇubuğu.Focus();
-                return;
+                return false;
             }
             Hastalar_AramaÇubuğu.Text = Hastalar_AramaÇubuğu.Text.Trim();
 
@@ -588,13 +652,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if (!Ortak.YazıyıSayıyaDönüştür(ref gecici, "İskonto kutucuğu", null, 0, 100))
                 {
                     İskonto.Focus();
-                    return;
+                    return false;
                 }
 
                 if (gecici == "0") İskonto.Text = null;
                 else İskonto.Text = gecici;
             }
-            
+
             DateTime t = DateTime.Now;
             List<string> it_leri = new List<string>();
             List<string> ücret_ler = new List<string>();
@@ -608,16 +672,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     if (!Banka.İşTürü_MevcutMu((string)Tablo[0, i].Value))
                     {
                         MessageBox.Show("Tablodaki " + (i + 1) + ". satırdaki \"İş Türü\" uygun değil", Text);
-                        return;
+                        return false;
                     }
 
                     //Ücret kontrolü
                     if (!string.IsNullOrWhiteSpace((string)Tablo[1, i].Value))
                     {
                         string gecici = (string)Tablo[1, i].Value;
-                        if (!Ortak.YazıyıSayıyaDönüştür(ref gecici, 
+                        if (!Ortak.YazıyıSayıyaDönüştür(ref gecici,
                             "Tablodaki ücret sutununun " + (i + 1).ToString() + ". satırı",
-                            "İçeriği 0, boş veya sıfırdan büyük olabilir", 0)) return;
+                            "İçeriği 0, boş veya sıfırdan büyük olabilir", 0)) return false;
 
                         Tablo[1, i].Value = gecici;
                     }
@@ -641,7 +705,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (it_leri.Count == 0)
             {
                 MessageBox.Show("Tabloda hiç geçerli girdi bulunamadı", Text);
-                return;
+                return false;
             }
 
             //Dosya eklerinin kaydedilmesi
@@ -657,9 +721,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Banka.Talep_Ekle(Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, İskonto.Text, Notlar.Text.Trim(), it_leri, ücret_ler, giriş_tarih_ler, çıkış_tarih_ler, P_DosyaEkleri_TamListe, SeriNo);
             Banka.Ayarlar_Kullanıcı(Name, "Hastalar_AdVeSoyadıDüzelt").Yaz(null, Hastalar_AdVeSoyadıDüzelt.Checked);
             Banka.Değişiklikleri_Kaydet(Kaydet);
-
-            Kaydet.Enabled = false;
-            Close();
+            return true;
         }
     }
 }

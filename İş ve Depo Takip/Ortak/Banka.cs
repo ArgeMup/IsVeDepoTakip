@@ -37,6 +37,7 @@ namespace İş_ve_Depo_Takip
             Klasör.Oluştur(Ortak.Klasör_Banka);
             Klasör.Oluştur(Ortak.Klasör_İçYedek);
             Klasör.Oluştur(Ortak.Klasör_KullanıcıDosyaları);
+            Klasör.Oluştur(Ortak.Klasör_KullanıcıDosyaları_Etiketleme);
             Klasör.Oluştur(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri);
             Klasör.Oluştur(Ortak.Klasör_KullanıcıDosyaları_KorumalıAlan);
             Klasör.Oluştur(Ortak.Klasör_KullanıcıDosyaları_ArkaPlanResimleri);

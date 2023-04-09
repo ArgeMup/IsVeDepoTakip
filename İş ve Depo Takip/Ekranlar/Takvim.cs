@@ -62,6 +62,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Ortak.YeniSayfaAçmaTalebi = new string[] { "Tüm İşler", "Arama" };
                     Close();
                     break;
+
+                case Keys.F4:
+                    TabloİçeriğiArama.SelectAll();
+                    TabloİçeriğiArama.Focus();
+                    break;
             }
         }
         private void Hatırlatıcılar_Filtrele_CheckedChanged(object sender, EventArgs e)

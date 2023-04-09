@@ -97,7 +97,7 @@ namespace İş_ve_Depo_Takip
                 {
                     Sayfa_İçeriği[0] = Sayfa_İçeriği[0].ToUpper();
                     Banka.Talep_Bul_Detaylar_ Detaylar = Banka.Talep_Bul(Sayfa_İçeriği[0]);
-                    string Hasta = "Bulunamadı", Notlar = null, İşler = null, DosyaEkleri = null;
+                    string Hasta = "Bulunamadı", Notlar = null, MüşteriNotları = null, İşler = null, DosyaEkleri = null;
                     if (Detaylar != null)
                     {
                         Banka.Talep_Ayıkla_SeriNoDalı(Detaylar.SeriNoDalı, out _, out Hasta, out _, out Notlar, out _);
@@ -130,6 +130,9 @@ namespace İş_ve_Depo_Takip
                             }
                         }
                         DosyaEkleri = dosya_eki_diğer + "<br>" + dosya_eki_resim;
+
+                        IDepo_Eleman Müşteri_Notlar = Banka.Ayarlar_Müşteri(Detaylar.Müşteri, "Notlar");
+                        if (Müşteri_Notlar != null) { if (Müşteri_Notlar[0].DoluMu()) MüşteriNotları = Müşteri_Notlar[0].Replace("\n", "<br>"); }
                     }
 
                     string SayfaCevabı = Properties.Resources.SeriNoDetayları;
@@ -138,8 +141,9 @@ namespace İş_ve_Depo_Takip
                     SayfaCevabı = SayfaCevabı.Replace("?=? Hasta ?=?", Hasta);
                     SayfaCevabı = SayfaCevabı.Replace("?=? Seri No ?=?", Sayfa_İçeriği[0]);
                     SayfaCevabı = SayfaCevabı.Replace("<!--?=? Tablo İş Giriş Tarihi Ve İş ?=?-->", İşler);
-                    SayfaCevabı = SayfaCevabı.Replace("?=? Notlar ?=?", Notlar);
                     SayfaCevabı = SayfaCevabı.Replace("<!--?=? Dosya Ekleri ?=?-->", DosyaEkleri);
+                    if (Notlar.DoluMu(true)) SayfaCevabı = SayfaCevabı.Replace("<!--?=? Notlar ?=?-->", "<br><table><tr><th>Notlar</th></tr><tr><td>" + Notlar + "</td></tr></table>");
+                    if (MüşteriNotları.DoluMu(true)) SayfaCevabı = SayfaCevabı.Replace("<!--?=? Müşteri Notları ?=?-->", "<br><table><tr><th>Müşteri Notları</th></tr><tr><td>" + MüşteriNotları + "</td></tr></table>");
 
                     Gönderilecek_İçerik = SayfaCevabı.BaytDizisine();
                     Gönderilecek_Sayfa = (
@@ -192,5 +196,27 @@ namespace İş_ve_Depo_Takip
         //
         //içerik
         #endregion
+    }
+
+    public static class AğAraçları
+    {
+        static string Yerel_ip_ = null;
+        public static string Yerel_ip
+        {
+            get 
+            {
+                if (Yerel_ip_ == null)
+                {
+                    using (System.Net.Sockets.Socket soket = new System.Net.Sockets.Socket(System.Net.Sockets.AddressFamily.InterNetwork, System.Net.Sockets.SocketType.Dgram, 0))
+                    {
+                        soket.Connect("8.8.8.8", 65530);
+                        System.Net.IPEndPoint uçnokta = soket.LocalEndPoint as System.Net.IPEndPoint;
+                        Yerel_ip_ = uçnokta.Address.ToString();
+                    }
+                }
+
+                return Yerel_ip_;
+            }
+        }
     }
 }

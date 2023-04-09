@@ -32,9 +32,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Yeni_İş_Girişi));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Notlar = new System.Windows.Forms.TextBox();
             this.Tablo = new System.Windows.Forms.DataGridView();
             this.Tablo_İş_Türü = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -67,9 +67,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.P_DosyaEkleri_Geri = new System.Windows.Forms.Button();
             this.DosyaEkleri = new System.Windows.Forms.Button();
             this.Ayraç_Kat_2_3 = new System.Windows.Forms.SplitContainer();
-            this.SeriNoGörseli = new System.Windows.Forms.Label();
             this.Ayraç_Kat_1_2 = new System.Windows.Forms.SplitContainer();
             this.İpUcu_Genel = new System.Windows.Forms.ToolTip(this.components);
+            this.KaydetVeEtiketiYazdır = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             this.Müşteriler_Grup.SuspendLayout();
             this.Hastalar_Grup.SuspendLayout();
@@ -122,14 +122,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.Tablo.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.Tablo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Tablo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Tablo_İş_Türü,
@@ -169,8 +169,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // Tablo_Ücret
             // 
             this.Tablo_Ücret.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Ücret.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Ücret.DefaultCellStyle = dataGridViewCellStyle5;
             this.Tablo_Ücret.FillWeight = 30F;
             this.Tablo_Ücret.HeaderText = "Ücret ₺";
             this.Tablo_Ücret.MinimumWidth = 6;
@@ -180,8 +180,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // Tablo_Giriş_Tarihi
             // 
             this.Tablo_Giriş_Tarihi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Giriş_Tarihi.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Giriş_Tarihi.DefaultCellStyle = dataGridViewCellStyle6;
             this.Tablo_Giriş_Tarihi.HeaderText = "Kabul Tarihi";
             this.Tablo_Giriş_Tarihi.MinimumWidth = 6;
             this.Tablo_Giriş_Tarihi.Name = "Tablo_Giriş_Tarihi";
@@ -203,11 +203,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Kaydet.Enabled = false;
             this.Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Kaydet.Location = new System.Drawing.Point(429, 214);
+            this.Kaydet.Location = new System.Drawing.Point(499, 214);
             this.Kaydet.Margin = new System.Windows.Forms.Padding(2);
             this.Kaydet.Name = "Kaydet";
             this.Kaydet.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.Kaydet.Size = new System.Drawing.Size(190, 29);
+            this.Kaydet.Size = new System.Drawing.Size(120, 29);
             this.Kaydet.TabIndex = 11;
             this.Kaydet.Text = "Kaydet";
             this.Kaydet.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -452,8 +452,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             // Ayraç_Kat_3_SolSağ.Panel2
             // 
+            this.Ayraç_Kat_3_SolSağ.Panel2.Controls.Add(this.KaydetVeEtiketiYazdır);
             this.Ayraç_Kat_3_SolSağ.Panel2.Controls.Add(this.P_DosyaEkleri);
-            this.Ayraç_Kat_3_SolSağ.Panel2.Controls.Add(this.DosyaEkleri);
             this.Ayraç_Kat_3_SolSağ.Panel2.Controls.Add(this.Tablo);
             this.Ayraç_Kat_3_SolSağ.Panel2.Controls.Add(this.Kaydet);
             this.Ayraç_Kat_3_SolSağ.Panel2.Controls.Add(this.Seçili_Satırı_Sil);
@@ -532,11 +532,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             // DosyaEkleri
             // 
-            this.DosyaEkleri.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.DosyaEkleri.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.DosyaEkleri.Enabled = false;
             this.DosyaEkleri.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
             this.DosyaEkleri.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.DosyaEkleri.Location = new System.Drawing.Point(217, 214);
+            this.DosyaEkleri.Location = new System.Drawing.Point(356, 3);
             this.DosyaEkleri.Margin = new System.Windows.Forms.Padding(2);
             this.DosyaEkleri.Name = "DosyaEkleri";
             this.DosyaEkleri.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -544,6 +544,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.DosyaEkleri.TabIndex = 12;
             this.DosyaEkleri.Text = "Dosya Ekleri (0)";
             this.DosyaEkleri.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.İpUcu_Genel.SetToolTip(this.DosyaEkleri, "Bu sayfa üzerine sürükleyerek dosya eki oluşturabilirsiniz.");
             this.DosyaEkleri.UseVisualStyleBackColor = true;
             this.DosyaEkleri.Click += new System.EventHandler(this.DosyaEkleri_Click);
             // 
@@ -556,8 +557,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             // Ayraç_Kat_2_3.Panel1
             // 
-            this.Ayraç_Kat_2_3.Panel1.Controls.Add(this.SeriNoGörseli);
             this.Ayraç_Kat_2_3.Panel1.Controls.Add(this.Notlar);
+            this.Ayraç_Kat_2_3.Panel1.Controls.Add(this.DosyaEkleri);
             this.Ayraç_Kat_2_3.Panel1.Controls.Add(this.label7);
             this.Ayraç_Kat_2_3.Panel1.Controls.Add(this.İskonto);
             this.Ayraç_Kat_2_3.Panel1.Controls.Add(this.label6);
@@ -568,19 +569,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Kat_2_3.Size = new System.Drawing.Size(907, 328);
             this.Ayraç_Kat_2_3.SplitterDistance = 77;
             this.Ayraç_Kat_2_3.TabIndex = 25;
-            // 
-            // SeriNoGörseli
-            // 
-            this.SeriNoGörseli.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.SeriNoGörseli.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.SeriNoGörseli.Location = new System.Drawing.Point(387, 5);
-            this.SeriNoGörseli.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.SeriNoGörseli.Name = "SeriNoGörseli";
-            this.SeriNoGörseli.Size = new System.Drawing.Size(129, 24);
-            this.SeriNoGörseli.TabIndex = 21;
-            this.SeriNoGörseli.Text = "A889999";
-            this.SeriNoGörseli.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.SeriNoGörseli.Visible = false;
             // 
             // Ayraç_Kat_1_2
             // 
@@ -611,6 +599,23 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İpUcu_Genel.ToolTipTitle = "Yeni İş Girişi / Düzenleme";
             this.İpUcu_Genel.UseAnimation = false;
             this.İpUcu_Genel.UseFading = false;
+            // 
+            // KaydetVeEtiketiYazdır
+            // 
+            this.KaydetVeEtiketiYazdır.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.KaydetVeEtiketiYazdır.Enabled = false;
+            this.KaydetVeEtiketiYazdır.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
+            this.KaydetVeEtiketiYazdır.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.KaydetVeEtiketiYazdır.Location = new System.Drawing.Point(257, 214);
+            this.KaydetVeEtiketiYazdır.Margin = new System.Windows.Forms.Padding(2);
+            this.KaydetVeEtiketiYazdır.Name = "KaydetVeEtiketiYazdır";
+            this.KaydetVeEtiketiYazdır.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.KaydetVeEtiketiYazdır.Size = new System.Drawing.Size(238, 29);
+            this.KaydetVeEtiketiYazdır.TabIndex = 14;
+            this.KaydetVeEtiketiYazdır.Text = "Kaydet ve Etiketi Yazdır";
+            this.KaydetVeEtiketiYazdır.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.KaydetVeEtiketiYazdır.UseVisualStyleBackColor = true;
+            this.KaydetVeEtiketiYazdır.Click += new System.EventHandler(this.KaydetVeEtiketiYazdır_Click);
             // 
             // Yeni_İş_Girişi
             // 
@@ -697,6 +702,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private System.Windows.Forms.ListBox P_DosyaEkleri_Liste;
         private System.Windows.Forms.Button P_DosyaEkleri_Geri;
         private System.Windows.Forms.Button P_DosyaEkleri_Sil;
-        private System.Windows.Forms.Label SeriNoGörseli;
+        private System.Windows.Forms.Button KaydetVeEtiketiYazdır;
     }
 }

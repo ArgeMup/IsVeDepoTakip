@@ -54,6 +54,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.P_Ayarlar = new System.Windows.Forms.Panel();
+            this.Etiketleme = new System.Windows.Forms.Button();
             this.Malzemeler = new System.Windows.Forms.Button();
             this.Bütçe = new System.Windows.Forms.Button();
             this.ParolayıDeğiştir = new System.Windows.Forms.Button();
@@ -377,6 +378,7 @@
             // 
             this.P_Ayarlar.BackgroundImage = global::İş_ve_Depo_Takip.Properties.Resources.logo_512_seffaf;
             this.P_Ayarlar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.P_Ayarlar.Controls.Add(this.Etiketleme);
             this.P_Ayarlar.Controls.Add(this.Malzemeler);
             this.P_Ayarlar.Controls.Add(this.Bütçe);
             this.P_Ayarlar.Controls.Add(this.ParolayıDeğiştir);
@@ -393,6 +395,18 @@
             this.P_Ayarlar.TabIndex = 12;
             this.P_Ayarlar.Visible = false;
             this.P_Ayarlar.VisibleChanged += new System.EventHandler(this.P_AnaMenü_VisibleChanged);
+            // 
+            // Etiketleme
+            // 
+            this.Etiketleme.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Etiketleme.Location = new System.Drawing.Point(191, 87);
+            this.Etiketleme.Margin = new System.Windows.Forms.Padding(6);
+            this.Etiketleme.Name = "Etiketleme";
+            this.Etiketleme.Size = new System.Drawing.Size(169, 68);
+            this.Etiketleme.TabIndex = 10;
+            this.Etiketleme.Text = "Etiketleme";
+            this.Etiketleme.UseVisualStyleBackColor = true;
+            this.Etiketleme.Click += new System.EventHandler(this.Tuş_Click);
             // 
             // Malzemeler
             // 
@@ -572,6 +586,7 @@
         private System.Windows.Forms.Button Takvim;
         private System.Windows.Forms.Button KorumalıAlan;
         private System.Windows.Forms.ToolTip İpUcu;
+        private System.Windows.Forms.Button Etiketleme;
     }
 }
 
