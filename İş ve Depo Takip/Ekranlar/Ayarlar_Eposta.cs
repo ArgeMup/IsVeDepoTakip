@@ -73,6 +73,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Yazdırma y = new Yazdırma();
             y.Yazdır_Depo(d, dosyayolu);
+            y.Dispose();
 
             d.Yaz("Eposta/Kime", Gönderici_Adres.Text);
             string snç = EpostaGönder(d, new string[] { dosyayolu });

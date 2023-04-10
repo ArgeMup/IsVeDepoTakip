@@ -93,7 +93,6 @@
             // 
             this.Tablo.AllowUserToAddRows = false;
             this.Tablo.AllowUserToDeleteRows = false;
-            this.Tablo.AllowUserToResizeRows = false;
             this.Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -153,7 +152,6 @@
             // 
             // Tablo_Hasta
             // 
-            this.Tablo_Hasta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.Tablo_Hasta.DefaultCellStyle = dataGridViewCellStyle3;
             this.Tablo_Hasta.HeaderText = "Hasta";
@@ -186,7 +184,6 @@
             // 
             // Tablo_İş
             // 
-            this.Tablo_İş.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.Tablo_İş.DefaultCellStyle = dataGridViewCellStyle6;
@@ -198,7 +195,6 @@
             // 
             // Tablo_Gerçekleşme_Tarihi
             // 
-            this.Tablo_Gerçekleşme_Tarihi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle7.NullValue = null;
             this.Tablo_Gerçekleşme_Tarihi.DefaultCellStyle = dataGridViewCellStyle7;
@@ -210,7 +206,6 @@
             // 
             // Tablo_Notlar
             // 
-            this.Tablo_Notlar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.Tablo_Notlar.DefaultCellStyle = dataGridViewCellStyle8;
             this.Tablo_Notlar.HeaderText = "Notlar";
@@ -446,6 +441,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(978, 331);
             this.Controls.Add(this.splitContainer1);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Takvim";

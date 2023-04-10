@@ -55,6 +55,7 @@ namespace İş_ve_Depo_Takip
 
                 Ekranlar.Ayarlar_Eposta epst = new Ekranlar.Ayarlar_Eposta();
                 epst.EpostaGönder_İstisna(ex);
+                epst.Dispose();
             }
             finally
             {

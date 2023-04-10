@@ -17,6 +17,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             InitializeComponent();
             Ortak.YeniSayfaAçmaTalebi = null;
 
+            //görsel çiziminin iyileşmsi için
+            typeof(Control).InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty, null, Tablo, new object[] { DoubleBuffered });
+
             Gecici_Ayarlar = Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
             Hatırlatıcılar_Filtrele_Yaklaşanlar.Checked = Gecici_Ayarlar.Oku_Bit("Hatırlatıcılar_Filtrele", true, 0);
             Hatırlatıcılar_Filtrele_Gecikenler.Checked = Gecici_Ayarlar.Oku_Bit("Hatırlatıcılar_Filtrele", true, 1);
@@ -88,7 +91,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             IDepo_Eleman DosyaEkleri = Banka.Tablo_Dal(null, Banka.TabloTürü.DosyaEkleri, "Dosya Ekleri", true);
-            int satır = 0, sayac_Yaklaşanlar = 0, sayac_Gecikenler = 0, sayac_SeriNoluİş = 0, sayac_ÖdemeTalebi = 0, sayac_KullanıcıNotu = 0;
+            int sayac_Yaklaşanlar = 0, sayac_Gecikenler = 0, sayac_SeriNoluİş = 0, sayac_ÖdemeTalebi = 0, sayac_KullanıcıNotu = 0;
+            System.Collections.Generic.List<DataGridViewRow> dizi = new System.Collections.Generic.List<DataGridViewRow>();
             foreach (Ortak.Hatırlatıcılar.Hatırlatıcı_ h in Ortak.Hatırlatıcılar.Tümü)
             {
                 if (!Ortak.Gösterge.Çalışsın) break;
@@ -121,6 +125,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         break;
                 }
 
+                object[] dizin = null;
                 string UyarıTarihi_yazı = h.UyarıTarihi.ToString("dd MMM ddd" + (Gecikmeleri_gün_bazında_hesapla ? null : " hh:mm" ) );
                 switch (h.Tip)
                 {
@@ -143,8 +148,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                                 Notlar += "Dosya ekleri : " + DosyaEkiSayısı;
                             }
                         }
-                        
-                        satır = Tablo.Rows.Add(new object[] { h.İçerik, h.Müşteri, Hasta, İşGirişTarihleri, İşÇıkışTarihleri, İşler, UyarıTarihi_yazı, Notlar });
+
+                        dizin = new object[] { h.İçerik, h.Müşteri, Hasta, İşGirişTarihleri, İşÇıkışTarihleri, İşler, UyarıTarihi_yazı, Notlar };
                         sayac_SeriNoluİş++;
                         break;
 
@@ -152,21 +157,25 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     case Ortak.Hatırlatıcılar.Tip_.ÖdemeTalebi_TakvimTablosundan:
                         IDepo_Eleman ödemedalı = Banka.Tablo_Dal(h.Müşteri, Banka.TabloTürü.ÖdemeTalepEdildi, "Ödeme", false, h.BaşlangışTarihi.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2));
                         Banka.Talep_Ayıkla_ÖdemeDalı_Açıklama(ödemedalı, out string Açıklama, out _, out _);
-                        satır = Tablo.Rows.Add(new object[] { "Ödeme Talebi", h.Müşteri, null, Banka.Yazdır_Tarih(h.BaşlangışTarihi.Yazıya()), null, Açıklama, UyarıTarihi_yazı, null });
+                        dizin = new object[] { "Ödeme Talebi", h.Müşteri, null, Banka.Yazdır_Tarih(h.BaşlangışTarihi.Yazıya()), null, Açıklama, UyarıTarihi_yazı, null };
                         sayac_ÖdemeTalebi++;
                         break;
 
                     case Ortak.Hatırlatıcılar.Tip_.KullanıcıNotu:
-                        satır = Tablo.Rows.Add(new object[] { "Not", null, null, Banka.Yazdır_Tarih(h.BaşlangışTarihi.Yazıya()), null, h.İçerik, UyarıTarihi_yazı, null });
+                        dizin = new object[] { "Not", null, null, Banka.Yazdır_Tarih(h.BaşlangışTarihi.Yazıya()), null, h.İçerik, UyarıTarihi_yazı, null };
                         sayac_KullanıcıNotu++;
                         break;
                 }
 
+                DataGridViewRow yeni_satır  = new DataGridViewRow();
+                yeni_satır.CreateCells(Tablo, dizin);
+                DataGridViewCell yeni_satır_6 = yeni_satır.Cells[6];
+
                 if (h.UyarıTarihi < şimdi)
                 {
                     //geciken
-                    Tablo[6, satır].ToolTipText = "Gecikti";
-                    Tablo[6, satır].Style.BackColor = System.Drawing.Color.Salmon;
+                    yeni_satır_6.ToolTipText = "Gecikti";
+                    yeni_satır_6.Style.BackColor = System.Drawing.Color.Salmon;
                     sayac_Gecikenler++;
                 }
                 else
@@ -176,15 +185,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         h.Tip == Ortak.Hatırlatıcılar.Tip_.ÖdemeTalebi_TakvimTablosundan ||
                         (h.Tip == Ortak.Hatırlatıcılar.Tip_.KullanıcıNotu && (h.UyarıTarihi - h.BaşlangışTarihi).TotalDays > Süreler[0]))
                     {
-                        Tablo[6, satır].Style.BackColor = System.Drawing.Color.Khaki;
-                        Tablo[6, satır].ToolTipText = "En az 1 kere ertelendi, yaklaşıyor";
+                        yeni_satır_6.Style.BackColor = System.Drawing.Color.Khaki;
+                        yeni_satır_6.ToolTipText = "En az 1 kere ertelendi, yaklaşıyor";
                     }
-                    else Tablo[6, satır].ToolTipText = "Yaklaşıyor";
+                    else yeni_satır_6.ToolTipText = "Yaklaşıyor";
                     sayac_Yaklaşanlar++;
                 }
 
-                Tablo[6, satır].ToolTipText += Environment.NewLine + string.Format("{0:,0.0}", (h.UyarıTarihi - şimdi).TotalDays) + " gün"; 
-                Tablo.Rows[satır].Tag = h;
+                yeni_satır_6.ToolTipText += Environment.NewLine + string.Format("{0:,0.0}", (h.UyarıTarihi - şimdi).TotalDays) + " gün";
+                yeni_satır.Tag = h;
+                
+                dizi.Add(yeni_satır);
             }
 
             Gecici_Ayarlar.Yaz("Hatırlatıcılar_Filtrele", Hatırlatıcılar_Filtrele_Yaklaşanlar.Checked, 0);
@@ -199,6 +210,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Hatırlatıcılar_Filtrele_Notlar.Text = "Notlar (" + sayac_KullanıcıNotu + ")";
             Hatırlatıcılar_Filtrele_ÖdemeTalepleri.Text = "Ödeme Talepleri (" + sayac_ÖdemeTalebi + ")";
 
+            Tablo.Rows.AddRange(dizi.ToArray());
             Tablo.ClearSelection();
             Ortak.Gösterge.Bitir();
         }

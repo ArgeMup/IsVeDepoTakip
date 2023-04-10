@@ -24,7 +24,7 @@ namespace İş_ve_Depo_Takip
                 Properties.Resources.kendi.Save(ms);
                 File.WriteAllBytes(Ortak.Klasör_Gecici + "DoEk\\Uygulama.ico", ms.ToArray());
             }
-            Ortak.Yazdırma_Logo.Save(Ortak.Klasör_Gecici + "DoEk\\LOGO.bmp");
+            Ortak.Firma_Logo.Save(Ortak.Klasör_Gecici + "DoEk\\LOGO.bmp");
 
             Sunucu = new TcpSunucu_(snc.Oku_TamSayı(null), GeriBildirim_Islemi, SatırSatırGönderVeAl:false, SadeceYerel: false, Sessizlik_ZamanAşımı_msn:15000);
             Sunucu_DoHa = Sunucu;

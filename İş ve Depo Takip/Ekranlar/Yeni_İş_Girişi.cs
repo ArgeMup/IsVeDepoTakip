@@ -625,7 +625,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 else
                 {
                     KaydetVeEtiketiYazdır.Enabled = true;
-                    KaydetVeEtiketiYazdır.Text = "Etiket Yazdır ve Kapat";
+                    KaydetVeEtiketiYazdır.Text = "Etiketi Yazdır ve Kapat";
                 }
             }
         }

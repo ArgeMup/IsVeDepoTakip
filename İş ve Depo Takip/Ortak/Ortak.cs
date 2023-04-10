@@ -46,6 +46,7 @@ namespace İş_ve_Depo_Takip
             double üretilen_s = 0;
             try
             {
+                if (YazıŞeklindeSayı.Length > 1 && (sayac_virgül > 0 || sayac_nokta > 0)) YazıŞeklindeSayı = YazıŞeklindeSayı.TrimEnd('0').TrimEnd(',', '.');
                 üretilen_s = YazıŞeklindeSayı.NoktalıSayıya();
             }
             catch (Exception)
@@ -108,21 +109,25 @@ namespace İş_ve_Depo_Takip
             return rnd.Next(Asgari, Azami);
         }
 
-        static Bitmap _Yazdırma_Logo_ = null;
-        public static Bitmap Yazdırma_Logo
+        static Bitmap _Firma_Logo_ = null;
+        public static string Firma_Logo_DosyaYolu = null;
+        public static Bitmap Firma_Logo
         {
             get
             {
-                if (_Yazdırma_Logo_ == null)
+                if (_Firma_Logo_ == null)
                 {
-                    var l = Directory.EnumerateFiles(Klasör_KullanıcıDosyaları, "LOGO.*", SearchOption.TopDirectoryOnly)
-                    .Where(s => s.EndsWith(".bmp") || s.EndsWith(".jpg") || s.EndsWith(".png"));
-                    if (l != null && l.Count() > 0) _Yazdırma_Logo_ = new Bitmap(l.ElementAt(0));
+                    var l = Directory.EnumerateFiles(Klasör_KullanıcıDosyaları, "LOGO.*", SearchOption.TopDirectoryOnly).Where(s => s.EndsWith(".bmp") || s.EndsWith(".jpg") || s.EndsWith(".png"));
+                    if (l != null && l.Count() > 0)
+                    {
+                        Firma_Logo_DosyaYolu = l.ElementAt(0);
+                        _Firma_Logo_ = new Bitmap(Firma_Logo_DosyaYolu);
+                    }
 
-                    if (_Yazdırma_Logo_ == null) _Yazdırma_Logo_ = Properties.Resources.logo_512_seffaf;
+                    if (_Firma_Logo_ == null) _Firma_Logo_ = Properties.Resources.logo_512_seffaf;
                 }
 
-                return _Yazdırma_Logo_;
+                return _Firma_Logo_;
             }
         }
 

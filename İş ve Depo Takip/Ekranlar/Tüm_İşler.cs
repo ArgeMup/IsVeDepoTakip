@@ -18,6 +18,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
 
+            //görsel çiziminin iyileşmsi için
+            typeof(Control).InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty, null, Tablo, new object[] { DoubleBuffered });
+
             İşTakip_Müşteriler_AramaÇubuğu_Liste = Banka.Müşteri_Listele();
             İşTakip_Müşteriler.Items.AddRange(İşTakip_Müşteriler_AramaÇubuğu_Liste.ToArray());
             Arama_Müşteriler.Items.AddRange(Banka.Müşteri_Listele(true).ToArray());
@@ -950,6 +953,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Yazdırma y = new Yazdırma();
             y.Yazdır_Depo(depo, dosyayolu);
+            y.Dispose();
 
             if (!string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Pdf))
             {
@@ -1068,6 +1072,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
             }
 
+            y.Dispose();
             string[] dsy_lar = Directory.GetFiles(gecici_klasör);
             if (dsy_lar.Length > 0)
             {
@@ -1081,6 +1086,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Ayarlar_Eposta epst = new Ayarlar_Eposta();
                 string snç = epst.EpostaGönder(m, dsy_lar);
                 if (!string.IsNullOrEmpty(snç)) MessageBox.Show(snç, Text);
+                epst.Dispose();
             }
             else MessageBox.Show("Hiç kayıt bulunamadı", Text);
         }
@@ -1331,9 +1337,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             bt.Türü = Banka.TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi;
             Banka.Talep_TablodaGöster(Tablo, bt);
 
-            Tablo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-            Tablo.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
-
             for (int i = 0; i < Arama_Müşteriler.Items.Count && Ortak.Gösterge.Çalışsın; i++)
             {
                 if (Arama_Müşteriler.GetItemChecked(i))
@@ -1380,10 +1383,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
             }
 
-            Tablo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            Tablo.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            Tablo.AutoResizeColumns();
-            Tablo.ClearSelection();
             Tablo_İçeriğeGöreGüncelle();
 
             Ortak.Gösterge.Bitir();

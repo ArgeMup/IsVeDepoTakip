@@ -354,7 +354,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 y.Yazı = new Bir_Yazı_();
 
                 //logo
-                ev.Graphics.DrawImage(Ortak.Yazdırma_Logo, Sayfa.Sol, Sayfa.Üst, (float)FirmaLogo_Genişlik.Value, (float)FirmaLogo_Yükseklik.Value);
+                ev.Graphics.DrawImage(Ortak.Firma_Logo, Sayfa.Sol, Sayfa.Üst, (float)FirmaLogo_Genişlik.Value, (float)FirmaLogo_Yükseklik.Value);
 
                 #region Müşteri
                 SizeF s1 = new SizeF(Sayfa.Genişlik - (float)FirmaLogo_Genişlik.Value, (float)FirmaLogo_Yükseklik.Value);

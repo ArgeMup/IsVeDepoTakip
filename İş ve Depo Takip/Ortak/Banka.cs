@@ -1963,8 +1963,6 @@ namespace İş_ve_Depo_Takip
 
             if (ÖnceTemizle)
             {
-                Tablo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-                Tablo.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
                 Tablo.Rows.Clear();
 
                 if (Tablo.SortedColumn != null)
@@ -1997,25 +1995,26 @@ namespace İş_ve_Depo_Takip
 
             IDepo_Eleman DosyaEkleri = Tablo_Dal(null, TabloTürü.DosyaEkleri, "Dosya Ekleri", true);
 
+            int dizi_konum = 0, sutun_sayısı = Tablo.ColumnCount;
+            DataGridViewRow[] dizi = new DataGridViewRow[İçerik.Talepler.Count];
+
             foreach (IDepo_Eleman seri_no_dalı in İçerik.Talepler)
             {
-                int y = Tablo.RowCount;
-                Tablo.RowCount++;
-
+                object[] dizin = new object[sutun_sayısı];
                 double ücreti = 0;
                 Talep_Ayıkla_SeriNoDalı(seri_no_dalı, out string Hasta, out string İşGirişTarihleri, out string İşÇıkışTarihleri, out string İşler, ref ücreti);
 
-                Tablo[0, y].Value = false; //seçim kutucuğu
-                Tablo[1, y].Value = seri_no_dalı.Adı; //seri no
-                Tablo[2, y].Value = İçerik.Müşteri;
-                Tablo[3, y].Value = Hasta;
-                Tablo[4, y].Value = İşGirişTarihleri; //iş giriş tarihi
-                Tablo[5, y].Value = İşÇıkışTarihleri; //iş çıkış tarihi
-                Tablo[6, y].Value = İşler;
-                Tablo[7, y].Value = Yazdır_Tarih(seri_no_dalı[3]); //teslim edilme tarihi
-                Tablo[8, y].Value = tar_ödeme_talep;
-                Tablo[9, y].Value = tar_ödendi;
-                Tablo[10, y].Value = seri_no_dalı[2]; //notlar
+                dizin[0] = false; //seçim kutucuğu
+                dizin[1] = seri_no_dalı.Adı; //seri no
+                dizin[2] = İçerik.Müşteri;
+                dizin[3] = Hasta;
+                dizin[4] = İşGirişTarihleri; //iş giriş tarihi
+                dizin[5] = İşÇıkışTarihleri; //iş çıkış tarihi
+                dizin[6] = İşler;
+                dizin[7] = Yazdır_Tarih(seri_no_dalı[3]); //teslim edilme tarihi
+                dizin[8] = tar_ödeme_talep;
+                dizin[9] = tar_ödendi;
+                dizin[10] = seri_no_dalı[2]; //notlar
 
                 //Eğer varsa dosya eki sayısının notlar eklenmesi
                 if (seri_no_dalı.Adı.DoluMu())
@@ -2026,22 +2025,27 @@ namespace İş_ve_Depo_Takip
                         int DosyaEkiSayısı = SeriNonun_DosyaEkleri.Elemanları.Length;
                         if (DosyaEkiSayısı > 0)
                         {
-                            if (seri_no_dalı[2].DoluMu()) Tablo[10, y].Value += Environment.NewLine + Environment.NewLine;
-                            
-                            Tablo[10, y].Value += "Dosya ekleri : " + DosyaEkiSayısı;
+                            if (seri_no_dalı[2].DoluMu()) dizin[10] += Environment.NewLine + Environment.NewLine;
+
+                            dizin[10] += "Dosya ekleri : " + DosyaEkiSayısı;
                         }
                     }  
                 }
 
+                dizi[dizi_konum] = new DataGridViewRow();
+                dizi[dizi_konum].CreateCells(Tablo, dizin);
+
                 if (seri_no_dalı[3].DoluMu())
                 {
                     //teslim edildi ise
-                    Tablo[6, y].ToolTipText = Yazdır_Ücret(ücreti);
-                    Tablo[6, y].Tag = ücreti;
-                    Tablo[7, y].Tag = seri_no_dalı[3].TarihSaate(); //teslim edilme tarihi
-                    Tablo[8, y].Tag = tar_ödeme_talep_t; //ödeme talep edilme tarihi
-                    Tablo[9, y].Tag = tar_ödendi_t; //ödeme tarihi
+                    dizi[dizi_konum].Cells[6].ToolTipText = Yazdır_Ücret(ücreti);
+                    dizi[dizi_konum].Cells[6].Tag = ücreti;
+                    dizi[dizi_konum].Cells[7].Tag = seri_no_dalı[3].TarihSaate(); //teslim edilme tarihi
+                    dizi[dizi_konum].Cells[8].Tag = tar_ödeme_talep_t; //ödeme talep edilme tarihi
+                    dizi[dizi_konum].Cells[9].Tag = tar_ödendi_t; //ödeme tarihi
                 }
+
+                dizi_konum++;
             }
 
             if (ÖnceTemizle)
@@ -2086,13 +2090,10 @@ namespace İş_ve_Depo_Takip
                     default:
                         break;
                 }
-
-                Tablo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                Tablo.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-                Tablo.AutoResizeColumns();
-                Tablo.ClearSelection();
             }
 
+            Tablo.Rows.AddRange(dizi);
+            Tablo.ClearSelection();
             Tablo.Tag = null;
         }
         public static void Talep_Ayıkla_İşTürüDalı(IDepo_Eleman İşTürüDalı, out string İşTürü, out string GirişTarihi, out string ÇıkışTarihi, out string Ücret1, out string Ücret2)
