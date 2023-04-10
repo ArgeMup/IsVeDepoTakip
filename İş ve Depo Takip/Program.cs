@@ -51,7 +51,7 @@ namespace İş_ve_Depo_Takip
 
                 MessageBox.Show("Bir sorun oluştu, uygulama yedekler ile kontrol edildi ve bir sorun görülmedi" + Environment.NewLine + Environment.NewLine +
                     "Uygulama kapatılıp yeniden başlatılacak." + Environment.NewLine + Environment.NewLine +
-                    "Lütfen son işleminizi tekrar deneyiniz." + Environment.NewLine + Environment.NewLine + ex.Message, "İş Ve Depo Takip");
+                    "Lütfen son işleminizi kontrol ediniz." + Environment.NewLine + Environment.NewLine + ex.Message, "İş Ve Depo Takip");
 
                 Ekranlar.Ayarlar_Eposta epst = new Ekranlar.Ayarlar_Eposta();
                 epst.EpostaGönder_İstisna(ex);

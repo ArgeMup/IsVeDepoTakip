@@ -28,11 +28,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
             cvp = cvp.Replace("%Müşteri%", Müşteri);
             cvp = cvp.Replace("%Hasta%", Hasta);
             cvp = cvp.Replace("%SeriNo%", SeriNo);
-            cvp = cvp.Replace("%BilgisayarınYerelAdresi%", AğAraçları.Yerel_ip);
 
-            int er_no = Banka.Ayarlar_BilgisayarVeKullanıcı("Http Sunucu").Oku_TamSayı(null);
-            if (er_no <= 0) throw new Exception("Http sunucu kapalı olduğu için erişim noktası bilgisine ulaşılamadı, öncelikle sunucuyu etkinleştiriniz.");
-            cvp = cvp.Replace("%HttpSunucuErişimNoktası%", er_no.ToString());
+            if (cvp.Contains("%BilgisayarınYerelAdresi%"))
+            {
+                cvp = cvp.Replace("%BilgisayarınYerelAdresi%", AğAraçları.Yerel_ip);
+            }
+                
+            if (cvp.Contains("%HttpSunucuErişimNoktası%"))
+            {
+                int er_no = Banka.Ayarlar_BilgisayarVeKullanıcı("Http Sunucu", true).Oku_TamSayı(null);
+                if (er_no <= 0) throw new Exception("Http sunucu kapalı olduğu için erişim noktası bilgisine ulaşılamadı, öncelikle sunucuyu etkinleştiriniz." + Environment.NewLine + "Ayarlar -> Diğer -> Http Sunucu");
+                cvp = cvp.Replace("%HttpSunucuErişimNoktası%", er_no.ToString());
+            }
 
             return cvp;
         }

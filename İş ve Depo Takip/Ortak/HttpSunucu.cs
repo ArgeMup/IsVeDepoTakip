@@ -207,12 +207,20 @@ namespace İş_ve_Depo_Takip
             {
                 if (Yerel_ip_ == null)
                 {
-                    using (System.Net.Sockets.Socket soket = new System.Net.Sockets.Socket(System.Net.Sockets.AddressFamily.InterNetwork, System.Net.Sockets.SocketType.Dgram, 0))
+                    System.Net.Sockets.Socket soket = null;
+                    try
                     {
+                        soket = new System.Net.Sockets.Socket(System.Net.Sockets.AddressFamily.InterNetwork, System.Net.Sockets.SocketType.Dgram, 0);
                         soket.Connect("8.8.8.8", 65530);
                         System.Net.IPEndPoint uçnokta = soket.LocalEndPoint as System.Net.IPEndPoint;
                         Yerel_ip_ = uçnokta.Address.ToString();
                     }
+                    catch (Exception) { }
+                    finally { soket?.Dispose(); }
+
+                    if (Yerel_ip_.BoşMu()) throw new Exception("Bilgisayarınızın yerel ip numarası okunamadı." + Environment.NewLine +
+                        "İnternete bağlı bir bilgisayarda iseniz bağlantınızı kontrol ediniz." + Environment.NewLine +
+                        "Sadece yerel ağda çalışan bir bilgisayarda iseniz (Ayarlar -> Etiketleme -> Barkod İçeriği) %BilgisayarınYerelAdresi% anahtarını silip yerine elle değer giriniz.");
                 }
 
                 return Yerel_ip_;
