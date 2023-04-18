@@ -59,6 +59,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 Müşteriler_Liste = Banka.Müşteri_Listele();
                 Ortak.GrupArayıcı(Müşteriler_SeçimKutusu, Müşteriler_Liste);
+                Ortak.GrupArayıcı(Hastalar_SeçimKutusu);
 
                 Tablo_Giriş_Tarihi.Visible = false;
                 Tablo_Çıkış_Tarihi.Visible = false;
@@ -285,8 +286,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void Müşteriler_SeçimKutusu_SelectedIndexChanged(object sender, EventArgs e)
         {
             Hastalar_Liste.Clear();
-            Hastalar_SeçimKutusu.Items.Clear();
-            if (Müşteriler_SeçimKutusu.SelectedIndex < 0 || !Banka.Müşteri_MevcutMu(Müşteriler_SeçimKutusu.Text)) return;
+            Ortak.GrupArayıcı(Hastalar_SeçimKutusu);
+            if (Müşteriler_SeçimKutusu.SelectedIndex < 0 || !Banka.Müşteri_MevcutMu(Müşteriler_SeçimKutusu.Text) || Müşteri != null) return;
 
             IDepo_Eleman Talepler = Banka.Tablo_Dal(Müşteriler_SeçimKutusu.Text, Banka.TabloTürü.DevamEden, "Talepler");
             if (Talepler == null || Talepler.Elemanları.Length < 1) return;
@@ -546,6 +547,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             P_DosyaEkleri_Liste.Items.RemoveAt(P_DosyaEkleri_Liste.SelectedIndex);
             P_DosyaEkleri_TuşunuGüncelle();
+            if (P_DosyaEkleri_Liste.Items.Count == 0) P_DosyaEkleri_Geri_Click(null, null);
 
             Kaydet_TuşGörünürlüğü(true);
         }

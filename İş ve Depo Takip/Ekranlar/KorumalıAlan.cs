@@ -17,6 +17,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             AramaÇubuğu_Liste = Banka.KorumalıAlan_Listele_Dosyalar();
             Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste);
+            Ortak.GrupArayıcı(Sürümler);
         }
         private void KorumalıAlan_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -79,17 +80,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                         string adı = Path.GetFileName(dosya);
                         if (!File.Exists(dosya) && Directory.Exists(dosya)) adı = ":" + adı;
-                        if (!AramaÇubuğu_Liste.Contains(adı))
-                        {
-                            AramaÇubuğu_Liste.Add(adı);
-                            Liste.Items.Add(adı);
-                        }
-
-                        Liste.Text = adı;
+                        if (!AramaÇubuğu_Liste.Contains(adı)) AramaÇubuğu_Liste.Add(adı);
                     }
 
                     Banka.Değişiklikleri_Kaydet(null);
-                    Liste_SelectedValueChanged(null, null);
+                    Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);
                 }
                 catch (Exception ex)
                 {
@@ -146,7 +141,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Banka.Değişiklikleri_Kaydet(null);
 
             AramaÇubuğu_Liste.Remove(Liste.Text);
-            Liste.Items.RemoveAt(Liste.SelectedIndex);
+            Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);
             splitContainer1.Enabled = true;
         }
 

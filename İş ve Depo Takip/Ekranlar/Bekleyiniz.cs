@@ -73,7 +73,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             if (Tetikleyen != null)
             {
-                Tetikleyen.Enabled = true;
+                if (Tetikleyen.GetType() == typeof(ListBox))
+                {
+                    ListBox lb = Tetikleyen as ListBox;
+                    lb.Enabled = lb.Items.Count > 0;
+                }
+                else Tetikleyen.Enabled = true;
+
                 Tetikleyen = null;
             }
 

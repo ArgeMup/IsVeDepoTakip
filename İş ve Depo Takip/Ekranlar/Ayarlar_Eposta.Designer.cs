@@ -47,9 +47,9 @@
             this.Gönderici_Adres = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.GöndermeyiDene = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
-            this.GöndermeyiDene = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -160,7 +160,7 @@
             this.Sunucu_ErişimNoktası.Name = "Sunucu_ErişimNoktası";
             this.Sunucu_ErişimNoktası.Size = new System.Drawing.Size(321, 30);
             this.Sunucu_ErişimNoktası.TabIndex = 1;
-            this.Sunucu_ErişimNoktası.Text = "587";
+            this.Sunucu_ErişimNoktası.Text = "465";
             this.İpUcu.SetToolTip(this.Sunucu_ErişimNoktası, "SSL için 587");
             this.Sunucu_ErişimNoktası.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
@@ -280,6 +280,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Smtp Sunucu";
             // 
+            // GöndermeyiDene
+            // 
+            this.GöndermeyiDene.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.GöndermeyiDene.Location = new System.Drawing.Point(93, 153);
+            this.GöndermeyiDene.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.GöndermeyiDene.Name = "GöndermeyiDene";
+            this.GöndermeyiDene.Size = new System.Drawing.Size(240, 55);
+            this.GöndermeyiDene.TabIndex = 3;
+            this.GöndermeyiDene.Text = "Göndermeyi Dene";
+            this.GöndermeyiDene.UseVisualStyleBackColor = true;
+            this.GöndermeyiDene.Click += new System.EventHandler(this.GöndermeyiDene_Click);
+            // 
             // groupBox3
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -305,18 +317,6 @@
             this.İpUcu.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.İpUcu.UseAnimation = false;
             this.İpUcu.UseFading = false;
-            // 
-            // GöndermeyiDene
-            // 
-            this.GöndermeyiDene.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.GöndermeyiDene.Location = new System.Drawing.Point(93, 153);
-            this.GöndermeyiDene.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.GöndermeyiDene.Name = "GöndermeyiDene";
-            this.GöndermeyiDene.Size = new System.Drawing.Size(240, 55);
-            this.GöndermeyiDene.TabIndex = 3;
-            this.GöndermeyiDene.Text = "Göndermeyi Dene";
-            this.GöndermeyiDene.UseVisualStyleBackColor = true;
-            this.GöndermeyiDene.Click += new System.EventHandler(this.GöndermeyiDene_Click);
             // 
             // Ayarlar_Eposta
             // 

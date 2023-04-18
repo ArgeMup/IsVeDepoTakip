@@ -62,7 +62,7 @@
             this.Müşterıler.Location = new System.Drawing.Point(0, 43);
             this.Müşterıler.Margin = new System.Windows.Forms.Padding(4);
             this.Müşterıler.Name = "Müşterıler";
-            this.Müşterıler.Size = new System.Drawing.Size(325, 410);
+            this.Müşterıler.Size = new System.Drawing.Size(321, 381);
             this.Müşterıler.TabIndex = 0;
             this.Müşterıler.SelectedIndexChanged += new System.EventHandler(this.Müşterıler_SelectedIndexChanged);
             // 
@@ -122,7 +122,7 @@
             this.Tablo.ShowCellToolTips = false;
             this.Tablo.ShowEditingIcon = false;
             this.Tablo.ShowRowErrors = false;
-            this.Tablo.Size = new System.Drawing.Size(729, 415);
+            this.Tablo.Size = new System.Drawing.Size(725, 411);
             this.Tablo.TabIndex = 1;
             this.Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellValueChanged);
             // 
@@ -168,6 +168,7 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitContainer1.Location = new System.Drawing.Point(12, 69);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -190,7 +191,7 @@
             this.AramaÇubuğu_Müşteri.Dock = System.Windows.Forms.DockStyle.Top;
             this.AramaÇubuğu_Müşteri.Location = new System.Drawing.Point(0, 0);
             this.AramaÇubuğu_Müşteri.Name = "AramaÇubuğu_Müşteri";
-            this.AramaÇubuğu_Müşteri.Size = new System.Drawing.Size(325, 36);
+            this.AramaÇubuğu_Müşteri.Size = new System.Drawing.Size(321, 36);
             this.AramaÇubuğu_Müşteri.TabIndex = 4;
             this.AramaÇubuğu_Müşteri.TextChanged += new System.EventHandler(this.AramaÇubuğu_Müşteri_TextChanged);
             // 
@@ -199,7 +200,7 @@
             this.AramaÇubuğu_İşTürü.Dock = System.Windows.Forms.DockStyle.Top;
             this.AramaÇubuğu_İşTürü.Location = new System.Drawing.Point(0, 0);
             this.AramaÇubuğu_İşTürü.Name = "AramaÇubuğu_İşTürü";
-            this.AramaÇubuğu_İşTürü.Size = new System.Drawing.Size(729, 36);
+            this.AramaÇubuğu_İşTürü.Size = new System.Drawing.Size(725, 36);
             this.AramaÇubuğu_İşTürü.TabIndex = 4;
             this.AramaÇubuğu_İşTürü.TextChanged += new System.EventHandler(this.AramaÇubuğu_İşTürü_TextChanged);
             // 

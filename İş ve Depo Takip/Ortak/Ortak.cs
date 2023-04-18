@@ -209,7 +209,7 @@ namespace İş_ve_Depo_Takip
             return false;
         }
 
-        public static void GrupArayıcı(ListBox ListeKutucuğu, System.Collections.Generic.List<string> Liste, string Aranan = null)
+        public static void GrupArayıcı(ListBox ListeKutucuğu, System.Collections.Generic.List<string> Liste = null, string Aranan = null)
         {
             ListeKutucuğu.Items.Clear();
 
@@ -239,7 +239,7 @@ namespace İş_ve_Depo_Takip
                 }
             }
 
-            //ListeKutucuğu.Enabled = ListeKutucuğu.Items.Count > 0;            
+            ListeKutucuğu.Enabled = ListeKutucuğu.Items.Count > 0;            
         }
 
         public static void BatDosyasıCalistir(string DosyaAdı)

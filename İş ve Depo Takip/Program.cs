@@ -19,7 +19,11 @@ namespace İş_ve_Depo_Takip
             Günlük.Başlat(Kendi.Klasörü + "\\Günlük");
 
             UyÖnÇa = new UygulamaOncedenCalistirildiMi_();
-            if (UyÖnÇa.KontrolEt()) UyÖnÇa.DiğerUygulamayıÖneGetir();
+            if (UyÖnÇa.KontrolEt())
+            {
+                Günlük.Ekle("DiğerUygulamayıÖneGetir", Hemen:true);
+                UyÖnÇa.DiğerUygulamayıÖneGetir();
+            }
             else
             {
                 Application.ThreadException += new ThreadExceptionEventHandler(BeklenmeyenDurum_KullanıcıArayüzü);
@@ -44,9 +48,11 @@ namespace İş_ve_Depo_Takip
         }
         static void BeklenmeyenDurum(Exception ex)
         {
+            Klasör.Sil(Ortak.Klasör_Gecici);
+            ex.Günlük(Hemen:true);
+
             try
             {
-                ex.Günlük();
                 Banka.Yedekle_Banka_Kurtar();
 
                 MessageBox.Show("Bir sorun oluştu, uygulama yedekler ile kontrol edildi ve bir sorun görülmedi" + Environment.NewLine + Environment.NewLine +

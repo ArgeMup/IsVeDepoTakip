@@ -49,11 +49,10 @@
             // 
             // İpUcu
             // 
-            this.İpUcu.AutomaticDelay = 0;
-            this.İpUcu.AutoPopDelay = 0;
-            this.İpUcu.InitialDelay = 0;
-            this.İpUcu.ReshowDelay = 0;
-            this.İpUcu.ShowAlways = true;
+            this.İpUcu.AutomaticDelay = 100;
+            this.İpUcu.AutoPopDelay = 10000;
+            this.İpUcu.InitialDelay = 100;
+            this.İpUcu.ReshowDelay = 20;
             this.İpUcu.UseAnimation = false;
             this.İpUcu.UseFading = false;
             // 
@@ -68,7 +67,8 @@
             this.YeniİşGirişi_Barkod_İçeriği.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.YeniİşGirişi_Barkod_İçeriği.Size = new System.Drawing.Size(408, 82);
             this.YeniİşGirişi_Barkod_İçeriği.TabIndex = 3;
-            this.İpUcu.SetToolTip(this.YeniİşGirişi_Barkod_İçeriği, "Barkod oluşturulurken kullanılacak detaylar");
+            this.İpUcu.SetToolTip(this.YeniİşGirişi_Barkod_İçeriği, "Barkod oluşturulurken kullanılacak detaylar\r\n\r\nKullanılmayacak ise KAPALI yazınız" +
+        ".");
             this.YeniİşGirişi_Barkod_İçeriği.TextChanged += new System.EventHandler(this.YeniİşGirişi_Barkod_İçeriği_TextChanged);
             // 
             // SağTuşMenü_Barkodİçeriği

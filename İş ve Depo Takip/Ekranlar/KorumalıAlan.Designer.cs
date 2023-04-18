@@ -53,7 +53,7 @@
             this.Liste.Location = new System.Drawing.Point(12, 50);
             this.Liste.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Liste.Name = "Liste";
-            this.Liste.Size = new System.Drawing.Size(364, 304);
+            this.Liste.Size = new System.Drawing.Size(360, 304);
             this.Liste.Sorted = true;
             this.Liste.TabIndex = 0;
             this.İpUcu.SetToolTip(this.Liste, "Korunan içerik listesi\r\n\r\nKorumak istediğiniz dosya veya klasörleri\r\nburaya sürük" +
@@ -67,10 +67,10 @@
             this.Sil.Enabled = false;
             this.Sil.Image = global::İş_ve_Depo_Takip.Properties.Resources.sil;
             this.Sil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Sil.Location = new System.Drawing.Point(11, 361);
+            this.Sil.Location = new System.Drawing.Point(11, 357);
             this.Sil.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Sil.Name = "Sil";
-            this.Sil.Size = new System.Drawing.Size(364, 45);
+            this.Sil.Size = new System.Drawing.Size(360, 45);
             this.Sil.TabIndex = 1;
             this.Sil.Text = "Sil";
             this.İpUcu.SetToolTip(this.Sil, "Dosyanızı tüm sürümleriyle birlikte KALICI olarak siler.");
@@ -84,10 +84,10 @@
             this.MasaüstüneKopyala.Enabled = false;
             this.MasaüstüneKopyala.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.MasaüstüneKopyala.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.MasaüstüneKopyala.Location = new System.Drawing.Point(12, 361);
+            this.MasaüstüneKopyala.Location = new System.Drawing.Point(12, 357);
             this.MasaüstüneKopyala.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MasaüstüneKopyala.Name = "MasaüstüneKopyala";
-            this.MasaüstüneKopyala.Size = new System.Drawing.Size(344, 45);
+            this.MasaüstüneKopyala.Size = new System.Drawing.Size(341, 45);
             this.MasaüstüneKopyala.TabIndex = 4;
             this.MasaüstüneKopyala.Text = "Masa Üstüne Kopyala";
             this.İpUcu.SetToolTip(this.MasaüstüneKopyala, "Seçtiğiniz sürümü masaüstünüze kopyalar.");
@@ -99,6 +99,7 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitContainer1.Location = new System.Drawing.Point(0, 80);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.splitContainer1.Name = "splitContainer1";
@@ -126,7 +127,7 @@
             this.AramaÇubuğu.Location = new System.Drawing.Point(12, 12);
             this.AramaÇubuğu.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.AramaÇubuğu.Name = "AramaÇubuğu";
-            this.AramaÇubuğu.Size = new System.Drawing.Size(364, 30);
+            this.AramaÇubuğu.Size = new System.Drawing.Size(360, 30);
             this.AramaÇubuğu.TabIndex = 4;
             this.İpUcu.SetToolTip(this.AramaÇubuğu, "Arama çubuğu");
             this.AramaÇubuğu.TextChanged += new System.EventHandler(this.AramaÇubuğu_TextChanged);
@@ -141,7 +142,7 @@
             this.Sürümler.Location = new System.Drawing.Point(12, 12);
             this.Sürümler.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Sürümler.Name = "Sürümler";
-            this.Sürümler.Size = new System.Drawing.Size(344, 329);
+            this.Sürümler.Size = new System.Drawing.Size(341, 329);
             this.Sürümler.TabIndex = 7;
             this.İpUcu.SetToolTip(this.Sürümler, "Seçtiğiniz dosyaya ait tüm eski sürümler listelenmektedir");
             this.Sürümler.SelectedIndexChanged += new System.EventHandler(this.Sürümler_SelectedIndexChanged);

@@ -52,30 +52,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Depo_Komut["Güncel İçerik", 0] = YeniİşGirişi_Barkodİçeriği_Çözümlenmiş(Müşteri, Hasta, SeriNo);
 
             string Barkod_Uret_dosyayolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Barkod_Uret", "") + "\\Barkod_Uret.exe";
-            bool Barkod_Uret_tamamlandı = false;
-            if (File.Exists(Barkod_Uret_dosyayolu)) Barkod_Uret_tamamlandı = true;
-            else
-            {
-                Klasör.Oluştur(Path.GetDirectoryName(Barkod_Uret_dosyayolu));
+            YeniYazılımKontrolü_ yyk = new YeniYazılımKontrolü_();
+            if (File.Exists(Barkod_Uret_dosyayolu)) yyk.KontrolTamamlandı = true;
+            else yyk.Başlat(new Uri("https://github.com/ArgeMup/Barkod_Uret/blob/main/Barkod_Uret/bin/Release/Barkod_Uret.exe?raw=true"), null, Barkod_Uret_dosyayolu);
 
-                System.Net.WebClient İstemci = new System.Net.WebClient();
-                İstemci.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(İstemci_DownloadFileCompleted);
-                İstemci.DownloadFileAsync(new Uri("https://github.com/ArgeMup/Barkod_Uret/blob/main/Barkod_Uret/bin/Release/Barkod_Uret.exe?raw=true"), Barkod_Uret_dosyayolu);
-
-                void İstemci_DownloadFileCompleted(object senderrr, System.ComponentModel.AsyncCompletedEventArgs eee)
-                {
-                    if (eee.Error != null) sonuç += eee.Error.Message + Environment.NewLine;
-
-                    İstemci.Dispose();
-                    Barkod_Uret_tamamlandı = true;
-                }
-            }
-
-            if (!Barkod_Uret_tamamlandı)
+            if (!yyk.KontrolTamamlandı)
             {
                 Ortak.Gösterge.Başlat("Barkod_Uret indiriliyor", true, null, 15);
                 int tümü_sayac = Environment.TickCount + 15000;
-                while (!Barkod_Uret_tamamlandı && Ortak.Gösterge.Çalışsın && tümü_sayac > Environment.TickCount)
+                while (!yyk.KontrolTamamlandı && Ortak.Gösterge.Çalışsın && tümü_sayac > Environment.TickCount)
                 {
                     Ortak.Gösterge.İlerleme = 1;
                     System.Threading.Thread.Sleep(1000);
@@ -86,7 +71,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 Dosya.Sil(Ortak.Klasör_Gecici + "Et\\Barkod.png");
 
-                System.Diagnostics.Process uyg = System.Diagnostics.Process.Start(Barkod_Uret_dosyayolu, ArgeMup.HazirKod.Dönüştürme.D_Yazı.Taban64e(Depo_Komut.YazıyaDönüştür()));
+                System.Diagnostics.Process uyg = System.Diagnostics.Process.Start(Barkod_Uret_dosyayolu, Depo_Komut.YazıyaDönüştür().BaytDizisine().Taban64e());
 
                 if (!SadeceAyarla)
                 {
@@ -132,30 +117,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
             d["Tarih Saat Şimdi"].İçeriği = new string[] { DateTime.Now.Yazıya() };
 
             string Etiket_dosyayolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Etiket", "") + "\\Etiket.exe";
-            bool Etiket_tamamlandı = false;
-            if (File.Exists(Etiket_dosyayolu)) Etiket_tamamlandı = true;
-            else
-            {
-                Klasör.Oluştur(Path.GetDirectoryName(Etiket_dosyayolu));
+            YeniYazılımKontrolü_ yyk = new YeniYazılımKontrolü_();
+            if (File.Exists(Etiket_dosyayolu)) yyk.KontrolTamamlandı = true;
+            else yyk.Başlat(new Uri("https://github.com/ArgeMup/Etiket/blob/main/Etiket/bin/Release/Etiket.exe?raw=true"), null, Etiket_dosyayolu);
 
-                System.Net.WebClient İstemci = new System.Net.WebClient();
-                İstemci.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(İstemci_DownloadFileCompleted);
-                İstemci.DownloadFileAsync(new Uri("https://github.com/ArgeMup/Etiket/blob/main/Etiket/bin/Release/Etiket.exe?raw=true"), Etiket_dosyayolu);
-
-                void İstemci_DownloadFileCompleted(object senderrr, System.ComponentModel.AsyncCompletedEventArgs eee)
-                {
-                    if (eee.Error != null) sonuç += eee.Error.Message + Environment.NewLine;
-
-                    İstemci.Dispose();
-                    Etiket_tamamlandı = true;
-                }
-            }
-
-            if (!Etiket_tamamlandı)
+            if (!yyk.KontrolTamamlandı)
             {
                 Ortak.Gösterge.Başlat("Etiket indiriliyor", true, null, 15);
                 int tümü_sayac = Environment.TickCount + 15000;
-                while (!Etiket_tamamlandı && Ortak.Gösterge.Çalışsın && tümü_sayac > Environment.TickCount)
+                while (!yyk.KontrolTamamlandı && Ortak.Gösterge.Çalışsın && tümü_sayac > Environment.TickCount)
                 {
                     Ortak.Gösterge.İlerleme = 1;
                     System.Threading.Thread.Sleep(1000);
@@ -164,7 +134,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             if (sonuç.BoşMu())
             {
-                System.Diagnostics.Process uyg = System.Diagnostics.Process.Start(Etiket_dosyayolu, ArgeMup.HazirKod.Dönüştürme.D_Yazı.Taban64e(Depo_Komut.YazıyaDönüştür()));
+                System.Diagnostics.Process uyg = System.Diagnostics.Process.Start(Etiket_dosyayolu, Depo_Komut.YazıyaDönüştür().BaytDizisine().Taban64e());
 
                 if (!SadeceAyarla)
                 {

@@ -31,7 +31,7 @@ namespace İş_ve_Depo_Takip
         }
         public static void Bitir()
         {
-            if (Sunucu != null) Sunucu.Dispose();
+            Sunucu?.Dispose();
             Sunucu = null;
             Sunucu_DoHa = null;
         }

@@ -2533,7 +2533,7 @@ namespace İş_ve_Depo_Takip
                 {
                     if (File.Exists(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri + biri[0]))
                     {
-                        HedefDosyaAdı = Ortak.Klasör_Gecici + "DoEk\\" + biri[0];
+                        HedefDosyaAdı = Ortak.Klasör_Gecici + "DoEk\\" + biri[0] + "." + biri[1];
 
                         if (!File.Exists(HedefDosyaAdı))
                         {
@@ -2566,6 +2566,7 @@ namespace İş_ve_Depo_Takip
         {
             if (Yedekleme_Tümü_Çalışıyor)
             {
+                Günlük.Ekle("Değişiklikleri_Kaydet Yedekleniyor");
                 Ortak.Gösterge.Başlat("Yedekleniyor", false, Tetikleyen, 0);
 
                 while (Yedekleme_Tümü_Çalışıyor && Ortak.Gösterge.Çalışsın)
@@ -2576,6 +2577,8 @@ namespace İş_ve_Depo_Takip
 
             if (Yedekleme_İzleyici_DeğişiklikYapıldı != null)
             {
+                Günlük.Ekle("Değişiklikleri_Kaydet Yedekleme_İzleyici_DeğişiklikYapıldı " + Yedekleme_İzleyici_DeğişiklikYapıldı);
+
                 string soru = "Yedeğinizin içeriği uygulama haricinde değiştirildi." + Environment.NewLine +
                 "Uygulamayı yeniden başlatmak ister misiniz?" + Environment.NewLine + Environment.NewLine +
                 "Evet : Tavsiye edilir fakat şuanda yaptığınız işlemden feragat edeceksiniz." + Environment.NewLine +
@@ -2592,6 +2595,7 @@ namespace İş_ve_Depo_Takip
                 Yedekleme_İzleyici_DeğişiklikYapıldı = null;
             }
 
+            Günlük.Ekle("Değişiklikleri_Kaydet Başladı");
             bool EnAzBirDeğişiklikYapıldı = false;
             Ortak.Gösterge.Başlat("Kaydediliyor", false, Tetikleyen, 8 + (Müşteriler == null ? 0 : Müşteriler.Count * 4) + (MalzemeKullanımDetayları == null ? 0 : MalzemeKullanımDetayları.Count * 1));
 
@@ -2682,6 +2686,7 @@ namespace İş_ve_Depo_Takip
                 Ortak.Hatırlatıcılar.YenidenKontrolEdilmeli = true;
             }
 
+            Günlük.Ekle("Değişiklikleri_Kaydet Bitti " + EnAzBirDeğişiklikYapıldı);
             Ortak.Gösterge.Bitir();
         }
         public static void Değişiklikler_TamponuSıfırla()
@@ -3112,12 +3117,16 @@ namespace İş_ve_Depo_Takip
 
         public static void Yedekle_Tümü()
         {
+            Günlük.Ekle("Yedekle_Tümü " + Yedekleme_Tümü_Çalışıyor + " " + Yedekleme_EnAz1Kez_Değişiklikler_Kaydedildi);
+
             if (Yedekleme_Tümü_Çalışıyor || !Yedekleme_EnAz1Kez_Değişiklikler_Kaydedildi) return;
             Yedekleme_Tümü_Çalışıyor = true;
             Yedekleme_Hatalar = null;
 
             if (Yedekleme_İzleyici_DeğişiklikYapıldı != null)
             {
+                Günlük.Ekle("Yedekle_Tümü Yedekleme_İzleyici_DeğişiklikYapıldı " + Yedekleme_İzleyici_DeğişiklikYapıldı);
+
                 string soru = "Yedeğinizin içeriği uygulama haricinde değiştirildi." + Environment.NewLine +
                 "Uygulamayı yeniden başlatmak ister misiniz?" + Environment.NewLine + Environment.NewLine +
                 "Evet : Tavsiye edilir." + Environment.NewLine +
@@ -3137,6 +3146,7 @@ namespace İş_ve_Depo_Takip
 
             System.Threading.Tasks.Task.Run(() =>
             {
+                Günlük.Ekle("Yedekle_Tümü Başladı");
                 Ortak.BatDosyasıCalistir("YedekOncesi.bat");
                 Ortak.BatDosyasıCalistir("YedekOncesi_Bekle.bat");
 
@@ -3204,6 +3214,7 @@ namespace İş_ve_Depo_Takip
                 Ortak.BatDosyasıCalistir("YedekSonrasi.bat");
                 Ortak.BatDosyasıCalistir("YedekSonrasi_Bekle.bat");
 
+                Günlük.Ekle("Yedekle_Tümü Bitti " + Yedekleme_Hatalar);
                 Yedekleme_Tümü_Çalışıyor = false;
             });
         }

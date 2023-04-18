@@ -7,7 +7,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
 {
     public partial class Ayarlar_Diğer : Form
     {
-        IDepo_Eleman Ayarlar_Küçültüldüğünde = null, Ayarlar_Bilgisayar = null, Ayarlar_Takvim = null, Ayarlar_SürümKontrol = null, Ayarlar_DosyaEkleri = null;
+        IDepo_Eleman Ayarlar_Küçültüldüğünde = null, Ayarlar_Bilgisayar = null, Ayarlar_Takvim = null, Ayarlar_SürümKontrol = null;
+        Depo_ Ayarlar_DosyaEkleri = null;
 
         public Ayarlar_Diğer()
         {
@@ -19,7 +20,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar_Bilgisayar = Banka.Ayarlar_BilgisayarVeKullanıcı(null, true);
             Ayarlar_Küçültüldüğünde = Banka.Ayarlar_Genel("Küçültüldüğünde Parola Sor", true);
             Ayarlar_SürümKontrol = Banka.Tablo_Dal(null, Banka.TabloTürü.KorumalıAlan, "Sürüm Sayısı", true);
-            Ayarlar_DosyaEkleri = Banka.Tablo_Dal(null, Banka.TabloTürü.DosyaEkleri, "Dosya Silme Boyutu", true);
+            Ayarlar_DosyaEkleri = Banka.Tablo(null, Banka.TabloTürü.DosyaEkleri, true);
 
             Takvim_Erteleme_İşKabulTarihi.Text = Ayarlar_Takvim.Oku(null, "2", 0);
             Takvim_Erteleme_ÖdemeTalepTarihi.Text = Ayarlar_Takvim.Oku(null, "7", 1);
@@ -42,7 +43,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             KorumalıAlan_SürümSayısı.Value = Ayarlar_SürümKontrol.Oku_TamSayı(null, 15);
 
-            DosyaEkleri_BoyutuMB.Value = Ayarlar_DosyaEkleri.Oku_TamSayı(null, 1000);
+            DosyaEkleri_BoyutuMB.Value = Ayarlar_DosyaEkleri.Oku_TamSayı("Dosya Silme Boyutu", 1000);
+            DosyaEkleri_Açıklama.Text = "Dosya Ekleri (" + (int)(Ayarlar_DosyaEkleri.Oku_Sayı("Toplam Dosya Boyutu") / 1000000) + "MB)";
 
             HttpSunucu_ErişimNoktası.Value = Ayarlar_Bilgisayar.Oku_TamSayı("Http Sunucu");
             HttpSunucu_ErişimNoktası_ValueChanged(null, null);
@@ -229,7 +231,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Ayarlar_SürümKontrol.Yaz(null, (int)KorumalıAlan_SürümSayısı.Value);
 
-            Ayarlar_DosyaEkleri.Yaz(null, (int)DosyaEkleri_BoyutuMB.Value);
+            Ayarlar_DosyaEkleri.Yaz("Dosya Silme Boyutu", (int)DosyaEkleri_BoyutuMB.Value);
 
             Ayarlar_Bilgisayar.Yaz("Http Sunucu", (int)HttpSunucu_ErişimNoktası.Value);
 

@@ -22,9 +22,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             typeof(Control).InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty, null, Tablo, new object[] { DoubleBuffered });
 
             İşTakip_Müşteriler_AramaÇubuğu_Liste = Banka.Müşteri_Listele();
-            İşTakip_Müşteriler.Items.AddRange(İşTakip_Müşteriler_AramaÇubuğu_Liste.ToArray());
+            Ortak.GrupArayıcı(İşTakip_Müşteriler, İşTakip_Müşteriler_AramaÇubuğu_Liste);
+            
             Arama_Müşteriler.Items.AddRange(Banka.Müşteri_Listele(true).ToArray());
-
             Arama_İş_Türleri.Items.AddRange(Banka.İşTürü_Listele().ToArray());
 
             IDepo_Eleman Ayrl_Kullanıcı = Banka.Ayarlar_Kullanıcı(Name, null);
@@ -128,8 +128,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         P_SolOrta_Sağ.Visible = false;
 
                         Malzemeler_Malzeme_AramaÇubuğu_Liste = Banka.Malzeme_Listele(true);
-                        Malzemeler_Malzeme.Items.Clear();
-                        Malzemeler_Malzeme.Items.AddRange(Malzemeler_Malzeme_AramaÇubuğu_Liste.ToArray());
+                        Ortak.GrupArayıcı(Malzemeler_Malzeme, Malzemeler_Malzeme_AramaÇubuğu_Liste);
                     }
                     else
                     {
@@ -232,18 +231,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Seviye2_ÖdemeBekleyen.Checked = false;
                     Seviye2_Ödendi.Checked = true;
 
-                    İşTakip_Ödendi_Dönem_AramaÇubuğu.Text = null;
-                    İşTakip_Ödendi_Dönem_Dönemler.Items.Clear();
-                    if (Banka.Müşteri_MevcutMu(İşTakip_Müşteriler.Text))
-                    {
-                        string[] l_dizi = Banka.Dosya_Listele_Müşteri(İşTakip_Müşteriler.Text, true);
-                        İşTakip_Ödendi_Dönem_AramaÇubuğu_Liste = l_dizi.ToList();
-                        İşTakip_Ödendi_Dönem_Dönemler.Items.AddRange(l_dizi);
-                        if (İşTakip_Ödendi_Dönem_Dönemler.Items.Count > 0)
-                        {
-                            if (İşTakip_Ödendi_Dönem_Dönemler.SelectedIndex != 0) İşTakip_Ödendi_Dönem_Dönemler.SelectedIndex = 0;
-                        }
-                    }
+                    if (!Banka.Müşteri_MevcutMu(İşTakip_Müşteriler.Text)) İşTakip_Ödendi_Dönem_AramaÇubuğu_Liste = null;
+                    else İşTakip_Ödendi_Dönem_AramaÇubuğu_Liste = Banka.Dosya_Listele_Müşteri(İşTakip_Müşteriler.Text, true).ToList();
+                    Ortak.GrupArayıcı(İşTakip_Ödendi_Dönem_Dönemler, İşTakip_Ödendi_Dönem_AramaÇubuğu_Liste, İşTakip_Ödendi_Dönem_AramaÇubuğu.Text);
+                    if (İşTakip_Ödendi_Dönem_Dönemler.Items.Count > 0) İşTakip_Ödendi_Dönem_Dönemler.SelectedIndex = 0;
                     break;
             }
 

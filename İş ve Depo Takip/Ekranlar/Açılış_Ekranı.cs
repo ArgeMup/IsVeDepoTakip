@@ -257,7 +257,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Açılış_Ekranı_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Günlük.Ekle("Kapatıldı " + e.CloseReason.ToString());
+            Günlük.Ekle("Kapatıldı " + e.CloseReason.ToString(), Hemen:true);
             HttpSunucu.Bitir();
             Banka.Çıkış_İşlemleri();
             YeniYazılımKontrolü.Durdur();
@@ -338,6 +338,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             Hide();
 
+            Günlük.Ekle("YanUygulamayaGeç " + ÖndekiEkran.Name);
             Ortak.GeçiciDepolama_PencereKonumları_Oku(ÖndekiEkran);
 
             ÖndekiEkran.Opacity = 1;

@@ -261,22 +261,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             string[] başlıklar;
 
             string çizelgeç_dosyayolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Çizelgeç", "") + "\\Çizelgeç.exe";
-            bool çizelgeç_tamamlandı = false;
-            if (File.Exists(çizelgeç_dosyayolu)) çizelgeç_tamamlandı = true;
-            else
-            {
-                Klasör.Oluştur(Path.GetDirectoryName(çizelgeç_dosyayolu));
-
-                System.Net.WebClient İstemci = new System.Net.WebClient();
-                İstemci.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(İstemci_DownloadFileCompleted);
-                İstemci.DownloadFileAsync(new Uri("https://github.com/ArgeMup/Cizelgec/blob/main/%C3%87izelge%C3%A7/bin/Release/%C3%87izelge%C3%A7.exe?raw=true"), çizelgeç_dosyayolu);
-
-                void İstemci_DownloadFileCompleted(object senderrr, System.ComponentModel.AsyncCompletedEventArgs eee)
-                {
-                    if (eee.Error == null) çizelgeç_tamamlandı = true;
-                    İstemci.Dispose();
-                }
-            }
+            YeniYazılımKontrolü_ yyk = new YeniYazılımKontrolü_();
+            if (File.Exists(çizelgeç_dosyayolu)) yyk.KontrolTamamlandı = true;
+            else yyk.Başlat(new Uri("https://github.com/ArgeMup/Cizelgec/blob/main/%C3%87izelge%C3%A7/bin/Release/%C3%87izelge%C3%A7.exe?raw=true"), null, çizelgeç_dosyayolu);
 
             Ortak.Gösterge.Başlat("Hesaplanıyor", true, Sekmeler, kademe);
             DateTime EnEskiTarih = DateTime.MaxValue;
@@ -498,18 +485,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 fs.Write(içerik, 0, içerik.Length);
             }
 
-            if (!çizelgeç_tamamlandı)
+            if (!yyk.KontrolTamamlandı)
             {
                 Ortak.Gösterge.Başlat("Çizelgeç indiriliyor", true, Sekmeler, 15);
                 tümü_sayac = 15;
-                while (!çizelgeç_tamamlandı && Ortak.Gösterge.Çalışsın && --tümü_sayac > 0)
+                while (!yyk.KontrolTamamlandı && Ortak.Gösterge.Çalışsın && --tümü_sayac > 0)
                 {
                     Ortak.Gösterge.İlerleme = 1;
                     System.Threading.Thread.Sleep(1000);
                 }
             }
 
-            if (!çizelgeç_tamamlandı) System.Diagnostics.Process.Start("explorer.exe", "/select, " + DosyaAdı);
+            if (!yyk.KontrolTamamlandı) System.Diagnostics.Process.Start("explorer.exe", "/select, " + DosyaAdı);
             else System.Diagnostics.Process.Start(çizelgeç_dosyayolu, "\"" + DosyaAdı + "\"");
 
             Ortak.Gösterge.Bitir();

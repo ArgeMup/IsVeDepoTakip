@@ -12,12 +12,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
         
-            Liste.Items.Clear();
             AramaÇubuğu_Liste = Banka.İşTürü_Listele();
-            Liste.Items.AddRange(AramaÇubuğu_Liste.ToArray());
+            Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste);
 
             Malzeme_Liste = Banka.Malzeme_Listele();
-            Malzeme_SeçimKutusu.Items.AddRange(Malzeme_Liste.ToArray());
+            Ortak.GrupArayıcı(Malzeme_SeçimKutusu, Malzeme_Liste);
         }
 
         List<string> AramaÇubuğu_Liste = null;
@@ -95,9 +94,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ortak.Gösterge.Bitir();
 
             AramaÇubuğu_Liste.Remove(Liste.Text);
-            Liste.Items.RemoveAt(Liste.SelectedIndex);
             AramaÇubuğu_Liste.Add(Yeni.Text);
-            Liste.Items.Add(Yeni.Text);
+            Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);
         }
         private void SağTuşMenü_Sil_Click(object sender, EventArgs e)
         {
@@ -110,7 +108,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Banka.Değişiklikleri_Kaydet(Liste);
 
             AramaÇubuğu_Liste.Remove(Liste.Text);
-            Liste.Items.RemoveAt(Liste.SelectedIndex);
+            Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);
         }
         private void Ekle_Click(object sender, System.EventArgs e)
         {
@@ -123,8 +121,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Banka.İşTürü_Ekle(Yeni.Text);
             Banka.Değişiklikleri_Kaydet(Ekle);
 
-            Liste.Items.Add(Yeni.Text);
             AramaÇubuğu_Liste.Add(Yeni.Text);
+            Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);
         }
 
         private void Tablo_CellValueChanged(object sender, DataGridViewCellEventArgs e)

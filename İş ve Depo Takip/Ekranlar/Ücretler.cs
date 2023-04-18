@@ -19,7 +19,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         
             AramaÇubuğu_Müşteri_Liste = Banka.Müşteri_Listele();
             AramaÇubuğu_Müşteri_Liste.Insert(0, "Tüm müşteriler için ortak");
-            Müşterıler.Items.AddRange(AramaÇubuğu_Müşteri_Liste.ToArray());
+            Ortak.GrupArayıcı(Müşterıler, AramaÇubuğu_Müşteri_Liste);
 
             Tablo.Rows.Clear();
             AramaÇubuğu_İşTürü_Liste = Banka.İşTürü_Listele();
