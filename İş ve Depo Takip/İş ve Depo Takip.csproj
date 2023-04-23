@@ -37,6 +37,7 @@
     <DefineConstants>TRACE;DEBUG;HazirKod_Cdiyez_Görsel HazirKod_Cdiyez_Sıkıştırma</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -123,6 +124,12 @@
     </Compile>
     <Compile Include="Ekranlar\Etiketleme.Designer.cs">
       <DependentUpon>Etiketleme.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ekranlar\Yeni_İş_Girişi_DosyaEkleri.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ekranlar\Yeni_İş_Girişi_DosyaEkleri.Designer.cs">
+      <DependentUpon>Yeni_İş_Girişi_DosyaEkleri.cs</DependentUpon>
     </Compile>
     <Compile Include="Ekranlar\İş_Türleri.cs">
       <SubType>Form</SubType>
@@ -229,6 +236,10 @@
     <EmbeddedResource Include="Ekranlar\Bütçe.resx">
       <DependentUpon>Bütçe.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Ekranlar\Yeni_İş_Girişi_DosyaEkleri.resx">
+      <DependentUpon>Yeni_İş_Girişi_DosyaEkleri.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\İş_Türleri.resx">
       <DependentUpon>İş_Türleri.cs</DependentUpon>
     </EmbeddedResource>
@@ -305,6 +316,7 @@
   <ItemGroup>
     <None Include="Resources\Önemli Bilgiler.txt" />
     <None Include="Resources\SeriNoDetayları.html" />
+    <None Include="Resources\Eposta.png" />
     <Content Include="Resources\sol_mavi.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

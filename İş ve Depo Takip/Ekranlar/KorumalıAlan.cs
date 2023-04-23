@@ -28,7 +28,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     if (eleman.StartsWith(":"))
                     {
                         //klasör
-                        string açık_hali = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\" + eleman.Substring(1);
+                        string açık_hali = Klasör.Depolama(Klasör.Kapsamı.Masaüstü, "", "", "") + "\\" + eleman.Substring(1);
                         if (Directory.Exists(açık_hali))
                         {
                             DialogResult Dr = MessageBox.Show("Alttaki klasörün masaüstünüzde bulunuyor olması güvenlik zaafiyeti oluşturacak." + Environment.NewLine + Environment.NewLine +
@@ -45,7 +45,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     else
                     {
                         //Dosya
-                        string açık_hali = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\" + eleman;
+                        string açık_hali = Klasör.Depolama(Klasör.Kapsamı.Masaüstü, "", "", "") + "\\" + eleman;
                         if (File.Exists(açık_hali))
                         {
                             DialogResult Dr = MessageBox.Show("Alttaki dosyanın masaüstünüzde bulunuyor olması güvenlik zaafiyeti oluşturacak." + Environment.NewLine + Environment.NewLine +
@@ -152,7 +152,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (Liste.Text.StartsWith(":"))
             {
                 //klasör
-                string açık_hali = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\" + Liste.Text.Substring(1);
+                string açık_hali = Klasör.Depolama(Klasör.Kapsamı.Masaüstü, "", "", "") + "\\" + Liste.Text.Substring(1);
                 if (Directory.Exists(açık_hali))
                 {
                     MessageBox.Show("Seçtiğniz klasör masaüstünde mevcut. Üzerine yazıp bilgi kaybına sebep olmamak için işlem duraklatıldı." + Environment.NewLine + Environment.NewLine +
@@ -164,7 +164,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             else
             {
                 //dosya
-                string açık_hali = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\" + Liste.Text;
+                string açık_hali = Klasör.Depolama(Klasör.Kapsamı.Masaüstü, "", "", "") + "\\" + Liste.Text;
                 if (File.Exists(açık_hali))
                 {
                     MessageBox.Show("Seçtiğniz dosya masaüstünde mevcut. Üzerine yazıp bilgi kaybına sebep olmamak için işlem duraklatıldı." + Environment.NewLine + Environment.NewLine +
@@ -194,7 +194,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     if (eleman.StartsWith(":"))
                     {
                         //klasör
-                        string açık_hali = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\" + eleman.Substring(1);
+                        string açık_hali = Klasör.Depolama(Klasör.Kapsamı.Masaüstü, "", "", "") + "\\" + eleman.Substring(1);
                         if (Directory.Exists(açık_hali))
                         {
                             Banka.KorumalıAlan_Ekle(açık_hali);
@@ -204,7 +204,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     else
                     {
                         //Dosya
-                        string açık_hali = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\" + eleman;
+                        string açık_hali = Klasör.Depolama(Klasör.Kapsamı.Masaüstü, "", "", "") + "\\" + eleman;
                         if (File.Exists(açık_hali))
                         {
                             Banka.KorumalıAlan_Ekle(açık_hali);

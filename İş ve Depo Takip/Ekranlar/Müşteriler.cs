@@ -130,15 +130,21 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Kaydet_Click(object sender, EventArgs e)
         {
+            Eposta_Kime.Text = Eposta_Kime.Text.Trim().ToLower();
+            Eposta_Bilgi.Text = Eposta_Bilgi.Text.Trim().ToLower();
+            Eposta_Gizli.Text = Eposta_Gizli.Text.Trim().ToLower();
+
             IDepo_Eleman m = Banka.Ayarlar_Müşteri(Liste.Text, "Eposta", true);
-            m.Yaz("Kime", Eposta_Kime.Text.Trim());
-            m.Yaz("Bilgi", Eposta_Bilgi.Text.Trim());
-            m.Yaz("Gizli", Eposta_Gizli.Text.Trim());
+            m.Yaz("Kime", Eposta_Kime.Text);
+            m.Yaz("Bilgi", Eposta_Bilgi.Text);
+            m.Yaz("Gizli", Eposta_Gizli.Text);
             Banka.Ayarlar_Müşteri(Liste.Text, "Notlar", true)[0] = Notlar.Text.Trim();
             Banka.Değişiklikleri_Kaydet(Kaydet);
 
             splitContainer1.Panel1.Enabled = true;
             Liste_SelectedValueChanged(null, null);
+
+            Ekranlar.Eposta.Durdur();
         }
     }
 }

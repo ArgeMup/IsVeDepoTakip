@@ -68,7 +68,7 @@
             this.Liste.Location = new System.Drawing.Point(15, 58);
             this.Liste.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.Liste.Name = "Liste";
-            this.Liste.Size = new System.Drawing.Size(400, 294);
+            this.Liste.Size = new System.Drawing.Size(400, 323);
             this.Liste.TabIndex = 0;
             this.Liste.SelectedValueChanged += new System.EventHandler(this.Liste_SelectedValueChanged);
             // 

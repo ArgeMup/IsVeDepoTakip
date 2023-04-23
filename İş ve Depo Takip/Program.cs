@@ -59,9 +59,7 @@ namespace İş_ve_Depo_Takip
                     "Uygulama kapatılıp yeniden başlatılacak." + Environment.NewLine + Environment.NewLine +
                     "Lütfen son işleminizi kontrol ediniz." + Environment.NewLine + Environment.NewLine + ex.Message, "İş Ve Depo Takip");
 
-                Ekranlar.Ayarlar_Eposta epst = new Ekranlar.Ayarlar_Eposta();
-                epst.EpostaGönder_İstisna(ex);
-                epst.Dispose();
+                //Ekranlar.Eposta.EpostaGönder_İstisna(ex);
             }
             finally
             {

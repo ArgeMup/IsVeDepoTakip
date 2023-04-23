@@ -92,7 +92,6 @@ namespace İş_ve_Depo_Takip
             Depo_ d = Tablo(null, TabloTürü.Ayarlar, true);
             Ortak.Kullanıcı_KüçültüldüğündeParolaSor = d.Oku_Bit("Küçültüldüğünde Parola Sor", true, 0);
             Ortak.Kullanıcı_KüçültüldüğündeParolaSor_sn = d.Oku_TamSayı("Küçültüldüğünde Parola Sor", 60, 1);
-            Ortak.Kullanıcı_Eposta_hesabı_mevcut = !string.IsNullOrEmpty(d.Oku("Eposta/Gönderici/Şifresi"));
 
             while (d.Oku_TarihSaat("Son Banka Kayıt", default, 1) > DateTime.Now)
             {
@@ -2409,7 +2408,7 @@ namespace İş_ve_Depo_Takip
                     throw new Exception("Dosya doğrulama kodu hatalı " + dosya[0]);
                 }
 
-                DosyaAdı = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\" + DosyaAdı.Substring(1);
+                DosyaAdı = Klasör.Depolama(Klasör.Kapsamı.Masaüstü, "", "", "") + "\\" + DosyaAdı.Substring(1);
                 if (!Ortak.Klasör_TamKopya(Gecici_zip_klasörü, DosyaAdı)) throw new Exception("Klasör kopyalanamadı " + DosyaAdı);
                 if (!Klasör.Sil(Gecici_zip_klasörü)) throw new Exception("Klasör silinemedi " + Gecici_zip_klasörü);
             }
@@ -2418,7 +2417,7 @@ namespace İş_ve_Depo_Takip
                 string DoKo = DoğrulamaKodu.Üret.BaytDizisinden(içerik).HexYazıya();
                 if (dosya[1] != DoKo) throw new Exception("Dosya doğrulama kodu hatalı " + dosya[0]);
 
-                File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\" + DosyaAdı, içerik);
+                File.WriteAllBytes(Klasör.Depolama(Klasör.Kapsamı.Masaüstü, "", "", "") + "\\" + DosyaAdı, içerik);
             }
         }
         public static void KorumalıAlan_Sil(string DosyaAdı)

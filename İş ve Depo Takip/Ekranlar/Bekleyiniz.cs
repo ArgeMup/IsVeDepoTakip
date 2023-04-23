@@ -71,6 +71,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         public void Bitir()
         {
+            if (!Ortak.AnaEkran.InvokeRequired) _Bitir_();
+            else
+            {
+                Ortak.AnaEkran.Invoke(new Action(() =>
+                {
+                    _Bitir_();
+                }));
+            }
+        }
+        void _Bitir_()
+        {
             if (Tetikleyen != null)
             {
                 if (Tetikleyen.GetType() == typeof(ListBox))

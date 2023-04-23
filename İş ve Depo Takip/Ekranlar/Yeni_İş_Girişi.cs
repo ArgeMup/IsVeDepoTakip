@@ -2,17 +2,19 @@
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
     public partial class Yeni_İş_Girişi : Form
     {
-        string Müşteri  = null, SeriNo = null, YeniKayıtİçinTutulanSeriNo = null, EkTanım = null; 
+        string Müşteri = null, SeriNo = null, YeniKayıtİçinTutulanSeriNo = null, EkTanım = null; 
         Banka.TabloTürü SeriNoTürü = Banka.TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi;
         bool SadeceOkunabilir = false, Notlar_TarihSaatEklendi = false;
         List<string> Müşteriler_Liste = null, Hastalar_Liste = new List<string>(), İşTürleri_Liste = null;
-        WebBrowser P_DosyaEkleri_Tarayıcı = null;
+        Yeni_İş_Girişi_DosyaEkleri P_Yeni_İş_Girişi_DosyaEkleri = new Yeni_İş_Girişi_DosyaEkleri();
 
         public Yeni_İş_Girişi()
         {
@@ -155,9 +157,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Ayraç_Kat_2_3.SplitterDistance *= 2;
                 }
 
-                P_DosyaEkleri_Liste.Items.AddRange(Banka.DosyaEkleri_Listele(SeriNo).ToArray());
+                P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items.AddRange(Banka.DosyaEkleri_Listele(SeriNo).ToArray());
                 P_DosyaEkleri_TuşunuGüncelle();
             }
+
+            P_Yeni_İş_Girişi_DosyaEkleri.SadeceOkunabilir = SadeceOkunabilir;
+            P_Yeni_İş_Girişi_DosyaEkleri.ÖnYüzGörseliniGüncelle = P_DosyaEkleri_TuşunuGüncelle;
+            P_Yeni_İş_Girişi_DosyaEkleri.SeriNo = SeriNo;
+            P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Geri.Click += new EventHandler(P_DosyaEkleri_Geri_Click);
+            DragDrop += new DragEventHandler(P_Yeni_İş_Girişi_DosyaEkleri.Yeni_İş_Girişi_DragDrop);
+            DragEnter += new DragEventHandler(P_Yeni_İş_Girişi_DosyaEkleri.Yeni_İş_Girişi_DragEnter);
+            Ortak.AltSayfayıYükle(P_DosyaEkleri, P_Yeni_İş_Girişi_DosyaEkleri);
+            P_Yeni_İş_Girişi_DosyaEkleri.DeğişiklikYapıldı = false;
 
             //Panelin görüntilenebilmesi için eklentiler
             Ayraç_Kat_3_SolSağ.Panel2.Controls.Remove(P_DosyaEkleri);
@@ -192,71 +203,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Close();
                     break;
             }
-        }
-        private void Yeni_İş_Girişi_DragEnter(object sender, DragEventArgs e)
-        {
-            if (SadeceOkunabilir) return;
-
-            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
-        }
-        private void Yeni_İş_Girişi_DragDrop(object sender, DragEventArgs e)
-        {
-            if (SadeceOkunabilir) return;
-
-            string[] dosyalar = (string[])e.Data.GetData(DataFormats.FileDrop);
-            if (dosyalar != null && dosyalar.Length > 0)
-            {
-                foreach (string dosya in dosyalar)
-                {
-                    if (System.IO.File.Exists(dosya))
-                    {
-                        _Ekle_(dosya);
-                    }
-                    else if (System.IO.Directory.Exists(dosya))
-                    {
-                        string[] kls_içindeki_dosyalar = System.IO.Directory.GetFiles(dosya, "*.*", System.IO.SearchOption.AllDirectories);
-                        foreach (string d in kls_içindeki_dosyalar) _Ekle_(d);
-                    }
-                }
-
-                void _Ekle_(string Girdi)
-                {
-                    if (System.IO.Path.GetExtension(Girdi) == ".zip")
-                    {
-                        string soru = "Zip dosyasının kendisini değil içindeki dosyaları dahil etmek ister misiniz?" + Environment.NewLine + Environment.NewLine +
-                            "Evet : Zip dosyası bir klasöre geçici olarak çıkartılır ve dosyalar dahil edilir." + Environment.NewLine +
-                            "Hayır : Zip dosyası olduğu gibi dahil edilir." + Environment.NewLine +
-                            "İptal : Zip dosyası görmezden gelinir";
-
-                        DialogResult Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
-                        if (Dr == DialogResult.Cancel) return;
-                        else if (Dr == DialogResult.Yes)
-                        {
-                            string gecici_kls = Ortak.Klasör_Gecici + System.IO.Path.GetRandomFileName();
-                            while (System.IO.Directory.Exists(gecici_kls)) gecici_kls = Ortak.Klasör_Gecici + System.IO.Path.GetRandomFileName();
-                            SıkıştırılmışDosya.Klasöre(Girdi, gecici_kls);
-
-                            foreach (string dsy in System.IO.Directory.GetFiles(gecici_kls, "*.*", System.IO.SearchOption.AllDirectories))
-                            {
-                                _Ekle_(dsy);
-                            }
-                            return;
-                        }
-                    }
-
-                    if (!P_DosyaEkleri_Liste.Items.Contains(Girdi))
-                    {
-                        P_DosyaEkleri_Liste.Items.Add(Girdi);
-                        Kaydet_TuşGörünürlüğü(true);
-                    }
-                }
-            }
-
-            P_DosyaEkleri_TuşunuGüncelle();
-        }
-        private void Yeni_İş_Girişi_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (P_DosyaEkleri_Tarayıcı != null) P_DosyaEkleri_Geri_Click(null, null);
         }
 
         private void Müşteriler_AramaÇubuğu_KeyPress(object sender, KeyPressEventArgs e)
@@ -492,69 +438,23 @@ namespace İş_ve_Depo_Takip.Ekranlar
         #region Dosya Ekleri
         private void DosyaEkleri_Click(object sender, EventArgs e)
         {
-            P_DosyaEkleri_Tarayıcı = new WebBrowser();
-            P_DosyaEkleri_Tarayıcı.AllowWebBrowserDrop = false;
-            P_DosyaEkleri_Tarayıcı.Dock = DockStyle.Fill;
-            P_DosyaEkleri_Ayraç_SolSağ.Panel2.Controls.Add(P_DosyaEkleri_Tarayıcı);
-
+            P_Yeni_İş_Girişi_DosyaEkleri.Show();
             P_DosyaEkleri.Visible = true;
 
-            if (P_DosyaEkleri_Liste.Items.Count > 0) P_DosyaEkleri_Liste.SelectedIndex = P_DosyaEkleri_Liste.Items.Count - 1;
+            if (P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items.Count > 0) P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.SelectedIndex = P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items.Count - 1;
         }
         private void P_DosyaEkleri_Geri_Click(object sender, EventArgs e)
         {
+            P_Yeni_İş_Girişi_DosyaEkleri.Hide();
             P_DosyaEkleri.Visible = false;
-            P_DosyaEkleri_Liste.SelectedIndex = -1;
 
-            P_DosyaEkleri_Ayraç_SolSağ.Panel2.Controls.Remove(P_DosyaEkleri_Tarayıcı);
-            P_DosyaEkleri_Tarayıcı.Dispose();
-            P_DosyaEkleri_Tarayıcı = null;
-        }
-        private void P_DosyaEkleri_Liste_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            P_DosyaEkleri_Sil.Enabled = false;
-            if (P_DosyaEkleri_Liste.SelectedIndex < 0) return;
-            string SahteKonum = null;
-
-            if (System.IO.File.Exists(P_DosyaEkleri_Liste.Text))
-            {
-                //yeni eklenen
-                SahteKonum = P_DosyaEkleri_Liste.Text;
-            }
-            else
-            {
-                //önceden kaydedilen
-                if (SeriNo.DoluMu())
-                {
-                    SahteKonum = Banka.DosyaEkleri_GeciciKlasöreKopyala(SeriNo, P_DosyaEkleri_Liste.Text);
-                }
-            }
-
-            if (SahteKonum.BoşMu() || !System.IO.File.Exists(SahteKonum))
-            {
-                MessageBox.Show("Dosya açılamadı" + Environment.NewLine + Environment.NewLine + P_DosyaEkleri_Liste.Text, Text);
-            }
-            else P_DosyaEkleri_Tarayıcı.Navigate(SahteKonum);
-
-            P_DosyaEkleri_Sil.Enabled = !SadeceOkunabilir;
-        }
-        private void P_DosyaEkleri_Sil_Click(object sender, EventArgs e)
-        {
-            if (P_DosyaEkleri_Liste.SelectedIndex < 0) return;
-
-            DialogResult Dr = MessageBox.Show("Seçtiğniz öğeyi silmek istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-            if (Dr == DialogResult.No) return;
-
-            P_DosyaEkleri_Liste.Items.RemoveAt(P_DosyaEkleri_Liste.SelectedIndex);
             P_DosyaEkleri_TuşunuGüncelle();
-            if (P_DosyaEkleri_Liste.Items.Count == 0) P_DosyaEkleri_Geri_Click(null, null);
-
-            Kaydet_TuşGörünürlüğü(true);
         }
         void P_DosyaEkleri_TuşunuGüncelle()
         {
-            DosyaEkleri.Enabled = P_DosyaEkleri_Liste.Items.Count > 0;
-            DosyaEkleri.Text = "Dosya Ekleri (" + P_DosyaEkleri_Liste.Items.Count + ")";
+            DosyaEkleri.Text = "Dosya Ekleri (" + P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items.Count + ")";
+            P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Enabled = P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items.Count > 0;
+            if (P_Yeni_İş_Girişi_DosyaEkleri.DeğişiklikYapıldı) Kaydet_TuşGörünürlüğü(true);
         }
         #endregion
 
@@ -711,12 +611,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             //Dosya eklerinin kaydedilmesi
-            string[] P_DosyaEkleri_TamListe = new string[P_DosyaEkleri_Liste.Items.Count];
+            string[] P_DosyaEkleri_TamListe = new string[P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items.Count];
             if (P_DosyaEkleri_TamListe.Length > 0)
             {
-                for (int i = 0; i < P_DosyaEkleri_Liste.Items.Count; i++)
+                for (int i = 0; i < P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items.Count; i++)
                 {
-                    P_DosyaEkleri_TamListe[i] = P_DosyaEkleri_Liste.Items[i].ToString();
+                    P_DosyaEkleri_TamListe[i] = P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items[i].ToString();
                 }
             }
 

@@ -120,4 +120,14 @@
   <metadata name="İpUcu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="BeyazListe.ToolTip" xml:space="preserve">
+    <value>Sadece müşterilerinizin eposta adresleri ve
+burada yazan eposta adreslerinden gelen
+epostalar alınır.
+
+Noktalı virgül ile ayrılmış olarak
+birden fazla eklenebilir.
+
+isim1@firmaadi.com;isim2@firmaadi.com</value>
+  </data>
 </root>

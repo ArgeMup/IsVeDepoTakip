@@ -34,7 +34,6 @@ namespace İş_ve_Depo_Takip
         public static string Kullanıcı_Klasör_Pdf = null;
         public static bool Kullanıcı_KüçültüldüğündeParolaSor = true;
         public static int Kullanıcı_KüçültüldüğündeParolaSor_sn = 60;
-        public static bool Kullanıcı_Eposta_hesabı_mevcut = false;
 
         public static bool YazıyıSayıyaDönüştür(ref string YazıŞeklindeSayı, string Konum, string YardımcıAçıklama = null, double EnDüşük = double.MinValue, double EnYüksek = double.MaxValue)
         {
@@ -257,6 +256,25 @@ namespace İş_ve_Depo_Takip
                 if (DosyaAdı.EndsWith("_Bekle.bat")) İşlem.WaitForExit();
             }
             catch (Exception) { }
+        }
+
+        public static void AltSayfayıYükle(Panel ÜzerineYerleştirilecekYüzey, Form AltSayfa)
+        {
+            if (ÜzerineYerleştirilecekYüzey.Controls.Count > 0)
+            {
+                foreach (Control c in ÜzerineYerleştirilecekYüzey.Controls)
+                {
+                    ÜzerineYerleştirilecekYüzey.Controls.Remove(c);
+                    c.Dispose();
+                }
+            }
+
+            AltSayfa.TopLevel = false;
+            AltSayfa.FormBorderStyle = FormBorderStyle.None;
+            AltSayfa.Dock = DockStyle.Fill;
+            ÜzerineYerleştirilecekYüzey.Controls.Add(AltSayfa);
+            //childForm.BringToFront();
+            AltSayfa.Show();
         }
 
         #region Yardımcı Sınıflar

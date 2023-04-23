@@ -60,12 +60,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.label7 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.Ayraç_Kat_3_SolSağ = new System.Windows.Forms.SplitContainer();
+            this.P_Eposta = new System.Windows.Forms.Panel();
             this.KaydetVeEtiketiYazdır = new System.Windows.Forms.Button();
             this.P_DosyaEkleri = new System.Windows.Forms.Panel();
-            this.P_DosyaEkleri_Ayraç_SolSağ = new System.Windows.Forms.SplitContainer();
-            this.P_DosyaEkleri_Liste = new System.Windows.Forms.ListBox();
-            this.P_DosyaEkleri_Sil = new System.Windows.Forms.Button();
-            this.P_DosyaEkleri_Geri = new System.Windows.Forms.Button();
             this.DosyaEkleri = new System.Windows.Forms.Button();
             this.Ayraç_Kat_2_3 = new System.Windows.Forms.SplitContainer();
             this.Ayraç_Kat_1_2 = new System.Windows.Forms.SplitContainer();
@@ -82,10 +79,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Kat_3_SolSağ.Panel1.SuspendLayout();
             this.Ayraç_Kat_3_SolSağ.Panel2.SuspendLayout();
             this.Ayraç_Kat_3_SolSağ.SuspendLayout();
-            this.P_DosyaEkleri.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.P_DosyaEkleri_Ayraç_SolSağ)).BeginInit();
-            this.P_DosyaEkleri_Ayraç_SolSağ.Panel1.SuspendLayout();
-            this.P_DosyaEkleri_Ayraç_SolSağ.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Kat_2_3)).BeginInit();
             this.Ayraç_Kat_2_3.Panel1.SuspendLayout();
             this.Ayraç_Kat_2_3.Panel2.SuspendLayout();
@@ -454,6 +447,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             // Ayraç_Kat_3_SolSağ.Panel2
             // 
+            this.Ayraç_Kat_3_SolSağ.Panel2.Controls.Add(this.P_Eposta);
             this.Ayraç_Kat_3_SolSağ.Panel2.Controls.Add(this.KaydetVeEtiketiYazdır);
             this.Ayraç_Kat_3_SolSağ.Panel2.Controls.Add(this.P_DosyaEkleri);
             this.Ayraç_Kat_3_SolSağ.Panel2.Controls.Add(this.Tablo);
@@ -462,6 +456,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Kat_3_SolSağ.Size = new System.Drawing.Size(907, 247);
             this.Ayraç_Kat_3_SolSağ.SplitterDistance = 271;
             this.Ayraç_Kat_3_SolSağ.TabIndex = 24;
+            // 
+            // P_Eposta
+            // 
+            this.P_Eposta.Location = new System.Drawing.Point(531, 140);
+            this.P_Eposta.Name = "P_Eposta";
+            this.P_Eposta.Size = new System.Drawing.Size(76, 54);
+            this.P_Eposta.TabIndex = 14;
+            this.P_Eposta.Visible = false;
             // 
             // KaydetVeEtiketiYazdır
             // 
@@ -482,77 +484,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             // P_DosyaEkleri
             // 
-            this.P_DosyaEkleri.Controls.Add(this.P_DosyaEkleri_Ayraç_SolSağ);
-            this.P_DosyaEkleri.Location = new System.Drawing.Point(165, 106);
+            this.P_DosyaEkleri.Location = new System.Drawing.Point(449, 140);
             this.P_DosyaEkleri.Name = "P_DosyaEkleri";
-            this.P_DosyaEkleri.Size = new System.Drawing.Size(307, 103);
+            this.P_DosyaEkleri.Size = new System.Drawing.Size(76, 54);
             this.P_DosyaEkleri.TabIndex = 13;
             this.P_DosyaEkleri.Visible = false;
-            // 
-            // P_DosyaEkleri_Ayraç_SolSağ
-            // 
-            this.P_DosyaEkleri_Ayraç_SolSağ.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.P_DosyaEkleri_Ayraç_SolSağ.Location = new System.Drawing.Point(0, 0);
-            this.P_DosyaEkleri_Ayraç_SolSağ.Name = "P_DosyaEkleri_Ayraç_SolSağ";
-            // 
-            // P_DosyaEkleri_Ayraç_SolSağ.Panel1
-            // 
-            this.P_DosyaEkleri_Ayraç_SolSağ.Panel1.Controls.Add(this.P_DosyaEkleri_Liste);
-            this.P_DosyaEkleri_Ayraç_SolSağ.Panel1.Controls.Add(this.P_DosyaEkleri_Sil);
-            this.P_DosyaEkleri_Ayraç_SolSağ.Panel1.Controls.Add(this.P_DosyaEkleri_Geri);
-            this.P_DosyaEkleri_Ayraç_SolSağ.Size = new System.Drawing.Size(307, 103);
-            this.P_DosyaEkleri_Ayraç_SolSağ.SplitterDistance = 64;
-            this.P_DosyaEkleri_Ayraç_SolSağ.TabIndex = 1;
-            // 
-            // P_DosyaEkleri_Liste
-            // 
-            this.P_DosyaEkleri_Liste.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.P_DosyaEkleri_Liste.FormattingEnabled = true;
-            this.P_DosyaEkleri_Liste.ItemHeight = 20;
-            this.P_DosyaEkleri_Liste.Location = new System.Drawing.Point(0, 0);
-            this.P_DosyaEkleri_Liste.Name = "P_DosyaEkleri_Liste";
-            this.P_DosyaEkleri_Liste.Size = new System.Drawing.Size(64, 45);
-            this.P_DosyaEkleri_Liste.TabIndex = 0;
-            this.P_DosyaEkleri_Liste.SelectedIndexChanged += new System.EventHandler(this.P_DosyaEkleri_Liste_SelectedIndexChanged);
-            // 
-            // P_DosyaEkleri_Sil
-            // 
-            this.P_DosyaEkleri_Sil.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.P_DosyaEkleri_Sil.Enabled = false;
-            this.P_DosyaEkleri_Sil.Image = global::İş_ve_Depo_Takip.Properties.Resources.sil;
-            this.P_DosyaEkleri_Sil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.P_DosyaEkleri_Sil.Location = new System.Drawing.Point(0, 45);
-            this.P_DosyaEkleri_Sil.Margin = new System.Windows.Forms.Padding(0);
-            this.P_DosyaEkleri_Sil.Name = "P_DosyaEkleri_Sil";
-            this.P_DosyaEkleri_Sil.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.P_DosyaEkleri_Sil.Size = new System.Drawing.Size(64, 29);
-            this.P_DosyaEkleri_Sil.TabIndex = 12;
-            this.P_DosyaEkleri_Sil.Text = "Sil";
-            this.P_DosyaEkleri_Sil.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.P_DosyaEkleri_Sil.UseVisualStyleBackColor = true;
-            this.P_DosyaEkleri_Sil.Click += new System.EventHandler(this.P_DosyaEkleri_Sil_Click);
-            // 
-            // P_DosyaEkleri_Geri
-            // 
-            this.P_DosyaEkleri_Geri.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.P_DosyaEkleri_Geri.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol;
-            this.P_DosyaEkleri_Geri.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.P_DosyaEkleri_Geri.Location = new System.Drawing.Point(0, 74);
-            this.P_DosyaEkleri_Geri.Margin = new System.Windows.Forms.Padding(2);
-            this.P_DosyaEkleri_Geri.Name = "P_DosyaEkleri_Geri";
-            this.P_DosyaEkleri_Geri.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.P_DosyaEkleri_Geri.Size = new System.Drawing.Size(64, 29);
-            this.P_DosyaEkleri_Geri.TabIndex = 11;
-            this.P_DosyaEkleri_Geri.Text = "Geri";
-            this.P_DosyaEkleri_Geri.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.İpUcu_Genel.SetToolTip(this.P_DosyaEkleri_Geri, "Esc tuşu");
-            this.P_DosyaEkleri_Geri.UseVisualStyleBackColor = true;
-            this.P_DosyaEkleri_Geri.Click += new System.EventHandler(this.P_DosyaEkleri_Geri_Click);
             // 
             // DosyaEkleri
             // 
             this.DosyaEkleri.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.DosyaEkleri.Enabled = false;
             this.DosyaEkleri.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
             this.DosyaEkleri.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.DosyaEkleri.Location = new System.Drawing.Point(354, 3);
@@ -629,15 +569,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.ClientSize = new System.Drawing.Size(907, 438);
             this.Controls.Add(this.Ayraç_Kat_1_2);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.IsMdiContainer = true;
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Yeni_İş_Girişi";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Yeni İş Girişi / Düzenleme";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Yeni_İş_Girişi_FormClosed);
             this.Shown += new System.EventHandler(this.Yeni_İş_Girişi_Shown);
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Yeni_İş_Girişi_DragDrop);
-            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Yeni_İş_Girişi_DragEnter);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Yeni_İş_Girişi_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).EndInit();
             this.Müşteriler_Grup.ResumeLayout(false);
@@ -654,10 +592,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Kat_3_SolSağ.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Kat_3_SolSağ)).EndInit();
             this.Ayraç_Kat_3_SolSağ.ResumeLayout(false);
-            this.P_DosyaEkleri.ResumeLayout(false);
-            this.P_DosyaEkleri_Ayraç_SolSağ.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.P_DosyaEkleri_Ayraç_SolSağ)).EndInit();
-            this.P_DosyaEkleri_Ayraç_SolSağ.ResumeLayout(false);
             this.Ayraç_Kat_2_3.Panel1.ResumeLayout(false);
             this.Ayraç_Kat_2_3.Panel1.PerformLayout();
             this.Ayraç_Kat_2_3.Panel2.ResumeLayout(false);
@@ -702,10 +636,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private System.Windows.Forms.ToolTip İpUcu_Genel;
         private System.Windows.Forms.Button DosyaEkleri;
         private System.Windows.Forms.Panel P_DosyaEkleri;
-        private System.Windows.Forms.SplitContainer P_DosyaEkleri_Ayraç_SolSağ;
-        private System.Windows.Forms.ListBox P_DosyaEkleri_Liste;
-        private System.Windows.Forms.Button P_DosyaEkleri_Geri;
-        private System.Windows.Forms.Button P_DosyaEkleri_Sil;
         private System.Windows.Forms.Button KaydetVeEtiketiYazdır;
+        private System.Windows.Forms.Panel P_Eposta;
     }
 }

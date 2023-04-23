@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
@@ -984,14 +985,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 return;
             }
 
-            if (!Ortak.Kullanıcı_Eposta_hesabı_mevcut)
+            if (!Eposta.BirEpostaHesabıEklenmişMi)
             {
-                MessageBox.Show("Geçerli bir eposta hesabı oluşturulmadı" + Environment.NewLine + "Ana Ekran - Ayarlar - E-posta sayfasını kullanabilirsiniz", Text);
+                MessageBox.Show("Bir eposta hesabı tanımlanması gerekmektedir." + Environment.NewLine + "Ana Ekran - Ayarlar - E-posta sayfasınından ayarlar gözden geçirilebilir", Text);
                 return;
             }
 
-            Depo_ m = Banka.Tablo(İşTakip_Müşteriler.Text, Banka.TabloTürü.Ayarlar);
-            if (m == null || string.IsNullOrEmpty(m.Oku("Eposta/Kime") + m.Oku("Eposta/Bilgi") + m.Oku("Eposta/Gizli")))
+            IDepo_Eleman m = Banka.Ayarlar_Müşteri(İşTakip_Müşteriler.Text, "Eposta");
+            if (m == null || string.IsNullOrEmpty(m.Oku("Kime") + m.Oku("Bilgi") + m.Oku("Gizli")))
             {
                 MessageBox.Show("Müşteriye tanımlı e-posta adresi bulunamadı" + Environment.NewLine + "Ana Ekran - Ayarlar - Müşteriler sayfasını kullanabilirsiniz", Text);
                 return;
@@ -1074,10 +1075,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 "Devam etmek için Evet tuşuna basınız", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (Dr == DialogResult.No) return;
 
-                Ayarlar_Eposta epst = new Ayarlar_Eposta();
-                string snç = epst.EpostaGönder(m, dsy_lar);
-                if (!string.IsNullOrEmpty(snç)) MessageBox.Show(snç, Text);
-                epst.Dispose();
+                bool epst_gönder_tamamlandı = false;
+                Eposta.Gönder(İşTakip_Müşteriler.Text, dsy_lar, _GeriBildirimİşlemei_Tamamlandı);
+                Ortak.Gösterge.Başlat("Eposta gönderiliyor", false, İşTakip_Eposta_Gönder, 30000/35);
+                while (!epst_gönder_tamamlandı && Ortak.Gösterge.Çalışsın) { Thread.Sleep(35); Ortak.Gösterge.İlerleme = 1; }
+                void _GeriBildirimİşlemei_Tamamlandı(string Sonuç)
+                {
+                    Ortak.Gösterge.Bitir();
+
+                    if (!string.IsNullOrEmpty(Sonuç)) MessageBox.Show(Sonuç, Text);
+                    epst_gönder_tamamlandı = true;
+                }
             }
             else MessageBox.Show("Hiç kayıt bulunamadı", Text);
         }

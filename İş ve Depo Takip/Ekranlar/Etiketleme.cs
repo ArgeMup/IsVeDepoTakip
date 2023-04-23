@@ -67,7 +67,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
             }
 
-            if (sonuç.BoşMu())
+            if (!yyk.KontrolTamamlandı || !File.Exists(Barkod_Uret_dosyayolu)) sonuç += "Barkod_Uret indirilemedi" + Environment.NewLine;
+            else
             {
                 Dosya.Sil(Ortak.Klasör_Gecici + "Et\\Barkod.png");
 
@@ -93,6 +94,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
             }
 
+            yyk.Durdur();
             Ortak.Gösterge.Bitir();
             return sonuç;
         }
@@ -132,7 +134,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
             }
 
-            if (sonuç.BoşMu())
+            if (!yyk.KontrolTamamlandı || !File.Exists(Etiket_dosyayolu)) sonuç += "Etiket indirilemedi" + Environment.NewLine;
+            else
             {
                 System.Diagnostics.Process uyg = System.Diagnostics.Process.Start(Etiket_dosyayolu, Depo_Komut.YazıyaDönüştür().BaytDizisine().Taban64e());
 
@@ -155,6 +158,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
             }
 
+            yyk.Durdur();
             Ortak.Gösterge.Bitir();
             return sonuç;
         }
