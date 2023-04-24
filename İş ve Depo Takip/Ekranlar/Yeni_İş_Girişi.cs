@@ -15,6 +15,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         bool SadeceOkunabilir = false, Notlar_TarihSaatEklendi = false;
         List<string> Müşteriler_Liste = null, Hastalar_Liste = new List<string>(), İşTürleri_Liste = null;
         Yeni_İş_Girişi_DosyaEkleri P_Yeni_İş_Girişi_DosyaEkleri = new Yeni_İş_Girişi_DosyaEkleri();
+        Yeni_İş_Girişi_Epostalar P_Yeni_İş_Girişi_Epostalar = new Yeni_İş_Girişi_Epostalar();
 
         public Yeni_İş_Girişi()
         {
@@ -165,16 +166,19 @@ namespace İş_ve_Depo_Takip.Ekranlar
             P_Yeni_İş_Girişi_DosyaEkleri.ÖnYüzGörseliniGüncelle = P_DosyaEkleri_TuşunuGüncelle;
             P_Yeni_İş_Girişi_DosyaEkleri.SeriNo = SeriNo;
             P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Geri.Click += new EventHandler(P_DosyaEkleri_Geri_Click);
+            P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_GelenKutusunuAç.Click += new EventHandler(P_DosyaEkleri_GelenKutusunuAç_Click);
             DragDrop += new DragEventHandler(P_Yeni_İş_Girişi_DosyaEkleri.Yeni_İş_Girişi_DragDrop);
             DragEnter += new DragEventHandler(P_Yeni_İş_Girişi_DosyaEkleri.Yeni_İş_Girişi_DragEnter);
             Ortak.AltSayfayıYükle(P_DosyaEkleri, P_Yeni_İş_Girişi_DosyaEkleri);
             P_Yeni_İş_Girişi_DosyaEkleri.DeğişiklikYapıldı = false;
 
+            P_Yeni_İş_Girişi_Epostalar.Çıkış_Geri.Click += new EventHandler(P_Epostalar_Geri_Click);
+            Ortak.AltSayfayıYükle(P_Epostalar, P_Yeni_İş_Girişi_Epostalar);
+            P_Yeni_İş_Girişi_Epostalar.DeğişiklikYapıldı = false;
+
             //Panelin görüntilenebilmesi için eklentiler
-            Ayraç_Kat_3_SolSağ.Panel2.Controls.Remove(P_DosyaEkleri);
-            Controls.Add(P_DosyaEkleri);
-            P_DosyaEkleri.Dock = DockStyle.Fill;
-            P_DosyaEkleri.BringToFront();
+            Ayraç_Kat_3_SolSağ.Panel2.Controls.Remove(P_DosyaEkleri); Controls.Add(P_DosyaEkleri); P_DosyaEkleri.BringToFront();
+            Ayraç_Kat_3_SolSağ.Panel2.Controls.Remove(P_Epostalar); Controls.Add(P_Epostalar); P_Epostalar.BringToFront();
         }
         private void Yeni_İş_Girişi_Shown(object sender, EventArgs e)
         {
@@ -438,17 +442,37 @@ namespace İş_ve_Depo_Takip.Ekranlar
         #region Dosya Ekleri
         private void DosyaEkleri_Click(object sender, EventArgs e)
         {
-            P_Yeni_İş_Girişi_DosyaEkleri.Show();
+            P_Epostalar.Visible = false;
             P_DosyaEkleri.Visible = true;
 
             if (P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items.Count > 0) P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.SelectedIndex = P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items.Count - 1;
         }
         private void P_DosyaEkleri_Geri_Click(object sender, EventArgs e)
         {
-            P_Yeni_İş_Girişi_DosyaEkleri.Hide();
             P_DosyaEkleri.Visible = false;
 
             P_DosyaEkleri_TuşunuGüncelle();
+        }
+        private void P_DosyaEkleri_GelenKutusunuAç_Click(object sender, EventArgs e)
+        {
+            P_DosyaEkleri.Visible = false;
+            P_Epostalar.Visible = true;
+        }
+        private void P_Epostalar_Geri_Click(object sender, EventArgs e)
+        {
+            if (P_Yeni_İş_Girişi_Epostalar.NotlarıVeDosyaEkleriniAl(out string Yazı, out string[] DosyaEkleri))
+            {
+                if (Yazı.DoluMu() && !Notlar.Text.Contains(Yazı))
+                {
+                    Notlar_KeyDown(null, null);
+                    Notlar.AppendText(Yazı);
+                }
+
+                if (DosyaEkleri != null) P_Yeni_İş_Girişi_DosyaEkleri.Ekle(DosyaEkleri);
+            }
+
+            P_Epostalar.Visible = false;
+            P_DosyaEkleri.Visible = true;
         }
         void P_DosyaEkleri_TuşunuGüncelle()
         {
@@ -623,6 +647,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Banka.Talep_Ekle(Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, İskonto.Text, Notlar.Text.Trim(), it_leri, ücret_ler, giriş_tarih_ler, çıkış_tarih_ler, P_DosyaEkleri_TamListe, SeriNo);
             Banka.Ayarlar_Kullanıcı(Name, "Hastalar_AdVeSoyadıDüzelt").Yaz(null, Hastalar_AdVeSoyadıDüzelt.Checked);
             Banka.Değişiklikleri_Kaydet(Kaydet);
+
+            P_Yeni_İş_Girişi_Epostalar.KullanılanEpostayıİşle();
+
             return true;
         }
     }

@@ -365,7 +365,7 @@
             this.BeyazListe.Name = "BeyazListe";
             this.BeyazListe.Size = new System.Drawing.Size(187, 179);
             this.BeyazListe.TabIndex = 4;
-            this.BeyazListe.Text = "isim@firmaadi.com;";
+            this.BeyazListe.Text = "isim1@firmaadi.com;isim2@firmaadi.com";
             this.İpUcu.SetToolTip(this.BeyazListe, resources.GetString("BeyazListe.ToolTip"));
             this.BeyazListe.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 

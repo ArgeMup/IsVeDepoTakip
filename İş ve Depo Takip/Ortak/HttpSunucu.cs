@@ -78,7 +78,7 @@ namespace İş_ve_Depo_Takip
                     }
                     else goto Hata; 
 
-                    if (Soyadı == "bmp" || Soyadı == "png") Soyadı = "image/" + Soyadı;
+                    if (Soyadı == "bmp" || Soyadı == "png" || Soyadı == "gif") Soyadı = "image/" + Soyadı;
                     else if (Soyadı == "jpg") Soyadı = "image/jpeg";
                     else if (Soyadı == "ico") Soyadı = "image/x-icon";
                     else if (Soyadı == "pdf") Soyadı = "application/pdf";
@@ -118,7 +118,7 @@ namespace İş_ve_Depo_Takip
                             string soyadı = Path.GetExtension(DosyaEki).Remove(0, 1).ToLower();
                             string kapalı_adı = Banka.DosyaEkleri_GeciciKlasöreKopyala(Sayfa_İçeriği[0], DosyaEki);
 
-                            if (soyadı == "jpg" || soyadı == "png" || soyadı == "bmp")
+                            if (soyadı == "jpg" || soyadı == "png" || soyadı == "bmp" || soyadı == "gif")
                             {
                                 //<img src="DoEk/1.jpg" alt="1" width="32%" onclick="Buyut(this)">
                                 dosya_eki_resim += "<img src=\"DoEk/" + Sayfa_İçeriği[0] + "/" + Path.GetFileName(DosyaEki) + "\" alt=\"" + Path.GetFileName(DosyaEki) + "\" width=\"32%\" onclick=\"Buyut(this)\">";
@@ -191,7 +191,7 @@ namespace İş_ve_Depo_Takip
         //HTTP/1.1 200 OK
         //Server: Argemup Reklamı
         //Content-Length: 6                bayt olarak
-        //Content-Type: text/html/plain image/x-icon/jpeg/png/bmp application/pdf/octet-stream
+        //Content-Type: text/html/plain image/x-icon/jpeg/png/bmp/gif application/pdf/octet-stream
         //Connection: Closed
         //
         //içerik

@@ -2695,10 +2695,13 @@ namespace İş_ve_Depo_Takip
             Malzemeler = null;
             Müşteriler = null;
             DosyaEkleri = null;
-            Kullanıcılar = null;
             KorumalıAlan = null;
             Takvim = null;
             MalzemeKullanımDetayları = null;
+
+            //Kullanıcılar = null; Önemsiz kullanıcı ayarları
+
+            Günlük.Ekle("Değişiklikler_TamponuSıfırla");
         }
 
         public static string Yazdır_Tarih(string Girdi)

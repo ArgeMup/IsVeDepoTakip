@@ -1,4 +1,5 @@
 ﻿using ArgeMup.HazirKod;
+using ArgeMup.HazirKod.Dönüştürme;
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Collections.Generic;
@@ -109,7 +110,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             Eposta.Durdur();
-            Eposta.YenileİşaretleSil(365, null, null, null, _GeriBildirimİşlemi_Tamamlandı);
+            Eposta.YenileİşaretleSil(null, 365, false, null, null, null, _GeriBildirimİşlemi_Tamamlandı);
             void _GeriBildirimİşlemi_Tamamlandı(string Sonuç)
             {
                 if (Sonuç.BoşMu())
@@ -241,7 +242,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             return null;
         }
-        static string EpostaAltyapısı_YenileİşaretleSil(int Listele_GündenEskiOlanlar, string[] OkunduOlarakİşaretle, string[] Taşı, string Taşı_HedefKlasör)
+        static string EpostaAltyapısı_YenileİşaretleSil(string KlasörAdı, int Yenile_GündenEskiOlanlar, bool Yenile_SadeceOkunmamışlar, string[] OkunduOlarakİşaretle, string[] Taşı, string Taşı_HedefKlasör)
         {
             string snç = EpostaAltyapısı_Başlat();
             if (snç.DoluMu()) return snç;
@@ -254,7 +255,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 for (int i = 0; i < OkunduOlarakİşaretle.Length; i++)
                 {
-                    Depo_Komut["Komutlar/Okundu Olarak İşaretle " + i].İçeriği = new string[] { null, OkunduOlarakİşaretle[i] };
+                    Depo_Komut["Komutlar/Okundu Olarak İşaretle " + i].İçeriği = new string[] { KlasörAdı, OkunduOlarakİşaretle[i] };
                 } 
             }
 
@@ -262,17 +263,22 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 for (int i = 0; i < Taşı.Length; i++)
                 {
-                    Depo_Komut["Komutlar/Taşı/" + Taşı[i]].İçeriği = new string[] { null, Taşı_HedefKlasör };
+                    Depo_Komut["Komutlar/Taşı/" + Taşı[i]].İçeriği = new string[] { KlasörAdı, Taşı_HedefKlasör };
                 }
             }
 
-            if (Listele_GündenEskiOlanlar > 0)
+            if (Yenile_GündenEskiOlanlar > 0)
             {
-                Depo_Komut.Yaz("Komutlar/Epostaları Yenile", null, 0); //Gelen Kutusu
-                Depo_Komut.Yaz("Komutlar/Epostaları Yenile", false, 1); //Sadece okunmamışları al
-                Depo_Komut.Yaz("Komutlar/Epostaları Yenile", DateTime.Now.AddDays(-Listele_GündenEskiOlanlar), 2); //Aralık Başlangıç
+                Depo_Komut.Yaz("Komutlar/Epostaları Yenile", KlasörAdı, 0);
+                Depo_Komut.Yaz("Komutlar/Epostaları Yenile", Yenile_SadeceOkunmamışlar, 1);
+                Depo_Komut.Yaz("Komutlar/Epostaları Yenile", DateTime.Now.AddDays(-Yenile_GündenEskiOlanlar), 2); //Aralık Başlangıç
                 Depo_Komut.Yaz("Komutlar/Epostaları Yenile", DateTime.Now, 3); //Aralık Bitiş
                 Depo_Komut.Yaz("Komutlar/Epostaları Yenile", true, 4); //Dosya eklerini al
+            }
+
+            if (Klasörler == null)
+            {
+                Depo_Komut.Yaz("Komutlar/Klasörleri Listele", false);
             }
 
             File.WriteAllText(EpostaAltyapısı_KomutDosyasıYolu, Depo_Komut.YazıyaDönüştür());
@@ -297,9 +303,21 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
             }
 
-            if (Listele_GündenEskiOlanlar > 0)
+            if (Yenile_GündenEskiOlanlar > 0)
             {
                 if (Depo_Komut["Cevaplar/Epostaları Yenile", 0] != "Başarılı") ht_lar += "Epostaları Yenile " + Depo_Komut["Cevaplar/Epostaları Yenile", 1];
+            }
+
+            if (Klasörler == null)
+            {
+                if (Depo_Komut["Cevaplar/Klasörleri Listele", 0] == "Başarılı")
+                {
+                    Klasörler = new string[Depo_Komut["Cevaplar/Klasörleri Listele"].Elemanları.Length];
+                    for (int i = 0; i < Klasörler.Length; i++)
+                    {
+                        Klasörler[i] = Depo_Komut["Cevaplar/Klasörleri Listele"].Elemanları[i].Adı;
+                    }
+                }
             }
 
             return ht_lar;
@@ -323,7 +341,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             return File.GetLastWriteTime(EpostaAltyapısı_KomutDosyasıYolu) > Şimdi;
         }
-
+        static string _KlasörAdıBoşİseDüzelt_(string KlasörAdı)
+        {
+            return KlasörAdı.BoşMu(true) ? "Gelen Kutusu" : KlasörAdı;
+        }
+        
+        public static string[] Klasörler = null;
         public static string EpostaAltyapısı_EpostalarınYolu = Ortak.Klasör_Gecici + "Ep";
         public static bool BirEpostaHesabıEklenmişMi
         {
@@ -373,18 +396,22 @@ namespace İş_ve_Depo_Takip.Ekranlar
             IDepo_Eleman ayar = Banka.Ayarlar_Genel("Eposta/Mesaj");
             Gönder(müşt.Oku("Kime"), müşt.Oku("Bilgi"), müşt.Oku("Gizli"), ayar.Oku("Konu"), ayar.Oku("İçerik").Replace("%Müşteri%", Müşteri), null, DosyaEkleri, GeriBildirimİşlemi_Tamamlandı);
         }
-        public static void YenileİşaretleSil(int Listele_GündenEskiOlanlar = 7, string[] OkunduOlarakİşaretle = null, string[] Taşı = null, string Taşı_HedefKlasör = null, Action<string> GeriBildirimİşlemi_Tamamlandı = null)
+        public static void YenileİşaretleSil(string KlasörAdı, int Yenile_GündenEskiOlanlar = 7, bool Yenile_SadeceOkunmamışlar = true, string[] OkunduOlarakİşaretle = null, string[] Taşı = null, string Taşı_HedefKlasör = null, Action<string> GeriBildirimİşlemi_Tamamlandı = null)
         {
             string sonuç = null;
             Task.Run(() =>
             {
-                sonuç = EpostaAltyapısı_YenileİşaretleSil(Listele_GündenEskiOlanlar, OkunduOlarakİşaretle, Taşı, Taşı_HedefKlasör);
+                sonuç = EpostaAltyapısı_YenileİşaretleSil(KlasörAdı, Yenile_GündenEskiOlanlar, Yenile_SadeceOkunmamışlar, OkunduOlarakİşaretle, Taşı, Taşı_HedefKlasör);
             }).ContinueWith((t) =>
             {
                 GeriBildirimİşlemi_Tamamlandı?.Invoke(sonuç);
             });
         }
-        
+        public static string Yenile_DepoDosyaYolu(string KlasörAdı)
+        {
+            return D_DosyaKlasörAdı.Düzelt(EpostaAltyapısı_EpostalarınYolu + "\\Epostaları Yenile\\" + _KlasörAdıBoşİseDüzelt_(KlasörAdı) + "\\Depo.mup");
+        }
+
         //public static void EpostaGönder_İstisna(Exception İstisna, int ZamanAşımı_msn = 60000)
         //{
         //    if (!BirEpostaHesabıEklenmişMi) return;

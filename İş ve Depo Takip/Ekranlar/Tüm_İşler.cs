@@ -31,6 +31,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             IDepo_Eleman Ayrl_Kullanıcı = Banka.Ayarlar_Kullanıcı(Name, null);
             İşTakip_Yazdırma_VeGörüntüle.Checked = Ayrl_Kullanıcı.Oku_Bit("İşTakip_Yazdırma_VeGörüntüle", true);
             İşTakip_Yazdırma_VeKlasörüAç.Checked = Ayrl_Kullanıcı.Oku_Bit("İşTakip_Yazdırma_VeKlasörüAç", true);
+            Tablo_TümünüSeçVeyaAç.Text = Ayrl_Kullanıcı.Oku("Tablo_TümünüSeçVeyaAç", "Tümünü Seç");
 
             DateTime t = DateTime.Now;
             Arama_GirişTarihi_Bitiş.Value = new DateTime(t.Year, t.Month, t.Day, 23, 59, 59);
@@ -1092,16 +1093,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void Tablo_TümünüSeçVeyaAç_Click(object sender, EventArgs e)
         {
-            if (Tablo_TümünüSeçVeyaAç.Tag == null)
-            {
-                Tablo_TümünüSeçVeyaAç.Tag = 0;
-                Tablo_TümünüSeçVeyaAç.Text = "Aç";
-            }
-            else
-            {
-                Tablo_TümünüSeçVeyaAç.Tag = null;
-                Tablo_TümünüSeçVeyaAç.Text = "Tümünü Seç";
-            }
+            if (Tablo_TümünüSeçVeyaAç.Text == "Tümünü Seç") Tablo_TümünüSeçVeyaAç.Text = "Aç";
+            else Tablo_TümünüSeçVeyaAç.Text = "Tümünü Seç";
+
+            Banka.Ayarlar_Kullanıcı(Name, "Tablo_TümünüSeçVeyaAç").Yaz(null, Tablo_TümünüSeçVeyaAç.Text);
         }
         private void Tablo_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1115,7 +1110,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             if (Tablo.Tag != null || Tablo.RowCount < 1 || e.ColumnIndex < 0 || e.RowIndex < 0) return;
 
-            if (Tablo_TümünüSeçVeyaAç.Tag == null)
+            if (Tablo_TümünüSeçVeyaAç.Text == "Tümünü Seç")
             {
                 //Tümünü Seç
                 bool b = !(bool)Tablo[0, 0].Value;

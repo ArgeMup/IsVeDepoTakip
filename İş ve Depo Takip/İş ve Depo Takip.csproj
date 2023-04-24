@@ -125,6 +125,12 @@
     <Compile Include="Ekranlar\Etiketleme.Designer.cs">
       <DependentUpon>Etiketleme.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ekranlar\Yeni_İş_Girişi_Epostalar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ekranlar\Yeni_İş_Girişi_Epostalar.Designer.cs">
+      <DependentUpon>Yeni_İş_Girişi_Epostalar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ekranlar\Yeni_İş_Girişi_DosyaEkleri.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -236,6 +242,10 @@
     <EmbeddedResource Include="Ekranlar\Bütçe.resx">
       <DependentUpon>Bütçe.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Ekranlar\Yeni_İş_Girişi_Epostalar.resx">
+      <DependentUpon>Yeni_İş_Girişi_Epostalar.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Yeni_İş_Girişi_DosyaEkleri.resx">
       <DependentUpon>Yeni_İş_Girişi_DosyaEkleri.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -314,6 +324,7 @@
     <None Include="Resources\sil.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Uzunİslem.gif" />
     <None Include="Resources\Önemli Bilgiler.txt" />
     <None Include="Resources\SeriNoDetayları.html" />
     <None Include="Resources\Eposta.png" />

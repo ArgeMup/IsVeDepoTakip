@@ -260,21 +260,23 @@ namespace İş_ve_Depo_Takip
 
         public static void AltSayfayıYükle(Panel ÜzerineYerleştirilecekYüzey, Form AltSayfa)
         {
-            if (ÜzerineYerleştirilecekYüzey.Controls.Count > 0)
-            {
-                foreach (Control c in ÜzerineYerleştirilecekYüzey.Controls)
-                {
-                    ÜzerineYerleştirilecekYüzey.Controls.Remove(c);
-                    c.Dispose();
-                }
-            }
+            //if (ÜzerineYerleştirilecekYüzey.Controls.Count > 0)
+            //{
+            //    foreach (Control c in ÜzerineYerleştirilecekYüzey.Controls)
+            //    {
+            //        ÜzerineYerleştirilecekYüzey.Controls.Remove(c);
+            //        c.Dispose();
+            //    }
+            //}
 
             AltSayfa.TopLevel = false;
             AltSayfa.FormBorderStyle = FormBorderStyle.None;
-            AltSayfa.Dock = DockStyle.Fill;
             ÜzerineYerleştirilecekYüzey.Controls.Add(AltSayfa);
-            //childForm.BringToFront();
+            AltSayfa.Dock = DockStyle.Fill;
+            AltSayfa.BringToFront();
             AltSayfa.Show();
+
+            ÜzerineYerleştirilecekYüzey.Dock = DockStyle.Fill;
         }
 
         #region Yardımcı Sınıflar

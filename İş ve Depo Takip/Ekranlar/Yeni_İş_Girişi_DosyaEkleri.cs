@@ -18,6 +18,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             InitializeComponent();
         }
+        private void Yeni_İş_Girişi_DosyaEkleri_Shown(object sender, EventArgs e)
+        {
+            P_DosyaEkleri_GelenKutusunuAç.Enabled = Eposta.BirEpostaHesabıEklenmişMi && !SadeceOkunabilir;
+        }
         public void Yeni_İş_Girişi_DragEnter(object sender, DragEventArgs e)
         {
             if (SadeceOkunabilir) return;
@@ -28,10 +32,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             if (SadeceOkunabilir) return;
 
-            string[] dosyalar = (string[])e.Data.GetData(DataFormats.FileDrop);
-            if (dosyalar != null && dosyalar.Length > 0)
+            Ekle((string[])e.Data.GetData(DataFormats.FileDrop));
+        }
+
+        public void Ekle(string[] DosyaEkleri)
+        {
+            if (SadeceOkunabilir) return;
+
+            if (DosyaEkleri != null && DosyaEkleri.Length > 0)
             {
-                foreach (string dosya in dosyalar)
+                foreach (string dosya in DosyaEkleri)
                 {
                     if (System.IO.File.Exists(dosya))
                     {
@@ -114,7 +124,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             else
             {
                 string soyad = Path.GetExtension(SahteKonum).ToLower();
-                if (soyad == ".png" || soyad == ".bmp" || soyad == ".jpg")
+                if (soyad == ".png" || soyad == ".bmp" || soyad == ".jpg" || soyad == ".gif")
                 {
                     P_DosyaEkleri_YakınlaşmaOranı.Value = 1;
                     Image rsm = Image.FromFile(SahteKonum);
@@ -168,6 +178,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 File.Copy(SahteKonum, masaüstü_yansıma_adı, true);
             }
         }
+
         private void P_DosyaEkleri_Sil_Click(object sender, EventArgs e)
         {
             if (P_DosyaEkleri_Liste.SelectedIndex < 0) return;
