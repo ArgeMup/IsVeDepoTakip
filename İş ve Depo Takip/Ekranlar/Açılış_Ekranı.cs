@@ -42,6 +42,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 #endif
 
                 Application.DoEvents();
+                Ekranlar.Eposta.Girişİşlemleri();
                 Banka.Giriş_İşlemleri(AçılışYazısı);
                 Controls.Remove(AçılışYazısı);
                 AçılışYazısı.Dispose();

@@ -43,7 +43,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             KorumalıAlan_SürümSayısı.Value = Ayarlar_SürümKontrol.Oku_TamSayı(null, 15);
 
-            DosyaEkleri_BoyutuMB.Value = Ayarlar_DosyaEkleri.Oku_TamSayı("Dosya Silme Boyutu", 1000);
+            DosyaEkleri_BoyutuMB.Value = Ayarlar_DosyaEkleri.Oku_TamSayı("Dosya Silme Kıstası", 1000, 0);
+            DosyaEkleri_SilinmeSüresiAy.Value = Ayarlar_DosyaEkleri.Oku_TamSayı("Dosya Silme Kıstası", 6, 1);
             DosyaEkleri_Açıklama.Text = "Dosya Ekleri (" + (int)(Ayarlar_DosyaEkleri.Oku_Sayı("Toplam Dosya Boyutu") / 1000000) + "MB)";
 
             HttpSunucu_ErişimNoktası.Value = Ayarlar_Bilgisayar.Oku_TamSayı("Http Sunucu");
@@ -231,7 +232,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Ayarlar_SürümKontrol.Yaz(null, (int)KorumalıAlan_SürümSayısı.Value);
 
-            Ayarlar_DosyaEkleri.Yaz("Dosya Silme Boyutu", (int)DosyaEkleri_BoyutuMB.Value);
+            Ayarlar_DosyaEkleri.Yaz("Dosya Silme Kıstası", (int)DosyaEkleri_BoyutuMB.Value, 0);
+            Ayarlar_DosyaEkleri.Yaz("Dosya Silme Kıstası", (int)DosyaEkleri_SilinmeSüresiAy.Value, 1);
 
             Ayarlar_Bilgisayar.Yaz("Http Sunucu", (int)HttpSunucu_ErişimNoktası.Value);
 

@@ -120,6 +120,14 @@
   <metadata name="İpUcu_Genel.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>12, 17</value>
   </metadata>
+  <data name="P_DosyaEkleri_Liste.ToolTip" xml:space="preserve">
+    <value>İnternet tarayıcı üzerindeki yükleme süresini kısaltmak için veya 
+yeni dosya eklerinin gelmesiyle önemini kaybeden dosya ekleri
+hemen soldaki kutucuğun işareti kaldırılarak görünmez duruma getirilebilir.</value>
+  </data>
+  <metadata name="İpUcu_Genel.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>12, 17</value>
+  </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>48</value>
   </metadata>

@@ -51,29 +51,17 @@ namespace İş_ve_Depo_Takip
 
                     if (Sayfa_İçeriği.Length == 2)
                     {
+                        //uygulamaya ait dosyaşar
                         KapalıAdı = Ortak.Klasör_Gecici + "DoEk\\" + Sayfa_İçeriği[1];
                         Soyadı = Path.GetExtension(Sayfa_İçeriği[1]).Remove(0, 1);
                     }
                     else if (Sayfa_İçeriği.Length == 3)
                     {
-                        while (Sayfa_İçeriği[2].Contains("%"))
-                        {
-                            int k = Sayfa_İçeriği[2].IndexOf("%");                                      //%C3%96deme
-                            byte _0 = Convert.ToByte(Sayfa_İçeriği[2].Substring(k + 1, 2), 16);
-                            
-                            int s = 0; //110aaaaa 1110aaaa 11110aaa -> 1 lerin sayısı : karakteri oluşturmak için gereken bayt
-                            while ((_0 & 0x80) > 0) { s++; _0 <<= 1; }
-                            if (s > 4) goto Hata;
-                            else if (s == 0) s = 1;
+                        //işlerin dosya ekleri
+                        Sayfa_İçeriği[2] = AğAraçları.WebAdresinden_Yazıya(Sayfa_İçeriği[2]);
+                        if (Sayfa_İçeriği[2] == null) goto Hata;
 
-                            s = s * 3/*%ab*/;
-                            string kesilecek = Sayfa_İçeriği[2].Substring(k, s);                        //%C3%96
-                            string dönüştürülecek = kesilecek.Replace("%", "");                         //C396
-                            dönüştürülecek = dönüştürülecek.BaytDizisine_HexYazıdan().Yazıya();         //Ö
-                            Sayfa_İçeriği[2] = Sayfa_İçeriği[2].Replace(kesilecek, dönüştürülecek);     //Ödeme
-                        }
-
-                        KapalıAdı = Banka.DosyaEkleri_GeciciKlasöreKopyala(Sayfa_İçeriği[1], Sayfa_İçeriği[2]);
+                        KapalıAdı = Banka.DosyaEkleri_GeciciKlasöreKopyala(Sayfa_İçeriği[1], Sayfa_İçeriği[2], out _);
                         Soyadı = Path.GetExtension(Sayfa_İçeriği[2]).Remove(0, 1);
                     }
                     else goto Hata; 
@@ -95,6 +83,7 @@ namespace İş_ve_Depo_Takip
                 }
                 else
                 {
+                    //Sayfa içeriği
                     Sayfa_İçeriği[0] = Sayfa_İçeriği[0].ToUpper();
                     Banka.Talep_Bul_Detaylar_ Detaylar = Banka.Talep_Bul(Sayfa_İçeriği[0]);
                     string Hasta = "Bulunamadı", Notlar = null, MüşteriNotları = null, İşler = null, DosyaEkleri = null;
@@ -112,25 +101,53 @@ namespace İş_ve_Depo_Takip
                         }
 
                         string dosya_eki_resim = "", dosya_eki_diğer = "";
-                        System.Collections.Generic.List<string> l_DosyaEkleri = Banka.DosyaEkleri_Listele(Sayfa_İçeriği[0]);
-                        foreach (string DosyaEki in l_DosyaEkleri)
+                        DateTime ilk_tarih = DateTime.MinValue, EklenmeTarihi;
+                        var l_dosya_ekleri = Banka.DosyaEkleri_Listele(Sayfa_İçeriği[0]);
+                        for (int i = l_dosya_ekleri.Length - 1; i >= 0; i--)
                         {
-                            string soyadı = Path.GetExtension(DosyaEki).Remove(0, 1).ToLower();
-                            string kapalı_adı = Banka.DosyaEkleri_GeciciKlasöreKopyala(Sayfa_İçeriği[0], DosyaEki);
+                            Banka.DosyaEkleri_Ayıkla_SeriNoAltındakiDosyaEkiDalı(l_dosya_ekleri[i], out string DosyaAdı, out bool Html_denGöster);
+                            if (!Html_denGöster) continue;
+                     
+                            string soyadı = Path.GetExtension(DosyaAdı).Remove(0, 1).ToLower();
+                            Banka.DosyaEkleri_GeciciKlasöreKopyala(Sayfa_İçeriği[0], DosyaAdı, out EklenmeTarihi);
+
+                            //güne göre gruplama
+                            if (EklenmeTarihi.Day != ilk_tarih.Day ||
+                                EklenmeTarihi.Month != ilk_tarih.Month ||
+                                EklenmeTarihi.Year != ilk_tarih.Year)
+                            {
+                                if (ilk_tarih != DateTime.MinValue)
+                                {
+                                    //<br><br>Tarih Saat
+                                    DosyaEkleri += "<br><br><b>" + Banka.Yazdır_Tarih(ilk_tarih.Yazıya()) + "</b>";
+                                    DosyaEkleri += dosya_eki_diğer + "<br>" + dosya_eki_resim;
+
+                                    dosya_eki_resim = "";
+                                    dosya_eki_diğer = "";
+                                }
+
+                                ilk_tarih = EklenmeTarihi;
+                            }
 
                             if (soyadı == "jpg" || soyadı == "png" || soyadı == "bmp" || soyadı == "gif")
                             {
-                                //<img src="DoEk/1.jpg" alt="1" width="32%" onclick="Buyut(this)">
-                                dosya_eki_resim += "<img src=\"DoEk/" + Sayfa_İçeriği[0] + "/" + Path.GetFileName(DosyaEki) + "\" alt=\"" + Path.GetFileName(DosyaEki) + "\" width=\"32%\" onclick=\"Buyut(this)\">";
+                                //<img src="DoEk/1.jpg" alt="1" onclick="Buyut(this)" class="rsm">
+                                dosya_eki_resim += "<img src=\"DoEk/" + Sayfa_İçeriği[0] + "/" + Path.GetFileName(DosyaAdı) + "\" alt=\"" + Path.GetFileName(DosyaAdı) + "\" onclick=\"Buyut(this)\" class=\"rsm\">";
                             }
                             else
                             {
-                                //<a href="DoEk/a.pdf" target="_blank">DosyaAdı</a><br>
-                                dosya_eki_diğer += "<a href=\"DoEk/" + Sayfa_İçeriği[0] + "/" + Path.GetFileName(DosyaEki) + "\" target=\"_blank\">" + Path.GetFileName(DosyaEki) + "</a><br>";
+                                //<br><a href="DoEk/a.pdf" target="_blank">DosyaAdı</a>
+                                dosya_eki_diğer += "<br><a href=\"DoEk/" + Sayfa_İçeriği[0] + "/" + Path.GetFileName(DosyaAdı) + "\" target=\"_blank\">" + Path.GetFileName(DosyaAdı) + "</a>";
                             }
                         }
-                        DosyaEkleri = dosya_eki_diğer + "<br>" + dosya_eki_resim;
 
+                        //son ekleme yapılan güne ait dosyalar
+                        if (dosya_eki_resim.DoluMu() || dosya_eki_diğer.DoluMu())
+                        {
+                            DosyaEkleri += "<br><br><b>" + Banka.Yazdır_Tarih(ilk_tarih.Yazıya()) + "</b>";
+                            DosyaEkleri += dosya_eki_diğer + "<br>" + dosya_eki_resim;
+                        }
+                        
                         IDepo_Eleman Müşteri_Notlar = Banka.Ayarlar_Müşteri(Detaylar.Müşteri, "Notlar");
                         if (Müşteri_Notlar != null) { if (Müşteri_Notlar[0].DoluMu()) MüşteriNotları = Müşteri_Notlar[0].Replace("\n", "<br>"); }
                     }
@@ -168,7 +185,7 @@ namespace İş_ve_Depo_Takip
         #region Seri Nolu İstek
         //GET /DoEk/Uygulama.ico HTTP/1.1
         //GET /DoEk/LOGO.bmp HTTP/1.1
-        //GET /DoEk/asdfg.hjk.jpg HTTP/1.1
+        //GET /DoEk/SeriNo/asdfg.hjk.jpg HTTP/1.1
         //GET /A2389 HTTP/1.1
         //Host: localhost
         //Connection: keep-alive
@@ -225,6 +242,48 @@ namespace İş_ve_Depo_Takip
 
                 return Yerel_ip_;
             }
+        }
+
+        public static string Htmlden_Yazıya(string Girdi)
+        {
+            if (Girdi.BoşMu(true)) return null;
+
+            const string Eleme_Boşluk = @"(>|$)(\W|\n|\r)+<";           //Kodlama içindeki bir veya daha çok boşluk, satır sonu
+            const string Eleme_Kodlaama = @"<[^>]*(>|$)";               //'<' ve '>' arasındaki tüm kodlama karakterleri
+            const string Eleme_SatırSonu = @"<(br|BR)\s{0,1}\/{0,1}>";  //<br>,<br/>,<br />,<BR>,<BR/>,<BR />
+            var Regex_SatırSonu = new System.Text.RegularExpressions.Regex(Eleme_SatırSonu, System.Text.RegularExpressions.RegexOptions.Multiline);
+            var Regex_Kodlama = new System.Text.RegularExpressions.Regex(Eleme_Kodlaama, System.Text.RegularExpressions.RegexOptions.Multiline);
+            var Regex_Boşluk = new System.Text.RegularExpressions.Regex(Eleme_Boşluk, System.Text.RegularExpressions.RegexOptions.Multiline);
+
+            Girdi = System.Net.WebUtility.HtmlDecode(Girdi);
+            Girdi = Regex_Boşluk.Replace(Girdi, "><");
+            Girdi = Regex_SatırSonu.Replace(Girdi, Environment.NewLine);
+            Girdi = Regex_Kodlama.Replace(Girdi, string.Empty);
+            return Girdi;
+        }
+
+        public static string WebAdresinden_Yazıya(string Girdi)
+        {
+            if (Girdi.BoşMu(true)) return null; 
+
+            while (Girdi.Contains("%"))
+            {
+                int k = Girdi.IndexOf("%");                                             //%C3%96deme
+                byte _0 = Convert.ToByte(Girdi.Substring(k + 1, 2), 16);
+
+                int s = 0; //110aaaaa 1110aaaa 11110aaa -> 1 lerin sayısı : karakteri oluşturmak için gereken bayt
+                while ((_0 & 0x80) > 0) { s++; _0 <<= 1; }
+                if (s > 4) return null;
+                else if (s == 0) s = 1;
+
+                s *= 3 /*%ab*/;
+                string kesilecek = Girdi.Substring(k, s);                               //%C3%96
+                string dönüştürülecek = kesilecek.Replace("%", "");                     //C396
+                dönüştürülecek = dönüştürülecek.BaytDizisine_HexYazıdan().Yazıya();     //Ö
+                Girdi = Girdi.Replace(kesilecek, dönüştürülecek);                       //Ödeme
+            }
+
+            return Girdi;
         }
     }
 }

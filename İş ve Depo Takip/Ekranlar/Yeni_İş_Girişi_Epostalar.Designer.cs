@@ -32,9 +32,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Yeni_İş_Girişi_Epostalar));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.İpUcu_Genel = new System.Windows.Forms.ToolTip(this.components);
             this.Seç_Klasör = new System.Windows.Forms.ComboBox();
             this.TabloİçeriğiArama = new System.Windows.Forms.TextBox();
@@ -140,16 +140,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             0,
             65536});
             this.Dosyalar_Resim_YaklaşmaOranı.Location = new System.Drawing.Point(4, 179);
-            this.Dosyalar_Resim_YaklaşmaOranı.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
             this.Dosyalar_Resim_YaklaşmaOranı.Name = "Dosyalar_Resim_YaklaşmaOranı";
             this.Dosyalar_Resim_YaklaşmaOranı.Size = new System.Drawing.Size(314, 26);
             this.Dosyalar_Resim_YaklaşmaOranı.TabIndex = 13;
             this.Dosyalar_Resim_YaklaşmaOranı.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.İpUcu_Genel.SetToolTip(this.Dosyalar_Resim_YaklaşmaOranı, "Dosya eki bir resim ise buradan büyütülebilir.");
+            this.İpUcu_Genel.SetToolTip(this.Dosyalar_Resim_YaklaşmaOranı, "Resim Yakınlaştırma Oranı\r\n\r\nDosya eki bir resim ise buradan büyütülebilir.");
             this.Dosyalar_Resim_YaklaşmaOranı.Value = new decimal(new int[] {
             1,
             0,
@@ -243,14 +238,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Tablo.AllowUserToDeleteRows = false;
             this.Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.Tablo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Tablo.ColumnHeadersVisible = false;
             this.Tablo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -275,8 +270,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             // Tablo_Gönderen
             // 
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_Gönderen.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_Gönderen.DefaultCellStyle = dataGridViewCellStyle2;
             this.Tablo_Gönderen.HeaderText = "Gönderen";
             this.Tablo_Gönderen.MinimumWidth = 6;
             this.Tablo_Gönderen.Name = "Tablo_Gönderen";
@@ -294,8 +289,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // Tablo_Konu
             // 
             this.Tablo_Konu.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_Konu.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_Konu.DefaultCellStyle = dataGridViewCellStyle3;
             this.Tablo_Konu.HeaderText = "Konu";
             this.Tablo_Konu.MinimumWidth = 6;
             this.Tablo_Konu.Name = "Tablo_Konu";

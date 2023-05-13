@@ -158,7 +158,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Ayraç_Kat_2_3.SplitterDistance *= 2;
                 }
 
-                P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items.AddRange(Banka.DosyaEkleri_Listele(SeriNo).ToArray());
+                var l_dosya_ekleri = Banka.DosyaEkleri_Listele(SeriNo);
+                for (int i = l_dosya_ekleri.Length - 1; i >= 0; i--)
+                {
+                    Banka.DosyaEkleri_Ayıkla_SeriNoAltındakiDosyaEkiDalı(l_dosya_ekleri[i], out string DosyaAdı, out bool Html_denGöster);
+                    P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items.Add(DosyaAdı, Html_denGöster);
+                }
                 P_DosyaEkleri_TuşunuGüncelle();
             }
 
@@ -445,7 +450,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             P_Epostalar.Visible = false;
             P_DosyaEkleri.Visible = true;
 
-            if (P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items.Count > 0) P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.SelectedIndex = P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items.Count - 1;
+            if (P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items.Count > 0) P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.SelectedIndex = 0;
         }
         private void P_DosyaEkleri_Geri_Click(object sender, EventArgs e)
         {
@@ -585,11 +590,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 else İskonto.Text = gecici;
             }
 
+            Banka.Talep_Ekle_Detaylar_ Detaylar = new Banka.Talep_Ekle_Detaylar_();
+            Detaylar.SeriNo = SeriNo;
+            Detaylar.Müşteri = Müşteriler_SeçimKutusu.Text;
+            Detaylar.Hasta = Hastalar_AramaÇubuğu.Text;
+            Detaylar.İskonto = İskonto.Text;
+            Detaylar.Notlar = Notlar.Text.Trim();
+
             DateTime t = DateTime.Now;
-            List<string> it_leri = new List<string>();
-            List<string> ücret_ler = new List<string>();
-            List<string> giriş_tarih_ler = new List<string>();
-            List<string> çıkış_tarih_ler = new List<string>();
+            Detaylar.İşTürleri = new List<string>();
+            Detaylar.Ücretler = new List<string>();
+            Detaylar.GirişTarihleri = new List<string>();
+            Detaylar.ÇıkışTarihleri = new List<string>();
             for (int i = 0; i < Tablo.RowCount - 1; i++)
             {
                 if (!Tablo.Rows[i].ReadOnly)
@@ -622,29 +634,28 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     }
                 }
 
-                it_leri.Add((string)Tablo[0, i].Value);
-                ücret_ler.Add(((string)Tablo[1, i].Value));
-                giriş_tarih_ler.Add(((DateTime)Tablo[2, i].Tag).Yazıya());
-                çıkış_tarih_ler.Add(Tablo[3, i].Tag == null ? null : ((DateTime)Tablo[3, i].Tag).Yazıya());
+                Detaylar.İşTürleri.Add((string)Tablo[0, i].Value);
+                Detaylar.Ücretler.Add(((string)Tablo[1, i].Value));
+                Detaylar.GirişTarihleri.Add(((DateTime)Tablo[2, i].Tag).Yazıya());
+                Detaylar.ÇıkışTarihleri.Add(Tablo[3, i].Tag == null ? null : ((DateTime)Tablo[3, i].Tag).Yazıya());
             }
 
-            if (it_leri.Count == 0)
+            if (Detaylar.İşTürleri.Count == 0)
             {
                 MessageBox.Show("Tabloda hiç geçerli girdi bulunamadı", Text);
                 return false;
             }
 
             //Dosya eklerinin kaydedilmesi
-            string[] P_DosyaEkleri_TamListe = new string[P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items.Count];
-            if (P_DosyaEkleri_TamListe.Length > 0)
+            Detaylar.DosyaEkleri = new List<string>();
+            Detaylar.DosyaEkleri_Html_denGöster = new List<bool>();
+            for (int i = 0; i < P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items.Count; i++)
             {
-                for (int i = 0; i < P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items.Count; i++)
-                {
-                    P_DosyaEkleri_TamListe[i] = P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items[i].ToString();
-                }
+                Detaylar.DosyaEkleri.Add(P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items[i].ToString());
+                Detaylar.DosyaEkleri_Html_denGöster.Add(P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.GetItemChecked(i));
             }
 
-            Banka.Talep_Ekle(Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, İskonto.Text, Notlar.Text.Trim(), it_leri, ücret_ler, giriş_tarih_ler, çıkış_tarih_ler, P_DosyaEkleri_TamListe, SeriNo);
+            Banka.Talep_Ekle(Detaylar);
             Banka.Ayarlar_Kullanıcı(Name, "Hastalar_AdVeSoyadıDüzelt").Yaz(null, Hastalar_AdVeSoyadıDüzelt.Checked);
             Banka.Değişiklikleri_Kaydet(Kaydet);
 

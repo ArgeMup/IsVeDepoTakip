@@ -64,6 +64,8 @@
             this.Takvim_GecikmeleriGünBazındaHesapla = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.DosyaEkleri_Açıklama = new System.Windows.Forms.GroupBox();
+            this.DosyaEkleri_SilinmeSüresiAy = new System.Windows.Forms.NumericUpDown();
+            this.label14 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.DosyaEkleri_BoyutuMB = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
@@ -79,6 +81,7 @@
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.DosyaEkleri_Açıklama.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DosyaEkleri_SilinmeSüresiAy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DosyaEkleri_BoyutuMB)).BeginInit();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HttpSunucu_ErişimNoktası)).BeginInit();
@@ -91,9 +94,9 @@
             this.Kaydet.Enabled = false;
             this.Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Kaydet.Location = new System.Drawing.Point(12, 971);
+            this.Kaydet.Location = new System.Drawing.Point(12, 1006);
             this.Kaydet.Name = "Kaydet";
-            this.Kaydet.Size = new System.Drawing.Size(452, 44);
+            this.Kaydet.Size = new System.Drawing.Size(473, 44);
             this.Kaydet.TabIndex = 20;
             this.Kaydet.Text = "Kaydet";
             this.Kaydet.UseVisualStyleBackColor = true;
@@ -125,7 +128,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(452, 266);
+            this.groupBox1.Size = new System.Drawing.Size(473, 266);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Klasörler";
@@ -139,7 +142,7 @@
             this.Klasör_Yedekleme_5.Location = new System.Drawing.Point(13, 168);
             this.Klasör_Yedekleme_5.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.Klasör_Yedekleme_5.Name = "Klasör_Yedekleme_5";
-            this.Klasör_Yedekleme_5.Size = new System.Drawing.Size(424, 26);
+            this.Klasör_Yedekleme_5.Size = new System.Drawing.Size(445, 26);
             this.Klasör_Yedekleme_5.TabIndex = 28;
             this.Klasör_Yedekleme_5.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
@@ -150,7 +153,7 @@
             this.Klasör_Yedekleme_1.Location = new System.Drawing.Point(13, 48);
             this.Klasör_Yedekleme_1.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.Klasör_Yedekleme_1.Name = "Klasör_Yedekleme_1";
-            this.Klasör_Yedekleme_1.Size = new System.Drawing.Size(424, 26);
+            this.Klasör_Yedekleme_1.Size = new System.Drawing.Size(445, 26);
             this.Klasör_Yedekleme_1.TabIndex = 22;
             this.Klasör_Yedekleme_1.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
@@ -161,7 +164,7 @@
             this.Klasör_Yedekleme_4.Location = new System.Drawing.Point(13, 138);
             this.Klasör_Yedekleme_4.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.Klasör_Yedekleme_4.Name = "Klasör_Yedekleme_4";
-            this.Klasör_Yedekleme_4.Size = new System.Drawing.Size(424, 26);
+            this.Klasör_Yedekleme_4.Size = new System.Drawing.Size(445, 26);
             this.Klasör_Yedekleme_4.TabIndex = 27;
             this.Klasör_Yedekleme_4.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
@@ -172,7 +175,7 @@
             this.Klasör_Pdf.Location = new System.Drawing.Point(13, 228);
             this.Klasör_Pdf.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.Klasör_Pdf.Name = "Klasör_Pdf";
-            this.Klasör_Pdf.Size = new System.Drawing.Size(424, 26);
+            this.Klasör_Pdf.Size = new System.Drawing.Size(445, 26);
             this.Klasör_Pdf.TabIndex = 24;
             this.Klasör_Pdf.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
@@ -183,7 +186,7 @@
             this.Klasör_Yedekleme_2.Location = new System.Drawing.Point(13, 78);
             this.Klasör_Yedekleme_2.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.Klasör_Yedekleme_2.Name = "Klasör_Yedekleme_2";
-            this.Klasör_Yedekleme_2.Size = new System.Drawing.Size(424, 26);
+            this.Klasör_Yedekleme_2.Size = new System.Drawing.Size(445, 26);
             this.Klasör_Yedekleme_2.TabIndex = 25;
             this.Klasör_Yedekleme_2.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
@@ -204,7 +207,7 @@
             this.Klasör_Yedekleme_3.Location = new System.Drawing.Point(13, 108);
             this.Klasör_Yedekleme_3.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.Klasör_Yedekleme_3.Name = "Klasör_Yedekleme_3";
-            this.Klasör_Yedekleme_3.Size = new System.Drawing.Size(424, 26);
+            this.Klasör_Yedekleme_3.Size = new System.Drawing.Size(445, 26);
             this.Klasör_Yedekleme_3.TabIndex = 26;
             this.Klasör_Yedekleme_3.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
@@ -466,7 +469,7 @@
             this.groupBox3.Controls.Add(this.groupBox2);
             this.groupBox3.Location = new System.Drawing.Point(12, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(453, 304);
+            this.groupBox3.Size = new System.Drawing.Size(473, 304);
             this.groupBox3.TabIndex = 29;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Takvim";
@@ -494,9 +497,9 @@
             this.groupBox4.Controls.Add(this.KüçültüldüğündeParolaSor);
             this.groupBox4.Controls.Add(this.KüçültüldüğündeParolaSor_sn);
             this.groupBox4.Controls.Add(this.label3);
-            this.groupBox4.Location = new System.Drawing.Point(12, 728);
+            this.groupBox4.Location = new System.Drawing.Point(12, 763);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(452, 122);
+            this.groupBox4.Size = new System.Drawing.Size(473, 122);
             this.groupBox4.TabIndex = 30;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Gizlilik";
@@ -506,16 +509,48 @@
             // 
             this.DosyaEkleri_Açıklama.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.DosyaEkleri_Açıklama.Controls.Add(this.DosyaEkleri_SilinmeSüresiAy);
+            this.DosyaEkleri_Açıklama.Controls.Add(this.label14);
             this.DosyaEkleri_Açıklama.Controls.Add(this.label11);
             this.DosyaEkleri_Açıklama.Controls.Add(this.DosyaEkleri_BoyutuMB);
             this.DosyaEkleri_Açıklama.Controls.Add(this.label12);
             this.DosyaEkleri_Açıklama.Location = new System.Drawing.Point(12, 596);
             this.DosyaEkleri_Açıklama.Name = "DosyaEkleri_Açıklama";
-            this.DosyaEkleri_Açıklama.Size = new System.Drawing.Size(452, 126);
+            this.DosyaEkleri_Açıklama.Size = new System.Drawing.Size(473, 161);
             this.DosyaEkleri_Açıklama.TabIndex = 31;
             this.DosyaEkleri_Açıklama.TabStop = false;
             this.DosyaEkleri_Açıklama.Text = "Dosya Ekleri";
             this.İpUcu_Genel.SetToolTip(this.DosyaEkleri_Açıklama, "Buradaki seçenekler tüm kullanıcılar için ortaktır.");
+            // 
+            // DosyaEkleri_SilinmeSüresiAy
+            // 
+            this.DosyaEkleri_SilinmeSüresiAy.Location = new System.Drawing.Point(15, 109);
+            this.DosyaEkleri_SilinmeSüresiAy.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
+            this.DosyaEkleri_SilinmeSüresiAy.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.DosyaEkleri_SilinmeSüresiAy.Name = "DosyaEkleri_SilinmeSüresiAy";
+            this.DosyaEkleri_SilinmeSüresiAy.Size = new System.Drawing.Size(80, 26);
+            this.DosyaEkleri_SilinmeSüresiAy.TabIndex = 27;
+            this.DosyaEkleri_SilinmeSüresiAy.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.DosyaEkleri_SilinmeSüresiAy.Value = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            this.DosyaEkleri_SilinmeSüresiAy.ValueChanged += new System.EventHandler(this.Ayar_Değişti);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(106, 111);
+            this.label14.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(237, 40);
+            this.label14.TabIndex = 28;
+            this.label14.Text = "ay geçti ise işin dosya eklerini \r\nKALICI olarak SİL";
             // 
             // label11
             // 
@@ -551,12 +586,12 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(106, 79);
+            this.label12.Location = new System.Drawing.Point(106, 81);
             this.label12.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(340, 40);
+            this.label12.Size = new System.Drawing.Size(297, 20);
             this.label12.TabIndex = 25;
-            this.label12.Text = "MB değerinden büyük ise işin dosya eklerini \r\nKALICI olarak SİL";
+            this.label12.Text = "MB değerinden büyük ise ve üzerinden";
             // 
             // İpUcu_Genel
             // 
@@ -577,9 +612,9 @@
             this.groupBox5.Controls.Add(this.HttpSunucu_ErişimNoktası);
             this.groupBox5.Controls.Add(this.label13);
             this.groupBox5.Controls.Add(this.HttpSunucu_Açıklama);
-            this.groupBox5.Location = new System.Drawing.Point(12, 856);
+            this.groupBox5.Location = new System.Drawing.Point(12, 891);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(452, 109);
+            this.groupBox5.Size = new System.Drawing.Size(473, 109);
             this.groupBox5.TabIndex = 31;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Http Sunucu";
@@ -629,8 +664,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.AutoScrollMinSize = new System.Drawing.Size(0, 1030);
-            this.ClientSize = new System.Drawing.Size(561, 507);
+            this.AutoScrollMinSize = new System.Drawing.Size(0, 1060);
+            this.ClientSize = new System.Drawing.Size(603, 507);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.DosyaEkleri_Açıklama);
             this.Controls.Add(this.groupBox4);
@@ -655,6 +690,7 @@
             this.groupBox4.PerformLayout();
             this.DosyaEkleri_Açıklama.ResumeLayout(false);
             this.DosyaEkleri_Açıklama.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DosyaEkleri_SilinmeSüresiAy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DosyaEkleri_BoyutuMB)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
@@ -707,5 +743,7 @@
         private System.Windows.Forms.Label HttpSunucu_Açıklama;
         private System.Windows.Forms.NumericUpDown HttpSunucu_ErişimNoktası;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.NumericUpDown DosyaEkleri_SilinmeSüresiAy;
+        private System.Windows.Forms.Label label14;
     }
 }

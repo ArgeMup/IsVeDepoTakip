@@ -2,7 +2,6 @@
 using ArgeMup.HazirKod.Dönüştürme;
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -351,6 +350,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
         public static bool BirEpostaHesabıEklenmişMi
         {
             get { return Banka.Ayarlar_Genel("Eposta", true).Oku("Gönderici/Şifresi").DoluMu(); }
+        }
+        public static void Girişİşlemleri()
+        {
+            if (!BirEpostaHesabıEklenmişMi) return;
+
+            //epostaların okunduğu ekrandaki (Yeni_İş_Girişi_Epostalar) kullanıcının son ayarlarını almak için
+            IDepo_Eleman Ayrl_Kullanıcı = Banka.Ayarlar_Kullanıcı("Yeni_İş_Girişi_Epostalar" , null);
+            YenileİşaretleSil(Ayrl_Kullanıcı.Oku("Seç_Klasör"), Ayrl_Kullanıcı.Oku_TamSayı("Seç_GünKadarEskiEpostalar", 7), Ayrl_Kullanıcı.Oku_Bit("Seç_SadeceOkunmamışlar", true));
         }
         public static bool GönderenBeyazListeİçindeMi(string GönderenEpostaAdresi)
         {

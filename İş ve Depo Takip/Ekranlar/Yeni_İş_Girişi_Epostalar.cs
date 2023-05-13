@@ -128,11 +128,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             IDepo_Eleman epst = Epostalar.Bul("Liste/" + Tablo.Rows[e.RowIndex].Tag);
             if (epst == null) return;
 
-            Yazılar.Text = Tablo[0, e.RowIndex].Value.ToString().Replace("\n", " ") + " " +
-                Tablo[1, e.RowIndex].Value + Environment.NewLine +
-                Tablo[2, e.RowIndex].Value + Environment.NewLine +
-                epst.Oku("Mesaj", null, 0) + Environment.NewLine +
-                epst.Oku("Mesaj", null, 1);
+            Yazılar.Text = Tablo[0, e.RowIndex].Value.ToString().Replace("\n", " ") + " " + Tablo[1, e.RowIndex].Value;
+            if (((string)Tablo[2, e.RowIndex].Value).DoluMu(true)) Yazılar.Text += "\r\n\r\nKonu ---------------\r\n" + _YazıyıDüzenle_(Tablo[2, e.RowIndex].Value as string);
+            if (epst["Mesaj", 0].DoluMu(true)) Yazılar.Text += "\r\n\r\nHtml ---------------\r\n" + _YazıyıDüzenle_(AğAraçları.Htmlden_Yazıya(epst["Mesaj", 0]));
+            if (epst["Mesaj", 1].DoluMu(true)) Yazılar.Text += "\r\n\r\nDüzyazı ---------------\r\n" + _YazıyıDüzenle_(epst["Mesaj", 1]);
 
             if (Eposta.GönderenBeyazListeİçindeMi(epst[3]))
             {
@@ -144,6 +143,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
             else Dosyalar.BackColor = Color.Salmon;
 
             Seç_YazılarıNotlaraEkle.Checked = false;
+
+            string _YazıyıDüzenle_(string Girdi)
+            {
+                if (Girdi.BoşMu(true)) return null;
+
+                return Girdi.Trim(' ', '\r', '\n');
+            }
         }
         private void Yazılar_TextChanged(object sender, EventArgs e)
         {
@@ -164,8 +170,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             string soyad = Path.GetExtension(epst["Ekler"].Elemanları[Dosyalar.SelectedIndex].Adı).ToLower();
             if (soyad == ".png" || soyad == ".bmp" || soyad == ".jpg" || soyad == ".gif")
             {
-                Dosyalar_Resim_YaklaşmaOranı.Value = 1;
+                Dosyalar_Resim_YaklaşmaOranı.Value = 0;
                 Image rsm = Image.FromFile(epst["Ekler"].Elemanları[Dosyalar.SelectedIndex].Adı);
+                Dosyalar_Resim.Dock = DockStyle.Fill;
                 Dosyalar_Resim.Size = rsm.Size;
                 Dosyalar_Resim.Image = rsm;
             }
@@ -173,7 +180,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void Dosyalar_Resim_YaklaşmaOranı_ValueChanged(object sender, EventArgs e)
         {
             if (Dosyalar_Resim.Image == null) return;
-            Dosyalar_Resim.Size = new Size((int)(Dosyalar_Resim.Image.Size.Width * Dosyalar_Resim_YaklaşmaOranı.Value), (int)(Dosyalar_Resim.Image.Size.Height * Dosyalar_Resim_YaklaşmaOranı.Value));
+            if (Dosyalar_Resim_YaklaşmaOranı.Value == 0)
+            {
+                if (Dosyalar_Resim.Dock != DockStyle.Fill) Dosyalar_Resim.Dock = DockStyle.Fill;
+            }
+            else
+            {
+                if (Dosyalar_Resim.Dock != DockStyle.None) Dosyalar_Resim.Dock = DockStyle.None;
+                Dosyalar_Resim.Size = new Size((int)(Dosyalar_Resim.Image.Size.Width * Dosyalar_Resim_YaklaşmaOranı.Value), (int)(Dosyalar_Resim.Image.Size.Height * Dosyalar_Resim_YaklaşmaOranı.Value));
+            }
         }
 
         public bool NotlarıVeDosyaEkleriniAl(out string Yazı, out string[] DosyaEkleri)
