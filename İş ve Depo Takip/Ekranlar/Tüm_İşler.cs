@@ -77,7 +77,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if ((int)Seviye1_işTakip.Tag == 1) İşTakip_Müşteriler_AramaÇubuğu.Focus();
                 else Malzemeler_Malzeme_AramaÇubuğu.Focus();
             }
-            else Arama_Sorgula.Focus();
+            else 
+            {
+                Tablo.ClearSelection();
+                TabloİçeriğiArama.Focus(); 
+            }
         }
         private void Tüm_İşler_KeyDown(object sender, KeyEventArgs e)
         {
@@ -95,7 +99,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 case Keys.F3:
                     Seviye_Değişti(Seviye1_Arama, null);
-                    Tüm_İşler_Shown(null, null);
                     break;
 
                 case Keys.F4:
@@ -256,7 +259,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     P_İşTakip_ÖdemeBekleyen.Visible = Seviye2_ÖdemeBekleyen.Checked;
                     P_İşTakip_Ödendi.Visible = Seviye2_Ödendi.Checked;
                 }
+
                 P_Arama.Visible = Seviye1_Arama.Checked;
+                if (Seviye1_Arama.Checked)
+                {
+                    Seviye2_DevamEden.Checked = true;
+                    Seviye2_TeslimEdildi.Checked = true;
+                    Seviye2_ÖdemeBekleyen.Checked = false;
+                    Seviye2_Ödendi.Checked = false;
+                    Arama_Sorgula_Click(null, null);
+                }
             }
             else
             {
