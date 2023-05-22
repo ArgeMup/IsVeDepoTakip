@@ -131,8 +131,8 @@ namespace İş_ve_Depo_Takip
 
                             if (soyadı == "jpg" || soyadı == "png" || soyadı == "bmp" || soyadı == "gif")
                             {
-                                //<img src="DoEk/1.jpg" alt="1" onclick="Buyut(this)" class="rsm">
-                                dosya_eki_resim += "<img src=\"DoEk/" + Sayfa_İçeriği[0] + "/" + Path.GetFileName(DosyaAdı) + "\" alt=\"" + Path.GetFileName(DosyaAdı) + "\" onclick=\"Buyut(this)\" class=\"rsm\">";
+                                //<img src="DoEk/1.jpg" alt="1" onclick="Buyut(this)" class="rsm" loading="lazy">
+                                dosya_eki_resim += "<img src=\"DoEk/" + Sayfa_İçeriği[0] + "/" + Path.GetFileName(DosyaAdı) + "\" alt=\"" + Path.GetFileName(DosyaAdı) + "\" onclick=\"Buyut(this)\" class=\"rsm\" loading=\"lazy\">";
                             }
                             else
                             {
