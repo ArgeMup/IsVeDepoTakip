@@ -32,6 +32,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             İşTakip_Yazdırma_VeGörüntüle.Checked = Ayrl_Kullanıcı.Oku_Bit("İşTakip_Yazdırma_VeGörüntüle", true);
             İşTakip_Yazdırma_VeKlasörüAç.Checked = Ayrl_Kullanıcı.Oku_Bit("İşTakip_Yazdırma_VeKlasörüAç", true);
             Tablo_TümünüSeçVeyaAç.Text = Ayrl_Kullanıcı.Oku("Tablo_TümünüSeçVeyaAç", "Tümünü Seç");
+            İşTakip_Eposta_Kişi.Text = Ayrl_Kullanıcı.Oku("İşTakip_Eposta_Kişi");
 
             DateTime t = DateTime.Now;
             Arama_GirişTarihi_Bitiş.Value = new DateTime(t.Year, t.Month, t.Day, 23, 59, 59);
@@ -1004,13 +1005,25 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 return;
             }
 
-            IDepo_Eleman m = Banka.Ayarlar_Müşteri(İşTakip_Müşteriler.Text, "Eposta");
-            if (m == null || string.IsNullOrEmpty(m.Oku("Kime") + m.Oku("Bilgi") + m.Oku("Gizli")))
+            if (İşTakip_Eposta_Kişiye.Checked)
             {
-                MessageBox.Show("Müşteriye tanımlı e-posta adresi bulunamadı" + Environment.NewLine + "Ana Ekran - Ayarlar - Müşteriler sayfasını kullanabilirsiniz", Text);
-                return;
+                if (İşTakip_Eposta_Kişi.Text.BoşMu(true))
+                {
+                    MessageBox.Show("En az 1 eposta adresi girilmelidir", Text);
+                    İşTakip_Eposta_Kişi.Focus();
+                    return;
+                }
             }
-
+            else
+            {
+                IDepo_Eleman m = Banka.Ayarlar_Müşteri(İşTakip_Müşteriler.Text, "Eposta");
+                if (m == null || string.IsNullOrEmpty(m.Oku("Kime") + m.Oku("Bilgi") + m.Oku("Gizli")))
+                {
+                    MessageBox.Show("Müşteriye tanımlı e-posta adresi bulunamadı" + Environment.NewLine + "Ana Ekran - Ayarlar - Müşteriler sayfasını kullanabilirsiniz", Text);
+                    return;
+                }
+            }
+            
             ArgeMup.HazirKod.Depo_ depo;
             string gecici_dosyadı;
             string gecici_klasör = Ortak.Klasör_Gecici + Path.GetRandomFileName() + "\\";
@@ -1081,7 +1094,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             string[] dsy_lar = Directory.GetFiles(gecici_klasör);
             if (dsy_lar.Length > 0)
             {
-                DialogResult Dr = MessageBox.Show("Oluşturulan toplam " + dsy_lar.Length + " adet belge müşterinize e-posta yoluyla gönderilecek" +
+                DialogResult Dr = MessageBox.Show("Oluşturulan toplam " + dsy_lar.Length + " adet belge e-posta yoluyla gönderilecek" +
                 Environment.NewLine + Environment.NewLine +
                 İşTakip_Müşteriler.Text +
                 Environment.NewLine + Environment.NewLine +
@@ -1089,11 +1102,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if (Dr == DialogResult.No) return;
 
                 bool epst_gönder_tamamlandı = false;
-                Eposta.Gönder(İşTakip_Müşteriler.Text, dsy_lar, _GeriBildirimİşlemei_Tamamlandı);
+                if (İşTakip_Eposta_Kişiye.Checked) Eposta.Gönder_Kişiye(İşTakip_Eposta_Kişi.Text, dsy_lar, _GeriBildirimİşlemei_Tamamlandı);
+                else Eposta.Gönder_Müşteriye(İşTakip_Müşteriler.Text, dsy_lar, _GeriBildirimİşlemei_Tamamlandı);
                 Ortak.Gösterge.Başlat("Eposta gönderiliyor", false, İşTakip_Eposta_Gönder, 30000/35);
                 while (!epst_gönder_tamamlandı && Ortak.Gösterge.Çalışsın) { Thread.Sleep(35); Ortak.Gösterge.İlerleme = 1; }
                 void _GeriBildirimİşlemei_Tamamlandı(string Sonuç)
                 {
+                    Banka.Ayarlar_Kullanıcı(Name, "İşTakip_Eposta_Kişi").Yaz(null, İşTakip_Eposta_Kişi.Text);
                     Ortak.Gösterge.Bitir();
 
                     if (!string.IsNullOrEmpty(Sonuç)) MessageBox.Show(Sonuç, Text);
@@ -1101,6 +1116,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
             }
             else MessageBox.Show("Hiç kayıt bulunamadı", Text);
+        }
+        private void İşTakip_Eposta_Kişiye_CheckedChanged(object sender, EventArgs e)
+        {
+            İşTakip_Eposta_Gönder.Text = İşTakip_Eposta_Kişiye.Checked ? "Kişiye" : "Müşteriye";
         }
 
         private void Tablo_TümünüSeçVeyaAç_Click(object sender, EventArgs e)

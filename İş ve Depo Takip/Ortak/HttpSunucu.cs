@@ -286,4 +286,40 @@ namespace İş_ve_Depo_Takip
             return Girdi;
         }
     }
+
+    public static class Döviz
+    {
+        static string Değerleri_ = null;
+        public static string Değerleri
+        {
+            get
+            {
+                if (Değerleri_.BoşMu()) Başlat();
+
+                return Değerleri_;
+            }
+        }
+
+        static void Başlat()
+        {
+            string Xml_dosya_yolu = Ortak.Klasör_Gecici + "kurlar.xml";
+
+            Dosya.Sil(Xml_dosya_yolu);
+            YeniYazılımKontrolü_ yyk = new YeniYazılımKontrolü_();
+            yyk.Başlat(new Uri("http://www.tcmb.gov.tr/kurlar/today.xml"), _GeriBildirim_yyk_, Xml_dosya_yolu);
+
+            void _GeriBildirim_yyk_(bool Sonuç, string Açıklama)
+            {
+                if (!Sonuç || !File.Exists(Xml_dosya_yolu)) return;
+
+                System.Xml.XmlDocument xmlVerisi = new System.Xml.XmlDocument();
+                xmlVerisi.LoadXml(Xml_dosya_yolu.DosyaYolu_Oku_Yazı());
+
+                string Tarih = xmlVerisi.SelectSingleNode("Tarih_Date").Attributes["Tarih"].InnerText;
+                string dolar = xmlVerisi.SelectSingleNode(string.Format("Tarih_Date/Currency[@Kod='{0}']/BanknoteSelling", "USD")).InnerText;
+                string avro = xmlVerisi.SelectSingleNode(string.Format("Tarih_Date/Currency[@Kod='{0}']/BanknoteSelling", "EUR")).InnerText;
+                Değerleri_ = " - " + Tarih + " 1$ " + dolar + "₺ 1€ " + avro + "₺";
+            }
+        }
+    }
 }

@@ -2,8 +2,6 @@
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
@@ -184,6 +182,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             //Panelin görüntilenebilmesi için eklentiler
             Ayraç_Kat_3_SolSağ.Panel2.Controls.Remove(P_DosyaEkleri); Controls.Add(P_DosyaEkleri); P_DosyaEkleri.BringToFront();
             Ayraç_Kat_3_SolSağ.Panel2.Controls.Remove(P_Epostalar); Controls.Add(P_Epostalar); P_Epostalar.BringToFront();
+
+            if (!SadeceOkunabilir) Text += Döviz.Değerleri;
         }
         private void Yeni_İş_Girişi_Shown(object sender, EventArgs e)
         {

@@ -46,6 +46,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Ekranlar.Eposta.Girişİşlemleri();
                 Controls.Remove(AçılışYazısı);
                 AçılışYazısı.Dispose();
+                string _ = Döviz.Değerleri;
 
                 #if DEBUG
                     HttpSunucu.Başlat();

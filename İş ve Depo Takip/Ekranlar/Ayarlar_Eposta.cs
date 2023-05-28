@@ -397,11 +397,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 GeriBildirimİşlemi_Tamamlandı?.Invoke(sonuç);
             });
         }
-        public static void Gönder(string Müşteri, string[] DosyaEkleri, Action<string> GeriBildirimİşlemi_Tamamlandı = null)
+        public static void Gönder_Müşteriye(string Müşteri, string[] DosyaEkleri, Action<string> GeriBildirimİşlemi_Tamamlandı = null)
         {
             IDepo_Eleman müşt = Banka.Ayarlar_Müşteri(Müşteri, "Eposta");
             IDepo_Eleman ayar = Banka.Ayarlar_Genel("Eposta/Mesaj");
             Gönder(müşt.Oku("Kime"), müşt.Oku("Bilgi"), müşt.Oku("Gizli"), ayar.Oku("Konu"), ayar.Oku("İçerik").Replace("%Müşteri%", Müşteri), null, DosyaEkleri, GeriBildirimİşlemi_Tamamlandı);
+        }
+        public static void Gönder_Kişiye(string Kişi, string[] DosyaEkleri, Action<string> GeriBildirimİşlemi_Tamamlandı = null)
+        {
+            IDepo_Eleman ayar = Banka.Ayarlar_Genel("Eposta/Mesaj");
+            Gönder(Kişi, null, null, ayar.Oku("Konu"), ayar.Oku("İçerik").Replace("%Müşteri%", Kişi), null, DosyaEkleri, GeriBildirimİşlemi_Tamamlandı);
         }
         public static void YenileİşaretleSil(string KlasörAdı, int Yenile_GündenEskiOlanlar = 7, bool Yenile_SadeceOkunmamışlar = true, string[] OkunduOlarakİşaretle = null, string[] Taşı = null, string Taşı_HedefKlasör = null, Action<string> GeriBildirimİşlemi_Tamamlandı = null)
         {
