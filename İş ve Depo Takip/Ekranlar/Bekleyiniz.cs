@@ -30,7 +30,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             set
             {
-                İlerlemeÇubuğu.Value += value;
+                int toplam = İlerlemeÇubuğu.Value + value;
+
+                if (toplam >= İlerlemeÇubuğu.Maximum) İlerlemeÇubuğu.Value = İlerlemeÇubuğu.Maximum;
+                else İlerlemeÇubuğu.Value = toplam;
             }
         }
 

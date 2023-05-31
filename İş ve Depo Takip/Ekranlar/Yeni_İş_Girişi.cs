@@ -2,6 +2,7 @@
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
@@ -55,6 +56,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             İpUcu_Genel.SetToolTip(İşTürleri_AramaÇubuğu, ipucu);
             Hastalar_AdVeSoyadıDüzelt.Checked = Banka.Ayarlar_Kullanıcı(Name, "Hastalar_AdVeSoyadıDüzelt").Oku_Bit(null, true);
+            Ayraç_Kat_3_SolSağ_Sağ.Panel1Collapsed = true;
 
             if (Müşteri == null)
             {
@@ -132,6 +134,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         Tablo.Rows[i].ReadOnly = true;
                         Tablo[0, i].Value = İşTürü;
                         Tablo[0, i].ToolTipText = Banka.Ücretler_BirimÜcret_Detaylı(Müşteri, İşTürü); //ücretlendirme ipucları
+
+                        if (Tablo[0, i].ToolTipText.Contains("Adede göre hesaplanır"))
+                        {
+                            Tablo[0, i].Style.BackColor = System.Drawing.Color.Khaki;
+                            Ayraç_Kat_3_SolSağ_Sağ.Panel1Collapsed = false;
+                        }
                     }
 
                     Tablo[1, i].Value = Ücret1;
@@ -147,6 +155,21 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         Tablo[3, i].Tag = ÇıkışTarihi.TarihSaate();
                         Tablo[3, i].ToolTipText = ÇıkışTarihi;
                     }
+                }
+
+                byte[] l_Dişler = seri_no_dalı.Oku_BaytDizisi(null, null, 4);
+                if (l_Dişler != null && l_Dişler.Length > 0)
+                {
+                    Control[] l_checkboxlar = new Control[Tablo_Dişler.Controls.Count];
+                    Tablo_Dişler.Controls.CopyTo(l_checkboxlar, 0);
+
+                    foreach (byte diş in l_Dişler)
+                    {
+                        CheckBox chcb = l_checkboxlar.First(x => x.Text == diş.ToString()) as CheckBox;
+                        chcb.Checked = true;
+                    }
+
+                    Tablo_Dişler.Enabled = !SadeceOkunabilir;
                 }
 
                 if (!string.IsNullOrEmpty(hata_bilgilendirmesi))
@@ -386,6 +409,20 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Tablo[0, konum].Value = İşTürleri_SeçimKutusu.Text;
             Tablo[0, konum].ToolTipText = Banka.Ücretler_BirimÜcret_Detaylı(Müşteriler_SeçimKutusu.Text, İşTürleri_SeçimKutusu.Text);
+
+            //adetli ?
+            Tablo[0, konum].Style.BackColor = Tablo[0, konum].ToolTipText.Contains("Adede göre hesaplanır") ? System.Drawing.Color.Khaki : System.Drawing.Color.White;
+
+            //en az 1 adetli var ise dişleri göster
+            foreach (DataGridViewRow satır in Tablo.Rows)
+            {
+                if (satır.Cells[0].ToolTipText.Contains("Adede göre hesaplanır"))
+                {
+                    Ayraç_Kat_3_SolSağ_Sağ.Panel1Collapsed = false;
+                    return;
+                }
+            }
+            Ayraç_Kat_3_SolSağ_Sağ.Panel1Collapsed = true;
         }
         
         private void Tablo_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -436,7 +473,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void Notlar_KeyDown(object sender, KeyEventArgs e)
         {
-            if (Notlar_TarihSaatEklendi) return;
+            if (SadeceOkunabilir || Notlar_TarihSaatEklendi) return;
             Notlar_TarihSaatEklendi = true;
 
             if (Notlar.Text.DoluMu(true)) Notlar.Text += Environment.NewLine;
@@ -516,6 +553,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 Tablo.Rows.Remove(l[0]);
                 Değişiklik_Yapılıyor(null, null);
+
+                //en az 1 adetli var ise dişleri göster
+                foreach (DataGridViewRow satır in Tablo.Rows)
+                {
+                    if (satır.Cells[0].ToolTipText.Contains("Adede göre hesaplanır"))
+                    {
+                        Ayraç_Kat_3_SolSağ_Sağ.Panel1Collapsed = false;
+                        return;
+                    }
+                }
+                Ayraç_Kat_3_SolSağ_Sağ.Panel1Collapsed = true;
             }
         }
         private void Kaydet_Click(object sender, EventArgs e)
@@ -596,6 +644,25 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Detaylar.Hasta = Hastalar_AramaÇubuğu.Text;
             Detaylar.İskonto = İskonto.Text;
             Detaylar.Notlar = Notlar.Text.Trim();
+
+            if (!Ayraç_Kat_3_SolSağ_Sağ.Panel1Collapsed)
+            {
+                //en az 1 adetli iş var
+                List<byte> l_dişler = new List<byte>();
+                foreach (Control ctr in Tablo_Dişler.Controls)
+                {
+                    CheckBox chcb = ctr as CheckBox;
+                    if (chcb == null || !chcb.Checked) continue;
+                    l_dişler.Add((byte)chcb.Text.TamSayıya());
+                }
+
+                if (l_dişler.Count == 0)
+                {
+                    MessageBox.Show("Hiç diş seçilmedi, lütfen kontrol ediniz", Text);
+                    return false;
+                }
+                Detaylar.DişKonumları = l_dişler.ToArray();
+            }
 
             DateTime t = DateTime.Now;
             Detaylar.İşTürleri = new List<string>();

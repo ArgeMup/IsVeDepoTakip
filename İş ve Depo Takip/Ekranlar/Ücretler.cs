@@ -1,8 +1,6 @@
-﻿using ArgeMup.HazirKod;
-using ArgeMup.HazirKod.Ekİşlemler;
+﻿using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar

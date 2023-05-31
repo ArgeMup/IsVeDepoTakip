@@ -54,9 +54,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (Liste.SelectedIndex < 0) { splitContainer1.Panel2.Enabled = false; return; }
             Yeni.Text = Liste.Text;
 
-            Banka.İşTürü_Malzemeler_TablodaGöster(Tablo, Liste.Text, out string MüşteriyeGösterilecekAdı, out string Notları);
+            Banka.İşTürü_Malzemeler_TablodaGöster(Tablo, Liste.Text, out string MüşteriyeGösterilecekAdı, out string Notları, out bool Adetli);
             MüşteriyeGösterilecekOlanAdı.Text = MüşteriyeGösterilecekAdı;
             Notlar.Text = Notları;
+            AdetiİşTürü.Checked = Adetli;
 
             splitContainer1.Panel1.Enabled = true;
             splitContainer1.Panel2.Enabled = true;
@@ -172,7 +173,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Miktarlar.Add((string)Tablo[1, i].Value);
             }
 
-            Banka.İşTürü_Malzemeler_Kaydet(Liste.Text, Malzemeler, Miktarlar, MüşteriyeGösterilecekOlanAdı.Text.Trim(), Notlar.Text.Trim());
+            Banka.İşTürü_Malzemeler_Kaydet(Liste.Text, Malzemeler, Miktarlar, MüşteriyeGösterilecekOlanAdı.Text.Trim(), Notlar.Text.Trim(), AdetiİşTürü.Checked);
             Banka.Değişiklikleri_Kaydet(Kaydet);
 
             splitContainer1.Panel1.Enabled = true;
