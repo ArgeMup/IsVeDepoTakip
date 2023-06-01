@@ -483,6 +483,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             P_Ayarlar.Visible = false;
             P_YeniParola.Visible = true;
             P_YeniParola.Tag = "Normal Çalışma";
+            YeniParola_1.Text = null;
+            YeniParola_2.Text = null;
         }
         private void YedekleKapat_Click(object sender, EventArgs e)
         {

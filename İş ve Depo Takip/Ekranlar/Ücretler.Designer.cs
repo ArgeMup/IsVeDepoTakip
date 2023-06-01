@@ -35,6 +35,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Zam_Miktarı = new System.Windows.Forms.TextBox();
             this.Tablo = new System.Windows.Forms.DataGridView();
+            this.Tablo_İş_Türleri = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tablo_Ücret = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tablo_Maliyet = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Zam_Yap = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.AramaÇubuğu_Müşteri = new System.Windows.Forms.TextBox();
@@ -42,34 +45,32 @@
             this.Kaydet = new System.Windows.Forms.Button();
             this.KDV = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.Tablo_İş_Türleri = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tablo_Ücret = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tablo_Maliyet = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Müşterıler
             // 
-            this.Müşterıler.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Müşterıler.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Müşterıler.FormattingEnabled = true;
             this.Müşterıler.ItemHeight = 29;
-            this.Müşterıler.Location = new System.Drawing.Point(0, 43);
+            this.Müşterıler.Location = new System.Drawing.Point(0, 34);
             this.Müşterıler.Margin = new System.Windows.Forms.Padding(4);
             this.Müşterıler.Name = "Müşterıler";
-            this.Müşterıler.Size = new System.Drawing.Size(274, 381);
+            this.Müşterıler.Size = new System.Drawing.Size(250, 459);
             this.Müşterıler.TabIndex = 0;
             this.Müşterıler.SelectedIndexChanged += new System.EventHandler(this.Müşterıler_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 21);
+            this.label1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(301, 29);
@@ -78,7 +79,8 @@
             // 
             // Zam_Miktarı
             // 
-            this.Zam_Miktarı.Location = new System.Drawing.Point(318, 18);
+            this.Zam_Miktarı.Dock = System.Windows.Forms.DockStyle.Left;
+            this.Zam_Miktarı.Location = new System.Drawing.Point(301, 0);
             this.Zam_Miktarı.Margin = new System.Windows.Forms.Padding(4);
             this.Zam_Miktarı.Name = "Zam_Miktarı";
             this.Zam_Miktarı.Size = new System.Drawing.Size(73, 34);
@@ -91,9 +93,6 @@
             this.Tablo.AllowUserToDeleteRows = false;
             this.Tablo.AllowUserToResizeColumns = false;
             this.Tablo.AllowUserToResizeRows = false;
-            this.Tablo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -109,8 +108,9 @@
             this.Tablo_İş_Türleri,
             this.Tablo_Ücret,
             this.Tablo_Maliyet});
+            this.Tablo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Tablo.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
-            this.Tablo.Location = new System.Drawing.Point(0, 43);
+            this.Tablo.Location = new System.Drawing.Point(0, 34);
             this.Tablo.Margin = new System.Windows.Forms.Padding(4);
             this.Tablo.MultiSelect = false;
             this.Tablo.Name = "Tablo";
@@ -121,94 +121,9 @@
             this.Tablo.ShowCellErrors = false;
             this.Tablo.ShowEditingIcon = false;
             this.Tablo.ShowRowErrors = false;
-            this.Tablo.Size = new System.Drawing.Size(775, 411);
+            this.Tablo.Size = new System.Drawing.Size(710, 459);
             this.Tablo.TabIndex = 1;
             this.Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellValueChanged);
-            // 
-            // Zam_Yap
-            // 
-            this.Zam_Yap.Location = new System.Drawing.Point(397, 7);
-            this.Zam_Yap.Margin = new System.Windows.Forms.Padding(4);
-            this.Zam_Yap.Name = "Zam_Yap";
-            this.Zam_Yap.Size = new System.Drawing.Size(205, 57);
-            this.Zam_Yap.TabIndex = 5;
-            this.Zam_Yap.Text = "değişiklik yap";
-            this.Zam_Yap.UseVisualStyleBackColor = true;
-            this.Zam_Yap.Click += new System.EventHandler(this.Zam_Yap_Click);
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitContainer1.Location = new System.Drawing.Point(11, 69);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.AramaÇubuğu_Müşteri);
-            this.splitContainer1.Panel1.Controls.Add(this.Müşterıler);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.AramaÇubuğu_İşTürü);
-            this.splitContainer1.Panel2.Controls.Add(this.Tablo);
-            this.splitContainer1.Panel2.Enabled = false;
-            this.splitContainer1.Size = new System.Drawing.Size(1061, 462);
-            this.splitContainer1.SplitterDistance = 278;
-            this.splitContainer1.TabIndex = 8;
-            // 
-            // AramaÇubuğu_Müşteri
-            // 
-            this.AramaÇubuğu_Müşteri.Dock = System.Windows.Forms.DockStyle.Top;
-            this.AramaÇubuğu_Müşteri.Location = new System.Drawing.Point(0, 0);
-            this.AramaÇubuğu_Müşteri.Name = "AramaÇubuğu_Müşteri";
-            this.AramaÇubuğu_Müşteri.Size = new System.Drawing.Size(274, 34);
-            this.AramaÇubuğu_Müşteri.TabIndex = 4;
-            this.AramaÇubuğu_Müşteri.TextChanged += new System.EventHandler(this.AramaÇubuğu_Müşteri_TextChanged);
-            // 
-            // AramaÇubuğu_İşTürü
-            // 
-            this.AramaÇubuğu_İşTürü.Dock = System.Windows.Forms.DockStyle.Top;
-            this.AramaÇubuğu_İşTürü.Location = new System.Drawing.Point(0, 0);
-            this.AramaÇubuğu_İşTürü.Name = "AramaÇubuğu_İşTürü";
-            this.AramaÇubuğu_İşTürü.Size = new System.Drawing.Size(775, 34);
-            this.AramaÇubuğu_İşTürü.TabIndex = 4;
-            this.AramaÇubuğu_İşTürü.TextChanged += new System.EventHandler(this.AramaÇubuğu_İşTürü_TextChanged);
-            // 
-            // Kaydet
-            // 
-            this.Kaydet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Kaydet.Enabled = false;
-            this.Kaydet.Location = new System.Drawing.Point(925, 7);
-            this.Kaydet.Margin = new System.Windows.Forms.Padding(4);
-            this.Kaydet.Name = "Kaydet";
-            this.Kaydet.Size = new System.Drawing.Size(147, 57);
-            this.Kaydet.TabIndex = 2;
-            this.Kaydet.Text = "Kaydet";
-            this.Kaydet.UseVisualStyleBackColor = true;
-            this.Kaydet.Click += new System.EventHandler(this.Kaydet_Click);
-            // 
-            // KDV
-            // 
-            this.KDV.Location = new System.Drawing.Point(732, 18);
-            this.KDV.Margin = new System.Windows.Forms.Padding(4);
-            this.KDV.Name = "KDV";
-            this.KDV.Size = new System.Drawing.Size(73, 34);
-            this.KDV.TabIndex = 9;
-            this.KDV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.KDV.TextChanged += new System.EventHandler(this.Ayar_Değişti);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(637, 21);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 29);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "KDV %";
             // 
             // Tablo_İş_Türleri
             // 
@@ -236,21 +151,119 @@
             this.Tablo_Maliyet.MinimumWidth = 6;
             this.Tablo_Maliyet.Name = "Tablo_Maliyet";
             // 
+            // Zam_Yap
+            // 
+            this.Zam_Yap.AutoSize = true;
+            this.Zam_Yap.Dock = System.Windows.Forms.DockStyle.Left;
+            this.Zam_Yap.Location = new System.Drawing.Point(374, 0);
+            this.Zam_Yap.Margin = new System.Windows.Forms.Padding(4);
+            this.Zam_Yap.Name = "Zam_Yap";
+            this.Zam_Yap.Size = new System.Drawing.Size(205, 36);
+            this.Zam_Yap.TabIndex = 5;
+            this.Zam_Yap.Text = "değişiklik yap";
+            this.Zam_Yap.UseVisualStyleBackColor = true;
+            this.Zam_Yap.Click += new System.EventHandler(this.Zam_Yap_Click);
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(5, 41);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.Müşterıler);
+            this.splitContainer1.Panel1.Controls.Add(this.AramaÇubuğu_Müşteri);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.Tablo);
+            this.splitContainer1.Panel2.Controls.Add(this.AramaÇubuğu_İşTürü);
+            this.splitContainer1.Panel2.Enabled = false;
+            this.splitContainer1.Size = new System.Drawing.Size(972, 497);
+            this.splitContainer1.SplitterDistance = 254;
+            this.splitContainer1.TabIndex = 8;
+            // 
+            // AramaÇubuğu_Müşteri
+            // 
+            this.AramaÇubuğu_Müşteri.Dock = System.Windows.Forms.DockStyle.Top;
+            this.AramaÇubuğu_Müşteri.Location = new System.Drawing.Point(0, 0);
+            this.AramaÇubuğu_Müşteri.Name = "AramaÇubuğu_Müşteri";
+            this.AramaÇubuğu_Müşteri.Size = new System.Drawing.Size(250, 34);
+            this.AramaÇubuğu_Müşteri.TabIndex = 4;
+            this.AramaÇubuğu_Müşteri.TextChanged += new System.EventHandler(this.AramaÇubuğu_Müşteri_TextChanged);
+            // 
+            // AramaÇubuğu_İşTürü
+            // 
+            this.AramaÇubuğu_İşTürü.Dock = System.Windows.Forms.DockStyle.Top;
+            this.AramaÇubuğu_İşTürü.Location = new System.Drawing.Point(0, 0);
+            this.AramaÇubuğu_İşTürü.Name = "AramaÇubuğu_İşTürü";
+            this.AramaÇubuğu_İşTürü.Size = new System.Drawing.Size(710, 34);
+            this.AramaÇubuğu_İşTürü.TabIndex = 4;
+            this.AramaÇubuğu_İşTürü.TextChanged += new System.EventHandler(this.AramaÇubuğu_İşTürü_TextChanged);
+            // 
+            // Kaydet
+            // 
+            this.Kaydet.AutoSize = true;
+            this.Kaydet.Dock = System.Windows.Forms.DockStyle.Right;
+            this.Kaydet.Enabled = false;
+            this.Kaydet.Location = new System.Drawing.Point(825, 0);
+            this.Kaydet.Margin = new System.Windows.Forms.Padding(4);
+            this.Kaydet.Name = "Kaydet";
+            this.Kaydet.Size = new System.Drawing.Size(147, 36);
+            this.Kaydet.TabIndex = 2;
+            this.Kaydet.Text = "Kaydet";
+            this.Kaydet.UseVisualStyleBackColor = true;
+            this.Kaydet.Click += new System.EventHandler(this.Kaydet_Click);
+            // 
+            // KDV
+            // 
+            this.KDV.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.KDV.Location = new System.Drawing.Point(711, 1);
+            this.KDV.Margin = new System.Windows.Forms.Padding(4);
+            this.KDV.Name = "KDV";
+            this.KDV.Size = new System.Drawing.Size(73, 34);
+            this.KDV.TabIndex = 9;
+            this.KDV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.KDV.TextChanged += new System.EventHandler(this.Ayar_Değişti);
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(616, 4);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(89, 29);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "KDV %";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.Kaydet);
+            this.panel1.Controls.Add(this.Zam_Yap);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.Zam_Miktarı);
+            this.panel1.Controls.Add(this.KDV);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(5, 5);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(972, 36);
+            this.panel1.TabIndex = 11;
+            // 
             // Ücretler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1082, 543);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.KDV);
-            this.Controls.Add(this.Kaydet);
+            this.ClientSize = new System.Drawing.Size(982, 543);
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.Zam_Yap);
-            this.Controls.Add(this.Zam_Miktarı);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Ücretler";
+            this.Padding = new System.Windows.Forms.Padding(5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ücretler";
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).EndInit();
@@ -260,8 +273,9 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -280,5 +294,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_İş_Türleri;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Ücret;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Maliyet;
+        private System.Windows.Forms.Panel panel1;
     }
 }

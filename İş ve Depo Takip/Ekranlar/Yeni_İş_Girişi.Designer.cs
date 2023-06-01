@@ -140,7 +140,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Notlar.Multiline = true;
             this.Notlar.Name = "Notlar";
             this.Notlar.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.Notlar.Size = new System.Drawing.Size(1426, 58);
+            this.Notlar.Size = new System.Drawing.Size(968, 57);
             this.Notlar.TabIndex = 5;
             this.İpUcu_Ücretlendirme.SetToolTip(this.Notlar, resources.GetString("Notlar.ToolTip"));
             this.Notlar.TextChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
@@ -181,7 +181,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Tablo.ShowCellErrors = false;
             this.Tablo.ShowEditingIcon = false;
             this.Tablo.ShowRowErrors = false;
-            this.Tablo.Size = new System.Drawing.Size(1000, 230);
+            this.Tablo.Size = new System.Drawing.Size(680, 231);
             this.Tablo.TabIndex = 9;
             this.Tablo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellContentClick);
             this.Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellValueChanged);
@@ -236,7 +236,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Kaydet.Enabled = false;
             this.Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Kaydet.Location = new System.Drawing.Point(868, 0);
+            this.Kaydet.Location = new System.Drawing.Point(548, 0);
             this.Kaydet.Margin = new System.Windows.Forms.Padding(2);
             this.Kaydet.Name = "Kaydet";
             this.Kaydet.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -267,7 +267,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // İskonto
             // 
             this.İskonto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.İskonto.Location = new System.Drawing.Point(1315, 5);
+            this.İskonto.Location = new System.Drawing.Point(857, 5);
             this.İskonto.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.İskonto.Name = "İskonto";
             this.İskonto.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -293,7 +293,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Müşteriler_AramaÇubuğu.Dock = System.Windows.Forms.DockStyle.Top;
             this.Müşteriler_AramaÇubuğu.Location = new System.Drawing.Point(3, 22);
             this.Müşteriler_AramaÇubuğu.Name = "Müşteriler_AramaÇubuğu";
-            this.Müşteriler_AramaÇubuğu.Size = new System.Drawing.Size(705, 26);
+            this.Müşteriler_AramaÇubuğu.Size = new System.Drawing.Size(475, 26);
             this.Müşteriler_AramaÇubuğu.TabIndex = 0;
             this.İpUcu_Genel.SetToolTip(this.Müşteriler_AramaÇubuğu, "Arama çubuğu");
             this.Müşteriler_AramaÇubuğu.TextChanged += new System.EventHandler(this.Müşteriler_AramaÇubuğu_TextChanged);
@@ -304,7 +304,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Hastalar_AramaÇubuğu.Dock = System.Windows.Forms.DockStyle.Top;
             this.Hastalar_AramaÇubuğu.Location = new System.Drawing.Point(3, 22);
             this.Hastalar_AramaÇubuğu.Name = "Hastalar_AramaÇubuğu";
-            this.Hastalar_AramaÇubuğu.Size = new System.Drawing.Size(707, 26);
+            this.Hastalar_AramaÇubuğu.Size = new System.Drawing.Size(479, 26);
             this.Hastalar_AramaÇubuğu.TabIndex = 2;
             this.İpUcu_Genel.SetToolTip(this.Hastalar_AramaÇubuğu, "Arama çubuğu");
             this.Hastalar_AramaÇubuğu.TextChanged += new System.EventHandler(this.Hastalar_AramaÇubuğu_TextChanged);
@@ -316,7 +316,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İşTürleri_AramaÇubuğu.Dock = System.Windows.Forms.DockStyle.Top;
             this.İşTürleri_AramaÇubuğu.Location = new System.Drawing.Point(3, 22);
             this.İşTürleri_AramaÇubuğu.Name = "İşTürleri_AramaÇubuğu";
-            this.İşTürleri_AramaÇubuğu.Size = new System.Drawing.Size(418, 26);
+            this.İşTürleri_AramaÇubuğu.Size = new System.Drawing.Size(280, 26);
             this.İşTürleri_AramaÇubuğu.TabIndex = 6;
             this.İşTürleri_AramaÇubuğu.TextChanged += new System.EventHandler(this.İşTürleri_AramaÇubuğu_TextChanged);
             this.İşTürleri_AramaÇubuğu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.İşTürleri_AramaÇubuğu_KeyPress);
@@ -327,7 +327,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Hastalar_AdVeSoyadıDüzelt.AutoSize = true;
             this.Hastalar_AdVeSoyadıDüzelt.Checked = true;
             this.Hastalar_AdVeSoyadıDüzelt.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Hastalar_AdVeSoyadıDüzelt.Location = new System.Drawing.Point(688, 24);
+            this.Hastalar_AdVeSoyadıDüzelt.Location = new System.Drawing.Point(460, 24);
             this.Hastalar_AdVeSoyadıDüzelt.Name = "Hastalar_AdVeSoyadıDüzelt";
             this.Hastalar_AdVeSoyadıDüzelt.Size = new System.Drawing.Size(18, 17);
             this.Hastalar_AdVeSoyadıDüzelt.TabIndex = 4;
@@ -341,7 +341,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Müşteriler_Grup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Müşteriler_Grup.Location = new System.Drawing.Point(0, 0);
             this.Müşteriler_Grup.Name = "Müşteriler_Grup";
-            this.Müşteriler_Grup.Size = new System.Drawing.Size(711, 111);
+            this.Müşteriler_Grup.Size = new System.Drawing.Size(481, 109);
             this.Müşteriler_Grup.TabIndex = 13;
             this.Müşteriler_Grup.TabStop = false;
             this.Müşteriler_Grup.Text = "Müşteri";
@@ -355,7 +355,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Müşteriler_SeçimKutusu.Location = new System.Drawing.Point(3, 48);
             this.Müşteriler_SeçimKutusu.Margin = new System.Windows.Forms.Padding(2);
             this.Müşteriler_SeçimKutusu.Name = "Müşteriler_SeçimKutusu";
-            this.Müşteriler_SeçimKutusu.Size = new System.Drawing.Size(705, 60);
+            this.Müşteriler_SeçimKutusu.Size = new System.Drawing.Size(475, 58);
             this.Müşteriler_SeçimKutusu.TabIndex = 1;
             this.Müşteriler_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.Müşteriler_SeçimKutusu_SelectedIndexChanged);
             this.Müşteriler_SeçimKutusu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Müşteriler_SeçimKutusu_KeyPress);
@@ -368,7 +368,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Hastalar_Grup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Hastalar_Grup.Location = new System.Drawing.Point(0, 0);
             this.Hastalar_Grup.Name = "Hastalar_Grup";
-            this.Hastalar_Grup.Size = new System.Drawing.Size(713, 111);
+            this.Hastalar_Grup.Size = new System.Drawing.Size(485, 109);
             this.Hastalar_Grup.TabIndex = 14;
             this.Hastalar_Grup.TabStop = false;
             this.Hastalar_Grup.Text = "Hasta";
@@ -382,7 +382,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Hastalar_SeçimKutusu.Location = new System.Drawing.Point(3, 48);
             this.Hastalar_SeçimKutusu.Margin = new System.Windows.Forms.Padding(2);
             this.Hastalar_SeçimKutusu.Name = "Hastalar_SeçimKutusu";
-            this.Hastalar_SeçimKutusu.Size = new System.Drawing.Size(707, 60);
+            this.Hastalar_SeçimKutusu.Size = new System.Drawing.Size(479, 58);
             this.Hastalar_SeçimKutusu.TabIndex = 3;
             this.Hastalar_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.Hastalar_SeçimKutusu_SelectedIndexChanged);
             // 
@@ -394,7 +394,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İşTürleri.Dock = System.Windows.Forms.DockStyle.Fill;
             this.İşTürleri.Location = new System.Drawing.Point(0, 0);
             this.İşTürleri.Name = "İşTürleri";
-            this.İşTürleri.Size = new System.Drawing.Size(424, 326);
+            this.İşTürleri.Size = new System.Drawing.Size(286, 325);
             this.İşTürleri.TabIndex = 14;
             this.İşTürleri.TabStop = false;
             this.İşTürleri.Text = "İş Türleri";
@@ -407,7 +407,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İşTürleri_SeçimKutusu.Location = new System.Drawing.Point(3, 48);
             this.İşTürleri_SeçimKutusu.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.İşTürleri_SeçimKutusu.Name = "İşTürleri_SeçimKutusu";
-            this.İşTürleri_SeçimKutusu.Size = new System.Drawing.Size(418, 245);
+            this.İşTürleri_SeçimKutusu.Size = new System.Drawing.Size(280, 244);
             this.İşTürleri_SeçimKutusu.Sorted = true;
             this.İşTürleri_SeçimKutusu.TabIndex = 7;
             this.İşTürleri_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.İşTürleri_SeçimKutusu_SelectedIndexChanged);
@@ -420,10 +420,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İştürü_SeçiliSatıraKopyala.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.İştürü_SeçiliSatıraKopyala.Enabled = false;
             this.İştürü_SeçiliSatıraKopyala.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.İştürü_SeçiliSatıraKopyala.Location = new System.Drawing.Point(3, 293);
+            this.İştürü_SeçiliSatıraKopyala.Location = new System.Drawing.Point(3, 292);
             this.İştürü_SeçiliSatıraKopyala.Margin = new System.Windows.Forms.Padding(2);
             this.İştürü_SeçiliSatıraKopyala.Name = "İştürü_SeçiliSatıraKopyala";
-            this.İştürü_SeçiliSatıraKopyala.Size = new System.Drawing.Size(418, 30);
+            this.İştürü_SeçiliSatıraKopyala.Size = new System.Drawing.Size(280, 30);
             this.İştürü_SeçiliSatıraKopyala.TabIndex = 8;
             this.İştürü_SeçiliSatıraKopyala.Text = "Seçili Satıra Kopyala";
             this.İştürü_SeçiliSatıraKopyala.UseVisualStyleBackColor = true;
@@ -433,7 +433,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(1225, 7);
+            this.label6.Location = new System.Drawing.Point(767, 7);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(82, 20);
@@ -464,8 +464,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.Hastalar_Grup);
-            this.splitContainer1.Size = new System.Drawing.Size(1436, 115);
-            this.splitContainer1.SplitterDistance = 715;
+            this.splitContainer1.Size = new System.Drawing.Size(978, 113);
+            this.splitContainer1.SplitterDistance = 485;
             this.splitContainer1.TabIndex = 23;
             // 
             // Ayraç_Kat_3_SolSağ
@@ -483,8 +483,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             this.Ayraç_Kat_3_SolSağ.Panel2.Controls.Add(this.Ayraç_Kat_3_SolSağ_Sağ);
             this.Ayraç_Kat_3_SolSağ.Panel2.Controls.Add(this.panel1);
-            this.Ayraç_Kat_3_SolSağ.Size = new System.Drawing.Size(1436, 330);
-            this.Ayraç_Kat_3_SolSağ.SplitterDistance = 428;
+            this.Ayraç_Kat_3_SolSağ.Size = new System.Drawing.Size(978, 329);
+            this.Ayraç_Kat_3_SolSağ.SplitterDistance = 290;
             this.Ayraç_Kat_3_SolSağ.TabIndex = 24;
             // 
             // Ayraç_Kat_3_SolSağ_Sağ
@@ -503,8 +503,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Kat_3_SolSağ_Sağ.Panel2.Controls.Add(this.P_DosyaEkleri);
             this.Ayraç_Kat_3_SolSağ_Sağ.Panel2.Controls.Add(this.P_Epostalar);
             this.Ayraç_Kat_3_SolSağ_Sağ.Panel2.Controls.Add(this.Tablo);
-            this.Ayraç_Kat_3_SolSağ_Sağ.Size = new System.Drawing.Size(1000, 293);
-            this.Ayraç_Kat_3_SolSağ_Sağ.SplitterDistance = 59;
+            this.Ayraç_Kat_3_SolSağ_Sağ.Size = new System.Drawing.Size(680, 292);
+            this.Ayraç_Kat_3_SolSağ_Sağ.SplitterDistance = 57;
             this.Ayraç_Kat_3_SolSağ_Sağ.TabIndex = 15;
             // 
             // Tablo_Dişler
@@ -565,7 +565,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Tablo_Dişler.RowCount = 2;
             this.Tablo_Dişler.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.Tablo_Dişler.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.Tablo_Dişler.Size = new System.Drawing.Size(1000, 59);
+            this.Tablo_Dişler.Size = new System.Drawing.Size(680, 57);
             this.Tablo_Dişler.TabIndex = 8;
             // 
             // checkBox31
@@ -575,10 +575,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox31.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox31.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox31.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox31.Location = new System.Drawing.Point(815, 31);
+            this.checkBox31.Location = new System.Drawing.Point(548, 30);
             this.checkBox31.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox31.Name = "checkBox31";
-            this.checkBox31.Size = new System.Drawing.Size(57, 26);
+            this.checkBox31.Size = new System.Drawing.Size(37, 25);
             this.checkBox31.TabIndex = 25;
             this.checkBox31.Text = "36";
             this.checkBox31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -593,10 +593,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox12.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox12.Location = new System.Drawing.Point(937, 2);
+            this.checkBox12.Location = new System.Drawing.Point(630, 2);
             this.checkBox12.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox12.Name = "checkBox12";
-            this.checkBox12.Size = new System.Drawing.Size(61, 25);
+            this.checkBox12.Size = new System.Drawing.Size(48, 24);
             this.checkBox12.TabIndex = 27;
             this.checkBox12.Text = "28";
             this.checkBox12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -611,10 +611,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox30.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox30.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox30.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox30.Location = new System.Drawing.Point(754, 31);
+            this.checkBox30.Location = new System.Drawing.Point(507, 30);
             this.checkBox30.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox30.Name = "checkBox30";
-            this.checkBox30.Size = new System.Drawing.Size(57, 26);
+            this.checkBox30.Size = new System.Drawing.Size(37, 25);
             this.checkBox30.TabIndex = 24;
             this.checkBox30.Text = "35";
             this.checkBox30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -629,10 +629,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox29.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox29.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox29.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox29.Location = new System.Drawing.Point(693, 31);
+            this.checkBox29.Location = new System.Drawing.Point(466, 30);
             this.checkBox29.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox29.Name = "checkBox29";
-            this.checkBox29.Size = new System.Drawing.Size(57, 26);
+            this.checkBox29.Size = new System.Drawing.Size(37, 25);
             this.checkBox29.TabIndex = 23;
             this.checkBox29.Text = "34";
             this.checkBox29.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -647,10 +647,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox27.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox27.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox27.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox27.Location = new System.Drawing.Point(571, 31);
+            this.checkBox27.Location = new System.Drawing.Point(384, 30);
             this.checkBox27.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox27.Name = "checkBox27";
-            this.checkBox27.Size = new System.Drawing.Size(57, 26);
+            this.checkBox27.Size = new System.Drawing.Size(37, 25);
             this.checkBox27.TabIndex = 21;
             this.checkBox27.Text = "32";
             this.checkBox27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -665,10 +665,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox26.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox26.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox26.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox26.Location = new System.Drawing.Point(510, 31);
+            this.checkBox26.Location = new System.Drawing.Point(343, 30);
             this.checkBox26.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox26.Name = "checkBox26";
-            this.checkBox26.Size = new System.Drawing.Size(57, 26);
+            this.checkBox26.Size = new System.Drawing.Size(37, 25);
             this.checkBox26.TabIndex = 20;
             this.checkBox26.Text = "31";
             this.checkBox26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -683,10 +683,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox28.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox28.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox28.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox28.Location = new System.Drawing.Point(632, 31);
+            this.checkBox28.Location = new System.Drawing.Point(425, 30);
             this.checkBox28.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox28.Name = "checkBox28";
-            this.checkBox28.Size = new System.Drawing.Size(57, 26);
+            this.checkBox28.Size = new System.Drawing.Size(37, 25);
             this.checkBox28.TabIndex = 22;
             this.checkBox28.Text = "33";
             this.checkBox28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -701,10 +701,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox32.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox32.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox32.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox32.Location = new System.Drawing.Point(876, 31);
+            this.checkBox32.Location = new System.Drawing.Point(589, 30);
             this.checkBox32.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox32.Name = "checkBox32";
-            this.checkBox32.Size = new System.Drawing.Size(57, 26);
+            this.checkBox32.Size = new System.Drawing.Size(37, 25);
             this.checkBox32.TabIndex = 26;
             this.checkBox32.Text = "37";
             this.checkBox32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -719,10 +719,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox25.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox25.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox25.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox25.Location = new System.Drawing.Point(429, 31);
+            this.checkBox25.Location = new System.Drawing.Point(289, 30);
             this.checkBox25.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox25.Name = "checkBox25";
-            this.checkBox25.Size = new System.Drawing.Size(57, 26);
+            this.checkBox25.Size = new System.Drawing.Size(37, 25);
             this.checkBox25.TabIndex = 19;
             this.checkBox25.Text = "41";
             this.checkBox25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -737,10 +737,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox24.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox24.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox24.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox24.Location = new System.Drawing.Point(368, 31);
+            this.checkBox24.Location = new System.Drawing.Point(248, 30);
             this.checkBox24.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox24.Name = "checkBox24";
-            this.checkBox24.Size = new System.Drawing.Size(57, 26);
+            this.checkBox24.Size = new System.Drawing.Size(37, 25);
             this.checkBox24.TabIndex = 18;
             this.checkBox24.Text = "42";
             this.checkBox24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -755,10 +755,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox15.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox15.Location = new System.Drawing.Point(429, 2);
+            this.checkBox15.Location = new System.Drawing.Point(289, 2);
             this.checkBox15.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox15.Name = "checkBox15";
-            this.checkBox15.Size = new System.Drawing.Size(57, 25);
+            this.checkBox15.Size = new System.Drawing.Size(37, 24);
             this.checkBox15.TabIndex = 10;
             this.checkBox15.Text = "11";
             this.checkBox15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -773,10 +773,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox14.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox14.Location = new System.Drawing.Point(368, 2);
+            this.checkBox14.Location = new System.Drawing.Point(248, 2);
             this.checkBox14.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox14.Name = "checkBox14";
-            this.checkBox14.Size = new System.Drawing.Size(57, 25);
+            this.checkBox14.Size = new System.Drawing.Size(37, 24);
             this.checkBox14.TabIndex = 9;
             this.checkBox14.Text = "12";
             this.checkBox14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -794,7 +794,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Seviye2_DevamEden.Location = new System.Drawing.Point(2, 2);
             this.Seviye2_DevamEden.Margin = new System.Windows.Forms.Padding(2);
             this.Seviye2_DevamEden.Name = "Seviye2_DevamEden";
-            this.Seviye2_DevamEden.Size = new System.Drawing.Size(57, 25);
+            this.Seviye2_DevamEden.Size = new System.Drawing.Size(37, 24);
             this.Seviye2_DevamEden.TabIndex = 4;
             this.Seviye2_DevamEden.Text = "18";
             this.Seviye2_DevamEden.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -809,10 +809,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox1.Location = new System.Drawing.Point(2, 31);
+            this.checkBox1.Location = new System.Drawing.Point(2, 30);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(57, 26);
+            this.checkBox1.Size = new System.Drawing.Size(37, 25);
             this.checkBox1.TabIndex = 5;
             this.checkBox1.Text = "48";
             this.checkBox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -827,10 +827,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox2.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox2.Location = new System.Drawing.Point(63, 31);
+            this.checkBox2.Location = new System.Drawing.Point(43, 30);
             this.checkBox2.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(57, 26);
+            this.checkBox2.Size = new System.Drawing.Size(37, 25);
             this.checkBox2.TabIndex = 7;
             this.checkBox2.Text = "47";
             this.checkBox2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -845,10 +845,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox11.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox11.Location = new System.Drawing.Point(307, 31);
+            this.checkBox11.Location = new System.Drawing.Point(207, 30);
             this.checkBox11.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox11.Name = "checkBox11";
-            this.checkBox11.Size = new System.Drawing.Size(57, 26);
+            this.checkBox11.Size = new System.Drawing.Size(37, 25);
             this.checkBox11.TabIndex = 7;
             this.checkBox11.Text = "43";
             this.checkBox11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -863,10 +863,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox33.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox33.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox33.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox33.Location = new System.Drawing.Point(937, 31);
+            this.checkBox33.Location = new System.Drawing.Point(630, 30);
             this.checkBox33.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox33.Name = "checkBox33";
-            this.checkBox33.Size = new System.Drawing.Size(61, 26);
+            this.checkBox33.Size = new System.Drawing.Size(48, 25);
             this.checkBox33.TabIndex = 27;
             this.checkBox33.Text = "38";
             this.checkBox33.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -881,10 +881,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox5.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox5.Location = new System.Drawing.Point(124, 31);
+            this.checkBox5.Location = new System.Drawing.Point(84, 30);
             this.checkBox5.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(57, 26);
+            this.checkBox5.Size = new System.Drawing.Size(37, 25);
             this.checkBox5.TabIndex = 5;
             this.checkBox5.Text = "46";
             this.checkBox5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -899,10 +899,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox10.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox10.Location = new System.Drawing.Point(307, 2);
+            this.checkBox10.Location = new System.Drawing.Point(207, 2);
             this.checkBox10.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(57, 25);
+            this.checkBox10.Size = new System.Drawing.Size(37, 24);
             this.checkBox10.TabIndex = 6;
             this.checkBox10.Text = "13";
             this.checkBox10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -917,10 +917,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox3.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox3.Location = new System.Drawing.Point(63, 2);
+            this.checkBox3.Location = new System.Drawing.Point(43, 2);
             this.checkBox3.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(57, 25);
+            this.checkBox3.Size = new System.Drawing.Size(37, 24);
             this.checkBox3.TabIndex = 6;
             this.checkBox3.Text = "17";
             this.checkBox3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -935,10 +935,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox9.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox9.Location = new System.Drawing.Point(246, 31);
+            this.checkBox9.Location = new System.Drawing.Point(166, 30);
             this.checkBox9.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(57, 26);
+            this.checkBox9.Size = new System.Drawing.Size(37, 25);
             this.checkBox9.TabIndex = 7;
             this.checkBox9.Text = "44";
             this.checkBox9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -953,10 +953,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox4.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox4.Location = new System.Drawing.Point(124, 2);
+            this.checkBox4.Location = new System.Drawing.Point(84, 2);
             this.checkBox4.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(57, 25);
+            this.checkBox4.Size = new System.Drawing.Size(37, 24);
             this.checkBox4.TabIndex = 4;
             this.checkBox4.Text = "16";
             this.checkBox4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -971,10 +971,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox8.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox8.Location = new System.Drawing.Point(246, 2);
+            this.checkBox8.Location = new System.Drawing.Point(166, 2);
             this.checkBox8.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(57, 25);
+            this.checkBox8.Size = new System.Drawing.Size(37, 24);
             this.checkBox8.TabIndex = 6;
             this.checkBox8.Text = "14";
             this.checkBox8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -989,10 +989,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox6.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox6.Location = new System.Drawing.Point(185, 2);
+            this.checkBox6.Location = new System.Drawing.Point(125, 2);
             this.checkBox6.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(57, 25);
+            this.checkBox6.Size = new System.Drawing.Size(37, 24);
             this.checkBox6.TabIndex = 6;
             this.checkBox6.Text = "15";
             this.checkBox6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1007,10 +1007,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox7.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox7.Location = new System.Drawing.Point(185, 31);
+            this.checkBox7.Location = new System.Drawing.Point(125, 30);
             this.checkBox7.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(57, 26);
+            this.checkBox7.Size = new System.Drawing.Size(37, 25);
             this.checkBox7.TabIndex = 7;
             this.checkBox7.Text = "45";
             this.checkBox7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1025,10 +1025,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox21.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox21.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox21.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox21.Location = new System.Drawing.Point(876, 2);
+            this.checkBox21.Location = new System.Drawing.Point(589, 2);
             this.checkBox21.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox21.Name = "checkBox21";
-            this.checkBox21.Size = new System.Drawing.Size(57, 25);
+            this.checkBox21.Size = new System.Drawing.Size(37, 24);
             this.checkBox21.TabIndex = 25;
             this.checkBox21.Text = "27";
             this.checkBox21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1043,10 +1043,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox20.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox20.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox20.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox20.Location = new System.Drawing.Point(815, 2);
+            this.checkBox20.Location = new System.Drawing.Point(548, 2);
             this.checkBox20.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox20.Name = "checkBox20";
-            this.checkBox20.Size = new System.Drawing.Size(57, 25);
+            this.checkBox20.Size = new System.Drawing.Size(37, 24);
             this.checkBox20.TabIndex = 24;
             this.checkBox20.Text = "26";
             this.checkBox20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1061,10 +1061,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox19.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox19.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox19.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox19.Location = new System.Drawing.Point(754, 2);
+            this.checkBox19.Location = new System.Drawing.Point(507, 2);
             this.checkBox19.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox19.Name = "checkBox19";
-            this.checkBox19.Size = new System.Drawing.Size(57, 25);
+            this.checkBox19.Size = new System.Drawing.Size(37, 24);
             this.checkBox19.TabIndex = 23;
             this.checkBox19.Text = "25";
             this.checkBox19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1079,10 +1079,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox18.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox18.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox18.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox18.Location = new System.Drawing.Point(693, 2);
+            this.checkBox18.Location = new System.Drawing.Point(466, 2);
             this.checkBox18.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox18.Name = "checkBox18";
-            this.checkBox18.Size = new System.Drawing.Size(57, 25);
+            this.checkBox18.Size = new System.Drawing.Size(37, 24);
             this.checkBox18.TabIndex = 21;
             this.checkBox18.Text = "24";
             this.checkBox18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1097,10 +1097,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox17.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox17.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox17.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox17.Location = new System.Drawing.Point(632, 2);
+            this.checkBox17.Location = new System.Drawing.Point(425, 2);
             this.checkBox17.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox17.Name = "checkBox17";
-            this.checkBox17.Size = new System.Drawing.Size(57, 25);
+            this.checkBox17.Size = new System.Drawing.Size(37, 24);
             this.checkBox17.TabIndex = 20;
             this.checkBox17.Text = "23";
             this.checkBox17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1115,10 +1115,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox16.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox16.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox16.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox16.Location = new System.Drawing.Point(571, 2);
+            this.checkBox16.Location = new System.Drawing.Point(384, 2);
             this.checkBox16.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox16.Name = "checkBox16";
-            this.checkBox16.Size = new System.Drawing.Size(57, 25);
+            this.checkBox16.Size = new System.Drawing.Size(37, 24);
             this.checkBox16.TabIndex = 22;
             this.checkBox16.Text = "22";
             this.checkBox16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1133,10 +1133,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.checkBox13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox13.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
             this.checkBox13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox13.Location = new System.Drawing.Point(510, 2);
+            this.checkBox13.Location = new System.Drawing.Point(343, 2);
             this.checkBox13.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox13.Name = "checkBox13";
-            this.checkBox13.Size = new System.Drawing.Size(57, 25);
+            this.checkBox13.Size = new System.Drawing.Size(37, 24);
             this.checkBox13.TabIndex = 26;
             this.checkBox13.Text = "21";
             this.checkBox13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1166,9 +1166,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.panel1.Controls.Add(this.KaydetVeEtiketiYazdır);
             this.panel1.Controls.Add(this.Kaydet);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 293);
+            this.panel1.Location = new System.Drawing.Point(0, 292);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1000, 33);
+            this.panel1.Size = new System.Drawing.Size(680, 33);
             this.panel1.TabIndex = 16;
             // 
             // KaydetVeEtiketiYazdır
@@ -1178,7 +1178,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.KaydetVeEtiketiYazdır.Enabled = false;
             this.KaydetVeEtiketiYazdır.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.KaydetVeEtiketiYazdır.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.KaydetVeEtiketiYazdır.Location = new System.Drawing.Point(616, 0);
+            this.KaydetVeEtiketiYazdır.Location = new System.Drawing.Point(296, 0);
             this.KaydetVeEtiketiYazdır.Margin = new System.Windows.Forms.Padding(2);
             this.KaydetVeEtiketiYazdır.Name = "KaydetVeEtiketiYazdır";
             this.KaydetVeEtiketiYazdır.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -1194,7 +1194,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.DosyaEkleri.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.DosyaEkleri.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
             this.DosyaEkleri.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.DosyaEkleri.Location = new System.Drawing.Point(619, 3);
+            this.DosyaEkleri.Location = new System.Drawing.Point(390, 3);
             this.DosyaEkleri.Margin = new System.Windows.Forms.Padding(2);
             this.DosyaEkleri.Name = "DosyaEkleri";
             this.DosyaEkleri.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -1225,15 +1225,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // Ayraç_Kat_2_3.Panel2
             // 
             this.Ayraç_Kat_2_3.Panel2.Controls.Add(this.Ayraç_Kat_3_SolSağ);
-            this.Ayraç_Kat_2_3.Size = new System.Drawing.Size(1436, 434);
-            this.Ayraç_Kat_2_3.SplitterDistance = 100;
+            this.Ayraç_Kat_2_3.Size = new System.Drawing.Size(978, 432);
+            this.Ayraç_Kat_2_3.SplitterDistance = 99;
             this.Ayraç_Kat_2_3.TabIndex = 25;
             // 
             // Ayraç_Kat_1_2
             // 
             this.Ayraç_Kat_1_2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.Ayraç_Kat_1_2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Ayraç_Kat_1_2.Location = new System.Drawing.Point(0, 0);
+            this.Ayraç_Kat_1_2.Location = new System.Drawing.Point(2, 2);
             this.Ayraç_Kat_1_2.Name = "Ayraç_Kat_1_2";
             this.Ayraç_Kat_1_2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -1244,8 +1244,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // Ayraç_Kat_1_2.Panel2
             // 
             this.Ayraç_Kat_1_2.Panel2.Controls.Add(this.Ayraç_Kat_2_3);
-            this.Ayraç_Kat_1_2.Size = new System.Drawing.Size(1436, 553);
-            this.Ayraç_Kat_1_2.SplitterDistance = 115;
+            this.Ayraç_Kat_1_2.Size = new System.Drawing.Size(978, 549);
+            this.Ayraç_Kat_1_2.SplitterDistance = 113;
             this.Ayraç_Kat_1_2.TabIndex = 26;
             // 
             // İpUcu_Genel
@@ -1265,13 +1265,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1436, 553);
+            this.ClientSize = new System.Drawing.Size(982, 553);
             this.Controls.Add(this.Ayraç_Kat_1_2);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.IsMdiContainer = true;
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Yeni_İş_Girişi";
+            this.Padding = new System.Windows.Forms.Padding(2);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Yeni İş Girişi / Düzenleme";
             this.Shown += new System.EventHandler(this.Yeni_İş_Girişi_Shown);

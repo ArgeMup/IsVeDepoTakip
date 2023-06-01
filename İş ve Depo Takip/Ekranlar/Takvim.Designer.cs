@@ -128,7 +128,7 @@
             this.Tablo.ShowCellErrors = false;
             this.Tablo.ShowEditingIcon = false;
             this.Tablo.ShowRowErrors = false;
-            this.Tablo.Size = new System.Drawing.Size(978, 302);
+            this.Tablo.Size = new System.Drawing.Size(968, 292);
             this.Tablo.TabIndex = 8;
             this.Tablo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellDoubleClick);
             // 
@@ -328,7 +328,7 @@
             this.YeniOluştur_Oluştur.Enabled = false;
             this.YeniOluştur_Oluştur.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.YeniOluştur_Oluştur.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.YeniOluştur_Oluştur.Location = new System.Drawing.Point(871, 0);
+            this.YeniOluştur_Oluştur.Location = new System.Drawing.Point(861, 0);
             this.YeniOluştur_Oluştur.Name = "YeniOluştur_Oluştur";
             this.YeniOluştur_Oluştur.Size = new System.Drawing.Size(104, 26);
             this.YeniOluştur_Oluştur.TabIndex = 7;
@@ -347,7 +347,7 @@
             this.YeniOluştur_İçerik.Multiline = true;
             this.YeniOluştur_İçerik.Name = "YeniOluştur_İçerik";
             this.YeniOluştur_İçerik.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.YeniOluştur_İçerik.Size = new System.Drawing.Size(75, 26);
+            this.YeniOluştur_İçerik.Size = new System.Drawing.Size(65, 26);
             this.YeniOluştur_İçerik.TabIndex = 6;
             this.İpUcu_Genel.SetToolTip(this.YeniOluştur_İçerik, "Yeni Not Oluşturma Girişi");
             this.YeniOluştur_İçerik.TextChanged += new System.EventHandler(this.YeniOluştur_İçerik_TextChanged);
@@ -356,7 +356,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Location = new System.Drawing.Point(5, 5);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -374,7 +374,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.Tablo);
-            this.splitContainer1.Size = new System.Drawing.Size(978, 331);
+            this.splitContainer1.Size = new System.Drawing.Size(968, 321);
             this.splitContainer1.SplitterDistance = 25;
             this.splitContainer1.TabIndex = 17;
             // 
@@ -445,6 +445,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Takvim";
+            this.Padding = new System.Windows.Forms.Padding(5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Takvim";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

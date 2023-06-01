@@ -203,6 +203,7 @@
     <Compile Include="HazirKod_Cdiyez\Win32Kutuphaneleri.cs" />
     <Compile Include="HazirKod_Cdiyez\YeniYazılımKontrolü.cs" />
     <Compile Include="Ortak\Banka.cs" />
+    <Compile Include="Ortak\Eposta.cs" />
     <Compile Include="Ortak\Ortak.cs" />
     <Compile Include="Ortak\HttpSunucu.cs" />
     <Compile Include="Ortak\Parola.cs" />
@@ -332,6 +333,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>IF EXIST "..\..\..\..\Detaylar\Parola.cs" (copy "..\..\..\..\Detaylar\Parola.cs" "$(SolutionDir)İş ve Depo Takip\Ortak\Parola.cs")</PreBuildEvent>
+    <PreBuildEvent>IF EXIST "$(SolutionDir)..\Detaylar\Parola.cs" (copy "$(SolutionDir)..\Detaylar\Parola.cs" "$(SolutionDir)İş ve Depo Takip\Ortak\Parola.cs")</PreBuildEvent>
   </PropertyGroup>
 </Project>

@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ayarlar_Eposta));
             this.Kaydet = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox_Mesaj = new System.Windows.Forms.GroupBox();
             this.Mesaj_İçerik = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.Mesaj_Konu = new System.Windows.Forms.TextBox();
@@ -47,71 +47,69 @@
             this.label4 = new System.Windows.Forms.Label();
             this.Gönderici_Adres = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox_Smtp = new System.Windows.Forms.GroupBox();
             this.Smtp_GöndermeyiDene = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox_Gönderici = new System.Windows.Forms.GroupBox();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
             this.Imap_Sunucu_Adres = new System.Windows.Forms.TextBox();
             this.Imap_Sunucu_ErişimNoktası = new System.Windows.Forms.TextBox();
             this.BeyazListe = new System.Windows.Forms.TextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox_Imap = new System.Windows.Forms.GroupBox();
             this.Imap_AlmayıDene = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.Imap_Sunucu_SSL = new System.Windows.Forms.CheckBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
+            this.groupBox_BeyazListe = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox_Mesaj.SuspendLayout();
+            this.groupBox_Smtp.SuspendLayout();
+            this.groupBox_Gönderici.SuspendLayout();
+            this.groupBox_Imap.SuspendLayout();
+            this.groupBox_BeyazListe.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Kaydet
             // 
-            this.Kaydet.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Kaydet.AutoSize = true;
+            this.Kaydet.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.Kaydet.Enabled = false;
             this.Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Kaydet.Location = new System.Drawing.Point(24, 528);
+            this.Kaydet.Location = new System.Drawing.Point(5, 478);
             this.Kaydet.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Kaydet.Name = "Kaydet";
-            this.Kaydet.Size = new System.Drawing.Size(845, 55);
+            this.Kaydet.Size = new System.Drawing.Size(972, 55);
             this.Kaydet.TabIndex = 9;
             this.Kaydet.Text = "Kaydet";
             this.Kaydet.UseVisualStyleBackColor = true;
             this.Kaydet.Click += new System.EventHandler(this.Kaydet_Click);
             // 
-            // groupBox2
+            // groupBox_Mesaj
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.Mesaj_İçerik);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.Mesaj_Konu);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Location = new System.Drawing.Point(12, 241);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.groupBox2.Size = new System.Drawing.Size(870, 279);
-            this.groupBox2.TabIndex = 24;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Mesaj";
+            this.groupBox_Mesaj.Controls.Add(this.Mesaj_İçerik);
+            this.groupBox_Mesaj.Controls.Add(this.label9);
+            this.groupBox_Mesaj.Controls.Add(this.Mesaj_Konu);
+            this.groupBox_Mesaj.Controls.Add(this.label8);
+            this.groupBox_Mesaj.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox_Mesaj.Location = new System.Drawing.Point(5, 219);
+            this.groupBox_Mesaj.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.groupBox_Mesaj.Name = "groupBox_Mesaj";
+            this.groupBox_Mesaj.Padding = new System.Windows.Forms.Padding(10);
+            this.groupBox_Mesaj.Size = new System.Drawing.Size(972, 259);
+            this.groupBox_Mesaj.TabIndex = 24;
+            this.groupBox_Mesaj.TabStop = false;
+            this.groupBox_Mesaj.Text = "Mesaj";
             // 
             // Mesaj_İçerik
             // 
-            this.Mesaj_İçerik.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Mesaj_İçerik.Location = new System.Drawing.Point(12, 115);
+            this.Mesaj_İçerik.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Mesaj_İçerik.Location = new System.Drawing.Point(10, 113);
             this.Mesaj_İçerik.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Mesaj_İçerik.Multiline = true;
             this.Mesaj_İçerik.Name = "Mesaj_İçerik";
             this.Mesaj_İçerik.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.Mesaj_İçerik.Size = new System.Drawing.Size(845, 152);
+            this.Mesaj_İçerik.Size = new System.Drawing.Size(952, 136);
             this.Mesaj_İçerik.TabIndex = 8;
             this.Mesaj_İçerik.Text = "<h1>Sayın %Müşteri%</h1>\r\n<br>\r\nGüncel işlere ait detaylar ekte sunulmuştur.\r\n<br" +
     "><br>\r\nİyi çalışmalar dileriz.";
@@ -121,7 +119,8 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(7, 87);
+            this.label9.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label9.Location = new System.Drawing.Point(10, 88);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(132, 25);
@@ -130,12 +129,11 @@
             // 
             // Mesaj_Konu
             // 
-            this.Mesaj_Konu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Mesaj_Konu.Location = new System.Drawing.Point(12, 54);
+            this.Mesaj_Konu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Mesaj_Konu.Location = new System.Drawing.Point(10, 58);
             this.Mesaj_Konu.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Mesaj_Konu.Name = "Mesaj_Konu";
-            this.Mesaj_Konu.Size = new System.Drawing.Size(845, 30);
+            this.Mesaj_Konu.Size = new System.Drawing.Size(952, 30);
             this.Mesaj_Konu.TabIndex = 7;
             this.Mesaj_Konu.Text = "Güncel çalışmalar hk.";
             this.Mesaj_Konu.TextChanged += new System.EventHandler(this.Ayar_Değişti);
@@ -143,7 +141,8 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(7, 26);
+            this.label8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label8.Location = new System.Drawing.Point(10, 33);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(59, 25);
@@ -278,20 +277,21 @@
             this.label3.TabIndex = 25;
             this.label3.Text = "Adresi";
             // 
-            // groupBox1
+            // groupBox_Smtp
             // 
-            this.groupBox1.Controls.Add(this.Smtp_GöndermeyiDene);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.Smtp_Sunucu_Adres);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.Smtp_Sunucu_SSL);
-            this.groupBox1.Controls.Add(this.Smtp_Sunucu_ErişimNoktası);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(213, 223);
-            this.groupBox1.TabIndex = 25;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Smtp Sunucu";
+            this.groupBox_Smtp.Controls.Add(this.Smtp_GöndermeyiDene);
+            this.groupBox_Smtp.Controls.Add(this.label6);
+            this.groupBox_Smtp.Controls.Add(this.Smtp_Sunucu_Adres);
+            this.groupBox_Smtp.Controls.Add(this.label7);
+            this.groupBox_Smtp.Controls.Add(this.Smtp_Sunucu_SSL);
+            this.groupBox_Smtp.Controls.Add(this.Smtp_Sunucu_ErişimNoktası);
+            this.groupBox_Smtp.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox_Smtp.Location = new System.Drawing.Point(426, 0);
+            this.groupBox_Smtp.Name = "groupBox_Smtp";
+            this.groupBox_Smtp.Size = new System.Drawing.Size(213, 214);
+            this.groupBox_Smtp.TabIndex = 25;
+            this.groupBox_Smtp.TabStop = false;
+            this.groupBox_Smtp.Text = "Smtp Sunucu";
             // 
             // Smtp_GöndermeyiDene
             // 
@@ -305,20 +305,21 @@
             this.Smtp_GöndermeyiDene.UseVisualStyleBackColor = true;
             this.Smtp_GöndermeyiDene.Click += new System.EventHandler(this.GöndermeyiDene_Click);
             // 
-            // groupBox3
+            // groupBox_Gönderici
             // 
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.Gönderici_Ad);
-            this.groupBox3.Controls.Add(this.Gönderici_Adres);
-            this.groupBox3.Controls.Add(this.Gönderici_Şifre);
-            this.groupBox3.Location = new System.Drawing.Point(450, 12);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(213, 223);
-            this.groupBox3.TabIndex = 26;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Gönderici";
+            this.groupBox_Gönderici.Controls.Add(this.label5);
+            this.groupBox_Gönderici.Controls.Add(this.label4);
+            this.groupBox_Gönderici.Controls.Add(this.label3);
+            this.groupBox_Gönderici.Controls.Add(this.Gönderici_Ad);
+            this.groupBox_Gönderici.Controls.Add(this.Gönderici_Adres);
+            this.groupBox_Gönderici.Controls.Add(this.Gönderici_Şifre);
+            this.groupBox_Gönderici.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox_Gönderici.Location = new System.Drawing.Point(213, 0);
+            this.groupBox_Gönderici.Name = "groupBox_Gönderici";
+            this.groupBox_Gönderici.Size = new System.Drawing.Size(213, 214);
+            this.groupBox_Gönderici.TabIndex = 26;
+            this.groupBox_Gönderici.TabStop = false;
+            this.groupBox_Gönderici.Text = "Gönderici";
             // 
             // İpUcu
             // 
@@ -363,26 +364,27 @@
             this.BeyazListe.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.BeyazListe.Multiline = true;
             this.BeyazListe.Name = "BeyazListe";
-            this.BeyazListe.Size = new System.Drawing.Size(187, 179);
+            this.BeyazListe.Size = new System.Drawing.Size(307, 179);
             this.BeyazListe.TabIndex = 4;
             this.BeyazListe.Text = "isim1@firmaadi.com;isim2@firmaadi.com";
             this.İpUcu.SetToolTip(this.BeyazListe, resources.GetString("BeyazListe.ToolTip"));
             this.BeyazListe.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
-            // groupBox4
+            // groupBox_Imap
             // 
-            this.groupBox4.Controls.Add(this.Imap_AlmayıDene);
-            this.groupBox4.Controls.Add(this.label1);
-            this.groupBox4.Controls.Add(this.Imap_Sunucu_Adres);
-            this.groupBox4.Controls.Add(this.label2);
-            this.groupBox4.Controls.Add(this.Imap_Sunucu_SSL);
-            this.groupBox4.Controls.Add(this.Imap_Sunucu_ErişimNoktası);
-            this.groupBox4.Location = new System.Drawing.Point(231, 12);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(213, 223);
-            this.groupBox4.TabIndex = 34;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Imap Sunucu";
+            this.groupBox_Imap.Controls.Add(this.Imap_AlmayıDene);
+            this.groupBox_Imap.Controls.Add(this.label1);
+            this.groupBox_Imap.Controls.Add(this.Imap_Sunucu_Adres);
+            this.groupBox_Imap.Controls.Add(this.label2);
+            this.groupBox_Imap.Controls.Add(this.Imap_Sunucu_SSL);
+            this.groupBox_Imap.Controls.Add(this.Imap_Sunucu_ErişimNoktası);
+            this.groupBox_Imap.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox_Imap.Location = new System.Drawing.Point(0, 0);
+            this.groupBox_Imap.Name = "groupBox_Imap";
+            this.groupBox_Imap.Size = new System.Drawing.Size(213, 214);
+            this.groupBox_Imap.TabIndex = 34;
+            this.groupBox_Imap.TabStop = false;
+            this.groupBox_Imap.Text = "Imap Sunucu";
             // 
             // Imap_AlmayıDene
             // 
@@ -430,52 +432,63 @@
             this.Imap_Sunucu_SSL.UseVisualStyleBackColor = true;
             this.Imap_Sunucu_SSL.CheckedChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
-            // groupBox5
+            // groupBox_BeyazListe
             // 
-            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox5.Controls.Add(this.BeyazListe);
-            this.groupBox5.Location = new System.Drawing.Point(669, 12);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(213, 223);
-            this.groupBox5.TabIndex = 35;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Beyaz Liste";
+            this.groupBox_BeyazListe.Controls.Add(this.BeyazListe);
+            this.groupBox_BeyazListe.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox_BeyazListe.Location = new System.Drawing.Point(639, 0);
+            this.groupBox_BeyazListe.Name = "groupBox_BeyazListe";
+            this.groupBox_BeyazListe.Size = new System.Drawing.Size(333, 214);
+            this.groupBox_BeyazListe.TabIndex = 35;
+            this.groupBox_BeyazListe.TabStop = false;
+            this.groupBox_BeyazListe.Text = "Beyaz Liste";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.groupBox_BeyazListe);
+            this.panel1.Controls.Add(this.groupBox_Smtp);
+            this.panel1.Controls.Add(this.groupBox_Gönderici);
+            this.panel1.Controls.Add(this.groupBox_Imap);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(5, 5);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(972, 214);
+            this.panel1.TabIndex = 39;
             // 
             // Ayarlar_Eposta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(895, 594);
-            this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.groupBox2);
+            this.ClientSize = new System.Drawing.Size(982, 538);
+            this.Controls.Add(this.groupBox_Mesaj);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.Kaydet);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Ayarlar_Eposta";
+            this.Padding = new System.Windows.Forms.Padding(5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ayarlar Eposta";
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
+            this.groupBox_Mesaj.ResumeLayout(false);
+            this.groupBox_Mesaj.PerformLayout();
+            this.groupBox_Smtp.ResumeLayout(false);
+            this.groupBox_Smtp.PerformLayout();
+            this.groupBox_Gönderici.ResumeLayout(false);
+            this.groupBox_Gönderici.PerformLayout();
+            this.groupBox_Imap.ResumeLayout(false);
+            this.groupBox_Imap.PerformLayout();
+            this.groupBox_BeyazListe.ResumeLayout(false);
+            this.groupBox_BeyazListe.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button Kaydet;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox_Mesaj;
         private System.Windows.Forms.TextBox Gönderici_Adres;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -491,18 +504,19 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox Mesaj_Konu;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox_Smtp;
+        private System.Windows.Forms.GroupBox groupBox_Gönderici;
         private System.Windows.Forms.ToolTip İpUcu;
         private System.Windows.Forms.Button Smtp_GöndermeyiDene;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox_Imap;
         private System.Windows.Forms.Button Imap_AlmayıDene;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox Imap_Sunucu_Adres;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox Imap_Sunucu_SSL;
         private System.Windows.Forms.TextBox Imap_Sunucu_ErişimNoktası;
-        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox_BeyazListe;
         private System.Windows.Forms.TextBox BeyazListe;
+        private System.Windows.Forms.Panel panel1;
     }
 }

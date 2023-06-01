@@ -46,10 +46,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             P_Sol_Orta.Panel2.Controls.Add(P_İşTakip_Ödendi); P_İşTakip_Ödendi.Dock = DockStyle.Fill; P_İşTakip_Ödendi.Visible = false;
             P_Üst_Alt.Panel1.Controls.Add(P_Arama); P_Arama.Dock = DockStyle.Fill; P_Arama.Visible = false;
             P_Üst_Alt.Panel1.Controls.Add(P_Malzemeler); P_Malzemeler.Dock = DockStyle.Fill; P_Malzemeler.Visible = false;
+            P_Üst_Alt.Panel1.Controls.Remove(P_Üstteki_İşTakip_Arama_Tip); P_Üst_Alt.Panel1.Controls.Add(P_Üstteki_İşTakip_Arama_Tip);
 
             P_SolOrta_Sağ.SplitterDistance = P_SolOrta_Sağ.Width * 3 / 4; //müşteriler, tuşlar + yazdırma
             P_Sol_Orta.SplitterDistance = P_Sol_Orta.Width * 40 / 100; //müşteriler + tuşları
-            P_Üst_Alt.SplitterDistance = Height / 3; //tuşlar + tablo
+            P_Üst_Alt.SplitterDistance = Height * 25 / 100; //tuşlar + tablo
 
             Seviye1_işTakip.Tag = 1;
             Seviye1_Arama.Tag = 2;
@@ -70,6 +71,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 Ortak.YeniSayfaAçmaTalebi = null;
             }
+
+            Logo.Image = Ortak.Firma_Logo;
         }
         private void Tüm_İşler_Shown(object sender, EventArgs e)
         {
@@ -970,21 +973,39 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
                 else
                 {
-                    hedef = "\"" + hedef + "\"";
-                    if (İşTakip_Yazdırma_VeGörüntüle.Checked) System.Diagnostics.Process.Start(hedef);
-                    if (İşTakip_Yazdırma_VeKlasörüAç.Checked) System.Diagnostics.Process.Start("explorer.exe", "/select, " + hedef);
+                    if (İşTakip_Yazdırma_VeGörüntüle.Checked) _cmd_doğrudan_aç_(hedef, false);
+                    if (İşTakip_Yazdırma_VeKlasörüAç.Checked) _cmd_doğrudan_aç_(hedef, true);
                 }
             }
             else
             {
-                dosyayolu = "\"" + dosyayolu + "\"";
-                if (İşTakip_Yazdırma_VeGörüntüle.Checked) System.Diagnostics.Process.Start(dosyayolu);
-                if (İşTakip_Yazdırma_VeKlasörüAç.Checked) System.Diagnostics.Process.Start("explorer.exe", "/select, " + dosyayolu);
+                if (İşTakip_Yazdırma_VeGörüntüle.Checked) _cmd_doğrudan_aç_(dosyayolu, false);
+                if (İşTakip_Yazdırma_VeKlasörüAç.Checked) _cmd_doğrudan_aç_(dosyayolu, true);
             }
 
             IDepo_Eleman Ayrl_Kullanıcı = Banka.Ayarlar_Kullanıcı(Name, null);
             Ayrl_Kullanıcı.Yaz("İşTakip_Yazdırma_VeGörüntüle", İşTakip_Yazdırma_VeGörüntüle.Checked);
             Ayrl_Kullanıcı.Yaz("İşTakip_Yazdırma_VeKlasörüAç", İşTakip_Yazdırma_VeKlasörüAç.Checked);
+
+            void _cmd_doğrudan_aç_(string UygulamaVeyaKomut, bool Klasör)
+            {
+                UygulamaVeyaKomut = "\"" + UygulamaVeyaKomut + "\"";
+
+                System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo();
+                psi.UseShellExecute = true;
+
+                if (Klasör)
+                {
+                    psi.FileName = "explorer.exe";
+                    psi.Arguments = "/select, " + UygulamaVeyaKomut;
+                }
+                else
+                {
+                    psi.FileName = UygulamaVeyaKomut;
+                }
+               
+                System.Diagnostics.Process.Start(psi);
+            }
         }
         private void İşTakip_Eposta_CheckedChanged(object sender, EventArgs e)
         {

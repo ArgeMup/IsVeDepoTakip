@@ -126,7 +126,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
 
                 object[] dizin = null;
-                string UyarıTarihi_yazı = h.UyarıTarihi.ToString("dd MMM ddd" + (Gecikmeleri_gün_bazında_hesapla ? null : " hh:mm" ) );
+                string UyarıTarihi_yazı = h.UyarıTarihi.ToString( "dd MMM ddd" + (Gecikmeleri_gün_bazında_hesapla ? null : " hh:mm") );
                 switch (h.Tip)
                 {
                     case Ortak.Hatırlatıcılar.Tip_.SeriNoluİş_DevamEdenTablosundan:
@@ -167,7 +167,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         break;
                 }
 
-                DataGridViewRow yeni_satır  = new DataGridViewRow();
+                DataGridViewRow yeni_satır = new DataGridViewRow();
                 yeni_satır.CreateCells(Tablo, dizin);
                 DataGridViewCell yeni_satır_6 = yeni_satır.Cells[6];
 

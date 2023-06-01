@@ -45,15 +45,13 @@
             // 
             // Liste
             // 
-            this.Liste.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Liste.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Liste.FormattingEnabled = true;
             this.Liste.ItemHeight = 25;
-            this.Liste.Location = new System.Drawing.Point(12, 50);
+            this.Liste.Location = new System.Drawing.Point(0, 30);
             this.Liste.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Liste.Name = "Liste";
-            this.Liste.Size = new System.Drawing.Size(360, 304);
+            this.Liste.Size = new System.Drawing.Size(374, 335);
             this.Liste.Sorted = true;
             this.Liste.TabIndex = 0;
             this.İpUcu.SetToolTip(this.Liste, "Korunan içerik listesi\r\n\r\nKorumak istediğiniz dosya veya klasörleri\r\nburaya sürük" +
@@ -62,15 +60,14 @@
             // 
             // Sil
             // 
-            this.Sil.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Sil.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.Sil.Enabled = false;
             this.Sil.Image = global::İş_ve_Depo_Takip.Properties.Resources.sil;
             this.Sil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Sil.Location = new System.Drawing.Point(11, 357);
+            this.Sil.Location = new System.Drawing.Point(0, 365);
             this.Sil.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Sil.Name = "Sil";
-            this.Sil.Size = new System.Drawing.Size(360, 45);
+            this.Sil.Size = new System.Drawing.Size(374, 45);
             this.Sil.TabIndex = 1;
             this.Sil.Text = "Sil";
             this.İpUcu.SetToolTip(this.Sil, "Dosyanızı tüm sürümleriyle birlikte KALICI olarak siler.");
@@ -79,15 +76,14 @@
             // 
             // MasaüstüneKopyala
             // 
-            this.MasaüstüneKopyala.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MasaüstüneKopyala.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.MasaüstüneKopyala.Enabled = false;
             this.MasaüstüneKopyala.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.MasaüstüneKopyala.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.MasaüstüneKopyala.Location = new System.Drawing.Point(12, 357);
+            this.MasaüstüneKopyala.Location = new System.Drawing.Point(0, 365);
             this.MasaüstüneKopyala.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MasaüstüneKopyala.Name = "MasaüstüneKopyala";
-            this.MasaüstüneKopyala.Size = new System.Drawing.Size(341, 45);
+            this.MasaüstüneKopyala.Size = new System.Drawing.Size(357, 45);
             this.MasaüstüneKopyala.TabIndex = 4;
             this.MasaüstüneKopyala.Text = "Masa Üstüne Kopyala";
             this.İpUcu.SetToolTip(this.MasaüstüneKopyala, "Seçtiğiniz sürümü masaüstünüze kopyalar.");
@@ -96,18 +92,16 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 80);
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(5, 77);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.AramaÇubuğu);
             this.splitContainer1.Panel1.Controls.Add(this.Liste);
+            this.splitContainer1.Panel1.Controls.Add(this.AramaÇubuğu);
             this.splitContainer1.Panel1.Controls.Add(this.Sil);
             // 
             // splitContainer1.Panel2
@@ -115,34 +109,31 @@
             this.splitContainer1.Panel2.Controls.Add(this.Sürümler);
             this.splitContainer1.Panel2.Controls.Add(this.MasaüstüneKopyala);
             this.splitContainer1.Panel2.Enabled = false;
-            this.splitContainer1.Size = new System.Drawing.Size(752, 416);
-            this.splitContainer1.SplitterDistance = 384;
+            this.splitContainer1.Size = new System.Drawing.Size(742, 414);
+            this.splitContainer1.SplitterDistance = 378;
             this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 5;
             // 
             // AramaÇubuğu
             // 
-            this.AramaÇubuğu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.AramaÇubuğu.Location = new System.Drawing.Point(12, 12);
+            this.AramaÇubuğu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.AramaÇubuğu.Location = new System.Drawing.Point(0, 0);
             this.AramaÇubuğu.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.AramaÇubuğu.Name = "AramaÇubuğu";
-            this.AramaÇubuğu.Size = new System.Drawing.Size(360, 30);
+            this.AramaÇubuğu.Size = new System.Drawing.Size(374, 30);
             this.AramaÇubuğu.TabIndex = 4;
             this.İpUcu.SetToolTip(this.AramaÇubuğu, "Arama çubuğu");
             this.AramaÇubuğu.TextChanged += new System.EventHandler(this.AramaÇubuğu_TextChanged);
             // 
             // Sürümler
             // 
-            this.Sürümler.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Sürümler.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Sürümler.FormattingEnabled = true;
             this.Sürümler.ItemHeight = 25;
-            this.Sürümler.Location = new System.Drawing.Point(12, 12);
+            this.Sürümler.Location = new System.Drawing.Point(0, 0);
             this.Sürümler.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Sürümler.Name = "Sürümler";
-            this.Sürümler.Size = new System.Drawing.Size(341, 329);
+            this.Sürümler.Size = new System.Drawing.Size(357, 365);
             this.Sürümler.TabIndex = 7;
             this.İpUcu.SetToolTip(this.Sürümler, "Seçtiğiniz dosyaya ait tüm eski sürümler listelenmektedir");
             this.Sürümler.SelectedIndexChanged += new System.EventHandler(this.Sürümler_SelectedIndexChanged);
@@ -150,14 +141,13 @@
             // 
             // İçeriAl
             // 
-            this.İçeriAl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.İçeriAl.Dock = System.Windows.Forms.DockStyle.Top;
             this.İçeriAl.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
             this.İçeriAl.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.İçeriAl.Location = new System.Drawing.Point(12, 2);
+            this.İçeriAl.Location = new System.Drawing.Point(5, 5);
             this.İçeriAl.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.İçeriAl.Name = "İçeriAl";
-            this.İçeriAl.Size = new System.Drawing.Size(729, 72);
+            this.İçeriAl.Size = new System.Drawing.Size(742, 72);
             this.İçeriAl.TabIndex = 8;
             this.İçeriAl.Text = "Masa üstünde bulunan korunan içeriği yeni bir sürüm olarak içeri al\r\nve masa üstü" +
     "ndeki kopyalarını KALICI olarak SİL";
@@ -176,11 +166,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(752, 496);
-            this.Controls.Add(this.İçeriAl);
             this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.İçeriAl);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "KorumalıAlan";
+            this.Padding = new System.Windows.Forms.Padding(5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Korumalı Alan";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.KorumalıAlan_FormClosing);

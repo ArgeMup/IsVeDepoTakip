@@ -60,6 +60,7 @@
             this._1_Tablo_Ödeme = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Sekmeler = new System.Windows.Forms.TabControl();
             this.Sekmeler_1 = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
             this._1_GenelDurumRaporu = new System.Windows.Forms.Button();
             this._1_AltToplam = new System.Windows.Forms.TextBox();
             this.Sekmeler_2 = new System.Windows.Forms.TabPage();
@@ -69,6 +70,7 @@
             this._2_Tablo_Gelir = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._2_Tablo_Gider = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._2_Tablo_Fark = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel2 = new System.Windows.Forms.Panel();
             this._2_AltToplam = new System.Windows.Forms.TextBox();
             this._2_Kaydet = new System.Windows.Forms.Button();
             this.Seklemeler_Ödemeler = new System.Windows.Forms.TabPage();
@@ -85,8 +87,10 @@
             ((System.ComponentModel.ISupportInitialize)(this._1_Tablo)).BeginInit();
             this.Sekmeler.SuspendLayout();
             this.Sekmeler_1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.Sekmeler_2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._2_Tablo)).BeginInit();
+            this.panel2.SuspendLayout();
             this.Seklemeler_Ödemeler.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._3_Tablo)).BeginInit();
             this.SuspendLayout();
@@ -96,11 +100,12 @@
             this._1_Gelir.Controls.Add(this._1_Gelir_ÖdemeTalepEdildi);
             this._1_Gelir.Controls.Add(this._1_Gelir_TeslimEdildi);
             this._1_Gelir.Controls.Add(this._1_Gelir_DevamEden);
-            this._1_Gelir.Location = new System.Drawing.Point(5, 5);
+            this._1_Gelir.Dock = System.Windows.Forms.DockStyle.Left;
+            this._1_Gelir.Location = new System.Drawing.Point(0, 0);
             this._1_Gelir.Margin = new System.Windows.Forms.Padding(2);
             this._1_Gelir.Name = "_1_Gelir";
             this._1_Gelir.Padding = new System.Windows.Forms.Padding(2);
-            this._1_Gelir.Size = new System.Drawing.Size(348, 77);
+            this._1_Gelir.Size = new System.Drawing.Size(353, 80);
             this._1_Gelir.TabIndex = 11;
             this._1_Gelir.TabStop = false;
             this._1_Gelir.Text = "İşlerin ücretlerini GELİR olarak hesaba kat";
@@ -150,11 +155,12 @@
             this._1_Gider.Controls.Add(this._1_Gider_ÖdemeTalepEdildi);
             this._1_Gider.Controls.Add(this._1_Gider_DevamEden);
             this._1_Gider.Controls.Add(this._1_Gider_TeslimEdildi);
-            this._1_Gider.Location = new System.Drawing.Point(357, 5);
+            this._1_Gider.Dock = System.Windows.Forms.DockStyle.Left;
+            this._1_Gider.Location = new System.Drawing.Point(353, 0);
             this._1_Gider.Margin = new System.Windows.Forms.Padding(2);
             this._1_Gider.Name = "_1_Gider";
             this._1_Gider.Padding = new System.Windows.Forms.Padding(2);
-            this._1_Gider.Size = new System.Drawing.Size(367, 77);
+            this._1_Gider.Size = new System.Drawing.Size(370, 80);
             this._1_Gider.TabIndex = 12;
             this._1_Gider.TabStop = false;
             this._1_Gider.Text = "İşlerin maliyetlerini GİDER olarak hesaba kat";
@@ -207,9 +213,6 @@
             this._1_Tablo.AllowUserToDeleteRows = false;
             this._1_Tablo.AllowUserToResizeColumns = false;
             this._1_Tablo.AllowUserToResizeRows = false;
-            this._1_Tablo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this._1_Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this._1_Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this._1_Tablo.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
@@ -229,8 +232,9 @@
             this._1_Tablo_Gider,
             this._1_Tablo_Fark,
             this._1_Tablo_Ödeme});
+            this._1_Tablo.Dock = System.Windows.Forms.DockStyle.Fill;
             this._1_Tablo.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
-            this._1_Tablo.Location = new System.Drawing.Point(5, 86);
+            this._1_Tablo.Location = new System.Drawing.Point(2, 82);
             this._1_Tablo.Margin = new System.Windows.Forms.Padding(2);
             this._1_Tablo.Name = "_1_Tablo";
             this._1_Tablo.ReadOnly = true;
@@ -241,7 +245,7 @@
             this._1_Tablo.ShowCellErrors = false;
             this._1_Tablo.ShowEditingIcon = false;
             this._1_Tablo.ShowRowErrors = false;
-            this._1_Tablo.Size = new System.Drawing.Size(818, 410);
+            this._1_Tablo.Size = new System.Drawing.Size(860, 400);
             this._1_Tablo.TabIndex = 10;
             this._1_Tablo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this._1_Tablo_CellClick);
             this._1_Tablo.DoubleClick += new System.EventHandler(this._1_Tablo_DoubleClick);
@@ -311,36 +315,47 @@
             this.Sekmeler.Controls.Add(this.Sekmeler_2);
             this.Sekmeler.Controls.Add(this.Seklemeler_Ödemeler);
             this.Sekmeler.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Sekmeler.Location = new System.Drawing.Point(0, 0);
+            this.Sekmeler.Location = new System.Drawing.Point(5, 5);
             this.Sekmeler.Margin = new System.Windows.Forms.Padding(2);
             this.Sekmeler.Name = "Sekmeler";
             this.Sekmeler.SelectedIndex = 0;
-            this.Sekmeler.Size = new System.Drawing.Size(837, 553);
+            this.Sekmeler.Size = new System.Drawing.Size(872, 543);
             this.Sekmeler.TabIndex = 16;
             this.Sekmeler.SelectedIndexChanged += new System.EventHandler(this.Sekmeler_SelectedIndexChanged);
             // 
             // Sekmeler_1
             // 
             this.Sekmeler_1.AutoScroll = true;
-            this.Sekmeler_1.Controls.Add(this._1_GenelDurumRaporu);
-            this.Sekmeler_1.Controls.Add(this._1_AltToplam);
             this.Sekmeler_1.Controls.Add(this._1_Tablo);
-            this.Sekmeler_1.Controls.Add(this._1_Gelir);
-            this.Sekmeler_1.Controls.Add(this._1_Gider);
+            this.Sekmeler_1.Controls.Add(this.panel1);
+            this.Sekmeler_1.Controls.Add(this._1_AltToplam);
             this.Sekmeler_1.Location = new System.Drawing.Point(4, 29);
             this.Sekmeler_1.Margin = new System.Windows.Forms.Padding(2);
             this.Sekmeler_1.Name = "Sekmeler_1";
             this.Sekmeler_1.Padding = new System.Windows.Forms.Padding(2);
-            this.Sekmeler_1.Size = new System.Drawing.Size(829, 520);
+            this.Sekmeler_1.Size = new System.Drawing.Size(864, 510);
             this.Sekmeler_1.TabIndex = 0;
             this.Sekmeler_1.Text = "Müşteriler kapsamında";
             this.Sekmeler_1.UseVisualStyleBackColor = true;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this._1_GenelDurumRaporu);
+            this.panel1.Controls.Add(this._1_Gider);
+            this.panel1.Controls.Add(this._1_Gelir);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(2, 2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(860, 80);
+            this.panel1.TabIndex = 17;
+            // 
             // _1_GenelDurumRaporu
             // 
-            this._1_GenelDurumRaporu.Location = new System.Drawing.Point(729, 12);
+            this._1_GenelDurumRaporu.AutoSize = true;
+            this._1_GenelDurumRaporu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._1_GenelDurumRaporu.Location = new System.Drawing.Point(723, 0);
             this._1_GenelDurumRaporu.Name = "_1_GenelDurumRaporu";
-            this._1_GenelDurumRaporu.Size = new System.Drawing.Size(94, 70);
+            this._1_GenelDurumRaporu.Size = new System.Drawing.Size(137, 80);
             this._1_GenelDurumRaporu.TabIndex = 16;
             this._1_GenelDurumRaporu.Text = "Genel Durum Raporu";
             this._1_GenelDurumRaporu.UseVisualStyleBackColor = true;
@@ -349,11 +364,11 @@
             // _1_AltToplam
             // 
             this._1_AltToplam.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this._1_AltToplam.Location = new System.Drawing.Point(2, 492);
+            this._1_AltToplam.Location = new System.Drawing.Point(2, 482);
             this._1_AltToplam.Margin = new System.Windows.Forms.Padding(2);
             this._1_AltToplam.Name = "_1_AltToplam";
             this._1_AltToplam.ReadOnly = true;
-            this._1_AltToplam.Size = new System.Drawing.Size(825, 26);
+            this._1_AltToplam.Size = new System.Drawing.Size(860, 26);
             this._1_AltToplam.TabIndex = 15;
             this._1_AltToplam.Text = "Alt Toplam";
             this._1_AltToplam.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -361,13 +376,12 @@
             // Sekmeler_2
             // 
             this.Sekmeler_2.Controls.Add(this._2_Tablo);
-            this.Sekmeler_2.Controls.Add(this._2_AltToplam);
-            this.Sekmeler_2.Controls.Add(this._2_Kaydet);
+            this.Sekmeler_2.Controls.Add(this.panel2);
             this.Sekmeler_2.Location = new System.Drawing.Point(4, 29);
             this.Sekmeler_2.Margin = new System.Windows.Forms.Padding(2);
             this.Sekmeler_2.Name = "Sekmeler_2";
             this.Sekmeler_2.Padding = new System.Windows.Forms.Padding(2);
-            this.Sekmeler_2.Size = new System.Drawing.Size(829, 520);
+            this.Sekmeler_2.Size = new System.Drawing.Size(864, 510);
             this.Sekmeler_2.TabIndex = 1;
             this.Sekmeler_2.Text = "Genel anlamda";
             this.Sekmeler_2.UseVisualStyleBackColor = true;
@@ -376,9 +390,6 @@
             // 
             this._2_Tablo.AllowUserToResizeColumns = false;
             this._2_Tablo.AllowUserToResizeRows = false;
-            this._2_Tablo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this._2_Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this._2_Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -396,8 +407,9 @@
             this._2_Tablo_Gelir,
             this._2_Tablo_Gider,
             this._2_Tablo_Fark});
+            this._2_Tablo.Dock = System.Windows.Forms.DockStyle.Fill;
             this._2_Tablo.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
-            this._2_Tablo.Location = new System.Drawing.Point(4, 4);
+            this._2_Tablo.Location = new System.Drawing.Point(2, 2);
             this._2_Tablo.Margin = new System.Windows.Forms.Padding(2);
             this._2_Tablo.Name = "_2_Tablo";
             this._2_Tablo.RowHeadersVisible = false;
@@ -407,7 +419,7 @@
             this._2_Tablo.ShowCellErrors = false;
             this._2_Tablo.ShowEditingIcon = false;
             this._2_Tablo.ShowRowErrors = false;
-            this._2_Tablo.Size = new System.Drawing.Size(820, 480);
+            this._2_Tablo.Size = new System.Drawing.Size(860, 476);
             this._2_Tablo.TabIndex = 16;
             this._2_Tablo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this._2_Tablo_CellClick);
             this._2_Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this._2_Tablo_CellValueChanged);
@@ -457,27 +469,37 @@
             this._2_Tablo_Fark.Name = "_2_Tablo_Fark";
             this._2_Tablo_Fark.ReadOnly = true;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this._2_AltToplam);
+            this.panel2.Controls.Add(this._2_Kaydet);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(2, 478);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(860, 30);
+            this.panel2.TabIndex = 19;
+            // 
             // _2_AltToplam
             // 
-            this._2_AltToplam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this._2_AltToplam.Location = new System.Drawing.Point(119, 488);
+            this._2_AltToplam.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._2_AltToplam.Location = new System.Drawing.Point(109, 0);
             this._2_AltToplam.Margin = new System.Windows.Forms.Padding(2);
             this._2_AltToplam.Name = "_2_AltToplam";
             this._2_AltToplam.ReadOnly = true;
-            this._2_AltToplam.Size = new System.Drawing.Size(705, 26);
+            this._2_AltToplam.Size = new System.Drawing.Size(751, 26);
             this._2_AltToplam.TabIndex = 17;
             this._2_AltToplam.Text = "Alt Toplam";
             this._2_AltToplam.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // _2_Kaydet
             // 
-            this._2_Kaydet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this._2_Kaydet.AutoSize = true;
+            this._2_Kaydet.Dock = System.Windows.Forms.DockStyle.Left;
             this._2_Kaydet.Enabled = false;
-            this._2_Kaydet.Location = new System.Drawing.Point(4, 487);
+            this._2_Kaydet.Location = new System.Drawing.Point(0, 0);
             this._2_Kaydet.Margin = new System.Windows.Forms.Padding(2);
             this._2_Kaydet.Name = "_2_Kaydet";
-            this._2_Kaydet.Size = new System.Drawing.Size(109, 31);
+            this._2_Kaydet.Size = new System.Drawing.Size(109, 30);
             this._2_Kaydet.TabIndex = 18;
             this._2_Kaydet.Text = "Kaydet";
             this._2_Kaydet.UseVisualStyleBackColor = true;
@@ -490,7 +512,7 @@
             this.Seklemeler_Ödemeler.Margin = new System.Windows.Forms.Padding(2);
             this.Seklemeler_Ödemeler.Name = "Seklemeler_Ödemeler";
             this.Seklemeler_Ödemeler.Padding = new System.Windows.Forms.Padding(2);
-            this.Seklemeler_Ödemeler.Size = new System.Drawing.Size(829, 520);
+            this.Seklemeler_Ödemeler.Size = new System.Drawing.Size(864, 510);
             this.Seklemeler_Ödemeler.TabIndex = 2;
             this.Seklemeler_Ödemeler.Text = "Ödemeler";
             this.Seklemeler_Ödemeler.UseVisualStyleBackColor = true;
@@ -532,7 +554,7 @@
             this._3_Tablo.ShowCellErrors = false;
             this._3_Tablo.ShowEditingIcon = false;
             this._3_Tablo.ShowRowErrors = false;
-            this._3_Tablo.Size = new System.Drawing.Size(825, 516);
+            this._3_Tablo.Size = new System.Drawing.Size(860, 506);
             this._3_Tablo.TabIndex = 11;
             // 
             // _3_Tablo_Tarih
@@ -604,7 +626,7 @@
             // TabloİçeriğiArama
             // 
             this.TabloİçeriğiArama.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.TabloİçeriğiArama.Location = new System.Drawing.Point(614, -1);
+            this.TabloİçeriğiArama.Location = new System.Drawing.Point(654, 4);
             this.TabloİçeriğiArama.Margin = new System.Windows.Forms.Padding(2);
             this.TabloİçeriğiArama.Name = "TabloİçeriğiArama";
             this.TabloİçeriğiArama.Size = new System.Drawing.Size(223, 26);
@@ -615,12 +637,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(837, 553);
+            this.ClientSize = new System.Drawing.Size(882, 553);
             this.Controls.Add(this.TabloİçeriğiArama);
             this.Controls.Add(this.Sekmeler);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Bütçe";
+            this.Padding = new System.Windows.Forms.Padding(5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bütçe";
             this.Shown += new System.EventHandler(this.Bütçe_Shown);
@@ -632,9 +655,12 @@
             this.Sekmeler.ResumeLayout(false);
             this.Sekmeler_1.ResumeLayout(false);
             this.Sekmeler_1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.Sekmeler_2.ResumeLayout(false);
-            this.Sekmeler_2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._2_Tablo)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.Seklemeler_Ödemeler.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._3_Tablo)).EndInit();
             this.ResumeLayout(false);
@@ -680,5 +706,7 @@
         private System.Windows.Forms.DataGridViewButtonColumn _1_Tablo_Ödeme;
         private System.Windows.Forms.TextBox TabloİçeriğiArama;
         private System.Windows.Forms.Button _1_GenelDurumRaporu;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
     }
 }

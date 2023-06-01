@@ -120,7 +120,7 @@
   <metadata name="İpUcu_Genel.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>18, 11</value>
   </metadata>
-  <data name="groupBox5.ToolTip" xml:space="preserve">
+  <data name="groupBox_Sunucu.ToolTip" xml:space="preserve">
     <value>Buradaki seçenekler &lt;Bilgisayar Adı&gt;/&lt;Kullanıcı Adı&gt; 'na özeldir.
 Farklı bir bilgisayarda kullanılacak ise yeniden girilmelidir.
 

@@ -3052,7 +3052,7 @@ namespace İş_ve_Depo_Takip
                     using (Stream Akış = Biri.Open())
                     {
                         dizi_doko = new byte[Biri.Length];
-                        adt = Akış.Read(dizi_doko, 0, (int)Biri.Length);
+                        adt = Akış.Read(dizi_doko, 0, (int)Biri.Length); //ReadExactly
                     }
                 }
 

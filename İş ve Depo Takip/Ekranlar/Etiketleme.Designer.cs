@@ -58,14 +58,13 @@
             // 
             // YeniİşGirişi_Barkod_İçeriği
             // 
-            this.YeniİşGirişi_Barkod_İçeriği.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.YeniİşGirişi_Barkod_İçeriği.ContextMenuStrip = this.SağTuşMenü_Barkodİçeriği;
-            this.YeniİşGirişi_Barkod_İçeriği.Location = new System.Drawing.Point(6, 29);
+            this.YeniİşGirişi_Barkod_İçeriği.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.YeniİşGirişi_Barkod_İçeriği.Location = new System.Drawing.Point(10, 33);
             this.YeniİşGirişi_Barkod_İçeriği.Multiline = true;
             this.YeniİşGirişi_Barkod_İçeriği.Name = "YeniİşGirişi_Barkod_İçeriği";
             this.YeniİşGirişi_Barkod_İçeriği.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.YeniİşGirişi_Barkod_İçeriği.Size = new System.Drawing.Size(408, 82);
+            this.YeniİşGirişi_Barkod_İçeriği.Size = new System.Drawing.Size(442, 115);
             this.YeniİşGirişi_Barkod_İçeriği.TabIndex = 3;
             this.İpUcu.SetToolTip(this.YeniİşGirişi_Barkod_İçeriği, "Barkod oluşturulurken kullanılacak detaylar\r\n\r\nKullanılmayacak ise KAPALI yazınız" +
         ".");
@@ -127,33 +126,37 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Controls.Add(this.YeniİşGirişi_EtiketAyarları);
             this.groupBox1.Controls.Add(this.YeniİşGirişi_BarkodAyarları);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Controls.Add(this.YeniİşGirişi_EtiketAyarları);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(436, 330);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(10);
+            this.groupBox1.Size = new System.Drawing.Size(482, 353);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Yeni İş Girişi";
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.YeniİşGirişi_Barkod_İçeriğiKaydet);
             this.groupBox2.Controls.Add(this.YeniİşGirişi_Barkod_İçeriği);
-            this.groupBox2.Location = new System.Drawing.Point(6, 29);
+            this.groupBox2.Controls.Add(this.YeniİşGirişi_Barkod_İçeriğiKaydet);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(10, 33);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(420, 171);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(10);
+            this.groupBox2.Size = new System.Drawing.Size(462, 202);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Barkod İçeriği Ayarları";
             // 
             // YeniİşGirişi_Barkod_İçeriğiKaydet
             // 
-            this.YeniİşGirişi_Barkod_İçeriğiKaydet.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.YeniİşGirişi_Barkod_İçeriğiKaydet.Location = new System.Drawing.Point(6, 117);
+            this.YeniİşGirişi_Barkod_İçeriğiKaydet.AutoSize = true;
+            this.YeniİşGirişi_Barkod_İçeriğiKaydet.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.YeniİşGirişi_Barkod_İçeriğiKaydet.Location = new System.Drawing.Point(10, 148);
             this.YeniİşGirişi_Barkod_İçeriğiKaydet.Name = "YeniİşGirişi_Barkod_İçeriğiKaydet";
-            this.YeniİşGirişi_Barkod_İçeriğiKaydet.Size = new System.Drawing.Size(408, 44);
+            this.YeniİşGirişi_Barkod_İçeriğiKaydet.Size = new System.Drawing.Size(442, 44);
             this.YeniİşGirişi_Barkod_İçeriğiKaydet.TabIndex = 3;
             this.YeniİşGirişi_Barkod_İçeriğiKaydet.Text = "Kaydet";
             this.YeniİşGirişi_Barkod_İçeriğiKaydet.UseVisualStyleBackColor = true;
@@ -161,9 +164,11 @@
             // 
             // YeniİşGirişi_EtiketAyarları
             // 
-            this.YeniİşGirişi_EtiketAyarları.Location = new System.Drawing.Point(6, 266);
+            this.YeniİşGirişi_EtiketAyarları.AutoSize = true;
+            this.YeniİşGirişi_EtiketAyarları.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.YeniİşGirişi_EtiketAyarları.Location = new System.Drawing.Point(10, 289);
             this.YeniİşGirişi_EtiketAyarları.Name = "YeniİşGirişi_EtiketAyarları";
-            this.YeniİşGirişi_EtiketAyarları.Size = new System.Drawing.Size(420, 54);
+            this.YeniİşGirişi_EtiketAyarları.Size = new System.Drawing.Size(462, 54);
             this.YeniİşGirişi_EtiketAyarları.TabIndex = 2;
             this.YeniİşGirişi_EtiketAyarları.Text = "Etiket Görseli Ayarları";
             this.YeniİşGirişi_EtiketAyarları.UseVisualStyleBackColor = true;
@@ -171,9 +176,11 @@
             // 
             // YeniİşGirişi_BarkodAyarları
             // 
-            this.YeniİşGirişi_BarkodAyarları.Location = new System.Drawing.Point(6, 206);
+            this.YeniİşGirişi_BarkodAyarları.AutoSize = true;
+            this.YeniİşGirişi_BarkodAyarları.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.YeniİşGirişi_BarkodAyarları.Location = new System.Drawing.Point(10, 235);
             this.YeniİşGirişi_BarkodAyarları.Name = "YeniİşGirişi_BarkodAyarları";
-            this.YeniİşGirişi_BarkodAyarları.Size = new System.Drawing.Size(420, 54);
+            this.YeniİşGirişi_BarkodAyarları.Size = new System.Drawing.Size(462, 54);
             this.YeniİşGirişi_BarkodAyarları.TabIndex = 1;
             this.YeniİşGirişi_BarkodAyarları.Text = "Barkod Türü Ayarları";
             this.YeniİşGirişi_BarkodAyarları.UseVisualStyleBackColor = true;
@@ -183,7 +190,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(458, 351);
+            this.ClientSize = new System.Drawing.Size(482, 353);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -194,6 +201,7 @@
             this.Text = "Etiketleme";
             this.SağTuşMenü_Barkodİçeriği.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
