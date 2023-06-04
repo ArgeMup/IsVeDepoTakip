@@ -19,8 +19,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             InitializeComponent();
 
-            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
-        
             Yazcılar.Items.Clear();
             for (int i = 0; i < PrinterSettings.InstalledPrinters.Count; i++)
             {

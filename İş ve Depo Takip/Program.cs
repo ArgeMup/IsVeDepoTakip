@@ -32,7 +32,7 @@ namespace İş_ve_Depo_Takip
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new Ekranlar.Açılış_Ekranı());
+                Application.Run(new Ekranlar.Parola_Kontrol(true));
             }
         }
         
@@ -48,7 +48,6 @@ namespace İş_ve_Depo_Takip
         }
         static void BeklenmeyenDurum(Exception ex)
         {
-            Klasör.Sil(Ortak.Klasör_Gecici);
             ex.Günlük(Hemen:true);
 
             try
@@ -60,6 +59,8 @@ namespace İş_ve_Depo_Takip
                     "Lütfen son işleminizi kontrol ediniz." + Environment.NewLine + Environment.NewLine + ex.Message, "İş Ve Depo Takip");
 
                 //Ekranlar.Eposta.EpostaGönder_İstisna(ex);
+
+                Ortak.Kapan();
             }
             finally
             {

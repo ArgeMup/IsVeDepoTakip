@@ -71,6 +71,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ekranlar\Parola_Kontrol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ekranlar\Parola_Kontrol.Designer.cs">
+      <DependentUpon>Parola_Kontrol.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ekranlar\Bekleyiniz.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,11 +101,11 @@
     <Compile Include="Ekranlar\Açılış_Ekranı.Designer.cs">
       <DependentUpon>Açılış_Ekranı.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ekranlar\KorumalıAlan.cs">
+    <Compile Include="Ekranlar\Korumalı_Alan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ekranlar\KorumalıAlan.Designer.cs">
-      <DependentUpon>KorumalıAlan.cs</DependentUpon>
+    <Compile Include="Ekranlar\Korumalı_Alan.Designer.cs">
+      <DependentUpon>Korumalı_Alan.cs</DependentUpon>
     </Compile>
     <Compile Include="Ekranlar\Takvim.cs">
       <SubType>Form</SubType>
@@ -203,6 +209,7 @@
     <Compile Include="HazirKod_Cdiyez\Win32Kutuphaneleri.cs" />
     <Compile Include="HazirKod_Cdiyez\YeniYazılımKontrolü.cs" />
     <Compile Include="Ortak\Banka.cs" />
+    <Compile Include="Ortak\Ekranlar.cs" />
     <Compile Include="Ortak\Eposta.cs" />
     <Compile Include="Ortak\Ortak.cs" />
     <Compile Include="Ortak\HttpSunucu.cs" />
@@ -216,6 +223,9 @@
       <DependentUpon>Yeni_İş_Girişi.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <EmbeddedResource Include="Ekranlar\Parola_Kontrol.resx">
+      <DependentUpon>Parola_Kontrol.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Bekleyiniz.resx">
       <DependentUpon>Bekleyiniz.cs</DependentUpon>
     </EmbeddedResource>
@@ -231,8 +241,8 @@
     <EmbeddedResource Include="Ekranlar\Etiketleme.resx">
       <DependentUpon>Etiketleme.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ekranlar\KorumalıAlan.resx">
-      <DependentUpon>KorumalıAlan.cs</DependentUpon>
+    <EmbeddedResource Include="Ekranlar\Korumalı_Alan.resx">
+      <DependentUpon>Korumalı_Alan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Takvim.resx">
       <DependentUpon>Takvim.cs</DependentUpon>

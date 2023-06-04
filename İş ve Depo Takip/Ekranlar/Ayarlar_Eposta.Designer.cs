@@ -76,10 +76,10 @@
             this.Kaydet.Enabled = false;
             this.Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Kaydet.Location = new System.Drawing.Point(5, 478);
+            this.Kaydet.Location = new System.Drawing.Point(5, 493);
             this.Kaydet.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Kaydet.Name = "Kaydet";
-            this.Kaydet.Size = new System.Drawing.Size(972, 55);
+            this.Kaydet.Size = new System.Drawing.Size(872, 55);
             this.Kaydet.TabIndex = 9;
             this.Kaydet.Text = "Kaydet";
             this.Kaydet.UseVisualStyleBackColor = true;
@@ -96,7 +96,7 @@
             this.groupBox_Mesaj.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.groupBox_Mesaj.Name = "groupBox_Mesaj";
             this.groupBox_Mesaj.Padding = new System.Windows.Forms.Padding(10);
-            this.groupBox_Mesaj.Size = new System.Drawing.Size(972, 259);
+            this.groupBox_Mesaj.Size = new System.Drawing.Size(872, 274);
             this.groupBox_Mesaj.TabIndex = 24;
             this.groupBox_Mesaj.TabStop = false;
             this.groupBox_Mesaj.Text = "Mesaj";
@@ -109,7 +109,7 @@
             this.Mesaj_İçerik.Multiline = true;
             this.Mesaj_İçerik.Name = "Mesaj_İçerik";
             this.Mesaj_İçerik.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.Mesaj_İçerik.Size = new System.Drawing.Size(952, 136);
+            this.Mesaj_İçerik.Size = new System.Drawing.Size(852, 151);
             this.Mesaj_İçerik.TabIndex = 8;
             this.Mesaj_İçerik.Text = "<h1>Sayın %Müşteri%</h1>\r\n<br>\r\nGüncel işlere ait detaylar ekte sunulmuştur.\r\n<br" +
     "><br>\r\nİyi çalışmalar dileriz.";
@@ -133,7 +133,7 @@
             this.Mesaj_Konu.Location = new System.Drawing.Point(10, 58);
             this.Mesaj_Konu.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Mesaj_Konu.Name = "Mesaj_Konu";
-            this.Mesaj_Konu.Size = new System.Drawing.Size(952, 30);
+            this.Mesaj_Konu.Size = new System.Drawing.Size(852, 30);
             this.Mesaj_Konu.TabIndex = 7;
             this.Mesaj_Konu.Text = "Güncel çalışmalar hk.";
             this.Mesaj_Konu.TextChanged += new System.EventHandler(this.Ayar_Değişti);
@@ -286,7 +286,7 @@
             this.groupBox_Smtp.Controls.Add(this.Smtp_Sunucu_SSL);
             this.groupBox_Smtp.Controls.Add(this.Smtp_Sunucu_ErişimNoktası);
             this.groupBox_Smtp.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox_Smtp.Location = new System.Drawing.Point(426, 0);
+            this.groupBox_Smtp.Location = new System.Drawing.Point(0, 0);
             this.groupBox_Smtp.Name = "groupBox_Smtp";
             this.groupBox_Smtp.Size = new System.Drawing.Size(213, 214);
             this.groupBox_Smtp.TabIndex = 25;
@@ -314,7 +314,7 @@
             this.groupBox_Gönderici.Controls.Add(this.Gönderici_Adres);
             this.groupBox_Gönderici.Controls.Add(this.Gönderici_Şifre);
             this.groupBox_Gönderici.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox_Gönderici.Location = new System.Drawing.Point(213, 0);
+            this.groupBox_Gönderici.Location = new System.Drawing.Point(426, 0);
             this.groupBox_Gönderici.Name = "groupBox_Gönderici";
             this.groupBox_Gönderici.Size = new System.Drawing.Size(213, 214);
             this.groupBox_Gönderici.TabIndex = 26;
@@ -364,7 +364,7 @@
             this.BeyazListe.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.BeyazListe.Multiline = true;
             this.BeyazListe.Name = "BeyazListe";
-            this.BeyazListe.Size = new System.Drawing.Size(307, 179);
+            this.BeyazListe.Size = new System.Drawing.Size(207, 179);
             this.BeyazListe.TabIndex = 4;
             this.BeyazListe.Text = "isim1@firmaadi.com;isim2@firmaadi.com";
             this.İpUcu.SetToolTip(this.BeyazListe, resources.GetString("BeyazListe.ToolTip"));
@@ -379,7 +379,7 @@
             this.groupBox_Imap.Controls.Add(this.Imap_Sunucu_SSL);
             this.groupBox_Imap.Controls.Add(this.Imap_Sunucu_ErişimNoktası);
             this.groupBox_Imap.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox_Imap.Location = new System.Drawing.Point(0, 0);
+            this.groupBox_Imap.Location = new System.Drawing.Point(213, 0);
             this.groupBox_Imap.Name = "groupBox_Imap";
             this.groupBox_Imap.Size = new System.Drawing.Size(213, 214);
             this.groupBox_Imap.TabIndex = 34;
@@ -438,7 +438,7 @@
             this.groupBox_BeyazListe.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_BeyazListe.Location = new System.Drawing.Point(639, 0);
             this.groupBox_BeyazListe.Name = "groupBox_BeyazListe";
-            this.groupBox_BeyazListe.Size = new System.Drawing.Size(333, 214);
+            this.groupBox_BeyazListe.Size = new System.Drawing.Size(233, 214);
             this.groupBox_BeyazListe.TabIndex = 35;
             this.groupBox_BeyazListe.TabStop = false;
             this.groupBox_BeyazListe.Text = "Beyaz Liste";
@@ -446,20 +446,20 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.groupBox_BeyazListe);
-            this.panel1.Controls.Add(this.groupBox_Smtp);
             this.panel1.Controls.Add(this.groupBox_Gönderici);
             this.panel1.Controls.Add(this.groupBox_Imap);
+            this.panel1.Controls.Add(this.groupBox_Smtp);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(5, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(972, 214);
+            this.panel1.Size = new System.Drawing.Size(872, 214);
             this.panel1.TabIndex = 39;
             // 
             // Ayarlar_Eposta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(982, 538);
+            this.ClientSize = new System.Drawing.Size(882, 553);
             this.Controls.Add(this.groupBox_Mesaj);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Kaydet);

@@ -23,12 +23,20 @@ namespace İş_ve_Depo_Takip
         public static string Klasör_KullanıcıDosyaları_ArkaPlanResimleri = Klasör_KullanıcıDosyaları + "Arka Plan Resimleri\\";
         public static string Klasör_Gecici = Klasör.Depolama(Klasör.Kapsamı.Geçici, Sürüm:"") + "\\";
 
+        public static YeniYazılımKontrolü_ YeniYazılımKontrolü = new YeniYazılımKontrolü_();
+        public static bool ParolaGirilmesiGerekiyor = true;
         public static Ekranlar.Açılış_Ekranı AnaEkran;
-        public static object[] YeniSayfaAçmaTalebi = null; //[0] Sayfanın tuşunun adı [1 ... ] varsa girdileri
-        //"Yeni İş Girişi", Müşteri, SeriNo, SeriNoTürü, EkTanım
-        //"Tüm İşler", null veya "Arama"
-        //"Ücretler"
-        //"Takvim"
+        public static void Kapan()
+        {
+            Ekranlar.Eposta.Durdur(false);
+            HttpSunucu.Bitir();
+            Banka.Çıkış_İşlemleri();
+            Ortak.YeniYazılımKontrolü.Durdur();
+            Ekranlar.Eposta.Durdur();
+            Ekranlar.ÖnYüzler.Durdur();
+
+            ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın = false;
+        }
 
         public static string[] Kullanıcı_Klasör_Yedek = null;
         public static string Kullanıcı_Klasör_Pdf = null;
@@ -129,43 +137,6 @@ namespace İş_ve_Depo_Takip
                 return _Firma_Logo_;
             }
         }
-
-        #region Pencere Konumları vb. için Geçici Depolama
-        static Depo_ GeçiciDepolama = new Depo_();
-        public static IDepo_Eleman GeçiciDepolama_PencereKonumları_Oku(Form Sayfa)
-        {
-            IDepo_Eleman p = GeçiciDepolama.Bul(Sayfa.Name, true);
-            Sayfa.WindowState = (FormWindowState)p.Oku_Sayı("konum", (double)Sayfa.WindowState);
-            if (Sayfa.WindowState == FormWindowState.Normal && p.Bul("x") != null)
-            {
-                Sayfa.Font = new Font(Sayfa.Font.FontFamily, (float)p.Oku_Sayı("yak"));
-                Sayfa.Location = new System.Drawing.Point((int)p.Oku_Sayı("x"), (int)p.Oku_Sayı("y"));
-                Sayfa.Size = new System.Drawing.Size((int)p.Oku_Sayı("gen"), (int)p.Oku_Sayı("uzu"));
-            }
-
-            if (!Sayfa.Text.StartsWith("ArGeMuP "))
-            {
-                Sayfa.Text = "ArGeMuP " + Kendi.Adı + " V" + Kendi.Sürümü_Dosya + " " + Sayfa.Text;
-                Sayfa.Icon = Properties.Resources.kendi;
-            }
-
-            return p;
-        }
-        public static void GeçiciDepolama_PencereKonumları_Yaz(Form Sayfa)
-        {
-            if (Sayfa == null || Sayfa.Disposing || Sayfa.IsDisposed) return;
-
-            GeçiciDepolama.Yaz(Sayfa.Name + "/konum", (double)Sayfa.WindowState);
-            GeçiciDepolama.Yaz(Sayfa.Name + "/yak", Sayfa.Font.Size);
-            if (Sayfa.WindowState == FormWindowState.Normal)
-            {
-                GeçiciDepolama.Yaz(Sayfa.Name + "/x", Sayfa.Location.X);
-                GeçiciDepolama.Yaz(Sayfa.Name + "/y", Sayfa.Location.Y);
-                GeçiciDepolama.Yaz(Sayfa.Name + "/gen", Sayfa.Size.Width);
-                GeçiciDepolama.Yaz(Sayfa.Name + "/uzu", Sayfa.Size.Height);
-            }
-        }
-        #endregion
 
         public static bool Dosya_TutmayaÇalış(string DosyaYolu, int ZamanAşımı_msn = 5000)
         {

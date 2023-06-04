@@ -14,8 +14,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             InitializeComponent();
 
-            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
-        
             Ayarlar = Banka.Ayarlar_Genel("Eposta", true);
 
             Smtp_Sunucu_Adres.Text = Ayarlar.Oku("Sunucu Smtp/Adresi", Smtp_Sunucu_Adres.Text);

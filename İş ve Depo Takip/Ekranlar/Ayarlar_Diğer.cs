@@ -14,8 +14,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             InitializeComponent();
 
-            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
-
             Ayarlar_Takvim = Banka.Tablo_Dal(null, Banka.TabloTürü.Takvim, "Erteleme Süresi", true);
             Ayarlar_Bilgisayar = Banka.Ayarlar_BilgisayarVeKullanıcı(null, true);
             Ayarlar_Küçültüldüğünde = Banka.Ayarlar_Genel("Küçültüldüğünde Parola Sor", true);

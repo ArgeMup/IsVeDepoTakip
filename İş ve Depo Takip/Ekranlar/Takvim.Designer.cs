@@ -450,7 +450,6 @@
             this.Text = "Takvim";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Shown += new System.EventHandler(this.Takvim_Shown);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Takvim_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).EndInit();
             this.SağTuşMenü.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);

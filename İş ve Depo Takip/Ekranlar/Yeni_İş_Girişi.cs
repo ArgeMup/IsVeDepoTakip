@@ -16,28 +16,23 @@ namespace İş_ve_Depo_Takip.Ekranlar
         Yeni_İş_Girişi_DosyaEkleri P_Yeni_İş_Girişi_DosyaEkleri = new Yeni_İş_Girişi_DosyaEkleri();
         Yeni_İş_Girişi_Epostalar P_Yeni_İş_Girişi_Epostalar = new Yeni_İş_Girişi_Epostalar();
 
-        public Yeni_İş_Girişi()
+        public Yeni_İş_Girişi(string SeriNo = null, string Müşteri = null, Banka.TabloTürü SeriNoTürü = Banka.TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi, string EkTanım = null)
         {
             InitializeComponent();
 
-            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
-
-            if (Ortak.YeniSayfaAçmaTalebi != null && Ortak.YeniSayfaAçmaTalebi.Length == 5)
+            if (string.IsNullOrWhiteSpace(SeriNo))
             {
-                //düzenleme için açılıyor
-                Müşteri = Ortak.YeniSayfaAçmaTalebi[1] as string;
-                SeriNo = Ortak.YeniSayfaAçmaTalebi[2] as string;
-                SeriNoTürü = (Banka.TabloTürü)Ortak.YeniSayfaAçmaTalebi[3];
-                EkTanım = Ortak.YeniSayfaAçmaTalebi[4] as string;
-                Ortak.YeniSayfaAçmaTalebi = null;
-
-                if (string.IsNullOrWhiteSpace(Müşteri) || string.IsNullOrWhiteSpace(SeriNo))
-                {
-                    Müşteri = null;
-                    SeriNo = null;
-                }
+                Müşteri = null;
+                SeriNo = null;
             }
-        
+            else
+            {
+                this.Müşteri = Müşteri;
+                this.SeriNo = SeriNo;
+                this.SeriNoTürü = SeriNoTürü;
+                this.EkTanım = EkTanım;
+            }
+            
             İşTürleri_Liste = Banka.İşTürü_Listele();
             Ortak.GrupArayıcı(İşTürleri_SeçimKutusu, İşTürleri_Liste);
 
@@ -58,7 +53,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Hastalar_AdVeSoyadıDüzelt.Checked = Banka.Ayarlar_Kullanıcı(Name, "Hastalar_AdVeSoyadıDüzelt").Oku_Bit(null, true);
             Ayraç_Kat_3_SolSağ_Sağ.Panel1Collapsed = true;
 
-            if (Müşteri == null)
+            if (SeriNo == null)
             {
                 Müşteriler_Liste = Banka.Müşteri_Listele();
                 Ortak.GrupArayıcı(Müşteriler_SeçimKutusu, Müşteriler_Liste);
@@ -78,17 +73,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Müşteriler_SeçimKutusu.SelectedIndex = 0;
                 Ayraç_Kat_1_2.SplitterDistance = (Müşteriler_AramaÇubuğu.Size.Height * 2) + (Müşteriler_AramaÇubuğu.Size.Height / 2);
 
-                IDepo_Eleman seri_no_dalı;
-                if (SeriNoTürü == Banka.TabloTürü.TeslimEdildi)
-                {
-                    seri_no_dalı = Banka.Tablo_Dal(Müşteri, Banka.TabloTürü.DevamEden, "Talepler/" + SeriNo);
-                }
-                else
-                {
-                    seri_no_dalı = Banka.Tablo_Dal(Müşteri, SeriNoTürü, "Talepler/" + SeriNo, false, EkTanım);
-                }
-                if (seri_no_dalı == null) throw new Exception(Müşteri + " / Devam Eden / Talepler / " + SeriNo + " bulunamadı");
-
+                Banka.Talep_Bul_Detaylar_ detaylar = Banka.Talep_Bul(SeriNo, Müşteri, SeriNoTürü, EkTanım);
+                if (detaylar == null) throw new Exception(Müşteri + " / Devam Eden / Talepler / " + SeriNo + " bulunamadı");
+                
                 Müşteriler_SeçimKutusu.Enabled = false;
                 Hastalar_SeçimKutusu.Enabled = false;
                 switch (SeriNoTürü)
@@ -112,17 +99,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         break;
                 }
 
-                Banka.Talep_Ayıkla_SeriNoDalı(seri_no_dalı, out string _, out string Hasta, out string İskonto_, out string Notlar_, out string _);
+                Banka.Talep_Ayıkla_SeriNoDalı(detaylar.SeriNoDalı, out string _, out string Hasta, out string İskonto_, out string Notlar_, out string _);
                 Text += " - " + SeriNo + " - " + SeriNoTürü.ToString();
                 Hastalar_AramaÇubuğu.Text = Hasta;
                 İskonto.Text = İskonto_;
                 Notlar.Text = Notlar_;
 
                 string hata_bilgilendirmesi = "";
-                Tablo.RowCount = seri_no_dalı.Elemanları.Length + 1;
-                for (int i = 0; i < seri_no_dalı.Elemanları.Length; i++)
+                Tablo.RowCount = detaylar.SeriNoDalı.Elemanları.Length + 1;
+                for (int i = 0; i < detaylar.SeriNoDalı.Elemanları.Length; i++)
                 {
-                    Banka.Talep_Ayıkla_İşTürüDalı(seri_no_dalı.Elemanları[i], out string İşTürü, out string GirişTarihi, out string ÇıkışTarihi, out string Ücret1, out string _);
+                    Banka.Talep_Ayıkla_İşTürüDalı(detaylar.SeriNoDalı.Elemanları[i], out string İşTürü, out string GirişTarihi, out string ÇıkışTarihi, out string Ücret1, out string _);
 
                     if (!İşTürleri_Liste.Contains(İşTürü) && !SadeceOkunabilir)
                     {
@@ -157,7 +144,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     }
                 }
 
-                byte[] l_Dişler = seri_no_dalı.Oku_BaytDizisi(null, null, 4);
+                byte[] l_Dişler = detaylar.SeriNoDalı.Oku_BaytDizisi(null, null, 4);
                 if (l_Dişler != null && l_Dişler.Length > 0)
                 {
                     Control[] l_checkboxlar = new Control[Tablo_Dişler.Controls.Count];
@@ -216,26 +203,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Müşteriler_AramaÇubuğu.Focus();
         }
-        private void Yeni_İş_Girişi_KeyDown(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                case Keys.F2:
-                    Ortak.YeniSayfaAçmaTalebi = new string[] { "Tüm İşler", null };
-                    Close();
-                    break;
-
-                case Keys.F3:
-                    Ortak.YeniSayfaAçmaTalebi = new string[] { "Tüm İşler", "Arama" };
-                    Close();
-                    break;
-
-                case Keys.F4:
-                    Ortak.YeniSayfaAçmaTalebi = new string[] { "Takvim" };
-                    Close();
-                    break;
-            }
-        }
 
         private void Müşteriler_AramaÇubuğu_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -265,7 +232,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             Hastalar_Liste.Clear();
             Ortak.GrupArayıcı(Hastalar_SeçimKutusu);
-            if (Müşteriler_SeçimKutusu.SelectedIndex < 0 || !Banka.Müşteri_MevcutMu(Müşteriler_SeçimKutusu.Text) || Müşteri != null) return;
+            if (Müşteriler_SeçimKutusu.SelectedIndex < 0 || !Banka.Müşteri_MevcutMu(Müşteriler_SeçimKutusu.Text)) return;
 
             IDepo_Eleman Talepler = Banka.Tablo_Dal(Müşteriler_SeçimKutusu.Text, Banka.TabloTürü.DevamEden, "Talepler");
             if (Talepler == null || Talepler.Elemanları.Length < 1) return;
@@ -284,7 +251,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void Hastalar_AramaÇubuğu_TextChanged(object sender, EventArgs e)
         {
-            if (Müşteri != null) Değişiklik_Yapılıyor(null, null);
+            if (SeriNo != null) Değişiklik_Yapılıyor(null, null);
             
             Ortak.GrupArayıcı(Hastalar_SeçimKutusu, Hastalar_Liste, Hastalar_AramaÇubuğu.Text);
         }
@@ -353,8 +320,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (Dr == DialogResult.No) return;
 
             Kaydet_TuşGörünürlüğü(false);
-            Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", Müşteriler_SeçimKutusu.Text, sn, SeriNoTürü, null };
             Close();
+            Ekranlar.ÖnYüzler.Ekle(new Yeni_İş_Girişi(sn, Müşteriler_SeçimKutusu.Text, SeriNoTürü));
         }
 
         private void İşTürleri_AramaÇubuğu_TextChanged(object sender, EventArgs e)

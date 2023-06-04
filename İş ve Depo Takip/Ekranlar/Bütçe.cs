@@ -22,8 +22,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             InitializeComponent();
 
-            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
-
             IDepo_Eleman Ayarlar_GenelAnlamda = Banka.Ayarlar_Genel("Bütçe/Genel Anlamda");
             if (Ayarlar_GenelAnlamda != null ) 
             {
@@ -229,14 +227,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 string HataMesajı = "";
                 Banka.Talep_Ayıkla_SeriNoDalı(Müşteri, serino, ref Gelir, ref Gider, ref HataMesajı);
 
-#if !DEBUG
                 if (!string.IsNullOrEmpty(HataMesajı))
                 {
                     MessageBox.Show("Alttaki işler için ücret hesaplanamadı." + Environment.NewLine +
                         "Ekrandaki hesaplamaların eksik olduğunu göz önünde bulundurunuz." + Environment.NewLine + Environment.NewLine +
                         HataMesajı, Text);
                 }
-#endif
             }
         }
 

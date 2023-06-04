@@ -13,11 +13,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
 {
     public partial class Tüm_İşler : Form
     {
-        public Tüm_İşler()
+        public Tüm_İşler(bool AramaPenceresiİleAçılsın)
         {
             InitializeComponent();
-
-            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
 
             //görsel çiziminin iyileşmsi için
             typeof(Control).InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty, null, Tablo, new object[] { DoubleBuffered });
@@ -59,17 +57,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Seviye2_ÖdemeBekleyen.Tag = 12;
             Seviye2_Ödendi.Tag = 13;
 
-            if (Ortak.YeniSayfaAçmaTalebi != null)
+            if (AramaPenceresiİleAçılsın)
             {
-                //farklı sayfayı açmak için kullanılıyor
-                if (Ortak.YeniSayfaAçmaTalebi.Length == 2 &&
-                    (string)Ortak.YeniSayfaAçmaTalebi[0] == "Tüm İşler" &&
-                    (string)Ortak.YeniSayfaAçmaTalebi[1] == "Arama")
-                {
-                    Seviye_Değişti(Seviye1_Arama, null);
-                }
-
-                Ortak.YeniSayfaAçmaTalebi = null;
+                Seviye_Değişti(Seviye1_Arama, null);
             }
 
             Logo.Image = Ortak.Firma_Logo;
@@ -85,30 +75,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 Tablo.ClearSelection();
                 TabloİçeriğiArama.Focus(); 
-            }
-        }
-        private void Tüm_İşler_KeyDown(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                case Keys.F1:
-                    Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", null, null, Banka.TabloTürü.DevamEden, null }; 
-                    Close();
-                    break;
-
-                case Keys.F2:
-                    Seviye_Değişti(Seviye1_işTakip, null);
-                    Tüm_İşler_Shown(null, null);
-                    break;
-
-                case Keys.F3:
-                    Seviye_Değişti(Seviye1_Arama, null);
-                    break;
-
-                case Keys.F4:
-                    Ortak.YeniSayfaAçmaTalebi = new object[] { "Takvim" };
-                    Close();
-                    break;
             }
         }
 
@@ -411,8 +377,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 return;
             }
 
-            Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", İşTakip_Müşteriler.Text, l[0], Banka.TabloTürü.DevamEden, null };
-            Close();
+            Ekranlar.ÖnYüzler.Ekle(new Yeni_İş_Girişi(l[0], İşTakip_Müşteriler.Text, Banka.TabloTürü.DevamEden));
         }
         private void İşTakip_DevamEden_MüşteriyeGönder_Click(object sender, EventArgs e)
         {
@@ -490,8 +455,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     "Ücretler sayfasını açmak ister misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 if (Dr == DialogResult.No) return;
 
-                Ortak.YeniSayfaAçmaTalebi = new object[] { "Ücretler" };
-                Close();
+                Ekranlar.ÖnYüzler.Ekle(new Ücretler());
             }
         }
         private void İşTakip_TeslimEdildi_İşaretle_DevamEden_Click(object sender, EventArgs e)
@@ -1228,8 +1192,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 DialogResult Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 if (Dr == DialogResult.No) return;
 
-                Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", Müşteri, SeriNo, SeriNoTürü, EkTanım };
-                Close();
+                Ekranlar.ÖnYüzler.Ekle(new Yeni_İş_Girişi(SeriNo, Müşteri, SeriNoTürü, EkTanım));
             }
         }
         private void Tablo_İçeriğeGöreGüncelle()

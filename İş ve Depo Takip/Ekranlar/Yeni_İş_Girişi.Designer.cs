@@ -1276,7 +1276,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Yeni İş Girişi / Düzenleme";
             this.Shown += new System.EventHandler(this.Yeni_İş_Girişi_Shown);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Yeni_İş_Girişi_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).EndInit();
             this.Müşteriler_Grup.ResumeLayout(false);
             this.Müşteriler_Grup.PerformLayout();

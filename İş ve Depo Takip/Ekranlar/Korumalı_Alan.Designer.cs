@@ -1,6 +1,6 @@
 ﻿namespace İş_ve_Depo_Takip.Ekranlar
 {
-    partial class KorumalıAlan
+    partial class Korumalı_Alan
     {
         /// <summary>
         /// Required designer variable.

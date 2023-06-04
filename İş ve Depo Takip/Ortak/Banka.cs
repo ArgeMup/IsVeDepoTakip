@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip
 {
-    class Banka_Tablo_
+    public class Banka_Tablo_
     {
         public string Müşteri;
         public Banka.TabloTürü Türü;
@@ -25,7 +25,7 @@ namespace İş_ve_Depo_Takip
         }
     }
 
-    class Banka
+    public class Banka
     {
         public const string Sürüm = "1";
         static int Malzemeler_GeriyeDönükİstatistik_Ay = 36;
@@ -2948,7 +2948,7 @@ namespace İş_ve_Depo_Takip
             byte[] çıktı = içerik.BaytDizisine();
 #else
             byte[] çıktı = Dosya_SıkıştırKarıştır(içerik.BaytDizisine());
-            #endif
+#endif
 
             DosyaYolu = (BankaYolu == null ? Ortak.Klasör_Banka : BankaYolu)  + DosyaYolu + ".mup";
             string yedek_dosya_yolu = DosyaYolu + ".yedek";
@@ -3122,19 +3122,22 @@ namespace İş_ve_Depo_Takip
             set
             {
                 _Yedekleme_İzleyici_DeğişiklikYapıldı = value;
-                Ortak.AnaEkran.Invoke(new Action(() => 
+                if (Ortak.AnaEkran != null)
                 {
-                    if (_Yedekleme_İzleyici_DeğişiklikYapıldı == null)
+                    Ortak.AnaEkran.Invoke(new Action(() =>
                     {
-                        Ortak.AnaEkran.YedekleKapat.BackColor = System.Drawing.Color.Transparent;
-                        Ortak.AnaEkran.YedekleKapat.Text = "Yedekle ve kapat";
-                    }
-                    else
-                    {
-                        Ortak.AnaEkran.YedekleKapat.BackColor = System.Drawing.Color.Khaki;
-                        Ortak.AnaEkran.YedekleKapat.Text = "Yeniden başlat";
-                    }
-                }));
+                        if (_Yedekleme_İzleyici_DeğişiklikYapıldı == null)
+                        {
+                            Ortak.AnaEkran.YedekleKapat.BackColor = System.Drawing.Color.Transparent;
+                            Ortak.AnaEkran.YedekleKapat.Text = "Yedekle ve kapat";
+                        }
+                        else
+                        {
+                            Ortak.AnaEkran.YedekleKapat.BackColor = System.Drawing.Color.Khaki;
+                            Ortak.AnaEkran.YedekleKapat.Text = "Yeniden başlat";
+                        }
+                    }));
+                }
             }
         }
 
@@ -3372,7 +3375,7 @@ namespace İş_ve_Depo_Takip
                     {
                         Ortak.Gösterge.Başlat("Banka sürümü daha yüksek bir yedek bulundu." + Environment.NewLine +
                             "Güncelleme tamamlanana kadar bekleyiniz.", false, null, 0);
-                        while (!Ortak.AnaEkran.YeniYazılımKontrolü.KontrolTamamlandı && Ortak.Gösterge.Çalışsın) System.Threading.Thread.Sleep(500);
+                        while (!Ortak.YeniYazılımKontrolü.KontrolTamamlandı && Ortak.Gösterge.Çalışsın) System.Threading.Thread.Sleep(500);
 
                         yenidenbaşlatmamesajı = "Banka sürümü daha yüksek bir yedek bulundu. Bizimki:" + Sürüm + ", Yedek:" + d.Oku("Son Banka Kayıt", null, 2);
                         throw new Exception();

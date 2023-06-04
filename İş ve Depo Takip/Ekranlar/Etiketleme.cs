@@ -168,8 +168,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             InitializeComponent();
 
-            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
-
             YeniİşGirişi_Barkod_İçeriği.Text = YeniİşGirişi_Barkodİçeriği;
             YeniİşGirişi_Barkod_İçeriğiKaydet.Enabled = false;
         }

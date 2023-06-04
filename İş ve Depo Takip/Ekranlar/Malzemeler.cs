@@ -13,8 +13,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             InitializeComponent();
 
-            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
-        
             AramaÇubuğu_Liste = Banka.Malzeme_Listele();
             Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste);
         }

@@ -7,13 +7,11 @@ using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
-    public partial class KorumalıAlan : Form
+    public partial class Korumalı_Alan : Form
     {
-        public KorumalıAlan()
+        public Korumalı_Alan()
         {
             InitializeComponent();
-
-            Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
 
             AramaÇubuğu_Liste = Banka.KorumalıAlan_Listele_Dosyalar();
             Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste);

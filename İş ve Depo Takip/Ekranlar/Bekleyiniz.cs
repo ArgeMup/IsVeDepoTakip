@@ -74,30 +74,30 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         public void Bitir()
         {
-            if (!Ortak.AnaEkran.InvokeRequired) _Bitir_();
-            else
-            {
-                Ortak.AnaEkran.Invoke(new Action(() =>
-                {
-                    _Bitir_();
-                }));
-            }
-        }
-        void _Bitir_()
-        {
             if (Tetikleyen != null)
             {
-                if (Tetikleyen.GetType() == typeof(ListBox))
+                if (!Tetikleyen.InvokeRequired) _Bitir_();
+                else
                 {
-                    ListBox lb = Tetikleyen as ListBox;
-                    lb.Enabled = lb.Items.Count > 0;
+                    Tetikleyen.Invoke(new Action(() =>
+                    {
+                        _Bitir_();
+                    }));
                 }
-                else Tetikleyen.Enabled = true;
 
                 Tetikleyen = null;
             }
 
             Hide();
+        }
+        void _Bitir_()
+        {
+            if (Tetikleyen.GetType() == typeof(ListBox))
+            {
+                ListBox lb = Tetikleyen as ListBox;
+                lb.Enabled = lb.Items.Count > 0;
+            }
+            else Tetikleyen.Enabled = true;
         }
 
         private void İptalEt_Click(object sender, EventArgs e)

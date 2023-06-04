@@ -9,23 +9,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
     public partial class Takvim : Form
     {
         double[] Süreler = null;
-        IDepo_Eleman Gecici_Ayarlar;
         bool Gecikmeleri_gün_bazında_hesapla;
 
         public Takvim()
         {
             InitializeComponent();
-            Ortak.YeniSayfaAçmaTalebi = null;
 
             //görsel çiziminin iyileşmsi için
             typeof(Control).InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty, null, Tablo, new object[] { DoubleBuffered });
-
-            Gecici_Ayarlar = Ortak.GeçiciDepolama_PencereKonumları_Oku(this);
-            Hatırlatıcılar_Filtrele_Yaklaşanlar.Checked = Gecici_Ayarlar.Oku_Bit("Hatırlatıcılar_Filtrele", true, 0);
-            Hatırlatıcılar_Filtrele_Gecikenler.Checked = Gecici_Ayarlar.Oku_Bit("Hatırlatıcılar_Filtrele", true, 1);
-            Hatırlatıcılar_Filtrele_İşler.Checked = Gecici_Ayarlar.Oku_Bit("Hatırlatıcılar_Filtrele", true, 2);
-            Hatırlatıcılar_Filtrele_Notlar.Checked = Gecici_Ayarlar.Oku_Bit("Hatırlatıcılar_Filtrele", true, 3);
-            Hatırlatıcılar_Filtrele_ÖdemeTalepleri.Checked = Gecici_Ayarlar.Oku_Bit("Hatırlatıcılar_Filtrele", true, 4);
 
             Süreler = new double[7];
             IDepo_Eleman Ayarlar = Banka.Tablo_Dal(null, Banka.TabloTürü.Takvim, "Erteleme Süresi", true);
@@ -46,31 +37,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             Hatırlatıcılar_Filtrele_CheckedChanged(null, null);
             TabloİçeriğiArama.Focus();
-        }
-        private void Takvim_KeyDown(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                case Keys.F1:
-                    Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", null, null, Banka.TabloTürü.DevamEden, null };
-                    Close();
-                    break;
-
-                case Keys.F2:
-                    Ortak.YeniSayfaAçmaTalebi = new string[] { "Tüm İşler", null };
-                    Close();
-                    break;
-
-                case Keys.F3:
-                    Ortak.YeniSayfaAçmaTalebi = new string[] { "Tüm İşler", "Arama" };
-                    Close();
-                    break;
-
-                case Keys.F4:
-                    TabloİçeriğiArama.SelectAll();
-                    TabloİçeriğiArama.Focus();
-                    break;
-            }
         }
         private void Hatırlatıcılar_Filtrele_CheckedChanged(object sender, EventArgs e)
         {
@@ -197,12 +163,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 
                 dizi.Add(yeni_satır);
             }
-
-            Gecici_Ayarlar.Yaz("Hatırlatıcılar_Filtrele", Hatırlatıcılar_Filtrele_Yaklaşanlar.Checked, 0);
-            Gecici_Ayarlar.Yaz("Hatırlatıcılar_Filtrele", Hatırlatıcılar_Filtrele_Gecikenler.Checked, 1);
-            Gecici_Ayarlar.Yaz("Hatırlatıcılar_Filtrele", Hatırlatıcılar_Filtrele_İşler.Checked, 2);
-            Gecici_Ayarlar.Yaz("Hatırlatıcılar_Filtrele", Hatırlatıcılar_Filtrele_Notlar.Checked, 3);
-            Gecici_Ayarlar.Yaz("Hatırlatıcılar_Filtrele", Hatırlatıcılar_Filtrele_ÖdemeTalepleri.Checked, 4);
 
             Hatırlatıcılar_Filtrele_Yaklaşanlar.Text = "Yaklaşanlar (" + sayac_Yaklaşanlar + ")";
             Hatırlatıcılar_Filtrele_Gecikenler.Text = "Gecikenler (" + sayac_Gecikenler + ")";
@@ -474,8 +434,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             DialogResult Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
 
-            Ortak.YeniSayfaAçmaTalebi = new object[] { "Yeni İş Girişi", h.Müşteri, h.İçerik, Banka.TabloTürü.DevamEden, null };
-            Close();
+            Ekranlar.ÖnYüzler.Ekle(new Yeni_İş_Girişi(h.İçerik, h.Müşteri, Banka.TabloTürü.DevamEden));
         }
     }
 }
