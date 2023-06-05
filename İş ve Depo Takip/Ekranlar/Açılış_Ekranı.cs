@@ -147,10 +147,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Application.Exit();
             }
         }
-
         private void ParolayıDeğiştir_Click(object sender, EventArgs e)
         {
             Ekranlar.ÖnYüzler.Ekle(new Parola_Kontrol(false, true));
+        }
+        private void BarkodGirişi_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                BarkodSorgulama.SeçenekleriGöster(BarkodGirişi.Text);
+                BarkodGirişi.SelectAll();
+            }
         }
 
         void IEkran.ResimDeğiştir(System.Drawing.Image Resim)

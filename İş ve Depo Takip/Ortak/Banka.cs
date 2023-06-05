@@ -1753,7 +1753,11 @@ namespace İş_ve_Depo_Takip
                 else if (Tür == TabloTürü.DevamEden || Tür == TabloTürü.TeslimEdildi)
                 {
                     Bulunan_sn = Tablo_Dal(Müşteri, TabloTürü.DevamEden, "Talepler/" + SeriNo);
-                    if (Bulunan_sn != null) return new Talep_Bul_Detaylar_(Bulunan_sn, Müşteri, TabloTürü.DevamEden, EkTanım);
+                    if (Bulunan_sn != null)
+                    {
+                        Talep_Ayıkla_SeriNoDalı(Bulunan_sn, out _, out _, out _, out _, out string TeslimEdilmeTarihi);
+                        return new Talep_Bul_Detaylar_(Bulunan_sn, Müşteri, TeslimEdilmeTarihi.DoluMu() ? TabloTürü.TeslimEdildi : TabloTürü.DevamEden, EkTanım);
+                    }
                 }
                 else if (Tür == TabloTürü.ÖdemeTalepEdildi || Tür == TabloTürü.Ödendi)
                 {
@@ -2345,6 +2349,42 @@ namespace İş_ve_Depo_Takip
             _Talep_Ayıkla_ÖdemeDalı o = new _Talep_Ayıkla_ÖdemeDalı(ÖdemeDalı);
             İşlemSonucundaMüşteriBorçlu = o.MüşteriBorçluMu;
             GenelToplam = o.Genel_Toplam;
+        }
+        public static void Talep_Hesaplat_FirmaİçindekiSüreler(IDepo_Eleman SeriNoDalı, out TimeSpan Firmaİçinde, out TimeSpan Toplam)
+        {
+            Talep_Ayıkla_İşTürüDalı(SeriNoDalı.Elemanları[0], out _, out string GirişTarihi, out _, out _, out _);
+            DateTime İlkHareket = GirişTarihi.TarihSaate();
+
+            Talep_Ayıkla_SeriNoDalı(SeriNoDalı, out _, out _, out _, out _, out string TeslimEdilmeTarihi);
+            DateTime SonHareket = DateTime.Now;
+            if (TeslimEdilmeTarihi.DoluMu()) SonHareket = TeslimEdilmeTarihi.TarihSaate();
+
+            Toplam = SonHareket - İlkHareket;
+            Firmaİçinde = TimeSpan.Zero;
+
+            //giriş tarihi          çıkış tarihi        işlem
+            //var                   var                 farkı hesapla  
+            //var                   yok                 sonraki iştürü  varsa - sonraki iş türünün giriş tarihini kullan
+            //                                                          yoksa - son harekete göre hesapla
+            for (int i = 0; i < SeriNoDalı.Elemanları.Length; i++)
+            {
+                Talep_Ayıkla_İşTürüDalı(SeriNoDalı.Elemanları[i], out _, out GirişTarihi, out string ÇıkışTarihi, out _, out _);
+                İlkHareket = GirişTarihi.TarihSaate();
+
+                DateTime son;
+                if (ÇıkışTarihi.DoluMu()) son = ÇıkışTarihi.TarihSaate();
+                else
+                {
+                    if ((i + 1) < SeriNoDalı.Elemanları.Length)
+                    {
+                        Talep_Ayıkla_İşTürüDalı(SeriNoDalı.Elemanları[i + 1], out _, out GirişTarihi, out _, out _, out _);
+                        son = GirişTarihi.TarihSaate();
+                    }
+                    else son = SonHareket;
+                }
+
+                Firmaİçinde += son - İlkHareket;
+            }
         }
 
         public static List<string> KorumalıAlan_Listele_Dosyalar()

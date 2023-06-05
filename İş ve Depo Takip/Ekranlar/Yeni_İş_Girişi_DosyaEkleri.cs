@@ -1,7 +1,6 @@
 ﻿using ArgeMup.HazirKod;
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -114,6 +113,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void P_DosyaEkleri_Liste_ItemCheck(object sender, ItemCheckEventArgs e)
         {
+            if (SadeceOkunabilir) return;
+
             DeğişiklikYapıldı = true;
         }
         private void P_DosyaEkleri_Liste_SelectedIndexChanged(object sender, EventArgs e)

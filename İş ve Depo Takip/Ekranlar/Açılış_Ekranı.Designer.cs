@@ -36,6 +36,7 @@
             this.Ücretler = new System.Windows.Forms.Button();
             this.Yazdırma = new System.Windows.Forms.Button();
             this.P_AnaMenü = new System.Windows.Forms.Panel();
+            this.BarkodGirişi = new System.Windows.Forms.TextBox();
             this.KorumalıAlan = new System.Windows.Forms.Button();
             this.Ayarlar = new System.Windows.Forms.Button();
             this.Takvim = new System.Windows.Forms.Button();
@@ -143,6 +144,7 @@
             // 
             this.P_AnaMenü.BackgroundImage = global::İş_ve_Depo_Takip.Properties.Resources.logo_512_seffaf;
             this.P_AnaMenü.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.P_AnaMenü.Controls.Add(this.BarkodGirişi);
             this.P_AnaMenü.Controls.Add(this.KorumalıAlan);
             this.P_AnaMenü.Controls.Add(this.Ayarlar);
             this.P_AnaMenü.Controls.Add(this.Takvim);
@@ -155,6 +157,18 @@
             this.P_AnaMenü.TabIndex = 10;
             this.P_AnaMenü.Visible = false;
             this.P_AnaMenü.VisibleChanged += new System.EventHandler(this.P_AnaMenü_VisibleChanged);
+            // 
+            // BarkodGirişi
+            // 
+            this.BarkodGirişi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BarkodGirişi.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.BarkodGirişi.Location = new System.Drawing.Point(351, 327);
+            this.BarkodGirişi.Margin = new System.Windows.Forms.Padding(0);
+            this.BarkodGirişi.Name = "BarkodGirişi";
+            this.BarkodGirişi.Size = new System.Drawing.Size(130, 23);
+            this.BarkodGirişi.TabIndex = 6;
+            this.İpUcu.SetToolTip(this.BarkodGirişi, "Barkod veya seri no girişi");
+            this.BarkodGirişi.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BarkodGirişi_KeyDown);
             // 
             // KorumalıAlan
             // 
@@ -419,6 +433,7 @@
         private System.Windows.Forms.ToolTip İpUcu;
         private System.Windows.Forms.Button Etiketleme;
         private System.Windows.Forms.Panel P_AnaMenü;
+        private System.Windows.Forms.TextBox BarkodGirişi;
     }
 }
 

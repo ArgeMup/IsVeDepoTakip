@@ -71,6 +71,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ekranlar\Barkod_Okuma_Seçenekleri.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ekranlar\Barkod_Okuma_Seçenekleri.Designer.cs">
+      <DependentUpon>Barkod_Okuma_Seçenekleri.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ekranlar\Parola_Kontrol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -223,6 +229,9 @@
       <DependentUpon>Yeni_İş_Girişi.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <EmbeddedResource Include="Ekranlar\Barkod_Okuma_Seçenekleri.resx">
+      <DependentUpon>Barkod_Okuma_Seçenekleri.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Parola_Kontrol.resx">
       <DependentUpon>Parola_Kontrol.cs</DependentUpon>
     </EmbeddedResource>

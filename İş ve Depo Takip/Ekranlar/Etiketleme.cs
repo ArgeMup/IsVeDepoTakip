@@ -10,6 +10,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
     {
         #region STATİC Yeni İş Girişi
         static string YeniİşGirişi_Barkodİçeriği_ = null;
+        static int SeriNoyuBulmayaÇalış_Başlangıcı_Adet_ = -1;
         public static string YeniİşGirişi_Barkodİçeriği
         {
             get
@@ -42,6 +43,21 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             return cvp;
+        }
+        public static string SeriNoyuBulmayaÇalış(string Barkod)
+        {
+            if (SeriNoyuBulmayaÇalış_Başlangıcı_Adet_ == -1)
+            {
+                string SeriNoyuBulmayaÇalış_Başlangıcı_ = YeniİşGirişi_Barkodİçeriği_Çözümlenmiş(null, null, ".:|?|:.");
+                SeriNoyuBulmayaÇalış_Başlangıcı_ = SeriNoyuBulmayaÇalış_Başlangıcı_.Substring(0, SeriNoyuBulmayaÇalış_Başlangıcı_.IndexOf(".:|?|:."));
+                SeriNoyuBulmayaÇalış_Başlangıcı_Adet_ = SeriNoyuBulmayaÇalış_Başlangıcı_.Length;
+            }
+
+            if (Barkod.Length > SeriNoyuBulmayaÇalış_Başlangıcı_Adet_)
+            {
+                return Barkod.Substring(SeriNoyuBulmayaÇalış_Başlangıcı_Adet_);
+            }
+            else return Barkod;
         }
         public static string YeniİşGirişi_Barkod_Üret(string Müşteri, string Hasta, string SeriNo, bool SadeceAyarla)
         {

@@ -122,6 +122,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         public static void Durdur()
         {
+            ÖndekiEkran_Zamanlayıcı?.Dispose();
+            ÖndekiEkran_Zamanlayıcı = null;
             ÖndekiEkran_KlaFaGö?.Dispose();
             ÖndekiEkran_KlaFaGö = null;
 
@@ -133,6 +135,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
                 catch (Exception) { }
             }
+            Tümü.Clear();
         }
 
         public static void Ekle(Form Ekran)
