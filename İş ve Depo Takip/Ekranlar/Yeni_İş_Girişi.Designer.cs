@@ -101,6 +101,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.DosyaEkleri = new System.Windows.Forms.Button();
             this.Ayraç_Kat_2_3 = new System.Windows.Forms.SplitContainer();
             this.Ayraç_Kat_1_2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.KurlarVeSüreler = new System.Windows.Forms.TextBox();
             this.İpUcu_Genel = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             this.Müşteriler_Grup.SuspendLayout();
@@ -128,6 +130,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Kat_1_2.Panel1.SuspendLayout();
             this.Ayraç_Kat_1_2.Panel2.SuspendLayout();
             this.Ayraç_Kat_1_2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // Notlar
@@ -293,7 +299,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Müşteriler_AramaÇubuğu.Dock = System.Windows.Forms.DockStyle.Top;
             this.Müşteriler_AramaÇubuğu.Location = new System.Drawing.Point(3, 22);
             this.Müşteriler_AramaÇubuğu.Name = "Müşteriler_AramaÇubuğu";
-            this.Müşteriler_AramaÇubuğu.Size = new System.Drawing.Size(475, 26);
+            this.Müşteriler_AramaÇubuğu.Size = new System.Drawing.Size(341, 26);
             this.Müşteriler_AramaÇubuğu.TabIndex = 0;
             this.İpUcu_Genel.SetToolTip(this.Müşteriler_AramaÇubuğu, "Arama çubuğu");
             this.Müşteriler_AramaÇubuğu.TextChanged += new System.EventHandler(this.Müşteriler_AramaÇubuğu_TextChanged);
@@ -304,7 +310,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Hastalar_AramaÇubuğu.Dock = System.Windows.Forms.DockStyle.Top;
             this.Hastalar_AramaÇubuğu.Location = new System.Drawing.Point(3, 22);
             this.Hastalar_AramaÇubuğu.Name = "Hastalar_AramaÇubuğu";
-            this.Hastalar_AramaÇubuğu.Size = new System.Drawing.Size(479, 26);
+            this.Hastalar_AramaÇubuğu.Size = new System.Drawing.Size(337, 26);
             this.Hastalar_AramaÇubuğu.TabIndex = 2;
             this.İpUcu_Genel.SetToolTip(this.Hastalar_AramaÇubuğu, "Arama çubuğu");
             this.Hastalar_AramaÇubuğu.TextChanged += new System.EventHandler(this.Hastalar_AramaÇubuğu_TextChanged);
@@ -327,7 +333,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Hastalar_AdVeSoyadıDüzelt.AutoSize = true;
             this.Hastalar_AdVeSoyadıDüzelt.Checked = true;
             this.Hastalar_AdVeSoyadıDüzelt.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Hastalar_AdVeSoyadıDüzelt.Location = new System.Drawing.Point(460, 24);
+            this.Hastalar_AdVeSoyadıDüzelt.Location = new System.Drawing.Point(318, 24);
             this.Hastalar_AdVeSoyadıDüzelt.Name = "Hastalar_AdVeSoyadıDüzelt";
             this.Hastalar_AdVeSoyadıDüzelt.Size = new System.Drawing.Size(18, 17);
             this.Hastalar_AdVeSoyadıDüzelt.TabIndex = 4;
@@ -341,7 +347,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Müşteriler_Grup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Müşteriler_Grup.Location = new System.Drawing.Point(0, 0);
             this.Müşteriler_Grup.Name = "Müşteriler_Grup";
-            this.Müşteriler_Grup.Size = new System.Drawing.Size(481, 109);
+            this.Müşteriler_Grup.Size = new System.Drawing.Size(347, 109);
             this.Müşteriler_Grup.TabIndex = 13;
             this.Müşteriler_Grup.TabStop = false;
             this.Müşteriler_Grup.Text = "Müşteri";
@@ -355,7 +361,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Müşteriler_SeçimKutusu.Location = new System.Drawing.Point(3, 48);
             this.Müşteriler_SeçimKutusu.Margin = new System.Windows.Forms.Padding(2);
             this.Müşteriler_SeçimKutusu.Name = "Müşteriler_SeçimKutusu";
-            this.Müşteriler_SeçimKutusu.Size = new System.Drawing.Size(475, 58);
+            this.Müşteriler_SeçimKutusu.Size = new System.Drawing.Size(341, 58);
             this.Müşteriler_SeçimKutusu.TabIndex = 1;
             this.Müşteriler_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.Müşteriler_SeçimKutusu_SelectedIndexChanged);
             this.Müşteriler_SeçimKutusu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Müşteriler_SeçimKutusu_KeyPress);
@@ -368,7 +374,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Hastalar_Grup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Hastalar_Grup.Location = new System.Drawing.Point(0, 0);
             this.Hastalar_Grup.Name = "Hastalar_Grup";
-            this.Hastalar_Grup.Size = new System.Drawing.Size(485, 109);
+            this.Hastalar_Grup.Size = new System.Drawing.Size(343, 109);
             this.Hastalar_Grup.TabIndex = 14;
             this.Hastalar_Grup.TabStop = false;
             this.Hastalar_Grup.Text = "Hasta";
@@ -382,7 +388,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Hastalar_SeçimKutusu.Location = new System.Drawing.Point(3, 48);
             this.Hastalar_SeçimKutusu.Margin = new System.Windows.Forms.Padding(2);
             this.Hastalar_SeçimKutusu.Name = "Hastalar_SeçimKutusu";
-            this.Hastalar_SeçimKutusu.Size = new System.Drawing.Size(479, 58);
+            this.Hastalar_SeçimKutusu.Size = new System.Drawing.Size(337, 58);
             this.Hastalar_SeçimKutusu.TabIndex = 3;
             this.Hastalar_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.Hastalar_SeçimKutusu_SelectedIndexChanged);
             // 
@@ -464,8 +470,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.Hastalar_Grup);
-            this.splitContainer1.Size = new System.Drawing.Size(978, 113);
-            this.splitContainer1.SplitterDistance = 485;
+            this.splitContainer1.Size = new System.Drawing.Size(702, 113);
+            this.splitContainer1.SplitterDistance = 351;
             this.splitContainer1.TabIndex = 23;
             // 
             // Ayraç_Kat_3_SolSağ
@@ -1239,7 +1245,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             // Ayraç_Kat_1_2.Panel1
             // 
-            this.Ayraç_Kat_1_2.Panel1.Controls.Add(this.splitContainer1);
+            this.Ayraç_Kat_1_2.Panel1.Controls.Add(this.splitContainer2);
             // 
             // Ayraç_Kat_1_2.Panel2
             // 
@@ -1247,6 +1253,38 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Kat_1_2.Size = new System.Drawing.Size(978, 549);
             this.Ayraç_Kat_1_2.SplitterDistance = 113;
             this.Ayraç_Kat_1_2.TabIndex = 26;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.splitContainer1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.AutoScroll = true;
+            this.splitContainer2.Panel2.Controls.Add(this.KurlarVeSüreler);
+            this.splitContainer2.Panel2.Padding = new System.Windows.Forms.Padding(3);
+            this.splitContainer2.Size = new System.Drawing.Size(978, 113);
+            this.splitContainer2.SplitterDistance = 702;
+            this.splitContainer2.TabIndex = 24;
+            // 
+            // KurlarVeSüreler
+            // 
+            this.KurlarVeSüreler.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.KurlarVeSüreler.Location = new System.Drawing.Point(3, 3);
+            this.KurlarVeSüreler.Multiline = true;
+            this.KurlarVeSüreler.Name = "KurlarVeSüreler";
+            this.KurlarVeSüreler.ReadOnly = true;
+            this.KurlarVeSüreler.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.KurlarVeSüreler.Size = new System.Drawing.Size(262, 103);
+            this.KurlarVeSüreler.TabIndex = 0;
+            this.KurlarVeSüreler.WordWrap = false;
             // 
             // İpUcu_Genel
             // 
@@ -1274,7 +1312,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Name = "Yeni_İş_Girişi";
             this.Padding = new System.Windows.Forms.Padding(2);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Yeni İş Girişi / Düzenleme";
+            this.Text = "İş İçeriği";
             this.Shown += new System.EventHandler(this.Yeni_İş_Girişi_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).EndInit();
             this.Müşteriler_Grup.ResumeLayout(false);
@@ -1308,6 +1346,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Kat_1_2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Kat_1_2)).EndInit();
             this.Ayraç_Kat_1_2.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1380,5 +1423,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private System.Windows.Forms.CheckBox checkBox17;
         private System.Windows.Forms.CheckBox checkBox16;
         private System.Windows.Forms.CheckBox checkBox13;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.TextBox KurlarVeSüreler;
     }
 }

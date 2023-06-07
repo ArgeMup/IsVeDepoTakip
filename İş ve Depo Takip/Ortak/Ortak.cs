@@ -34,6 +34,7 @@ namespace İş_ve_Depo_Takip
             Ortak.YeniYazılımKontrolü.Durdur();
             Ekranlar.Eposta.Durdur();
             Ekranlar.ÖnYüzler.Durdur();
+            Ekranlar.BarkodSorgulama.Durdur();
 
             ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın = false;
         }

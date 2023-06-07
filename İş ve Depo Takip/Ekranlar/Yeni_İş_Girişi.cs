@@ -75,7 +75,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 Banka.Talep_Bul_Detaylar_ detaylar = Banka.Talep_Bul(SeriNo, Müşteri, SeriNoTürü, EkTanım);
                 if (detaylar == null) throw new Exception(Müşteri + " / Devam Eden / Talepler / " + SeriNo + " bulunamadı");
-                
+
+                Banka.Talep_Hesaplat_FirmaİçindekiSüreler(detaylar.SeriNoDalı, out TimeSpan Firmaİçinde, out TimeSpan Toplam);
+                KurlarVeSüreler.Tag = "Toplam " + Toplam.TotalDays.ToString("0.0") + " gün, firma içinde " + Firmaİçinde.TotalDays.ToString("0.0") + " gün";
+
                 Müşteriler_SeçimKutusu.Enabled = false;
                 Hastalar_SeçimKutusu.Enabled = false;
                 switch (SeriNoTürü)
@@ -192,16 +195,24 @@ namespace İş_ve_Depo_Takip.Ekranlar
             //Panelin görüntilenebilmesi için eklentiler
             Ayraç_Kat_3_SolSağ.Panel2.Controls.Remove(P_DosyaEkleri); Controls.Add(P_DosyaEkleri); P_DosyaEkleri.BringToFront();
             Ayraç_Kat_3_SolSağ.Panel2.Controls.Remove(P_Epostalar); Controls.Add(P_Epostalar); P_Epostalar.BringToFront();
-
-            if (!SadeceOkunabilir) Text += Döviz.Değerleri;
         }
         private void Yeni_İş_Girişi_Shown(object sender, EventArgs e)
         {
             Tablo.Rows[Tablo.RowCount - 1].Selected = true;
-
             Kaydet_TuşGörünürlüğü(false);
-
             Müşteriler_AramaÇubuğu.Focus();
+
+            Döviz.KurlarıAl(_GeriBildirim_Kurlar_);
+            void _GeriBildirim_Kurlar_(string Girdi)
+            {
+                if (Disposing || IsDisposed) return;
+
+                Invoke(new Action(() =>
+                {
+                    string süreler = KurlarVeSüreler.Tag as string;
+                    KurlarVeSüreler.Text = (süreler.DoluMu() ? süreler + Environment.NewLine : null) + Girdi;
+                }));
+            }
         }
 
         private void Müşteriler_AramaÇubuğu_KeyPress(object sender, KeyPressEventArgs e)

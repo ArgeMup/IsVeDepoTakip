@@ -1,10 +1,10 @@
 ﻿using ArgeMup.HazirKod;
+using ArgeMup.HazirKod.DonanımHaberleşmesi;
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
@@ -77,13 +77,46 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
     public static class BarkodSorgulama
     {
+        static IDonanımHaberlleşmesi SeriPort = null;
+        public static string SonMesaj = null;
+        public static void Başlat()
+        {
+            IDepo_Eleman Ayarlar_Bilgisayar = Banka.Ayarlar_BilgisayarVeKullanıcı("Barkod Okuyucu");
+            if (Ayarlar_Bilgisayar == null || Ayarlar_Bilgisayar[0].BoşMu() || Ayarlar_Bilgisayar[0] == "Kapalı") return;
+
+            SeriPort = new SeriPort_(Ayarlar_Bilgisayar[0], 9600, GeriBildirim_Islemi_SeriPort, SatırSatırGönderVeAl:false, TekrarDeneme_ZamanAşımı_msn:-1);
+        }
+        public static void Durdur()
+        {
+            SeriPort?.Durdur();
+            SeriPort = null;
+        }
+        static void GeriBildirim_Islemi_SeriPort(string Kaynak, GeriBildirim_Türü_ Tür, object İçerik, object Hatırlatıcı)
+        {
+            if (Tür == GeriBildirim_Türü_.BilgiGeldi)
+            {
+                SonMesaj = ((byte[])İçerik).Yazıya().TrimEnd('\r', '\n');
+                SeçenekleriGöster(SonMesaj);
+            }
+            else SonMesaj = Kaynak + " " + Tür.ToString();
+        }
+
         public static void SeçenekleriGöster(string Barkod)
         {
+            if (Ortak.ParolaGirilmesiGerekiyor) return;
+
             string sn = Etiketleme.SeriNoyuBulmayaÇalış(Barkod).ToUpper();
             Banka.Talep_Bul_Detaylar_ detaylar = Banka.Talep_Bul(sn);
             if (detaylar == null) return;
 
-            Ekranlar.ÖnYüzler.Ekle(new Barkod_Okuma_Seçenekleri(detaylar));
+            if (!Ortak.AnaEkran.InvokeRequired) Ekranlar.ÖnYüzler.Ekle(new Barkod_Okuma_Seçenekleri(detaylar));
+            else
+            {
+                Ortak.AnaEkran.Invoke(new Action(() =>
+                {
+                    Ekranlar.ÖnYüzler.Ekle(new Barkod_Okuma_Seçenekleri(detaylar));
+                }));
+            }
         }
     }
 }

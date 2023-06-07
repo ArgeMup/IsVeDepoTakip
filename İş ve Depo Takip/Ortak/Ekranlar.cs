@@ -176,7 +176,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Tümü.Add( new Önyüz_(Ekran) );
             Ekran.Show();
 
-            Günlük.Ekle("Yan uygulama açıldı" + Ekran.Text);
+            Günlük.Ekle("Yan uygulama açıldı " + Ekran.Text);
         }
 
         private static void Ekran_KeyDown(object sender, KeyEventArgs e)
@@ -260,7 +260,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Arkadaki.Ekran.WindowState = Arkadaki.İlkDurumu;
             }
 
-            Günlük.Ekle("Yan uygulama kapatıldı" + öndeki.Ekran.Text);
+            Günlük.Ekle("Yan uygulama kapatıldı " + öndeki.Ekran.Text);
         }
     }
 }

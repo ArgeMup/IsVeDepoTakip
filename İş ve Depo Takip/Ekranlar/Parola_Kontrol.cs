@@ -56,9 +56,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Application.DoEvents();
                     Banka.Giriş_İşlemleri(AçılışYazısı);
                     Ekranlar.Eposta.Girişİşlemleri();
+                    BarkodSorgulama.Başlat();
                     Controls.Remove(AçılışYazısı);
                     AçılışYazısı.Dispose();
-                    string _ = Döviz.Değerleri;
                 }
                 catch (Exception ex)
                 {

@@ -17,7 +17,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 if (YeniİşGirişi_Barkodİçeriği_ == null)
                 {
-                    YeniİşGirişi_Barkodİçeriği_ = Banka.Ayarlar_Genel("Etiketler", true).Oku("Yeni İş Girişi", "http://%BilgisayarınYerelAdresi%:%HttpSunucuErişimNoktası%/%SeriNo%");
+                    YeniİşGirişi_Barkodİçeriği_ = Banka.Ayarlar_Genel("Etiketler", true).Oku("Yeni İş Girişi", "http://%BilgisayarınYerelAdresi%:%HttpSunucuErişimNoktası%/?%SeriNo%");
                 }
 
                 return YeniİşGirişi_Barkodİçeriği_;
@@ -28,7 +28,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             string cvp = YeniİşGirişi_Barkodİçeriği;
             cvp = cvp.Replace("%Müşteri%", Müşteri);
             cvp = cvp.Replace("%Hasta%", Hasta);
-            cvp = cvp.Replace("%SeriNo%", SeriNo);
+            cvp = cvp.Replace("%SeriNo%", "serino=" + SeriNo);
 
             if (cvp.Contains("%BilgisayarınYerelAdresi%"))
             {
@@ -46,18 +46,31 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         public static string SeriNoyuBulmayaÇalış(string Barkod)
         {
-            if (SeriNoyuBulmayaÇalış_Başlangıcı_Adet_ == -1)
+            int knm_sn = Barkod.IndexOf("serino=");
+            if (knm_sn >= 0)
             {
-                string SeriNoyuBulmayaÇalış_Başlangıcı_ = YeniİşGirişi_Barkodİçeriği_Çözümlenmiş(null, null, ".:|?|:.");
-                SeriNoyuBulmayaÇalış_Başlangıcı_ = SeriNoyuBulmayaÇalış_Başlangıcı_.Substring(0, SeriNoyuBulmayaÇalış_Başlangıcı_.IndexOf(".:|?|:."));
-                SeriNoyuBulmayaÇalış_Başlangıcı_Adet_ = SeriNoyuBulmayaÇalış_Başlangıcı_.Length;
+                knm_sn += 7 /*serino=*/;
+                Barkod = Barkod.Substring(knm_sn);
+            }
+            else
+            {
+                knm_sn = Barkod.LastIndexOf("/");
+                if (knm_sn >= 0)
+                {
+                    Barkod = Barkod.Substring(knm_sn + 1);
+                }
             }
 
-            if (Barkod.Length > SeriNoyuBulmayaÇalış_Başlangıcı_Adet_)
+            for (int i = 1; i < Barkod.Length; i++)
             {
-                return Barkod.Substring(SeriNoyuBulmayaÇalış_Başlangıcı_Adet_);
+                char sıradaki = Barkod[i];
+                if (sıradaki >= '0' && sıradaki <= '9') continue;
+
+                Barkod = Barkod.Substring(0, i);
+                break;
             }
-            else return Barkod;
+
+            return Barkod;
         }
         public static string YeniİşGirişi_Barkod_Üret(string Müşteri, string Hasta, string SeriNo, bool SadeceAyarla)
         {
@@ -185,7 +198,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             InitializeComponent();
 
             YeniİşGirişi_Barkod_İçeriği.Text = YeniİşGirişi_Barkodİçeriği;
-            YeniİşGirişi_Barkod_İçeriğiKaydet.Enabled = false;
+            YeniİşGirişi_Barkod_OkuyucuSeriPort.Items.AddRange(System.IO.Ports.SerialPort.GetPortNames());
+            YeniİşGirişi_Barkod_OkuyucuSeriPort.Text = Banka.Ayarlar_BilgisayarVeKullanıcı("Barkod Okuyucu", true).Oku(null, "Kapalı");
+            İpUcu.SetToolTip(YeniİşGirişi_Barkod_OkuyucuSeriPort, "Barkod okuyucu seri port durumu :" + Environment.NewLine + BarkodSorgulama.SonMesaj);
+            Kaydet.Enabled = false;
         }
 
         #region Yeni İş Gİrişi
@@ -196,17 +212,21 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             YeniİşGirişi_Barkod_İçeriği.Text += içerik;
         }
-        private void YeniİşGirişi_Barkod_İçeriği_TextChanged(object sender, EventArgs e)
+        private void YeniİşGirişi_Barkod_AyarDeğişti(object sender, EventArgs e)
         {
-            YeniİşGirişi_Barkod_İçeriğiKaydet.Enabled = true;
+            Kaydet.Enabled = true;
         }
         private void YeniİşGirişi_Barkod_İçeriğiKaydet_Click(object sender, EventArgs e)
         {
             Banka.Ayarlar_Genel("Etiketler", true).Yaz("Yeni İş Girişi", YeniİşGirişi_Barkod_İçeriği.Text);
-            Banka.Değişiklikleri_Kaydet(YeniİşGirişi_Barkod_İçeriğiKaydet);
+            Banka.Ayarlar_BilgisayarVeKullanıcı("Barkod Okuyucu", true).Yaz(null, YeniİşGirişi_Barkod_OkuyucuSeriPort.Text);
+            Banka.Değişiklikleri_Kaydet(Kaydet);
+            
             YeniİşGirişi_Barkodİçeriği_ = null;
+            BarkodSorgulama.Durdur();
+            BarkodSorgulama.Başlat();
 
-            YeniİşGirişi_Barkod_İçeriğiKaydet.Enabled = false;
+            Kaydet.Enabled = false;
         }
 
         private void YeniİşGirişi_BarkodAyarları_Click(object sender, System.EventArgs e)

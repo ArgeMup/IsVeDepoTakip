@@ -84,7 +84,14 @@ namespace İş_ve_Depo_Takip
                 else
                 {
                     //Sayfa içeriği
+                    int knm_sn = Sayfa_İçeriği[0].IndexOf("serino=");
+                    if (knm_sn >= 0)
+                    {
+                        knm_sn += 7 /*serino=*/;
+                        Sayfa_İçeriği[0] = Sayfa_İçeriği[0].Substring(knm_sn);
+                    }
                     Sayfa_İçeriği[0] = Sayfa_İçeriği[0].ToUpper();
+
                     Banka.Talep_Bul_Detaylar_ Detaylar = Banka.Talep_Bul(Sayfa_İçeriği[0]);
                     string Hasta = "Bulunamadı", Notlar = null, MüşteriNotları = null, İşler = null, DosyaEkleri = null;
                     if (Detaylar != null)
@@ -187,6 +194,8 @@ namespace İş_ve_Depo_Takip
         //GET /DoEk/LOGO.bmp HTTP/1.1
         //GET /DoEk/SeriNo/asdfg.hjk.jpg HTTP/1.1
         //GET /A2389 HTTP/1.1
+        //GET /serino=A2389 HTTP/1.1
+        //GET /?serino=A2389 HTTP/1.1
         //Host: localhost
         //Connection: keep-alive
         //sec-ch-ua: "Google Chrome";v="111", "Not(A:Brand";v="8", "Chromium";v="111"
@@ -289,37 +298,72 @@ namespace İş_ve_Depo_Takip
 
     public static class Döviz
     {
-        static string Değerleri_ = null;
-        public static string Değerleri
+        static DateTime EnSonGüncelleme = DateTime.MinValue;
+        static string Çıktı = null;
+
+        public static void KurlarıAl(Action<string> İşlem)
         {
-            get
+            System.Threading.Tasks.Task.Run(() =>
             {
-                if (Değerleri_.BoşMu()) Başlat();
+                if ((DateTime.Now - EnSonGüncelleme).TotalMinutes > 5 || Çıktı.BoşMu())
+                {
+                    string Dosya_TCMB = Ortak.Klasör_Gecici + "TCMB_Kurlar.xml";
+                    Dosya.Sil(Dosya_TCMB);
+                    YeniYazılımKontrolü_ Kaynak_TCMB = new YeniYazılımKontrolü_();
+                    Kaynak_TCMB.Başlat(new Uri("http://www.tcmb.gov.tr/kurlar/today.xml"), HedefDosyaYolu: Dosya_TCMB);
 
-                return Değerleri_;
-            }
-        }
+                    string Dosya_GenelPara = Ortak.Klasör_Gecici + "GenelPara_Kurlar.xml";
+                    Dosya.Sil(Dosya_GenelPara);
+                    YeniYazılımKontrolü_ Kaynak_GenelPara = new YeniYazılımKontrolü_();
+                    Kaynak_GenelPara.Başlat(new Uri("https://api.genelpara.com/embed/doviz.json"), HedefDosyaYolu: Dosya_GenelPara);
 
-        static void Başlat()
-        {
-            string Xml_dosya_yolu = Ortak.Klasör_Gecici + "kurlar.xml";
+                    while (ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın &&
+                    (!Kaynak_TCMB.KontrolTamamlandı || !Kaynak_GenelPara.KontrolTamamlandı)) System.Threading.Thread.Sleep(500);
 
-            Dosya.Sil(Xml_dosya_yolu);
-            YeniYazılımKontrolü_ yyk = new YeniYazılımKontrolü_();
-            yyk.Başlat(new Uri("http://www.tcmb.gov.tr/kurlar/today.xml"), _GeriBildirim_yyk_, Xml_dosya_yolu);
+                    Çıktı = null;
+                    if (File.Exists(Dosya_TCMB))
+                    {
+                        System.Xml.XmlDocument xmlVerisi = new System.Xml.XmlDocument();
+                        xmlVerisi.LoadXml(Dosya_TCMB.DosyaYolu_Oku_Yazı());
 
-            void _GeriBildirim_yyk_(bool Sonuç, string Açıklama)
-            {
-                if (!Sonuç || !File.Exists(Xml_dosya_yolu)) return;
+                        string Tarih = xmlVerisi.SelectSingleNode("Tarih_Date").Attributes["Tarih"].InnerText;
+                        string dolar = xmlVerisi.SelectSingleNode(string.Format("Tarih_Date/Currency[@Kod='{0}']/BanknoteSelling", "USD")).InnerText;
+                        string avro = xmlVerisi.SelectSingleNode(string.Format("Tarih_Date/Currency[@Kod='{0}']/BanknoteSelling", "EUR")).InnerText;
+                        Çıktı =
+                        "TCMB " + Tarih + " 15:30" + Environment.NewLine +
+                        "Dolar = " + dolar + " ₺" + Environment.NewLine +
+                        "Avro = " + avro + " ₺" + Environment.NewLine;
+                    }
 
-                System.Xml.XmlDocument xmlVerisi = new System.Xml.XmlDocument();
-                xmlVerisi.LoadXml(Xml_dosya_yolu.DosyaYolu_Oku_Yazı());
+                    if (File.Exists(Dosya_GenelPara))
+                    {
+                        string içerik = Dosya_GenelPara.DosyaYolu_Oku_Yazı();
+                        string dolar = _Al_(içerik, @"""USD"":{""satis"":""", @"""");
+                        string avro = _Al_(içerik, @"""EUR"":{""satis"":""", @"""");
 
-                string Tarih = xmlVerisi.SelectSingleNode("Tarih_Date").Attributes["Tarih"].InnerText;
-                string dolar = xmlVerisi.SelectSingleNode(string.Format("Tarih_Date/Currency[@Kod='{0}']/BanknoteSelling", "USD")).InnerText;
-                string avro = xmlVerisi.SelectSingleNode(string.Format("Tarih_Date/Currency[@Kod='{0}']/BanknoteSelling", "EUR")).InnerText;
-                Değerleri_ = " - " + Tarih + " 1$ " + dolar + "₺ 1€ " + avro + "₺";
-            }
+                        Çıktı +=
+                        "Genelpara.com " + DateTime.Now.Yazıya("dd.MM.yyyy HH:mm") + Environment.NewLine +
+                        "Dolar = " + dolar + " ₺" + Environment.NewLine +
+                        "Avro = " + avro + " ₺";
+
+                        string _Al_(string Girdi, string Başlangıç, string Bitiş)
+                        {
+                            int knm_başla = Girdi.IndexOf(Başlangıç);
+                            if (knm_başla < 0) return null;
+                            
+                            knm_başla += Başlangıç.Length;
+                            int knm_bitir = Girdi.IndexOf(Bitiş, knm_başla);
+                            if (knm_bitir < 0) return null;
+
+                            return Girdi.Substring(knm_başla, knm_bitir - knm_başla);
+                        }
+                    }
+
+                    EnSonGüncelleme = DateTime.Now;
+                }
+
+                if (Çıktı.DoluMu() && İşlem != null) İşlem(Çıktı);
+            });
         }
     }
 }

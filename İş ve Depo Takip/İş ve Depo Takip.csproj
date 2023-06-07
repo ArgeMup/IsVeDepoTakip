@@ -34,7 +34,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;HazirKod_Cdiyez_Görsel HazirKod_Cdiyez_Sıkıştırma</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;HazirKod_Cdiyez_Görsel HazirKod_Cdiyez_Sıkıştırma HazirKod_Cdiyez_SeriPort</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -44,7 +44,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>HazirKod_Cdiyez_Görsel HazirKod_Cdiyez_Sıkıştırma</DefineConstants>
+    <DefineConstants>HazirKod_Cdiyez_Görsel HazirKod_Cdiyez_Sıkıştırma HazirKod_Cdiyez_SeriPort</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
