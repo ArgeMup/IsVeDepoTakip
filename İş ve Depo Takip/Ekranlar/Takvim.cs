@@ -1,12 +1,13 @@
 ﻿using ArgeMup.HazirKod;
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
-    public partial class Takvim : Form
+    public partial class Takvim : Form, IGüncellenenSeriNolar
     {
         double[] Süreler = null;
         bool Gecikmeleri_gün_bazında_hesapla;
@@ -405,6 +406,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Banka.Talep_İşaretle_DevamEden_MüşteriyeGönderildi((string)Tablo[1, s.Index].Value, new string[] { (string)Tablo[0, s.Index].Value }.ToList());
             Banka.Değişiklikleri_Kaydet(Tablo);
+            Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle((string)Tablo[0, s.Index].Value);
             Hatırlatıcılar_Filtrele_CheckedChanged(null, null);
         }
 
@@ -435,6 +437,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (Dr == DialogResult.No) return;
 
             Ekranlar.ÖnYüzler.Ekle(new Yeni_İş_Girişi(h.İçerik, h.Müşteri, Banka.TabloTürü.DevamEden));
+        }
+
+        void IGüncellenenSeriNolar.KontrolEt(List<string> GüncellenenSeriNolar)
+        {
+            Hatırlatıcılar_Filtrele_CheckedChanged(null, null);
         }
     }
 }

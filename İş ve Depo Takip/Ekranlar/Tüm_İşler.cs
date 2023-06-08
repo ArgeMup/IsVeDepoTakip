@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
-    public partial class Tüm_İşler : Form
+    public partial class Tüm_İşler : Form, IGüncellenenSeriNolar
     {
         public Tüm_İşler(bool AramaPenceresiİleAçılsın)
         {
@@ -80,7 +80,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void Seviye_Değişti(object sender, EventArgs e)
         {
-            int no = 3;
+            int no = 3; //boşsa illa ki başa dön
             if (sender != null)
             {
                 no = (int)(sender as CheckBox).Tag;
@@ -107,6 +107,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     }
                     else
                     {
+                        //İş türleri
+                        P_Malzemeler.Visible = false;
                         Seviye1_işTakip.Checked = true;
                         Seviye1_Arama.Checked = false;
 
@@ -348,6 +350,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if ((bool)Tablo[0, i].Value)
                 {
                     Tablo.Rows.RemoveAt(i);
+                    Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle((string)Tablo[1, i].Value);
                     goto YenidenDene;
                 }
             }
@@ -406,6 +409,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Banka.Talep_İşaretle_DevamEden_MüşteriyeGönderildi(İşTakip_Müşteriler.Text, l);
             Banka.Değişiklikleri_Kaydet(İşTakip_DevamEden_MüşteriyeGönder);
+            foreach (string biri in l) Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(biri);
 
             Seviye_Değişti(null, null);
         }
@@ -441,11 +445,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 //başarılı
                 Banka.Değişiklikleri_Kaydet(İşTakip_DevamEden_İsaretle_TeslimEdildi);
-
-                foreach (DataGridViewRow s in silinecek_satırlar)
-                {
-                    Tablo.Rows.Remove(s);
-                }
+                foreach (string biri in l) Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(biri);
+                foreach (DataGridViewRow s in silinecek_satırlar) Tablo.Rows.Remove(s);
             }
             else
             {
@@ -488,6 +489,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Banka.Talep_İşaretle_DevamEden_TeslimEdilen(İşTakip_Müşteriler.Text, l, false);
             Banka.Değişiklikleri_Kaydet(İşTakip_TeslimEdildi_İşaretle_DevamEden);
+            foreach (string biri in l) Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(biri);
         }
         private void İşTakip_TeslimEdildi_ÖdemeTalebiOluştur_Click(object sender, EventArgs e)
         {
@@ -542,6 +544,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Banka.Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(İşTakip_Müşteriler.Text, l, İlaveÖdeme_Açıklama, İlaveÖdeme_Miktar, İşTakip_TeslimEdildi_KDV.Checked);
             Banka.Değişiklikleri_Kaydet(İşTakip_TeslimEdildi_ÖdemeTalebiOluştur);
+            foreach (string biri in l) Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(biri);
         }
         private void İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt_CheckedChanged(object sender, EventArgs e)
         {
@@ -735,6 +738,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Banka.Talep_İşaretle_ÖdemeTalepEdildi_TeslimEdildi(İşTakip_Müşteriler.Text, İşTakip_ÖdemeBekleyen_Dönem.Text);
             Banka.Değişiklikleri_Kaydet(İşTakip_ÖdemeBekleyen_İptalEt);
+            foreach (DataGridViewRow biri in Tablo.Rows) Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(biri.Cells[Tablo_SeriNo.Index].Value as string);
 
             Banka.Değişiklikler_TamponuSıfırla();
             Seviye_Değişti(Seviye2_ÖdemeBekleyen, null);
@@ -802,6 +806,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Banka.Talep_İşaretle_ÖdemeTalepEdildi_Ödendi(İşTakip_Müşteriler.Text, İşTakip_ÖdemeBekleyen_Dönem.Text, İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text, İşTakip_ÖdemeBekleyen_Notlar.Text);
             Banka.Ayarlar_Müşteri(İşTakip_Müşteriler.Text, "Sayfa/Ödeme Bekleyen/Notlar", true)[0] = İşTakip_ÖdemeBekleyen_Notlar.Text;
             Banka.Değişiklikleri_Kaydet(İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle);
+            foreach (DataGridViewRow biri in Tablo.Rows) Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(biri.Cells[Tablo_SeriNo.Index].Value as string);
             Banka.Değişiklikler_TamponuSıfırla();
 
             Seviye_Değişti(Seviye2_ÖdemeBekleyen, null);
@@ -1409,7 +1414,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 foreach (IDepo_Eleman iş in serino.Elemanları)
                 {
-                    Banka.Talep_Ayıkla_İşTürüDalı(iş, out string İşTürü, out string GirişTarihi, out string _, out string _, out string _);
+                    Banka.Talep_Ayıkla_İşTürüDalı(iş, out string İşTürü, out string GirişTarihi, out _, out _, out _, out _);
 
                     if (Arama_Sorgula_Aranan_İşTürleri.DoluMu() && !Arama_Sorgula_Aranan_İşTürleri.Contains(İşTürü)) continue;
 
@@ -1534,6 +1539,45 @@ namespace İş_ve_Depo_Takip.Ekranlar
             
             Tablo_İçeriğeGöreGüncelle();
             Malzemeler_Açıklama.Text = null;
+        }
+
+        void IGüncellenenSeriNolar.KontrolEt(List<string> GüncellenenSeriNolar)
+        {
+            if (Seviye1_işTakip.Checked)
+            {
+                if((int)Seviye1_işTakip.Tag == 1)
+                {
+                    //İş takip
+                    CheckBox c = null;
+                    if (Seviye2_DevamEden.Checked) c = Seviye2_DevamEden;
+                    else if (Seviye2_TeslimEdildi.Checked) c = Seviye2_TeslimEdildi;
+                    else if (Seviye2_ÖdemeBekleyen.Checked) c = Seviye2_ÖdemeBekleyen;
+                    else if (Seviye2_Ödendi.Checked) c = Seviye2_Ödendi;
+                    if (c != null) Seviye_Değişti(c, null);
+                }
+                else
+                {
+                    //malzemeler
+                    if (Malzemeler_Malzeme.SelectedIndex >= 0) Malzemeler_Malzeme_SelectedIndexChanged(null, null);
+                }
+            }
+            else
+            {
+                //arama
+                Tablo.ClearSelection();
+                foreach (DataGridViewRow satır in Tablo.Rows)
+                {
+                    if (GüncellenenSeriNolar.Contains(satır.Cells[Tablo_SeriNo.Index].Value))
+                    {
+                        satır.Cells[Tablo_SeriNo.Index].Value = "Değiştirildi" + Environment.NewLine + satır.Cells[Tablo_SeriNo.Index].Value;
+
+                        foreach (DataGridViewCell hücre in satır.Cells)
+                        {
+                            hücre.Style.BackColor = Color.Red;
+                        }
+                    }
+                }
+            }
         }
     }
 }

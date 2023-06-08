@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.P_Üst_Alt = new System.Windows.Forms.SplitContainer();
             this.P_SolOrta_Sağ = new System.Windows.Forms.SplitContainer();
             this.P_Sol_Orta = new System.Windows.Forms.SplitContainer();
@@ -857,11 +857,11 @@
             // 
             this.tabPage6.AutoScroll = true;
             this.tabPage6.Controls.Add(this.P_İşTakip_Ödendi);
-            this.tabPage6.Location = new System.Drawing.Point(4, 29);
+            this.tabPage6.Location = new System.Drawing.Point(4, 25);
             this.tabPage6.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage6.Size = new System.Drawing.Size(611, 333);
+            this.tabPage6.Size = new System.Drawing.Size(608, 333);
             this.tabPage6.TabIndex = 3;
             this.tabPage6.Text = "Ödendi";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -1528,14 +1528,14 @@
             this.Tablo.AllowUserToResizeRows = false;
             this.Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.Tablo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Tablo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Tablo_Seç,
@@ -1577,8 +1577,9 @@
             // 
             // Tablo_SeriNo
             // 
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_SeriNo.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_SeriNo.DefaultCellStyle = dataGridViewCellStyle2;
             this.Tablo_SeriNo.HeaderText = "Seri No";
             this.Tablo_SeriNo.MinimumWidth = 6;
             this.Tablo_SeriNo.Name = "Tablo_SeriNo";
@@ -1595,8 +1596,8 @@
             // 
             // Tablo_Hasta
             // 
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_Hasta.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_Hasta.DefaultCellStyle = dataGridViewCellStyle3;
             this.Tablo_Hasta.HeaderText = "Hasta";
             this.Tablo_Hasta.MinimumWidth = 6;
             this.Tablo_Hasta.Name = "Tablo_Hasta";
@@ -1605,9 +1606,9 @@
             // 
             // Tablo_İşGiriş
             // 
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_İşGiriş.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_İşGiriş.DefaultCellStyle = dataGridViewCellStyle4;
             this.Tablo_İşGiriş.HeaderText = "İş Kabul";
             this.Tablo_İşGiriş.MinimumWidth = 6;
             this.Tablo_İşGiriş.Name = "Tablo_İşGiriş";
@@ -1616,9 +1617,9 @@
             // 
             // Tablo_İşÇıkış
             // 
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_İşÇıkış.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_İşÇıkış.DefaultCellStyle = dataGridViewCellStyle5;
             this.Tablo_İşÇıkış.HeaderText = "İş Çıkış";
             this.Tablo_İşÇıkış.MinimumWidth = 6;
             this.Tablo_İşÇıkış.Name = "Tablo_İşÇıkış";
@@ -1627,9 +1628,9 @@
             // 
             // Tablo_İş
             // 
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_İş.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_İş.DefaultCellStyle = dataGridViewCellStyle6;
             this.Tablo_İş.HeaderText = "İş";
             this.Tablo_İş.MinimumWidth = 6;
             this.Tablo_İş.Name = "Tablo_İş";
@@ -1638,8 +1639,8 @@
             // 
             // Tablo_Teslim_Edildi
             // 
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Teslim_Edildi.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Teslim_Edildi.DefaultCellStyle = dataGridViewCellStyle7;
             this.Tablo_Teslim_Edildi.HeaderText = "Teslim Edildi";
             this.Tablo_Teslim_Edildi.MinimumWidth = 6;
             this.Tablo_Teslim_Edildi.Name = "Tablo_Teslim_Edildi";
@@ -1648,8 +1649,8 @@
             // 
             // Tablo_Ödeme_Talep_Edildi
             // 
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Ödeme_Talep_Edildi.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Ödeme_Talep_Edildi.DefaultCellStyle = dataGridViewCellStyle8;
             this.Tablo_Ödeme_Talep_Edildi.HeaderText = "Ödeme Talebi";
             this.Tablo_Ödeme_Talep_Edildi.MinimumWidth = 6;
             this.Tablo_Ödeme_Talep_Edildi.Name = "Tablo_Ödeme_Talep_Edildi";
@@ -1658,8 +1659,8 @@
             // 
             // Tablo_Ödendi
             // 
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Ödendi.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Ödendi.DefaultCellStyle = dataGridViewCellStyle9;
             this.Tablo_Ödendi.HeaderText = "Ödendi";
             this.Tablo_Ödendi.MinimumWidth = 6;
             this.Tablo_Ödendi.Name = "Tablo_Ödendi";
@@ -1668,8 +1669,8 @@
             // 
             // Tablo_Notlar
             // 
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_Notlar.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_Notlar.DefaultCellStyle = dataGridViewCellStyle10;
             this.Tablo_Notlar.HeaderText = "Notlar";
             this.Tablo_Notlar.MinimumWidth = 6;
             this.Tablo_Notlar.Name = "Tablo_Notlar";
@@ -1905,17 +1906,6 @@
         private System.Windows.Forms.Button Tablo_TümünüSeçVeyaAç;
         private System.Windows.Forms.TextBox İşTakip_ÖdemeBekleyen_ÖdemeMiktarı;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Tablo_Seç;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_SeriNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Müşteri;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Hasta;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_İşGiriş;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_İşÇıkış;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_İş;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Teslim_Edildi;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Ödeme_Talep_Edildi;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Ödendi;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Notlar;
         private System.Windows.Forms.TextBox İşTakip_Eposta_Kişi;
         private System.Windows.Forms.CheckBox İşTakip_Eposta_Kişiye;
         private System.Windows.Forms.Panel P_Üstteki_İşTakip_Arama_Tip;
@@ -1927,5 +1917,16 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Tablo_Seç;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_SeriNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Müşteri;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Hasta;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_İşGiriş;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_İşÇıkış;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_İş;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Teslim_Edildi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Ödeme_Talep_Edildi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Ödendi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Notlar;
     }
 }

@@ -44,7 +44,7 @@ namespace İş_ve_Depo_Takip
         public static bool Kullanıcı_KüçültüldüğündeParolaSor = true;
         public static int Kullanıcı_KüçültüldüğündeParolaSor_sn = 60;
 
-        public static bool YazıyıSayıyaDönüştür(ref string YazıŞeklindeSayı, string Konum, string YardımcıAçıklama = null, double EnDüşük = double.MinValue, double EnYüksek = double.MaxValue)
+        public static bool YazıyıSayıyaDönüştür(ref string YazıŞeklindeSayı, string Konum, string YardımcıAçıklama = null, double EnDüşük = double.MinValue, double EnYüksek = double.MaxValue, bool Tamsayı = false)
         {
             if (YazıŞeklindeSayı == null) YazıŞeklindeSayı = "";
             int sayac_virgül = YazıŞeklindeSayı.Count(x => x == ',');
@@ -55,7 +55,20 @@ namespace İş_ve_Depo_Takip
             try
             {
                 if (YazıŞeklindeSayı.Length > 1 && (sayac_virgül > 0 || sayac_nokta > 0)) YazıŞeklindeSayı = YazıŞeklindeSayı.TrimEnd('0').TrimEnd(',', '.');
-                üretilen_s = YazıŞeklindeSayı.NoktalıSayıya();
+
+                if (Tamsayı)
+                {
+                    string gecici_tamsayı = YazıŞeklindeSayı;
+
+                    int knm = gecici_tamsayı.IndexOf(',');
+                    if (knm >= 0) gecici_tamsayı = gecici_tamsayı.Remove(knm);
+
+                    knm = gecici_tamsayı.IndexOf('.');
+                    if (knm >= 0) gecici_tamsayı = gecici_tamsayı.Remove(knm);
+
+                    üretilen_s = gecici_tamsayı.TamSayıya();
+                }
+                else üretilen_s = YazıŞeklindeSayı.NoktalıSayıya();
             }
             catch (Exception)
             {
@@ -367,7 +380,7 @@ namespace İş_ve_Depo_Takip
                         if (TeslimEdilmeTarihi.DoluMu()) continue;
 
                         //son iş giriş tarihini kontrol et
-                        Banka.Talep_Ayıkla_İşTürüDalı(sn.Elemanları[sn.Elemanları.Length - 1], out _, out string GirişTarihi, out string ÇıkışTarihi, out _, out _);
+                        Banka.Talep_Ayıkla_İşTürüDalı(sn.Elemanları[sn.Elemanları.Length - 1], out _, out string GirişTarihi, out string ÇıkışTarihi, out _, out _, out _);
 
                         //tamamlanmış bir iş ise atla
                         if (ÇıkışTarihi.DoluMu()) continue;

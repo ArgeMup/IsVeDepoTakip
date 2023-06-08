@@ -295,7 +295,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         {
                             if (!Ortak.Gösterge.Çalışsın) break;
                             
-                            Banka.Talep_Ayıkla_İşTürüDalı(it, out string İşTürü, out _, out _, out _, out _);
+                            Banka.Talep_Ayıkla_İşTürüDalı(it, out string İşTürü, out _, out _, out _, out _, out _);
 
                             //İş Türleri|Genel Kullanım (adet)|iştürü|2022 12
                             anahtar = İşTürü + "|" + Ödeme_Tarihi_yıl_ay;

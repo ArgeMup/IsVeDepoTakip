@@ -21,12 +21,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
     {
         void ResimDeğiştir(System.Drawing.Image Resim);
     }
+    public interface IGüncellenenSeriNolar
+    {
+        void KontrolEt(List<string> GüncellenenSeriNolar);
+    }
 
     public static class ÖnYüzler
     {
         static List<Önyüz_> Tümü = new List<Önyüz_>();
         static KlavyeFareGozlemcisi_ ÖndekiEkran_KlaFaGö = null;
         static System.Windows.Forms.Timer ÖndekiEkran_Zamanlayıcı = null;
+        static List<string> GüncellenenSeriNolar = new List<string>();
 
         public static void Başlat()
         {
@@ -99,7 +104,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                             d.Yaz("sayac", syc);
 
                             IEkran f_ekran = f as IEkran;
-                            if (f_ekran != null) f_ekran.ResimDeğiştir(r);
+                            f_ekran?.ResimDeğiştir(r);
                         }
                     }
                     else
@@ -120,24 +125,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             #endregion
         }
-        public static void Durdur()
-        {
-            ÖndekiEkran_Zamanlayıcı?.Dispose();
-            ÖndekiEkran_Zamanlayıcı = null;
-            ÖndekiEkran_KlaFaGö?.Dispose();
-            ÖndekiEkran_KlaFaGö = null;
-
-            for (int i = Tümü.Count - 1; i > 0; i--) //açılış ekranı hariç
-            {
-                try
-                {
-                    Tümü[i].Ekran.Dispose();
-                }
-                catch (Exception) { }
-            }
-            Tümü.Clear();
-        }
-
         public static void Ekle(Form Ekran)
         {
             if (Tümü.Count > 15)
@@ -173,10 +160,33 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ekran.Icon = Properties.Resources.kendi;
             Ekran.KeyPreview = true;
 
-            Tümü.Add( new Önyüz_(Ekran) );
+            Tümü.Add(new Önyüz_(Ekran));
             Ekran.Show();
 
             Günlük.Ekle("Yan uygulama açıldı " + Ekran.Text);
+        }
+        public static void GüncellenenSeriNoyuİşaretle(string SeriNo)
+        {
+            GüncellenenSeriNolar.Add(SeriNo);
+        }
+        public static void Durdur()
+        {
+            GüncellenenSeriNolar.Clear();
+
+            ÖndekiEkran_Zamanlayıcı?.Dispose();
+            ÖndekiEkran_Zamanlayıcı = null;
+            ÖndekiEkran_KlaFaGö?.Dispose();
+            ÖndekiEkran_KlaFaGö = null;
+
+            for (int i = Tümü.Count - 1; i > 0; i--) //açılış ekranı hariç
+            {
+                try
+                {
+                    Tümü[i].Ekran.Dispose();
+                }
+                catch (Exception) { }
+            }
+            Tümü.Clear();
         }
 
         private static void Ekran_KeyDown(object sender, KeyEventArgs e)
@@ -251,9 +261,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (Ortak.ParolaGirilmesiGerekiyor) throw new System.Exception("Ortak.ParolaGirilmesiGerekiyor " + öndeki.Ekran.Text);
 
             Tümü.Remove(öndeki);
+            if (Tümü.Count == 1) GüncellenenSeriNolar.Clear();
 
             Önyüz_ Arkadaki = Tümü.Last();
             Arkadaki.Ekran.Show();
+            if (GüncellenenSeriNolar.Count > 0)
+            {
+                IGüncellenenSeriNolar arakontrol = Arkadaki.Ekran as IGüncellenenSeriNolar;
+                arakontrol?.KontrolEt(GüncellenenSeriNolar);
+            }
 
             if (öndeki.Ekran is Parola_Kontrol)
             {

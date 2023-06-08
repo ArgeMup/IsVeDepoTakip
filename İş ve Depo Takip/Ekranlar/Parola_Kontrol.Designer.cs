@@ -85,12 +85,12 @@
             this.P_Parola.TabIndex = 11;
             this.P_Parola.Visible = false;
             // 
-            // Parola_Kontrol
+            // Tuş_ParolaKontrol
             // 
             this.Tuş_ParolaKontrol.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.Tuş_ParolaKontrol.Location = new System.Drawing.Point(175, 190);
             this.Tuş_ParolaKontrol.Margin = new System.Windows.Forms.Padding(6);
-            this.Tuş_ParolaKontrol.Name = "Parola_Kontrol";
+            this.Tuş_ParolaKontrol.Name = "Tuş_ParolaKontrol";
             this.Tuş_ParolaKontrol.Size = new System.Drawing.Size(100, 40);
             this.Tuş_ParolaKontrol.TabIndex = 1;
             this.Tuş_ParolaKontrol.Text = "Giriş";
@@ -163,12 +163,12 @@
             this.label1.TabIndex = 7;
             this.label1.Text = "Parolayı tekrar giriniz";
             // 
-            // YeniParola_Kaydet
+            // Tuş_YeniParola_Kaydet
             // 
             this.Tuş_YeniParola_Kaydet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.Tuş_YeniParola_Kaydet.Location = new System.Drawing.Point(32, 163);
             this.Tuş_YeniParola_Kaydet.Margin = new System.Windows.Forms.Padding(6);
-            this.Tuş_YeniParola_Kaydet.Name = "YeniParola_Kaydet";
+            this.Tuş_YeniParola_Kaydet.Name = "Tuş_YeniParola_Kaydet";
             this.Tuş_YeniParola_Kaydet.Size = new System.Drawing.Size(283, 68);
             this.Tuş_YeniParola_Kaydet.TabIndex = 2;
             this.Tuş_YeniParola_Kaydet.Text = "Yeni Parolayı Kaydet";
@@ -197,7 +197,7 @@
             this.İpUcu.InitialDelay = 100;
             this.İpUcu.ReshowDelay = 20;
             // 
-            // ParolaKontrol
+            // Parola_Kontrol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

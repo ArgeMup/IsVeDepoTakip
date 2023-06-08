@@ -8,22 +8,26 @@ using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
-    public partial class Barkod_Okuma_Seçenekleri : Form
+    public partial class Barkod_Okuma_Seçenekleri : Form, IGüncellenenSeriNolar
     {
-        readonly string Müşteri_, SeriNo_, Hasta_, EkTanım_;
-        readonly Banka.TabloTürü Türü_;
+        string Müşteri_, SeriNo_, Hasta_, EkTanım_;
+        Banka.TabloTürü Türü_;
 
         public Barkod_Okuma_Seçenekleri(Banka.Talep_Bul_Detaylar_ Detaylar)
         {
             InitializeComponent();
 
+            Başlat(Detaylar);
+        }
+        void Başlat(Banka.Talep_Bul_Detaylar_ Detaylar)
+        {
             Banka.Talep_Ayıkla_SeriNoDalı(Detaylar.SeriNoDalı, out SeriNo_, out Hasta_, out _, out _, out string TeslimEdilmeTarihi);
             Banka.Talep_Hesaplat_FirmaİçindekiSüreler(Detaylar.SeriNoDalı, out TimeSpan Firmaİçinde, out TimeSpan Toplam);
 
-            Text += SeriNo_ + " " + Detaylar.Tür;
+            Text = SeriNo_ + " " + Detaylar.Tür;
 
-            Müşteri.Text = Detaylar.Müşteri;    
-            Hasta.Text = Hasta_;              
+            Müşteri.Text = Detaylar.Müşteri;
+            Hasta.Text = Hasta_;
             Süre.Text = "Toplam " + Toplam.TotalDays.ToString("0.0") + " gün, firma içinde " + Firmaİçinde.TotalDays.ToString("0.0") + " gün";
 
             Müşteri_ = Detaylar.Müşteri;
@@ -36,7 +40,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             else
             {
-                Banka.Talep_Ayıkla_İşTürüDalı(Detaylar.SeriNoDalı.Elemanları.Last(), out _, out _, out string ÇıkışTarihi, out _, out _);
+                Banka.Talep_Ayıkla_İşTürüDalı(Detaylar.SeriNoDalı.Elemanları.Last(), out _, out _, out string ÇıkışTarihi, out _, out _, out _);
                 MüşteriyeGönder.Enabled = ÇıkışTarihi.BoşMu();
                 İsaretle_TeslimEdildi.Enabled = TeslimEdilmeTarihi.BoşMu();
             }
@@ -51,6 +55,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             Banka.Talep_İşaretle_DevamEden_MüşteriyeGönderildi(Müşteri_, new List<string>() { SeriNo_ });
             Banka.Değişiklikleri_Kaydet(MüşteriyeGönder);
+            Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(SeriNo_);
             Close();
         }
         private void İsaretle_TeslimEdildi_Click(object sender, EventArgs e)
@@ -61,6 +66,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 //başarılı
                 Banka.Değişiklikleri_Kaydet(İsaretle_TeslimEdildi);
+                Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(SeriNo_);
                 Close();
             }
             else
@@ -71,6 +77,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     "Ücretler sayfasını açmak ister misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 
                 if (Dr == DialogResult.Yes) Ekranlar.ÖnYüzler.Ekle(new Ücretler());
+            }
+        }
+
+        void IGüncellenenSeriNolar.KontrolEt(List<string> GüncellenenSeriNolar)
+        {
+            if (SeriNo_.DoluMu() && GüncellenenSeriNolar.Contains(SeriNo_))
+            {
+                Banka.Talep_Bul_Detaylar_ detaylar = Banka.Talep_Bul(SeriNo_);
+                if (detaylar == null) Close();
+                else Başlat(detaylar);
             }
         }
     }

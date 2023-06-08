@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
-    public partial class Yeni_İş_Girişi : Form
+    public partial class Yeni_İş_Girişi : Form, IGüncellenenSeriNolar
     {
         readonly string Müşteri = null, SeriNo = null, YeniKayıtİçinTutulanSeriNo = null, EkTanım = null;
         readonly Banka.TabloTürü SeriNoTürü = Banka.TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi;
@@ -51,7 +51,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             İpUcu_Genel.SetToolTip(İşTürleri_AramaÇubuğu, ipucu);
             Hastalar_AdVeSoyadıDüzelt.Checked = Banka.Ayarlar_Kullanıcı(Name, "Hastalar_AdVeSoyadıDüzelt").Oku_Bit(null, true);
-            Ayraç_Kat_3_SolSağ_Sağ.Panel1Collapsed = true;
+
+            System.Windows.Forms.Padding pd = new System.Windows.Forms.Padding(0);
+            foreach (Label biri in Tablo_Dişler.Controls)
+            {
+                if (byte.TryParse(biri.Text, out byte gecici)) biri.Tag = gecici;
+
+                biri.Click += new System.EventHandler(Dişler_Değişiklik_Yapılıyor);
+                biri.Margin = pd;
+            }
 
             if (SeriNo == null)
             {
@@ -112,7 +120,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Tablo.RowCount = detaylar.SeriNoDalı.Elemanları.Length + 1;
                 for (int i = 0; i < detaylar.SeriNoDalı.Elemanları.Length; i++)
                 {
-                    Banka.Talep_Ayıkla_İşTürüDalı(detaylar.SeriNoDalı.Elemanları[i], out string İşTürü, out string GirişTarihi, out string ÇıkışTarihi, out string Ücret1, out string _);
+                    Banka.Talep_Ayıkla_İşTürüDalı(detaylar.SeriNoDalı.Elemanları[i], out string İşTürü, out string GirişTarihi, out string ÇıkışTarihi, out string Ücret1, out string _, out byte[] Kullanım_AdetVeKonum);
 
                     if (!İşTürleri_Liste.Contains(İşTürü) && !SadeceOkunabilir)
                     {
@@ -122,46 +130,30 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     else
                     {
                         Tablo.Rows[i].ReadOnly = true;
-                        Tablo[0, i].Value = İşTürü;
-                        Tablo[0, i].ToolTipText = Banka.Ücretler_BirimÜcret_Detaylı(Müşteri, İşTürü); //ücretlendirme ipucları
-
-                        if (Tablo[0, i].ToolTipText.Contains("Adede göre hesaplanır"))
-                        {
-                            Tablo[0, i].Style.BackColor = System.Drawing.Color.Khaki;
-                            Ayraç_Kat_3_SolSağ_Sağ.Panel1Collapsed = false;
-                        }
+                        Tablo[Tablo_İş_Türü.Index, i].Value = İşTürü;
+                        Tablo[Tablo_İş_Türü.Index, i].ToolTipText = Banka.Ücretler_BirimÜcret_Detaylı(Müşteri, İşTürü); //ücretlendirme ipucları
+                        Tablo[Tablo_Adet.Index, i].Value = Banka.Ücretler_AdetÇarpanı(Kullanım_AdetVeKonum).Yazıya();
+                        Tablo[Tablo_Adet.Index, i].Tag = Kullanım_AdetVeKonum;
                     }
 
-                    Tablo[1, i].Value = Ücret1;
+                    Tablo[Tablo_Ücret.Index, i].Value = Ücret1;
 
                     //tarih giriş
-                    Tablo[2, i].Value = Banka.Yazdır_Tarih(GirişTarihi);
-                    Tablo[2, i].Tag = GirişTarihi.TarihSaate();
-                    Tablo[2, i].ToolTipText = GirişTarihi;
+                    Tablo[Tablo_Giriş_Tarihi.Index, i].Value = Banka.Yazdır_Tarih(GirişTarihi);
+                    Tablo[Tablo_Giriş_Tarihi.Index, i].Tag = GirişTarihi.TarihSaate();
+                    Tablo[Tablo_Giriş_Tarihi.Index, i].ToolTipText = GirişTarihi;
                     
                     if (ÇıkışTarihi.DoluMu()) //tarih çıkış
                     {
-                        Tablo[3, i].Value = Banka.Yazdır_Tarih(ÇıkışTarihi);
-                        Tablo[3, i].Tag = ÇıkışTarihi.TarihSaate();
-                        Tablo[3, i].ToolTipText = ÇıkışTarihi;
+                        Tablo[Tablo_Çıkış_Tarihi.Index, i].Value = Banka.Yazdır_Tarih(ÇıkışTarihi);
+                        Tablo[Tablo_Çıkış_Tarihi.Index, i].Tag = ÇıkışTarihi.TarihSaate();
+                        Tablo[Tablo_Çıkış_Tarihi.Index, i].ToolTipText = ÇıkışTarihi;
                     }
                 }
 
-                byte[] l_Dişler = detaylar.SeriNoDalı.Oku_BaytDizisi(null, null, 4);
-                if (l_Dişler != null && l_Dişler.Length > 0)
-                {
-                    Control[] l_checkboxlar = new Control[Tablo_Dişler.Controls.Count];
-                    Tablo_Dişler.Controls.CopyTo(l_checkboxlar, 0);
-
-                    foreach (byte diş in l_Dişler)
-                    {
-                        CheckBox chcb = l_checkboxlar.First(x => x.Text == diş.ToString()) as CheckBox;
-                        chcb.Checked = true;
-                    }
-
-                    Tablo_Dişler.Enabled = !SadeceOkunabilir;
-                }
-
+                Tablo_Dişler.Enabled = !SadeceOkunabilir;
+                Dişler_GörseliniGüncelle();
+                
                 if (!string.IsNullOrEmpty(hata_bilgilendirmesi))
                 {
                     MessageBox.Show(hata_bilgilendirmesi + Environment.NewLine + "Bu mesaj Notlar içerisine aktarıldı", Text);
@@ -369,38 +361,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             var l = Tablo.SelectedRows;
             if (l == null || l.Count != 1 || İşTürleri_SeçimKutusu.SelectedIndex < 0) return;
-
-            if (l[0].ReadOnly)
-            {
-                DialogResult Dr = MessageBox.Show((l[0].Index + 1).ToString() + ". satırdaki iş önceki döneme ait" + Environment.NewLine +
-                        "Eğer kilidi kaldırılırsa halihazırdaki KABUL EDİLMİŞ BİLGİLERİ değiştirebileceksiniz." + Environment.NewLine +
-                        "İlgili satırın KİLDİNİ AÇMAK istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                if (Dr == DialogResult.No) return;
-
-                l[0].ReadOnly = false;
-            }
+            if (!SadeceOkunabilirSatırİseKullanıcıyaSor_DevamEt(l[0])) return;
 
             int konum = l[0].Index;
             l[0].Selected = false;
             if (Tablo.RowCount < konum + 2) Tablo.RowCount++;
             Tablo.Rows[konum + 1].Selected = true;
 
-            Tablo[0, konum].Value = İşTürleri_SeçimKutusu.Text;
-            Tablo[0, konum].ToolTipText = Banka.Ücretler_BirimÜcret_Detaylı(Müşteriler_SeçimKutusu.Text, İşTürleri_SeçimKutusu.Text);
-
-            //adetli ?
-            Tablo[0, konum].Style.BackColor = Tablo[0, konum].ToolTipText.Contains("Adede göre hesaplanır") ? System.Drawing.Color.Khaki : System.Drawing.Color.White;
-
-            //en az 1 adetli var ise dişleri göster
-            foreach (DataGridViewRow satır in Tablo.Rows)
-            {
-                if (satır.Cells[0].ToolTipText.Contains("Adede göre hesaplanır"))
-                {
-                    Ayraç_Kat_3_SolSağ_Sağ.Panel1Collapsed = false;
-                    return;
-                }
-            }
-            Ayraç_Kat_3_SolSağ_Sağ.Panel1Collapsed = true;
+            Tablo[Tablo_İş_Türü.Index, konum].Value = İşTürleri_SeçimKutusu.Text;
+            Tablo[Tablo_İş_Türü.Index, konum].ToolTipText = Banka.Ücretler_BirimÜcret_Detaylı(Müşteriler_SeçimKutusu.Text, İşTürleri_SeçimKutusu.Text);
         }
         
         private void Tablo_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -418,20 +387,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 Seçili_Satırı_Sil.Text = Row.ReadOnly ? "Seçili satırın kilidini KALDIR" : "Seçili Satırı Sil";
             }
+
+            Dişler_GörseliniGüncelle();
         }
         private void Tablo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || e.ColumnIndex != 3 || SadeceOkunabilir) return;
-
-            if (Tablo.Rows[e.RowIndex].ReadOnly)
-            {
-                DialogResult Dr = MessageBox.Show((e.RowIndex + 1).ToString() + ". satırdaki iş önceki döneme ait" + Environment.NewLine +
-                        "Eğer kilidi kaldırılırsa halihazırdaki KABUL EDİLMİŞ BİLGİLERİ değiştirebileceksiniz." + Environment.NewLine +
-                        "İlgili satırın KİLDİNİ AÇMAK istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                if (Dr == DialogResult.No) return;
-
-                Tablo.Rows[e.RowIndex].ReadOnly = false;
-            }
+            if (e.RowIndex < 0 || e.ColumnIndex != Tablo_Çıkış_Tarihi.Index || SadeceOkunabilir) return;
+            if (!SadeceOkunabilirSatırİseKullanıcıyaSor_DevamEt(Tablo.Rows[e.RowIndex])) return;
 
             if (Tablo[e.ColumnIndex, e.RowIndex].Tag != null)
             {
@@ -457,6 +419,108 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (Notlar.Text.DoluMu(true)) Notlar.Text += Environment.NewLine;
             Notlar.Text += DateTime.Now.ToString("dd MMM ddd") + " ";
             Notlar.Select(Notlar.Text.Length, 0);
+        }
+
+        void Dişler_GörseliniGüncelle()
+        {
+            List<byte> tümü = new List<byte>();
+            List<byte> seçili_olan = new List<byte>();
+            foreach (DataGridViewRow biri in Tablo.Rows)
+            {
+                byte[] şimdiki = biri.Cells[Tablo_Adet.Index].Tag as byte[];
+                if (şimdiki == null || şimdiki.Length < 2) continue;
+
+                for (int i = 1; i < şimdiki.Length; i++)
+                {
+                    tümü.Add(şimdiki[i]);
+
+                    if (biri.Selected) seçili_olan.Add(şimdiki[i]);
+                }
+            }
+            tümü.Distinct();
+
+            foreach (Label biri in Tablo_Dişler.Controls)
+            {
+                if (biri.Tag == null) continue; //çoklu seçim tuşları
+
+                if (seçili_olan.Contains((byte)biri.Tag)) biri.BackColor = System.Drawing.Color.Orange;
+                else if (tümü.Contains((byte)biri.Tag)) biri.BackColor = System.Drawing.Color.Wheat;
+                else biri.BackColor = System.Drawing.SystemColors.Control;
+            }
+        }
+        private void Dişler_Değişiklik_Yapılıyor(object sender, EventArgs e)
+        {
+            if (Tablo.SelectedRows.Count == 0 || Tablo.SelectedRows.Count > 1 || Tablo.SelectedRows[0].IsNewRow) { return; }
+            if (!SadeceOkunabilirSatırİseKullanıcıyaSor_DevamEt(Tablo.SelectedRows[0])) return;
+
+            byte[] dizi = (byte[])Tablo.SelectedRows[0].Cells[Tablo_Adet.Index].Tag;
+            byte ElleGirilenAdet = 0;
+            List<byte> dizi_liste;
+            if (dizi == null) dizi_liste = new List<byte>();
+            else
+            {
+                dizi_liste = dizi.ToList();
+                ElleGirilenAdet = dizi_liste[0];
+                dizi_liste.RemoveAt(0);
+            }
+
+            Label lbl = (Label)sender;
+            if (lbl.Tag == null)
+            {
+                byte başla, bitir;
+                if (lbl.Name == "ustsol")
+                {
+                    başla = 11;
+                    bitir = 18;
+                }
+                else if (lbl.Name == "ustsag")
+                {
+                    başla = 21;
+                    bitir = 28;
+                }
+                else if(lbl.Name == "ust")
+                {
+                    başla = 11;
+                    bitir = 28;
+                }
+                else if (lbl.Name == "altsol")
+                {
+                    başla = 41;
+                    bitir = 48;
+                }
+                else if (lbl.Name == "altsag")
+                {
+                    başla = 31;
+                    bitir = 38;
+                }
+                else //alt
+                {
+                    başla = 31;
+                    bitir = 48;
+                }
+
+                for (byte i = başla; i <= bitir; i++)
+                {
+                    _Tersle_(i);
+                }
+            }
+            else _Tersle_((byte)lbl.Tag);
+
+            if (ElleGirilenAdet + dizi_liste.Count == 0) Tablo.SelectedRows[0].Cells[Tablo_Adet.Index].Tag = null;
+            else
+            {
+                dizi_liste.Insert(0, ElleGirilenAdet);
+                Tablo.SelectedRows[0].Cells[Tablo_Adet.Index].Tag = dizi_liste.ToArray();
+            }
+
+            Dişler_GörseliniGüncelle();
+            Değişiklik_Yapılıyor(null, null);
+
+            void _Tersle_(byte eleman_)
+            {
+                if (dizi_liste.Contains(eleman_)) dizi_liste.Remove(eleman_);
+                else dizi_liste.Add(eleman_);
+            }
         }
 
         #region Dosya Ekleri
@@ -508,22 +572,28 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Kaydet_TuşGörünürlüğü(true);
         }
+        bool SadeceOkunabilirSatırİseKullanıcıyaSor_DevamEt(DataGridViewRow Satır)
+        {
+            if (Satır.ReadOnly)
+            {
+                DialogResult Dr = MessageBox.Show((Satır.Index + 1).ToString() + ". satırdaki iş önceki döneme ait" + Environment.NewLine +
+                        "Eğer kilidi kaldırılırsa halihazırdaki KABUL EDİLMİŞ BİLGİLERİ değiştirebileceksiniz." + Environment.NewLine +
+                        "İlgili satırın KİLDİNİ AÇMAK istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (Dr == DialogResult.No) return false;
+
+                Satır.ReadOnly = false;
+                Seçili_Satırı_Sil.Text = "Seçili Satırı Sil";
+            }
+
+            return true;
+        }
 
         private void Seçili_Satırı_Sil_Click(object sender, EventArgs e)
         {
             var l = Tablo.SelectedRows;
             if (l == null || l.Count > 1 || l[0].Index == Tablo.RowCount - 1) return;
 
-            if (l[0].ReadOnly)
-            {
-                DialogResult Dr = MessageBox.Show((l[0].Index + 1).ToString() + ". satırdaki iş önceki döneme ait" + Environment.NewLine +
-                        "Eğer kilidi kaldırılırsa halihazırdaki KABUL EDİLMİŞ BİLGİLERİ değiştirebileceksiniz." + Environment.NewLine +
-                        "İlgili satırın KİLDİNİ AÇMAK istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                if (Dr == DialogResult.No) return;
-
-                l[0].ReadOnly = false;
-                Seçili_Satırı_Sil.Text = "Seçili Satırı Sil";
-            }
+            if (l[0].ReadOnly) SadeceOkunabilirSatırİseKullanıcıyaSor_DevamEt(l[0]);
             else
             {
                 DialogResult Dr = MessageBox.Show((l[0].Index + 1).ToString() + ". satırdaki öğeyi KALICI OLARAK SİLMEK istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
@@ -531,17 +601,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 Tablo.Rows.Remove(l[0]);
                 Değişiklik_Yapılıyor(null, null);
-
-                //en az 1 adetli var ise dişleri göster
-                foreach (DataGridViewRow satır in Tablo.Rows)
-                {
-                    if (satır.Cells[0].ToolTipText.Contains("Adede göre hesaplanır"))
-                    {
-                        Ayraç_Kat_3_SolSağ_Sağ.Panel1Collapsed = false;
-                        return;
-                    }
-                }
-                Ayraç_Kat_3_SolSağ_Sağ.Panel1Collapsed = true;
             }
         }
         private void Kaydet_Click(object sender, EventArgs e)
@@ -562,7 +621,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 İşKaydıYapıldı = true;
             }
 
-            string sonuç = Etiketleme.YeniİşGirişi_Etiket_Üret(Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, SeriNo ?? YeniKayıtİçinTutulanSeriNo, Banka.Yazdır_Tarih((string)Tablo[2, Tablo.RowCount - 2].Value), (string)Tablo[0, Tablo.RowCount - 2].Value, false);
+            string sonuç = Etiketleme.YeniİşGirişi_Etiket_Üret(Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, SeriNo ?? YeniKayıtİçinTutulanSeriNo, Banka.Yazdır_Tarih((string)Tablo[Tablo_Giriş_Tarihi.Index, Tablo.RowCount - 2].Value), (string)Tablo[Tablo_İş_Türü.Index, Tablo.RowCount - 2].Value, false);
             if (sonuç.DoluMu()) MessageBox.Show((İşKaydıYapıldı ? "İş kaydı yapıldı fakat y" : "Y") + "azdırma aşamasında bir sorun ile karşılaşıldı" + Environment.NewLine + Environment.NewLine + sonuç, Text);
 
             Close();
@@ -623,66 +682,61 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Detaylar.İskonto = İskonto.Text;
             Detaylar.Notlar = Notlar.Text.Trim();
 
-            if (!Ayraç_Kat_3_SolSağ_Sağ.Panel1Collapsed)
-            {
-                //en az 1 adetli iş var
-                List<byte> l_dişler = new List<byte>();
-                foreach (Control ctr in Tablo_Dişler.Controls)
-                {
-                    CheckBox chcb = ctr as CheckBox;
-                    if (chcb == null || !chcb.Checked) continue;
-                    l_dişler.Add((byte)chcb.Text.TamSayıya());
-                }
-
-                if (l_dişler.Count == 0)
-                {
-                    MessageBox.Show("Hiç diş seçilmedi, lütfen kontrol ediniz", Text);
-                    return false;
-                }
-                Detaylar.DişKonumları = l_dişler.ToArray();
-            }
-
             DateTime t = DateTime.Now;
             Detaylar.İşTürleri = new List<string>();
             Detaylar.Ücretler = new List<string>();
             Detaylar.GirişTarihleri = new List<string>();
             Detaylar.ÇıkışTarihleri = new List<string>();
+            Detaylar.Adetler = new List<byte[]>();
             for (int i = 0; i < Tablo.RowCount - 1; i++)
             {
                 if (!Tablo.Rows[i].ReadOnly)
                 {
                     //İş türü kontrolü
-                    if (!Banka.İşTürü_MevcutMu((string)Tablo[0, i].Value))
+                    if (!Banka.İşTürü_MevcutMu((string)Tablo[Tablo_İş_Türü.Index, i].Value))
                     {
                         MessageBox.Show("Tablodaki " + (i + 1) + ". satırdaki \"İş Türü\" uygun değil", Text);
                         return false;
                     }
 
+                    //Adet kontrolü
+                    string gecici = (string)Tablo[Tablo_Adet.Index, i].Value;
+                    if (!Ortak.YazıyıSayıyaDönüştür(ref gecici,
+                        "Tablodaki adet sutununun " + (i + 1).ToString() + ". satırı",
+                        "Tamsayı olmalı", 1, 255, true)) return false;
+                    Tablo[Tablo_Adet.Index, i].Value = gecici;
+
                     //Ücret kontrolü
-                    if (!string.IsNullOrWhiteSpace((string)Tablo[1, i].Value))
+                    if (!string.IsNullOrWhiteSpace((string)Tablo[Tablo_Ücret.Index, i].Value))
                     {
-                        string gecici = (string)Tablo[1, i].Value;
+                        gecici = (string)Tablo[Tablo_Ücret.Index, i].Value;
                         if (!Ortak.YazıyıSayıyaDönüştür(ref gecici,
                             "Tablodaki ücret sutununun " + (i + 1).ToString() + ". satırı",
                             "İçeriği 0, boş veya sıfırdan büyük olabilir", 0)) return false;
 
-                        Tablo[1, i].Value = gecici;
+                        Tablo[Tablo_Ücret.Index, i].Value = gecici;
                     }
 
                     //tarih giriş
-                    if (Tablo[2, i].Tag == null)
+                    if (Tablo[Tablo_Giriş_Tarihi.Index , i].Tag == null)
                     {
-                        Tablo[2, i].Value = t.Yazıya();
-                        Tablo[2, i].Tag = t;
+                        Tablo[Tablo_Giriş_Tarihi.Index, i].Value = t.Yazıya();
+                        Tablo[Tablo_Giriş_Tarihi.Index, i].Tag = t;
 
                         t = t.AddMilliseconds(2);
                     }
                 }
 
-                Detaylar.İşTürleri.Add((string)Tablo[0, i].Value);
-                Detaylar.Ücretler.Add(((string)Tablo[1, i].Value));
-                Detaylar.GirişTarihleri.Add(((DateTime)Tablo[2, i].Tag).Yazıya());
-                Detaylar.ÇıkışTarihleri.Add(Tablo[3, i].Tag == null ? null : ((DateTime)Tablo[3, i].Tag).Yazıya());
+                Detaylar.İşTürleri.Add((string)Tablo[Tablo_İş_Türü.Index, i].Value);
+                Detaylar.Ücretler.Add((string)Tablo[Tablo_Ücret.Index, i].Value);
+                Detaylar.GirişTarihleri.Add(((DateTime)Tablo[Tablo_Giriş_Tarihi.Index, i].Tag).Yazıya());
+                Detaylar.ÇıkışTarihleri.Add(Tablo[Tablo_Çıkış_Tarihi.Index, i].Tag == null ? null : ((DateTime)Tablo[Tablo_Çıkış_Tarihi.Index, i].Tag).Yazıya());
+
+                byte adet = Convert.ToByte(Tablo[Tablo_Adet.Index, i].Value);
+                byte[] adetler = Tablo[Tablo_Adet.Index, i].Tag as byte[];
+                if (adetler == null || adetler.Length == 0) adetler = new byte[] { adet };
+                else adetler[0] = adet;
+                Detaylar.Adetler.Add(adetler);
             }
 
             if (Detaylar.İşTürleri.Count == 0)
@@ -703,10 +757,20 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Banka.Talep_Ekle(Detaylar);
             Banka.Ayarlar_Kullanıcı(Name, "Hastalar_AdVeSoyadıDüzelt").Yaz(null, Hastalar_AdVeSoyadıDüzelt.Checked);
             Banka.Değişiklikleri_Kaydet(Kaydet);
+            Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(Detaylar.SeriNo);
 
             P_Yeni_İş_Girişi_Epostalar.KullanılanEpostayıİşle();
 
             return true;
+        }
+
+        void IGüncellenenSeriNolar.KontrolEt(List<string> GüncellenenSeriNolar)
+        {
+            if (SeriNo.DoluMu() && GüncellenenSeriNolar.Contains(SeriNo))
+            {
+                Kaydet.Enabled = false;
+                Close();
+            }
         }
     }
 }

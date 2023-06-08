@@ -35,12 +35,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Notlar = new System.Windows.Forms.TextBox();
             this.Tablo = new System.Windows.Forms.DataGridView();
-            this.Tablo_İş_Türü = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tablo_Ücret = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tablo_Giriş_Tarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tablo_Çıkış_Tarihi = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Kaydet = new System.Windows.Forms.Button();
             this.Seçili_Satırı_Sil = new System.Windows.Forms.Button();
             this.İskonto = new System.Windows.Forms.TextBox();
@@ -60,40 +57,40 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.label7 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.Ayraç_Kat_3_SolSağ = new System.Windows.Forms.SplitContainer();
-            this.Ayraç_Kat_3_SolSağ_Sağ = new System.Windows.Forms.SplitContainer();
+            this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt = new System.Windows.Forms.SplitContainer();
             this.Tablo_Dişler = new System.Windows.Forms.TableLayoutPanel();
-            this.checkBox31 = new System.Windows.Forms.CheckBox();
-            this.checkBox12 = new System.Windows.Forms.CheckBox();
-            this.checkBox30 = new System.Windows.Forms.CheckBox();
-            this.checkBox29 = new System.Windows.Forms.CheckBox();
-            this.checkBox27 = new System.Windows.Forms.CheckBox();
-            this.checkBox26 = new System.Windows.Forms.CheckBox();
-            this.checkBox28 = new System.Windows.Forms.CheckBox();
-            this.checkBox32 = new System.Windows.Forms.CheckBox();
-            this.checkBox25 = new System.Windows.Forms.CheckBox();
-            this.checkBox24 = new System.Windows.Forms.CheckBox();
-            this.checkBox15 = new System.Windows.Forms.CheckBox();
-            this.checkBox14 = new System.Windows.Forms.CheckBox();
-            this.Seviye2_DevamEden = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox11 = new System.Windows.Forms.CheckBox();
-            this.checkBox33 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox9 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
-            this.checkBox21 = new System.Windows.Forms.CheckBox();
-            this.checkBox20 = new System.Windows.Forms.CheckBox();
-            this.checkBox19 = new System.Windows.Forms.CheckBox();
-            this.checkBox18 = new System.Windows.Forms.CheckBox();
-            this.checkBox17 = new System.Windows.Forms.CheckBox();
-            this.checkBox16 = new System.Windows.Forms.CheckBox();
-            this.checkBox13 = new System.Windows.Forms.CheckBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.P_DosyaEkleri = new System.Windows.Forms.Panel();
             this.P_Epostalar = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -102,8 +99,19 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Kat_2_3 = new System.Windows.Forms.SplitContainer();
             this.Ayraç_Kat_1_2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.altsol = new System.Windows.Forms.Label();
+            this.alt = new System.Windows.Forms.Label();
+            this.altsag = new System.Windows.Forms.Label();
+            this.ustsol = new System.Windows.Forms.Label();
+            this.ust = new System.Windows.Forms.Label();
+            this.ustsag = new System.Windows.Forms.Label();
             this.KurlarVeSüreler = new System.Windows.Forms.TextBox();
             this.İpUcu_Genel = new System.Windows.Forms.ToolTip(this.components);
+            this.Tablo_İş_Türü = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tablo_Adet = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tablo_Ücret = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tablo_Giriş_Tarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tablo_Çıkış_Tarihi = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             this.Müşteriler_Grup.SuspendLayout();
             this.Hastalar_Grup.SuspendLayout();
@@ -116,10 +124,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Kat_3_SolSağ.Panel1.SuspendLayout();
             this.Ayraç_Kat_3_SolSağ.Panel2.SuspendLayout();
             this.Ayraç_Kat_3_SolSağ.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Kat_3_SolSağ_Sağ)).BeginInit();
-            this.Ayraç_Kat_3_SolSağ_Sağ.Panel1.SuspendLayout();
-            this.Ayraç_Kat_3_SolSağ_Sağ.Panel2.SuspendLayout();
-            this.Ayraç_Kat_3_SolSağ_Sağ.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt)).BeginInit();
+            this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.Panel1.SuspendLayout();
+            this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.Panel2.SuspendLayout();
+            this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.SuspendLayout();
             this.Tablo_Dişler.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Kat_2_3)).BeginInit();
@@ -154,6 +162,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             // Tablo
             // 
+            this.Tablo.AllowUserToDeleteRows = false;
             this.Tablo.AllowUserToResizeColumns = false;
             this.Tablo.AllowUserToResizeRows = false;
             this.Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -170,6 +179,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Tablo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Tablo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Tablo_İş_Türü,
+            this.Tablo_Adet,
             this.Tablo_Ücret,
             this.Tablo_Giriş_Tarihi,
             this.Tablo_Çıkış_Tarihi});
@@ -187,53 +197,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Tablo.ShowCellErrors = false;
             this.Tablo.ShowEditingIcon = false;
             this.Tablo.ShowRowErrors = false;
-            this.Tablo.Size = new System.Drawing.Size(680, 231);
+            this.Tablo.Size = new System.Drawing.Size(681, 241);
             this.Tablo.TabIndex = 9;
             this.Tablo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellContentClick);
             this.Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellValueChanged);
             this.Tablo.SelectionChanged += new System.EventHandler(this.Tablo_SelectionChanged);
-            // 
-            // Tablo_İş_Türü
-            // 
-            this.Tablo_İş_Türü.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Tablo_İş_Türü.FillWeight = 70F;
-            this.Tablo_İş_Türü.HeaderText = "İş Türü";
-            this.Tablo_İş_Türü.MinimumWidth = 6;
-            this.Tablo_İş_Türü.Name = "Tablo_İş_Türü";
-            this.Tablo_İş_Türü.ReadOnly = true;
-            this.Tablo_İş_Türü.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_İş_Türü.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Tablo_Ücret
-            // 
-            this.Tablo_Ücret.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Ücret.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Tablo_Ücret.FillWeight = 30F;
-            this.Tablo_Ücret.HeaderText = "Ücret ₺";
-            this.Tablo_Ücret.MinimumWidth = 6;
-            this.Tablo_Ücret.Name = "Tablo_Ücret";
-            this.Tablo_Ücret.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Tablo_Giriş_Tarihi
-            // 
-            this.Tablo_Giriş_Tarihi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Giriş_Tarihi.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Tablo_Giriş_Tarihi.HeaderText = "Kabul Tarihi";
-            this.Tablo_Giriş_Tarihi.MinimumWidth = 6;
-            this.Tablo_Giriş_Tarihi.Name = "Tablo_Giriş_Tarihi";
-            this.Tablo_Giriş_Tarihi.ReadOnly = true;
-            this.Tablo_Giriş_Tarihi.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Tablo_Giriş_Tarihi.Width = 104;
-            // 
-            // Tablo_Çıkış_Tarihi
-            // 
-            this.Tablo_Çıkış_Tarihi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Tablo_Çıkış_Tarihi.HeaderText = "Çıkış Tarihi";
-            this.Tablo_Çıkış_Tarihi.MinimumWidth = 6;
-            this.Tablo_Çıkış_Tarihi.Name = "Tablo_Çıkış_Tarihi";
-            this.Tablo_Çıkış_Tarihi.Width = 99;
             // 
             // Kaydet
             // 
@@ -242,7 +210,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Kaydet.Enabled = false;
             this.Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Kaydet.Location = new System.Drawing.Point(548, 0);
+            this.Kaydet.Location = new System.Drawing.Point(553, 0);
             this.Kaydet.Margin = new System.Windows.Forms.Padding(2);
             this.Kaydet.Name = "Kaydet";
             this.Kaydet.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -299,7 +267,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Müşteriler_AramaÇubuğu.Dock = System.Windows.Forms.DockStyle.Top;
             this.Müşteriler_AramaÇubuğu.Location = new System.Drawing.Point(3, 22);
             this.Müşteriler_AramaÇubuğu.Name = "Müşteriler_AramaÇubuğu";
-            this.Müşteriler_AramaÇubuğu.Size = new System.Drawing.Size(341, 26);
+            this.Müşteriler_AramaÇubuğu.Size = new System.Drawing.Size(340, 26);
             this.Müşteriler_AramaÇubuğu.TabIndex = 0;
             this.İpUcu_Genel.SetToolTip(this.Müşteriler_AramaÇubuğu, "Arama çubuğu");
             this.Müşteriler_AramaÇubuğu.TextChanged += new System.EventHandler(this.Müşteriler_AramaÇubuğu_TextChanged);
@@ -322,7 +290,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İşTürleri_AramaÇubuğu.Dock = System.Windows.Forms.DockStyle.Top;
             this.İşTürleri_AramaÇubuğu.Location = new System.Drawing.Point(3, 22);
             this.İşTürleri_AramaÇubuğu.Name = "İşTürleri_AramaÇubuğu";
-            this.İşTürleri_AramaÇubuğu.Size = new System.Drawing.Size(280, 26);
+            this.İşTürleri_AramaÇubuğu.Size = new System.Drawing.Size(279, 26);
             this.İşTürleri_AramaÇubuğu.TabIndex = 6;
             this.İşTürleri_AramaÇubuğu.TextChanged += new System.EventHandler(this.İşTürleri_AramaÇubuğu_TextChanged);
             this.İşTürleri_AramaÇubuğu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.İşTürleri_AramaÇubuğu_KeyPress);
@@ -347,7 +315,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Müşteriler_Grup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Müşteriler_Grup.Location = new System.Drawing.Point(0, 0);
             this.Müşteriler_Grup.Name = "Müşteriler_Grup";
-            this.Müşteriler_Grup.Size = new System.Drawing.Size(347, 109);
+            this.Müşteriler_Grup.Size = new System.Drawing.Size(346, 109);
             this.Müşteriler_Grup.TabIndex = 13;
             this.Müşteriler_Grup.TabStop = false;
             this.Müşteriler_Grup.Text = "Müşteri";
@@ -361,7 +329,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Müşteriler_SeçimKutusu.Location = new System.Drawing.Point(3, 48);
             this.Müşteriler_SeçimKutusu.Margin = new System.Windows.Forms.Padding(2);
             this.Müşteriler_SeçimKutusu.Name = "Müşteriler_SeçimKutusu";
-            this.Müşteriler_SeçimKutusu.Size = new System.Drawing.Size(341, 58);
+            this.Müşteriler_SeçimKutusu.Size = new System.Drawing.Size(340, 58);
             this.Müşteriler_SeçimKutusu.TabIndex = 1;
             this.Müşteriler_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.Müşteriler_SeçimKutusu_SelectedIndexChanged);
             this.Müşteriler_SeçimKutusu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Müşteriler_SeçimKutusu_KeyPress);
@@ -400,7 +368,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İşTürleri.Dock = System.Windows.Forms.DockStyle.Fill;
             this.İşTürleri.Location = new System.Drawing.Point(0, 0);
             this.İşTürleri.Name = "İşTürleri";
-            this.İşTürleri.Size = new System.Drawing.Size(286, 325);
+            this.İşTürleri.Size = new System.Drawing.Size(285, 325);
             this.İşTürleri.TabIndex = 14;
             this.İşTürleri.TabStop = false;
             this.İşTürleri.Text = "İş Türleri";
@@ -413,7 +381,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İşTürleri_SeçimKutusu.Location = new System.Drawing.Point(3, 48);
             this.İşTürleri_SeçimKutusu.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.İşTürleri_SeçimKutusu.Name = "İşTürleri_SeçimKutusu";
-            this.İşTürleri_SeçimKutusu.Size = new System.Drawing.Size(280, 244);
+            this.İşTürleri_SeçimKutusu.Size = new System.Drawing.Size(279, 244);
             this.İşTürleri_SeçimKutusu.Sorted = true;
             this.İşTürleri_SeçimKutusu.TabIndex = 7;
             this.İşTürleri_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.İşTürleri_SeçimKutusu_SelectedIndexChanged);
@@ -429,7 +397,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İştürü_SeçiliSatıraKopyala.Location = new System.Drawing.Point(3, 292);
             this.İştürü_SeçiliSatıraKopyala.Margin = new System.Windows.Forms.Padding(2);
             this.İştürü_SeçiliSatıraKopyala.Name = "İştürü_SeçiliSatıraKopyala";
-            this.İştürü_SeçiliSatıraKopyala.Size = new System.Drawing.Size(280, 30);
+            this.İştürü_SeçiliSatıraKopyala.Size = new System.Drawing.Size(279, 30);
             this.İştürü_SeçiliSatıraKopyala.TabIndex = 8;
             this.İştürü_SeçiliSatıraKopyala.Text = "Seçili Satıra Kopyala";
             this.İştürü_SeçiliSatıraKopyala.UseVisualStyleBackColor = true;
@@ -470,8 +438,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.Hastalar_Grup);
-            this.splitContainer1.Size = new System.Drawing.Size(702, 113);
-            this.splitContainer1.SplitterDistance = 351;
+            this.splitContainer1.Size = new System.Drawing.Size(701, 113);
+            this.splitContainer1.SplitterDistance = 350;
             this.splitContainer1.TabIndex = 23;
             // 
             // Ayraç_Kat_3_SolSağ
@@ -487,672 +455,467 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             // Ayraç_Kat_3_SolSağ.Panel2
             // 
-            this.Ayraç_Kat_3_SolSağ.Panel2.Controls.Add(this.Ayraç_Kat_3_SolSağ_Sağ);
+            this.Ayraç_Kat_3_SolSağ.Panel2.Controls.Add(this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt);
             this.Ayraç_Kat_3_SolSağ.Panel2.Controls.Add(this.panel1);
             this.Ayraç_Kat_3_SolSağ.Size = new System.Drawing.Size(978, 329);
-            this.Ayraç_Kat_3_SolSağ.SplitterDistance = 290;
+            this.Ayraç_Kat_3_SolSağ.SplitterDistance = 289;
             this.Ayraç_Kat_3_SolSağ.TabIndex = 24;
             // 
-            // Ayraç_Kat_3_SolSağ_Sağ
+            // Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt
             // 
-            this.Ayraç_Kat_3_SolSağ_Sağ.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Ayraç_Kat_3_SolSağ_Sağ.Location = new System.Drawing.Point(0, 0);
-            this.Ayraç_Kat_3_SolSağ_Sağ.Name = "Ayraç_Kat_3_SolSağ_Sağ";
-            this.Ayraç_Kat_3_SolSağ_Sağ.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.Location = new System.Drawing.Point(0, 0);
+            this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.Name = "Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt";
+            this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // Ayraç_Kat_3_SolSağ_Sağ.Panel1
+            // Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.Panel1
             // 
-            this.Ayraç_Kat_3_SolSağ_Sağ.Panel1.Controls.Add(this.Tablo_Dişler);
+            this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.Panel1.Controls.Add(this.Tablo_Dişler);
             // 
-            // Ayraç_Kat_3_SolSağ_Sağ.Panel2
+            // Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.Panel2
             // 
-            this.Ayraç_Kat_3_SolSağ_Sağ.Panel2.Controls.Add(this.P_DosyaEkleri);
-            this.Ayraç_Kat_3_SolSağ_Sağ.Panel2.Controls.Add(this.P_Epostalar);
-            this.Ayraç_Kat_3_SolSağ_Sağ.Panel2.Controls.Add(this.Tablo);
-            this.Ayraç_Kat_3_SolSağ_Sağ.Size = new System.Drawing.Size(680, 292);
-            this.Ayraç_Kat_3_SolSağ_Sağ.SplitterDistance = 57;
-            this.Ayraç_Kat_3_SolSağ_Sağ.TabIndex = 15;
+            this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.Panel2.Controls.Add(this.P_DosyaEkleri);
+            this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.Panel2.Controls.Add(this.P_Epostalar);
+            this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.Panel2.Controls.Add(this.Tablo);
+            this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.Size = new System.Drawing.Size(685, 296);
+            this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.SplitterDistance = 47;
+            this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.TabIndex = 15;
             // 
             // Tablo_Dişler
             // 
-            this.Tablo_Dişler.ColumnCount = 17;
-            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.122449F));
-            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.122449F));
-            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.122449F));
-            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.122449F));
-            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.122449F));
-            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.122449F));
-            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.122449F));
-            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.122449F));
-            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 2.040816F));
-            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.122449F));
-            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.122449F));
-            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.122449F));
-            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.122449F));
-            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.122449F));
-            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.122449F));
-            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.122449F));
-            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.122449F));
-            this.Tablo_Dişler.Controls.Add(this.checkBox31, 14, 1);
-            this.Tablo_Dişler.Controls.Add(this.checkBox12, 16, 0);
-            this.Tablo_Dişler.Controls.Add(this.checkBox30, 13, 1);
-            this.Tablo_Dişler.Controls.Add(this.checkBox29, 12, 1);
-            this.Tablo_Dişler.Controls.Add(this.checkBox27, 10, 1);
-            this.Tablo_Dişler.Controls.Add(this.checkBox26, 9, 1);
-            this.Tablo_Dişler.Controls.Add(this.checkBox28, 11, 1);
-            this.Tablo_Dişler.Controls.Add(this.checkBox32, 15, 1);
-            this.Tablo_Dişler.Controls.Add(this.checkBox25, 7, 1);
-            this.Tablo_Dişler.Controls.Add(this.checkBox24, 6, 1);
-            this.Tablo_Dişler.Controls.Add(this.checkBox15, 7, 0);
-            this.Tablo_Dişler.Controls.Add(this.checkBox14, 6, 0);
-            this.Tablo_Dişler.Controls.Add(this.Seviye2_DevamEden, 0, 0);
-            this.Tablo_Dişler.Controls.Add(this.checkBox1, 0, 1);
-            this.Tablo_Dişler.Controls.Add(this.checkBox2, 1, 1);
-            this.Tablo_Dişler.Controls.Add(this.checkBox11, 5, 1);
-            this.Tablo_Dişler.Controls.Add(this.checkBox33, 16, 1);
-            this.Tablo_Dişler.Controls.Add(this.checkBox5, 2, 1);
-            this.Tablo_Dişler.Controls.Add(this.checkBox10, 5, 0);
-            this.Tablo_Dişler.Controls.Add(this.checkBox3, 1, 0);
-            this.Tablo_Dişler.Controls.Add(this.checkBox9, 4, 1);
-            this.Tablo_Dişler.Controls.Add(this.checkBox4, 2, 0);
-            this.Tablo_Dişler.Controls.Add(this.checkBox8, 4, 0);
-            this.Tablo_Dişler.Controls.Add(this.checkBox6, 3, 0);
-            this.Tablo_Dişler.Controls.Add(this.checkBox7, 3, 1);
-            this.Tablo_Dişler.Controls.Add(this.checkBox21, 15, 0);
-            this.Tablo_Dişler.Controls.Add(this.checkBox20, 14, 0);
-            this.Tablo_Dişler.Controls.Add(this.checkBox19, 13, 0);
-            this.Tablo_Dişler.Controls.Add(this.checkBox18, 12, 0);
-            this.Tablo_Dişler.Controls.Add(this.checkBox17, 11, 0);
-            this.Tablo_Dişler.Controls.Add(this.checkBox16, 10, 0);
-            this.Tablo_Dişler.Controls.Add(this.checkBox13, 9, 0);
+            this.Tablo_Dişler.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.Tablo_Dişler.ColumnCount = 19;
+            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.601121F));
+            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.601121F));
+            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.601121F));
+            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.601121F));
+            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.601121F));
+            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.601121F));
+            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.601121F));
+            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.601121F));
+            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 3.460693F));
+            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 3.460693F));
+            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 3.460693F));
+            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.601121F));
+            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.601121F));
+            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.601121F));
+            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.601121F));
+            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.601121F));
+            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.601121F));
+            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.601121F));
+            this.Tablo_Dişler.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.601121F));
+            this.Tablo_Dişler.Controls.Add(this.label36, 18, 1);
+            this.Tablo_Dişler.Controls.Add(this.altsag, 10, 1);
+            this.Tablo_Dişler.Controls.Add(this.label35, 17, 1);
+            this.Tablo_Dişler.Controls.Add(this.alt, 9, 1);
+            this.Tablo_Dişler.Controls.Add(this.label32, 16, 1);
+            this.Tablo_Dişler.Controls.Add(this.label33, 18, 0);
+            this.Tablo_Dişler.Controls.Add(this.label31, 15, 1);
+            this.Tablo_Dişler.Controls.Add(this.ustsag, 10, 0);
+            this.Tablo_Dişler.Controls.Add(this.label30, 14, 1);
+            this.Tablo_Dişler.Controls.Add(this.label26, 17, 0);
+            this.Tablo_Dişler.Controls.Add(this.label29, 13, 1);
+            this.Tablo_Dişler.Controls.Add(this.altsol, 8, 1);
+            this.Tablo_Dişler.Controls.Add(this.label28, 12, 1);
+            this.Tablo_Dişler.Controls.Add(this.label21, 15, 0);
+            this.Tablo_Dişler.Controls.Add(this.label27, 11, 1);
+            this.Tablo_Dişler.Controls.Add(this.label25, 7, 1);
+            this.Tablo_Dişler.Controls.Add(this.label24, 6, 1);
+            this.Tablo_Dişler.Controls.Add(this.label17, 11, 0);
+            this.Tablo_Dişler.Controls.Add(this.label18, 12, 0);
+            this.Tablo_Dişler.Controls.Add(this.label22, 16, 0);
+            this.Tablo_Dişler.Controls.Add(this.label19, 13, 0);
+            this.Tablo_Dişler.Controls.Add(this.label23, 5, 1);
+            this.Tablo_Dişler.Controls.Add(this.ust, 9, 0);
+            this.Tablo_Dişler.Controls.Add(this.ustsol, 8, 0);
+            this.Tablo_Dişler.Controls.Add(this.label16, 7, 0);
+            this.Tablo_Dişler.Controls.Add(this.label15, 6, 0);
+            this.Tablo_Dişler.Controls.Add(this.label14, 5, 0);
+            this.Tablo_Dişler.Controls.Add(this.label13, 4, 1);
+            this.Tablo_Dişler.Controls.Add(this.label12, 3, 1);
+            this.Tablo_Dişler.Controls.Add(this.label11, 2, 1);
+            this.Tablo_Dişler.Controls.Add(this.label10, 4, 0);
+            this.Tablo_Dişler.Controls.Add(this.label9, 3, 0);
+            this.Tablo_Dişler.Controls.Add(this.label8, 2, 0);
+            this.Tablo_Dişler.Controls.Add(this.label1, 0, 0);
+            this.Tablo_Dişler.Controls.Add(this.label5, 1, 1);
+            this.Tablo_Dişler.Controls.Add(this.label4, 0, 1);
+            this.Tablo_Dişler.Controls.Add(this.label2, 1, 0);
+            this.Tablo_Dişler.Controls.Add(this.label20, 14, 0);
             this.Tablo_Dişler.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Tablo_Dişler.Location = new System.Drawing.Point(0, 0);
+            this.Tablo_Dişler.Margin = new System.Windows.Forms.Padding(0);
             this.Tablo_Dişler.Name = "Tablo_Dişler";
             this.Tablo_Dişler.RowCount = 2;
             this.Tablo_Dişler.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.Tablo_Dişler.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.Tablo_Dişler.Size = new System.Drawing.Size(680, 57);
+            this.Tablo_Dişler.Size = new System.Drawing.Size(681, 43);
             this.Tablo_Dişler.TabIndex = 8;
             // 
-            // checkBox31
+            // label25
             // 
-            this.checkBox31.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox31.AutoSize = true;
-            this.checkBox31.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox31.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox31.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox31.Location = new System.Drawing.Point(548, 30);
-            this.checkBox31.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox31.Name = "checkBox31";
-            this.checkBox31.Size = new System.Drawing.Size(37, 25);
-            this.checkBox31.TabIndex = 25;
-            this.checkBox31.Text = "36";
-            this.checkBox31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox31.UseCompatibleTextRendering = true;
-            this.checkBox31.UseVisualStyleBackColor = true;
-            this.checkBox31.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label25.AutoSize = true;
+            this.label25.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label25.Location = new System.Drawing.Point(270, 22);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(31, 20);
+            this.label25.TabIndex = 50;
+            this.label25.Text = "41";
+            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox12
+            // label24
             // 
-            this.checkBox12.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox12.AutoSize = true;
-            this.checkBox12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox12.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox12.Location = new System.Drawing.Point(630, 2);
-            this.checkBox12.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox12.Name = "checkBox12";
-            this.checkBox12.Size = new System.Drawing.Size(48, 24);
-            this.checkBox12.TabIndex = 27;
-            this.checkBox12.Text = "28";
-            this.checkBox12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox12.UseCompatibleTextRendering = true;
-            this.checkBox12.UseVisualStyleBackColor = true;
-            this.checkBox12.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label24.AutoSize = true;
+            this.label24.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label24.Location = new System.Drawing.Point(232, 22);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(31, 20);
+            this.label24.TabIndex = 49;
+            this.label24.Text = "42";
+            this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox30
+            // label23
             // 
-            this.checkBox30.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox30.AutoSize = true;
-            this.checkBox30.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox30.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox30.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox30.Location = new System.Drawing.Point(507, 30);
-            this.checkBox30.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox30.Name = "checkBox30";
-            this.checkBox30.Size = new System.Drawing.Size(37, 25);
-            this.checkBox30.TabIndex = 24;
-            this.checkBox30.Text = "35";
-            this.checkBox30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox30.UseCompatibleTextRendering = true;
-            this.checkBox30.UseVisualStyleBackColor = true;
-            this.checkBox30.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label23.AutoSize = true;
+            this.label23.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label23.Location = new System.Drawing.Point(194, 22);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(31, 20);
+            this.label23.TabIndex = 48;
+            this.label23.Text = "43";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox29
+            // label16
             // 
-            this.checkBox29.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox29.AutoSize = true;
-            this.checkBox29.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox29.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox29.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox29.Location = new System.Drawing.Point(466, 30);
-            this.checkBox29.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox29.Name = "checkBox29";
-            this.checkBox29.Size = new System.Drawing.Size(37, 25);
-            this.checkBox29.TabIndex = 23;
-            this.checkBox29.Text = "34";
-            this.checkBox29.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox29.UseCompatibleTextRendering = true;
-            this.checkBox29.UseVisualStyleBackColor = true;
-            this.checkBox29.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label16.AutoSize = true;
+            this.label16.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label16.Location = new System.Drawing.Point(270, 1);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(31, 20);
+            this.label16.TabIndex = 41;
+            this.label16.Text = "11";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox27
+            // label15
             // 
-            this.checkBox27.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox27.AutoSize = true;
-            this.checkBox27.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox27.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox27.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox27.Location = new System.Drawing.Point(384, 30);
-            this.checkBox27.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox27.Name = "checkBox27";
-            this.checkBox27.Size = new System.Drawing.Size(37, 25);
-            this.checkBox27.TabIndex = 21;
-            this.checkBox27.Text = "32";
-            this.checkBox27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox27.UseCompatibleTextRendering = true;
-            this.checkBox27.UseVisualStyleBackColor = true;
-            this.checkBox27.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label15.AutoSize = true;
+            this.label15.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label15.Location = new System.Drawing.Point(232, 1);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(31, 20);
+            this.label15.TabIndex = 40;
+            this.label15.Text = "12";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox26
+            // label14
             // 
-            this.checkBox26.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox26.AutoSize = true;
-            this.checkBox26.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox26.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox26.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox26.Location = new System.Drawing.Point(343, 30);
-            this.checkBox26.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox26.Name = "checkBox26";
-            this.checkBox26.Size = new System.Drawing.Size(37, 25);
-            this.checkBox26.TabIndex = 20;
-            this.checkBox26.Text = "31";
-            this.checkBox26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox26.UseCompatibleTextRendering = true;
-            this.checkBox26.UseVisualStyleBackColor = true;
-            this.checkBox26.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label14.AutoSize = true;
+            this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label14.Location = new System.Drawing.Point(194, 1);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(31, 20);
+            this.label14.TabIndex = 39;
+            this.label14.Text = "13";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox28
+            // label13
             // 
-            this.checkBox28.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox28.AutoSize = true;
-            this.checkBox28.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox28.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox28.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox28.Location = new System.Drawing.Point(425, 30);
-            this.checkBox28.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox28.Name = "checkBox28";
-            this.checkBox28.Size = new System.Drawing.Size(37, 25);
-            this.checkBox28.TabIndex = 22;
-            this.checkBox28.Text = "33";
-            this.checkBox28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox28.UseCompatibleTextRendering = true;
-            this.checkBox28.UseVisualStyleBackColor = true;
-            this.checkBox28.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label13.AutoSize = true;
+            this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label13.Location = new System.Drawing.Point(156, 22);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(31, 20);
+            this.label13.TabIndex = 38;
+            this.label13.Text = "44";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox32
+            // label12
             // 
-            this.checkBox32.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox32.AutoSize = true;
-            this.checkBox32.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox32.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox32.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox32.Location = new System.Drawing.Point(589, 30);
-            this.checkBox32.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox32.Name = "checkBox32";
-            this.checkBox32.Size = new System.Drawing.Size(37, 25);
-            this.checkBox32.TabIndex = 26;
-            this.checkBox32.Text = "37";
-            this.checkBox32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox32.UseCompatibleTextRendering = true;
-            this.checkBox32.UseVisualStyleBackColor = true;
-            this.checkBox32.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label12.AutoSize = true;
+            this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label12.Location = new System.Drawing.Point(118, 22);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(31, 20);
+            this.label12.TabIndex = 37;
+            this.label12.Text = "45";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox25
+            // label11
             // 
-            this.checkBox25.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox25.AutoSize = true;
-            this.checkBox25.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox25.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox25.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox25.Location = new System.Drawing.Point(289, 30);
-            this.checkBox25.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox25.Name = "checkBox25";
-            this.checkBox25.Size = new System.Drawing.Size(37, 25);
-            this.checkBox25.TabIndex = 19;
-            this.checkBox25.Text = "41";
-            this.checkBox25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox25.UseCompatibleTextRendering = true;
-            this.checkBox25.UseVisualStyleBackColor = true;
-            this.checkBox25.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label11.AutoSize = true;
+            this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label11.Location = new System.Drawing.Point(79, 22);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 0, 2);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(35, 18);
+            this.label11.TabIndex = 36;
+            this.label11.Text = "46";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox24
+            // label10
             // 
-            this.checkBox24.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox24.AutoSize = true;
-            this.checkBox24.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox24.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox24.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox24.Location = new System.Drawing.Point(248, 30);
-            this.checkBox24.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox24.Name = "checkBox24";
-            this.checkBox24.Size = new System.Drawing.Size(37, 25);
-            this.checkBox24.TabIndex = 18;
-            this.checkBox24.Text = "42";
-            this.checkBox24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox24.UseCompatibleTextRendering = true;
-            this.checkBox24.UseVisualStyleBackColor = true;
-            this.checkBox24.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label10.AutoSize = true;
+            this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label10.Location = new System.Drawing.Point(156, 1);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(31, 20);
+            this.label10.TabIndex = 35;
+            this.label10.Text = "14";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox15
+            // label9
             // 
-            this.checkBox15.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox15.AutoSize = true;
-            this.checkBox15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox15.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox15.Location = new System.Drawing.Point(289, 2);
-            this.checkBox15.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox15.Name = "checkBox15";
-            this.checkBox15.Size = new System.Drawing.Size(37, 24);
-            this.checkBox15.TabIndex = 10;
-            this.checkBox15.Text = "11";
-            this.checkBox15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox15.UseCompatibleTextRendering = true;
-            this.checkBox15.UseVisualStyleBackColor = true;
-            this.checkBox15.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label9.AutoSize = true;
+            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label9.Location = new System.Drawing.Point(118, 1);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(31, 20);
+            this.label9.TabIndex = 34;
+            this.label9.Text = "15";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox14
+            // label8
             // 
-            this.checkBox14.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox14.AutoSize = true;
-            this.checkBox14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox14.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox14.Location = new System.Drawing.Point(248, 2);
-            this.checkBox14.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox14.Name = "checkBox14";
-            this.checkBox14.Size = new System.Drawing.Size(37, 24);
-            this.checkBox14.TabIndex = 9;
-            this.checkBox14.Text = "12";
-            this.checkBox14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox14.UseCompatibleTextRendering = true;
-            this.checkBox14.UseVisualStyleBackColor = true;
-            this.checkBox14.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label8.AutoSize = true;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label8.Location = new System.Drawing.Point(79, 1);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 0, 2);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(35, 18);
+            this.label8.TabIndex = 33;
+            this.label8.Text = "16";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Seviye2_DevamEden
+            // label1
             // 
-            this.Seviye2_DevamEden.Appearance = System.Windows.Forms.Appearance.Button;
-            this.Seviye2_DevamEden.AutoSize = true;
-            this.Seviye2_DevamEden.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Seviye2_DevamEden.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.Seviye2_DevamEden.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Seviye2_DevamEden.Location = new System.Drawing.Point(2, 2);
-            this.Seviye2_DevamEden.Margin = new System.Windows.Forms.Padding(2);
-            this.Seviye2_DevamEden.Name = "Seviye2_DevamEden";
-            this.Seviye2_DevamEden.Size = new System.Drawing.Size(37, 24);
-            this.Seviye2_DevamEden.TabIndex = 4;
-            this.Seviye2_DevamEden.Text = "18";
-            this.Seviye2_DevamEden.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Seviye2_DevamEden.UseCompatibleTextRendering = true;
-            this.Seviye2_DevamEden.UseVisualStyleBackColor = true;
-            this.Seviye2_DevamEden.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.SystemColors.Control;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Location = new System.Drawing.Point(3, 1);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 0, 2);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 18);
+            this.label1.TabIndex = 32;
+            this.label1.Text = "18";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox1
+            // label5
             // 
-            this.checkBox1.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox1.Location = new System.Drawing.Point(2, 30);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(37, 25);
-            this.checkBox1.TabIndex = 5;
-            this.checkBox1.Text = "48";
-            this.checkBox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox1.UseCompatibleTextRendering = true;
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label5.AutoSize = true;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Location = new System.Drawing.Point(41, 22);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 0, 2);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 18);
+            this.label5.TabIndex = 31;
+            this.label5.Text = "47";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox2
+            // label4
             // 
-            this.checkBox2.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox2.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox2.Location = new System.Drawing.Point(43, 30);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(37, 25);
-            this.checkBox2.TabIndex = 7;
-            this.checkBox2.Text = "47";
-            this.checkBox2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox2.UseCompatibleTextRendering = true;
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label4.Location = new System.Drawing.Point(3, 22);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 0, 2);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 18);
+            this.label4.TabIndex = 30;
+            this.label4.Text = "48";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox11
+            // label2
             // 
-            this.checkBox11.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox11.AutoSize = true;
-            this.checkBox11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox11.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox11.Location = new System.Drawing.Point(207, 30);
-            this.checkBox11.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox11.Name = "checkBox11";
-            this.checkBox11.Size = new System.Drawing.Size(37, 25);
-            this.checkBox11.TabIndex = 7;
-            this.checkBox11.Text = "43";
-            this.checkBox11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox11.UseCompatibleTextRendering = true;
-            this.checkBox11.UseVisualStyleBackColor = true;
-            this.checkBox11.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.SystemColors.Control;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Location = new System.Drawing.Point(41, 1);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 0, 2);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 18);
+            this.label2.TabIndex = 28;
+            this.label2.Text = "17";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox33
+            // label36
             // 
-            this.checkBox33.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox33.AutoSize = true;
-            this.checkBox33.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox33.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox33.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox33.Location = new System.Drawing.Point(630, 30);
-            this.checkBox33.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox33.Name = "checkBox33";
-            this.checkBox33.Size = new System.Drawing.Size(48, 25);
-            this.checkBox33.TabIndex = 27;
-            this.checkBox33.Text = "38";
-            this.checkBox33.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox33.UseCompatibleTextRendering = true;
-            this.checkBox33.UseVisualStyleBackColor = true;
-            this.checkBox33.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label36.AutoSize = true;
+            this.label36.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label36.Location = new System.Drawing.Point(643, 22);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(34, 20);
+            this.label36.TabIndex = 63;
+            this.label36.Text = "38";
+            this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox5
+            // label35
             // 
-            this.checkBox5.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox5.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox5.Location = new System.Drawing.Point(84, 30);
-            this.checkBox5.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(37, 25);
-            this.checkBox5.TabIndex = 5;
-            this.checkBox5.Text = "46";
-            this.checkBox5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox5.UseCompatibleTextRendering = true;
-            this.checkBox5.UseVisualStyleBackColor = true;
-            this.checkBox5.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label35.AutoSize = true;
+            this.label35.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label35.Location = new System.Drawing.Point(605, 22);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(31, 20);
+            this.label35.TabIndex = 62;
+            this.label35.Text = "37";
+            this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox10
+            // label33
             // 
-            this.checkBox10.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox10.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox10.Location = new System.Drawing.Point(207, 2);
-            this.checkBox10.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(37, 24);
-            this.checkBox10.TabIndex = 6;
-            this.checkBox10.Text = "13";
-            this.checkBox10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox10.UseCompatibleTextRendering = true;
-            this.checkBox10.UseVisualStyleBackColor = true;
-            this.checkBox10.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label33.AutoSize = true;
+            this.label33.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label33.Location = new System.Drawing.Point(643, 1);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(34, 20);
+            this.label33.TabIndex = 60;
+            this.label33.Text = "28";
+            this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox3
+            // label26
             // 
-            this.checkBox3.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox3.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox3.Location = new System.Drawing.Point(43, 2);
-            this.checkBox3.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(37, 24);
-            this.checkBox3.TabIndex = 6;
-            this.checkBox3.Text = "17";
-            this.checkBox3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox3.UseCompatibleTextRendering = true;
-            this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label26.AutoSize = true;
+            this.label26.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label26.Location = new System.Drawing.Point(605, 1);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(31, 20);
+            this.label26.TabIndex = 59;
+            this.label26.Text = "27";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox9
+            // label21
             // 
-            this.checkBox9.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox9.AutoSize = true;
-            this.checkBox9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox9.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox9.Location = new System.Drawing.Point(166, 30);
-            this.checkBox9.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(37, 25);
-            this.checkBox9.TabIndex = 7;
-            this.checkBox9.Text = "44";
-            this.checkBox9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox9.UseCompatibleTextRendering = true;
-            this.checkBox9.UseVisualStyleBackColor = true;
-            this.checkBox9.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label21.AutoSize = true;
+            this.label21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label21.Location = new System.Drawing.Point(529, 1);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(31, 20);
+            this.label21.TabIndex = 46;
+            this.label21.Text = "25";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox4
+            // label32
             // 
-            this.checkBox4.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox4.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox4.Location = new System.Drawing.Point(84, 2);
-            this.checkBox4.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(37, 24);
-            this.checkBox4.TabIndex = 4;
-            this.checkBox4.Text = "16";
-            this.checkBox4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox4.UseCompatibleTextRendering = true;
-            this.checkBox4.UseVisualStyleBackColor = true;
-            this.checkBox4.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label32.AutoSize = true;
+            this.label32.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label32.Location = new System.Drawing.Point(567, 22);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(31, 20);
+            this.label32.TabIndex = 57;
+            this.label32.Text = "36";
+            this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox8
+            // label17
             // 
-            this.checkBox8.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox8.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox8.Location = new System.Drawing.Point(166, 2);
-            this.checkBox8.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(37, 24);
-            this.checkBox8.TabIndex = 6;
-            this.checkBox8.Text = "14";
-            this.checkBox8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox8.UseCompatibleTextRendering = true;
-            this.checkBox8.UseVisualStyleBackColor = true;
-            this.checkBox8.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label17.AutoSize = true;
+            this.label17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label17.Location = new System.Drawing.Point(377, 1);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(31, 20);
+            this.label17.TabIndex = 42;
+            this.label17.Text = "21";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox6
+            // label31
             // 
-            this.checkBox6.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox6.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox6.Location = new System.Drawing.Point(125, 2);
-            this.checkBox6.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(37, 24);
-            this.checkBox6.TabIndex = 6;
-            this.checkBox6.Text = "15";
-            this.checkBox6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox6.UseCompatibleTextRendering = true;
-            this.checkBox6.UseVisualStyleBackColor = true;
-            this.checkBox6.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label31.AutoSize = true;
+            this.label31.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label31.Location = new System.Drawing.Point(529, 22);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(31, 20);
+            this.label31.TabIndex = 56;
+            this.label31.Text = "35";
+            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox7
+            // label18
             // 
-            this.checkBox7.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox7.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox7.Location = new System.Drawing.Point(125, 30);
-            this.checkBox7.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(37, 25);
-            this.checkBox7.TabIndex = 7;
-            this.checkBox7.Text = "45";
-            this.checkBox7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox7.UseCompatibleTextRendering = true;
-            this.checkBox7.UseVisualStyleBackColor = true;
-            this.checkBox7.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label18.AutoSize = true;
+            this.label18.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label18.Location = new System.Drawing.Point(415, 1);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(31, 20);
+            this.label18.TabIndex = 43;
+            this.label18.Text = "22";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox21
+            // label30
             // 
-            this.checkBox21.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox21.AutoSize = true;
-            this.checkBox21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox21.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox21.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox21.Location = new System.Drawing.Point(589, 2);
-            this.checkBox21.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox21.Name = "checkBox21";
-            this.checkBox21.Size = new System.Drawing.Size(37, 24);
-            this.checkBox21.TabIndex = 25;
-            this.checkBox21.Text = "27";
-            this.checkBox21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox21.UseCompatibleTextRendering = true;
-            this.checkBox21.UseVisualStyleBackColor = true;
-            this.checkBox21.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label30.AutoSize = true;
+            this.label30.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label30.Location = new System.Drawing.Point(491, 22);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(31, 20);
+            this.label30.TabIndex = 55;
+            this.label30.Text = "34";
+            this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox20
+            // label19
             // 
-            this.checkBox20.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox20.AutoSize = true;
-            this.checkBox20.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox20.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox20.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox20.Location = new System.Drawing.Point(548, 2);
-            this.checkBox20.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox20.Name = "checkBox20";
-            this.checkBox20.Size = new System.Drawing.Size(37, 24);
-            this.checkBox20.TabIndex = 24;
-            this.checkBox20.Text = "26";
-            this.checkBox20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox20.UseCompatibleTextRendering = true;
-            this.checkBox20.UseVisualStyleBackColor = true;
-            this.checkBox20.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label19.AutoSize = true;
+            this.label19.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label19.Location = new System.Drawing.Point(453, 1);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(31, 20);
+            this.label19.TabIndex = 44;
+            this.label19.Text = "23";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox19
+            // label29
             // 
-            this.checkBox19.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox19.AutoSize = true;
-            this.checkBox19.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox19.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox19.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox19.Location = new System.Drawing.Point(507, 2);
-            this.checkBox19.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox19.Name = "checkBox19";
-            this.checkBox19.Size = new System.Drawing.Size(37, 24);
-            this.checkBox19.TabIndex = 23;
-            this.checkBox19.Text = "25";
-            this.checkBox19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox19.UseCompatibleTextRendering = true;
-            this.checkBox19.UseVisualStyleBackColor = true;
-            this.checkBox19.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label29.AutoSize = true;
+            this.label29.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label29.Location = new System.Drawing.Point(453, 22);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(31, 20);
+            this.label29.TabIndex = 54;
+            this.label29.Text = "33";
+            this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox18
+            // label20
             // 
-            this.checkBox18.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox18.AutoSize = true;
-            this.checkBox18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox18.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox18.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox18.Location = new System.Drawing.Point(466, 2);
-            this.checkBox18.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox18.Name = "checkBox18";
-            this.checkBox18.Size = new System.Drawing.Size(37, 24);
-            this.checkBox18.TabIndex = 21;
-            this.checkBox18.Text = "24";
-            this.checkBox18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox18.UseCompatibleTextRendering = true;
-            this.checkBox18.UseVisualStyleBackColor = true;
-            this.checkBox18.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label20.AutoSize = true;
+            this.label20.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label20.Location = new System.Drawing.Point(491, 1);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(31, 20);
+            this.label20.TabIndex = 45;
+            this.label20.Text = "24";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox17
+            // label28
             // 
-            this.checkBox17.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox17.AutoSize = true;
-            this.checkBox17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox17.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox17.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox17.Location = new System.Drawing.Point(425, 2);
-            this.checkBox17.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox17.Name = "checkBox17";
-            this.checkBox17.Size = new System.Drawing.Size(37, 24);
-            this.checkBox17.TabIndex = 20;
-            this.checkBox17.Text = "23";
-            this.checkBox17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox17.UseCompatibleTextRendering = true;
-            this.checkBox17.UseVisualStyleBackColor = true;
-            this.checkBox17.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label28.AutoSize = true;
+            this.label28.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label28.Location = new System.Drawing.Point(415, 22);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(31, 20);
+            this.label28.TabIndex = 53;
+            this.label28.Text = "32";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox16
+            // label22
             // 
-            this.checkBox16.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox16.AutoSize = true;
-            this.checkBox16.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox16.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox16.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox16.Location = new System.Drawing.Point(384, 2);
-            this.checkBox16.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox16.Name = "checkBox16";
-            this.checkBox16.Size = new System.Drawing.Size(37, 24);
-            this.checkBox16.TabIndex = 22;
-            this.checkBox16.Text = "22";
-            this.checkBox16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox16.UseCompatibleTextRendering = true;
-            this.checkBox16.UseVisualStyleBackColor = true;
-            this.checkBox16.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label22.AutoSize = true;
+            this.label22.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label22.Location = new System.Drawing.Point(567, 1);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(31, 20);
+            this.label22.TabIndex = 47;
+            this.label22.Text = "26";
+            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox13
+            // label27
             // 
-            this.checkBox13.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox13.AutoSize = true;
-            this.checkBox13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox13.FlatAppearance.CheckedBackColor = System.Drawing.Color.Khaki;
-            this.checkBox13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox13.Location = new System.Drawing.Point(343, 2);
-            this.checkBox13.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox13.Name = "checkBox13";
-            this.checkBox13.Size = new System.Drawing.Size(37, 24);
-            this.checkBox13.TabIndex = 26;
-            this.checkBox13.Text = "21";
-            this.checkBox13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox13.UseCompatibleTextRendering = true;
-            this.checkBox13.UseVisualStyleBackColor = true;
-            this.checkBox13.CheckedChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.label27.AutoSize = true;
+            this.label27.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label27.Location = new System.Drawing.Point(377, 22);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(31, 20);
+            this.label27.TabIndex = 52;
+            this.label27.Text = "31";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // P_DosyaEkleri
             // 
-            this.P_DosyaEkleri.Location = new System.Drawing.Point(835, 170);
+            this.P_DosyaEkleri.Location = new System.Drawing.Point(4, 172);
             this.P_DosyaEkleri.Name = "P_DosyaEkleri";
             this.P_DosyaEkleri.Size = new System.Drawing.Size(76, 54);
             this.P_DosyaEkleri.TabIndex = 13;
@@ -1160,7 +923,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             // P_Epostalar
             // 
-            this.P_Epostalar.Location = new System.Drawing.Point(917, 170);
+            this.P_Epostalar.Location = new System.Drawing.Point(86, 172);
             this.P_Epostalar.Name = "P_Epostalar";
             this.P_Epostalar.Size = new System.Drawing.Size(76, 54);
             this.P_Epostalar.TabIndex = 14;
@@ -1172,9 +935,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.panel1.Controls.Add(this.KaydetVeEtiketiYazdır);
             this.panel1.Controls.Add(this.Kaydet);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 292);
+            this.panel1.Location = new System.Drawing.Point(0, 296);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(680, 33);
+            this.panel1.Size = new System.Drawing.Size(685, 33);
             this.panel1.TabIndex = 16;
             // 
             // KaydetVeEtiketiYazdır
@@ -1184,7 +947,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.KaydetVeEtiketiYazdır.Enabled = false;
             this.KaydetVeEtiketiYazdır.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.KaydetVeEtiketiYazdır.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.KaydetVeEtiketiYazdır.Location = new System.Drawing.Point(296, 0);
+            this.KaydetVeEtiketiYazdır.Location = new System.Drawing.Point(301, 0);
             this.KaydetVeEtiketiYazdır.Margin = new System.Windows.Forms.Padding(2);
             this.KaydetVeEtiketiYazdır.Name = "KaydetVeEtiketiYazdır";
             this.KaydetVeEtiketiYazdır.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -1271,8 +1034,74 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.splitContainer2.Panel2.Controls.Add(this.KurlarVeSüreler);
             this.splitContainer2.Panel2.Padding = new System.Windows.Forms.Padding(3);
             this.splitContainer2.Size = new System.Drawing.Size(978, 113);
-            this.splitContainer2.SplitterDistance = 702;
+            this.splitContainer2.SplitterDistance = 701;
             this.splitContainer2.TabIndex = 24;
+            // 
+            // altsol
+            // 
+            this.altsol.AutoSize = true;
+            this.altsol.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.altsol.Location = new System.Drawing.Point(308, 22);
+            this.altsol.Name = "altsol";
+            this.altsol.Size = new System.Drawing.Size(16, 20);
+            this.altsol.TabIndex = 48;
+            this.altsol.Text = "<";
+            this.altsol.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // alt
+            // 
+            this.alt.AutoSize = true;
+            this.alt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.alt.Location = new System.Drawing.Point(331, 22);
+            this.alt.Name = "alt";
+            this.alt.Size = new System.Drawing.Size(16, 20);
+            this.alt.TabIndex = 49;
+            this.alt.Text = "*";
+            this.alt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // altsag
+            // 
+            this.altsag.AutoSize = true;
+            this.altsag.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.altsag.Location = new System.Drawing.Point(354, 22);
+            this.altsag.Name = "altsag";
+            this.altsag.Size = new System.Drawing.Size(16, 20);
+            this.altsag.TabIndex = 50;
+            this.altsag.Text = ">";
+            this.altsag.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ustsol
+            // 
+            this.ustsol.AutoSize = true;
+            this.ustsol.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ustsol.Location = new System.Drawing.Point(308, 1);
+            this.ustsol.Name = "ustsol";
+            this.ustsol.Size = new System.Drawing.Size(16, 20);
+            this.ustsol.TabIndex = 45;
+            this.ustsol.Text = "<";
+            this.ustsol.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ust
+            // 
+            this.ust.AutoSize = true;
+            this.ust.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ust.Location = new System.Drawing.Point(331, 1);
+            this.ust.Name = "ust";
+            this.ust.Size = new System.Drawing.Size(16, 20);
+            this.ust.TabIndex = 46;
+            this.ust.Text = "*";
+            this.ust.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ustsag
+            // 
+            this.ustsag.AutoSize = true;
+            this.ustsag.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ustsag.Location = new System.Drawing.Point(354, 1);
+            this.ustsag.Name = "ustsag";
+            this.ustsag.Size = new System.Drawing.Size(16, 20);
+            this.ustsag.TabIndex = 47;
+            this.ustsag.Text = ">";
+            this.ustsag.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // KurlarVeSüreler
             // 
@@ -1282,7 +1111,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.KurlarVeSüreler.Name = "KurlarVeSüreler";
             this.KurlarVeSüreler.ReadOnly = true;
             this.KurlarVeSüreler.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.KurlarVeSüreler.Size = new System.Drawing.Size(262, 103);
+            this.KurlarVeSüreler.Size = new System.Drawing.Size(263, 103);
             this.KurlarVeSüreler.TabIndex = 0;
             this.KurlarVeSüreler.WordWrap = false;
             // 
@@ -1297,6 +1126,61 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İpUcu_Genel.ToolTipTitle = "Yeni İş Girişi / Düzenleme";
             this.İpUcu_Genel.UseAnimation = false;
             this.İpUcu_Genel.UseFading = false;
+            // 
+            // Tablo_İş_Türü
+            // 
+            this.Tablo_İş_Türü.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Tablo_İş_Türü.FillWeight = 70F;
+            this.Tablo_İş_Türü.HeaderText = "İş Türü";
+            this.Tablo_İş_Türü.MinimumWidth = 6;
+            this.Tablo_İş_Türü.Name = "Tablo_İş_Türü";
+            this.Tablo_İş_Türü.ReadOnly = true;
+            this.Tablo_İş_Türü.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_İş_Türü.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Tablo_Adet
+            // 
+            this.Tablo_Adet.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = null;
+            this.Tablo_Adet.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Tablo_Adet.HeaderText = "Adet";
+            this.Tablo_Adet.MinimumWidth = 6;
+            this.Tablo_Adet.Name = "Tablo_Adet";
+            this.Tablo_Adet.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Tablo_Adet.Width = 49;
+            // 
+            // Tablo_Ücret
+            // 
+            this.Tablo_Ücret.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Ücret.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Tablo_Ücret.FillWeight = 30F;
+            this.Tablo_Ücret.HeaderText = "Ücret ₺";
+            this.Tablo_Ücret.MinimumWidth = 6;
+            this.Tablo_Ücret.Name = "Tablo_Ücret";
+            this.Tablo_Ücret.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Tablo_Ücret.Width = 70;
+            // 
+            // Tablo_Giriş_Tarihi
+            // 
+            this.Tablo_Giriş_Tarihi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Giriş_Tarihi.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Tablo_Giriş_Tarihi.HeaderText = "Kabul Tarihi";
+            this.Tablo_Giriş_Tarihi.MinimumWidth = 6;
+            this.Tablo_Giriş_Tarihi.Name = "Tablo_Giriş_Tarihi";
+            this.Tablo_Giriş_Tarihi.ReadOnly = true;
+            this.Tablo_Giriş_Tarihi.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Tablo_Giriş_Tarihi.Width = 104;
+            // 
+            // Tablo_Çıkış_Tarihi
+            // 
+            this.Tablo_Çıkış_Tarihi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Tablo_Çıkış_Tarihi.HeaderText = "Çıkış Tarihi";
+            this.Tablo_Çıkış_Tarihi.MinimumWidth = 6;
+            this.Tablo_Çıkış_Tarihi.Name = "Tablo_Çıkış_Tarihi";
+            this.Tablo_Çıkış_Tarihi.Width = 99;
             // 
             // Yeni_İş_Girişi
             // 
@@ -1329,10 +1213,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Kat_3_SolSağ.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Kat_3_SolSağ)).EndInit();
             this.Ayraç_Kat_3_SolSağ.ResumeLayout(false);
-            this.Ayraç_Kat_3_SolSağ_Sağ.Panel1.ResumeLayout(false);
-            this.Ayraç_Kat_3_SolSağ_Sağ.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Kat_3_SolSağ_Sağ)).EndInit();
-            this.Ayraç_Kat_3_SolSağ_Sağ.ResumeLayout(false);
+            this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.Panel1.ResumeLayout(false);
+            this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt)).EndInit();
+            this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt.ResumeLayout(false);
             this.Tablo_Dişler.ResumeLayout(false);
             this.Tablo_Dişler.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -1378,10 +1262,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private System.Windows.Forms.SplitContainer Ayraç_Kat_1_2;
         private System.Windows.Forms.ListBox Müşteriler_SeçimKutusu;
         private System.Windows.Forms.ListBox Hastalar_SeçimKutusu;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_İş_Türü;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Ücret;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Giriş_Tarihi;
-        private System.Windows.Forms.DataGridViewButtonColumn Tablo_Çıkış_Tarihi;
         private System.Windows.Forms.CheckBox Hastalar_AdVeSoyadıDüzelt;
         private System.Windows.Forms.ToolTip İpUcu_Genel;
         private System.Windows.Forms.Button DosyaEkleri;
@@ -1389,41 +1269,52 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private System.Windows.Forms.Button KaydetVeEtiketiYazdır;
         private System.Windows.Forms.Panel P_Epostalar;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.SplitContainer Ayraç_Kat_3_SolSağ_Sağ;
+        private System.Windows.Forms.SplitContainer Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt;
         private System.Windows.Forms.TableLayoutPanel Tablo_Dişler;
-        private System.Windows.Forms.CheckBox checkBox25;
-        private System.Windows.Forms.CheckBox checkBox24;
-        private System.Windows.Forms.CheckBox checkBox15;
-        private System.Windows.Forms.CheckBox checkBox14;
-        private System.Windows.Forms.CheckBox Seviye2_DevamEden;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox11;
-        private System.Windows.Forms.CheckBox checkBox5;
-        private System.Windows.Forms.CheckBox checkBox10;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox9;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox8;
-        private System.Windows.Forms.CheckBox checkBox6;
-        private System.Windows.Forms.CheckBox checkBox7;
-        private System.Windows.Forms.CheckBox checkBox30;
-        private System.Windows.Forms.CheckBox checkBox29;
-        private System.Windows.Forms.CheckBox checkBox28;
-        private System.Windows.Forms.CheckBox checkBox27;
-        private System.Windows.Forms.CheckBox checkBox26;
-        private System.Windows.Forms.CheckBox checkBox31;
-        private System.Windows.Forms.CheckBox checkBox32;
-        private System.Windows.Forms.CheckBox checkBox12;
-        private System.Windows.Forms.CheckBox checkBox33;
-        private System.Windows.Forms.CheckBox checkBox21;
-        private System.Windows.Forms.CheckBox checkBox20;
-        private System.Windows.Forms.CheckBox checkBox19;
-        private System.Windows.Forms.CheckBox checkBox18;
-        private System.Windows.Forms.CheckBox checkBox17;
-        private System.Windows.Forms.CheckBox checkBox16;
-        private System.Windows.Forms.CheckBox checkBox13;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.TextBox KurlarVeSüreler;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label altsol;
+        private System.Windows.Forms.Label alt;
+        private System.Windows.Forms.Label altsag;
+        private System.Windows.Forms.Label ustsol;
+        private System.Windows.Forms.Label ust;
+        private System.Windows.Forms.Label ustsag;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_İş_Türü;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Adet;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Ücret;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Giriş_Tarihi;
+        private System.Windows.Forms.DataGridViewButtonColumn Tablo_Çıkış_Tarihi;
     }
 }

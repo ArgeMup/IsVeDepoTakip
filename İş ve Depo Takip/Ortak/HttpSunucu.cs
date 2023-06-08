@@ -103,7 +103,7 @@ namespace İş_ve_Depo_Takip
                         foreach (IDepo_Eleman it in Detaylar.SeriNoDalı.Elemanları)
                         {
                             //<tr><td>31.12.2023</td><td>Levente iskelet üretimi</td></tr>
-                            Banka.Talep_Ayıkla_İşTürüDalı(it, out string İşTürü, out string GirişTarihi, out string ÇıkışTarihi, out _, out _);
+                            Banka.Talep_Ayıkla_İşTürüDalı(it, out string İşTürü, out string GirişTarihi, out string ÇıkışTarihi, out _, out _, out _);
                             İşler += "<tr><td>" + Banka.Yazdır_Tarih(GirişTarihi) + "</td><td>" + Banka.Yazdır_Tarih(ÇıkışTarihi) + "</td><td>" + İşTürü + "</td></tr>";
                         }
 

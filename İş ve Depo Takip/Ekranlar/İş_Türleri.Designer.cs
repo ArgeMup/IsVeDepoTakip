@@ -55,7 +55,6 @@
             this.Notlar = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.MüşteriyeGösterilecekOlanAdı = new System.Windows.Forms.TextBox();
-            this.AdetiİşTürü = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
             this.SağTuşMenü.SuspendLayout();
@@ -377,7 +376,6 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.MüşteriyeGösterilecekOlanAdı);
-            this.panel1.Controls.Add(this.AdetiİşTürü);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -388,29 +386,13 @@
             // MüşteriyeGösterilecekOlanAdı
             // 
             this.MüşteriyeGösterilecekOlanAdı.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MüşteriyeGösterilecekOlanAdı.Location = new System.Drawing.Point(279, 0);
+            this.MüşteriyeGösterilecekOlanAdı.Location = new System.Drawing.Point(289, 0);
             this.MüşteriyeGösterilecekOlanAdı.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MüşteriyeGösterilecekOlanAdı.Name = "MüşteriyeGösterilecekOlanAdı";
-            this.MüşteriyeGösterilecekOlanAdı.Size = new System.Drawing.Size(434, 30);
+            this.MüşteriyeGösterilecekOlanAdı.Size = new System.Drawing.Size(517, 30);
             this.MüşteriyeGösterilecekOlanAdı.TabIndex = 8;
             this.İpUcu.SetToolTip(this.MüşteriyeGösterilecekOlanAdı, "Arama çubuğu");
             this.MüşteriyeGösterilecekOlanAdı.TextChanged += new System.EventHandler(this.Ayar_Değişti);
-            // 
-            // AdetiİşTürü
-            // 
-            this.AdetiİşTürü.AutoSize = true;
-            this.AdetiİşTürü.Dock = System.Windows.Forms.DockStyle.Right;
-            this.AdetiİşTürü.Location = new System.Drawing.Point(713, 0);
-            this.AdetiİşTürü.Name = "AdetiİşTürü";
-            this.AdetiİşTürü.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.AdetiİşTürü.Size = new System.Drawing.Size(93, 33);
-            this.AdetiİşTürü.TabIndex = 10;
-            this.AdetiİşTürü.Text = "Adetli";
-            this.İpUcu.SetToolTip(this.AdetiİşTürü, "Adetli olarak seçilen işler\r\n\r\n-Ücret hesap edilirken; \r\nbirim ücret adet ile çar" +
-        "pılır.\r\n\r\n-Malzeme kullanımı hesaplanırken; \r\nbirim kullanım miktarı adet ile ça" +
-        "rpılır. ");
-            this.AdetiİşTürü.UseVisualStyleBackColor = true;
-            this.AdetiİşTürü.CheckedChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
             // label1
             // 
@@ -419,9 +401,9 @@
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(279, 25);
+            this.label1.Size = new System.Drawing.Size(289, 25);
             this.label1.TabIndex = 9;
-            this.label1.Text = "Müşteriye gösterilecek olan adı";
+            this.label1.Text = "Müşteriye gösterilecek olan adı  ";
             // 
             // İpUcu
             // 
@@ -497,7 +479,6 @@
         private System.Windows.Forms.ContextMenuStrip SağTuşMenü;
         private System.Windows.Forms.ToolStripMenuItem SağTuşMenü_YenidenAdlandır;
         private System.Windows.Forms.ToolStripMenuItem SağTuşMenü_Sil;
-        private System.Windows.Forms.CheckBox AdetiİşTürü;
         private System.Windows.Forms.Panel panel1;
     }
 }
