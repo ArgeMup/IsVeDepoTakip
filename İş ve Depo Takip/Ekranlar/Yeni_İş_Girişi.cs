@@ -370,6 +370,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Tablo[Tablo_İş_Türü.Index, konum].Value = İşTürleri_SeçimKutusu.Text;
             Tablo[Tablo_İş_Türü.Index, konum].ToolTipText = Banka.Ücretler_BirimÜcret_Detaylı(Müşteriler_SeçimKutusu.Text, İşTürleri_SeçimKutusu.Text);
+            
+            if (((string)Tablo[Tablo_Adet.Index, konum].Value).BoşMu()) Tablo[Tablo_Adet.Index, konum].Value = "1";
             Tablo[Tablo_Adet.Index, konum].Style.BackColor = System.Drawing.Color.Salmon;
         }
         

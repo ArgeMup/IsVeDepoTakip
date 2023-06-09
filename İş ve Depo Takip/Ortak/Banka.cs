@@ -2159,6 +2159,10 @@ namespace İş_ve_Depo_Takip
                 //giriş tarih - iş türü - ücret
                 İşler += Yazdır_Tarih(iş.Adı) + " " + iş[0];
 
+                //adet
+                int adet = Ücretler_AdetÇarpanı(iş.Oku_BaytDizisi(null, null, 4));
+                if (adet > 1) İşler += " x" + adet; 
+
                 //ücret girilmemiş ise gösterilmeyecek, AltToplamdan hariç tutulacak : -1
                 //ücret girilmiş ise gösterilecek : >= 0
                 double ücret = iş.Oku_Sayı(null, -1, 2);
@@ -2195,6 +2199,10 @@ namespace İş_ve_Depo_Takip
 
                 //işin adı
                 İşler += iş[0];
+
+                //işin adedi
+                int adet = Ücretler_AdetÇarpanı(iş.Oku_BaytDizisi(null, null, 4));
+                if (adet > 1) İşler += " x" + adet;
 
                 //ücret girilmemiş ise gösterilmeyecek, AltToplamdan hariç tutulacak : -1
                 //ücret girilmiş ise gösterilecek : >= 0
@@ -2376,6 +2384,8 @@ namespace İş_ve_Depo_Takip
 
                 Firmaİçinde += son - İlkHareket;
             }
+
+            if (Firmaİçinde > Toplam) Firmaİçinde = Toplam;
         }
 
         public static List<string> KorumalıAlan_Listele_Dosyalar()
