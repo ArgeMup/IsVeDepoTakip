@@ -370,6 +370,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Tablo[Tablo_İş_Türü.Index, konum].Value = İşTürleri_SeçimKutusu.Text;
             Tablo[Tablo_İş_Türü.Index, konum].ToolTipText = Banka.Ücretler_BirimÜcret_Detaylı(Müşteriler_SeçimKutusu.Text, İşTürleri_SeçimKutusu.Text);
+            Tablo[Tablo_Adet.Index, konum].Style.BackColor = System.Drawing.Color.Salmon;
         }
         
         private void Tablo_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -734,7 +735,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 byte adet = Convert.ToByte(Tablo[Tablo_Adet.Index, i].Value);
                 byte[] adetler = Tablo[Tablo_Adet.Index, i].Tag as byte[];
-                if (adetler == null || adetler.Length == 0) adetler = new byte[] { adet };
+                if (adetler == null || adetler.Length < 2)
+                {
+                    if (adet > 1) adetler = new byte[] { adet };
+                    else adetler = null;
+                }
                 else adetler[0] = adet;
                 Detaylar.Adetler.Add(adetler);
             }

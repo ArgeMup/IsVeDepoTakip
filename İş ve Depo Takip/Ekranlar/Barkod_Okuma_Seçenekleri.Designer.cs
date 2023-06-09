@@ -83,7 +83,7 @@
             this.MüşteriyeGönder.Margin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.MüşteriyeGönder.Name = "MüşteriyeGönder";
             this.MüşteriyeGönder.Size = new System.Drawing.Size(360, 32);
-            this.MüşteriyeGönder.TabIndex = 16;
+            this.MüşteriyeGönder.TabIndex = 1;
             this.MüşteriyeGönder.Text = "Müşteriye Gönder";
             this.MüşteriyeGönder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.MüşteriyeGönder.UseVisualStyleBackColor = true;
@@ -99,7 +99,7 @@
             this.İncele.Margin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.İncele.Name = "İncele";
             this.İncele.Size = new System.Drawing.Size(360, 32);
-            this.İncele.TabIndex = 14;
+            this.İncele.TabIndex = 0;
             this.İncele.Text = "İncele";
             this.İncele.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.İncele.UseVisualStyleBackColor = true;
@@ -116,7 +116,7 @@
             this.İsaretle_TeslimEdildi.Margin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.İsaretle_TeslimEdildi.Name = "İsaretle_TeslimEdildi";
             this.İsaretle_TeslimEdildi.Size = new System.Drawing.Size(360, 32);
-            this.İsaretle_TeslimEdildi.TabIndex = 15;
+            this.İsaretle_TeslimEdildi.TabIndex = 2;
             this.İsaretle_TeslimEdildi.Text = "Teslim Edildi Olarak İşaretle";
             this.İsaretle_TeslimEdildi.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.İsaretle_TeslimEdildi.UseVisualStyleBackColor = true;

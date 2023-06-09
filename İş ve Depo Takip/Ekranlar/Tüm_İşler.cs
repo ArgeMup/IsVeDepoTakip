@@ -1548,12 +1548,20 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if((int)Seviye1_işTakip.Tag == 1)
                 {
                     //İş takip
-                    CheckBox c = null;
-                    if (Seviye2_DevamEden.Checked) c = Seviye2_DevamEden;
-                    else if (Seviye2_TeslimEdildi.Checked) c = Seviye2_TeslimEdildi;
-                    else if (Seviye2_ÖdemeBekleyen.Checked) c = Seviye2_ÖdemeBekleyen;
-                    else if (Seviye2_Ödendi.Checked) c = Seviye2_Ödendi;
-                    if (c != null) Seviye_Değişti(c, null);
+                    foreach (DataGridViewRow satır in Tablo.Rows)
+                    {
+                        if (GüncellenenSeriNolar.Contains(satır.Cells[Tablo_SeriNo.Index].Value))
+                        {
+                            CheckBox c = null;
+                            if (Seviye2_DevamEden.Checked) c = Seviye2_DevamEden;
+                            else if (Seviye2_TeslimEdildi.Checked) c = Seviye2_TeslimEdildi;
+                            else if (Seviye2_ÖdemeBekleyen.Checked) c = Seviye2_ÖdemeBekleyen;
+                            else if (Seviye2_Ödendi.Checked) c = Seviye2_Ödendi;
+                            if (c != null) Seviye_Değişti(c, null);
+
+                            break;
+                        }
+                    }
                 }
                 else
                 {
