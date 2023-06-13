@@ -35,7 +35,7 @@ namespace İş_ve_Depo_Takip
                 Application.Run(new Ekranlar.Parola_Kontrol(true));
             }
         }
-        
+
         static void BeklenmeyenDurum_Uygulama(object sender, UnhandledExceptionEventArgs e)
         {
             AppDomain.CurrentDomain.UnhandledException -= BeklenmeyenDurum_Uygulama;
@@ -54,7 +54,7 @@ namespace İş_ve_Depo_Takip
             {
                 Banka.Yedekle_Banka_Kurtar();
 
-                MessageBox.Show("Bir sorun oluştu, uygulama yedekler ile kontrol edildi ve bir sorun görülmedi" + Environment.NewLine + Environment.NewLine +
+                MessageBox.Show("Bir sorun oluştu, uygulama yedekler ile kontrol edildi ve bir sorun görülmedi." + Environment.NewLine + Environment.NewLine +
                     "Uygulama kapatılıp yeniden başlatılacak." + Environment.NewLine + Environment.NewLine +
                     "Lütfen son işleminizi kontrol ediniz." + Environment.NewLine + Environment.NewLine + ex.Message, "İş Ve Depo Takip");
 

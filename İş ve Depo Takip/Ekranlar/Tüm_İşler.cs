@@ -1577,7 +1577,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     if (GüncellenenSeriNolar.Contains(satır.Cells[Tablo_SeriNo.Index].Value))
                     {
-                        satır.Cells[Tablo_SeriNo.Index].Value = "Değiştirildi" + Environment.NewLine + satır.Cells[Tablo_SeriNo.Index].Value;
+                        satır.Cells[Tablo_SeriNo.Index].ToolTipText = "Değiştirildi";
 
                         foreach (DataGridViewCell hücre in satır.Cells)
                         {

@@ -54,6 +54,7 @@
             this.Diğer = new System.Windows.Forms.Button();
             this.Hata = new System.Windows.Forms.ErrorProvider(this.components);
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
+            this.Değişkenler = new System.Windows.Forms.Button();
             this.P_AnaMenü.SuspendLayout();
             this.tab_sayfası.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -277,6 +278,7 @@
             // 
             // P_Ayarlar
             // 
+            this.P_Ayarlar.Controls.Add(this.Değişkenler);
             this.P_Ayarlar.Controls.Add(this.Etiketleme);
             this.P_Ayarlar.Controls.Add(this.Malzemeler);
             this.P_Ayarlar.Controls.Add(this.Bütçe);
@@ -379,6 +381,18 @@
             this.İpUcu.InitialDelay = 100;
             this.İpUcu.ReshowDelay = 20;
             // 
+            // Değişkenler
+            // 
+            this.Değişkenler.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Değişkenler.Location = new System.Drawing.Point(190, 167);
+            this.Değişkenler.Margin = new System.Windows.Forms.Padding(6);
+            this.Değişkenler.Name = "Değişkenler";
+            this.Değişkenler.Size = new System.Drawing.Size(169, 68);
+            this.Değişkenler.TabIndex = 11;
+            this.Değişkenler.Text = "Değişkenler";
+            this.Değişkenler.UseVisualStyleBackColor = true;
+            this.Değişkenler.Click += new System.EventHandler(this.Tuş_Click);
+            // 
             // Açılış_Ekranı
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
@@ -434,6 +448,7 @@
         private System.Windows.Forms.Button Etiketleme;
         private System.Windows.Forms.Panel P_AnaMenü;
         private System.Windows.Forms.TextBox BarkodGirişi;
+        private System.Windows.Forms.Button Değişkenler;
     }
 }
 

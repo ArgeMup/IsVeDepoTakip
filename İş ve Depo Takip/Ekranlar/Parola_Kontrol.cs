@@ -55,8 +55,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     Application.DoEvents();
                     Banka.Giriş_İşlemleri(AçılışYazısı);
+#if !DEBUG
                     Ekranlar.Eposta.Girişİşlemleri();
                     BarkodSorgulama.Başlat();
+#endif
                     Controls.Remove(AçılışYazısı);
                     AçılışYazısı.Dispose();
                 }

@@ -77,6 +77,12 @@
     <Compile Include="Ekranlar\Barkod_Okuma_Seçenekleri.Designer.cs">
       <DependentUpon>Barkod_Okuma_Seçenekleri.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ekranlar\Değişkenler_Ekranı.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ekranlar\Değişkenler_Ekranı.Designer.cs">
+      <DependentUpon>Değişkenler_Ekranı.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ekranlar\Parola_Kontrol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -215,6 +221,7 @@
     <Compile Include="HazirKod_Cdiyez\Win32Kutuphaneleri.cs" />
     <Compile Include="HazirKod_Cdiyez\YeniYazılımKontrolü.cs" />
     <Compile Include="Ortak\Banka.cs" />
+    <Compile Include="Ortak\Değişkenler.cs" />
     <Compile Include="Ortak\Ekranlar.cs" />
     <Compile Include="Ortak\Eposta.cs" />
     <Compile Include="Ortak\Ortak.cs" />
@@ -231,6 +238,10 @@
     <Compile Include="Settings.cs" />
     <EmbeddedResource Include="Ekranlar\Barkod_Okuma_Seçenekleri.resx">
       <DependentUpon>Barkod_Okuma_Seçenekleri.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ekranlar\Değişkenler_Ekranı.resx">
+      <DependentUpon>Değişkenler_Ekranı.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Parola_Kontrol.resx">
       <DependentUpon>Parola_Kontrol.cs</DependentUpon>

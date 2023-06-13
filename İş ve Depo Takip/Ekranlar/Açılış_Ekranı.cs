@@ -98,20 +98,21 @@ namespace İş_ve_Depo_Takip.Ekranlar
             //Yeni yan uygulamayı oluştur
             Form ÖndekiEkran;
             switch ((sender as Button).Text)
-            {                                                                       //Çağıranlar
-                case "Yeni İş Girişi":  ÖndekiEkran = new Yeni_İş_Girişi(); break;  //Tüm işler, yeni iş girişi  
+            {
+                case "Yeni İş Girişi":  ÖndekiEkran = new Yeni_İş_Girişi(); break;
                 case "Tüm İşler":       ÖndekiEkran = new Tüm_İşler(false); break;
                 case "Takvim":          ÖndekiEkran = new Takvim(); break;
+                case "Korumalı Alan":   ÖndekiEkran = new Korumalı_Alan(); break;
                 case "Müşteriler":      ÖndekiEkran = new Müşteriler(); break;
                 case "İş Türleri":      ÖndekiEkran = new İş_Türleri(); break;
-                case "Ücretler":        ÖndekiEkran = new Ücretler(); break;        //Tüm işler
+                case "Ücretler":        ÖndekiEkran = new Ücretler(); break;
                 case "Bütçe":           ÖndekiEkran = new Bütçe(); break;
                 case "Malzemeler":      ÖndekiEkran = new Malzemeler(); break;
                 case "Yazdırma":        ÖndekiEkran = new Yazdırma(); break;
                 case "E-posta":         ÖndekiEkran = new Ayarlar_Eposta(); break;
                 case "Etiketleme":      ÖndekiEkran = new Etiketleme(); break;
+                case "Değişkenler":     ÖndekiEkran = new Değişkenler_Ekranı(); break;
                 case "Diğer":           ÖndekiEkran = new Ayarlar_Diğer(); break;
-                case "Korumalı Alan":   ÖndekiEkran = new Korumalı_Alan(); break;
                 default : throw new Exception("Tuş_Click " + (sender as Button).Text);
             }
 

@@ -117,16 +117,63 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="İpUcu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>103, 7</value>
+  <metadata name="İpUcu_Genel.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
   </metadata>
-  <metadata name="Hata.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>15, 7</value>
+  <data name="TabloİçeriğiArama.ToolTip" xml:space="preserve">
+    <value>Bir değişken ad ve içerikten oluşur. (Kuralları panoya kopyalamak için çift tıklayınız)
+	Değişkeni silmek için adını silip kaydet tuşuna basınız.
+	Ad; formül içerisinde % karakterleri arasında bulunmalıdır.
+		Değişkenin adı : döviz kuru ise
+		%döviz kuru% biçiminde formül içerisinde kullanılabilir.
+	Aynı ad ikinci kez kullanılmamalıdır. (Son eleman kabul edilir.)
+	İçeriğe not yazmak için # karakteri kullanılabilir.
+		Örneğin : %döviz kuru% + 1,5 #Günlük kura tölerans ekle
+	İçerik sayılar, parantez () ve diğer değişkenlerin adlarından oluşabilir.
+		Sayılar : 3 + 5
+		İşlem sırası : ( 3 + 5 ) + 7
+		Diğer değişkenlerle birlikte kullanım : %sayı1% + %sayı2%
+	İşlem sonucunun 0 dan büyük olması şarttır.
+		Tersi duruma izin vermek için %&lt;=0% eklenir
+		%döviz kuru% %&lt;=0% #Döviz kuru okunamaz ise ücreti 0 olarak hesaplar
+	İşlem sonucunu yuvarlamak için özel komut eklenir. (yukarıya yuvarlar)
+		%Yuvarla&lt;boşluk&gt;&lt;basamak sayısı&gt;%
+			Adı -&gt; sayı1 -&gt; 1234
+			Adı -&gt; sayı2 -&gt; 0,5678
+			formül : %sayı1% + %sayı2% 		-&gt; 1234,5678
+			formül : %sayı1% + %sayı2% %Yuvarla 2% 	-&gt; 1300
+			formül : %sayı1% + %sayı2% %Yuvarla 1% 	-&gt; 1240
+			formül : %sayı1% + %sayı2% %Yuvarla 0% 	-&gt; 1234
+			formül : %sayı1% + %sayı2% %Yuvarla -1% 	-&gt; 1234,6
+			formül : %sayı1% + %sayı2% %Yuvarla -2% 	-&gt; 1234,57
+	Birden fazla sayının en büyük yada en küçüğünü bulmak için özel komut eklenir.
+		Değişkenlerden oluşmayan girdiler boşluksuz doğrudan yazılır
+			1 yada 3+5 yada (3*5)/7 gibi
+		Bir değişken kullanılacak ise %% karakterleri olmamalıdır
+			Değişken adı : %sayı1% ise sayı1 olarak yazılmalı
+		%EnBüyük&lt;boşluk&gt;&lt;Eleman1&gt;&lt;boşluk&gt;&lt;Eleman2&gt;...%
+			Adı -&gt; sayı1 -&gt; 1
+			Adı -&gt; sayı2 -&gt; 2
+			formül : %EnBüyük sayı1 5+5+5 sayı2%	-&gt; 15
+			formül : %EnKüçük sayı1 5 sayı2%		-&gt; 1
+	Bir kuşulu sınamak için özel komut eklenir. (İşlem sonucu &gt;0 ise doğrudur)  
+		Değişkenlerden oluşmayan girdiler boşluksuz doğrudan yazılır
+			1 yada 3+5 yada (3*5)/7 gibi
+		Bir değişken kullanılacak ise %% karakterleri olmamalıdır
+			Değişken adı : %sayı1% ise sayı1 olarak yazılmalı
+		%Koşul&lt;boşluk&gt;&lt;Doğru&gt;&lt;boşluk&gt;&lt;Yanlış&gt;%
+			Adı -&gt; sayı1 -&gt; 1
+			Adı -&gt; sayı2 -&gt; 2
+			formül : %Koşul 1&gt;2 5+5+5 sayı2%		-&gt; 2
+			formül : %Koşul sayı1 5 sayı2%		-&gt; 5</value>
+  </data>
+  <metadata name="Tablo_Adı.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>36</value>
+  <metadata name="Tablo_İçeriği.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
-  <metadata name="İpUcu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>103, 7</value>
+  <metadata name="Tablo_Değeri.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
 </root>

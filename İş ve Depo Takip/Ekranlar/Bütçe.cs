@@ -224,12 +224,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
            
             foreach (IDepo_Eleman serino in bt.Talepler)
             {
-                string HataMesajı = "";
-                Banka.Talep_Ayıkla_SeriNoDalı(Müşteri, serino, ref Gelir, ref Gider, ref HataMesajı);
-
+                string HataMesajı = Banka.Talep_Ayıkla_SeriNoDalı(Müşteri, serino, ref Gelir, ref Gider);
                 if (!string.IsNullOrEmpty(HataMesajı))
                 {
-                    MessageBox.Show("Alttaki işler için ücret hesaplanamadı." + Environment.NewLine +
+                    MessageBox.Show("Alttaki konuda hesaplama yapılamadı." + Environment.NewLine +
                         "Ekrandaki hesaplamaların eksik olduğunu göz önünde bulundurunuz." + Environment.NewLine + Environment.NewLine +
                         HataMesajı, Text);
                 }

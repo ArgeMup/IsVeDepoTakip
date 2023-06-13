@@ -1,12 +1,16 @@
-﻿using ArgeMup.HazirKod.Ekİşlemler;
+﻿using ArgeMup.HazirKod.Dönüştürme;
+using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
     public partial class Ücretler : Form
     {
+        bool MutlakaGüncelle = false;
         public Ücretler()
         {
             InitializeComponent();
@@ -22,16 +26,51 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 int y = Tablo.RowCount;
                 Tablo.RowCount++;
 
-                Tablo[0, y].Value = it;
+                Tablo[Tablo_İş_Türleri.Index, y].Value = it;
             }
 
             Zam_Miktarı.Text = "0";
             KDV.Text = Banka.Ayarlar_Genel("Bütçe/KDV", true).Oku_Sayı(null, 8).Yazıya();
 
+            #region Değişkenler
+            for (int i = 0; i < Değişkenler.Sabitler.Length; i++)
+            {
+                ToolStripMenuItem tsmi = new ToolStripMenuItem();
+                tsmi.Text = Değişkenler.Tümü.Keys.ElementAt(i);
+                tsmi.Click += SağTuşMenü_Değişkenler_Click;
+                dahiliDeğişkenlerToolStripMenuItem.DropDownItems.Add(tsmi);
+            }
+            for (int i = Değişkenler.Sabitler.Length; i < Değişkenler.Tümü.Count; i++)
+            {
+                ToolStripMenuItem tsmi = new ToolStripMenuItem();
+                tsmi.Text = Değişkenler.Tümü.Keys.ElementAt(i);
+                tsmi.Click += SağTuşMenü_Değişkenler_Click;
+                SağTuşMenü_Değişkenler.Items.Add(tsmi);
+            }
+            #endregion
+
             Müşterıler.Text = "Tüm müşteriler için ortak";
             Kaydet.Enabled = false;
             splitContainer1.Panel1.Enabled = true;
             Müşterıler.Focus();
+        }
+        private void Ücretler_Activated(object sender, EventArgs e)
+        {
+            if (MutlakaGüncelle)
+            {
+                MutlakaGüncelle = false;
+
+                for (int i = 0; i < Tablo.Rows.Count; i++)
+                {
+                    Tablo_CellValueChanged(null, new DataGridViewCellEventArgs(Tablo_Ücret.Index, i));
+                }
+            }
+        }
+        private void SağTuşMenü_Değişkenler_Click(object sender, EventArgs e)
+        {
+            if (Tablo.SelectedCells.Count != 1) return;
+
+            Tablo.SelectedCells[0].Value += "%" + (sender as ToolStripMenuItem).Text + "%";
         }
 
         List<string> AramaÇubuğu_Müşteri_Liste = null;
@@ -58,7 +97,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 string[] arananlar = AramaÇubuğu_İşTürü.Text.ToLower().Split(' ');
                 for (int i = 0; i < Tablo.RowCount; i++)
                 {
-                    string içerik = ((string)Tablo[0, i].Value).ToLower();
+                    string içerik = ((string)Tablo[Tablo_İş_Türleri.Index, i].Value).ToLower();
                     int bulundu_adet = 0;
                     foreach (string arn in arananlar)
                     {
@@ -87,9 +126,52 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Tablo_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+            if (e.RowIndex < 0 || e.ColumnIndex < 1) return;
 
+            _SutunuHesapla_(Tablo_Ücret.Index);
+            if (Tablo_Maliyet.Visible) _SutunuHesapla_(Tablo_Maliyet.Index);
+            
             Ayar_Değişti(null, null);
+
+            void _SutunuHesapla_(int SutunNo)
+            {
+                string içerik = Tablo[SutunNo, e.RowIndex].Value as string;
+                if (içerik.DoluMu())
+                {
+                    if (SutunNo == Tablo_Ücret.Index) içerik = içerik.Replace("%Ortak Ücreti%", "");
+                    else if (SutunNo == Tablo_Maliyet.Index) içerik = içerik.Replace("%Maliyeti%", "");
+                    içerik = içerik.Replace('.', D_Sayı.ayraç_kesir).Replace(',', D_Sayı.ayraç_kesir);
+                    Tablo[SutunNo, e.RowIndex].Value = içerik;
+
+                    if (içerik.DoluMu())
+                    {
+                        Dictionary<string, string> tüm_değişkenler = new Dictionary<string, string>(Değişkenler.Tümü);
+
+                        string gecici = Tablo[Tablo_Ücret.Index, e.RowIndex].Value as string;
+                        if (gecici.DoluMu()) tüm_değişkenler.Add("Ortak Ücreti", gecici);
+                       
+                        gecici = Tablo[Tablo_Maliyet.Index, e.RowIndex].Value as string;
+                        if (gecici.DoluMu()) tüm_değişkenler.Add("Maliyeti", gecici);
+                        
+                        içerik = Değişkenler.Hesapla(içerik, out double çıktı, tüm_değişkenler); //işlem sonucu
+                        if (içerik.DoluMu())
+                        {
+                            Tablo[SutunNo, e.RowIndex].Style.BackColor = Color.Salmon;
+                            Tablo[SutunNo, e.RowIndex].ToolTipText = içerik;
+                        }
+                        else
+                        {
+                            Tablo[SutunNo, e.RowIndex].Style.BackColor = Color.White;
+                            Tablo[SutunNo, e.RowIndex].ToolTipText = çıktı.Yazıya();
+                        }
+                    }
+                }
+                else
+                {
+                    Tablo[SutunNo, e.RowIndex].Style.BackColor = Color.White;
+                    Tablo[SutunNo, e.RowIndex].ToolTipText = null;
+                }
+            }
         }
         private void Ayar_Değişti(object sender, EventArgs e)
         {
@@ -117,19 +199,37 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if (Dr == DialogResult.No) return;
             }
 
+            bool Formül_uyarısı_yapıldı = false;
             for (int i = 0; i < Tablo.RowCount; i++)
             {
-                if (Tablo[1, i].Visible && Tablo[1, i].Value != null)
+                string içerik = Tablo[Tablo_Ücret.Index, i].Value as string;
+                if (Tablo[Tablo_Ücret.Index, i].Visible && içerik.DoluMu(true))
                 {
+                    if (içerik.Contains("%"))
+                    {
+                        if (!Formül_uyarısı_yapıldı)
+                        {
+                            Formül_uyarısı_yapıldı = true;
+                            MessageBox.Show("İçerisnde formül olan hücreler hesaplama dışında bırakılacak.", Text);
+                        }
+                        continue;
+                    }
+
                     try
                     {
-                        double s = ((string)Tablo[1, i].Value).NoktalıSayıya();
+                        double s = içerik.NoktalıSayıya();
                         s = (s / 100.0 * yüzde_s) + s;
-                        Tablo[1, i].Value = s.Yazıya();
+                        Tablo[Tablo_Ücret.Index, i].Value = s.Yazıya();
                     }
                     catch (Exception) { }
                 }
             }
+        }
+
+        private void Değişkenler_Click(object sender, EventArgs e)
+        {
+            Ekranlar.ÖnYüzler.Ekle(new Değişkenler_Ekranı());
+            MutlakaGüncelle = true;
         }
 
         private void Kaydet_Click(object sender, EventArgs e)
@@ -146,28 +246,24 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             for (int i = 0; i < Tablo.RowCount; i++)
             {
-                if (!string.IsNullOrEmpty((string)Tablo[1, i].Value))
+                if (!string.IsNullOrEmpty((string)Tablo[Tablo_Ücret.Index, i].Value))
                 {
-                    string miktar = (string)Tablo[1, i].Value;
-                    if (!Ortak.YazıyıSayıyaDönüştür(ref miktar,
-                        (string)Tablo[0, i].Value + " (ücret sutununun " + (i + 1).ToString() + ". satırı)",
-                        "Ücretlendirmek istemiyorsanız boş olarak bırakınız." + Environment.NewLine +
-                        "Eğer " + (i + 1) + ". satır görünmüyor ise arama filtresini kaldırınız",
-                        0)) return;
-
-                    Tablo[1, i].Value = miktar;
+                    Tablo_CellValueChanged(null, new DataGridViewCellEventArgs(Tablo_Ücret.Index, i));
+                    if (Tablo[Tablo_Ücret.Index, i].Style.BackColor != Color.White)
+                    {
+                        MessageBox.Show("Lütfen " + (i + 1) + ". satırdaki uyarının bulunduğu formülü kontrol ediniz", Text);
+                        return;
+                    }
                 }
 
-                if (TümMüşterilerİçinOrtak && !string.IsNullOrEmpty((string)Tablo[2, i].Value))
+                if (TümMüşterilerİçinOrtak && !string.IsNullOrEmpty((string)Tablo[Tablo_Maliyet.Index, i].Value))
                 {
-                    string miktar = (string)Tablo[2, i].Value;
-                    if (!Ortak.YazıyıSayıyaDönüştür(ref miktar,
-                        (string)Tablo[0, i].Value + " (maliyet sutununun " + (i + 1).ToString() + ". satırı)",
-                        "Ücretlendirmek istemiyorsanız boş olarak bırakınız." + Environment.NewLine +
-                        "Eğer " + (i + 1) + ". satır görünmüyor ise arama filtresini kaldırınız",
-                        0)) return;
-
-                    Tablo[2, i].Value = miktar;
+                    Tablo_CellValueChanged(null, new DataGridViewCellEventArgs(Tablo_Maliyet.Index, i));
+                    if (Tablo[Tablo_Maliyet.Index, i].Style.BackColor != Color.White)
+                    {
+                        MessageBox.Show("Lütfen " + (i + 1) + ". satırdaki uyarının bulunduğu formülü kontrol ediniz", Text);
+                        return;
+                    }
                 }
             }
 
@@ -186,6 +282,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Kaydet.Enabled = false;
             splitContainer1.Panel1.Enabled = true;
-        }  
+        }
     }
 }

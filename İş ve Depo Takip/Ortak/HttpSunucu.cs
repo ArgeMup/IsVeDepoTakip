@@ -299,14 +299,18 @@ namespace İş_ve_Depo_Takip
     public static class Döviz
     {
         static DateTime EnSonGüncelleme = DateTime.MinValue;
-        static string Çıktı = null;
+        static string Çıktı_yazı = null;
+        static string[] Çıktı_dizi = null; //tcmb dolar avro, diğer dolar avro
 
-        public static void KurlarıAl(Action<string> İşlem)
+        public static void KurlarıAl(Action<string, string[]> İşlem)
         {
             System.Threading.Tasks.Task.Run(() =>
             {
-                if ((DateTime.Now - EnSonGüncelleme).TotalMinutes > 5 || Çıktı.BoşMu())
+                if ((DateTime.Now - EnSonGüncelleme).TotalMinutes > 5 || Çıktı_yazı.BoşMu())
                 {
+                    Çıktı_yazı = null;
+                    Çıktı_dizi = new string[] { "0", "0", "0", "0" };
+
                     string Dosya_TCMB = Ortak.Klasör_Gecici + "TCMB_Kurlar.xml";
                     Dosya.Sil(Dosya_TCMB);
                     YeniYazılımKontrolü_ Kaynak_TCMB = new YeniYazılımKontrolü_();
@@ -317,10 +321,10 @@ namespace İş_ve_Depo_Takip
                     YeniYazılımKontrolü_ Kaynak_GenelPara = new YeniYazılımKontrolü_();
                     Kaynak_GenelPara.Başlat(new Uri("https://api.genelpara.com/embed/doviz.json"), HedefDosyaYolu: Dosya_GenelPara);
 
-                    while (ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın &&
-                    (!Kaynak_TCMB.KontrolTamamlandı || !Kaynak_GenelPara.KontrolTamamlandı)) System.Threading.Thread.Sleep(500);
+                    int za = Environment.TickCount + 15000;
+                    while (ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın && za > Environment.TickCount &&
+                    (!Kaynak_TCMB.KontrolTamamlandı || !Kaynak_GenelPara.KontrolTamamlandı)) System.Threading.Thread.Sleep(350);
 
-                    Çıktı = null;
                     if (File.Exists(Dosya_TCMB))
                     {
                         System.Xml.XmlDocument xmlVerisi = new System.Xml.XmlDocument();
@@ -329,10 +333,13 @@ namespace İş_ve_Depo_Takip
                         string Tarih = xmlVerisi.SelectSingleNode("Tarih_Date").Attributes["Tarih"].InnerText;
                         string dolar = xmlVerisi.SelectSingleNode(string.Format("Tarih_Date/Currency[@Kod='{0}']/BanknoteSelling", "USD")).InnerText;
                         string avro = xmlVerisi.SelectSingleNode(string.Format("Tarih_Date/Currency[@Kod='{0}']/BanknoteSelling", "EUR")).InnerText;
-                        Çıktı =
+                        Çıktı_yazı =
                         "TCMB " + Tarih + " 15:30" + Environment.NewLine +
                         "Dolar = " + dolar + " ₺" + Environment.NewLine +
                         "Avro = " + avro + " ₺" + Environment.NewLine;
+
+                        Çıktı_dizi[0] = dolar;
+                        Çıktı_dizi[1] = avro;
                     }
 
                     if (File.Exists(Dosya_GenelPara))
@@ -341,16 +348,19 @@ namespace İş_ve_Depo_Takip
                         string dolar = _Al_(içerik, @"""USD"":{""satis"":""", @"""");
                         string avro = _Al_(içerik, @"""EUR"":{""satis"":""", @"""");
 
-                        Çıktı +=
-                        "Genelpara.com " + DateTime.Now.Yazıya("dd.MM.yyyy HH:mm") + Environment.NewLine +
+                        Çıktı_yazı +=
+                        "Diğer " + File.GetLastWriteTime(Dosya_GenelPara).Yazıya("dd.MM.yyyy HH:mm") + Environment.NewLine +
                         "Dolar = " + dolar + " ₺" + Environment.NewLine +
                         "Avro = " + avro + " ₺";
+
+                        Çıktı_dizi[2] = dolar;
+                        Çıktı_dizi[3] = avro;
 
                         string _Al_(string Girdi, string Başlangıç, string Bitiş)
                         {
                             int knm_başla = Girdi.IndexOf(Başlangıç);
                             if (knm_başla < 0) return null;
-                            
+
                             knm_başla += Başlangıç.Length;
                             int knm_bitir = Girdi.IndexOf(Bitiş, knm_başla);
                             if (knm_bitir < 0) return null;
@@ -362,7 +372,7 @@ namespace İş_ve_Depo_Takip
                     EnSonGüncelleme = DateTime.Now;
                 }
 
-                if (Çıktı.DoluMu() && İşlem != null) İşlem(Çıktı);
+                İşlem?.Invoke(Çıktı_yazı, Çıktı_dizi);
             });
         }
     }

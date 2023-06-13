@@ -230,6 +230,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             else
             {
+                if (şimdiki != Tümü.Last().Ekran)
+                {
+                    throw new Exception("şimdiki (" + şimdiki.Name + ") != Tümü.Last()");
+                }
+
                 şimdiki.Opacity = 1;
 
                 if (Ortak.ParolaGirilmesiGerekiyor && !(şimdiki is Parola_Kontrol))
@@ -265,7 +270,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Önyüz_ Arkadaki = Tümü.Last();
             Arkadaki.Ekran.Show();
-            if (GüncellenenSeriNolar.Count > 0)
+            if (GüncellenenSeriNolar.Count > 0 && !Arkadaki.Ekran.Disposing && !Arkadaki.Ekran.IsDisposed)
             {
                 IGüncellenenSeriNolar arakontrol = Arkadaki.Ekran as IGüncellenenSeriNolar;
                 arakontrol?.KontrolEt(GüncellenenSeriNolar);

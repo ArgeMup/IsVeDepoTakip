@@ -1491,15 +1491,11 @@ namespace İş_ve_Depo_Takip
                 for (int i = 0; i < Önyüz_Tablo.RowCount; i++)
                 {
                     string iştürü = (string)Önyüz_Tablo[0, i].Value;
-
                     string ücret = (string)Önyüz_Tablo[1, i].Value;
-                    if (!string.IsNullOrEmpty(ücret)) ücret = ücret.NoktalıSayıya().Yazıya();
-
                     string maliyet = (string)Önyüz_Tablo[2, i].Value;
-                    if (!string.IsNullOrEmpty(maliyet)) maliyet = maliyet.NoktalıSayıya().Yazıya();
-
+                    
                     IDepo_Eleman iş_türü = İşTürleri[iştürü + "/Bütçe"];
-                    iş_türü.İçeriği = new string[] { ücret, maliyet, iş_türü.Oku_Bit(null, false, 2).ToString() };
+                    iş_türü.İçeriği = new string[] { ücret, maliyet };
                 }
             }
             else
@@ -1510,68 +1506,72 @@ namespace İş_ve_Depo_Takip
                 for (int i = 0; i < Önyüz_Tablo.RowCount; i++)
                 {
                     string iştürü = (string)Önyüz_Tablo[0, i].Value;
-
                     string ücret = (string)Önyüz_Tablo[1, i].Value;
-                    if (!string.IsNullOrEmpty(ücret)) ücret = ücret.NoktalıSayıya().Yazıya();
 
                     Bütçe[iştürü].İçeriği = new string[] { ücret };
                 }
             }
         }
-        static double Ücretler_BirimÜcret(string Müşteri, string İşTürü)
+        static string Ücretler_BirimÜcret(string Müşteri, string İşTürü, out double Değeri)
         {
+            Değeri = 0;
             string ücret = null;
 
             //müşteriye özel ücret varmı diye bak
-            IDepo_Eleman d = Ayarlar_Müşteri(Müşteri, "Bütçe/" + İşTürü);
-            if (d != null) ücret = d[0];
-
+            if (Müşteri.DoluMu())
+            {
+                IDepo_Eleman d = Ayarlar_Müşteri(Müşteri, "Bütçe/" + İşTürü);
+                if (d != null) ücret = d[0];
+            }
+            
             if (string.IsNullOrEmpty(ücret))
             {
                 //tüm müşteriler için ortak ücret
-                d = Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri/" + İşTürü + "/Bütçe");
+                IDepo_Eleman d = Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri/" + İşTürü + "/Bütçe");
                 if (d != null) ücret = d[0];
             }
 
-            if (string.IsNullOrEmpty(ücret)) return -1;
-            return ücret.NoktalıSayıya();
-        }
-        public static string Ücretler_BirimÜcret_Detaylı(string Müşteri, string İşTürü)
-        {
-            double müşteriye_özel = -1, ortak = -1, maliyet = -1;
-            IDepo_Eleman d;
+            if (string.IsNullOrEmpty(ücret)) return "Ücret bilgisi girilmemiş (" + İşTürü + ")";
 
-            //müşteriye özel ücret varmı diye bak
-            if (!string.IsNullOrEmpty(Müşteri))
+            if (ücret.Contains("%Maliyeti%"))
             {
-                d = Ayarlar_Müşteri(Müşteri, "Bütçe/" + İşTürü);
-                if (d != null) müşteriye_özel = d.Oku_Sayı(null, -1);
+                string snç = Ücretler_BirimMaliyet(İşTürü, out Değeri);
+                if (snç.DoluMu()) return snç;
+
+                ücret = ücret.Replace("%Maliyeti%", Değeri.Yazıya());
             }
+
+            return Değişkenler.Hesapla(ücret, out Değeri);
+        }
+        static string Ücretler_BirimMaliyet(string İşTürü, out double Değeri)
+        {
+            Değeri = 0;
 
             //tüm müşteriler için ortak ücret
-            d = Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri/" + İşTürü + "/Bütçe");
-            if (d != null)
+            IDepo_Eleman d = Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri/" + İşTürü + "/Bütçe");
+            if (d == null || d[1].BoşMu()) return null;
+
+            string maliyet = d[1];
+
+            if (maliyet.Contains("%Ortak Ücreti%"))
             {
-                ortak = d.Oku_Sayı(null, -1, 0);
+                string snç = Ücretler_BirimÜcret(null, İşTürü, out Değeri);
+                if (snç.DoluMu()) return snç;
+
+                maliyet = maliyet.Replace("%Ortak Ücreti%", Değeri.Yazıya());
             }
 
-            //maliyet
-            if (d != null) maliyet = d.Oku_Sayı(null, -1, 1);
+            return Değişkenler.Hesapla(maliyet, out Değeri);
+        }
+        public static string Ücretler_BirimÜcretMaliyet_Detaylı(string Müşteri, string İşTürü)
+        {
+            string snç_ücr = Ücretler_BirimÜcret(Müşteri, İşTürü, out double ücret);
+            string snç_mly = Ücretler_BirimMaliyet(İşTürü, out double maliyet);
 
             return "Müşteri : " + Müşteri + Environment.NewLine +
                     "İş Türü : " + İşTürü + Environment.NewLine +
-                ( maliyet < 0                        ? null : Environment.NewLine + "Maliyet : " + Yazdır_Ücret(maliyet) ) +
-                ( müşteriye_özel < 0                 ? null : Environment.NewLine + "Özel ücret : " + Yazdır_Ücret(müşteriye_özel) ) +
-                ( ortak < 0                          ? null : Environment.NewLine + "Ortak ücret : " + Yazdır_Ücret(ortak) ) +
-                ( müşteriye_özel < 0 && ortak < 0    ? Environment.NewLine + "Ücret bilgisi girilmemiş" : null );
-        }
-        static double Ücretler_BirimMaliyet(string İşTürü)
-        {
-            //tüm müşteriler için ortak ücret
-            IDepo_Eleman d = Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri/" + İşTürü + "/Bütçe");
-
-            if (d != null) return d.Oku_Sayı(null, 0, 1);
-            else return 0;
+                (snç_mly.DoluMu() ? Environment.NewLine + "Maliyeti : " + snç_mly : (maliyet <= 0 ? null : Environment.NewLine + "Maliyeti : " + Yazdır_Ücret(maliyet))) +
+                Environment.NewLine + "Ücreti : " + (snç_ücr.DoluMu() ? snç_ücr : Yazdır_Ücret(ücret) );
         }
         public static int Ücretler_AdetÇarpanı(byte[] Kullanım_İşTürüoDalı_Eleman4)
         {
@@ -1580,23 +1580,25 @@ namespace İş_ve_Depo_Takip
 
             return Kullanım_İşTürüoDalı_Eleman4 == null || Kullanım_İşTürüoDalı_Eleman4.Length == 0 ? 1 : Kullanım_İşTürüoDalı_Eleman4[0];
         }
-        static double Ücretler_HesaplanmışToplamÜcret(string Müşteri, string İşTürü, byte[] Kullanım_İşTürüoDalı_Eleman4)
+        static string Ücretler_HesaplanmışToplamÜcret(string Müşteri, string İşTürü, byte[] Kullanım_İşTürüoDalı_Eleman4, out double Değeri)
         {
+            string snç = Ücretler_BirimÜcret(Müşteri, İşTürü, out Değeri);
+            if (snç.DoluMu()) return snç;
+
             int Adetli_Adet = Ücretler_AdetÇarpanı(Kullanım_İşTürüoDalı_Eleman4);
 
-            double ücret = Ücretler_BirimÜcret(Müşteri, İşTürü);
-            if (ücret > 0 && Adetli_Adet > 1) ücret *= Adetli_Adet;
-
-            return ücret;
+            if (Değeri > 0 && Adetli_Adet > 1) Değeri *= Adetli_Adet;
+            return null;
         }
-        static double Ücretler_HesaplanmışToplamMaliyet(string İşTürü, byte[] Kullanım_İşTürüoDalı_Eleman4)
+        static string Ücretler_HesaplanmışToplamMaliyet(string İşTürü, byte[] Kullanım_İşTürüoDalı_Eleman4, out double Değeri)
         {
+            string snç = Ücretler_BirimMaliyet(İşTürü, out Değeri);
+            if (snç.DoluMu()) return snç;
+
             int Adetli_Adet = Ücretler_AdetÇarpanı(Kullanım_İşTürüoDalı_Eleman4);
-
-            double ücret = Ücretler_BirimMaliyet(İşTürü);
-            if (ücret > 0 && Adetli_Adet > 1) ücret *= Adetli_Adet;
-
-            return ücret;
+            
+            if (Değeri > 0 && Adetli_Adet > 1) Değeri *= Adetli_Adet;
+            return null;
         }
 
         public static void Talep_Ekle(Talep_Ekle_Detaylar_ Detaylar)
@@ -1851,11 +1853,12 @@ namespace İş_ve_Depo_Takip
                             iştürü.Yaz(null, null, 3); //girilmediği için eğer önceden kalma varsa sil
 
                             //hesaplatılacak
-                            ücret = Ücretler_HesaplanmışToplamÜcret(Müşteri, iştürü[0], iştürü.Oku_BaytDizisi(null, null, 4));
-                            if (ücret < 0)
+                            string snç = Ücretler_HesaplanmışToplamÜcret(Müşteri, iştürü[0], iştürü.Oku_BaytDizisi(null, null, 4), out ücret);
+                            if (snç.DoluMu())
                             {
                                 return Müşteri + " / " + seri_no_dalı.Adı + " / " + iştürü[0] + " için ücret hesaplanamadı" + Environment.NewLine + Environment.NewLine +
-                                    "Bilgi için \"Ana Ekran -> Yeni İş Girişi -> Notlar\" elemanı üzerine" + Environment.NewLine +
+                                    snç + Environment.NewLine + Environment.NewLine +
+                                    "Hesaplama yöntemi detayları için \"Ana Ekran -> Yeni İş Girişi -> Notlar\" elemanı üzerine" + Environment.NewLine +
                                     "fareyi götürüp 1 sn kadar bekleyiniz";
                             }
                         }
@@ -2223,27 +2226,35 @@ namespace İş_ve_Depo_Takip
 
             Toplam += AltToplam;
         }
-        public static void Talep_Ayıkla_SeriNoDalı(string Müşteri, IDepo_Eleman SeriNoDalı, ref double İskontaDahilÜcretler_Toplamı, ref double Maliyetler_Toplamı, ref string HataMesajı)
+        public static string Talep_Ayıkla_SeriNoDalı(string Müşteri, IDepo_Eleman SeriNoDalı, ref double İskontaDahilÜcretler_Toplamı, ref double Maliyetler_Toplamı)
         {
             double iskonto = SeriNoDalı.Oku_Sayı(null, 0, 1), Toplam_Ücret = 0, Toplam_Maliyet = 0;
-            
+            string snç;
+
             foreach (IDepo_Eleman iş in SeriNoDalı.Elemanları)
             {
                 byte[] Adetli_dizi = iş.Oku_BaytDizisi(null, null, 4);
 
-                double ücret = iş.Oku_Sayı(null, -1, 2);
-                if (ücret < 0) ücret = Ücretler_HesaplanmışToplamÜcret(Müşteri, iş[0], Adetli_dizi);
+                double değeri = iş.Oku_Sayı(null, -1, 2);
+                if (değeri < 0)
+                {
+                    snç = Ücretler_HesaplanmışToplamÜcret(Müşteri, iş[0], Adetli_dizi, out değeri);
+                    if (snç.DoluMu()) return SeriNoDalı.Adı + " " + iş[0] + " için ücret hesaplanamadı " + snç;
+                }
 
-                if (ücret >= 0) Toplam_Ücret += ücret;
-                else HataMesajı += SeriNoDalı.Adı + " " + iş[0] + " için ücret hesaplanamadı" + Environment.NewLine;
+                if (değeri > 0) Toplam_Ücret += değeri;
 
-                Toplam_Maliyet += Ücretler_HesaplanmışToplamMaliyet(iş[0], Adetli_dizi);
+                snç = Ücretler_HesaplanmışToplamMaliyet(iş[0], Adetli_dizi, out değeri);
+                if (snç.DoluMu()) return SeriNoDalı.Adı + " " + iş[0] + " için maliyet hesaplanamadı " + snç;
+
+                if (değeri > 0) Toplam_Maliyet += değeri;
             }
 
             if (iskonto > 0 && Toplam_Ücret > 0) Toplam_Ücret -= Toplam_Ücret / 100 * iskonto;
 
             İskontaDahilÜcretler_Toplamı += Toplam_Ücret;
             Maliyetler_Toplamı += Toplam_Maliyet;
+            return null;
         }    
         public static void Talep_Ayıkla_ÖdemeDalı(IDepo_Eleman ÖdemeDalı, out List<string> Açıklamalar, out List<string> Ücretler, out string ÖdemeTalepEdildi, out string Notlar, out bool MüşteriBorçluMu)
         {

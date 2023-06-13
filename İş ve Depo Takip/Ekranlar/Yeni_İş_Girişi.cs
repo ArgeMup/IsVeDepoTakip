@@ -131,7 +131,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     {
                         Tablo.Rows[i].ReadOnly = true;
                         Tablo[Tablo_İş_Türü.Index, i].Value = İşTürü;
-                        Tablo[Tablo_İş_Türü.Index, i].ToolTipText = Banka.Ücretler_BirimÜcret_Detaylı(Müşteri, İşTürü); //ücretlendirme ipucları
+                        Tablo[Tablo_İş_Türü.Index, i].ToolTipText = Banka.Ücretler_BirimÜcretMaliyet_Detaylı(Müşteri, İşTürü); //ücretlendirme ipucları
                         Tablo[Tablo_Adet.Index, i].Value = Banka.Ücretler_AdetÇarpanı(Kullanım_AdetVeKonum).Yazıya();
                         Tablo[Tablo_Adet.Index, i].Tag = Kullanım_AdetVeKonum;
                     }
@@ -195,14 +195,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Müşteriler_AramaÇubuğu.Focus();
 
             Döviz.KurlarıAl(_GeriBildirim_Kurlar_);
-            void _GeriBildirim_Kurlar_(string Girdi)
+            void _GeriBildirim_Kurlar_(string Yazı, string[] Sayı)
             {
                 if (Disposing || IsDisposed) return;
 
                 Invoke(new Action(() =>
                 {
                     string süreler = KurlarVeSüreler.Tag as string;
-                    KurlarVeSüreler.Text = (süreler.DoluMu() ? süreler + Environment.NewLine : null) + Girdi;
+                    KurlarVeSüreler.Text = (süreler.DoluMu() ? süreler + Environment.NewLine : null) + Yazı;
                 }));
             }
         }
@@ -369,7 +369,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Tablo.Rows[konum + 1].Selected = true;
 
             Tablo[Tablo_İş_Türü.Index, konum].Value = İşTürleri_SeçimKutusu.Text;
-            Tablo[Tablo_İş_Türü.Index, konum].ToolTipText = Banka.Ücretler_BirimÜcret_Detaylı(Müşteriler_SeçimKutusu.Text, İşTürleri_SeçimKutusu.Text);
+            Tablo[Tablo_İş_Türü.Index, konum].ToolTipText = Banka.Ücretler_BirimÜcretMaliyet_Detaylı(Müşteriler_SeçimKutusu.Text, İşTürleri_SeçimKutusu.Text);
             
             if (((string)Tablo[Tablo_Adet.Index, konum].Value).BoşMu()) Tablo[Tablo_Adet.Index, konum].Value = "1";
             Tablo[Tablo_Adet.Index, konum].Style.BackColor = System.Drawing.Color.Salmon;
