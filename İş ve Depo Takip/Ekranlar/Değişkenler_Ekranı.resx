@@ -121,8 +121,10 @@
     <value>17, 17</value>
   </metadata>
   <data name="TabloİçeriğiArama.ToolTip" xml:space="preserve">
-    <value>Bir değişken ad ve içerikten oluşur. (Kuralları panoya kopyalamak için çift tıklayınız)
-	Değişkeni silmek için adını silip kaydet tuşuna basınız.
+    <value>Kuralları panoya kopyalamak için çift tıklayınız
+
+Değişkeni silmek için adını silip kaydet tuşuna basınız.
+Bir değişken ad ve içerikten oluşur.
 	Ad; formül içerisinde % karakterleri arasında bulunmalıdır.
 		Değişkenin adı : döviz kuru ise
 		%döviz kuru% biçiminde formül içerisinde kullanılabilir.
@@ -161,11 +163,26 @@
 			1 yada 3+5 yada (3*5)/7 gibi
 		Bir değişken kullanılacak ise %% karakterleri olmamalıdır
 			Değişken adı : %sayı1% ise sayı1 olarak yazılmalı
-		%Koşul&lt;boşluk&gt;&lt;Doğru&gt;&lt;boşluk&gt;&lt;Yanlış&gt;%
+		%Koşul&lt;boşluk&gt;&lt;İşlem&gt;&lt;boşluk&gt;&lt;Doğru&gt;&lt;boşluk&gt;&lt;Yanlış&gt;%
 			Adı -&gt; sayı1 -&gt; 1
 			Adı -&gt; sayı2 -&gt; 2
 			formül : %Koşul 1&gt;2 5+5+5 sayı2%		-&gt; 2
-			formül : %Koşul sayı1 5 sayı2%		-&gt; 5</value>
+			formül : %Koşul sayı1 5 sayı2%		-&gt; 5
+	Bir kuşula uyan ilk elemanın içeriğini okumak için özel komut eklenir.
+		Değişkenlerden oluşmayan girdiler boşluksuz doğrudan yazılır
+			1 yada 3+5 yada (3*5)/7 gibi
+		Bir değişken kullanılacak ise %% karakterleri olmamalıdır
+			Değişken adı : %sayı1% ise sayı1 olarak yazılmalı
+		Elemanların hepsi aynı kıstas iel kontrol edilir.
+		Elemanı temsil etmek üzere () kullanılır.
+		%KoşulaUyanİlk&lt;boşluk&gt;&lt;İşlem()&gt;&lt;boşluk&gt;&lt;Eleman1&gt;&lt;boşluk&gt;&lt;Eleman2&gt;...%
+			Adı -&gt; sayı1 -&gt; 1
+			Adı -&gt; sayı2 -&gt; 22
+			formül : %KoşulaUyanİlk ()&gt;=1 sayı1 5+5+5 sayı2 40%		-&gt; 1
+			formül : %KoşulaUyanİlk ()&gt;10 sayı1 5+5+5 sayı2 40%		-&gt; 15
+			formül : %KoşulaUyanİlk ()&gt;20 sayı1 5+5+5 sayı2 40%		-&gt; 22
+			formül : %KoşulaUyanİlk ()&gt;30 sayı1 5+5+5 sayı2 40%		-&gt; 40
+			formül : %KoşulaUyanİlk ()&gt;50 sayı1 5+5+5 sayı2 40%		-&gt; Hata</value>
   </data>
   <metadata name="Tablo_Adı.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

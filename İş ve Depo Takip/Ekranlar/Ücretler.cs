@@ -20,8 +20,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ortak.GrupArayıcı(Müşterıler, AramaÇubuğu_Müşteri_Liste);
 
             Tablo.Rows.Clear();
-            AramaÇubuğu_İşTürü_Liste = Banka.İşTürü_Listele();
-            foreach (string it in AramaÇubuğu_İşTürü_Liste)
+            foreach (string it in Banka.İşTürü_Listele())
             {
                 int y = Tablo.RowCount;
                 Tablo.RowCount++;
@@ -82,33 +81,87 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ortak.GrupArayıcı(Müşterıler, AramaÇubuğu_Müşteri_Liste, AramaÇubuğu_Müşteri.Text);
         }
 
-        List<string> AramaÇubuğu_İşTürü_Liste = null;
+        bool TabloİçeriğiArama_Çalışıyor = false;
+        bool TabloİçeriğiArama_KapatmaTalebi = false;
+        int TabloİçeriğiArama_Tik = 0;
+        int TabloİçeriğiArama_Sayac_Bulundu = 0;
         private void AramaÇubuğu_İşTürü_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(AramaÇubuğu_İşTürü.Text))
+            TabloİçeriğiArama_Tik = Environment.TickCount + 100;
+            if (AramaÇubuğu_İşTürü.Text.Length < 2)
             {
-                for (int i = 0; i < Tablo.RowCount; i++)
+                if (TabloİçeriğiArama_Sayac_Bulundu != 0)
                 {
-                    Tablo.Rows[i].Visible = true;
-                }
-            }
-            else
-            {
-                string[] arananlar = AramaÇubuğu_İşTürü.Text.ToLower().Split(' ');
-                for (int i = 0; i < Tablo.RowCount; i++)
-                {
-                    string içerik = ((string)Tablo[Tablo_İş_Türleri.Index, i].Value).ToLower();
-                    int bulundu_adet = 0;
-                    foreach (string arn in arananlar)
-                    {
-                        if (!içerik.Contains(arn)) break;
+                    AramaÇubuğu_İşTürü.BackColor = System.Drawing.Color.Salmon;
 
-                        bulundu_adet++;
+                    for (int satır = 0; satır < Tablo.RowCount; satır++)
+                    {
+                        Tablo.Rows[satır].Visible = true;
+                        if (TabloİçeriğiArama_Tik < Environment.TickCount) { Application.DoEvents(); TabloİçeriğiArama_Tik = Environment.TickCount + 100; }
                     }
 
-                    Tablo.Rows[i].Visible = bulundu_adet == arananlar.Length;
+                    AramaÇubuğu_İşTürü.BackColor = System.Drawing.Color.White;
+                    TabloİçeriğiArama_Sayac_Bulundu = 0;
                 }
+
+                return;
             }
+
+            if (TabloİçeriğiArama_Çalışıyor) { TabloİçeriğiArama_KapatmaTalebi = true; return; }
+
+            TabloİçeriğiArama_Çalışıyor = true;
+            TabloİçeriğiArama_KapatmaTalebi = false;
+            TabloİçeriğiArama_Sayac_Bulundu = 0;
+            TabloİçeriğiArama_Tik = Environment.TickCount + 500;
+            AramaÇubuğu_İşTürü.BackColor = System.Drawing.Color.Salmon;
+
+            string[] arananlar = AramaÇubuğu_İşTürü.Text.ToLower().Split(' ');
+            for (int satır = 0; satır < Tablo.RowCount && !TabloİçeriğiArama_KapatmaTalebi; satır++)
+            {
+                if (Tablo.Rows[satır].IsNewRow) continue;
+
+                bool bulundu = false;
+                int AranabilirSutunSayısı = Müşterıler.Text == "Tüm müşteriler için ortak" ? Tablo.Columns.Count : 2 /* maliyet hariç */;
+                for (int sutun = 0; sutun < AranabilirSutunSayısı; sutun++)
+                {
+                    if (Tablo[sutun, satır].Value == null) continue;
+
+                    string içerik = Tablo[sutun, satır].Value.ToString();
+                    if (string.IsNullOrEmpty(içerik)) Tablo[sutun, satır].Style.BackColor = System.Drawing.Color.White;
+                    else
+                    {
+                        içerik = içerik.ToLower();
+                        int bulundu_adet = 0;
+                        foreach (string arn in arananlar)
+                        {
+                            if (!içerik.Contains(arn)) break;
+
+                            bulundu_adet++;
+                        }
+
+                        if (bulundu_adet == arananlar.Length)
+                        {
+                            Tablo[sutun, satır].Style.BackColor = System.Drawing.Color.YellowGreen;
+                            bulundu = true;
+                        }
+                        else Tablo[sutun, satır].Style.BackColor = System.Drawing.Color.White;
+                    }
+                }
+
+                Tablo.Rows[satır].Visible = bulundu;
+                if (bulundu) TabloİçeriğiArama_Sayac_Bulundu++;
+
+                if (TabloİçeriğiArama_Tik < Environment.TickCount) { Application.DoEvents(); TabloİçeriğiArama_Tik = Environment.TickCount + 500; }
+            }
+
+            if (TabloİçeriğiArama_Sayac_Bulundu == 0) TabloİçeriğiArama_Sayac_Bulundu = -1;
+
+            AramaÇubuğu_İşTürü.BackColor = System.Drawing.Color.White;
+            TabloİçeriğiArama_Çalışıyor = false;
+            Tablo.ClearSelection();
+
+            if (TabloİçeriğiArama_KapatmaTalebi) AramaÇubuğu_İşTürü_TextChanged(null, null);
+            TabloİçeriğiArama_KapatmaTalebi = false;
         }
 
         private void Müşterıler_SelectedIndexChanged(object sender, EventArgs e)
@@ -118,6 +171,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Banka.Ücretler_TablodaGöster(Tablo, null);
             }
             else Banka.Ücretler_TablodaGöster(Tablo, Müşterıler.Text);
+
+            AramaÇubuğu_İşTürü_TextChanged(null, null);
 
             splitContainer1.Panel1.Enabled = true;
             splitContainer1.Panel2.Enabled = true;

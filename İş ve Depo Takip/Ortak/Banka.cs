@@ -2536,24 +2536,6 @@ namespace İş_ve_Depo_Takip
             if (DosyaEkleri == null) return;
             DateTime şimdi = DateTime.Now;
 
-            //Sürüm geçişi eklemeleri
-            foreach (IDepo_Eleman sn in DosyaEkleri["Dosya Ekleri"].Elemanları)
-            {
-                if (sn[0].DoluMu()) 
-                {
-                    if (sn[0].Length > "False".Length) { }
-                    else if (sn.Oku_Bit(null)) sn.Yaz(null, şimdi);
-                    else sn[0] = null;
-                }
-                else sn[0] = null;
-
-                foreach (IDepo_Eleman ek in sn.Elemanları)
-                {
-                    int adet = sn.Elemanları.Count(x => x[1] == ek[1]);
-                    if (adet > 1) ek[1] = Path.GetRandomFileName() + ek[1];
-                }
-            }
-
             double DosyaSilmeBoyutu = DosyaEkleri.Oku_Sayı("Dosya Silme Kıstası", 1000) * 1024 * 1024 /*MB -> B dönüşümü*/;
             int DosyaSilmeAyı = DosyaEkleri.Oku_TamSayı("Dosya Silme Kıstası", 6, 1); //ödendikten 6 ay sonra silinsin
             double ToplamDosyaBoyutu = DosyaEkleri.Oku_Sayı("Toplam Dosya Boyutu");

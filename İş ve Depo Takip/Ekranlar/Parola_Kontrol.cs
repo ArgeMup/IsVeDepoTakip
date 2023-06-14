@@ -20,7 +20,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Icon = Properties.Resources.kendi;
             this.İlkAçılışKontrolleriniYap = İlkAçılışKontrolleriniYap;
             this.YeniParolaOluştur = YeniParolaOluştur;
-            WindowState = İlkAçılışKontrolleriniYap || YeniParolaOluştur ? FormWindowState.Normal : FormWindowState.Minimized;
 
             Controls.Add(P_Parola); P_Parola.Dock = DockStyle.Fill;
             Controls.Add(P_YeniParola); P_YeniParola.Dock = DockStyle.Fill;

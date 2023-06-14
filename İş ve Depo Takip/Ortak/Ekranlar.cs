@@ -220,24 +220,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             if (şimdiki.WindowState == FormWindowState.Minimized)
             {
-                if (Ortak.Kullanıcı_KüçültüldüğündeParolaSor)
-                {
-                    //şifre sayfasını aç
-                    Ekranlar.ÖnYüzler.Ekle(new Parola_Kontrol(false));
-                }
-
+                if (Ortak.Kullanıcı_KüçültüldüğündeParolaSor) Ortak.ParolaGirilmesiGerekiyor = true;
+                
                 Banka.Yedekle_Tümü();
             }
             else
             {
-                if (şimdiki != Tümü.Last().Ekran)
-                {
-                    throw new Exception("şimdiki (" + şimdiki.Name + ") != Tümü.Last()");
-                }
-
                 şimdiki.Opacity = 1;
 
-                if (Ortak.ParolaGirilmesiGerekiyor && !(şimdiki is Parola_Kontrol))
+                if (Ortak.ParolaGirilmesiGerekiyor)
                 {
                     //şifre sayfasını aç
                     Ekranlar.ÖnYüzler.Ekle(new Parola_Kontrol(false));

@@ -71,6 +71,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             for (int i = 0; i < Değişkenler.Sabitler.Length; i++)
             {
                 Tablo.Rows[i].ReadOnly = true;
+                Tablo.Rows[i].Cells[Tablo_İçeriği.Index].ToolTipText = "Uygulama tarafından internet aracılığıyla edinilir." + Environment.NewLine +
+                    "Eğer bu değişkeni kullandıysanız ve " + Environment.NewLine +
+                    "internet bağlantısı kopmuş veya " + Environment.NewLine +
+                    "web sitesi cevap vermiyor ise " + Environment.NewLine +
+                    "uygulama 15 sn ye kadar hareketsiz kalabiir.";
             }
             Tablo.ClearSelection();
         }

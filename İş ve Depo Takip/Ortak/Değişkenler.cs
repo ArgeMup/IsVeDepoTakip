@@ -25,7 +25,8 @@ namespace İş_ve_Depo_Takip
             "Yuvarla ",
             "EnBüyük ",
             "EnKüçük ",
-            "Koşul "
+            "Koşul ",
+            "KoşulaUyanİlk "
         };
         static Dictionary<string, string> Tümü_ = null;
         public static Dictionary<string, string> Tümü
@@ -52,7 +53,7 @@ namespace İş_ve_Depo_Takip
         }
         const int iç_içe_çağırma_sayacı_sabiti = 555;
 
-        public static string Hesapla(string Formül, out double Çıktı, Dictionary<string, string> TümDeğişkenler = null, int iç_içe_çağırma_sayacı = 0)
+        public static string Hesapla(string Formül, out double Çıktı, Dictionary<string, string> TümDeğişkenler = null)
         {
             //%Yuvarla <basamak>%   -> %Yuvarla 1% (Birler basamaını yukarı yuvarlar) 0->0, 1...10->10, 11...20->20
             //%değişken adı%        -> %döviz kuru%
@@ -63,23 +64,31 @@ namespace İş_ve_Depo_Takip
             //Bir grup sayının en büyüğünü bulmak için -> %EnBüyük <p1> <p2>% değişken adında boşluk olmamalı
             //Bir grup sayının en küçüğünü bulmak için -> %EnKüçük <p1> <p2>% değişken adında boşluk olmamalı
             //%Koşul <Kıstas> <Evet> <Hayır>%
+            //%KoşulaUyanİlk <()Kıstas> <Eleman1> <Elaman2> ...
 
             Çıktı = 0;
-            if (iç_içe_çağırma_sayacı >= iç_içe_çağırma_sayacı_sabiti) return "Formül çok fazla atıf yaptığı için atlandı (" + Formül + ")";
+            string Formül_ilkHali = Formül;
+            try
+            {
+                if (Formül.Contains("#")) Formül = Formül.Remove(Formül.IndexOf("#")); //notları sil
 
-            if (TümDeğişkenler == null) TümDeğişkenler = Tümü;
-            bool YüzdeKarakteriVar = Formül.Contains("%");
-            if (Formül.Contains("%<=0%"))
-            {
-                //sonucun sıfırdan küçük eşit olmasına müsade et
-                YüzdeKarakteriVar = false;
-                Formül = Formül.Replace("%<=0%", "");
+                string snç = _Hesapla_(Formül, out Çıktı, TümDeğişkenler ?? Tümü, 0);
+                if (snç.DoluMu()) return snç;
+
+                if (Çıktı <= 0 && Formül.Contains("%") && !Formül.Contains("%<=0%")) return "Formüllü bir işlemin hesaplama sonucu 0 dan büyük olmalı (" + Formül_ilkHali + " = " + Çıktı.Yazıya() + ")";
+
+                return null;
             }
-            if (Formül.Contains("#"))
+            catch (Exception ex)
             {
-                //notları sil
-                Formül = Formül.Remove(Formül.IndexOf("#"));
+                return "Hesaplamada beklenmeyen durum oluştu. (" + ex.Message + ") (" + Formül_ilkHali + ")";
             }
+        }
+        static string _Hesapla_(string Formül, out double Çıktı, Dictionary<string, string> TümDeğişkenler, int iç_içe_çağırma_sayacı)
+        {
+            Çıktı = 0;
+            if (Formül.Contains("#")) Formül = Formül.Remove(Formül.IndexOf("#")); //notları sil
+            if (Formül.Contains("%<=0%")) Formül = Formül.Replace("%<=0%", "");
 
             int yuvarla = int.MinValue;
             if (Formül.Contains("%Yuvarla "))
@@ -110,8 +119,8 @@ namespace İş_ve_Depo_Takip
                     double[] dizi_Alt_değişkenler_çıktı = new double[dizi_alt_değişkenler.Length - 1];
                     for (int i = 1; i < dizi_alt_değişkenler.Length; i++)
                     {
-                        string dizi_alt_değişken_formül = (TümDeğişkenler.ContainsKey(dizi_alt_değişkenler[i]) ? "%" + dizi_alt_değişkenler[i] + "%" : dizi_alt_değişkenler[i]) + "%<=0%";
-                        string snç_alt_değişken = Hesapla(dizi_alt_değişken_formül, out dizi_Alt_değişkenler_çıktı[i - 1], TümDeğişkenler, ++iç_içe_çağırma_sayacı);
+                        string dizi_alt_değişken_formül = TümDeğişkenler.ContainsKey(dizi_alt_değişkenler[i]) ? "%" + dizi_alt_değişkenler[i] + "%" : dizi_alt_değişkenler[i];
+                        string snç_alt_değişken = _Hesapla_(dizi_alt_değişken_formül, out dizi_Alt_değişkenler_çıktı[i - 1], TümDeğişkenler, ++iç_içe_çağırma_sayacı);
                         if (snç_alt_değişken.DoluMu()) return snç_alt_değişken;
                     }
 
@@ -122,16 +131,36 @@ namespace İş_ve_Depo_Takip
                     string[] dizi_alt_değişkenler = DeğişkenAdı.Split(' ');
                     if (dizi_alt_değişkenler == null || dizi_alt_değişkenler.Length != 4) return "Koşul işlemi girdileri geçersiz (" + DeğişkenAdı + ")";
 
-                    string dizi_alt_değişken_formül = (TümDeğişkenler.ContainsKey(dizi_alt_değişkenler[1]) ? "%" + dizi_alt_değişkenler[1] + "%" : dizi_alt_değişkenler[1]) + "%<=0%";
-                    string snç_alt_değişken = Hesapla(dizi_alt_değişken_formül, out double dizi_Alt_değişkenler_çıktı, TümDeğişkenler, ++iç_içe_çağırma_sayacı);
+                    string dizi_alt_değişken_formül = TümDeğişkenler.ContainsKey(dizi_alt_değişkenler[1]) ? "%" + dizi_alt_değişkenler[1] + "%" : dizi_alt_değişkenler[1];
+                    string snç_alt_değişken = _Hesapla_(dizi_alt_değişken_formül, out double dizi_Alt_değişkenler_çıktı, TümDeğişkenler, ++iç_içe_çağırma_sayacı);
                     if (snç_alt_değişken.DoluMu()) return snç_alt_değişken;
 
                     string kıstas = dizi_alt_değişkenler[dizi_Alt_değişkenler_çıktı > 0 ? 2 : 3];
-                    dizi_alt_değişken_formül = (TümDeğişkenler.ContainsKey(kıstas) ? "%" + kıstas + "%" : kıstas) + "%<=0%";
-                    snç_alt_değişken = Hesapla(dizi_alt_değişken_formül, out dizi_Alt_değişkenler_çıktı, TümDeğişkenler, ++iç_içe_çağırma_sayacı);
+                    dizi_alt_değişken_formül = TümDeğişkenler.ContainsKey(kıstas) ? "%" + kıstas + "%" : kıstas;
+                    snç_alt_değişken = _Hesapla_(dizi_alt_değişken_formül, out dizi_Alt_değişkenler_çıktı, TümDeğişkenler, ++iç_içe_çağırma_sayacı);
                     if (snç_alt_değişken.DoluMu()) return snç_alt_değişken;
 
                     içerik = dizi_Alt_değişkenler_çıktı.Yazıya();
+                }
+                else if (DeğişkenAdı.StartsWith("KoşulaUyanİlk "))
+                {
+                    string[] dizi_alt_değişkenler = DeğişkenAdı.Split(' ');
+                    if (dizi_alt_değişkenler == null || dizi_alt_değişkenler.Length < 3 || !dizi_alt_değişkenler[1].Contains("()")) return "KoşulaUyanİlk işlemi girdileri geçersiz (" + DeğişkenAdı + ")";
+
+                    for (int i = 2; i < dizi_alt_değişkenler.Length && içerik == null; i++)
+                    {
+                        string dizi_alt_değişken_formül = TümDeğişkenler.ContainsKey(dizi_alt_değişkenler[i]) ? "%" + dizi_alt_değişkenler[i] + "%" : dizi_alt_değişkenler[i];
+                        string snç_alt_değişken = _Hesapla_(dizi_alt_değişken_formül, out double dizi_Alt_değişkenler_çıktı, TümDeğişkenler, ++iç_içe_çağırma_sayacı);
+                        if (snç_alt_değişken.DoluMu()) return snç_alt_değişken;
+
+                        dizi_alt_değişken_formül = dizi_alt_değişkenler[1].Replace("()", dizi_Alt_değişkenler_çıktı.Yazıya());
+                        snç_alt_değişken = _Hesapla_(dizi_alt_değişken_formül, out double dizi_Alt_değişkenler_çıktı_2, TümDeğişkenler, ++iç_içe_çağırma_sayacı);
+                        if (snç_alt_değişken.DoluMu()) return snç_alt_değişken;
+
+                        if (dizi_Alt_değişkenler_çıktı_2 > 0) içerik = dizi_Alt_değişkenler_çıktı.Yazıya();
+                    }
+                   
+                    if (içerik == null) return "KoşulaUyanİlk işlemi girdilerinin hiçbiri uygun değil (" + DeğişkenAdı + ")";
                 }
                 else
                 {
@@ -168,7 +197,7 @@ namespace İş_ve_Depo_Takip
                     içerik = TümDeğişkenler[DeğişkenAdı];
                     if (içerik.Contains("%"))
                     {
-                        string snç_2 = Hesapla(içerik, out double çıktı2, TümDeğişkenler, ++iç_içe_çağırma_sayacı);
+                        string snç_2 = _Hesapla_(içerik, out double çıktı2, TümDeğişkenler, ++iç_içe_çağırma_sayacı);
                         if (snç_2.DoluMu()) return snç_2;
                         içerik = çıktı2.Yazıya();
                     }
@@ -177,19 +206,12 @@ namespace İş_ve_Depo_Takip
                 Formül = Formül.Replace("%" + DeğişkenAdı + "%", içerik);
             }
 
-            try
-            {
-                DataTable İşlemci = new DataTable();
-                Çıktı = Convert.ToDouble(İşlemci.Compute(Formül, null), System.Globalization.CultureInfo.InvariantCulture);
-                if (yuvarla != int.MinValue) Çıktı = Yuvarla(Çıktı, yuvarla);
-                if (YüzdeKarakteriVar && Çıktı <= 0) return "Formüllü bir işlemin hesaplama sonucu 0 dan büyük olmalı (" + Formül + " = " + Çıktı.Yazıya() +")"; 
+            if (iç_içe_çağırma_sayacı >= iç_içe_çağırma_sayacı_sabiti) return "Formül çok fazla atıf yaptığı için atlandı (" + Formül + ")";
 
-                return null;
-            }
-            catch (Exception ex)
-            {
-                return "Hesaplamada beklenmeyen durum (" + ex.Message + ") (" + Formül + ")";
-            }
+            DataTable İşlemci = new DataTable();
+            Çıktı = Convert.ToDouble(İşlemci.Compute(Formül, null), System.Globalization.CultureInfo.InvariantCulture);
+            if (yuvarla != int.MinValue) Çıktı = _Yuvarla_(Çıktı, yuvarla);
+            return null;
 
             string _ArasındakiniAl_(string Girdi_, string Başlangıç_, string Bitiş_, out string DeğişkenAdı_)
             {
@@ -208,20 +230,19 @@ namespace İş_ve_Depo_Takip
 
                 return null;
             }
-        }
-
-        static double Yuvarla(double Sayı, int Basamak)
-        {
-            if (Basamak > 0)
+            double _Yuvarla_(double Sayı_, int Basamak_)
             {
-                double basamak_ = Math.Pow(10, Basamak);
-                return Math.Ceiling(Sayı / basamak_) * basamak_;
-            }
-            else if (Basamak == 0) return Math.Truncate(Sayı);
-            else
-            {
-                Basamak = Math.Abs(Basamak);
-                return Math.Round(Sayı, Basamak, MidpointRounding.AwayFromZero);
+                if (Basamak_ > 0)
+                {
+                    double basamak__ = Math.Pow(10, Basamak_);
+                    return Math.Ceiling(Sayı_ / basamak__) * basamak__;
+                }
+                else if (Basamak_ == 0) return Math.Truncate(Sayı_);
+                else
+                {
+                    Basamak_ = Math.Abs(Basamak_);
+                    return Math.Round(Sayı_, Basamak_, MidpointRounding.AwayFromZero);
+                }
             }
         }
     }
