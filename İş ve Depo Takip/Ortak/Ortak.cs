@@ -26,8 +26,10 @@ namespace İş_ve_Depo_Takip
         public static YeniYazılımKontrolü_ YeniYazılımKontrolü = new YeniYazılımKontrolü_();
         public static bool ParolaGirilmesiGerekiyor = true;
         public static Ekranlar.Açılış_Ekranı AnaEkran;
-        public static void Kapan()
+        public static void Kapan(string Bilgi)
         {
+            Günlük.Ekle("Kapatıldı " + Bilgi, Hemen: true);
+
             Ekranlar.Eposta.Durdur(false);
             HttpSunucu.Bitir();
             Banka.Çıkış_İşlemleri();

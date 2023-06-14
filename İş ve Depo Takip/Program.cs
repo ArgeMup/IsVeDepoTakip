@@ -60,7 +60,7 @@ namespace İş_ve_Depo_Takip
 
                 //Ekranlar.Eposta.EpostaGönder_İstisna(ex);
 
-                Ortak.Kapan();
+                Ortak.Kapan("BeklenmeyenDurum");
             }
             finally
             {

@@ -251,28 +251,36 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private static void Ekran_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Önyüz_ öndeki = Tümü.First(x => x.Ekran == sender);
-            if (öndeki != Tümü.Last()) throw new System.Exception("2 Listedeki son eleman olmamasına rağmen kapatma isteği geldi " + öndeki.Ekran.Text);
-
-            if (Ortak.ParolaGirilmesiGerekiyor) throw new System.Exception("Ortak.ParolaGirilmesiGerekiyor " + öndeki.Ekran.Text);
-
-            Tümü.Remove(öndeki);
-            if (Tümü.Count == 1) GüncellenenSeriNolar.Clear();
-
-            Önyüz_ Arkadaki = Tümü.Last();
-            Arkadaki.Ekran.Show();
-            if (GüncellenenSeriNolar.Count > 0 && !Arkadaki.Ekran.Disposing && !Arkadaki.Ekran.IsDisposed)
+            if (e.CloseReason == CloseReason.UserClosing)
             {
-                IGüncellenenSeriNolar arakontrol = Arkadaki.Ekran as IGüncellenenSeriNolar;
-                arakontrol?.KontrolEt(GüncellenenSeriNolar);
-            }
+                Önyüz_ öndeki = Tümü.First(x => x.Ekran == sender);
+                if (öndeki != Tümü.Last()) throw new System.Exception("2 Listedeki son eleman olmamasına rağmen kapatma isteği geldi " + öndeki.Ekran.Text);
 
-            if (öndeki.Ekran is Parola_Kontrol)
+                if (Ortak.ParolaGirilmesiGerekiyor) throw new System.Exception("Ortak.ParolaGirilmesiGerekiyor " + öndeki.Ekran.Text);
+
+                Tümü.Remove(öndeki);
+                if (Tümü.Count == 1) GüncellenenSeriNolar.Clear();
+
+                Önyüz_ Arkadaki = Tümü.Last();
+                Arkadaki.Ekran.Show();
+                if (GüncellenenSeriNolar.Count > 0 && !Arkadaki.Ekran.Disposing && !Arkadaki.Ekran.IsDisposed)
+                {
+                    IGüncellenenSeriNolar arakontrol = Arkadaki.Ekran as IGüncellenenSeriNolar;
+                    arakontrol?.KontrolEt(GüncellenenSeriNolar);
+                }
+
+                if (öndeki.Ekran is Parola_Kontrol)
+                {
+                    Arkadaki.Ekran.WindowState = Arkadaki.İlkDurumu;
+                }
+
+                Günlük.Ekle("Yan uygulama kapatıldı " + öndeki.Ekran.Text);
+            }
+            else
             {
-                Arkadaki.Ekran.WindowState = Arkadaki.İlkDurumu;
+                Ortak.Kapan(e.CloseReason.ToString());
+                Application.Exit(); //en alttaki parola kontrol uygulamasını kapatmak için
             }
-
-            Günlük.Ekle("Yan uygulama kapatıldı " + öndeki.Ekran.Text);
         }
     }
 }

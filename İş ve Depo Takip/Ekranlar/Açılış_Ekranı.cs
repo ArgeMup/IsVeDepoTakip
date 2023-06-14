@@ -50,8 +50,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void Açılış_Ekranı_FormClosed(object sender, FormClosedEventArgs e)
         {
             Enabled = false;
-            Günlük.Ekle("Kapatıldı " + e.CloseReason.ToString(), Hemen: true);
-            Ortak.Kapan();
+
+            Ortak.Kapan(e.CloseReason.ToString());
             Application.Exit(); //en alttaki parola kontrol uygulamasını kapatmak için
         }
 
