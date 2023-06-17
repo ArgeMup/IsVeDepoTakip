@@ -121,7 +121,7 @@
     <value>17, 17</value>
   </metadata>
   <data name="Notlar.ToolTip" xml:space="preserve">
-    <value>Ücretlendirme, "Teslim Etme" aşamasında hesaplanır
+    <value>Ücret, "Ödeme Talebi Oluşturma" aşamasında hesaplanır
 Ücret belirleme sıralaması :
 1 - Alttaki tablodaki ücret sutununda bir değer (&gt;=0₺) girilmiş ise ilgili işin ücreti buradaki değerdir
 1A - Adetli bir iş olsa bile tüm seçilen dişlere dair kullanıcının girdiği ücret kullanılır, diş sayısı ile ÇARPILMAZ.

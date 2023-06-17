@@ -60,24 +60,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İsaretle_TeslimEdildi_Click(object sender, EventArgs e)
         {
-            string snç = Banka.Talep_İşaretle_DevamEden_TeslimEdilen(Müşteri_, new List<string>() { SeriNo_ }, true);
-            
-            if (string.IsNullOrEmpty(snç))
-            {
-                //başarılı
-                Banka.Değişiklikleri_Kaydet(İsaretle_TeslimEdildi);
-                Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(SeriNo_);
-                Close();
-            }
-            else
-            {
-                Banka.Değişiklikler_TamponuSıfırla();
-
-                DialogResult Dr = MessageBox.Show(snç + Environment.NewLine + Environment.NewLine +
-                    "Ücretler sayfasını açmak ister misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                
-                if (Dr == DialogResult.Yes) Ekranlar.ÖnYüzler.Ekle(new Ücretler());
-            }
+            Banka.Talep_İşaretle_DevamEden_TeslimEdilen(Müşteri_, new List<string>() { SeriNo_ }, true);
+            Banka.Değişiklikleri_Kaydet(İsaretle_TeslimEdildi);
+            Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(SeriNo_);
+            Close();
         }
 
         void IGüncellenenSeriNolar.KontrolEt(List<string> GüncellenenSeriNolar)

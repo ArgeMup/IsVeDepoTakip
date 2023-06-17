@@ -100,7 +100,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     case Ortak.Hatırlatıcılar.Tip_.SeriNoluİş_TakvimTablosundan:
                         Banka.Talep_Bul_Detaylar_ Detaylar = Banka.Talep_Bul(h.İçerik, h.Müşteri, Banka.TabloTürü.DevamEden);
                         double Toplam = 0;
-                        Banka.Talep_Ayıkla_SeriNoDalı(Detaylar.SeriNoDalı, out string Hasta, out string İşGirişTarihleri, out string İşÇıkışTarihleri, out string İşler, ref Toplam);
+                        Banka.Talep_Ayıkla_SeriNoDalı(h.Müşteri, Detaylar.SeriNoDalı, out string Hasta, out string İşGirişTarihleri, out string İşÇıkışTarihleri, out string İşler, ref Toplam);
                         Banka.Talep_Ayıkla_SeriNoDalı(Detaylar.SeriNoDalı, out _, out _, out _, out string Notlar, out _);
 
                         //Eğer varsa dosya eki sayısının notlar eklenmesi

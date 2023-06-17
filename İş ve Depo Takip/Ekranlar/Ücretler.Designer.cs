@@ -53,6 +53,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.DeğişkenlerEkranı = new System.Windows.Forms.Button();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             this.SağTuşMenü_Değişkenler.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -170,36 +171,41 @@
             this.dahiliDeğişkenlerToolStripMenuItem});
             this.SağTuşMenü_Değişkenler.Name = "SağTuşMenü_Değişkenler";
             this.SağTuşMenü_Değişkenler.ShowImageMargin = false;
-            this.SağTuşMenü_Değişkenler.Size = new System.Drawing.Size(175, 28);
+            this.SağTuşMenü_Değişkenler.Size = new System.Drawing.Size(186, 56);
             // 
             // dahiliDeğişkenlerToolStripMenuItem
             // 
             this.dahiliDeğişkenlerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ücretiToolStripMenuItem1,
             this.toolStripMenuItem2,
+            this.toolStripMenuItem3,
             this.toolStripSeparator2});
             this.dahiliDeğişkenlerToolStripMenuItem.Name = "dahiliDeğişkenlerToolStripMenuItem";
-            this.dahiliDeğişkenlerToolStripMenuItem.Size = new System.Drawing.Size(174, 24);
+            this.dahiliDeğişkenlerToolStripMenuItem.Size = new System.Drawing.Size(185, 24);
             this.dahiliDeğişkenlerToolStripMenuItem.Text = "Dahili Değişkenler";
             // 
             // ücretiToolStripMenuItem1
             // 
             this.ücretiToolStripMenuItem1.Name = "ücretiToolStripMenuItem1";
-            this.ücretiToolStripMenuItem1.Size = new System.Drawing.Size(171, 26);
+            this.ücretiToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
             this.ücretiToolStripMenuItem1.Text = "Ortak Ücreti";
+            this.ücretiToolStripMenuItem1.ToolTipText = "Seçtiğiniz iş türünün\r\ntüm müşteriler için ortak ücretini\r\nhesaba katmak için seç" +
+    "ebilirsiniz.\r\n\r\nBirim ücret sutunu içerisinde kullanılamaz.";
             this.ücretiToolStripMenuItem1.Click += new System.EventHandler(this.SağTuşMenü_Değişkenler_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(171, 26);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(224, 26);
             this.toolStripMenuItem2.Text = "Maliyeti";
+            this.toolStripMenuItem2.ToolTipText = "Seçtiğiniz iş türünün\r\nmaliyetini \r\nhesaba katmak için seçebilirsiniz.\r\n\r\nMaliyet" +
+    " sutunu içerisinde kullanılamaz.\r\n";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.SağTuşMenü_Değişkenler_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(168, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(221, 6);
             // 
             // Zam_Yap
             // 
@@ -317,6 +323,15 @@
             this.DeğişkenlerEkranı.UseVisualStyleBackColor = true;
             this.DeğişkenlerEkranı.Click += new System.EventHandler(this.Değişkenler_Click);
             // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem3.Text = "=0";
+            this.toolStripMenuItem3.ToolTipText = "Hücre içeriğindeki işlemin\r\nhesaplanması neticesinde\r\nsonucun sıfır olabilme ihti" +
+    "mali var ise kullanabilirsiniz. ";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.SağTuşMenü_Değişkenler_Click);
+            // 
             // Ücretler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
@@ -368,5 +383,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.Button DeğişkenlerEkranı;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ArgeMup.HazirKod;
+using ArgeMup.HazirKod.Dönüştürme;
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,6 @@ namespace İş_ve_Depo_Takip
         {
             "%",
             "#",
-            "<=0",
             "Yuvarla ",
             "EnBüyük ",
             "EnKüçük ",
@@ -53,6 +53,95 @@ namespace İş_ve_Depo_Takip
         }
         const int iç_içe_çağırma_sayacı_sabiti = 555;
 
+        public static string Düzenle(string Formül)
+        {
+            //%% li ifadelerin boşluk ile ayrılması
+            int konum_başlangıç = 0;
+            while (konum_başlangıç < Formül.Length)
+            {
+                int yuzde_karakteri_konumu_ilk = Formül.IndexOf("%", konum_başlangıç);
+                if (yuzde_karakteri_konumu_ilk < 0) break;
+
+                int yuzde_karakteri_konumu_son = Formül.IndexOf("%", yuzde_karakteri_konumu_ilk + 1);
+                if (yuzde_karakteri_konumu_son < 0) break;
+
+                string dört_işlem_karakter_arayıcı_bulunan = Formül.Substring(konum_başlangıç, yuzde_karakteri_konumu_ilk - konum_başlangıç);
+                if (dört_işlem_karakter_arayıcı_bulunan.DoluMu())
+                {
+                    // +-*/
+                    string gecici_dört_işlem_karakter_arayıcı_bulunan = dört_işlem_karakter_arayıcı_bulunan.Replace("+", " + ").Replace("-", " - ").Replace("/", " / ").Replace("*", " * ");
+
+                    Formül = Formül.Remove(konum_başlangıç, dört_işlem_karakter_arayıcı_bulunan.Length);
+                    Formül = Formül.Insert(konum_başlangıç, gecici_dört_işlem_karakter_arayıcı_bulunan);
+
+                    int fark = gecici_dört_işlem_karakter_arayıcı_bulunan.Length - dört_işlem_karakter_arayıcı_bulunan.Length;
+                    yuzde_karakteri_konumu_ilk += fark;
+                    yuzde_karakteri_konumu_son += fark;
+                }
+
+                yuzde_karakteri_konumu_ilk += 1;
+                yuzde_karakteri_konumu_son -= yuzde_karakteri_konumu_ilk; //adet ollarak kullan
+                string DeğişkenAdı = Formül.Substring(yuzde_karakteri_konumu_ilk, yuzde_karakteri_konumu_son);
+                if (DeğişkenAdı.BoşMu(true)) break;
+
+                string yeni_DeğişkenAdı = " %" + DeğişkenAdı.Trim() + "% ";
+
+                yuzde_karakteri_konumu_ilk -= 1;
+                yuzde_karakteri_konumu_son += 2;
+                Formül = Formül.Remove(yuzde_karakteri_konumu_ilk, yuzde_karakteri_konumu_son);
+                Formül = Formül.Insert(yuzde_karakteri_konumu_ilk, yeni_DeğişkenAdı);
+
+                konum_başlangıç = yuzde_karakteri_konumu_ilk + yeni_DeğişkenAdı.Length;
+            }
+
+            //geri kalan kısımda +-*/ kontrolü
+            string dört_işlem_karakter_arayıcı_bulunan_2 = Formül.Substring(konum_başlangıç);
+            if (dört_işlem_karakter_arayıcı_bulunan_2.DoluMu())
+            {
+                // +-*/
+                string gecici_dört_işlem_karakter_arayıcı_bulunan = dört_işlem_karakter_arayıcı_bulunan_2.Replace("+", " + ").Replace("-", " - ").Replace("/", " / ").Replace("*", " * ");
+
+                Formül = Formül.Remove(konum_başlangıç, dört_işlem_karakter_arayıcı_bulunan_2.Length);
+                Formül = Formül.Insert(konum_başlangıç, gecici_dört_işlem_karakter_arayıcı_bulunan);
+            }
+
+            //() li ifadelerin boşluk ile ayrılması
+            konum_başlangıç = 0;
+            while (konum_başlangıç < Formül.Length)
+            {
+                int yuzde_karakteri_konumu_ilk = Formül.IndexOf("(", konum_başlangıç);
+                if (yuzde_karakteri_konumu_ilk < 0) break;
+
+                int yuzde_karakteri_konumu_son = Formül.IndexOf(")", yuzde_karakteri_konumu_ilk + 1);
+                if (yuzde_karakteri_konumu_son < 0) break;
+
+                yuzde_karakteri_konumu_ilk += 1;
+                yuzde_karakteri_konumu_son -= yuzde_karakteri_konumu_ilk; //adet ollarak kullan
+                string DeğişkenAdı = Formül.Substring(yuzde_karakteri_konumu_ilk, yuzde_karakteri_konumu_son);
+                if (DeğişkenAdı.BoşMu(true))
+                {
+                    konum_başlangıç += 2;
+                    continue;
+                }
+
+                string yeni_DeğişkenAdı = " ( " + DeğişkenAdı.Trim() + " ) ";
+
+                yuzde_karakteri_konumu_ilk -= 1;
+                yuzde_karakteri_konumu_son += 2;
+                Formül = Formül.Remove(yuzde_karakteri_konumu_ilk, yuzde_karakteri_konumu_son);
+                Formül = Formül.Insert(yuzde_karakteri_konumu_ilk, yeni_DeğişkenAdı);
+
+                konum_başlangıç = yuzde_karakteri_konumu_ilk + yeni_DeğişkenAdı.Length;
+            }
+
+            //noktalı sayı gereksinimleri
+            Formül = Formül.Replace('.', D_Sayı.ayraç_kesir).Replace(',', D_Sayı.ayraç_kesir);
+
+            //fazla boşlukların alınması
+            while (Formül.Contains("  ")) Formül = Formül.Replace("  ", " ");
+
+            return Formül.Trim();
+        }
         public static string Hesapla(string Formül, out double Çıktı, Dictionary<string, string> TümDeğişkenler = null)
         {
             //%Yuvarla <basamak>%   -> %Yuvarla 1% (Birler basamaını yukarı yuvarlar) 0->0, 1...10->10, 11...20->20
@@ -60,35 +149,27 @@ namespace İş_ve_Depo_Takip
             //Sabit sayı            -> 3,5
             //dört işlem            -> + - * /
             //İşlem sırası          -> parantezlerle
-            //İşlem sonucu 0 dan küçük ise işleme devam etmek için -> %<=0%
             //Bir grup sayının en büyüğünü bulmak için -> %EnBüyük <p1> <p2>% değişken adında boşluk olmamalı
             //Bir grup sayının en küçüğünü bulmak için -> %EnKüçük <p1> <p2>% değişken adında boşluk olmamalı
             //%Koşul <Kıstas> <Evet> <Hayır>%
             //%KoşulaUyanİlk <()Kıstas> <Eleman1> <Elaman2> ...
 
             Çıktı = 0;
-            string Formül_ilkHali = Formül;
+
             try
             {
-                if (Formül.Contains("#")) Formül = Formül.Remove(Formül.IndexOf("#")); //notları sil
-
-                string snç = _Hesapla_(Formül, out Çıktı, TümDeğişkenler ?? Tümü, 0);
-                if (snç.DoluMu()) return snç;
-
-                if (Çıktı <= 0 && Formül.Contains("%") && !Formül.Contains("%<=0%")) return "Formüllü bir işlemin hesaplama sonucu 0 dan büyük olmalı (" + Formül_ilkHali + " = " + Çıktı.Yazıya() + ")";
-
-                return null;
+                return _Hesapla_(Formül, out Çıktı, TümDeğişkenler ?? Tümü, 0);
             }
             catch (Exception ex)
             {
-                return "Hesaplamada beklenmeyen durum oluştu. (" + ex.Message + ") (" + Formül_ilkHali + ")";
+                return ex.Message + " (" + Formül + ")";
             }
         }
         static string _Hesapla_(string Formül, out double Çıktı, Dictionary<string, string> TümDeğişkenler, int iç_içe_çağırma_sayacı)
         {
             Çıktı = 0;
             if (Formül.Contains("#")) Formül = Formül.Remove(Formül.IndexOf("#")); //notları sil
-            if (Formül.Contains("%<=0%")) Formül = Formül.Replace("%<=0%", "");
+            if (Formül.BoşMu(true)) return "Formül içeriği boş";
 
             int yuvarla = int.MinValue;
             if (Formül.Contains("%Yuvarla "))
@@ -179,13 +260,16 @@ namespace İş_ve_Depo_Takip
                     if (Sabit_Değişken_Sıra_No >= 0)
                     {
                         bool bekle = true;
+                        Ortak.Gösterge.Başlat("Değişkenler" + Environment.NewLine + "Güncel kur değerleri okunuyor", false, null, 1000);
                         Döviz.KurlarıAl(_GeriBildirim_Kurlar_);
                         System.Threading.Thread.Sleep(1);
-                        while (ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın && bekle)
+                        while (ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın && bekle && Ortak.Gösterge.Çalışsın)
                         {
+                            Ortak.Gösterge.İlerleme = 1;
                             System.Threading.Thread.Sleep(1);
                             Application.DoEvents();
                         }
+                        Ortak.Gösterge.Bitir();
 
                         void _GeriBildirim_Kurlar_(string Yazı, string[] Dizi)
                         {
@@ -220,13 +304,13 @@ namespace İş_ve_Depo_Takip
                 int yuzde_karakteri_konumu_ilk = Girdi_.IndexOf(Başlangıç_);
                 if (yuzde_karakteri_konumu_ilk < 0) return null;
 
-                int yuzde_karakteri_konumu_son = Formül.IndexOf(Bitiş_, yuzde_karakteri_konumu_ilk + 1);
-                if (yuzde_karakteri_konumu_son < 0) return "Formülde son % karakteri bulunamadı (" + Formül + ")";
+                int yuzde_karakteri_konumu_son = Girdi_.IndexOf(Bitiş_, yuzde_karakteri_konumu_ilk + 1);
+                if (yuzde_karakteri_konumu_son < 0) return "Formülde son % karakteri bulunamadı (" + Girdi_ + ")";
 
                 yuzde_karakteri_konumu_ilk += Başlangıç_.Length; //% yi atla
                 yuzde_karakteri_konumu_son -= yuzde_karakteri_konumu_ilk; //adet ollarak kullan
-                DeğişkenAdı_ = Formül.Substring(yuzde_karakteri_konumu_ilk, yuzde_karakteri_konumu_son);
-                if (DeğişkenAdı_.BoşMu(true)) return "Formülün değişken adı boş (" + Formül + ")";
+                DeğişkenAdı_ = Girdi_.Substring(yuzde_karakteri_konumu_ilk, yuzde_karakteri_konumu_son);
+                if (DeğişkenAdı_.BoşMu(true)) return "Formülün değişken adı boş (" + Girdi_ + ")";
 
                 return null;
             }

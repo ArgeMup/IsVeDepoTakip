@@ -73,7 +73,7 @@
             // 
             this.Tablo.AllowUserToResizeColumns = false;
             this.Tablo.AllowUserToResizeRows = false;
-            this.Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -90,6 +90,7 @@
             this.Tablo_Değeri});
             this.Tablo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Tablo.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.Tablo.Enabled = false;
             this.Tablo.Location = new System.Drawing.Point(7, 53);
             this.Tablo.Name = "Tablo";
             this.Tablo.RowHeadersVisible = false;
@@ -105,7 +106,6 @@
             // 
             // Tablo_Adı
             // 
-            this.Tablo_Adı.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Tablo_Adı.FillWeight = 20F;
             this.Tablo_Adı.HeaderText = "Adı";
             this.Tablo_Adı.MinimumWidth = 6;
@@ -115,16 +115,15 @@
             // 
             // Tablo_İçeriği
             // 
-            this.Tablo_İçeriği.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Tablo_İçeriği.FillWeight = 20F;
             this.Tablo_İçeriği.HeaderText = "İçeriği";
             this.Tablo_İçeriği.MinimumWidth = 6;
             this.Tablo_İçeriği.Name = "Tablo_İçeriği";
             this.Tablo_İçeriği.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Tablo_İçeriği.Width = 85;
             // 
             // Tablo_Değeri
             // 
-            this.Tablo_Değeri.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.Tablo_Değeri.DefaultCellStyle = dataGridViewCellStyle2;
             this.Tablo_Değeri.FillWeight = 20F;
@@ -165,6 +164,7 @@
             this.ClientSize = new System.Drawing.Size(982, 553);
             this.Controls.Add(this.Tablo);
             this.Controls.Add(this.panel1);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Değişkenler_Ekranı";
@@ -173,7 +173,6 @@
             this.Text = "Değişkenler";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Değişkenler_Ekranı_FormClosed);
-            this.Shown += new System.EventHandler(this.Değişkenler_Ekranı_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -327,11 +327,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             List<string> l = new List<string>();
+            List<DataGridViewRow> silinecek_satırlar = new List<DataGridViewRow>();
             for (int i = 0; i < Tablo.RowCount; i++)
             {
-                if ((bool)Tablo[0, i].Value) l.Add((string)Tablo[1, i].Value);
+                if ((bool)Tablo[0, i].Value)
+                {
+                    l.Add((string)Tablo[1, i].Value);
+                    silinecek_satırlar.Add(Tablo.Rows[i]);
+                }
             }
-
             if (l.Count < 1)
             {
                 MessageBox.Show("Lütfen tablodan seçim yapınız", Text);
@@ -344,15 +348,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Banka.Talep_Sil(İşTakip_Müşteriler.Text, l);
             Banka.Değişiklikleri_Kaydet(İşTakip_DevamEden_Sil);
 
-        YenidenDene:
-            for (int i = 0; i < Tablo.RowCount; i++)
+            foreach (DataGridViewRow s in silinecek_satırlar)
             {
-                if ((bool)Tablo[0, i].Value)
-                {
-                    Tablo.Rows.RemoveAt(i);
-                    Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle((string)Tablo[1, i].Value);
-                    goto YenidenDene;
-                }
+                Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle((string)s.Cells[Tablo_SeriNo.Index].Value);
+                Tablo.Rows.Remove(s);
             }
         }
         private void İşTakip_DevamEden_Düzenle_Click(object sender, EventArgs e)
@@ -424,7 +423,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             List<string> l = new List<string>();
             List<DataGridViewRow> silinecek_satırlar = new List<DataGridViewRow>();
-
             for (int i = 0; i < Tablo.RowCount; i++)
             {
                 if ((bool)Tablo[0, i].Value)
@@ -433,30 +431,19 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     silinecek_satırlar.Add(Tablo.Rows[i]);
                 }
             }
-
             if (l.Count < 1)
             {
                 MessageBox.Show("Lütfen tablodan seçim yapınız", Text);
                 return;
             }
 
-            string snç = Banka.Talep_İşaretle_DevamEden_TeslimEdilen(İşTakip_Müşteriler.Text, l, true);
-            if (string.IsNullOrEmpty(snç))
+            Banka.Talep_İşaretle_DevamEden_TeslimEdilen(İşTakip_Müşteriler.Text, l, true);
+            Banka.Değişiklikleri_Kaydet(İşTakip_DevamEden_İsaretle_TeslimEdildi);
+           
+            foreach (DataGridViewRow s in silinecek_satırlar)
             {
-                //başarılı
-                Banka.Değişiklikleri_Kaydet(İşTakip_DevamEden_İsaretle_TeslimEdildi);
-                foreach (string biri in l) Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(biri);
-                foreach (DataGridViewRow s in silinecek_satırlar) Tablo.Rows.Remove(s);
-            }
-            else
-            {
-                Banka.Değişiklikler_TamponuSıfırla();
-
-                DialogResult Dr = MessageBox.Show(snç + Environment.NewLine + Environment.NewLine +
-                    "Ücretler sayfasını açmak ister misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                if (Dr == DialogResult.No) return;
-
-                Ekranlar.ÖnYüzler.Ekle(new Ücretler());
+                Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle((string)s.Cells[Tablo_SeriNo.Index].Value);
+                Tablo.Rows.Remove(s);
             }
         }
         private void İşTakip_TeslimEdildi_İşaretle_DevamEden_Click(object sender, EventArgs e)
@@ -469,18 +456,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             List<string> l = new List<string>();
-
-        YenidenDene:
+            List<DataGridViewRow> silinecek_satırlar = new List<DataGridViewRow>();
             for (int i = 0; i < Tablo.RowCount; i++)
             {
                 if ((bool)Tablo[0, i].Value)
                 {
                     l.Add((string)Tablo[1, i].Value);
-                    Tablo.Rows.RemoveAt(i);
-                    goto YenidenDene;
+                    silinecek_satırlar.Add(Tablo.Rows[i]);
                 }
             }
-
             if (l.Count < 1)
             {
                 MessageBox.Show("Lütfen tablodan seçim yapınız", Text);
@@ -489,7 +473,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Banka.Talep_İşaretle_DevamEden_TeslimEdilen(İşTakip_Müşteriler.Text, l, false);
             Banka.Değişiklikleri_Kaydet(İşTakip_TeslimEdildi_İşaretle_DevamEden);
-            foreach (string biri in l) Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(biri);
+
+            foreach (DataGridViewRow s in silinecek_satırlar)
+            {
+                Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle((string)s.Cells[Tablo_SeriNo.Index].Value);
+                Tablo.Rows.Remove(s);
+            }
         }
         private void İşTakip_TeslimEdildi_ÖdemeTalebiOluştur_Click(object sender, EventArgs e)
         {
@@ -522,18 +511,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             
             List<string> l = new List<string>();
-
-        YenidenDene:
+            List<DataGridViewRow> silinecek_satırlar = new List<DataGridViewRow>();
             for (int i = 0; i < Tablo.RowCount; i++)
             {
                 if ((bool)Tablo[0, i].Value)
                 {
                     l.Add((string)Tablo[1, i].Value);
-                    Tablo.Rows.RemoveAt(i);
-                    goto YenidenDene;
+                    silinecek_satırlar.Add(Tablo.Rows[i]);
                 }
             }
-
             if (l.Count < 1)
             {
                 MessageBox.Show("Lütfen tablodan seçim yapınız", Text);
@@ -542,9 +528,28 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt.Checked = false;
 
-            Banka.Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(İşTakip_Müşteriler.Text, l, İlaveÖdeme_Açıklama, İlaveÖdeme_Miktar, İşTakip_TeslimEdildi_KDV.Checked);
-            Banka.Değişiklikleri_Kaydet(İşTakip_TeslimEdildi_ÖdemeTalebiOluştur);
-            foreach (string biri in l) Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(biri);
+            string snç = Banka.Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(İşTakip_Müşteriler.Text, l, İlaveÖdeme_Açıklama, İlaveÖdeme_Miktar, İşTakip_TeslimEdildi_KDV.Checked);
+            if (string.IsNullOrEmpty(snç))
+            {
+                //başarılı
+                Banka.Değişiklikleri_Kaydet(İşTakip_TeslimEdildi_ÖdemeTalebiOluştur);
+
+                foreach (DataGridViewRow s in silinecek_satırlar)
+                {
+                    Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle((string)s.Cells[Tablo_SeriNo.Index].Value);
+                    Tablo.Rows.Remove(s);
+                }
+            }
+            else
+            {
+                Banka.Değişiklikler_TamponuSıfırla();
+
+                DialogResult Dr = MessageBox.Show(snç + Environment.NewLine + Environment.NewLine +
+                    "Ücretler sayfasını açmak ister misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (Dr == DialogResult.No) return;
+
+                Ekranlar.ÖnYüzler.Ekle(new Ücretler());
+            }
         }
         private void İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt_CheckedChanged(object sender, EventArgs e)
         {

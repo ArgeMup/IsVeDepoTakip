@@ -38,6 +38,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Notlar = new System.Windows.Forms.TextBox();
             this.Tablo = new System.Windows.Forms.DataGridView();
+            this.Tablo_İş_Türü = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tablo_Adet = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tablo_Ücret = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tablo_Giriş_Tarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tablo_Çıkış_Tarihi = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Kaydet = new System.Windows.Forms.Button();
             this.Seçili_Satırı_Sil = new System.Windows.Forms.Button();
             this.İskonto = new System.Windows.Forms.TextBox();
@@ -59,9 +64,30 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Kat_3_SolSağ = new System.Windows.Forms.SplitContainer();
             this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt = new System.Windows.Forms.SplitContainer();
             this.Tablo_Dişler = new System.Windows.Forms.TableLayoutPanel();
+            this.label36 = new System.Windows.Forms.Label();
+            this.altsag = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.alt = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.ustsag = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.altsol = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
+            this.ust = new System.Windows.Forms.Label();
+            this.ustsol = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -75,22 +101,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label36 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
             this.P_DosyaEkleri = new System.Windows.Forms.Panel();
             this.P_Epostalar = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -99,19 +110,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Kat_2_3 = new System.Windows.Forms.SplitContainer();
             this.Ayraç_Kat_1_2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.altsol = new System.Windows.Forms.Label();
-            this.alt = new System.Windows.Forms.Label();
-            this.altsag = new System.Windows.Forms.Label();
-            this.ustsol = new System.Windows.Forms.Label();
-            this.ust = new System.Windows.Forms.Label();
-            this.ustsag = new System.Windows.Forms.Label();
             this.KurlarVeSüreler = new System.Windows.Forms.TextBox();
             this.İpUcu_Genel = new System.Windows.Forms.ToolTip(this.components);
-            this.Tablo_İş_Türü = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tablo_Adet = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tablo_Ücret = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tablo_Giriş_Tarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tablo_Çıkış_Tarihi = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             this.Müşteriler_Grup.SuspendLayout();
             this.Hastalar_Grup.SuspendLayout();
@@ -202,6 +202,61 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Tablo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellContentClick);
             this.Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellValueChanged);
             this.Tablo.SelectionChanged += new System.EventHandler(this.Tablo_SelectionChanged);
+            // 
+            // Tablo_İş_Türü
+            // 
+            this.Tablo_İş_Türü.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Tablo_İş_Türü.FillWeight = 70F;
+            this.Tablo_İş_Türü.HeaderText = "İş Türü";
+            this.Tablo_İş_Türü.MinimumWidth = 6;
+            this.Tablo_İş_Türü.Name = "Tablo_İş_Türü";
+            this.Tablo_İş_Türü.ReadOnly = true;
+            this.Tablo_İş_Türü.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_İş_Türü.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Tablo_Adet
+            // 
+            this.Tablo_Adet.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = null;
+            this.Tablo_Adet.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Tablo_Adet.HeaderText = "Adet";
+            this.Tablo_Adet.MinimumWidth = 6;
+            this.Tablo_Adet.Name = "Tablo_Adet";
+            this.Tablo_Adet.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Tablo_Adet.Width = 49;
+            // 
+            // Tablo_Ücret
+            // 
+            this.Tablo_Ücret.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Ücret.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Tablo_Ücret.FillWeight = 30F;
+            this.Tablo_Ücret.HeaderText = "Ücret ₺";
+            this.Tablo_Ücret.MinimumWidth = 6;
+            this.Tablo_Ücret.Name = "Tablo_Ücret";
+            this.Tablo_Ücret.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Tablo_Ücret.Width = 70;
+            // 
+            // Tablo_Giriş_Tarihi
+            // 
+            this.Tablo_Giriş_Tarihi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Giriş_Tarihi.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Tablo_Giriş_Tarihi.HeaderText = "Kabul Tarihi";
+            this.Tablo_Giriş_Tarihi.MinimumWidth = 6;
+            this.Tablo_Giriş_Tarihi.Name = "Tablo_Giriş_Tarihi";
+            this.Tablo_Giriş_Tarihi.ReadOnly = true;
+            this.Tablo_Giriş_Tarihi.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Tablo_Giriş_Tarihi.Width = 104;
+            // 
+            // Tablo_Çıkış_Tarihi
+            // 
+            this.Tablo_Çıkış_Tarihi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Tablo_Çıkış_Tarihi.HeaderText = "Çıkış Tarihi";
+            this.Tablo_Çıkış_Tarihi.MinimumWidth = 6;
+            this.Tablo_Çıkış_Tarihi.Name = "Tablo_Çıkış_Tarihi";
+            this.Tablo_Çıkış_Tarihi.Width = 99;
             // 
             // Kaydet
             // 
@@ -553,6 +608,171 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Tablo_Dişler.Size = new System.Drawing.Size(681, 43);
             this.Tablo_Dişler.TabIndex = 8;
             // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label36.Location = new System.Drawing.Point(643, 22);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(34, 20);
+            this.label36.TabIndex = 63;
+            this.label36.Text = "38";
+            this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // altsag
+            // 
+            this.altsag.AutoSize = true;
+            this.altsag.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.altsag.Location = new System.Drawing.Point(354, 22);
+            this.altsag.Name = "altsag";
+            this.altsag.Size = new System.Drawing.Size(16, 20);
+            this.altsag.TabIndex = 50;
+            this.altsag.Text = ">";
+            this.altsag.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label35.Location = new System.Drawing.Point(605, 22);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(31, 20);
+            this.label35.TabIndex = 62;
+            this.label35.Text = "37";
+            this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // alt
+            // 
+            this.alt.AutoSize = true;
+            this.alt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.alt.Location = new System.Drawing.Point(331, 22);
+            this.alt.Name = "alt";
+            this.alt.Size = new System.Drawing.Size(16, 20);
+            this.alt.TabIndex = 49;
+            this.alt.Text = "*";
+            this.alt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label32.Location = new System.Drawing.Point(567, 22);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(31, 20);
+            this.label32.TabIndex = 57;
+            this.label32.Text = "36";
+            this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label33.Location = new System.Drawing.Point(643, 1);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(34, 20);
+            this.label33.TabIndex = 60;
+            this.label33.Text = "28";
+            this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label31.Location = new System.Drawing.Point(529, 22);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(31, 20);
+            this.label31.TabIndex = 56;
+            this.label31.Text = "35";
+            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ustsag
+            // 
+            this.ustsag.AutoSize = true;
+            this.ustsag.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ustsag.Location = new System.Drawing.Point(354, 1);
+            this.ustsag.Name = "ustsag";
+            this.ustsag.Size = new System.Drawing.Size(16, 20);
+            this.ustsag.TabIndex = 47;
+            this.ustsag.Text = ">";
+            this.ustsag.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label30.Location = new System.Drawing.Point(491, 22);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(31, 20);
+            this.label30.TabIndex = 55;
+            this.label30.Text = "34";
+            this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label26.Location = new System.Drawing.Point(605, 1);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(31, 20);
+            this.label26.TabIndex = 59;
+            this.label26.Text = "27";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label29.Location = new System.Drawing.Point(453, 22);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(31, 20);
+            this.label29.TabIndex = 54;
+            this.label29.Text = "33";
+            this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // altsol
+            // 
+            this.altsol.AutoSize = true;
+            this.altsol.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.altsol.Location = new System.Drawing.Point(308, 22);
+            this.altsol.Name = "altsol";
+            this.altsol.Size = new System.Drawing.Size(16, 20);
+            this.altsol.TabIndex = 48;
+            this.altsol.Text = "<";
+            this.altsol.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label28.Location = new System.Drawing.Point(415, 22);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(31, 20);
+            this.label28.TabIndex = 53;
+            this.label28.Text = "32";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label21.Location = new System.Drawing.Point(529, 1);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(31, 20);
+            this.label21.TabIndex = 46;
+            this.label21.Text = "25";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label27.Location = new System.Drawing.Point(377, 22);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(31, 20);
+            this.label27.TabIndex = 52;
+            this.label27.Text = "31";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // label25
             // 
             this.label25.AutoSize = true;
@@ -575,6 +795,50 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.label24.Text = "42";
             this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label17.Location = new System.Drawing.Point(377, 1);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(31, 20);
+            this.label17.TabIndex = 42;
+            this.label17.Text = "21";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label18.Location = new System.Drawing.Point(415, 1);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(31, 20);
+            this.label18.TabIndex = 43;
+            this.label18.Text = "22";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label22.Location = new System.Drawing.Point(567, 1);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(31, 20);
+            this.label22.TabIndex = 47;
+            this.label22.Text = "26";
+            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label19.Location = new System.Drawing.Point(453, 1);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(31, 20);
+            this.label19.TabIndex = 44;
+            this.label19.Text = "23";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // label23
             // 
             this.label23.AutoSize = true;
@@ -585,6 +849,28 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.label23.TabIndex = 48;
             this.label23.Text = "43";
             this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ust
+            // 
+            this.ust.AutoSize = true;
+            this.ust.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ust.Location = new System.Drawing.Point(331, 1);
+            this.ust.Name = "ust";
+            this.ust.Size = new System.Drawing.Size(16, 20);
+            this.ust.TabIndex = 46;
+            this.ust.Text = "*";
+            this.ust.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ustsol
+            // 
+            this.ustsol.AutoSize = true;
+            this.ustsol.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ustsol.Location = new System.Drawing.Point(308, 1);
+            this.ustsol.Name = "ustsol";
+            this.ustsol.Size = new System.Drawing.Size(16, 20);
+            this.ustsol.TabIndex = 45;
+            this.ustsol.Text = "<";
+            this.ustsol.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label16
             // 
@@ -737,138 +1023,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.label2.Text = "17";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label36.Location = new System.Drawing.Point(643, 22);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(34, 20);
-            this.label36.TabIndex = 63;
-            this.label36.Text = "38";
-            this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label35.Location = new System.Drawing.Point(605, 22);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(31, 20);
-            this.label35.TabIndex = 62;
-            this.label35.Text = "37";
-            this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label33.Location = new System.Drawing.Point(643, 1);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(34, 20);
-            this.label33.TabIndex = 60;
-            this.label33.Text = "28";
-            this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label26.Location = new System.Drawing.Point(605, 1);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(31, 20);
-            this.label26.TabIndex = 59;
-            this.label26.Text = "27";
-            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label21.Location = new System.Drawing.Point(529, 1);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(31, 20);
-            this.label21.TabIndex = 46;
-            this.label21.Text = "25";
-            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label32.Location = new System.Drawing.Point(567, 22);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(31, 20);
-            this.label32.TabIndex = 57;
-            this.label32.Text = "36";
-            this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label17.Location = new System.Drawing.Point(377, 1);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(31, 20);
-            this.label17.TabIndex = 42;
-            this.label17.Text = "21";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label31.Location = new System.Drawing.Point(529, 22);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(31, 20);
-            this.label31.TabIndex = 56;
-            this.label31.Text = "35";
-            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label18.Location = new System.Drawing.Point(415, 1);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(31, 20);
-            this.label18.TabIndex = 43;
-            this.label18.Text = "22";
-            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label30.Location = new System.Drawing.Point(491, 22);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(31, 20);
-            this.label30.TabIndex = 55;
-            this.label30.Text = "34";
-            this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label19.Location = new System.Drawing.Point(453, 1);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(31, 20);
-            this.label19.TabIndex = 44;
-            this.label19.Text = "23";
-            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label29.Location = new System.Drawing.Point(453, 22);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(31, 20);
-            this.label29.TabIndex = 54;
-            this.label29.Text = "33";
-            this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // label20
             // 
             this.label20.AutoSize = true;
@@ -879,39 +1033,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.label20.TabIndex = 45;
             this.label20.Text = "24";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label28.Location = new System.Drawing.Point(415, 22);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(31, 20);
-            this.label28.TabIndex = 53;
-            this.label28.Text = "32";
-            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label22.Location = new System.Drawing.Point(567, 1);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(31, 20);
-            this.label22.TabIndex = 47;
-            this.label22.Text = "26";
-            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label27.Location = new System.Drawing.Point(377, 22);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(31, 20);
-            this.label27.TabIndex = 52;
-            this.label27.Text = "31";
-            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // P_DosyaEkleri
             // 
@@ -1037,72 +1158,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.splitContainer2.SplitterDistance = 701;
             this.splitContainer2.TabIndex = 24;
             // 
-            // altsol
-            // 
-            this.altsol.AutoSize = true;
-            this.altsol.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.altsol.Location = new System.Drawing.Point(308, 22);
-            this.altsol.Name = "altsol";
-            this.altsol.Size = new System.Drawing.Size(16, 20);
-            this.altsol.TabIndex = 48;
-            this.altsol.Text = "<";
-            this.altsol.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // alt
-            // 
-            this.alt.AutoSize = true;
-            this.alt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.alt.Location = new System.Drawing.Point(331, 22);
-            this.alt.Name = "alt";
-            this.alt.Size = new System.Drawing.Size(16, 20);
-            this.alt.TabIndex = 49;
-            this.alt.Text = "*";
-            this.alt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // altsag
-            // 
-            this.altsag.AutoSize = true;
-            this.altsag.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.altsag.Location = new System.Drawing.Point(354, 22);
-            this.altsag.Name = "altsag";
-            this.altsag.Size = new System.Drawing.Size(16, 20);
-            this.altsag.TabIndex = 50;
-            this.altsag.Text = ">";
-            this.altsag.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // ustsol
-            // 
-            this.ustsol.AutoSize = true;
-            this.ustsol.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ustsol.Location = new System.Drawing.Point(308, 1);
-            this.ustsol.Name = "ustsol";
-            this.ustsol.Size = new System.Drawing.Size(16, 20);
-            this.ustsol.TabIndex = 45;
-            this.ustsol.Text = "<";
-            this.ustsol.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // ust
-            // 
-            this.ust.AutoSize = true;
-            this.ust.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ust.Location = new System.Drawing.Point(331, 1);
-            this.ust.Name = "ust";
-            this.ust.Size = new System.Drawing.Size(16, 20);
-            this.ust.TabIndex = 46;
-            this.ust.Text = "*";
-            this.ust.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // ustsag
-            // 
-            this.ustsag.AutoSize = true;
-            this.ustsag.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ustsag.Location = new System.Drawing.Point(354, 1);
-            this.ustsag.Name = "ustsag";
-            this.ustsag.Size = new System.Drawing.Size(16, 20);
-            this.ustsag.TabIndex = 47;
-            this.ustsag.Text = ">";
-            this.ustsag.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // KurlarVeSüreler
             // 
             this.KurlarVeSüreler.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1126,61 +1181,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İpUcu_Genel.ToolTipTitle = "Yeni İş Girişi / Düzenleme";
             this.İpUcu_Genel.UseAnimation = false;
             this.İpUcu_Genel.UseFading = false;
-            // 
-            // Tablo_İş_Türü
-            // 
-            this.Tablo_İş_Türü.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Tablo_İş_Türü.FillWeight = 70F;
-            this.Tablo_İş_Türü.HeaderText = "İş Türü";
-            this.Tablo_İş_Türü.MinimumWidth = 6;
-            this.Tablo_İş_Türü.Name = "Tablo_İş_Türü";
-            this.Tablo_İş_Türü.ReadOnly = true;
-            this.Tablo_İş_Türü.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_İş_Türü.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Tablo_Adet
-            // 
-            this.Tablo_Adet.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.NullValue = null;
-            this.Tablo_Adet.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Tablo_Adet.HeaderText = "Adet";
-            this.Tablo_Adet.MinimumWidth = 6;
-            this.Tablo_Adet.Name = "Tablo_Adet";
-            this.Tablo_Adet.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Tablo_Adet.Width = 49;
-            // 
-            // Tablo_Ücret
-            // 
-            this.Tablo_Ücret.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Ücret.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Tablo_Ücret.FillWeight = 30F;
-            this.Tablo_Ücret.HeaderText = "Ücret ₺";
-            this.Tablo_Ücret.MinimumWidth = 6;
-            this.Tablo_Ücret.Name = "Tablo_Ücret";
-            this.Tablo_Ücret.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Tablo_Ücret.Width = 70;
-            // 
-            // Tablo_Giriş_Tarihi
-            // 
-            this.Tablo_Giriş_Tarihi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Giriş_Tarihi.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Tablo_Giriş_Tarihi.HeaderText = "Kabul Tarihi";
-            this.Tablo_Giriş_Tarihi.MinimumWidth = 6;
-            this.Tablo_Giriş_Tarihi.Name = "Tablo_Giriş_Tarihi";
-            this.Tablo_Giriş_Tarihi.ReadOnly = true;
-            this.Tablo_Giriş_Tarihi.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Tablo_Giriş_Tarihi.Width = 104;
-            // 
-            // Tablo_Çıkış_Tarihi
-            // 
-            this.Tablo_Çıkış_Tarihi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Tablo_Çıkış_Tarihi.HeaderText = "Çıkış Tarihi";
-            this.Tablo_Çıkış_Tarihi.MinimumWidth = 6;
-            this.Tablo_Çıkış_Tarihi.Name = "Tablo_Çıkış_Tarihi";
-            this.Tablo_Çıkış_Tarihi.Width = 99;
             // 
             // Yeni_İş_Girişi
             // 

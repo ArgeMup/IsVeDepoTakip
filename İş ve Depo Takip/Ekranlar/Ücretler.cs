@@ -190,29 +190,43 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             void _SutunuHesapla_(int SutunNo)
             {
-                string içerik = Tablo[SutunNo, e.RowIndex].Value as string;
-                if (içerik.DoluMu())
+                string Formül = Tablo[SutunNo, e.RowIndex].Value as string;
+                if (Formül.DoluMu())
                 {
-                    if (SutunNo == Tablo_Ücret.Index) içerik = içerik.Replace("%Ortak Ücreti%", "");
-                    else if (SutunNo == Tablo_Maliyet.Index) içerik = içerik.Replace("%Maliyeti%", "");
-                    içerik = içerik.Replace('.', D_Sayı.ayraç_kesir).Replace(',', D_Sayı.ayraç_kesir);
-                    Tablo[SutunNo, e.RowIndex].Value = içerik;
+                    if (SutunNo == Tablo_Ücret.Index) Formül = Formül.Replace("%Ortak Ücreti%", "");
+                    else if (SutunNo == Tablo_Maliyet.Index) Formül = Formül.Replace("%Maliyeti%", "");
+                    Formül = Değişkenler.Düzenle(Formül);
+                    Tablo[SutunNo, e.RowIndex].Value = Formül;
 
-                    if (içerik.DoluMu())
+                    if (Formül.Contains("#")) Formül = Formül.Remove(Formül.IndexOf("#")); //notları sil
+
+                    if (Formül.DoluMu(true))
                     {
                         Dictionary<string, string> tüm_değişkenler = new Dictionary<string, string>(Değişkenler.Tümü);
 
                         string gecici = Tablo[Tablo_Ücret.Index, e.RowIndex].Value as string;
-                        if (gecici.DoluMu()) tüm_değişkenler.Add("Ortak Ücreti", gecici);
+                        if (gecici.DoluMu()) tüm_değişkenler.Add("Ortak Ücreti", gecici.Replace("%=0%", ""));
                        
                         gecici = Tablo[Tablo_Maliyet.Index, e.RowIndex].Value as string;
-                        if (gecici.DoluMu()) tüm_değişkenler.Add("Maliyeti", gecici);
-                        
-                        içerik = Değişkenler.Hesapla(içerik, out double çıktı, tüm_değişkenler); //işlem sonucu
-                        if (içerik.DoluMu())
+                        if (gecici.DoluMu()) tüm_değişkenler.Add("Maliyeti", gecici.Replace("%=0%", ""));
+
+                        bool eşit_sıfır_olabilir = Formül.Contains("%=0%");
+                        if (eşit_sıfır_olabilir) Formül = Formül.Replace("%=0%", "");
+
+                        string snç = Değişkenler.Hesapla(Formül, out double çıktı, tüm_değişkenler); //işlem sonucu
+                        if (snç.DoluMu() || çıktı < 0 || (çıktı == 0 && !eşit_sıfır_olabilir))
                         {
                             Tablo[SutunNo, e.RowIndex].Style.BackColor = Color.Salmon;
-                            Tablo[SutunNo, e.RowIndex].ToolTipText = içerik;
+                            Tablo[SutunNo, e.RowIndex].ToolTipText = snç.DoluMu() ? snç :
+                                "İşlem sonucu : " + çıktı + Environment.NewLine +
+                                "Normal şartlarda sıfırdan büyük olmalıdır." + Environment.NewLine +
+                                "Sıfır değerini kullanabilmek için formüle %=0% (yüzde eşittir sıfır yüzde) kelimesini ekleyiniz." + Environment.NewLine +
+                                "Sıfırdan küçük değerler kabul edilmemektedir.";
+                        }
+                        else if (çıktı == 0)
+                        {
+                            Tablo[SutunNo, e.RowIndex].Style.BackColor = Color.Khaki;
+                            Tablo[SutunNo, e.RowIndex].ToolTipText = "Sonucun 0 olduğunu göz önünde bulundurunuz";
                         }
                         else
                         {
@@ -304,7 +318,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if (!string.IsNullOrEmpty((string)Tablo[Tablo_Ücret.Index, i].Value))
                 {
                     Tablo_CellValueChanged(null, new DataGridViewCellEventArgs(Tablo_Ücret.Index, i));
-                    if (Tablo[Tablo_Ücret.Index, i].Style.BackColor != Color.White)
+                    if (Tablo[Tablo_Ücret.Index, i].Style.BackColor == Color.Salmon)
                     {
                         MessageBox.Show("Lütfen " + (i + 1) + ". satırdaki uyarının bulunduğu formülü kontrol ediniz", Text);
                         return;
@@ -314,7 +328,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if (TümMüşterilerİçinOrtak && !string.IsNullOrEmpty((string)Tablo[Tablo_Maliyet.Index, i].Value))
                 {
                     Tablo_CellValueChanged(null, new DataGridViewCellEventArgs(Tablo_Maliyet.Index, i));
-                    if (Tablo[Tablo_Maliyet.Index, i].Style.BackColor != Color.White)
+                    if (Tablo[Tablo_Maliyet.Index, i].Style.BackColor == Color.Salmon)
                     {
                         MessageBox.Show("Lütfen " + (i + 1) + ". satırdaki uyarının bulunduğu formülü kontrol ediniz", Text);
                         return;

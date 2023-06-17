@@ -1531,7 +1531,7 @@ namespace İş_ve_Depo_Takip
                 if (d != null) ücret = d[0];
             }
 
-            if (string.IsNullOrEmpty(ücret)) return "Ücret bilgisi girilmemiş (" + İşTürü + ")";
+            if (string.IsNullOrEmpty(ücret)) return "Ücret bilgisi girilmemiş.";
 
             if (ücret.Contains("%Maliyeti%"))
             {
@@ -1541,7 +1541,13 @@ namespace İş_ve_Depo_Takip
                 ücret = ücret.Replace("%Maliyeti%", Değeri.Yazıya());
             }
 
-            return Değişkenler.Hesapla(ücret, out Değeri);
+            bool eşit_sıfır_olabilir = ücret.Contains("%=0%");
+            if (eşit_sıfır_olabilir) ücret = ücret.Replace("%=0%", "");
+
+            string cvp = Değişkenler.Hesapla(ücret, out Değeri);
+            if (cvp.DoluMu()) return cvp;
+            else if (Değeri > 0 || (Değeri == 0 && eşit_sıfır_olabilir)) return null;
+            else return "Ücret 0 dan küçük veya eşit olamaz.";
         }
         static string Ücretler_BirimMaliyet(string İşTürü, out double Değeri)
         {
@@ -1561,7 +1567,13 @@ namespace İş_ve_Depo_Takip
                 maliyet = maliyet.Replace("%Ortak Ücreti%", Değeri.Yazıya());
             }
 
-            return Değişkenler.Hesapla(maliyet, out Değeri);
+            bool eşit_sıfır_olabilir = maliyet.Contains("%=0%");
+            if (eşit_sıfır_olabilir) maliyet = maliyet.Replace("%=0%", "");
+
+            string cvp = Değişkenler.Hesapla(maliyet, out Değeri);
+            if (cvp.DoluMu()) return cvp;
+            else if (Değeri > 0 || (Değeri == 0 && eşit_sıfır_olabilir)) return null;
+            else return "Maliyet 0 dan küçük veya eşit olamaz.";
         }
         public static string Ücretler_BirimÜcretMaliyet_Detaylı(string Müşteri, string İşTürü)
         {
@@ -1830,7 +1842,7 @@ namespace İş_ve_Depo_Takip
                 if (string.IsNullOrEmpty(iştürü.Oku(null, null, 1))) iştürü.Yaz(null, DateTime.Now, 1);
             }
         }
-        public static string Talep_İşaretle_DevamEden_TeslimEdilen(string Müşteri, List<string> SeriNolar, bool TeslimEdildi_1_DevamEden_0)
+        public static void Talep_İşaretle_DevamEden_TeslimEdilen(string Müşteri, List<string> SeriNolar, bool TeslimEdildi_1_DevamEden_0)
         {
             IDepo_Eleman Talepler = Tablo_Dal(Müşteri, TabloTürü.DevamEden, "Talepler", true);
 
@@ -1843,49 +1855,15 @@ namespace İş_ve_Depo_Takip
                 {
                     //Teslim edildi olarak işaretle
                     seri_no_dalı.Yaz(null, DateTime.Now, 3); //tamamlanma tarihi bugün
-
-                    foreach (IDepo_Eleman iştürü in seri_no_dalı.Elemanları)
-                    {
-                        double ücret = iştürü.Oku_Sayı(null, -1, 2);
-                        if (ücret < 0)
-                        {
-                            //kullanıcı ücret girmemiş
-                            iştürü.Yaz(null, null, 3); //girilmediği için eğer önceden kalma varsa sil
-
-                            //hesaplatılacak
-                            string snç = Ücretler_HesaplanmışToplamÜcret(Müşteri, iştürü[0], iştürü.Oku_BaytDizisi(null, null, 4), out ücret);
-                            if (snç.DoluMu())
-                            {
-                                return Müşteri + " / " + seri_no_dalı.Adı + " / " + iştürü[0] + " için ücret hesaplanamadı" + Environment.NewLine + Environment.NewLine +
-                                    snç + Environment.NewLine + Environment.NewLine +
-                                    "Hesaplama yöntemi detayları için \"Ana Ekran -> Yeni İş Girişi -> Notlar\" elemanı üzerine" + Environment.NewLine +
-                                    "fareyi götürüp 1 sn kadar bekleyiniz";
-                            }
-                        }
-                        else
-                        {
-                            //kullanıcının girdiğini ayrıca not al, ilerde tersine işlem yaparken lazım olacak
-                            iştürü.Yaz(null, ücret, 3); //girilmediği için eğer önceden kalma varsa sil
-                        }
-
-                        iştürü.Yaz(null, ücret, 2);
-                    }
                 }
                 else
                 {
                     //devam eden olarak işaretle
                     seri_no_dalı.Yaz(null, null, 3); //teslim edildi tarihi iptal
-
-                    foreach (IDepo_Eleman iştürü in seri_no_dalı.Elemanları)
-                    {
-                        iştürü[2] = iştürü[3]; //eğer var ise kullanıcının girdiği değeri geri yükle
-                    }
                 }
             }
-
-            return null;
         }
-        public static void Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(string Müşteri, List<string> Seri_No_lar, string İlaveÖdeme_Açıklama, string İlaveÖdeme_Miktar, bool KDV)
+        public static string Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(string Müşteri, List<string> Seri_No_lar, string İlaveÖdeme_Açıklama, string İlaveÖdeme_Miktar, bool KDV)
         {
             DateTime t = DateTime.Now;
             Depo_ yeni_tablo = Tablo(Müşteri, TabloTürü.ÖdemeTalepEdildi, true, t.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2));
@@ -1895,27 +1873,43 @@ namespace İş_ve_Depo_Takip
 
             foreach (string sn in Seri_No_lar)
             {
-                IDepo_Eleman seri_noya_ait_detaylar = eski_tablodaki_işler.Bul(sn); //bir talep
-                if (seri_noya_ait_detaylar == null) throw new Exception(Müşteri + " / Devam Eden / Talepler / " + sn + " bulunamadı");
+                IDepo_Eleman seri_no_dalı = eski_tablodaki_işler.Bul(sn); //bir talep
+                if (seri_no_dalı == null) throw new Exception(Müşteri + " / Devam Eden / Talepler / " + sn + " bulunamadı");
                 double iş_toplam = 0;
 
-                foreach (IDepo_Eleman iş in seri_noya_ait_detaylar.Elemanları)
+                foreach (IDepo_Eleman iş_türü_dalı in seri_no_dalı.Elemanları)
                 {
-                    double birim_ücret = iş.Oku_Sayı(null, 0, 2); //bir iş
-                    if (birim_ücret < 0)
+                    double ücret = iş_türü_dalı.Oku_Sayı(null, -1, 2); //Kullanıcının girdiği ücret
+                    if (ücret < 0)
                     {
-                        throw new Exception(Müşteri + " / Devam Eden / " + seri_noya_ait_detaylar.Adı + " / " + iş[0] + " ücreti (" + birim_ücret + ") hatalı");
+                        //kullanıcı ücret girmemiş, hesaplatılacak
+                        string snç = Ücretler_HesaplanmışToplamÜcret(Müşteri, iş_türü_dalı[0], iş_türü_dalı.Oku_BaytDizisi(null, null, 4), out ücret);
+                        if (snç.DoluMu() || ücret < 0)
+                        {
+                            return Müşteri + " / " + seri_no_dalı.Adı + " / " + iş_türü_dalı[0] + " için ücret hesaplanamadı" + Environment.NewLine + Environment.NewLine +
+                                snç + Environment.NewLine + Environment.NewLine +
+                                "Hesaplama yöntemi detayları için \"Ana Ekran -> Yeni İş Girişi -> Notlar\" elemanı üzerine" + Environment.NewLine +
+                                "fareyi götürüp 1 sn kadar bekleyiniz";
+                        }
+
+                        iş_türü_dalı.Yaz(null, ücret, 2); //hesaplanan ücret
+                        iş_türü_dalı.Yaz(null, null, 3); //eğer önceden kalma varsa sil
+                    }
+                    else
+                    {
+                        //kullanıcının girdiğini ayrıca not al, ilerde tersine işlem yaparken lazım olacak
+                        iş_türü_dalı.Yaz(null, ücret, 3); //girilmediği için eğer önceden kalma varsa sil
                     }
 
-                    iş_toplam += birim_ücret;
+                    iş_toplam += ücret;
                 }
 
-                double iskonto = seri_noya_ait_detaylar.Oku_Sayı(null, 0, 1);
+                double iskonto = seri_no_dalı.Oku_Sayı(null, 0, 1);
                 if (iskonto > 0) iş_toplam -= iş_toplam / 100 * iskonto;
                 Alt_Toplam += iş_toplam;
 
-                yeni_tablodaki_işler.Ekle(null, seri_noya_ait_detaylar.YazıyaDönüştür(null));
-                seri_noya_ait_detaylar.Sil(null);
+                yeni_tablodaki_işler.Ekle(null, seri_no_dalı.YazıyaDönüştür(null));
+                seri_no_dalı.Sil(null);
             }
 
             IDepo_Eleman müş = Ayarlar_Müşteri(Müşteri, "Sayfa/Teslim Edildi", true);
@@ -1932,21 +1926,30 @@ namespace İş_ve_Depo_Takip
 
             yeni_tablo.Yaz("Ödeme/Alt Toplam", Alt_Toplam);
             if (KDV) yeni_tablo.Yaz("Ödeme/Alt Toplam", Ayarlar_Genel("Bütçe/KDV", true).Oku_Sayı(null, 8), 1);
+            return null;
         }
         public static void Talep_İşaretle_ÖdemeTalepEdildi_TeslimEdildi(string Müşteri, string EkTanım)
         {
-            Depo_ depo = Tablo(Müşteri, TabloTürü.ÖdemeTalepEdildi, false, EkTanım);
+            Depo_ depo_ÖdemeTalepEdildi = Tablo(Müşteri, TabloTürü.ÖdemeTalepEdildi, false, EkTanım);
 
-            IDepo_Eleman eski = depo.Bul("Talepler");
-            if (eski == null) return;
+            IDepo_Eleman eski_ÖdemeTalepEdildi = depo_ÖdemeTalepEdildi.Bul("Talepler");
+            if (eski_ÖdemeTalepEdildi == null) return;
 
-            IDepo_Eleman devam_eden = Tablo_Dal(Müşteri, TabloTürü.DevamEden, "Talepler", true);
-            foreach (IDepo_Eleman e in eski.Elemanları)
+            IDepo_Eleman mevcut_devam_eden = Tablo_Dal(Müşteri, TabloTürü.DevamEden, "Talepler", true);
+
+            foreach (IDepo_Eleman seri_no_dalı in eski_ÖdemeTalepEdildi.Elemanları)
             {
-                devam_eden.Ekle(null, e.YazıyaDönüştür(null));
+                foreach (IDepo_Eleman iş_türü_dalı in seri_no_dalı.Elemanları)
+                {
+                    //eğer var ise kullanıcının girdiği ücret bilgisini geri yükle
+                    iş_türü_dalı[2] = iş_türü_dalı[3];
+                    iş_türü_dalı[3] = null;
+                }
+
+                mevcut_devam_eden.Ekle(null, seri_no_dalı.YazıyaDönüştür(null));
             }
 
-            depo.Yaz("Silinecek", "Evet");
+            depo_ÖdemeTalepEdildi.Yaz("Silinecek", "Evet");
         }
         public static void Talep_İşaretle_ÖdemeTalepEdildi_Ödendi(string Müşteri, string EkTanım, string AlınanÖdemeMiktarı, string Notlar)
         {
@@ -2038,7 +2041,7 @@ namespace İş_ve_Depo_Takip
             {
                 object[] dizin = new object[sutun_sayısı];
                 double ücreti = 0;
-                Talep_Ayıkla_SeriNoDalı(seri_no_dalı, out string Hasta, out string İşGirişTarihleri, out string İşÇıkışTarihleri, out string İşler, ref ücreti);
+                Talep_Ayıkla_SeriNoDalı(İçerik.Müşteri, seri_no_dalı, out string Hasta, out string İşGirişTarihleri, out string İşÇıkışTarihleri, out string İşler, ref ücreti);
 
                 dizin[0] = false; //seçim kutucuğu
                 dizin[1] = seri_no_dalı.Adı; //seri no
@@ -2080,6 +2083,9 @@ namespace İş_ve_Depo_Takip
                     dizi[dizi_konum].Cells[8].Tag = tar_ödeme_talep_t; //ödeme talep edilme tarihi
                     dizi[dizi_konum].Cells[9].Tag = tar_ödendi_t; //ödeme tarihi
                 }
+
+                //Ücret hesap hatası varsa belirt
+                if (İşler.Contains(" HATA <")) dizi[dizi_konum].Cells[6].Style.BackColor = System.Drawing.Color.Salmon;
 
                 dizi_konum++;
             }
@@ -2159,7 +2165,7 @@ namespace İş_ve_Depo_Takip
             double AltToplam = 0;
             foreach (IDepo_Eleman iş in SeriNoDalı.Elemanları)
             {
-                //giriş tarih - iş türü - ücret
+                //giriş tarih - iş türü
                 İşler += Yazdır_Tarih(iş.Adı) + " " + iş[0];
 
                 //adet
@@ -2183,7 +2189,7 @@ namespace İş_ve_Depo_Takip
 
             Toplam += AltToplam;
         }
-        public static void Talep_Ayıkla_SeriNoDalı(IDepo_Eleman SeriNoDalı, out string Hasta, out string İşGirişTarihleri, out string İşÇıkışTarihleri, out string İşler, ref double Toplam)
+        public static void Talep_Ayıkla_SeriNoDalı(string Müşteri, IDepo_Eleman SeriNoDalı, out string Hasta, out string İşGirişTarihleri, out string İşÇıkışTarihleri, out string İşler, ref double Toplam)
         {
             Hasta = SeriNoDalı[0];
             double iskonto = SeriNoDalı.Oku_Sayı(null, 0, 1);
@@ -2195,8 +2201,7 @@ namespace İş_ve_Depo_Takip
             double AltToplam = 0;
             foreach (IDepo_Eleman iş in SeriNoDalı.Elemanları)
             {
-                //tarihler - iş türü - ücret sadece 0 dan büyük ise
-
+                //tarihler
                 İşGirişTarihleri += Yazdır_Tarih(iş.Adı) + "\n";
                 İşÇıkışTarihleri += (iş[1].DoluMu() ? Yazdır_Tarih(iş[1]) : " ") + "\n";
 
@@ -2204,12 +2209,21 @@ namespace İş_ve_Depo_Takip
                 İşler += iş[0];
 
                 //işin adedi
-                int adet = Ücretler_AdetÇarpanı(iş.Oku_BaytDizisi(null, null, 4));
+                byte[] kullanım = iş.Oku_BaytDizisi(null, null, 4);
+                int adet = Ücretler_AdetÇarpanı(kullanım);
                 if (adet > 1) İşler += " x" + adet;
 
-                //ücret girilmemiş ise gösterilmeyecek, AltToplamdan hariç tutulacak : -1
-                //ücret girilmiş ise gösterilecek : >= 0
+                //ücret
                 double ücret = iş.Oku_Sayı(null, -1, 2);
+                if (ücret < 0)
+                {
+                    string snç = Ücretler_HesaplanmışToplamÜcret(Müşteri, iş[0], kullanım, out ücret);
+                    if (snç.DoluMu())
+                    {
+                        İşler += " HATA <" + snç + ">";
+                        ücret = -1;
+                    }
+                }
                 if (ücret >= 0)
                 {
                     İşler += " " + Yazdır_Ücret(ücret);
@@ -3272,7 +3286,7 @@ namespace İş_ve_Depo_Takip
                 try
                 {
                     Klasör_ ydk_ler = new Klasör_(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip", EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
-                    ydk_ler.Dosya_Sil_SayısınaVeBoyutunaGöre(100, 500 * 1024 * 1024 /*500MB*/, Ortak.EşZamanlıİşlemSayısı);
+                    ydk_ler.Dosya_Sil_SayısınaVeBoyutunaGöre(25, 25 * 1024 * 1024 /*25MB*/, Ortak.EşZamanlıİşlemSayısı);
                     ydk_ler.Güncelle(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip", EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
 
                     bool yedekle = false;

@@ -135,9 +135,6 @@ Bir değişken ad ve içerikten oluşur.
 		Sayılar : 3 + 5
 		İşlem sırası : ( 3 + 5 ) + 7
 		Diğer değişkenlerle birlikte kullanım : %sayı1% + %sayı2%
-	İşlem sonucunun 0 dan büyük olması şarttır.
-		Tersi duruma izin vermek için %&lt;=0% eklenir
-		%döviz kuru% %&lt;=0% #Döviz kuru okunamaz ise ücreti 0 olarak hesaplar
 	İşlem sonucunu yuvarlamak için özel komut eklenir. (yukarıya yuvarlar)
 		%Yuvarla&lt;boşluk&gt;&lt;basamak sayısı&gt;%
 			Adı -&gt; sayı1 -&gt; 1234

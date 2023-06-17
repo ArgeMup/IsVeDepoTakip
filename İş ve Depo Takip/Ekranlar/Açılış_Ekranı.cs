@@ -1,5 +1,4 @@
-﻿using ArgeMup.HazirKod;
-using ArgeMup.HazirKod.Ekİşlemler;
+﻿using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Linq;
 using System.Windows.Forms;

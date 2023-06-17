@@ -309,7 +309,7 @@ namespace İş_ve_Depo_Takip
                 if ((DateTime.Now - EnSonGüncelleme).TotalMinutes > 5 || Çıktı_yazı.BoşMu())
                 {
                     Çıktı_yazı = null;
-                    Çıktı_dizi = new string[] { "0", "0", "0", "0" };
+                    Çıktı_dizi = new string[] { "Bağlantı_Kurulamadı", "Bağlantı_Kurulamadı", "Bağlantı_Kurulamadı", "Bağlantı_Kurulamadı" };
 
                     string Dosya_TCMB = Ortak.Klasör_Gecici + "TCMB_Kurlar.xml";
                     Dosya.Sil(Dosya_TCMB);
@@ -327,49 +327,57 @@ namespace İş_ve_Depo_Takip
 
                     if (File.Exists(Dosya_TCMB))
                     {
-                        System.Xml.XmlDocument xmlVerisi = new System.Xml.XmlDocument();
-                        xmlVerisi.LoadXml(Dosya_TCMB.DosyaYolu_Oku_Yazı());
+                        try
+                        {
+                            System.Xml.XmlDocument xmlVerisi = new System.Xml.XmlDocument();
+                            xmlVerisi.LoadXml(Dosya_TCMB.DosyaYolu_Oku_Yazı());
 
-                        string Tarih = xmlVerisi.SelectSingleNode("Tarih_Date").Attributes["Tarih"].InnerText;
-                        string dolar = xmlVerisi.SelectSingleNode(string.Format("Tarih_Date/Currency[@Kod='{0}']/BanknoteSelling", "USD")).InnerText;
-                        string avro = xmlVerisi.SelectSingleNode(string.Format("Tarih_Date/Currency[@Kod='{0}']/BanknoteSelling", "EUR")).InnerText;
-                        Çıktı_yazı =
-                        "TCMB " + Tarih + " 15:30" + Environment.NewLine +
-                        "Dolar = " + dolar + " ₺" + Environment.NewLine +
-                        "Avro = " + avro + " ₺" + Environment.NewLine;
+                            string Tarih = xmlVerisi.SelectSingleNode("Tarih_Date").Attributes["Tarih"].InnerText;
+                            string dolar = xmlVerisi.SelectSingleNode(string.Format("Tarih_Date/Currency[@Kod='{0}']/BanknoteSelling", "USD")).InnerText;
+                            string avro = xmlVerisi.SelectSingleNode(string.Format("Tarih_Date/Currency[@Kod='{0}']/BanknoteSelling", "EUR")).InnerText;
+                            Çıktı_yazı =
+                            "TCMB " + Tarih + " 15:30" + Environment.NewLine +
+                            "Dolar = " + dolar + " ₺" + Environment.NewLine +
+                            "Avro = " + avro + " ₺" + Environment.NewLine;
 
-                        Çıktı_dizi[0] = dolar;
-                        Çıktı_dizi[1] = avro;
+                            Çıktı_dizi[0] = dolar;
+                            Çıktı_dizi[1] = avro;
+                        }
+                        catch (Exception) { }
                     }
 
                     if (File.Exists(Dosya_GenelPara))
                     {
-                        string içerik = Dosya_GenelPara.DosyaYolu_Oku_Yazı();
-                        string dolar = _Al_(içerik, @"""USD"":{""satis"":""", @"""");
-                        string avro = _Al_(içerik, @"""EUR"":{""satis"":""", @"""");
-
-                        Çıktı_yazı +=
-                        "Diğer " + File.GetLastWriteTime(Dosya_GenelPara).Yazıya("dd.MM.yyyy HH:mm") + Environment.NewLine +
-                        "Dolar = " + dolar + " ₺" + Environment.NewLine +
-                        "Avro = " + avro + " ₺";
-
-                        Çıktı_dizi[2] = dolar;
-                        Çıktı_dizi[3] = avro;
-
-                        string _Al_(string Girdi, string Başlangıç, string Bitiş)
+                        try
                         {
-                            int knm_başla = Girdi.IndexOf(Başlangıç);
-                            if (knm_başla < 0) return null;
+                            string içerik = Dosya_GenelPara.DosyaYolu_Oku_Yazı();
+                            string dolar = _Al_(içerik, @"""USD"":{""satis"":""", @"""");
+                            string avro = _Al_(içerik, @"""EUR"":{""satis"":""", @"""");
 
-                            knm_başla += Başlangıç.Length;
-                            int knm_bitir = Girdi.IndexOf(Bitiş, knm_başla);
-                            if (knm_bitir < 0) return null;
+                            Çıktı_yazı +=
+                            "Diğer " + File.GetLastWriteTime(Dosya_GenelPara).Yazıya("dd.MM.yyyy HH:mm") + Environment.NewLine +
+                            "Dolar = " + dolar + " ₺" + Environment.NewLine +
+                            "Avro = " + avro + " ₺";
 
-                            return Girdi.Substring(knm_başla, knm_bitir - knm_başla);
+                            Çıktı_dizi[2] = dolar;
+                            Çıktı_dizi[3] = avro;
+
+                            string _Al_(string Girdi, string Başlangıç, string Bitiş)
+                            {
+                                int knm_başla = Girdi.IndexOf(Başlangıç);
+                                if (knm_başla < 0) return null;
+
+                                knm_başla += Başlangıç.Length;
+                                int knm_bitir = Girdi.IndexOf(Bitiş, knm_başla);
+                                if (knm_bitir < 0) return null;
+
+                                return Girdi.Substring(knm_başla, knm_bitir - knm_başla);
+                            }
                         }
+                        catch (Exception) { }
                     }
 
-                    EnSonGüncelleme = DateTime.Now;
+                    if (Çıktı_yazı.DoluMu()) EnSonGüncelleme = DateTime.Now;
                 }
 
                 İşlem?.Invoke(Çıktı_yazı, Çıktı_dizi);

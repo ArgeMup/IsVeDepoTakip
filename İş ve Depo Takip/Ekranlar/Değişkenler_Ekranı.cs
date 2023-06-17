@@ -1,5 +1,4 @@
 ﻿using ArgeMup.HazirKod;
-using ArgeMup.HazirKod.Dönüştürme;
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Collections.Generic;
@@ -56,6 +55,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             InitializeComponent();
 
+            //görsel çiziminin iyileşmsi için
+            typeof(Control).InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty, null, Tablo, new object[] { DoubleBuffered });
+
             YasakKelimeler_Ad.AddRange(Değişkenler.Sabitler);
             YasakKelimeler_Ad.AddRange(Değişkenler.YasakKelimeler_Ad);
             YasakKelimeler_Ad.Add("Ortak Ücreti");
@@ -77,12 +79,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     "web sitesi cevap vermiyor ise " + Environment.NewLine +
                     "uygulama 15 sn ye kadar hareketsiz kalabiir.";
             }
-            Tablo.ClearSelection();
-        }
-        private void Değişkenler_Ekranı_Shown(object sender, EventArgs e)
-        {
+            
             if (Tablo.Rows.Count > 0) Tablo_CellValueChanged(null, new DataGridViewCellEventArgs(Tablo_İçeriği.Index, 0));
+
+            Tablo.ClearSelection();
             Kaydet.Enabled = false;
+            Tablo.Enabled = true;
         }
         private void Değişkenler_Ekranı_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -91,27 +93,30 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void Tablo_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
-
-            if (e.ColumnIndex == Tablo_İçeriği.Index)
-            {
-                string içeriği = Tablo[e.ColumnIndex, e.RowIndex].Value as string;
-                if (içeriği.DoluMu(true)) içeriği = içeriği.Replace('.', D_Sayı.ayraç_kesir).Replace(',', D_Sayı.ayraç_kesir);
-                Tablo[e.ColumnIndex, e.RowIndex].Value = içeriği;
-            }
+            if (e.RowIndex < 0 || e.ColumnIndex < 0 || Tablo.Tag != null) return;
+            Tablo.Tag = 0;
 
             if (e.ColumnIndex != Tablo_Değeri.Index)
             {
+                string içeriği = Tablo[e.ColumnIndex, e.RowIndex].Value as string;
+                if (içeriği != null)
+                {
+                    if (e.ColumnIndex == Tablo_İçeriği.Index) içeriği = Değişkenler.Düzenle(içeriği);
+
+                    içeriği = içeriği.Trim();
+                    Tablo[e.ColumnIndex, e.RowIndex].Value = içeriği;
+                }
+
                 //asıl değişkenlerin alınması
                 Dictionary<string, string> TümDeğişkenler = new Dictionary<string, string>(Değişkenler.Tümü);
                 
                 //yeni değişkenlerin asıl değişkenler içine eklenmesi
                 foreach (DataGridViewRow satır in Tablo.Rows)
                 {
-                    string adı = satır.Cells[Tablo_Adı.Index].Value as string;
-                    string içeriği = satır.Cells[Tablo_İçeriği.Index].Value as string;
-
                     if (!Değişken_Ad_içerik_UygunMu(satır)) continue;
+
+                    string adı = satır.Cells[Tablo_Adı.Index].Value as string;
+                    içeriği = satır.Cells[Tablo_İçeriği.Index].Value as string;
 
                     if (TümDeğişkenler.ContainsKey(adı)) TümDeğişkenler[adı] = içeriği;
                     else TümDeğişkenler.Add(adı, içeriği);
@@ -119,17 +124,21 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 foreach (DataGridViewRow satır in Tablo.Rows)
                 {
-                    string adı = satır.Cells[Tablo_Adı.Index].Value as string;
-                    string içeriği = satır.Cells[Tablo_İçeriği.Index].Value as string;
-
                     if (!Değişken_Ad_içerik_UygunMu(satır)) continue;
+
+                    içeriği = satır.Cells[Tablo_İçeriği.Index].Value as string;
 
                     string snç = Değişkenler.Hesapla(içeriği, out double Çıktı, TümDeğişkenler);
                     satır.Cells[Tablo_Değeri.Index].Value = snç.DoluMu() ? snç : Çıktı.Yazıya();
-                    if (Çıktı <= 0)
+                    if (snç.DoluMu())
                     {
                         satır.Cells[Tablo_Değeri.Index].Style.BackColor = Color.Salmon;
-                        satır.Cells[Tablo_Değeri.Index].ToolTipText = "İşlem sonucu <=0 olduğundan dolayı ücretlendirme aşamasında ücretin SIFIR olarak hesaplanmasına sebep olabilir." + Environment.NewLine + Environment.NewLine + "İşlemin veya sonucun beklediğiniz gibi olduğunu tekrar kontrol ediniz.";
+                        satır.Cells[Tablo_Değeri.Index].ToolTipText = null;
+                    }
+                    else if (Çıktı <= 0)
+                    {
+                        satır.Cells[Tablo_Değeri.Index].Style.BackColor = Color.Khaki;
+                        satır.Cells[Tablo_Değeri.Index].ToolTipText = "Sonucun <=0 olduğunu göz önünde bulundurunuz.";
                     }
                     else
                     {
@@ -140,6 +149,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             Kaydet.Enabled = true;
+            Tablo.Tag = null;
         }
 
         private void Kaydet_Click(object sender, EventArgs e)
@@ -160,6 +170,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Banka.Değişiklikleri_Kaydet(Kaydet);
             Kaydet.Enabled = false;
+            Değişkenler.Tümü = null;
         }
 
         bool TabloİçeriğiArama_Çalışıyor = false;

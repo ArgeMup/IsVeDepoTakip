@@ -187,7 +187,6 @@
     </Compile>
     <Compile Include="HazirKod_Cdiyez\ArkaPlan.cs" />
     <Compile Include="HazirKod_Cdiyez\Ayarlar.cs" />
-    <Compile Include="HazirKod_Cdiyez\Ayarlar_Xml.cs" />
     <Compile Include="HazirKod_Cdiyez\Degiskenler.cs" />
     <Compile Include="HazirKod_Cdiyez\Deneysel.cs" />
     <Compile Include="HazirKod_Cdiyez\Depo.cs" />
@@ -213,9 +212,7 @@
     <Compile Include="HazirKod_Cdiyez\MesajPanosu.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="HazirKod_Cdiyez\PencereVeTepsiIkonuKontrolu.cs" />
     <Compile Include="HazirKod_Cdiyez\Sıkıştırma.cs" />
-    <Compile Include="HazirKod_Cdiyez\UygulamaBostaBekliyor.cs" />
     <Compile Include="HazirKod_Cdiyez\UygulamalarArasiHaberlesme.cs" />
     <Compile Include="HazirKod_Cdiyez\UygulamaOncedenCalistirildiMi.cs" />
     <Compile Include="HazirKod_Cdiyez\Win32Kutuphaneleri.cs" />
