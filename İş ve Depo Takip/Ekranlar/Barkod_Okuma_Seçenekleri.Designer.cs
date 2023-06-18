@@ -43,7 +43,7 @@
             this.Müşteri.Location = new System.Drawing.Point(2, 12);
             this.Müşteri.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.Müşteri.Name = "Müşteri";
-            this.Müşteri.Size = new System.Drawing.Size(360, 20);
+            this.Müşteri.Size = new System.Drawing.Size(376, 20);
             this.Müşteri.TabIndex = 0;
             this.Müşteri.Text = "Müşteri";
             this.Müşteri.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -55,7 +55,7 @@
             this.Hasta.Location = new System.Drawing.Point(2, 38);
             this.Hasta.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.Hasta.Name = "Hasta";
-            this.Hasta.Size = new System.Drawing.Size(360, 20);
+            this.Hasta.Size = new System.Drawing.Size(376, 20);
             this.Hasta.TabIndex = 1;
             this.Hasta.Text = "Hasta";
             this.Hasta.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -67,7 +67,7 @@
             this.Süre.Location = new System.Drawing.Point(2, 64);
             this.Süre.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.Süre.Name = "Süre";
-            this.Süre.Size = new System.Drawing.Size(360, 20);
+            this.Süre.Size = new System.Drawing.Size(376, 20);
             this.Süre.TabIndex = 2;
             this.Süre.Text = "Toplam 2.5 gün, firma içinde 2 gün";
             this.Süre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -82,9 +82,9 @@
             this.MüşteriyeGönder.Location = new System.Drawing.Point(2, 125);
             this.MüşteriyeGönder.Margin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.MüşteriyeGönder.Name = "MüşteriyeGönder";
-            this.MüşteriyeGönder.Size = new System.Drawing.Size(360, 32);
+            this.MüşteriyeGönder.Size = new System.Drawing.Size(376, 51);
             this.MüşteriyeGönder.TabIndex = 1;
-            this.MüşteriyeGönder.Text = "Müşteriye Gönder";
+            this.MüşteriyeGönder.Text = "Müşteriye Gönder\r\nİş Türü Adı";
             this.MüşteriyeGönder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.MüşteriyeGönder.UseVisualStyleBackColor = true;
             this.MüşteriyeGönder.Click += new System.EventHandler(this.MüşteriyeGönder_Click);
@@ -98,7 +98,7 @@
             this.İncele.Location = new System.Drawing.Point(2, 89);
             this.İncele.Margin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.İncele.Name = "İncele";
-            this.İncele.Size = new System.Drawing.Size(360, 32);
+            this.İncele.Size = new System.Drawing.Size(376, 32);
             this.İncele.TabIndex = 0;
             this.İncele.Text = "İncele";
             this.İncele.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -112,10 +112,10 @@
             this.İsaretle_TeslimEdildi.Enabled = false;
             this.İsaretle_TeslimEdildi.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.İsaretle_TeslimEdildi.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.İsaretle_TeslimEdildi.Location = new System.Drawing.Point(2, 161);
+            this.İsaretle_TeslimEdildi.Location = new System.Drawing.Point(2, 180);
             this.İsaretle_TeslimEdildi.Margin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.İsaretle_TeslimEdildi.Name = "İsaretle_TeslimEdildi";
-            this.İsaretle_TeslimEdildi.Size = new System.Drawing.Size(360, 32);
+            this.İsaretle_TeslimEdildi.Size = new System.Drawing.Size(376, 32);
             this.İsaretle_TeslimEdildi.TabIndex = 2;
             this.İsaretle_TeslimEdildi.Text = "Teslim Edildi Olarak İşaretle";
             this.İsaretle_TeslimEdildi.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -127,7 +127,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(362, 198);
+            this.ClientSize = new System.Drawing.Size(378, 215);
             this.Controls.Add(this.MüşteriyeGönder);
             this.Controls.Add(this.İncele);
             this.Controls.Add(this.İsaretle_TeslimEdildi);

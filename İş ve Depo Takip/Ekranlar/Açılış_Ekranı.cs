@@ -107,7 +107,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 case "Ücretler":        ÖndekiEkran = new Ücretler(); break;
                 case "Bütçe":           ÖndekiEkran = new Bütçe(); break;
                 case "Malzemeler":      ÖndekiEkran = new Malzemeler(); break;
-                case "Yazdırma":        ÖndekiEkran = new Yazdırma(); break;
+                case "Yazdırma":        ÖndekiEkran = new Yazdırma(true); break;
                 case "E-posta":         ÖndekiEkran = new Ayarlar_Eposta(); break;
                 case "Etiketleme":      ÖndekiEkran = new Etiketleme(); break;
                 case "Değişkenler":     ÖndekiEkran = new Değişkenler_Ekranı(); break;

@@ -15,7 +15,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
     {
         IDepo_Eleman Ayarlar = null, Ayarlar_Bilgisayar = null;
 
-        public Yazdırma()
+        public Yazdırma(bool ÖnyüzüGöster = false)
         {
             InitializeComponent();
 
@@ -65,16 +65,20 @@ namespace İş_ve_Depo_Takip.Ekranlar
             FirmaLogo_Genişlik.Value = (decimal)Ayarlar.Oku_Sayı("Firma Logosu", 30, 0);
             FirmaLogo_Yükseklik.Value = (decimal)Ayarlar.Oku_Sayı("Firma Logosu", 15, 1);
 
-            KarakterKümeleri.SelectedIndexChanged += Ayar_Değişti;
-            DosyayaYazdır.CheckedChanged += Ayar_Değişti;
-            KenarBoşluğu.ValueChanged += Ayar_Değişti;
-            KarakterBüyüklüğü_Müşteri.ValueChanged += Ayar_Değişti;
-            KarakterBüyüklüğü_Başlıklar.ValueChanged += Ayar_Değişti;
-            KarakterBüyüklüğü_Diğerleri.ValueChanged += Ayar_Değişti;
-            FirmaLogo_Genişlik.ValueChanged += Ayar_Değişti;
-            FirmaLogo_Yükseklik.ValueChanged += Ayar_Değişti;
+            if (ÖnyüzüGöster)
+            {
+                KarakterKümeleri.SelectedIndexChanged += Ayar_Değişti;
+                DosyayaYazdır.CheckedChanged += Ayar_Değişti;
+                KenarBoşluğu.ValueChanged += Ayar_Değişti;
+                KarakterBüyüklüğü_Müşteri.ValueChanged += Ayar_Değişti;
+                KarakterBüyüklüğü_Başlıklar.ValueChanged += Ayar_Değişti;
+                KarakterBüyüklüğü_Diğerleri.ValueChanged += Ayar_Değişti;
+                FirmaLogo_Genişlik.ValueChanged += Ayar_Değişti;
+                FirmaLogo_Yükseklik.ValueChanged += Ayar_Değişti;
+                Ayar_Değişti(null, null);
+            }
+            else Hide();
 
-            Ayar_Değişti(null, null);
             Kaydet.Enabled = false;
         }
 
@@ -292,6 +296,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             Bir_Sayfa_ Sayfa = null;
             PrintDocument pd = new PrintDocument();
+            pd.PrintController = new StandardPrintController(); //Yazdırılıyor yazısının gizlenmesi
             pd.OriginAtMargins = true;
 
             if (DosyaAdı != null)
@@ -354,24 +359,35 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 //logo
                 ev.Graphics.DrawImage(Ortak.Firma_Logo, Sayfa.Sol, Sayfa.Üst, (float)FirmaLogo_Genişlik.Value, (float)FirmaLogo_Yükseklik.Value);
 
-                #region Müşteri
+                //Yazdırma zamanı
                 SizeF s1 = new SizeF(Sayfa.Genişlik - (float)FirmaLogo_Genişlik.Value, (float)FirmaLogo_Yükseklik.Value);
-                y.Yazı.Boyut = ev.Graphics.MeasureString("Sayın " + Depo["Tür", 1], Sayfa.KaKü_Müşteri, s1);
-                while (y.Yazı.Boyut.Height > (float)FirmaLogo_Yükseklik.Value)
+                y.KarakterKümesi = Sayfa.KaKü_Başlık;
+                y.Yazı.Yazı = Banka.Yazdır_Tarih(DateTime.Now.Yazıya());
+                y.Yazı.Boyut = ev.Graphics.MeasureString(y.Yazı.Yazı, y.KarakterKümesi, s1);
+                y.Sol = Sayfa.Sol + (Sayfa.Genişlik - y.Yazı.Boyut.Width);
+                y.Üst = Sayfa.Üst;
+                y.Genişlik = y.Yazı.Boyut.Width;
+                y.Yükseklik = y.Yazı.Boyut.Height;
+                y.Çerçeve = false;
+                Yazdır(y);
+
+                #region Müşteri
+                s1 = new SizeF(Sayfa.Genişlik - (float)FirmaLogo_Genişlik.Value - y.Yazı.Boyut.Width, (float)FirmaLogo_Yükseklik.Value);
+                y.Yazı.Yazı = "Sayın " + Depo["Tür", 1];
+                y.Yazı.Boyut = ev.Graphics.MeasureString(y.Yazı.Yazı, Sayfa.KaKü_Müşteri, s1);
+                while (y.Yazı.Boyut.Height >= (float)FirmaLogo_Yükseklik.Value)
                 {
                     //logo yüksekliğine sığmayan yazının karakterini küçült
                     Sayfa.KaKü_Müşteri = new Font(Sayfa.KaKü_Müşteri.FontFamily, Sayfa.KaKü_Müşteri.Size - 0.5f);
 
-                    y.Yazı.Boyut = ev.Graphics.MeasureString("Sayın " + Depo["Tür", 1], Sayfa.KaKü_Müşteri, s1);
+                    y.Yazı.Boyut = ev.Graphics.MeasureString(y.Yazı.Yazı, Sayfa.KaKü_Müşteri, s1);
                 }
                 
                 y.KarakterKümesi = Sayfa.KaKü_Müşteri;
-                y.Yazı.Yazı = "Sayın " + Depo["Tür", 1];
                 y.Sol = Sayfa.Sol + (float)FirmaLogo_Genişlik.Value;
                 y.Üst = Sayfa.Üst;
                 y.Genişlik = s1.Width;
                 y.Yükseklik = s1.Height;
-                y.Çerçeve = false;
                 Yazdır(y);
                 YazdırmaKonumu_Üst += y.Yükseklik;
                 YazdırmaKonumu_Yükseklik -= y.Yükseklik;

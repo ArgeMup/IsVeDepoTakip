@@ -3286,7 +3286,7 @@ namespace İş_ve_Depo_Takip
                 try
                 {
                     Klasör_ ydk_ler = new Klasör_(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip", EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
-                    ydk_ler.Dosya_Sil_SayısınaVeBoyutunaGöre(25, 25 * 1024 * 1024 /*25MB*/, Ortak.EşZamanlıİşlemSayısı);
+                    ydk_ler.Dosya_Sil_SayısınaVeBoyutunaGöre(50, 5 * 1024 * 1024 /*5MB*/, Ortak.EşZamanlıİşlemSayısı);
                     ydk_ler.Güncelle(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip", EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
 
                     bool yedekle = false;

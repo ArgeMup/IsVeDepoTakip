@@ -40,9 +40,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             else
             {
-                Banka.Talep_Ayıkla_İşTürüDalı(Detaylar.SeriNoDalı.Elemanları.Last(), out _, out _, out string ÇıkışTarihi, out _, out _, out _);
-                MüşteriyeGönder.Enabled = ÇıkışTarihi.BoşMu();
+                Banka.Talep_Ayıkla_İşTürüDalı(Detaylar.SeriNoDalı.Elemanları.Last(), out string İşTürü, out _, out string ÇıkışTarihi, out _, out _, out _);
+                
                 İsaretle_TeslimEdildi.Enabled = TeslimEdilmeTarihi.BoşMu();
+                MüşteriyeGönder.Enabled = Türü_ == Banka.TabloTürü.DevamEden && ÇıkışTarihi.BoşMu();
+                MüşteriyeGönder.Text = "Müşteriye Gönder" + Environment.NewLine + İşTürü;
             }
         }
 
