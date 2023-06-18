@@ -294,7 +294,10 @@ namespace İş_ve_Depo_Takip
 
             DataTable İşlemci = new DataTable();
             Çıktı = Convert.ToDouble(İşlemci.Compute(Formül, null), System.Globalization.CultureInfo.InvariantCulture);
+            
+            if (double.IsInfinity(Çıktı) || double.IsNaN(Çıktı)) return double.MinValue.ToString("E1") + " ile " + double.MaxValue.ToString("E1") + " aralığında olmalı. (" + (double.IsInfinity(Çıktı) ? "Sonsuz " : "Sayı değil ") + Formül + ")";
             if (yuvarla != int.MinValue) Çıktı = _Yuvarla_(Çıktı, yuvarla);
+            
             return null;
 
             string _ArasındakiniAl_(string Girdi_, string Başlangıç_, string Bitiş_, out string DeğişkenAdı_)
