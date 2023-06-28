@@ -56,11 +56,23 @@ namespace İş_ve_Depo_Takip
 
                 MessageBox.Show("Bir sorun oluştu, uygulama yedekler ile kontrol edildi ve bir sorun görülmedi." + Environment.NewLine + Environment.NewLine +
                     "Uygulama kapatılıp yeniden başlatılacak." + Environment.NewLine + Environment.NewLine +
-                    "Lütfen son işleminizi kontrol ediniz." + Environment.NewLine + Environment.NewLine + ex.Message, "İş Ve Depo Takip");
+                    "Lütfen son işleminizi kontrol ediniz." + Environment.NewLine + Environment.NewLine +
+                    ex.Message, "İş Ve Depo Takip");
 
                 //Ekranlar.Eposta.EpostaGönder_İstisna(ex);
 
                 Ortak.Kapan("BeklenmeyenDurum");
+            }
+            catch(Exception exxx)
+            {
+                exxx.Günlük(Hemen: true);
+
+                MessageBox.Show("BÜYÜK bir SORUN oluştu, dosyalarınız KULLANILAMAZ durumda olabilir." + Environment.NewLine + Environment.NewLine +
+                    "Uygulama kapatılıp yeniden başlatılacak. Lütfen son işleminizi kontrol ediniz." + Environment.NewLine + Environment.NewLine +
+                    ex.Message + Environment.NewLine + Environment.NewLine +
+                    "Üstteki hata mesajını üst üste 3. kez görüyorsanız şunları deneyebilirsiniz." + Environment.NewLine +
+                    "1. Uygulamayı kapatıp BANKA klasörü içeriğini tümüyle silin." + Environment.NewLine +
+                    "2. YEDEK klasöründeki en yeni yedeği (zip dosyası) BANKA klasörü içerisine çıkartın.", "İş Ve Depo Takip");
             }
             finally
             {

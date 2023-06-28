@@ -28,7 +28,7 @@ namespace İş_ve_Depo_Takip
     public class Banka
     {
         public const string Sürüm = "1";
-        static int Malzemeler_GeriyeDönükİstatistik_Ay = 36;
+        const int Malzemeler_GeriyeDönükİstatistik_Ay = 36;
         static System.Threading.Mutex Kilit_Tablo = new System.Threading.Mutex(), Kilit_DosyaEkleri = new System.Threading.Mutex();
         
         public static void Giriş_İşlemleri(Label AçılışYazısı)
@@ -1859,7 +1859,7 @@ namespace İş_ve_Depo_Takip
                 else
                 {
                     //devam eden olarak işaretle
-                    seri_no_dalı.Yaz(null, null, 3); //teslim edildi tarihi iptal
+                    seri_no_dalı.Yaz(null, (string)null, 3); //teslim edildi tarihi iptal
                 }
             }
         }
@@ -1893,7 +1893,7 @@ namespace İş_ve_Depo_Takip
                         }
 
                         iş_türü_dalı.Yaz(null, ücret, 2); //hesaplanan ücret
-                        iş_türü_dalı.Yaz(null, null, 3); //eğer önceden kalma varsa sil
+                        iş_türü_dalı.Yaz(null, (string)null, 3); //eğer önceden kalma varsa sil
                     }
                     else
                     {
@@ -2691,6 +2691,7 @@ namespace İş_ve_Depo_Takip
                 {
                     System.Threading.Thread.Sleep(250);
                 }
+                Ortak.Gösterge.Bitir();
             }
 
             if (Yedekleme_İzleyici_DeğişiklikYapıldı != null)
@@ -3424,7 +3425,7 @@ namespace İş_ve_Depo_Takip
                         Ortak.Gösterge.Başlat("Banka sürümü daha yüksek bir yedek bulundu." + Environment.NewLine +
                             "Güncelleme tamamlanana kadar bekleyiniz.", false, null, 0);
                         while (!Ortak.YeniYazılımKontrolü.KontrolTamamlandı && Ortak.Gösterge.Çalışsın) System.Threading.Thread.Sleep(500);
-
+                        Ortak.Gösterge.Bitir();
                         yenidenbaşlatmamesajı = "Banka sürümü daha yüksek bir yedek bulundu. Bizimki:" + Sürüm + ", Yedek:" + d.Oku("Son Banka Kayıt", null, 2);
                         throw new Exception();
                     }

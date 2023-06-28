@@ -38,40 +38,26 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 else Ortak.YeniYazılımKontrolü.Durdur();
 #endif
 
-                try
-                {
-                    Label AçılışYazısı = new System.Windows.Forms.Label();
-                    AçılışYazısı.Dock = System.Windows.Forms.DockStyle.Fill;
-                    AçılışYazısı.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
-                    AçılışYazısı.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-                    AçılışYazısı.Location = new System.Drawing.Point(0, 0);
-                    AçılışYazısı.Name = "AçılışYazısı";
-                    AçılışYazısı.Size = new System.Drawing.Size(378, 349);
-                    AçılışYazısı.TabIndex = 12;
-                    AçılışYazısı.Text = "Lütfen bekleyiniz";
-                    AçılışYazısı.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-                    Controls.Add(AçılışYazısı);
+                Label AçılışYazısı = new System.Windows.Forms.Label();
+                AçılışYazısı.Dock = System.Windows.Forms.DockStyle.Fill;
+                AçılışYazısı.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
+                AçılışYazısı.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+                AçılışYazısı.Location = new System.Drawing.Point(0, 0);
+                AçılışYazısı.Name = "AçılışYazısı";
+                AçılışYazısı.Size = new System.Drawing.Size(378, 349);
+                AçılışYazısı.TabIndex = 12;
+                AçılışYazısı.Text = "Lütfen bekleyiniz";
+                AçılışYazısı.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+                Controls.Add(AçılışYazısı);
 
-                    Application.DoEvents();
-                    Banka.Giriş_İşlemleri(AçılışYazısı);
+                Application.DoEvents();
+                Banka.Giriş_İşlemleri(AçılışYazısı);
 #if !DEBUG
-                    Ekranlar.Eposta.Girişİşlemleri();
-                    BarkodSorgulama.Başlat();
+                Ekranlar.Eposta.Girişİşlemleri();
+                BarkodSorgulama.Başlat();
 #endif
-                    Controls.Remove(AçılışYazısı);
-                    AçılışYazısı.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    ex.Günlük();
-                    System.Threading.Thread.Sleep(100);
-                    MessageBox.Show("Dosyalarınızda tespit edilemeyen bir sorun olabilir." + Environment.NewLine + Environment.NewLine +
-                        "Bu mesajı üst üste 3. kez görüyorsanız alttakileri deneyebilirsiniz." + Environment.NewLine + Environment.NewLine +
-                        "1. Uygulama kapandıktan sonra BANKA klasörü içeriğini tümüyle silin." + Environment.NewLine +
-                        "2. YEDEK klasöründeki en yeni yedeği (zip dosyası) BANKA klasörü içerisine çıkartın" + Environment.NewLine + Environment.NewLine + ex.Message, Text);
-                    Application.Exit();
-                    return;
-                }
+                Controls.Remove(AçılışYazısı);
+                AçılışYazısı.Dispose();
             }
 
             if (YeniParolaOluştur)

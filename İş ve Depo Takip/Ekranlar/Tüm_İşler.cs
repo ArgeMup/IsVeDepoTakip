@@ -1101,11 +1101,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 else Eposta.Gönder_Müşteriye(İşTakip_Müşteriler.Text, dsy_lar, _GeriBildirimİşlemei_Tamamlandı);
                 Ortak.Gösterge.Başlat("Eposta gönderiliyor", false, İşTakip_Eposta_Gönder, 30000/35);
                 while (!epst_gönder_tamamlandı && Ortak.Gösterge.Çalışsın) { Thread.Sleep(35); Ortak.Gösterge.İlerleme = 1; }
+                Banka.Ayarlar_Kullanıcı(Name, "İşTakip_Eposta_Kişi").Yaz(null, İşTakip_Eposta_Kişi.Text);
+                Ortak.Gösterge.Bitir();
                 void _GeriBildirimİşlemei_Tamamlandı(string Sonuç)
                 {
-                    Banka.Ayarlar_Kullanıcı(Name, "İşTakip_Eposta_Kişi").Yaz(null, İşTakip_Eposta_Kişi.Text);
-                    Ortak.Gösterge.Bitir();
-
                     if (!string.IsNullOrEmpty(Sonuç)) MessageBox.Show(Sonuç, Text);
                     epst_gönder_tamamlandı = true;
                 }
@@ -1350,8 +1349,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     if (Seviye2_Ödendi.Checked) kademe += Banka.Dosya_Listele_Müşteri(Arama_Müşteriler.Items[i].ToString(), true).Length;
                 }
             }
-            Ortak.Gösterge.Başlat("Sorgu devam ediyor", true, Arama_Sorgula, kademe);
+            Ortak.Gösterge.Bitir();
 
+            Ortak.Gösterge.Başlat("Sorgu devam ediyor", true, Arama_Sorgula, kademe);
             Banka_Tablo_ bt = new Banka_Tablo_(null);
             bt.Türü = Banka.TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi;
             Banka.Talep_TablodaGöster(Tablo, bt);
@@ -1409,8 +1409,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Arama_Sorgula_Click_2(Banka_Tablo_ bt)
         {
-            if (!Ortak.Gösterge.Çalışsın) return;
-            
             string sn_ler = "";
             List<IDepo_Eleman> uyuşanlar = new List<IDepo_Eleman>();
             foreach (IDepo_Eleman serino in bt.Talepler)

@@ -94,6 +94,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Ortak.Gösterge.İlerleme = 1;
                     System.Threading.Thread.Sleep(1000);
                 }
+                Ortak.Gösterge.Bitir();
             }
 
             if (!yyk.KontrolTamamlandı || !File.Exists(Barkod_Uret_dosyayolu)) sonuç += "Barkod_Uret indirilemedi" + Environment.NewLine;
@@ -120,11 +121,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         if (File.Exists(hatalar)) sonuç += File.ReadAllText(hatalar) + Environment.NewLine;
                         else if (!File.Exists(Ortak.Klasör_Gecici + "Et\\Barkod.png")) sonuç += "Barkod dosyası üretilemedi" + Environment.NewLine;
                     }
+                    Ortak.Gösterge.Bitir();
                 }
             }
-
             yyk.Durdur();
-            Ortak.Gösterge.Bitir();
+            
             return sonuç;
         }
         public static string YeniİşGirişi_Etiket_Üret(string Müşteri, string Hasta, string SeriNo, string SonİşKabulTarihi, string SonİşTürü, bool SadeceAyarla)
@@ -161,6 +162,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Ortak.Gösterge.İlerleme = 1;
                     System.Threading.Thread.Sleep(1000);
                 }
+                Ortak.Gösterge.Bitir();
             }
 
             if (!yyk.KontrolTamamlandı || !File.Exists(Etiket_dosyayolu)) sonuç += "Etiket indirilemedi" + Environment.NewLine;
@@ -184,11 +186,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         string hatalar = Path.GetDirectoryName(Etiket_dosyayolu) + "\\Hatalar.txt";
                         if (File.Exists(hatalar)) sonuç += File.ReadAllText(hatalar) + Environment.NewLine;
                     }
+                    Ortak.Gösterge.Bitir();
                 }
             }
 
             yyk.Durdur();
-            Ortak.Gösterge.Bitir();
             return sonuç;
         }
         #endregion

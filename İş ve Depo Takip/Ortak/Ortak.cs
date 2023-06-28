@@ -133,7 +133,19 @@ namespace İş_ve_Depo_Takip
         }
 
         static Bitmap _Firma_Logo_ = null;
-        public static string Firma_Logo_DosyaYolu = null;
+        static string _Firma_Logo_DosyaYolu_ = null;
+        public static string Firma_Logo_DosyaYolu
+        {
+            get
+            {
+                if (_Firma_Logo_DosyaYolu_ == null)
+                {
+                    Bitmap l = Firma_Logo;
+                }
+
+                return _Firma_Logo_DosyaYolu_;
+            }
+        }
         public static Bitmap Firma_Logo
         {
             get
@@ -143,11 +155,16 @@ namespace İş_ve_Depo_Takip
                     var l = Directory.EnumerateFiles(Klasör_KullanıcıDosyaları, "LOGO.*", SearchOption.TopDirectoryOnly).Where(s => s.EndsWith(".bmp") || s.EndsWith(".jpg") || s.EndsWith(".png"));
                     if (l != null && l.Count() > 0)
                     {
-                        Firma_Logo_DosyaYolu = l.ElementAt(0);
-                        _Firma_Logo_ = new Bitmap(Firma_Logo_DosyaYolu);
+                        _Firma_Logo_DosyaYolu_ = l.ElementAt(0);
+                        _Firma_Logo_ = new Bitmap(_Firma_Logo_DosyaYolu_);
                     }
 
-                    if (_Firma_Logo_ == null) _Firma_Logo_ = Properties.Resources.logo_512_seffaf;
+                    if (_Firma_Logo_ == null)
+                    {
+                        _Firma_Logo_DosyaYolu_ = Klasör_Gecici + "LOGO.png";
+                        Properties.Resources.logo_512_seffaf.Save(_Firma_Logo_DosyaYolu_);
+                        _Firma_Logo_ = Properties.Resources.logo_512_seffaf;
+                    }
                 }
 
                 return _Firma_Logo_;

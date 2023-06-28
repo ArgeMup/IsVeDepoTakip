@@ -143,6 +143,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     System.Threading.Thread.Sleep(500);
                 }
+                Ortak.Gösterge.Bitir();
 
                 Application.Exit();
             }

@@ -46,6 +46,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 tlp.Geçerli_Kademe = İlerlemeÇubuğu.Value;
             }
         }
+        public string Açıklama
+        {
+            get
+            {
+                return Pencere.Mesaj.Text;
+            }
+            set
+            {
+                Pencere.Mesaj.Text = value;
+            }
+        }
 
         public Bekleyiniz()
         {

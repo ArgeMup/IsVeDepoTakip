@@ -112,14 +112,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (_1_Dizi == null)
             {
                 _1_AltToplam.BackColor = System.Drawing.Color.Khaki;
+                
                 Ortak.Gösterge.Başlat("Sayılıyor", true, Sekmeler, 0);
                 int kademe = 0;
-
                 System.Collections.Generic.List<string> Müşteriler = Banka.Müşteri_Listele();
                 for (int i = 0; i < Müşteriler.Count && Ortak.Gösterge.Çalışsın; i++)
                 {
                     kademe += 2 + Banka.Dosya_Listele_Müşteri(Müşteriler[i], false).Length;
                 }
+                Ortak.Gösterge.Bitir();
 
                 Ortak.Gösterge.Başlat("Hesaplanıyor", true, Sekmeler, kademe);
                 _1_Dizi = new Bütçe_Gelir_Gider_[Müşteriler.Count];
@@ -168,7 +169,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     if (ÖnÖdemeMiktarı > 0) _1_Tablo[5, i].Style.BackColor = System.Drawing.Color.Green;
                     else if (ÖnÖdemeMiktarı < 0) _1_Tablo[5, i].Style.BackColor = System.Drawing.Color.Red;
                 }
-
                 Ortak.Gösterge.Bitir();
             }
 
@@ -220,7 +220,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void _1_Hesapla_2(string Müşteri, Banka_Tablo_ bt, out double Gelir, out double Gider)
         {
             Gelir = 0; Gider = 0;
-            if (!Ortak.Gösterge.Çalışsın) return;
            
             foreach (IDepo_Eleman serino in bt.Talepler)
             {
@@ -253,6 +252,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             kademe += Malzemeler.Count;
             string başlık, anahtar;
             string[] başlıklar;
+            Ortak.Gösterge.Bitir();
 
             string çizelgeç_dosyayolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Çizelgeç", "") + "\\Çizelgeç.exe";
             YeniYazılımKontrolü_ yyk = new YeniYazılımKontrolü_();
@@ -444,6 +444,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             şimdi = DateTime.Now;
             using (FileStream fs = File.OpenWrite(DosyaAdı))
             {
+                Ortak.Gösterge.Başlat("Kaydediliyor", true, Sekmeler, tümü_sayac);
+
                 //27.02.2023 17:44:57.701;Başlıklar;Başlık1;... 
                 başlık = şimdi.Yazıya() + ";Başlıklar";
                 for (int i = 0; i < l_Dallar.Count && Ortak.Gösterge.Çalışsın; i++)
@@ -457,7 +459,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 byte[] içerik = (başlık + Environment.NewLine).BaytDizisine();
                 fs.Write(içerik, 0, içerik.Length);
 
-                Ortak.Gösterge.Başlat("Kaydediliyor", true, Sekmeler, tümü_sayac);
                 for (int y = 1; y < tümü_sayac && Ortak.Gösterge.Çalışsın; y++)
                 {
                     Ortak.Gösterge.İlerleme = 1;
@@ -477,6 +478,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 başlık = şimdi.Yazıya() + ";Bilgi;ArGeMuP " + Kendi.Adı + " " + Kendi.Sürüm;
                 içerik = (başlık + Environment.NewLine).BaytDizisine();
                 fs.Write(içerik, 0, içerik.Length);
+                
+                Ortak.Gösterge.Bitir();
             }
 
             if (!yyk.KontrolTamamlandı)
@@ -488,6 +491,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Ortak.Gösterge.İlerleme = 1;
                     System.Threading.Thread.Sleep(1000);
                 }
+                Ortak.Gösterge.Bitir();
             }
 
             if (!yyk.KontrolTamamlandı || !File.Exists(çizelgeç_dosyayolu)) System.Diagnostics.Process.Start("explorer.exe", "/select, " + DosyaAdı);
