@@ -24,6 +24,7 @@ namespace İş_ve_Depo_Takip
         public static string Klasör_Gecici = Klasör.Depolama(Klasör.Kapsamı.Geçici, Sürüm:"") + "\\";
 
         public static YeniYazılımKontrolü_ YeniYazılımKontrolü = new YeniYazılımKontrolü_();
+        public static string YeniYazılımKontrolü_Mesajı_Sabiti = "Yeni sürüm kontrol ediliyor", YeniYazılımKontrolü_Mesajı = YeniYazılımKontrolü_Mesajı_Sabiti;
         public static bool ParolaGirilmesiGerekiyor = true;
         public static Ekranlar.Açılış_Ekranı AnaEkran;
         public static void Kapan(string Bilgi)

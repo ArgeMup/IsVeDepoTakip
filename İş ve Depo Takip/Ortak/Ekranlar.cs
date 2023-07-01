@@ -156,7 +156,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Ekran.FormClosed += Ekran_FormClosed;
             }
 
-            Ekran.Text = "ArGeMuP " + Kendi.Adı + " V" + Kendi.Sürümü_Dosya + " " + Ekran.Text;
+            Ekran.Text = "ArGeMuP " + Kendi.Adı + " " + Ekran.Text + " " + Ortak.YeniYazılımKontrolü_Mesajı;
             Ekran.Icon = Properties.Resources.kendi;
             Ekran.KeyPreview = true;
 
@@ -187,6 +187,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 catch (Exception) { }
             }
             Tümü.Clear();
+        }
+        public static void SürümKontrolMesajınıGüncelle()
+        {
+            foreach (Önyüz_ önyüz in Tümü)
+            {
+                önyüz.Ekran.Text = önyüz.Ekran.Text.Replace(Ortak.YeniYazılımKontrolü_Mesajı_Sabiti, Ortak.YeniYazılımKontrolü_Mesajı);
+            }
         }
 
         private static void Ekran_KeyDown(object sender, KeyEventArgs e)

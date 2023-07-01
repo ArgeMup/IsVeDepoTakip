@@ -1,5 +1,4 @@
 ﻿using ArgeMup.HazirKod;
-using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Windows.Forms;
 
@@ -16,7 +15,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Ortak.ParolaGirilmesiGerekiyor = true;
 
-            Text = Kendi.Adı + " " + Kendi.Sürümü_Dosya;
+            Text = Kendi.Adı + " " + Ortak.YeniYazılımKontrolü_Mesajı_Sabiti;
             Icon = Properties.Resources.kendi;
             this.İlkAçılışKontrolleriniYap = İlkAçılışKontrolleriniYap;
             this.YeniParolaOluştur = YeniParolaOluştur;
@@ -33,7 +32,24 @@ namespace İş_ve_Depo_Takip.Ekranlar
 #else
                 if (!System.IO.File.Exists(Ortak.Klasör_KullanıcıDosyaları + "YeniSurumuKontrolEtme.txt"))
                 {
-                    Ortak.YeniYazılımKontrolü.Başlat(new Uri("https://github.com/ArgeMup/IsVeDepoTakip/blob/main/%C4%B0%C5%9F%20ve%20Depo%20Takip/bin/Release/%C4%B0%C5%9F%20ve%20Depo%20Takip.exe?raw=true"));
+                    Ortak.YeniYazılımKontrolü.Başlat(new Uri("https://github.com/ArgeMup/IsVeDepoTakip/blob/main/%C4%B0%C5%9F%20ve%20Depo%20Takip/bin/Release/%C4%B0%C5%9F%20ve%20Depo%20Takip.exe?raw=true"), _YeniYazılımKontrolü_GeriBildirim_);
+                
+                    void _YeniYazılımKontrolü_GeriBildirim_(bool Sonuç, string Açıklama)
+                    {
+                        if (Sonuç) Ortak.YeniYazılımKontrolü_Mesajı = Açıklama.Replace("Güncel ", null);
+                        else
+                        {
+                            if (Açıklama == "Durduruldu") return;
+
+                            Ortak.YeniYazılımKontrolü_Mesajı = "V" + Kendi.Sürümü_Dosya + " Yeni sürüm kontrol hatası : " + Açıklama.Replace("\r", null).Replace("\n", null);
+                        }
+
+                        Invoke(new Action(() =>
+                        {
+                            ÖnYüzler.SürümKontrolMesajınıGüncelle();
+                            Text = Text.Replace(Ortak.YeniYazılımKontrolü_Mesajı_Sabiti, Ortak.YeniYazılımKontrolü_Mesajı);
+                        }));
+                    }
                 }
                 else Ortak.YeniYazılımKontrolü.Durdur();
 #endif
