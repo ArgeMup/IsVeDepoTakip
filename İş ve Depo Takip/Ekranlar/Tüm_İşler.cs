@@ -528,7 +528,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt.Checked = false;
 
-            string snç = Banka.Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(İşTakip_Müşteriler.Text, l, İlaveÖdeme_Açıklama, İlaveÖdeme_Miktar, İşTakip_TeslimEdildi_KDV.Checked);
+            string snç = Banka.Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(İşTakip_Müşteriler.Text, l, İlaveÖdeme_Açıklama, İlaveÖdeme_Miktar, İşTakip_TeslimEdildi_KDV.Checked, out _);
             if (string.IsNullOrEmpty(snç))
             {
                 //başarılı
@@ -623,7 +623,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar.Text = gecici;
             o.AlınanÖdeme = gecici.NoktalıSayıya();
 
-            //Ödeme Yapılarak Ödendi Olarak İşasaretleme
+            //Ödeme Yapılarak Ödendi Olarak İşaretle
             IDepo_Eleman müş = Banka.Tablo_Dal(İşTakip_Müşteriler.Text, Banka.TabloTürü.Ödemeler, "Mevcut Ön Ödeme");
             if (müş != null) o.MevcutÖnÖdeme = müş.Oku_Sayı(null);
 
@@ -638,7 +638,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 o.ToplamHarcama += (double)Tablo[6, i].Tag;
                 o.ToplamKDV += Hesaplanan_KDV;
-                Tablo[0, i].Value = true;
             }
 
             o.İşlemSonrasıÖnÖdeme = o.MevcutÖnÖdeme + o.AlınanÖdeme - o.ToplamHarcama - o.ToplamKDV;
@@ -662,28 +661,52 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 return;
             }
 
-            List<string> SeriNo_lar = new List<string>();
+            List<string> l = new List<string>();
+            List<DataGridViewRow> silinecek_satırlar = new List<DataGridViewRow>();
             for (int i = 0; i < Tablo.RowCount; i++)
             {
                 if ((bool)Tablo[0, i].Value)
                 {
-                    SeriNo_lar.Add((string)Tablo[1, i].Value);
+                    l.Add((string)Tablo[1, i].Value);
+                    silinecek_satırlar.Add(Tablo.Rows[i]);
                 }
             }
 
-            string soru = (SeriNo_lar.Count == 0 ? null : "Alttaki detayların oluşturulmasında kullanılan seçili işler KALICI olarak ÖDENDİ olarak işaretlenecek." + Environment.NewLine + Environment.NewLine) +
+            string soru = (l.Count == 0 ? null : "Alttaki detayların oluşturulmasında kullanılan seçili işler KALICI olarak ÖDENDİ olarak işaretlenecek." + Environment.NewLine + Environment.NewLine) +
                 "İşleme devam etmek istiyor musunuz?" + Environment.NewLine + Environment.NewLine +
                 o.Yazdır_Kısa();
             DialogResult Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
 
+            string snç = Banka.Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(İşTakip_Müşteriler.Text, l, null, null, İşTakip_TeslimEdildi_KDV.Checked, out string DosyaAdı);
+            if (!string.IsNullOrEmpty(snç))
+            {
+                //hatalı
+                Banka.Değişiklikler_TamponuSıfırla();
+
+                Dr = MessageBox.Show(snç + Environment.NewLine + Environment.NewLine +
+                    "Ücretler sayfasını açmak ister misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (Dr == DialogResult.No) return;
+
+                Ekranlar.ÖnYüzler.Ekle(new Ücretler());
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Notlar.Text)) İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Notlar.Text = null;
             Banka.Ayarlar_Müşteri(İşTakip_Müşteriler.Text, "Sayfa/Teslim Edildi/ÖdemeAl Notlar", true)[0] = İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Notlar.Text;
 
-            Banka.Müşteri_ÖdemeAl(İşTakip_Müşteriler.Text, o, SeriNo_lar, İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Notlar.Text);
-            Banka.Değişiklikleri_Kaydet(İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle);
+            Banka.Talep_İşaretle_ÖdemeTalepEdildi_Ödendi(İşTakip_Müşteriler.Text, DosyaAdı, İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar.Text, İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Notlar.Text);
+
+            //başarılı
+            Banka.Değişiklikleri_Kaydet(İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_ÖdendiOlarakİşsaretle);
             Banka.Değişiklikler_TamponuSıfırla();
-            
+
+            foreach (DataGridViewRow s in silinecek_satırlar)
+            {
+                Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle((string)s.Cells[Tablo_SeriNo.Index].Value);
+                Tablo.Rows.Remove(s);
+            }
+
             Seviye_Değişti(Seviye2_TeslimEdildi, null);
             İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar.Text = "0";
         }
@@ -947,39 +970,19 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
                 else
                 {
-                    if (İşTakip_Yazdırma_VeGörüntüle.Checked) _cmd_doğrudan_aç_(hedef, false);
-                    if (İşTakip_Yazdırma_VeKlasörüAç.Checked) _cmd_doğrudan_aç_(hedef, true);
+                    if (İşTakip_Yazdırma_VeGörüntüle.Checked) Ortak.Çalıştır_Pdf_Resim_vb(hedef);
+                    if (İşTakip_Yazdırma_VeKlasörüAç.Checked) Ortak.Çalıştır_KlasördeGöster(hedef);
                 }
             }
             else
             {
-                if (İşTakip_Yazdırma_VeGörüntüle.Checked) _cmd_doğrudan_aç_(dosyayolu, false);
-                if (İşTakip_Yazdırma_VeKlasörüAç.Checked) _cmd_doğrudan_aç_(dosyayolu, true);
+                if (İşTakip_Yazdırma_VeGörüntüle.Checked) Ortak.Çalıştır_Pdf_Resim_vb(dosyayolu);
+                if (İşTakip_Yazdırma_VeKlasörüAç.Checked) Ortak.Çalıştır_KlasördeGöster(dosyayolu);
             }
 
             IDepo_Eleman Ayrl_Kullanıcı = Banka.Ayarlar_Kullanıcı(Name, null);
             Ayrl_Kullanıcı.Yaz("İşTakip_Yazdırma_VeGörüntüle", İşTakip_Yazdırma_VeGörüntüle.Checked);
             Ayrl_Kullanıcı.Yaz("İşTakip_Yazdırma_VeKlasörüAç", İşTakip_Yazdırma_VeKlasörüAç.Checked);
-
-            void _cmd_doğrudan_aç_(string UygulamaVeyaKomut, bool Klasör)
-            {
-                UygulamaVeyaKomut = "\"" + UygulamaVeyaKomut + "\"";
-
-                System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo();
-                psi.UseShellExecute = true;
-
-                if (Klasör)
-                {
-                    psi.FileName = "explorer.exe";
-                    psi.Arguments = "/select, " + UygulamaVeyaKomut;
-                }
-                else
-                {
-                    psi.FileName = UygulamaVeyaKomut;
-                }
-               
-                System.Diagnostics.Process.Start(psi);
-            }
         }
         private void İşTakip_Eposta_CheckedChanged(object sender, EventArgs e)
         {

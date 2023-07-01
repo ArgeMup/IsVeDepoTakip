@@ -13,8 +13,6 @@ namespace İş_ve_Depo_Takip
 
         public static void Başlat()
         {
-            if (Sunucu != null) return;
-
             IDepo_Eleman snc = Banka.Ayarlar_BilgisayarVeKullanıcı("Http Sunucu");
             if (snc == null || snc.Oku_TamSayı(null) <= 0) return;
 

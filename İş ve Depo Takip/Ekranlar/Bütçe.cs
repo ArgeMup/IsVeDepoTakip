@@ -494,8 +494,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Ortak.Gösterge.Bitir();
             }
 
-            if (!yyk.KontrolTamamlandı || !File.Exists(çizelgeç_dosyayolu)) System.Diagnostics.Process.Start("explorer.exe", "/select, " + DosyaAdı);
-            else System.Diagnostics.Process.Start(çizelgeç_dosyayolu, "\"" + DosyaAdı + "\"");
+            if (!yyk.KontrolTamamlandı || !File.Exists(çizelgeç_dosyayolu)) Ortak.Çalıştır_KlasördeGöster(DosyaAdı);
+            else Ortak.Çalıştır_Uygulama(çizelgeç_dosyayolu, DosyaAdı);
 
             yyk.Durdur();
             Ortak.Gösterge.Bitir();

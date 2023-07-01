@@ -67,7 +67,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void SağTuşMenü_Değişkenler_Click(object sender, EventArgs e)
         {
-            if (Tablo.SelectedCells.Count != 1) return;
+            if (Tablo.SelectedCells.Count != 1 || Tablo.SelectedCells[0].ColumnIndex == Tablo_İş_Türleri.Index) return;
 
             Tablo.SelectedCells[0].Value += "%" + (sender as ToolStripMenuItem).Text + "%";
         }

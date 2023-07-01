@@ -155,7 +155,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     MessageBox.Show("Seçtiğniz klasör masaüstünde mevcut. Üzerine yazıp bilgi kaybına sebep olmamak için işlem duraklatıldı." + Environment.NewLine + Environment.NewLine +
                         "Devam edebilmek için masaüstünde aynı isimli klasör bulunmadığından emin olunuz", Text);
-                    System.Diagnostics.Process.Start("explorer.exe", "/select, " + açık_hali);
+                    Ortak.Çalıştır_KlasördeGöster(açık_hali);
                     return;
                 }
             }
@@ -167,7 +167,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     MessageBox.Show("Seçtiğniz dosya masaüstünde mevcut. Üzerine yazıp bilgi kaybına sebep olmamak için işlem duraklatıldı." + Environment.NewLine + Environment.NewLine +
                         "Devam edebilmek için masaüstünde aynı isimli dosya bulunmadığından emin olunuz", Text);
-                    System.Diagnostics.Process.Start("explorer.exe", "/select, " + açık_hali);
+                    Ortak.Çalıştır_KlasördeGöster(açık_hali);
                     return;
                 }
             }

@@ -52,10 +52,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 Application.DoEvents();
                 Banka.Giriş_İşlemleri(AçılışYazısı);
-#if !DEBUG
-                Ekranlar.Eposta.Girişİşlemleri();
-                BarkodSorgulama.Başlat();
-#endif
+
                 Controls.Remove(AçılışYazısı);
                 AçılışYazısı.Dispose();
             }
@@ -156,13 +153,19 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             if (e.KeyCode == Keys.Enter) Parola_Kontrol_Click(null, null);
         }
-    
+
         void Kapan()
         {
             Ortak.ParolaGirilmesiGerekiyor = false;
 
             if (İlkAçılışKontrolleriniYap)
             {
+#if !DEBUG
+                Ekranlar.Eposta.Girişİşlemleri();
+                BarkodSorgulama.Başlat();
+                HttpSunucu.Başlat();
+#endif
+
                 Ekranlar.ÖnYüzler.Başlat();
 
                 Hide();
@@ -172,7 +175,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Close();
             }
         }
-
         void IEkran.ResimDeğiştir(System.Drawing.Image Resim)
         {
             if (P_Parola.Visible)

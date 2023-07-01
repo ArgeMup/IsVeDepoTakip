@@ -38,12 +38,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             if (!Dosya.Sil(EpostaAltyapısı_KomutDosyasıYolu)) return "Dosya silinemedi " + EpostaAltyapısı_KomutDosyasıYolu;
 
-            EpostaAltyapısı_İşlem = new Process();
-            EpostaAltyapısı_İşlem.StartInfo.FileName = EpostaAltyapısı_Eposta_dosyayolu;
-            EpostaAltyapısı_İşlem.StartInfo.CreateNoWindow = true;
-            EpostaAltyapısı_İşlem.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            EpostaAltyapısı_İşlem.StartInfo.UseShellExecute = false;
-            EpostaAltyapısı_İşlem.Start();
+            EpostaAltyapısı_İşlem = Ortak.Çalıştır_Uygulama(EpostaAltyapısı_Eposta_dosyayolu, null, true);
 
             za = Environment.TickCount + 15000;
             while (!EpostaAltyapısı_İşlem.HasExited && !File.Exists(EpostaAltyapısı_KomutDosyasıYolu) && za > Environment.TickCount && ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın) Thread.Sleep(35);
@@ -249,7 +244,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             return EpostaAltyapısı_BeyazListe.Contains(GönderenEpostaAdresi.ToLower());
         }
-        public static void Durdur(bool TamamlananaKadarBekle = true)
+        public static void Durdur()
         {
             EpostaAltyapısı_İşlem?.Dispose();
             EpostaAltyapısı_İşlem = null;
@@ -258,17 +253,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Process[] l = Process.GetProcessesByName("Eposta");
             if (l != null && l.Length > 0)
             {
-                Klasör.Oluştur(Path.GetDirectoryName(EpostaAltyapısı_KomutDosyasıYolu));
-                File.WriteAllText(EpostaAltyapısı_KomutDosyasıYolu, Path.GetRandomFileName()); //geçersiz duruma geçmesi için
-                if (TamamlananaKadarBekle)
+                foreach (var p in l)
                 {
-                    Thread.Sleep(1500); //kendi kendine kapanması için
-
-                    foreach (var p in l)
-                    {
-                        if (p.HasExited) continue;
-                        if (p.MainModule.FileName == EpostaAltyapısı_Eposta_dosyayolu) p.Kill();
-                    }
+                    if (p.HasExited) continue;
+                    if (p.MainModule.FileName == EpostaAltyapısı_Eposta_dosyayolu) p.Kill();
                 }
             }
         }

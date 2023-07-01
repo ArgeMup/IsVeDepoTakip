@@ -10,7 +10,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
     {
         #region STATİC Yeni İş Girişi
         static string YeniİşGirişi_Barkodİçeriği_ = null;
-        static int SeriNoyuBulmayaÇalış_Başlangıcı_Adet_ = -1;
         public static string YeniİşGirişi_Barkodİçeriği
         {
             get
@@ -102,7 +101,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 Dosya.Sil(Ortak.Klasör_Gecici + "Et\\Barkod.png");
 
-                System.Diagnostics.Process uyg = System.Diagnostics.Process.Start(Barkod_Uret_dosyayolu, Depo_Komut.YazıyaDönüştür().BaytDizisine().Taban64e());
+                System.Diagnostics.Process uyg = Ortak.Çalıştır_Uygulama(Barkod_Uret_dosyayolu, Depo_Komut.YazıyaDönüştür().BaytDizisine().Taban64e());
 
                 if (!SadeceAyarla)
                 {
@@ -168,7 +167,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (!yyk.KontrolTamamlandı || !File.Exists(Etiket_dosyayolu)) sonuç += "Etiket indirilemedi" + Environment.NewLine;
             else
             {
-                System.Diagnostics.Process uyg = System.Diagnostics.Process.Start(Etiket_dosyayolu, Depo_Komut.YazıyaDönüştür().BaytDizisine().Taban64e());
+                System.Diagnostics.Process uyg = Ortak.Çalıştır_Uygulama(Etiket_dosyayolu, Depo_Komut.YazıyaDönüştür().BaytDizisine().Taban64e());
 
                 if (!SadeceAyarla)
                 {

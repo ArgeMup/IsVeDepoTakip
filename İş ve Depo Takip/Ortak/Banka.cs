@@ -676,44 +676,6 @@ namespace İş_ve_Depo_Takip
 
             return 0;
         }
-        public static void Müşteri_ÖdemeAl(string Adı, Ortak.İşTakip_TeslimEdildi_İşSeç_Seç Detaylar, List<string> Seri_No_lar, string Notlar)
-        {
-            DateTime t = DateTime.Now;
-
-            //Ödemeler tablosuna kayıt
-            Depo_ Tablo_Ödemeler = Tablo(Adı, TabloTürü.Ödemeler, true);
-            Tablo_Ödemeler["Ödemeler/" + t.Yazıya()].İçeriği = new string[]
-            {
-                Detaylar.MevcutÖnÖdeme.Yazıya(), Detaylar.AlınanÖdeme.Yazıya(),
-                (Detaylar.ToplamHarcama + Detaylar.ToplamKDV).Yazıya(),
-                Notlar
-            };
-            Tablo_Ödemeler["Mevcut Ön Ödeme"].Yaz(null, Detaylar.İşlemSonrasıÖnÖdeme);
-
-            //müşteri ayarları tablosuna kayıt
-            IDepo_Eleman müş = Ayarlar_Müşteri(Adı, "Sayfa/Teslim Edildi", true);
-            müş["KDV"].Yaz(null, Detaylar.KDV_Oranı > 0);
-
-            //Ödendi tablosuna kayıt
-            Depo_ yeni_tablo = Tablo(Adı, TabloTürü.Ödendi, true, t.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2));
-            IDepo_Eleman yeni_tablodaki_işler = yeni_tablo.Bul("Talepler", true);
-            IDepo_Eleman eski_tablodaki_işler = Tablo_Dal(Adı, TabloTürü.DevamEden, "Talepler");
-
-            foreach (string sn in Seri_No_lar)
-            {
-                IDepo_Eleman seri_noya_ait_detaylar = eski_tablodaki_işler.Bul(sn); //bir talep
-                yeni_tablodaki_işler.Ekle(null, seri_noya_ait_detaylar.YazıyaDönüştür(null));
-                seri_noya_ait_detaylar.Sil(null);
-            }
-
-            yeni_tablo["Ödeme"].İçeriği = new string[] { t.Yazıya(), t.Yazıya(), Notlar };
-            yeni_tablo["Ödeme/Alt Toplam"].İçeriği = new string[] { Detaylar.ToplamHarcama.Yazıya(), Detaylar.KDV_Oranı > 0 ? Detaylar.KDV_Oranı.Yazıya() : null };
-            yeni_tablo["Ödeme/Ön Ödeme"].İçeriği = new string[] { Detaylar.MevcutÖnÖdeme.Yazıya(), Detaylar.AlınanÖdeme.Yazıya() };
-
-            //Ödendi dosyasının kaydı
-            müş = Ayarlar_Genel("Müşteriler/" + Adı);
-            Depo_Kaydet("Mü\\" + müş[0] + "\\Mü_C\\Mü_C_" + t.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2), yeni_tablo);
-        }
         public static void Müşteri_Ödemeler_TablodaGöster(string Adı, DataGridView Tablo)
         {
             Tablo.Rows.Clear();
@@ -1863,10 +1825,11 @@ namespace İş_ve_Depo_Takip
                 }
             }
         }
-        public static string Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(string Müşteri, List<string> Seri_No_lar, string İlaveÖdeme_Açıklama, string İlaveÖdeme_Miktar, bool KDV)
+        public static string Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(string Müşteri, List<string> Seri_No_lar, string İlaveÖdeme_Açıklama, string İlaveÖdeme_Miktar, bool KDV, out string DosyaAdı)
         {
             DateTime t = DateTime.Now;
-            Depo_ yeni_tablo = Tablo(Müşteri, TabloTürü.ÖdemeTalepEdildi, true, t.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2));
+            DosyaAdı = t.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2);
+            Depo_ yeni_tablo = Tablo(Müşteri, TabloTürü.ÖdemeTalepEdildi, true, DosyaAdı);
             IDepo_Eleman yeni_tablodaki_işler = yeni_tablo.Bul("Talepler", true);
             IDepo_Eleman eski_tablodaki_işler = Tablo_Dal(Müşteri, TabloTürü.DevamEden, "Talepler");
             double Alt_Toplam = 0;
@@ -1956,13 +1919,14 @@ namespace İş_ve_Depo_Takip
             //AlınanÖdemeMiktarı kullanılmıyor ise 0 olmalı
 
             DateTime t = DateTime.Now;
+            string t2 = t.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2);
             Depo_ depo = Tablo(Müşteri, TabloTürü.ÖdemeTalepEdildi, false, EkTanım);
             IDepo_Eleman müş = Ayarlar_Genel("Müşteriler/" + Müşteri);
 
             Depo_ yeni_tablo = new Depo_();
             yeni_tablo.Ekle(depo.YazıyaDönüştür());
             yeni_tablo.Yaz("Tür", TabloTürü.Ödendi.ToString());
-            yeni_tablo.Yaz("Tür", t.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2), 2);
+            yeni_tablo.Yaz("Tür", t2, 2);
             yeni_tablo.Yaz("Ödeme", t.Yazıya(), 1);
             yeni_tablo.Yaz("Ödeme", Notlar, 2);
 
@@ -1986,13 +1950,13 @@ namespace İş_ve_Depo_Takip
                 Ödemeler["Ödemeler/" + t.Yazıya()].İçeriği = new string[]
                 {
                     MevcutÖnÖdeme, AlınanÖdemeMiktarı, GenelToplam.Yazıya(),
-                    t.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + (Notlar.DoluMu() ? "\n" + Notlar : null)
+                    t2 + (Notlar.DoluMu() ? "\n" + Notlar : null)
                 };
             }
 
             DosyaEkleri_ÖdendiOlarakİşaretle(yeni_tablo["Talepler"]);
 
-            Depo_Kaydet("Mü\\" + müş[0] + "\\Mü_C\\Mü_C_" + t.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2), yeni_tablo);
+            Depo_Kaydet("Mü\\" + müş[0] + "\\Mü_C\\Mü_C_" + t2, yeni_tablo);
             
             depo.Yaz("Silinecek", "Evet");
         }

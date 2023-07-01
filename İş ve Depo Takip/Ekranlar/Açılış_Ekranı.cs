@@ -19,8 +19,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void Açılış_Ekranı_Shown(object sender, EventArgs e)
         {
             P_AnaMenü.Visible = true;
-
-            HttpSunucu.Başlat();
         }
         private void Açılış_Ekranı_KeyDown(object sender, KeyEventArgs e)
         {
@@ -143,7 +141,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     System.Threading.Thread.Sleep(500);
                 }
-                Ortak.Gösterge.Bitir();
 
                 Application.Exit();
             }

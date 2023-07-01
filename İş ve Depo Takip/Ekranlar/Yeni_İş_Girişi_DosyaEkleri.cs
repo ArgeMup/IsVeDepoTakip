@@ -125,47 +125,28 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 P_DosyaEkleri_Resim.Image = null;
             }
             P_DosyaEkleri_MasaüstüneKopyala.Enabled = false;
+            P_DosyaEkleri_İlgiliUygulamadaAç.Enabled = false;
 
             P_DosyaEkleri_Sil.Enabled = false;
             P_DosyaEkleri_EklenmeTarihi.Text = null;
-            if (P_DosyaEkleri_Liste.SelectedIndex < 0) return;
-            string SahteKonum = null;
-            DateTime EklenmeTarihi = DateTime.MinValue;
 
-            if (File.Exists(P_DosyaEkleri_Liste.Text))
+            string SahteKonum = KullanıcınınSeçtiğiDosyaAdınıAl(out DateTime EklenmeTarihi);
+            if (SahteKonum.BoşMu()) return;
+
+            string soyad = Path.GetExtension(SahteKonum).ToLower();
+            if (soyad == ".png" || soyad == ".bmp" || soyad == ".jpg" || soyad == ".gif")
             {
-                //yeni eklenen
-                SahteKonum = P_DosyaEkleri_Liste.Text;
-            }
-            else
-            {
-                //önceden kaydedilen
-                if (SeriNo.DoluMu())
-                {
-                    SahteKonum = Banka.DosyaEkleri_GeciciKlasöreKopyala(SeriNo, P_DosyaEkleri_Liste.Text, out EklenmeTarihi);
-                }
+                P_DosyaEkleri_YakınlaşmaOranı.Value = 0;
+                Image rsm = Image.FromFile(SahteKonum);
+                P_DosyaEkleri_Resim.Dock = DockStyle.Fill;
+                P_DosyaEkleri_Resim.Size = rsm.Size;
+                P_DosyaEkleri_Resim.Image = rsm;
             }
 
-            if (SahteKonum.BoşMu() || !System.IO.File.Exists(SahteKonum))
-            {
-                MessageBox.Show("Dosya açılamadı" + Environment.NewLine + Environment.NewLine + P_DosyaEkleri_Liste.Text, Text);
-            }
-            else
-            {
-                string soyad = Path.GetExtension(SahteKonum).ToLower();
-                if (soyad == ".png" || soyad == ".bmp" || soyad == ".jpg" || soyad == ".gif")
-                {
-                    P_DosyaEkleri_YakınlaşmaOranı.Value = 0;
-                    Image rsm = Image.FromFile(SahteKonum);
-                    P_DosyaEkleri_Resim.Dock = DockStyle.Fill;
-                    P_DosyaEkleri_Resim.Size = rsm.Size;
-                    P_DosyaEkleri_Resim.Image = rsm;
-                }
-
-                P_DosyaEkleri_MasaüstüneKopyala.Enabled = true;
-                P_DosyaEkleri_EklenmeTarihi.Text = Banka.Yazdır_Tarih(EklenmeTarihi.Yazıya());
-            }
-
+            P_DosyaEkleri_MasaüstüneKopyala.Enabled = true;
+            P_DosyaEkleri_İlgiliUygulamadaAç.Enabled = true;
+            P_DosyaEkleri_EklenmeTarihi.Text = Banka.Yazdır_Tarih(EklenmeTarihi.Yazıya());
+            
             P_DosyaEkleri_Sil.Enabled = !SadeceOkunabilir;
         }
         private void P_DosyaEkleri_YakınlaşmaOranı_ValueChanged(object sender, EventArgs e)
@@ -183,39 +164,30 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void P_DosyaEkleri_MasaüstüneKopyala_Click(object sender, EventArgs e)
         {
-            if (P_DosyaEkleri_Liste.SelectedIndex < 0) return;
-            string SahteKonum = null, masaüstü_yansıma_adı = null;
+            string SahteKonum = KullanıcınınSeçtiğiDosyaAdınıAl(out _);
+            if (SahteKonum.BoşMu()) return;
 
-            if (File.Exists(P_DosyaEkleri_Liste.Text))
-            {
-                //yeni eklenen
-                SahteKonum = P_DosyaEkleri_Liste.Text;
-                masaüstü_yansıma_adı = Klasör.Depolama(Klasör.Kapsamı.Masaüstü, "", "", "") + "\\" + Path.GetFileName(P_DosyaEkleri_Liste.Text);
-            }
-            else
-            {
-                //önceden kaydedilen
-                if (SeriNo.DoluMu())
-                {
-                    SahteKonum = Banka.DosyaEkleri_GeciciKlasöreKopyala(SeriNo, P_DosyaEkleri_Liste.Text, out _);
-                    masaüstü_yansıma_adı = Klasör.Depolama(Klasör.Kapsamı.Masaüstü, "", "", "") + "\\" + P_DosyaEkleri_Liste.Text;
-                }
-            }
+            string masaüstü_yansıma_adı = Klasör.Depolama(Klasör.Kapsamı.Masaüstü, "", "", "") + "\\" + Path.GetFileName(SahteKonum);
 
-            if (SahteKonum.BoşMu() || !File.Exists(SahteKonum) || masaüstü_yansıma_adı.BoşMu(true))
+            if (masaüstü_yansıma_adı.BoşMu(true))
             {
-                MessageBox.Show("Dosya açılamadı" + Environment.NewLine + Environment.NewLine + P_DosyaEkleri_Liste.Text, Text);
+                MessageBox.Show("Dosya açılamadı" + Environment.NewLine + Environment.NewLine + masaüstü_yansıma_adı, Text);
             }
             else
             {
                 if (File.Exists(masaüstü_yansıma_adı))
                 {
                     MessageBox.Show("Masaüstünde aynı isimli bir dosya bulunduğundan işlem durduruldu", Text);
-                    return;
                 }
-
-                File.Copy(SahteKonum, masaüstü_yansıma_adı, true);
+                else Dosya.Kopyala(SahteKonum, masaüstü_yansıma_adı);
             }
+        }
+        private void P_DosyaEkleri_İlgiliUygulamadaAç_Click(object sender, EventArgs e)
+        {
+            string SahteKonum = KullanıcınınSeçtiğiDosyaAdınıAl(out _);
+            if (SahteKonum.BoşMu()) return;
+
+            Ortak.Çalıştır_Pdf_Resim_vb(SahteKonum);
         }
 
         private void P_DosyaEkleri_Sil_Click(object sender, EventArgs e)
@@ -229,6 +201,36 @@ namespace İş_ve_Depo_Takip.Ekranlar
             DeğişiklikYapıldı = true;
 
             ÖnYüzGörseliniGüncelle?.Invoke();
+        }
+
+        string KullanıcınınSeçtiğiDosyaAdınıAl(out DateTime EklenmeTarihi)
+        {
+            EklenmeTarihi = DateTime.MinValue;
+            string SahteKonum = null;
+
+            if (P_DosyaEkleri_Liste.SelectedIndex < 0) return null;
+            
+            if (File.Exists(P_DosyaEkleri_Liste.Text))
+            {
+                //yeni eklenen
+                SahteKonum = P_DosyaEkleri_Liste.Text;
+            }
+            else
+            {
+                //önceden kaydedilen
+                if (SeriNo.DoluMu())
+                {
+                    SahteKonum = Banka.DosyaEkleri_GeciciKlasöreKopyala(SeriNo, P_DosyaEkleri_Liste.Text, out EklenmeTarihi);
+                }
+            }
+
+            if (SahteKonum.BoşMu() || !File.Exists(SahteKonum))
+            {
+                MessageBox.Show("Dosya açılamadı" + Environment.NewLine + Environment.NewLine + P_DosyaEkleri_Liste.Text, Text);
+                return null;
+            }
+
+            return SahteKonum;
         }
     }
 }
