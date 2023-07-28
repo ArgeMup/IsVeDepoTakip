@@ -494,8 +494,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Ortak.Gösterge.Bitir();
             }
 
-            if (!yyk.KontrolTamamlandı || !File.Exists(çizelgeç_dosyayolu)) Ortak.Çalıştır_KlasördeGöster(DosyaAdı);
-            else Ortak.Çalıştır_Uygulama(çizelgeç_dosyayolu, DosyaAdı);
+            if (!yyk.KontrolTamamlandı || !File.Exists(çizelgeç_dosyayolu)) Ortak.Çalıştır.DosyaGezginindeGöster(DosyaAdı);
+            else Ortak.Çalıştır.UygulamayıDoğrudanÇalıştır(çizelgeç_dosyayolu, new string[] { DosyaAdı });
 
             yyk.Durdur();
             Ortak.Gösterge.Bitir();

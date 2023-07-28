@@ -27,6 +27,8 @@ namespace İş_ve_Depo_Takip
         public static string YeniYazılımKontrolü_Mesajı_Sabiti = "Yeni sürüm kontrol ediliyor", YeniYazılımKontrolü_Mesajı = YeniYazılımKontrolü_Mesajı_Sabiti;
         public static bool ParolaGirilmesiGerekiyor = true;
         public static Ekranlar.Açılış_Ekranı AnaEkran;
+        public static Çalıştır_ Çalıştır = new Çalıştır_();
+        
         public static void Kapan(string Bilgi)
         {
             Günlük.Ekle("Kapatıldı " + Bilgi, Hemen: true);
@@ -37,7 +39,7 @@ namespace İş_ve_Depo_Takip
             Ekranlar.ÖnYüzler.Durdur();
             Ekranlar.BarkodSorgulama.Durdur();
             Ekranlar.Eposta.Durdur();
-            Ortak.Çalıştır_KontrolEt(true);
+            Çalıştır.Dispose();
 
             ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın = false;
         }
@@ -171,78 +173,6 @@ namespace İş_ve_Depo_Takip
                 return _Firma_Logo_;
             }
         }
-        
-        #region Çalıştır
-        static ArgeMup.HazirKod.EşZamanlıÇokluErişim.Liste_<System.Diagnostics.Process> Çalıştır_Uygulamalar = new ArgeMup.HazirKod.EşZamanlıÇokluErişim.Liste_<System.Diagnostics.Process>();
-        public static void Çalıştır_KlasördeGöster(string KlasörYolu)
-        {
-            System.Diagnostics.Process Uygulama = new System.Diagnostics.Process();
-            Uygulama.StartInfo.UseShellExecute = false;
-            Uygulama.StartInfo.FileName = "explorer.exe";
-            Uygulama.StartInfo.Arguments = "/select, \"" + KlasörYolu + "\"";
-            Uygulama.Start();
-
-            Çalıştır_Uygulamalar.Add(Uygulama);
-
-            Çalıştır_KontrolEt(false);
-        }
-        public static System.Diagnostics.Process Çalıştır_Uygulama(string UygulamaYolu, string Girdi = null, bool ÖnyüzüGizle = false)
-        {
-            System.Diagnostics.Process Uygulama = new System.Diagnostics.Process();
-            Uygulama.StartInfo.UseShellExecute = false;
-            Uygulama.StartInfo.FileName = "\"" + UygulamaYolu + "\"";
-            if (Girdi.DoluMu()) Uygulama.StartInfo.Arguments = "\"" + Girdi + "\"";
-            if (ÖnyüzüGizle)
-            {
-                Uygulama.StartInfo.CreateNoWindow = true;
-                Uygulama.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            }
-            Uygulama.Start();
-
-            Çalıştır_Uygulamalar.Add(Uygulama);
-
-            Çalıştır_KontrolEt(false);
-
-            return Uygulama;
-        }
-        public static void Çalıştır_Pdf_Resim_vb(string DosyaYolu)
-        {
-            System.Diagnostics.Process Uygulama = new System.Diagnostics.Process();
-            Uygulama.StartInfo.UseShellExecute = true;
-            Uygulama.StartInfo.FileName = "\"" + DosyaYolu + "\"";
-            Uygulama.Start();
-
-            Çalıştır_Uygulamalar.Add(Uygulama);
-
-            Çalıştır_KontrolEt(false);
-        }
-        static void Çalıştır_KontrolEt(bool TümünüDurdur)
-        {
-            System.Collections.Generic.List<System.Diagnostics.Process> silinecekler = new System.Collections.Generic.List<System.Diagnostics.Process>();
-
-            foreach (System.Diagnostics.Process u in Çalıştır_Uygulamalar)
-            {
-                try
-                {
-                    if (u.HasExited) silinecekler.Add(u);
-                    else if (TümünüDurdur)
-                    {
-                        u.Kill();
-                        silinecekler.Add(u);
-                    }
-                }
-                catch (Exception)
-                {
-                    silinecekler.Add(u);
-                }
-            }
-
-            foreach (var u in silinecekler)
-            {
-                Çalıştır_Uygulamalar.Remove(u);
-            }
-        }
-        #endregion
 
         public static bool Dosya_TutmayaÇalış(string DosyaYolu, int ZamanAşımı_msn = 5000)
         {
@@ -322,7 +252,7 @@ namespace İş_ve_Depo_Takip
         {
             if (!File.Exists(Klasör_KullanıcıDosyaları + DosyaAdı)) return;
             
-            System.Diagnostics.Process İşlem = Ortak.Çalıştır_Uygulama(Klasör_KullanıcıDosyaları + DosyaAdı, null, true);
+            System.Diagnostics.Process İşlem = Çalıştır.UygulamayıDoğrudanÇalıştır(Klasör_KullanıcıDosyaları + DosyaAdı, null, true);
             if (DosyaAdı.EndsWith("_Bekle.bat")) İşlem.WaitForExit();
         }
 

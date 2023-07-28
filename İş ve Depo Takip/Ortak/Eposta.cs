@@ -38,7 +38,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             if (!Dosya.Sil(EpostaAltyapısı_KomutDosyasıYolu)) return "Dosya silinemedi " + EpostaAltyapısı_KomutDosyasıYolu;
 
-            EpostaAltyapısı_İşlem = Ortak.Çalıştır_Uygulama(EpostaAltyapısı_Eposta_dosyayolu, null, true);
+            EpostaAltyapısı_İşlem = Ortak.Çalıştır.UygulamayıDoğrudanÇalıştır(EpostaAltyapısı_Eposta_dosyayolu, null, true);
 
             za = Environment.TickCount + 15000;
             while (!EpostaAltyapısı_İşlem.HasExited && !File.Exists(EpostaAltyapısı_KomutDosyasıYolu) && za > Environment.TickCount && ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın) Thread.Sleep(35);

@@ -187,7 +187,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             string SahteKonum = KullanıcınınSeçtiğiDosyaAdınıAl(out _);
             if (SahteKonum.BoşMu()) return;
 
-            Ortak.Çalıştır_Pdf_Resim_vb(SahteKonum);
+            Ortak.Çalıştır.UygulamayaİşletimSistemiKararVersin(SahteKonum);
         }
 
         private void P_DosyaEkleri_Sil_Click(object sender, EventArgs e)

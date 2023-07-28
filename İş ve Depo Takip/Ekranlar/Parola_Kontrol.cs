@@ -40,6 +40,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         else
                         {
                             if (Açıklama == "Durduruldu") return;
+                            else if (Açıklama.Contains("github")) Açıklama = "Bağlantı kurulamadı";
 
                             Ortak.YeniYazılımKontrolü_Mesajı = "V" + Kendi.Sürümü_Dosya + " Yeni sürüm kontrol hatası : " + Açıklama.Replace("\r", null).Replace("\n", null);
                         }

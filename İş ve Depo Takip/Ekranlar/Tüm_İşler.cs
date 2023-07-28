@@ -970,14 +970,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
                 else
                 {
-                    if (İşTakip_Yazdırma_VeGörüntüle.Checked) Ortak.Çalıştır_Pdf_Resim_vb(hedef);
-                    if (İşTakip_Yazdırma_VeKlasörüAç.Checked) Ortak.Çalıştır_KlasördeGöster(hedef);
+                    if (İşTakip_Yazdırma_VeGörüntüle.Checked) Ortak.Çalıştır.UygulamayaİşletimSistemiKararVersin(hedef);
+                    if (İşTakip_Yazdırma_VeKlasörüAç.Checked) Ortak.Çalıştır.DosyaGezginindeGöster(hedef);
                 }
             }
             else
             {
-                if (İşTakip_Yazdırma_VeGörüntüle.Checked) Ortak.Çalıştır_Pdf_Resim_vb(dosyayolu);
-                if (İşTakip_Yazdırma_VeKlasörüAç.Checked) Ortak.Çalıştır_KlasördeGöster(dosyayolu);
+                if (İşTakip_Yazdırma_VeGörüntüle.Checked) Ortak.Çalıştır.UygulamayaİşletimSistemiKararVersin(dosyayolu);
+                if (İşTakip_Yazdırma_VeKlasörüAç.Checked) Ortak.Çalıştır.DosyaGezginindeGöster(dosyayolu);
             }
 
             IDepo_Eleman Ayrl_Kullanıcı = Banka.Ayarlar_Kullanıcı(Name, null);
