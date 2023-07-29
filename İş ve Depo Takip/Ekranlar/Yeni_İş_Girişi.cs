@@ -85,7 +85,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if (detaylar == null) throw new Exception(Müşteri + " / Devam Eden / Talepler / " + SeriNo + " bulunamadı");
 
                 Banka.Talep_Hesaplat_FirmaİçindekiSüreler(detaylar.SeriNoDalı, out TimeSpan Firmaİçinde, out TimeSpan Toplam);
-                KurlarVeSüreler.Tag = "Toplam " + Toplam.TotalDays.ToString("0.0") + " gün, firma içinde " + Firmaİçinde.TotalDays.ToString("0.0") + " gün";
+                KurlarVeSüreler.Tag = "Toplam " + Banka.Yazdır_Tarih_Gün(Toplam) + ", firma içinde " + Banka.Yazdır_Tarih_Gün(Firmaİçinde);
 
                 Müşteriler_SeçimKutusu.Enabled = false;
                 Hastalar_SeçimKutusu.Enabled = false;

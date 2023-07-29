@@ -159,7 +159,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     sayac_Yaklaşanlar++;
                 }
 
-                yeni_satır_6.ToolTipText += Environment.NewLine + string.Format("{0:,0.0}", (h.UyarıTarihi - şimdi).TotalDays) + " gün";
+                yeni_satır_6.ToolTipText += Environment.NewLine + Banka.Yazdır_Tarih_Gün(h.UyarıTarihi - şimdi);
                 yeni_satır.Tag = h;
                 
                 dizi.Add(yeni_satır);

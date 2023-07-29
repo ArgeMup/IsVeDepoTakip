@@ -2794,6 +2794,15 @@ namespace İş_ve_Depo_Takip
 
             return Girdi.Substring(0, 10); // dd.MM.yyyy
         }
+        public static string Yazdır_Tarih_Gün(TimeSpan Girdi)
+        {
+            double girdi = Math.Abs(Girdi.TotalDays);
+            int gün_olarak = (int)girdi;
+            int saat_olarak = (int)((girdi - gün_olarak) * 24.0);
+
+            if (gün_olarak == 0 && saat_olarak == 0) return "1 saatten az";
+            else return ((gün_olarak > 0 ? gün_olarak + " gün " : null) + (saat_olarak > 0 ? saat_olarak + " saat" : null)).TrimEnd();
+        }
         public static string Yazdır_Ücret(double Ücret, bool SondakiSıfırlarıSil = true)
         {
             string çıktı = string.Format("{0:,0.00}", Ücret);

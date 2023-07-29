@@ -46,8 +46,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             P_Üst_Alt.Panel1.Controls.Add(P_Malzemeler); P_Malzemeler.Dock = DockStyle.Fill; P_Malzemeler.Visible = false;
             P_Üst_Alt.Panel1.Controls.Remove(P_Üstteki_İşTakip_Arama_Tip); P_Üst_Alt.Panel1.Controls.Add(P_Üstteki_İşTakip_Arama_Tip);
 
-            P_SolOrta_Sağ.SplitterDistance = P_SolOrta_Sağ.Width * 3 / 4; //müşteriler, tuşlar + yazdırma
-            P_Sol_Orta.SplitterDistance = P_Sol_Orta.Width * 40 / 100; //müşteriler + tuşları
+            P_SolOrta_Sağ.SplitterDistance = P_SolOrta_Sağ.Width * 70 / 100; //müşteriler, tuşlar + yazdırma
+            P_Sol_Orta.SplitterDistance = P_Sol_Orta.Width * 30 / 100; //müşteriler + tuşları
             P_Üst_Alt.SplitterDistance = Height * 25 / 100; //tuşlar + tablo
 
             Seviye1_işTakip.Tag = 1;
@@ -316,8 +316,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Banka_Tablo_ bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.DevamEden);
             İşTakip_Eposta_DevamEden.Text = "Devam eden : " + bt.Talepler.Count + " iş"; ;
             bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.TeslimEdildi);
-            İşTakip_Eposta_TeslimEdildi.Text = "Teslim edildi : " + bt.Talepler.Count + " iş";
-            İşTakip_Eposta_ÖdemeBekleyen.Text = "Ödeme talep edildi : " + Banka.Dosya_Listele_Müşteri(İşTakip_Müşteriler.Text, false).Length + " dönem";
+            İşTakip_Eposta_TeslimEdildi.Text = "Teslim edilen : " + bt.Talepler.Count + " iş";
+            İşTakip_Eposta_ÖdemeBekleyen.Text = "Ödeme talebi : " + Banka.Dosya_Listele_Müşteri(İşTakip_Müşteriler.Text, false).Length + " dönem";
             İşTakip_Eposta_Ödendi.Text = "Ödendi : Son dönem";
         }
         private void İşTakip_DevamEden_Sil_Click(object sender, EventArgs e)

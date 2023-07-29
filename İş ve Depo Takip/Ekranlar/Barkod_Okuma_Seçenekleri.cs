@@ -28,11 +28,19 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Müşteri.Text = Detaylar.Müşteri;
             Hasta.Text = Hasta_;
-            Süre.Text = "Toplam " + Toplam.TotalDays.ToString("0.0") + " gün, firma içinde " + Firmaİçinde.TotalDays.ToString("0.0") + " gün";
+            Süre.Text = "Toplam " + Banka.Yazdır_Tarih_Gün(Toplam) + ", firma içinde " + Banka.Yazdır_Tarih_Gün(Firmaİçinde);
 
             Müşteri_ = Detaylar.Müşteri;
             EkTanım_ = Detaylar.EkTanım;
             Türü_ = Detaylar.Tür;
+
+            İşler.Items.Clear();
+            string Sonİş_ÇıkışTarihi = null;
+            foreach (IDepo_Eleman İşTürüDalı in Detaylar.SeriNoDalı.Elemanları)
+            {
+                Banka.Talep_Ayıkla_İşTürüDalı(İşTürüDalı, out string İşTürü, out _, out Sonİş_ÇıkışTarihi, out _, out _, out byte[] Kullanım_AdetVeKonum);
+                İşler.Items.Add(İşTürü + " " + Banka.Ücretler_AdetÇarpanı(Kullanım_AdetVeKonum));
+            }
 
             if (Türü_ > Banka.TabloTürü.TeslimEdildi)
             {
@@ -40,11 +48,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             else
             {
-                Banka.Talep_Ayıkla_İşTürüDalı(Detaylar.SeriNoDalı.Elemanları.Last(), out string İşTürü, out _, out string ÇıkışTarihi, out _, out _, out _);
-                
                 İsaretle_TeslimEdildi.Enabled = TeslimEdilmeTarihi.BoşMu();
-                MüşteriyeGönder.Enabled = Türü_ == Banka.TabloTürü.DevamEden && ÇıkışTarihi.BoşMu();
-                MüşteriyeGönder.Text = "Müşteriye Gönder" + Environment.NewLine + İşTürü;
+                MüşteriyeGönder.Enabled = Türü_ == Banka.TabloTürü.DevamEden && Sonİş_ÇıkışTarihi.BoşMu();
             }
         }
 
