@@ -993,7 +993,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             İşTakip_Eposta_Gönder.Enabled = İşTakip_Eposta_DevamEden.Checked || İşTakip_Eposta_TeslimEdildi.Checked || İşTakip_Eposta_ÖdemeBekleyen.Checked || İşTakip_Eposta_Ödendi.Checked;
 
             CheckBox chb = sender as CheckBox;
-            if (chb != null && chb == İşTakip_Eposta_Ödendi) İşTakip_Eposta_Ödendi.Text = "Ödendi : " + İşTakip_Ödendi_Dönem_Dönemler.SelectedItems.Count + " dönem";
+            if (chb != null && chb == İşTakip_Eposta_Ödendi) İşTakip_Eposta_Ödendi.Text = "Ödendi : " + (İşTakip_Ödendi_Dönem_Dönemler.SelectedItems.Count > 0 ? İşTakip_Ödendi_Dönem_Dönemler.SelectedItems.Count.ToString() : "Son") + " dönem";
         }
         private void İşTakip_Eposta_Gönder_Click(object sender, EventArgs e)
         {
