@@ -85,7 +85,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if (b_kullanıcı == null || string.IsNullOrEmpty(b_kullanıcı[0]))
                 {
                     //ilk kez çalışırılıyor
-                    Klasör_ kls = new Klasör_(Ortak.Klasör_Banka);
+                    Klasör_ kls = new Klasör_(Ortak.Klasör_Banka, DoğrulamaKodunuÜret:false);
                     if (kls.Dosyalar.Count > 0)
                     {
                         Hide();
@@ -144,7 +144,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             if (İlkAçılışKontrolleriniYap)
             {
-                Klasör_ kls = new Klasör_(Ortak.Klasör_Banka);
+                Klasör_ kls = new Klasör_(Ortak.Klasör_Banka, DoğrulamaKodunuÜret: false);
                 if (kls.Dosyalar.Count > 0)
                 {
                     Hide();

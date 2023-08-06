@@ -1344,9 +1344,9 @@
             this.İşTakip_Eposta_Kişiye.CheckState = System.Windows.Forms.CheckState.Checked;
             this.İşTakip_Eposta_Kişiye.Location = new System.Drawing.Point(165, 0);
             this.İşTakip_Eposta_Kişiye.Name = "İşTakip_Eposta_Kişiye";
-            this.İşTakip_Eposta_Kişiye.Size = new System.Drawing.Size(76, 24);
+            this.İşTakip_Eposta_Kişiye.Size = new System.Drawing.Size(193, 24);
             this.İşTakip_Eposta_Kişiye.TabIndex = 12;
-            this.İşTakip_Eposta_Kişiye.Text = "Kişiye";
+            this.İşTakip_Eposta_Kişiye.Text = "Kişiye veya müşteriye";
             this.İşTakip_Eposta_Kişiye.UseVisualStyleBackColor = true;
             this.İşTakip_Eposta_Kişiye.CheckedChanged += new System.EventHandler(this.İşTakip_Eposta_Kişiye_CheckedChanged);
             // 

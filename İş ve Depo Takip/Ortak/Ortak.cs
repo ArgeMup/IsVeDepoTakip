@@ -34,12 +34,12 @@ namespace İş_ve_Depo_Takip
             Günlük.Ekle("Kapatıldı " + Bilgi, Hemen: true);
 
             HttpSunucu.Bitir();
-            Banka.Çıkış_İşlemleri();
             Ortak.YeniYazılımKontrolü.Durdur();
             Ekranlar.ÖnYüzler.Durdur();
             Ekranlar.BarkodSorgulama.Durdur();
             Ekranlar.Eposta.Durdur();
             Çalıştır.Dispose();
+            Klasör.Sil(Ortak.Klasör_Gecici);
 
             ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın = false;
         }
@@ -128,7 +128,6 @@ namespace İş_ve_Depo_Takip
         }
         public static Ekranlar.Bekleyiniz Gösterge = new Ekranlar.Bekleyiniz();
 
-        public static int EşZamanlıİşlemSayısı = 3;
         static Random rnd = new Random();
         public static int RasgeleSayı(int Asgari, int Azami)
         {
@@ -198,14 +197,14 @@ namespace İş_ve_Depo_Takip
             return false;
         }
 
-        public static bool Klasör_TamKopya(string Kaynak, string Hedef)
+        public static bool Klasör_TamKopya(string Kaynak, string Hedef, bool DoğrulamaKodunuKontrolEt_Yavaşlatır = true)
         {
             int ZamanAşımı_msn = Environment.TickCount + 15000;
             while (ZamanAşımı_msn > Environment.TickCount)
             {
                 try
                 {
-                    if (Klasör.AslınaUygunHaleGetir(Kaynak, Hedef, true, EşZamanlıİşlemSayısı)) return true;
+                    if (Klasör.Kopyala(Kaynak, Hedef, true, DoğrulamaKodunuKontrolEt_Yavaşlatır)) return true;
                 }
                 catch (Exception ex) { ex.Günlük(); }
                 

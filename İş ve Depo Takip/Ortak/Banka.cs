@@ -45,7 +45,7 @@ namespace İş_ve_Depo_Takip
             File.WriteAllText(Kendi.Klasörü + "\\Önemli Bilgiler.txt", Properties.Resources.Önemli_Bilgiler);
             Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Klasörler", ref Açılışİşlemi_Tik);
 
-            DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı, Ortak.EşZamanlıİşlemSayısı);
+            DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı);
             Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Bütünlük Kontrolü", ref Açılışİşlemi_Tik);
             Günlük.Ekle("Bütünlük Kontrolü " + snç.ToString());
             switch (snç)
@@ -55,7 +55,7 @@ namespace İş_ve_Depo_Takip
 
                 case DoğrulamaKodu.KontrolEt.Durum_.DoğrulamaDosyasıYok:
 #if !DEBUG
-                    Klasör_ kls = new Klasör_(Ortak.Klasör_Banka, EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
+                    Klasör_ kls = new Klasör_(Ortak.Klasör_Banka, DoğrulamaKodunuÜret:false);
                     if (kls.Dosyalar.Count > 0) throw new Exception("Büyük Hata A");
 #endif
                     goto Devam;
@@ -64,7 +64,7 @@ namespace İş_ve_Depo_Takip
                 case DoğrulamaKodu.KontrolEt.Durum_.DoğrulamaDosyasıİçeriğiHatalı:
                 case DoğrulamaKodu.KontrolEt.Durum_.Farklı:
                 case DoğrulamaKodu.KontrolEt.Durum_.FazlaKlasörVeyaDosyaVar:
-                    snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka2, SearchOption.AllDirectories, Parola.Yazı, Ortak.EşZamanlıİşlemSayısı);
+                    snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka2, SearchOption.AllDirectories, Parola.Yazı);
                     Günlük.Ekle("Bütünlük Kontrolü 2 " + snç.ToString());
                     if (snç == DoğrulamaKodu.KontrolEt.Durum_.Aynı)
                     {
@@ -152,10 +152,6 @@ namespace İş_ve_Depo_Takip
             Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Dosya Ekleri Durumu", ref Açılışİşlemi_Tik);
 
             Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Tamamlandı", ref Açılışİşlemi_Tik);
-        }
-        public static void Çıkış_İşlemleri()
-        {
-            Klasör.Sil(Ortak.Klasör_Gecici);
         }
         public static Depo_ ÖrnekMüşteriTablosuOluştur()
         {
@@ -3259,9 +3255,9 @@ namespace İş_ve_Depo_Takip
 
                 try
                 {
-                    Klasör_ ydk_ler = new Klasör_(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip", EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
-                    ydk_ler.Dosya_Sil_SayısınaVeBoyutunaGöre(50, 5 * 1024 * 1024 /*5MB*/, Ortak.EşZamanlıİşlemSayısı);
-                    ydk_ler.Güncelle(Ortak.Klasör_İçYedek, Filtre_Dosya: "*.zip", EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
+                    Klasör_ ydk_ler = new Klasör_(Ortak.Klasör_İçYedek, Filtre_Dosya: new string[] { "*.zip" }, DoğrulamaKodunuÜret:false);
+                    ydk_ler.Dosya_Sil_SayısınaVeBoyutunaGöre(50, 5 * 1024 * 1024 /*5MB*/);
+                    ydk_ler.Güncelle();
 
                     bool yedekle = false;
                     if (ydk_ler.Dosyalar.Count == 0) yedekle = true;
@@ -3270,7 +3266,7 @@ namespace İş_ve_Depo_Takip
                         ydk_ler.Sırala_EskidenYeniye();
 
                         Klasör_ son_ydk = SıkıştırılmışDosya.Listele(ydk_ler.Kök + "\\" + ydk_ler.Dosyalar.Last().Yolu);
-                        Klasör_ güncel = new Klasör_(Ortak.Klasör_Banka, EşZamanlıİşlemSayısı: Ortak.EşZamanlıİşlemSayısı);
+                        Klasör_ güncel = new Klasör_(Ortak.Klasör_Banka);
                         Klasör_.Farklılık_ farklar = güncel.Karşılaştır(son_ydk);
                         if (farklar.FarklılıkSayısı > 0)
                         {
@@ -3305,7 +3301,7 @@ namespace İş_ve_Depo_Takip
                             bool sonuç = true;
                             sonuç &= Ortak.Klasör_TamKopya(Ortak.Klasör_Banka, Ortak.Kullanıcı_Klasör_Yedek[i] + "Banka");
                             sonuç &= Ortak.Klasör_TamKopya(Ortak.Klasör_KullanıcıDosyaları, Ortak.Kullanıcı_Klasör_Yedek[i] + "Kullanıcı Dosyaları");
-                            sonuç &= Ortak.Klasör_TamKopya(Ortak.Klasör_İçYedek, Ortak.Kullanıcı_Klasör_Yedek[i] + "Yedek");
+                            sonuç &= Ortak.Klasör_TamKopya(Ortak.Klasör_İçYedek, Ortak.Kullanıcı_Klasör_Yedek[i] + "Yedek", false);
                             sonuç &= Dosya.Kopyala(Kendi.DosyaYolu, Ortak.Kullanıcı_Klasör_Yedek[i] + Kendi.DosyaAdı);
 
                             if (!sonuç) Yedekleme_Hatalar += ("Yedek no : " + (i+1) + " yedekleme başarısız").Günlük() + Environment.NewLine;
@@ -3336,10 +3332,10 @@ namespace İş_ve_Depo_Takip
         {
             Değişiklikler_TamponuSıfırla();
 
-            DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı, Ortak.EşZamanlıİşlemSayısı);
+            DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı);
             if (snç != DoğrulamaKodu.KontrolEt.Durum_.Aynı)
             {
-                snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka2, SearchOption.AllDirectories, Parola.Yazı, Ortak.EşZamanlıİşlemSayısı);
+                snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka2, SearchOption.AllDirectories, Parola.Yazı);
                 if (snç != DoğrulamaKodu.KontrolEt.Durum_.Aynı)
                 {
                     throw new Exception("Yedekle_Banka_Kurtar>Banka2>" + snç.ToString());
@@ -3350,13 +3346,13 @@ namespace İş_ve_Depo_Takip
                     throw new Exception("Yedekle_Banka_Kurtar>Banka2>Banka");
                 }
 
-                snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı, Ortak.EşZamanlıİşlemSayısı);
+                snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı);
                 if (snç != DoğrulamaKodu.KontrolEt.Durum_.Aynı)
                 {
                     throw new Exception("Yedekle_Banka_Kurtar>Banka>" + snç.ToString());
                 }
             }
-
+            
             Günlük.Ekle("Yedekle_Banka_Kurtar>Başarılı");
         }
         static void Yedekle_DahaYeniYedekVarsa_KullanıcıyaSor()
@@ -3384,7 +3380,7 @@ namespace İş_ve_Depo_Takip
 
                     if (string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Yedek[i]) ||
                         DoğrulamaKodu.KontrolEt.Klasör(bnk_yolu,
-                            SearchOption.AllDirectories, Parola.Yazı, Ortak.EşZamanlıİşlemSayısı) !=
+                            SearchOption.AllDirectories, Parola.Yazı) !=
                             DoğrulamaKodu.KontrolEt.Durum_.Aynı ||
                         !File.Exists(bnk_yolu + "Ay.mup")) continue;
 
@@ -3448,7 +3444,7 @@ namespace İş_ve_Depo_Takip
                 }
 
                 // gecici 2. kez doko
-                DoğrulamaKodu.KontrolEt.Durum_ doko = DoğrulamaKodu.KontrolEt.Klasör(kla_gecici, SearchOption.AllDirectories, Parola.Yazı, Ortak.EşZamanlıİşlemSayısı);
+                DoğrulamaKodu.KontrolEt.Durum_ doko = DoğrulamaKodu.KontrolEt.Klasör(kla_gecici, SearchOption.AllDirectories, Parola.Yazı);
                 if (doko != DoğrulamaKodu.KontrolEt.Durum_.Aynı)
                 {
                     hata = "2.DoğrulamaKodu.KontrolEt.Klasör>" + doko.ToString() + ">" + kla_gecici;
@@ -3463,7 +3459,7 @@ namespace İş_ve_Depo_Takip
                 }
 
                 // banka 2. kez doko
-                doko = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı, Ortak.EşZamanlıİşlemSayısı);
+                doko = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı);
                 if (doko != DoğrulamaKodu.KontrolEt.Durum_.Aynı)
                 {
                     hata = "4.DoğrulamaKodu.KontrolEt.Klasör>" + doko.ToString() + ">" + Ortak.Klasör_Banka;

@@ -1153,6 +1153,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void İşTakip_Eposta_Kişiye_CheckedChanged(object sender, EventArgs e)
         {
             İşTakip_Eposta_Gönder.Text = İşTakip_Eposta_Kişiye.Checked ? "Kişiye" : "Müşteriye";
+            İşTakip_Eposta_Kişi.Enabled = İşTakip_Eposta_Kişiye.Checked;
         }
 
         private void Tablo_TümünüSeçVeyaAç_Click(object sender, EventArgs e)

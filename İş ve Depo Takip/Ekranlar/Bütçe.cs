@@ -475,7 +475,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
 
                 //27.02.2023 17:46:17.005;Bilgi;ArGeMuP uygulama V0.20
-                başlık = şimdi.Yazıya() + ";Bilgi;ArGeMuP " + Kendi.Adı + " " + Kendi.Sürüm;
+                başlık = şimdi.Yazıya() + ";Bilgi;ArGeMuP " + Kendi.Adı + " " + Kendi.Sürümü_Dosya;
                 içerik = (başlık + Environment.NewLine).BaytDizisine();
                 fs.Write(içerik, 0, içerik.Length);
                 
