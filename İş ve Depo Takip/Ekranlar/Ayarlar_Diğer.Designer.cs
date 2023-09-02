@@ -66,8 +66,10 @@
             this.DosyaEkleri_Açıklama = new System.Windows.Forms.GroupBox();
             this.DosyaEkleri_SilinmeSüresiAy = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.DosyaEkleri_BoyutuMB = new System.Windows.Forms.NumericUpDown();
+            this.label16 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.İpUcu_Genel = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox_Sunucu = new System.Windows.Forms.GroupBox();
@@ -94,7 +96,7 @@
             this.Kaydet.Enabled = false;
             this.Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Kaydet.Location = new System.Drawing.Point(5, 987);
+            this.Kaydet.Location = new System.Drawing.Point(5, 1000);
             this.Kaydet.Name = "Kaydet";
             this.Kaydet.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.Kaydet.Size = new System.Drawing.Size(551, 44);
@@ -495,7 +497,7 @@
             this.groupBox_Gizlilik.Controls.Add(this.KüçültüldüğündeParolaSor_sn);
             this.groupBox_Gizlilik.Controls.Add(this.label3);
             this.groupBox_Gizlilik.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox_Gizlilik.Location = new System.Drawing.Point(5, 744);
+            this.groupBox_Gizlilik.Location = new System.Drawing.Point(5, 757);
             this.groupBox_Gizlilik.Name = "groupBox_Gizlilik";
             this.groupBox_Gizlilik.Size = new System.Drawing.Size(551, 122);
             this.groupBox_Gizlilik.TabIndex = 30;
@@ -507,13 +509,15 @@
             // 
             this.DosyaEkleri_Açıklama.Controls.Add(this.DosyaEkleri_SilinmeSüresiAy);
             this.DosyaEkleri_Açıklama.Controls.Add(this.label14);
+            this.DosyaEkleri_Açıklama.Controls.Add(this.label15);
             this.DosyaEkleri_Açıklama.Controls.Add(this.label11);
             this.DosyaEkleri_Açıklama.Controls.Add(this.DosyaEkleri_BoyutuMB);
+            this.DosyaEkleri_Açıklama.Controls.Add(this.label16);
             this.DosyaEkleri_Açıklama.Controls.Add(this.label12);
             this.DosyaEkleri_Açıklama.Dock = System.Windows.Forms.DockStyle.Top;
             this.DosyaEkleri_Açıklama.Location = new System.Drawing.Point(5, 583);
             this.DosyaEkleri_Açıklama.Name = "DosyaEkleri_Açıklama";
-            this.DosyaEkleri_Açıklama.Size = new System.Drawing.Size(551, 161);
+            this.DosyaEkleri_Açıklama.Size = new System.Drawing.Size(551, 174);
             this.DosyaEkleri_Açıklama.TabIndex = 31;
             this.DosyaEkleri_Açıklama.TabStop = false;
             this.DosyaEkleri_Açıklama.Text = "Dosya Ekleri";
@@ -521,7 +525,7 @@
             // 
             // DosyaEkleri_SilinmeSüresiAy
             // 
-            this.DosyaEkleri_SilinmeSüresiAy.Location = new System.Drawing.Point(15, 109);
+            this.DosyaEkleri_SilinmeSüresiAy.Location = new System.Drawing.Point(30, 44);
             this.DosyaEkleri_SilinmeSüresiAy.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.DosyaEkleri_SilinmeSüresiAy.Maximum = new decimal(new int[] {
             1000,
@@ -542,27 +546,36 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(106, 111);
+            this.label14.Location = new System.Drawing.Point(114, 46);
             this.label14.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(237, 40);
+            this.label14.Size = new System.Drawing.Size(95, 20);
             this.label14.TabIndex = 28;
-            this.label14.Text = "ay geçti ise işin dosya eklerini \r\nKALICI olarak SİL";
+            this.label14.Text = "ay sonra ve";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(9, 83);
+            this.label15.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(314, 20);
+            this.label15.TabIndex = 26;
+            this.label15.Text = "tüm dosya eklerinin kapladığı toplam alan";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(11, 22);
+            this.label11.Location = new System.Drawing.Point(9, 22);
             this.label11.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(314, 40);
+            this.label11.Size = new System.Drawing.Size(239, 20);
             this.label11.TabIndex = 26;
-            this.label11.Text = "İş ödendi olarak işaretlendikten sonra\r\ntüm dosya eklerinin kapladığı toplam alan" +
-    "";
+            this.label11.Text = "İş ödendi olarak işaretlendikten";
             // 
             // DosyaEkleri_BoyutuMB
             // 
-            this.DosyaEkleri_BoyutuMB.Location = new System.Drawing.Point(15, 79);
+            this.DosyaEkleri_BoyutuMB.Location = new System.Drawing.Point(30, 105);
             this.DosyaEkleri_BoyutuMB.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.DosyaEkleri_BoyutuMB.Maximum = new decimal(new int[] {
             99999,
@@ -580,15 +593,25 @@
             0});
             this.DosyaEkleri_BoyutuMB.ValueChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(9, 145);
+            this.label16.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(313, 20);
+            this.label16.TabIndex = 25;
+            this.label16.Text = "ilgili işin dosya eklerini KALICI olarak SİL";
+            // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(106, 81);
+            this.label12.Location = new System.Drawing.Point(112, 107);
             this.label12.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(297, 20);
+            this.label12.Size = new System.Drawing.Size(197, 20);
             this.label12.TabIndex = 25;
-            this.label12.Text = "MB değerinden büyük ise ve üzerinden";
+            this.label12.Text = "MB değerinden büyük ise";
             // 
             // İpUcu_Genel
             // 
@@ -609,7 +632,7 @@
             this.groupBox_Sunucu.Controls.Add(this.label13);
             this.groupBox_Sunucu.Controls.Add(this.HttpSunucu_Açıklama);
             this.groupBox_Sunucu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox_Sunucu.Location = new System.Drawing.Point(5, 866);
+            this.groupBox_Sunucu.Location = new System.Drawing.Point(5, 879);
             this.groupBox_Sunucu.Name = "groupBox_Sunucu";
             this.groupBox_Sunucu.Padding = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.groupBox_Sunucu.Size = new System.Drawing.Size(551, 121);
@@ -744,5 +767,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.NumericUpDown DosyaEkleri_SilinmeSüresiAy;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
     }
 }

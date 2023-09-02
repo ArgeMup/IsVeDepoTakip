@@ -2230,7 +2230,7 @@ namespace İş_ve_Depo_Takip
             Maliyetler_Toplamı += Toplam_Maliyet;
             return null;
         }    
-        public static void Talep_Ayıkla_ÖdemeDalı(IDepo_Eleman ÖdemeDalı, out List<string> Açıklamalar, out List<string> Ücretler, out string ÖdemeTalepEdildi, out string Notlar, out bool MüşteriBorçluMu)
+        public static void Talep_Ayıkla_ÖdemeDalı(IDepo_Eleman ÖdemeDalı, out List<string> Açıklamalar, out List<string> Ücretler, out string ÖdemeTalepEdildi, out string Notlar, out bool MüşteriBorçluMu, bool Yazdırmaİçin = false)
         {
             _Talep_Ayıkla_ÖdemeDalı o = new _Talep_Ayıkla_ÖdemeDalı(ÖdemeDalı);
             string Açıklama;
@@ -2267,7 +2267,7 @@ namespace İş_ve_Depo_Takip
                     //Ödendi : 31.01.2022 (varsa)
 
                     //Alt Toplam (1.00 ₺) + KDV % 10 (0.10 ₺) + Diğer (0.50 ₺)                          1.60 ₺
-                    //Alınan Ödeme (2.00 ₺) + Mevcut Ön Ödeme (2.00 ₺) / - Mevcut Borcunuz (500,00 ₺)   4.00 ₺
+                    //Alınan Ödeme (2.00 ₺) + Mevcut Ön Ödeme (2.00 ₺) / - Mevcut Borç (500,00 ₺)       4.00 ₺
                     //İşlem Sonrası / Müşterinin Borcu / Kalan Ön Ödeme                                 2.40 ₺
 
                     Açıklama = "Alınan Ödeme (" + Yazdır_Ücret(o.ÖnÖdeme_AlınanÖdeme) + ") ";
@@ -2300,19 +2300,26 @@ namespace İş_ve_Depo_Takip
                     //Ödemeye eklenen notlar 
                     //Diğer : İlave Ödeme Açıklaması (varsa)
 
-                    //Alt Toplam (5.00 ₺) + KDV % 10 (0.50 ₺) + Diğer (0.50 ₺)                                           6.00 ₺
-                    //Geçen Dönem : Alınan Ödeme (20,00 ₺) + Artan (5,00 ₺) - Genel Toplam (10,00 ₺) - Borç (5,00 ₺)    10.00 ₺
-                    //İşlem Sonrası / Dönem Borcu / Artan                                                                4.00 ₺
+                    //Alt Toplam (5.00 ₺) + KDV % 10 (0.50 ₺) + Diğer (0.50 ₺)       6.00 ₺
+                    //Devreden Tutar                                                10.00 ₺
+                    //İşlem Sonrası / Dönem Borcu / Artan                            4.00 ₺
 
-                    Açıklama = "Son Dönem : Alınan Ödeme (" + Yazdır_Ücret(o.Gecici_EnSonÖdemeDokümanı_AlınanÖdeme) + ")";
-                    
-                    if (o.Gecici_EnSonÖdemeDokümanı_ÖnÖdeme > 0) Açıklama += " + Mevcut Ön Ödeme (" + Yazdır_Ücret(o.Gecici_EnSonÖdemeDokümanı_ÖnÖdeme) + ")";
-                    
-                    Açıklama += " - Genel Toplam (" + Yazdır_Ücret(o.Gecici_EnSonÖdemeDokümanı_GenelToplam) + ")";
-                    
-                    if (o.Gecici_EnSonÖdemeDokümanı_ÖnÖdeme < 0) Açıklama += " - Mevcut Borç (" + Yazdır_Ücret(Math.Abs(o.Gecici_EnSonÖdemeDokümanı_ÖnÖdeme)) + ")";
-                    
-                    Açıklamalar.Add(Açıklama); Ücretler.Add(Yazdır_Ücret(o.Gecici_Güncel_ÖnÖdeme, false));
+                    Açıklamalar.Add("Devreden Tutar"); Ücretler.Add(Yazdır_Ücret(o.Gecici_Güncel_ÖnÖdeme, false));
+
+                    if (!Yazdırmaİçin)
+                    {
+                        //Devreden Tutar                                            10.00 ₺ | Son Dönem : Alınan Ödeme (20,00 ₺) + Mevcut Ön Ödeme (5,00 ₺) - Genel Toplam (10,00 ₺) - Mevcut Borç (5,00 ₺)
+
+                        Açıklama = " | Son Dönem : Alınan Ödeme (" + Yazdır_Ücret(o.Gecici_EnSonÖdemeDokümanı_AlınanÖdeme) + ")";
+
+                        if (o.Gecici_EnSonÖdemeDokümanı_ÖnÖdeme > 0) Açıklama += " + Mevcut Ön Ödeme (" + Yazdır_Ücret(o.Gecici_EnSonÖdemeDokümanı_ÖnÖdeme) + ")";
+
+                        Açıklama += " - Genel Toplam (" + Yazdır_Ücret(o.Gecici_EnSonÖdemeDokümanı_GenelToplam) + ")";
+
+                        if (o.Gecici_EnSonÖdemeDokümanı_ÖnÖdeme < 0) Açıklama += " - Mevcut Borç (" + Yazdır_Ücret(Math.Abs(o.Gecici_EnSonÖdemeDokümanı_ÖnÖdeme)) + ")";
+
+                        Ücretler[Ücretler.Count - 1] += Açıklama;
+                    }
 
                     Açıklamalar.Add("İşlem Sonrası " + (o.MüşteriBorçluMu ? "Dönem Borcu" : "Artan")); Ücretler.Add(Yazdır_Ücret(Math.Abs(o.Gecici_Güncel_İşlemSonrasıMüşteriBorcu), false));
                 }
@@ -2917,7 +2924,6 @@ namespace İş_ve_Depo_Takip
                     Gecici_EnSonÖdemeDokümanı_GenelToplam = ÖdemeDalı.Oku_Sayı("Müşteri_ÖdemeTalebi_GeciciDetaylarıEkle", 0, 1);
                     Gecici_EnSonÖdemeDokümanı_ÖnÖdeme = ÖdemeDalı.Oku_Sayı("Müşteri_ÖdemeTalebi_GeciciDetaylarıEkle", 0, 2);
                     Gecici_Güncel_ÖnÖdeme = ÖdemeDalı.Oku_Sayı("Müşteri_ÖdemeTalebi_GeciciDetaylarıEkle", 0, 3);
-
                     Gecici_Güncel_İşlemSonrasıMüşteriBorcu =  Genel_Toplam - Gecici_Güncel_ÖnÖdeme;
                     MüşteriBorçluMu = Gecici_Güncel_İşlemSonrasıMüşteriBorcu > 0;
                 }

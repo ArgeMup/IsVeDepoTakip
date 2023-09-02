@@ -1278,7 +1278,7 @@
             this.İşTakip_Eposta_Ödendi.Location = new System.Drawing.Point(162, 35);
             this.İşTakip_Eposta_Ödendi.Name = "İşTakip_Eposta_Ödendi";
             this.İşTakip_Eposta_Ödendi.Size = new System.Drawing.Size(183, 24);
-            this.İşTakip_Eposta_Ödendi.TabIndex = 13;
+            this.İşTakip_Eposta_Ödendi.TabIndex = 3;
             this.İşTakip_Eposta_Ödendi.Text = "Ödendi : Son dönem";
             this.İşTakip_Eposta_Ödendi.UseVisualStyleBackColor = true;
             this.İşTakip_Eposta_Ödendi.CheckedChanged += new System.EventHandler(this.İşTakip_Eposta_CheckedChanged);
@@ -1311,7 +1311,7 @@
             this.İşTakip_Eposta_Kişi.Multiline = true;
             this.İşTakip_Eposta_Kişi.Name = "İşTakip_Eposta_Kişi";
             this.İşTakip_Eposta_Kişi.Size = new System.Drawing.Size(254, 67);
-            this.İşTakip_Eposta_Kişi.TabIndex = 11;
+            this.İşTakip_Eposta_Kişi.TabIndex = 5;
             this.İpUcu.SetToolTip(this.İşTakip_Eposta_Kişi, "Gönderilecek eposta adresi\r\n; Noktalı virgül ile ayrılmış birden fazla olabilir");
             // 
             // İşTakip_Eposta_TeslimEdildi
@@ -1332,7 +1332,7 @@
             this.İşTakip_Eposta_Gönder.Margin = new System.Windows.Forms.Padding(2);
             this.İşTakip_Eposta_Gönder.Name = "İşTakip_Eposta_Gönder";
             this.İşTakip_Eposta_Gönder.Size = new System.Drawing.Size(254, 31);
-            this.İşTakip_Eposta_Gönder.TabIndex = 10;
+            this.İşTakip_Eposta_Gönder.TabIndex = 4;
             this.İşTakip_Eposta_Gönder.Text = "Kişiye";
             this.İşTakip_Eposta_Gönder.UseVisualStyleBackColor = true;
             this.İşTakip_Eposta_Gönder.Click += new System.EventHandler(this.İşTakip_Eposta_Gönder_Click);
