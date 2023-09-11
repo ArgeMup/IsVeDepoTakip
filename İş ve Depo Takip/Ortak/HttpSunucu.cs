@@ -304,10 +304,10 @@ namespace İş_ve_Depo_Takip
         {
             System.Threading.Tasks.Task.Run(() =>
             {
-                if ((DateTime.Now - EnSonGüncelleme).TotalMinutes > 5 || Çıktı_yazı.BoşMu())
+                if ((DateTime.Now - EnSonGüncelleme).TotalMinutes > 5 || Çıktı_yazı.BoşMu() || Çıktı_yazı.Split(new string[] { "Okunamadı" }, StringSplitOptions.None).Length > 2)
                 {
                     Çıktı_yazı = null;
-                    Çıktı_dizi = new string[] { "Bağlantı_Kurulamadı", "Bağlantı_Kurulamadı", "Bağlantı_Kurulamadı", "Bağlantı_Kurulamadı" };
+                    Çıktı_dizi = new string[] { "-1", "-1", "-1", "-1" };
 
                     string Dosya_TCMB = Ortak.Klasör_Gecici + "TCMB_Kurlar.xml";
                     Dosya.Sil(Dosya_TCMB);
@@ -333,7 +333,7 @@ namespace İş_ve_Depo_Takip
                             string Tarih = xmlVerisi.SelectSingleNode("Tarih_Date").Attributes["Tarih"].InnerText;
                             string dolar = xmlVerisi.SelectSingleNode(string.Format("Tarih_Date/Currency[@Kod='{0}']/BanknoteSelling", "USD")).InnerText;
                             string avro = xmlVerisi.SelectSingleNode(string.Format("Tarih_Date/Currency[@Kod='{0}']/BanknoteSelling", "EUR")).InnerText;
-                            Çıktı_yazı =
+                            Çıktı_yazı +=
                             "TCMB " + Tarih + " 15:30" + Environment.NewLine +
                             "Dolar = " + dolar + " ₺" + Environment.NewLine +
                             "Avro = " + avro + " ₺" + Environment.NewLine;
@@ -343,6 +343,7 @@ namespace İş_ve_Depo_Takip
                         }
                         catch (Exception) { }
                     }
+                    else Çıktı_yazı += "TCMB Okunamadı" + Environment.NewLine;
 
                     if (File.Exists(Dosya_GenelPara))
                     {
@@ -374,8 +375,11 @@ namespace İş_ve_Depo_Takip
                         }
                         catch (Exception) { }
                     }
+                    else Çıktı_yazı += "Diğer Okunamadı";
 
-                    if (Çıktı_yazı.DoluMu()) EnSonGüncelleme = DateTime.Now;
+                    EnSonGüncelleme = DateTime.Now;
+                    Kaynak_TCMB.Dispose();
+                    Kaynak_GenelPara.Dispose();
                 }
 
                 İşlem?.Invoke(Çıktı_yazı, Çıktı_dizi);
