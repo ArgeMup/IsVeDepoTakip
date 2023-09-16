@@ -130,6 +130,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             P_DosyaEkleri_MasaüstüneKopyala.Enabled = false;
             P_DosyaEkleri_İlgiliUygulamadaAç.Enabled = false;
+            P_DosyaEkleri_ResimiÇevir.Enabled = false;
 
             P_DosyaEkleri_Sil.Enabled = false;
             P_DosyaEkleri_EklenmeTarihi.Text = null;
@@ -145,6 +146,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 P_DosyaEkleri_Resim.Dock = DockStyle.Fill;
                 P_DosyaEkleri_Resim.Size = rsm.Size;
                 P_DosyaEkleri_Resim.Image = rsm;
+
+                P_DosyaEkleri_ResimiÇevir.Enabled = !SadeceOkunabilir;
             }
 
             P_DosyaEkleri_MasaüstüneKopyala.Enabled = true;
@@ -193,7 +196,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Ortak.Çalıştır.UygulamayaİşletimSistemiKararVersin(SahteKonum);
         }
-
         private void P_DosyaEkleri_Sil_Click(object sender, EventArgs e)
         {
             if (P_DosyaEkleri_Liste.SelectedIndex < 0) return;
@@ -205,6 +207,27 @@ namespace İş_ve_Depo_Takip.Ekranlar
             DeğişiklikYapıldı = true;
 
             ÖnYüzGörseliniGüncelle?.Invoke();
+        }
+        private void P_DosyaEkleri_ResimiÇevir_Click(object sender, EventArgs e)
+        {
+            string SahteKonum = KullanıcınınSeçtiğiDosyaAdınıAl(out DateTime EklenmeTarihi);
+            if (SahteKonum.BoşMu()) return;
+
+            P_DosyaEkleri_Resim.Image.Dispose();
+            P_DosyaEkleri_Resim.Image = null;
+
+            Application.DoEvents();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
+            using (Image rsm = Image.FromFile(SahteKonum))
+            {
+                rsm.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                rsm.Save(SahteKonum);
+            }
+
+            P_DosyaEkleri_Liste_SelectedIndexChanged(null, null);
+            DeğişiklikYapıldı = true;
         }
 
         string KullanıcınınSeçtiğiDosyaAdınıAl(out DateTime EklenmeTarihi)

@@ -2553,7 +2553,22 @@ namespace İş_ve_Depo_Takip
                     Dosya.Sil(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri + SeriNonun_DosyaEkleri.Elemanları[i][0]);
                     SeriNonun_DosyaEkleri.Elemanları[i].Sil(null);
                 }
-                else SeriNonun_DosyaEkleri.Elemanları[i].Yaz(null, DosyaEkleri_Html_denGöster[sırano], 2);
+                else
+                {
+                    SeriNonun_DosyaEkleri.Elemanları[i].Yaz(null, DosyaEkleri_Html_denGöster[sırano], 2);
+
+                    //çevirme vb. işlem neticesinde dosya içeriğinde değişiklik yapılmış olma ihtimali var
+                    string SahteDosyaAdı = Ortak.Klasör_Gecici + "DoEk\\" + SeriNonun_DosyaEkleri.Elemanları[i][0] + "." + SeriNonun_DosyaEkleri.Elemanları[i][1];
+                    if (File.Exists(SahteDosyaAdı))
+                    {
+                        if (File.GetLastWriteTime(SahteDosyaAdı).Year != 2000)
+                        {
+                            byte[] içerik = File.ReadAllBytes(SahteDosyaAdı);
+                            içerik = Dosya_Karıştır(içerik);
+                            File.WriteAllBytes(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri + SeriNonun_DosyaEkleri.Elemanları[i][0], içerik);
+                        }
+                    }
+                }
             }
 
             //Yeni girdilerin eklenmesi
@@ -2625,6 +2640,7 @@ namespace İş_ve_Depo_Takip
                             byte[] içerik = File.ReadAllBytes(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri + biri[0]);
                             içerik = Dosya_Düzelt(içerik);
                             File.WriteAllBytes(HedefDosyaAdı, içerik);
+                            File.SetLastWriteTime(HedefDosyaAdı, new DateTime(2000, 1, 1));
                         }
                     }
 
