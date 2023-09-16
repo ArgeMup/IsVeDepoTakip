@@ -136,7 +136,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 DataGridViewRow yeni_satır = new DataGridViewRow();
                 yeni_satır.CreateCells(Tablo, dizin);
-                DataGridViewCell yeni_satır_6 = yeni_satır.Cells[6];
+                DataGridViewCell yeni_satır_6 = yeni_satır.Cells[Tablo_Gerçekleşme_Tarihi.Index];
 
                 if (h.UyarıTarihi < şimdi)
                 {

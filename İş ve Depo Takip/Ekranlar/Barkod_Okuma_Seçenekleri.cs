@@ -3,7 +3,6 @@ using ArgeMup.HazirKod.DonanımHaberleşmesi;
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar

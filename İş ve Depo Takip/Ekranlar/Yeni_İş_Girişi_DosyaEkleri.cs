@@ -33,6 +33,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Ekle((string[])e.Data.GetData(DataFormats.FileDrop));
         }
+        private void Yeni_İş_Girişi_DosyaEkleri_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (P_DosyaEkleri_Resim.Image != null) P_DosyaEkleri_Resim.Image.Dispose();
+        }
 
         public void Ekle(string[] DosyaEkleri)
         {

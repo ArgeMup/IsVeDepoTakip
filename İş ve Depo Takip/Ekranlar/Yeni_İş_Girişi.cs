@@ -29,10 +29,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 this.Müşteri = Müşteri;
                 this.SeriNo = SeriNo;
-                this.SeriNoTürü = SeriNoTürü;
                 this.EkTanım = EkTanım;
             }
-            
+            this.SeriNoTürü = SeriNoTürü;
+
             İşTürleri_Liste = Banka.İşTürü_Listele();
             Ortak.GrupArayıcı(İşTürleri_SeçimKutusu, İşTürleri_Liste);
 
@@ -184,7 +184,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ortak.AltSayfayıYükle(P_Epostalar, P_Yeni_İş_Girişi_Epostalar);
             P_Yeni_İş_Girişi_Epostalar.DeğişiklikYapıldı = false;
 
-            //Panelin görüntilenebilmesi için eklentiler
+            //Panelin görüntülenebilmesi için eklentiler
             Ayraç_Kat_3_SolSağ.Panel2.Controls.Remove(P_DosyaEkleri); Controls.Add(P_DosyaEkleri); P_DosyaEkleri.BringToFront();
             Ayraç_Kat_3_SolSağ.Panel2.Controls.Remove(P_Epostalar); Controls.Add(P_Epostalar); P_Epostalar.BringToFront();
         }
@@ -205,6 +205,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     KurlarVeSüreler.Text = (süreler.DoluMu() ? süreler + Environment.NewLine : null) + Yazı;
                 }));
             }
+        }
+        private void Yeni_İş_Girişi_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            P_Yeni_İş_Girişi_DosyaEkleri.Close();
+            P_Yeni_İş_Girişi_Epostalar.Close();
         }
 
         private void Müşteriler_AramaÇubuğu_KeyPress(object sender, KeyPressEventArgs e)

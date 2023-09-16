@@ -2129,8 +2129,9 @@ namespace İş_ve_Depo_Takip
                 İşler += Yazdır_Tarih(iş.Adı) + " " + iş[0];
 
                 //adet
-                int adet = Ücretler_AdetÇarpanı(iş.Oku_BaytDizisi(null, null, 4));
-                if (adet > 1) İşler += " x" + adet; 
+                byte[] kullanım = iş.Oku_BaytDizisi(null, null, 4);
+                int adet = Ücretler_AdetÇarpanı(kullanım);
+                if (adet > 1) İşler += " x" + adet;
 
                 //ücret girilmemiş ise gösterilmeyecek, AltToplamdan hariç tutulacak : -1
                 //ücret girilmiş ise gösterilecek : >= 0
@@ -2537,7 +2538,7 @@ namespace İş_ve_Depo_Takip
                 Değişiklikleri_Kaydet(null);
             }
         }
-        public static void DosyaEkleri_Düzenle(string SeriNo, List<string> DosyaEkleri = null, List<bool> DosyaEkleri_Html_denGöster = null)
+        static void DosyaEkleri_Düzenle(string SeriNo, List<string> DosyaEkleri = null, List<bool> DosyaEkleri_Html_denGöster = null)
         {
             IDepo_Eleman SeriNonun_DosyaEkleri = Tablo_Dal(null, TabloTürü.DosyaEkleri, "Dosya Ekleri/" + SeriNo, true);
             long FarkDosyaBoyutu = 0;

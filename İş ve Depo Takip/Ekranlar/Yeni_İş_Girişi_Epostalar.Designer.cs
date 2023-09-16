@@ -489,6 +489,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Yeni_İş_Girişi_Epostalar";
             this.Text = "Yeni İş Girişi / Düzenleme";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Yeni_İş_Girişi_Epostalar_FormClosed);
             this.Shown += new System.EventHandler(this.Yeni_İş_Girişi_Epostalar_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.Dosyalar_Resim_YaklaşmaOranı)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Seç_GünKadarEskiEpostalar)).EndInit();

@@ -288,7 +288,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İşTakip_Müşteriler_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (İşTakip_Müşteriler.SelectedIndex < 0) return;
+            if (İşTakip_Müşteriler.SelectedIndex < 0 || İşTakip_Müşteriler.Text.BoşMu(true)) return;
 
             CheckBox c = null;
             if (Seviye2_DevamEden.Checked) c = Seviye2_DevamEden;
@@ -345,7 +345,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 return;
             }
 
-            DialogResult Dr = MessageBox.Show("Seçili " + l.Count + " adet öğeyi KALICI OLARAK SİLMEK istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            DialogResult Dr = MessageBox.Show("Seçili " + l.Count + " adet öğeyi KALICI OLARAK SİLMEK istediğinize emin misiniz?" + Environment.NewLine + Environment.NewLine + "Dosya ekleri dahil herşey silinecektir.", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
 
             Banka.Talep_Sil(İşTakip_Müşteriler.Text, l);
@@ -953,7 +953,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             else return;
 
-            if (depo == null)
+            if (depo == null || depo["Talepler"].Elemanları.Length == 0)
             {
                 MessageBox.Show("Hiç kayıt bulunamadı", Text);
                 return;

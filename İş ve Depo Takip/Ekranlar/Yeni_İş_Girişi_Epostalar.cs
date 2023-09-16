@@ -43,6 +43,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Yenile_Click(null, null);
         }
+        private void Yeni_İş_Girişi_Epostalar_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (Dosyalar_Resim.Image != null) Dosyalar_Resim.Image.Dispose();
+        }
 
         private void Yenile_Click(object sender, EventArgs e)
         {

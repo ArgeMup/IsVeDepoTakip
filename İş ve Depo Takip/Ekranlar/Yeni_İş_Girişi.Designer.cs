@@ -1197,6 +1197,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Padding = new System.Windows.Forms.Padding(2);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "İş İçeriği";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Yeni_İş_Girişi_FormClosed);
             this.Shown += new System.EventHandler(this.Yeni_İş_Girişi_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).EndInit();
             this.Müşteriler_Grup.ResumeLayout(false);

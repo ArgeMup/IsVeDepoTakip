@@ -234,6 +234,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Yeni_İş_Girişi_DosyaEkleri";
             this.Text = "Yeni İş Girişi / Düzenleme";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Yeni_İş_Girişi_DosyaEkleri_FormClosed);
             this.Shown += new System.EventHandler(this.Yeni_İş_Girişi_DosyaEkleri_Shown);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Yeni_İş_Girişi_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Yeni_İş_Girişi_DragEnter);
