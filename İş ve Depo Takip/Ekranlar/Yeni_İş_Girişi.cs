@@ -70,8 +70,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Tablo_Giriş_Tarihi.Visible = false;
                 Tablo_Çıkış_Tarihi.Visible = false;
 
-                YeniKayıtİçinTutulanSeriNo = Banka.SeriNo_Üret(false);
-                Text += " - " + YeniKayıtİçinTutulanSeriNo + " - YENİ";
+                if (SeriNoTürü == Banka.TabloTürü.ÜcretHesaplama) Text += " - Ücret Hesaplama";
+                else
+                {
+                    YeniKayıtİçinTutulanSeriNo = Banka.SeriNo_Üret(false);
+                    Text += " - " + YeniKayıtİçinTutulanSeriNo + " - YENİ";
+                }
             }
             else
             {
@@ -91,6 +95,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Hastalar_SeçimKutusu.Enabled = false;
                 switch (SeriNoTürü)
                 {
+                    case Banka.TabloTürü.ÜcretHesaplama:
+                        Müşteriler_Grup.Enabled = false;
+                        Tablo_Çıkış_Tarihi.Visible = false;
+                        break;
+
                     case Banka.TabloTürü.DevamEden:
                     case Banka.TabloTürü.TeslimEdildi:
                         Müşteriler_Grup.Enabled = false;
@@ -170,6 +179,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 P_DosyaEkleri_TuşunuGüncelle();
             }
 
+            if (SeriNoTürü == Banka.TabloTürü.ÜcretHesaplama) KurlarVeSüreler.BackColor = System.Drawing.Color.Violet;
+
             P_Yeni_İş_Girişi_DosyaEkleri.SadeceOkunabilir = SadeceOkunabilir;
             P_Yeni_İş_Girişi_DosyaEkleri.ÖnYüzGörseliniGüncelle = P_DosyaEkleri_TuşunuGüncelle;
             P_Yeni_İş_Girişi_DosyaEkleri.SeriNo = SeriNo;
@@ -242,7 +253,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ortak.GrupArayıcı(Hastalar_SeçimKutusu);
             if (Müşteriler_SeçimKutusu.SelectedIndex < 0 || !Banka.Müşteri_MevcutMu(Müşteriler_SeçimKutusu.Text)) return;
 
-            IDepo_Eleman Talepler = Banka.Tablo_Dal(Müşteriler_SeçimKutusu.Text, Banka.TabloTürü.DevamEden, "Talepler");
+            IDepo_Eleman Talepler = Banka.Tablo_Dal(Müşteriler_SeçimKutusu.Text, SeriNoTürü == Banka.TabloTürü.ÜcretHesaplama ? Banka.TabloTürü.ÜcretHesaplama : Banka.TabloTürü.DevamEden, "Talepler");
             if (Talepler == null || Talepler.Elemanları.Length < 1) return;
 
             foreach (IDepo_Eleman seri_no_dalı in Talepler.Elemanları)
@@ -250,7 +261,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if (seri_no_dalı.İçiBoşOlduğuİçinSilinecek) continue;
                 
                 Banka.Talep_Ayıkla_SeriNoDalı(seri_no_dalı, out string SeriNo, out string Hasta, out string _, out string _, out string TeslimEdilmeTarihi);
-                string ha = Hasta + " -=> (" + SeriNo + (string.IsNullOrEmpty(TeslimEdilmeTarihi) ? " Devam Eden)" : " Teslim Edildi)");
+                string ha = Hasta + " -=> (" + SeriNo + (SeriNoTürü == Banka.TabloTürü.ÜcretHesaplama ? " Ücret Hesaplama)" : (string.IsNullOrEmpty(TeslimEdilmeTarihi) ? " Devam Eden)" : " Teslim Edildi)"));
                 Hastalar_Liste.Add(ha);
             }
 
@@ -321,6 +332,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 "kaydını güncellemek ister misiniz?";
 
                 SeriNoTürü = Banka.TabloTürü.TeslimEdildi;
+            }
+            else if (hasta.EndsWith(" Ücret Hesaplama)"))
+            {
+                soru = "Yeni bir iş oluşturmak yerine" + Environment.NewLine +
+                hasta + Environment.NewLine +
+                "kaydını güncellemek ister misiniz?";
+
+                SeriNoTürü = Banka.TabloTürü.ÜcretHesaplama;
             }
             else return;
 
@@ -637,6 +656,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         void Kaydet_TuşGörünürlüğü(bool Görünsün)
         {
             Kaydet.Enabled = Görünsün;
+            KaydetVeEtiketiYazdır.Visible = SeriNoTürü != Banka.TabloTürü.ÜcretHesaplama;
 
             if (Görünsün)
             {
@@ -766,7 +786,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Detaylar.DosyaEkleri_Html_denGöster.Add(P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.GetItemChecked(i));
             }
 
-            Banka.Talep_Ekle(Detaylar);
+            Banka.Talep_Ekle(Detaylar, SeriNoTürü == Banka.TabloTürü.ÜcretHesaplama);
             Banka.Ayarlar_Kullanıcı(Name, "Hastalar_AdVeSoyadıDüzelt").Yaz(null, Hastalar_AdVeSoyadıDüzelt.Checked);
             Banka.Değişiklikleri_Kaydet(Kaydet);
             Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(Detaylar.SeriNo);

@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
             this.P_Üst_Alt = new System.Windows.Forms.SplitContainer();
             this.P_SolOrta_Sağ = new System.Windows.Forms.SplitContainer();
             this.P_Sol_Orta = new System.Windows.Forms.SplitContainer();
@@ -49,6 +49,7 @@
             this.Seçim_Seviye_1_Seviye_2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.P_İşTakip_DevamEden = new System.Windows.Forms.Panel();
+            this.İşTakip_DevamEden_ÜcretHesaplama = new System.Windows.Forms.CheckBox();
             this.İşTakip_DevamEden_MüşteriyeGönder = new System.Windows.Forms.Button();
             this.İşTakip_DevamEden_Düzenle = new System.Windows.Forms.Button();
             this.İşTakip_DevamEden_Sil = new System.Windows.Forms.Button();
@@ -119,6 +120,7 @@
             this.Malzemeler_SeçilenleriSil = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.İşTakip_Eposta_ÜcretiHesaplanan = new System.Windows.Forms.CheckBox();
             this.İşTakip_Eposta_Ödendi = new System.Windows.Forms.CheckBox();
             this.İşTakip_Eposta_DevamEden = new System.Windows.Forms.CheckBox();
             this.İşTakip_Eposta_ÖdemeBekleyen = new System.Windows.Forms.CheckBox();
@@ -360,6 +362,7 @@
             // P_İşTakip_DevamEden
             // 
             this.P_İşTakip_DevamEden.AutoScroll = true;
+            this.P_İşTakip_DevamEden.Controls.Add(this.İşTakip_DevamEden_ÜcretHesaplama);
             this.P_İşTakip_DevamEden.Controls.Add(this.İşTakip_DevamEden_MüşteriyeGönder);
             this.P_İşTakip_DevamEden.Controls.Add(this.İşTakip_DevamEden_Düzenle);
             this.P_İşTakip_DevamEden.Controls.Add(this.İşTakip_DevamEden_Sil);
@@ -368,8 +371,25 @@
             this.P_İşTakip_DevamEden.Margin = new System.Windows.Forms.Padding(10);
             this.P_İşTakip_DevamEden.Name = "P_İşTakip_DevamEden";
             this.P_İşTakip_DevamEden.Padding = new System.Windows.Forms.Padding(5);
-            this.P_İşTakip_DevamEden.Size = new System.Drawing.Size(405, 167);
+            this.P_İşTakip_DevamEden.Size = new System.Drawing.Size(551, 197);
             this.P_İşTakip_DevamEden.TabIndex = 25;
+            // 
+            // İşTakip_DevamEden_ÜcretHesaplama
+            // 
+            this.İşTakip_DevamEden_ÜcretHesaplama.Appearance = System.Windows.Forms.Appearance.Button;
+            this.İşTakip_DevamEden_ÜcretHesaplama.FlatAppearance.CheckedBackColor = System.Drawing.Color.Violet;
+            this.İşTakip_DevamEden_ÜcretHesaplama.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.İşTakip_DevamEden_ÜcretHesaplama.Location = new System.Drawing.Point(7, 160);
+            this.İşTakip_DevamEden_ÜcretHesaplama.Margin = new System.Windows.Forms.Padding(2);
+            this.İşTakip_DevamEden_ÜcretHesaplama.Name = "İşTakip_DevamEden_ÜcretHesaplama";
+            this.İşTakip_DevamEden_ÜcretHesaplama.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.İşTakip_DevamEden_ÜcretHesaplama.Size = new System.Drawing.Size(188, 30);
+            this.İşTakip_DevamEden_ÜcretHesaplama.TabIndex = 15;
+            this.İşTakip_DevamEden_ÜcretHesaplama.Text = "Ücret Hesaplama";
+            this.İşTakip_DevamEden_ÜcretHesaplama.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.İşTakip_DevamEden_ÜcretHesaplama.UseCompatibleTextRendering = true;
+            this.İşTakip_DevamEden_ÜcretHesaplama.UseVisualStyleBackColor = true;
+            this.İşTakip_DevamEden_ÜcretHesaplama.CheckedChanged += new System.EventHandler(this.İşTakip_DevamEden_ÜcretHesaplama_CheckedChanged);
             // 
             // İşTakip_DevamEden_MüşteriyeGönder
             // 
@@ -380,7 +400,7 @@
             this.İşTakip_DevamEden_MüşteriyeGönder.Location = new System.Drawing.Point(5, 83);
             this.İşTakip_DevamEden_MüşteriyeGönder.Margin = new System.Windows.Forms.Padding(2);
             this.İşTakip_DevamEden_MüşteriyeGönder.Name = "İşTakip_DevamEden_MüşteriyeGönder";
-            this.İşTakip_DevamEden_MüşteriyeGönder.Size = new System.Drawing.Size(395, 32);
+            this.İşTakip_DevamEden_MüşteriyeGönder.Size = new System.Drawing.Size(539, 32);
             this.İşTakip_DevamEden_MüşteriyeGönder.TabIndex = 13;
             this.İşTakip_DevamEden_MüşteriyeGönder.Text = "Seçilenleri Müşteriye Gönder";
             this.İşTakip_DevamEden_MüşteriyeGönder.UseVisualStyleBackColor = true;
@@ -395,7 +415,7 @@
             this.İşTakip_DevamEden_Düzenle.Location = new System.Drawing.Point(5, 5);
             this.İşTakip_DevamEden_Düzenle.Margin = new System.Windows.Forms.Padding(5);
             this.İşTakip_DevamEden_Düzenle.Name = "İşTakip_DevamEden_Düzenle";
-            this.İşTakip_DevamEden_Düzenle.Size = new System.Drawing.Size(395, 32);
+            this.İşTakip_DevamEden_Düzenle.Size = new System.Drawing.Size(539, 32);
             this.İşTakip_DevamEden_Düzenle.TabIndex = 10;
             this.İşTakip_DevamEden_Düzenle.Text = "Seçileni Düzenle";
             this.İşTakip_DevamEden_Düzenle.UseVisualStyleBackColor = true;
@@ -410,7 +430,7 @@
             this.İşTakip_DevamEden_Sil.Location = new System.Drawing.Point(5, 44);
             this.İşTakip_DevamEden_Sil.Margin = new System.Windows.Forms.Padding(2);
             this.İşTakip_DevamEden_Sil.Name = "İşTakip_DevamEden_Sil";
-            this.İşTakip_DevamEden_Sil.Size = new System.Drawing.Size(395, 32);
+            this.İşTakip_DevamEden_Sil.Size = new System.Drawing.Size(539, 32);
             this.İşTakip_DevamEden_Sil.TabIndex = 11;
             this.İşTakip_DevamEden_Sil.Text = "Seçilenleri Sil";
             this.İşTakip_DevamEden_Sil.UseVisualStyleBackColor = true;
@@ -425,7 +445,7 @@
             this.İşTakip_DevamEden_İsaretle_TeslimEdildi.Location = new System.Drawing.Point(5, 122);
             this.İşTakip_DevamEden_İsaretle_TeslimEdildi.Margin = new System.Windows.Forms.Padding(2);
             this.İşTakip_DevamEden_İsaretle_TeslimEdildi.Name = "İşTakip_DevamEden_İsaretle_TeslimEdildi";
-            this.İşTakip_DevamEden_İsaretle_TeslimEdildi.Size = new System.Drawing.Size(395, 32);
+            this.İşTakip_DevamEden_İsaretle_TeslimEdildi.Size = new System.Drawing.Size(539, 32);
             this.İşTakip_DevamEden_İsaretle_TeslimEdildi.TabIndex = 12;
             this.İşTakip_DevamEden_İsaretle_TeslimEdildi.Text = "Seçilenleri Teslim Edildi Olarak İşaretle";
             this.İşTakip_DevamEden_İsaretle_TeslimEdildi.UseVisualStyleBackColor = true;
@@ -434,10 +454,10 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.P_İşTakip_TeslimEdildi);
-            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Location = new System.Drawing.Point(4, 29);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(624, 238);
+            this.tabPage4.Size = new System.Drawing.Size(627, 238);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Teslim Edildi";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -694,11 +714,11 @@
             // 
             this.tabPage5.AutoScroll = true;
             this.tabPage5.Controls.Add(this.P_İşTakip_ÖdemeBekleyen);
-            this.tabPage5.Location = new System.Drawing.Point(4, 25);
+            this.tabPage5.Location = new System.Drawing.Point(4, 29);
             this.tabPage5.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage5.Size = new System.Drawing.Size(624, 238);
+            this.tabPage5.Size = new System.Drawing.Size(627, 238);
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "Ödeme Bekleyen";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1259,6 +1279,7 @@
             // panel7
             // 
             this.panel7.AutoScroll = true;
+            this.panel7.Controls.Add(this.İşTakip_Eposta_ÜcretiHesaplanan);
             this.panel7.Controls.Add(this.İşTakip_Eposta_Ödendi);
             this.panel7.Controls.Add(this.İşTakip_Eposta_DevamEden);
             this.panel7.Controls.Add(this.İşTakip_Eposta_ÖdemeBekleyen);
@@ -1271,6 +1292,17 @@
             this.panel7.Padding = new System.Windows.Forms.Padding(3);
             this.panel7.Size = new System.Drawing.Size(220, 195);
             this.panel7.TabIndex = 27;
+            // 
+            // İşTakip_Eposta_ÜcretiHesaplanan
+            // 
+            this.İşTakip_Eposta_ÜcretiHesaplanan.AutoSize = true;
+            this.İşTakip_Eposta_ÜcretiHesaplanan.Location = new System.Drawing.Point(6, 65);
+            this.İşTakip_Eposta_ÜcretiHesaplanan.Name = "İşTakip_Eposta_ÜcretiHesaplanan";
+            this.İşTakip_Eposta_ÜcretiHesaplanan.Size = new System.Drawing.Size(166, 24);
+            this.İşTakip_Eposta_ÜcretiHesaplanan.TabIndex = 6;
+            this.İşTakip_Eposta_ÜcretiHesaplanan.Text = "Ücreti hesaplanan";
+            this.İşTakip_Eposta_ÜcretiHesaplanan.UseVisualStyleBackColor = true;
+            this.İşTakip_Eposta_ÜcretiHesaplanan.CheckedChanged += new System.EventHandler(this.İşTakip_Eposta_CheckedChanged);
             // 
             // İşTakip_Eposta_Ödendi
             // 
@@ -1307,10 +1339,10 @@
             // 
             // İşTakip_Eposta_Kişi
             // 
-            this.İşTakip_Eposta_Kişi.Location = new System.Drawing.Point(6, 101);
+            this.İşTakip_Eposta_Kişi.Location = new System.Drawing.Point(6, 130);
             this.İşTakip_Eposta_Kişi.Multiline = true;
             this.İşTakip_Eposta_Kişi.Name = "İşTakip_Eposta_Kişi";
-            this.İşTakip_Eposta_Kişi.Size = new System.Drawing.Size(254, 67);
+            this.İşTakip_Eposta_Kişi.Size = new System.Drawing.Size(254, 38);
             this.İşTakip_Eposta_Kişi.TabIndex = 5;
             this.İpUcu.SetToolTip(this.İşTakip_Eposta_Kişi, "Gönderilecek eposta adresi\r\n; Noktalı virgül ile ayrılmış birden fazla olabilir");
             // 
@@ -1328,7 +1360,7 @@
             // İşTakip_Eposta_Gönder
             // 
             this.İşTakip_Eposta_Gönder.Enabled = false;
-            this.İşTakip_Eposta_Gönder.Location = new System.Drawing.Point(6, 65);
+            this.İşTakip_Eposta_Gönder.Location = new System.Drawing.Point(6, 94);
             this.İşTakip_Eposta_Gönder.Margin = new System.Windows.Forms.Padding(2);
             this.İşTakip_Eposta_Gönder.Name = "İşTakip_Eposta_Gönder";
             this.İşTakip_Eposta_Gönder.Size = new System.Drawing.Size(254, 31);
@@ -1551,14 +1583,14 @@
             this.Tablo.AllowUserToResizeRows = false;
             this.Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle21;
             this.Tablo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Tablo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Tablo_Seç,
@@ -1600,9 +1632,9 @@
             // 
             // Tablo_SeriNo
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_SeriNo.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_SeriNo.DefaultCellStyle = dataGridViewCellStyle22;
             this.Tablo_SeriNo.HeaderText = "Seri No";
             this.Tablo_SeriNo.MinimumWidth = 6;
             this.Tablo_SeriNo.Name = "Tablo_SeriNo";
@@ -1619,8 +1651,8 @@
             // 
             // Tablo_Hasta
             // 
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_Hasta.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_Hasta.DefaultCellStyle = dataGridViewCellStyle23;
             this.Tablo_Hasta.HeaderText = "Hasta";
             this.Tablo_Hasta.MinimumWidth = 6;
             this.Tablo_Hasta.Name = "Tablo_Hasta";
@@ -1629,9 +1661,9 @@
             // 
             // Tablo_İşGiriş
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_İşGiriş.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_İşGiriş.DefaultCellStyle = dataGridViewCellStyle24;
             this.Tablo_İşGiriş.HeaderText = "İş Kabul";
             this.Tablo_İşGiriş.MinimumWidth = 6;
             this.Tablo_İşGiriş.Name = "Tablo_İşGiriş";
@@ -1640,9 +1672,9 @@
             // 
             // Tablo_İşÇıkış
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_İşÇıkış.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_İşÇıkış.DefaultCellStyle = dataGridViewCellStyle25;
             this.Tablo_İşÇıkış.HeaderText = "İş Çıkış";
             this.Tablo_İşÇıkış.MinimumWidth = 6;
             this.Tablo_İşÇıkış.Name = "Tablo_İşÇıkış";
@@ -1651,9 +1683,9 @@
             // 
             // Tablo_İş
             // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_İş.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_İş.DefaultCellStyle = dataGridViewCellStyle26;
             this.Tablo_İş.HeaderText = "İş";
             this.Tablo_İş.MinimumWidth = 6;
             this.Tablo_İş.Name = "Tablo_İş";
@@ -1662,8 +1694,8 @@
             // 
             // Tablo_Teslim_Edildi
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Teslim_Edildi.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Teslim_Edildi.DefaultCellStyle = dataGridViewCellStyle27;
             this.Tablo_Teslim_Edildi.HeaderText = "Teslim Edildi";
             this.Tablo_Teslim_Edildi.MinimumWidth = 6;
             this.Tablo_Teslim_Edildi.Name = "Tablo_Teslim_Edildi";
@@ -1672,8 +1704,8 @@
             // 
             // Tablo_Ödeme_Talep_Edildi
             // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Ödeme_Talep_Edildi.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Ödeme_Talep_Edildi.DefaultCellStyle = dataGridViewCellStyle28;
             this.Tablo_Ödeme_Talep_Edildi.HeaderText = "Ödeme Talebi";
             this.Tablo_Ödeme_Talep_Edildi.MinimumWidth = 6;
             this.Tablo_Ödeme_Talep_Edildi.Name = "Tablo_Ödeme_Talep_Edildi";
@@ -1682,8 +1714,8 @@
             // 
             // Tablo_Ödendi
             // 
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Ödendi.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Ödendi.DefaultCellStyle = dataGridViewCellStyle29;
             this.Tablo_Ödendi.HeaderText = "Ödendi";
             this.Tablo_Ödendi.MinimumWidth = 6;
             this.Tablo_Ödendi.Name = "Tablo_Ödendi";
@@ -1692,8 +1724,8 @@
             // 
             // Tablo_Notlar
             // 
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo_Notlar.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo_Notlar.DefaultCellStyle = dataGridViewCellStyle30;
             this.Tablo_Notlar.HeaderText = "Notlar";
             this.Tablo_Notlar.MinimumWidth = 6;
             this.Tablo_Notlar.Name = "Tablo_Notlar";
@@ -1955,5 +1987,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Notlar;
         private System.Windows.Forms.CheckBox İşTakip_Eposta_Ödendi;
         private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.CheckBox İşTakip_DevamEden_ÜcretHesaplama;
+        private System.Windows.Forms.CheckBox İşTakip_Eposta_ÜcretiHesaplanan;
     }
 }

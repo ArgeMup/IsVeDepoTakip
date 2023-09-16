@@ -154,7 +154,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Seviye2_TeslimEdildi.Checked = false;
                     Seviye2_ÖdemeBekleyen.Checked = false;
                     Seviye2_Ödendi.Checked = false;
-
+                    
+                    İşTakip_DevamEden_ÜcretHesaplama.Checked = false;
+                    
                     if (Banka.Müşteri_MevcutMu(İşTakip_Müşteriler.Text))
                     {
                         bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.DevamEden);
@@ -314,7 +316,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             İşTakip_Eposta_ÖdemeBekleyen.Checked = false;
             İşTakip_Eposta_Ödendi.Checked = false;
             Banka_Tablo_ bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.DevamEden);
-            İşTakip_Eposta_DevamEden.Text = "Devam eden : " + bt.Talepler.Count + " iş"; ;
+            İşTakip_Eposta_DevamEden.Text = "Devam eden : " + bt.Talepler.Count + " iş";
+            bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.ÜcretHesaplama);
+            İşTakip_Eposta_ÜcretiHesaplanan.Text = "Ücreti hesaplanan : " + bt.Talepler.Count + " iş";
             bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.TeslimEdildi);
             İşTakip_Eposta_TeslimEdildi.Text = "Teslim edilen : " + bt.Talepler.Count + " iş";
             İşTakip_Eposta_ÖdemeBekleyen.Text = "Ödeme talebi : " + Banka.Dosya_Listele_Müşteri(İşTakip_Müşteriler.Text, false).Length + " dönem";
@@ -348,7 +352,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             DialogResult Dr = MessageBox.Show("Seçili " + l.Count + " adet öğeyi KALICI OLARAK SİLMEK istediğinize emin misiniz?" + Environment.NewLine + Environment.NewLine + "Dosya ekleri dahil herşey silinecektir.", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
 
-            Banka.Talep_Sil(İşTakip_Müşteriler.Text, l);
+            Banka.Talep_Sil(İşTakip_Müşteriler.Text, l, İşTakip_DevamEden_ÜcretHesaplama.Checked);
             Banka.Değişiklikleri_Kaydet(İşTakip_DevamEden_Sil);
 
             foreach (DataGridViewRow s in silinecek_satırlar)
@@ -382,7 +386,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 return;
             }
 
-            Ekranlar.ÖnYüzler.Ekle(new Yeni_İş_Girişi(l[0], İşTakip_Müşteriler.Text, Banka.TabloTürü.DevamEden));
+            Ekranlar.ÖnYüzler.Ekle(new Yeni_İş_Girişi(l[0], İşTakip_Müşteriler.Text, İşTakip_DevamEden_ÜcretHesaplama.Checked ? Banka.TabloTürü.ÜcretHesaplama : Banka.TabloTürü.DevamEden));
         }
         private void İşTakip_DevamEden_MüşteriyeGönder_Click(object sender, EventArgs e)
         {
@@ -448,6 +452,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle((string)s.Cells[Tablo_SeriNo.Index].Value);
                 Tablo.Rows.Remove(s);
             }
+        }
+        private void İşTakip_DevamEden_ÜcretHesaplama_CheckedChanged(object sender, EventArgs e)
+        {
+            İşTakip_DevamEden_MüşteriyeGönder.Enabled = !İşTakip_DevamEden_ÜcretHesaplama.Checked;
+            İşTakip_DevamEden_İsaretle_TeslimEdildi.Enabled = !İşTakip_DevamEden_ÜcretHesaplama.Checked;
+
+            if (İşTakip_DevamEden_ÜcretHesaplama.Checked && Banka.Müşteri_MevcutMu(İşTakip_Müşteriler.Text))
+            {
+                Banka_Tablo_ bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.ÜcretHesaplama);
+                Banka.Talep_TablodaGöster(Tablo, bt);
+            }
+            else Seviye_Değişti(Seviye2_DevamEden, null);
         }
         private void İşTakip_TeslimEdildi_İşaretle_DevamEden_Click(object sender, EventArgs e)
         {
@@ -910,7 +926,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (Seviye2_DevamEden.Checked)
             {
                 depo = new ArgeMup.HazirKod.Depo_();
-                Banka_Tablo_ bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.DevamEden);
+                Banka_Tablo_ bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, İşTakip_DevamEden_ÜcretHesaplama.Checked ? Banka.TabloTürü.ÜcretHesaplama : Banka.TabloTürü.DevamEden);
                 IDepo_Eleman talepler = depo.Bul("Talepler", true);
                 depo["Tür", 1] = İşTakip_Müşteriler.Text;
 
@@ -919,7 +935,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     talepler.Ekle(null, elm.YazıyaDönüştür(null));
                 }
 
-                gerçekdosyadı = "Devam_Eden_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
+                if (İşTakip_DevamEden_ÜcretHesaplama.Checked)
+                {
+                    depo = Banka.YazdırmayaHazırla_ÜcretHesaplama(depo);
+                    if (depo == null) return;
+                }
+
+                gerçekdosyadı = (İşTakip_DevamEden_ÜcretHesaplama.Checked ? "Ücret_Hesaplama_" : "Devam_Eden_") + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
             }
             else if (Seviye2_TeslimEdildi.Checked)
             {
@@ -990,7 +1012,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İşTakip_Eposta_CheckedChanged(object sender, EventArgs e)
         {
-            İşTakip_Eposta_Gönder.Enabled = İşTakip_Eposta_DevamEden.Checked || İşTakip_Eposta_TeslimEdildi.Checked || İşTakip_Eposta_ÖdemeBekleyen.Checked || İşTakip_Eposta_Ödendi.Checked;
+            İşTakip_Eposta_Gönder.Enabled = İşTakip_Eposta_ÜcretiHesaplanan.Checked || İşTakip_Eposta_DevamEden.Checked || İşTakip_Eposta_TeslimEdildi.Checked || İşTakip_Eposta_ÖdemeBekleyen.Checked || İşTakip_Eposta_Ödendi.Checked;
 
             CheckBox chb = sender as CheckBox;
             if (chb != null && chb == İşTakip_Eposta_Ödendi) İşTakip_Eposta_Ödendi.Text = "Ödendi : " + (İşTakip_Ödendi_Dönem_Dönemler.SelectedItems.Count > 0 ? İşTakip_Ödendi_Dönem_Dönemler.SelectedItems.Count.ToString() : "Son") + " dönem";
@@ -1035,6 +1057,28 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Directory.CreateDirectory(gecici_klasör);
 
             Yazdırma y = new Yazdırma();
+
+            if (İşTakip_Eposta_ÜcretiHesaplanan.Checked)
+            {
+                depo = new ArgeMup.HazirKod.Depo_();
+                Banka_Tablo_ bt = Banka.Talep_Listele(İşTakip_Müşteriler.Text, Banka.TabloTürü.ÜcretHesaplama);
+                IDepo_Eleman talepler = depo.Bul("Talepler", true);
+                depo["Tür", 1] = İşTakip_Müşteriler.Text;
+
+                if (bt.Talepler.Count > 0)
+                {
+                    foreach (IDepo_Eleman elm in bt.Talepler)
+                    {
+                        talepler.Ekle(null, elm.YazıyaDönüştür(null));
+                    }
+
+                    gecici_dosyadı = gecici_klasör + "Ücret_Hesaplama_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
+                    depo = Banka.YazdırmayaHazırla_ÜcretHesaplama(depo);
+                    if (depo == null) return;
+
+                    y.Yazdır_Depo(depo, gecici_dosyadı);
+                }
+            }
 
             if (İşTakip_Eposta_DevamEden.Checked)
             {
@@ -1214,7 +1258,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         }
                     }
                 }
-                else SeriNoTürü = Banka.TabloTürü.DevamEden;
+                else SeriNoTürü = İşTakip_DevamEden_ÜcretHesaplama.Checked ? Banka.TabloTürü.ÜcretHesaplama : Banka.TabloTürü.DevamEden;
 
                 string soru;
                 if (SeriNoTürü == Banka.TabloTürü.TeslimEdildi)

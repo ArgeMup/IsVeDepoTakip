@@ -204,6 +204,50 @@ namespace İş_ve_Depo_Takip
 
             return Depo;
         }
+        public static Depo_ YazdırmayaHazırla_ÜcretHesaplama(Depo_ Depo)
+        {
+            Depo = new Depo_(Depo.YazıyaDönüştür());
+
+            string Müşteri = Depo["Tür", 1];
+            double Toplam = 0;
+
+            foreach (IDepo_Eleman sn in Depo.Bul("Talepler", true).Elemanları)
+            {
+                Talep_Ayıkla_SeriNoDalı(Müşteri, sn, out _, out _, out _, out _, ref Toplam);
+
+                foreach (IDepo_Eleman iş in sn.Elemanları)
+                {
+                    //işin adedi
+                    byte[] kullanım = iş.Oku_BaytDizisi(null, null, 4);
+
+                    //ücret
+                    string snç = null;
+                    double ücret = iş.Oku_Sayı(null, -1, 2);
+                    if (ücret < 0)
+                    {
+                        snç = Ücretler_HesaplanmışToplamÜcret(Müşteri, iş[0], kullanım, out ücret);
+                        if (snç.DoluMu()) ücret = -1;
+                    }
+                    if (ücret >= 0) iş.Yaz(null, ücret, 2);
+                    else
+                    {
+                        DialogResult Dr = MessageBox.Show("Bir hata farkedildi." + Environment.NewLine + Environment.NewLine +
+                            iş[0] + " : " + snç + Environment.NewLine + Environment.NewLine +
+                            "Ücretler sayfasını açmak ister misiniz?", "Ücret Hesaplama", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                        if (Dr == DialogResult.Yes) Ekranlar.ÖnYüzler.Ekle(new Ekranlar.Ücretler());
+
+                        return null;
+                    }
+                }
+            }
+
+            Depo.Yaz("Ödeme/Alt Toplam", Toplam);
+
+            bool KDV = Ayarlar_Müşteri(Müşteri, "Sayfa/Teslim Edildi", true).Oku_Bit("KDV", true);
+            if (KDV) Depo.Yaz("Ödeme/Alt Toplam", Ayarlar_Genel("Bütçe/KDV", true).Oku_Sayı(null, 8), 1);
+
+            return Depo;
+        }
 
         public static Depo_ Tablo(string MüşteriVeyaMalzeme, TabloTürü Tür, bool YoksaOluştur = false, string EkTanım = null)
         {
@@ -385,6 +429,23 @@ namespace İş_ve_Depo_Takip
 
                 switch (Tür)
                 {
+                    case TabloTürü.ÜcretHesaplama:
+                        if (m.ÜcretHesaplama == null)
+                        {
+                            İlgili_Kls += "Mü_ÜcHe";
+
+                            if (!Depo_DosyaVarMı(İlgili_Kls))
+                            {
+                                if (!YoksaOluştur) goto Çıkış;
+                            }
+
+                            m.ÜcretHesaplama = Depo_Aç(İlgili_Kls);
+                        }
+                        else KontrolEdildi = true;
+
+                        depo = m.ÜcretHesaplama;
+                        break;
+
                     case TabloTürü.DevamEden:
                         if (m.DevamEden == null)
                         {
@@ -1571,16 +1632,23 @@ namespace İş_ve_Depo_Takip
             return null;
         }
 
-        public static void Talep_Ekle(Talep_Ekle_Detaylar_ Detaylar)
+        public static void Talep_Ekle(Talep_Ekle_Detaylar_ Detaylar, bool ÜcretHesaplama)
         {
             bool YeniKayıt = false;
             if (string.IsNullOrEmpty(Detaylar.SeriNo))
             {
-                YeniKayıt = true;
-                Detaylar.SeriNo = SeriNo_Üret(true);
+                if (ÜcretHesaplama)
+                {
+                    Detaylar.SeriNo = DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2);
+                }
+                else
+                {
+                    YeniKayıt = true;
+                    Detaylar.SeriNo = SeriNo_Üret(true);
+                }
             }
 
-            IDepo_Eleman sn_dalı = Tablo_Dal(Detaylar.Müşteri, TabloTürü.DevamEden, "Talepler/" + Detaylar.SeriNo, true);
+            IDepo_Eleman sn_dalı = Tablo_Dal(Detaylar.Müşteri, ÜcretHesaplama ? TabloTürü.ÜcretHesaplama : TabloTürü.DevamEden, "Talepler/" + Detaylar.SeriNo, true);
             sn_dalı[0] = Detaylar.Hasta;
             sn_dalı[1] = Detaylar.İskonto;
             sn_dalı[2] = Detaylar.Notlar;
@@ -1617,47 +1685,51 @@ namespace İş_ve_Depo_Takip
                     }
                 }
 
-                //malzemeleri depoya geri ver
-                bool _ = silinecekler.İçiBoşOlduğuİçinSilinecek;
-                if (silinecekler.Elemanları.Length > 0)
+                if (!ÜcretHesaplama)
                 {
-                    List<string> l_iştürleri = new List<string>();
-                    List<byte[]> l_adetler = new List<byte[]>();
-                    foreach (IDepo_Eleman biri in silinecekler.Elemanları)
+                    //malzemeleri depoya geri ver
+                    bool _ = silinecekler.İçiBoşOlduğuİçinSilinecek;
+                    if (silinecekler.Elemanları.Length > 0)
                     {
-                        l_iştürleri.Add(biri[0]);
-                        l_adetler.Add(biri.Oku_BaytDizisi(null, null, 4));
+                        List<string> l_iştürleri = new List<string>();
+                        List<byte[]> l_adetler = new List<byte[]>();
+                        foreach (IDepo_Eleman biri in silinecekler.Elemanları)
+                        {
+                            l_iştürleri.Add(biri[0]);
+                            l_adetler.Add(biri.Oku_BaytDizisi(null, null, 4));
+                        }
+
+                        Malzeme_İştürüneGöreHareket(l_iştürleri, false, Detaylar.SeriNo, Detaylar.Müşteri, Detaylar.Hasta, l_adetler);
                     }
 
-                    Malzeme_İştürüneGöreHareket(l_iştürleri, false, Detaylar.SeriNo, Detaylar.Müşteri, Detaylar.Hasta, l_adetler);
-                }
-
-                //ihtiyaç kadar malzemeyi depodan kullan
-                _ = eklenecekler.İçiBoşOlduğuİçinSilinecek;
-                if (eklenecekler.Elemanları.Length > 0)
-                {
-                    List<string> l_iştürleri = new List<string>();
-                    List<byte[]> l_adetler = new List<byte[]>();
-                    List<string> l_giritarihleri = new List<string>();
-                    foreach (IDepo_Eleman biri in eklenecekler.Elemanları)
+                    //ihtiyaç kadar malzemeyi depodan kullan
+                    _ = eklenecekler.İçiBoşOlduğuİçinSilinecek;
+                    if (eklenecekler.Elemanları.Length > 0)
                     {
-                        l_iştürleri.Add(biri[0]); //iş türü
-                        l_adetler.Add(biri.Oku_BaytDizisi(null, null, 4));
-                        l_giritarihleri.Add(biri.Adı); //iş giriş tarihi
-                    }
+                        List<string> l_iştürleri = new List<string>();
+                        List<byte[]> l_adetler = new List<byte[]>();
+                        List<string> l_giritarihleri = new List<string>();
+                        foreach (IDepo_Eleman biri in eklenecekler.Elemanları)
+                        {
+                            l_iştürleri.Add(biri[0]); //iş türü
+                            l_adetler.Add(biri.Oku_BaytDizisi(null, null, 4));
+                            l_giritarihleri.Add(biri.Adı); //iş giriş tarihi
+                        }
 
-                    Malzeme_İştürüneGöreHareket(l_iştürleri, true, Detaylar.SeriNo, Detaylar.Müşteri, Detaylar.Hasta, l_adetler, l_giritarihleri);
+                        Malzeme_İştürüneGöreHareket(l_iştürleri, true, Detaylar.SeriNo, Detaylar.Müşteri, Detaylar.Hasta, l_adetler, l_giritarihleri);
+                    }
                 }
             }
 
             DosyaEkleri_Düzenle(Detaylar.SeriNo, Detaylar.DosyaEkleri, Detaylar.DosyaEkleri_Html_denGöster); //silmek eklemek
         }
-        public static void Talep_Sil(string Müşteri, List<string> Seri_No_lar)
+        public static void Talep_Sil(string Müşteri, List<string> Seri_No_lar, bool ÜcretHesaplama)
         {
-            IDepo_Eleman Talepler = Tablo_Dal(Müşteri, TabloTürü.DevamEden, "Talepler");
+            TabloTürü tt = ÜcretHesaplama ? TabloTürü.ÜcretHesaplama : TabloTürü.DevamEden;
+            IDepo_Eleman Talepler = Tablo_Dal(Müşteri, tt, "Talepler");
             if (Talepler == null || Talepler.Elemanları.Length == 0)
             {
-                if (Seri_No_lar != null && Seri_No_lar.Count > 0) throw new Exception(Müşteri + " / Devam Eden / Talepler altında iş bulunamadı");
+                if (Seri_No_lar != null && Seri_No_lar.Count > 0) throw new Exception(Müşteri + " / " + tt + " / Talepler altında iş bulunamadı");
 
                 return;
             }
@@ -1668,7 +1740,7 @@ namespace İş_ve_Depo_Takip
             foreach (string sn in Seri_No_lar)
             {
                 IDepo_Eleman seri_no_dalı = Talepler.Bul(sn);
-                if (seri_no_dalı == null) throw new Exception(Müşteri + " / Devam Eden / Talepler / " + sn + " bulunamadı");
+                if (seri_no_dalı == null) throw new Exception(Müşteri + " / " + tt + " / Talepler / " + sn + " bulunamadı");
 
                 foreach (IDepo_Eleman iş in seri_no_dalı.Elemanları)
                 {
@@ -1676,7 +1748,11 @@ namespace İş_ve_Depo_Takip
                     adetler_silinecek.Add(iş.Oku_BaytDizisi(null, null, 4));
                 }
 
-                Malzeme_İştürüneGöreHareket(işler_silinecek, false, sn, Müşteri, seri_no_dalı[0]/*hasta*/, adetler_silinecek); //depoya geri teslim et
+                if (!ÜcretHesaplama)
+                { 
+                    Malzeme_İştürüneGöreHareket(işler_silinecek, false, sn, Müşteri, seri_no_dalı[0]/*hasta*/, adetler_silinecek); //depoya geri teslim et
+                }
+
                 seri_no_dalı.Sil(null);
 
                 DosyaEkleri_Düzenle(sn); //silmek
@@ -1699,7 +1775,7 @@ namespace İş_ve_Depo_Takip
             }
             else
             {
-                if (Tür < TabloTürü.DevamEden || Tür > TabloTürü.Ödendi)
+                if (Tür < TabloTürü.ÜcretHesaplama || Tür > TabloTürü.Ödendi)
                 {
                     Detaylar = Talep_Bul(SeriNo, Müşteri, TabloTürü.DevamEden);
                     if (Detaylar != null) return Detaylar;
@@ -1736,6 +1812,15 @@ namespace İş_ve_Depo_Takip
                         if (Bulunan_sn != null) return new Talep_Bul_Detaylar_(Bulunan_sn, Müşteri, Tür, EkTanım);
                     }
                 }
+                else if (Tür == TabloTürü.ÜcretHesaplama)
+                {
+                    Bulunan_sn = Tablo_Dal(Müşteri, TabloTürü.ÜcretHesaplama, "Talepler/" + SeriNo);
+                    if (Bulunan_sn != null)
+                    {
+                        Talep_Ayıkla_SeriNoDalı(Bulunan_sn, out _, out _, out _, out _, out _);
+                        return new Talep_Bul_Detaylar_(Bulunan_sn, Müşteri, TabloTürü.ÜcretHesaplama, EkTanım);
+                    }
+                }
             }
 
             return null;
@@ -1748,8 +1833,9 @@ namespace İş_ve_Depo_Takip
 
             switch (Tür)
             {
+                case TabloTürü.ÜcretHesaplama:
                 case TabloTürü.DevamEden:
-                    Talepler = Tablo_Dal(Müşteri, TabloTürü.DevamEden, "Talepler");
+                    Talepler = Tablo_Dal(Müşteri, Tür, "Talepler");
                     if (Talepler != null)
                     {
                         foreach (IDepo_Eleman seri_no_dalı in Talepler.Elemanları)
@@ -2056,6 +2142,7 @@ namespace İş_ve_Depo_Takip
 
                 switch (İçerik.Türü)
                 {
+                    case TabloTürü.ÜcretHesaplama:
                     case TabloTürü.DevamEden:
                         Tablo.Columns[2].Visible = false; //müşteri
                         Tablo.Columns[7].Visible = false; //tarih teslim
@@ -2700,7 +2787,7 @@ namespace İş_ve_Depo_Takip
 
             Günlük.Ekle("Değişiklikleri_Kaydet Başladı");
             bool EnAzBirDeğişiklikYapıldı = false;
-            Ortak.Gösterge.Başlat("Kaydediliyor", false, Tetikleyen, 8 + (Müşteriler == null ? 0 : Müşteriler.Count * 4) + (MalzemeKullanımDetayları == null ? 0 : MalzemeKullanımDetayları.Count * 1));
+            Ortak.Gösterge.Başlat("Kaydediliyor", false, Tetikleyen, 8 + (Müşteriler == null ? 0 : Müşteriler.Count * 5) + (MalzemeKullanımDetayları == null ? 0 : MalzemeKullanımDetayları.Count * 1));
 
             if (Müşteriler != null && Müşteriler.Count > 0)
             {
@@ -2722,6 +2809,9 @@ namespace İş_ve_Depo_Takip
                     m.Ödendi = null;
                     m.Liste_ÖdemeTalepEdildi = null;
                     m.Liste_Ödendi = null;
+
+                    Ortak.Gösterge.İlerleme = 1;
+                    if (m.ÜcretHesaplama != null && m.ÜcretHesaplama.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Mü\\" + m.KlasörAdı + "\\Mü_ÜcHe", m.ÜcretHesaplama); EnAzBirDeğişiklikYapıldı = true; }
 
                     Ortak.Gösterge.İlerleme = 1;
                     if (m.DevamEden != null && m.DevamEden.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Mü\\" + m.KlasörAdı + "\\Mü_A", m.DevamEden); EnAzBirDeğişiklikYapıldı = true; }
@@ -2833,8 +2923,9 @@ namespace İş_ve_Depo_Takip
 
         #region Demirbaşlar
         public enum TabloTürü { Ayarlar, İşTürleri, Malzemeler, MalzemeKullanımDetayı, Ödemeler, Kullanıcılar, Takvim, KorumalıAlan, DosyaEkleri,
-                                DevamEden, TeslimEdildi, ÖdemeTalepEdildi, Ödendi,
-                                DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi }
+                                ÜcretHesaplama, DevamEden, TeslimEdildi, ÖdemeTalepEdildi, Ödendi,
+                                DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi
+        }
         static Depo_ Ayarlar = null;
         static Depo_ İşTürleri = null;
         static Depo_ Malzemeler = null;
@@ -2848,6 +2939,7 @@ namespace İş_ve_Depo_Takip
             public string Adı = null;
             public string KlasörAdı = null;
 
+            public Depo_ ÜcretHesaplama = null;
             public Depo_ DevamEden = null;
             public Depo_ Ayarlar = null;
             public Depo_ Ödemeler = null;

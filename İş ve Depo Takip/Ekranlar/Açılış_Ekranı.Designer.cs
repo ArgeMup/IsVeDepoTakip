@@ -36,6 +36,7 @@
             this.Ücretler = new System.Windows.Forms.Button();
             this.Yazdırma = new System.Windows.Forms.Button();
             this.P_AnaMenü = new System.Windows.Forms.Panel();
+            this.ÜcretHesaplama = new System.Windows.Forms.Button();
             this.BarkodGirişi = new System.Windows.Forms.TextBox();
             this.KorumalıAlan = new System.Windows.Forms.Button();
             this.Ayarlar = new System.Windows.Forms.Button();
@@ -46,6 +47,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.P_Ayarlar = new System.Windows.Forms.Panel();
+            this.Değişkenler = new System.Windows.Forms.Button();
             this.Etiketleme = new System.Windows.Forms.Button();
             this.Malzemeler = new System.Windows.Forms.Button();
             this.Bütçe = new System.Windows.Forms.Button();
@@ -54,7 +56,6 @@
             this.Diğer = new System.Windows.Forms.Button();
             this.Hata = new System.Windows.Forms.ErrorProvider(this.components);
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
-            this.Değişkenler = new System.Windows.Forms.Button();
             this.P_AnaMenü.SuspendLayout();
             this.tab_sayfası.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -145,6 +146,7 @@
             // 
             this.P_AnaMenü.BackgroundImage = global::İş_ve_Depo_Takip.Properties.Resources.logo_512_seffaf;
             this.P_AnaMenü.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.P_AnaMenü.Controls.Add(this.ÜcretHesaplama);
             this.P_AnaMenü.Controls.Add(this.BarkodGirişi);
             this.P_AnaMenü.Controls.Add(this.KorumalıAlan);
             this.P_AnaMenü.Controls.Add(this.Ayarlar);
@@ -158,6 +160,21 @@
             this.P_AnaMenü.TabIndex = 10;
             this.P_AnaMenü.Visible = false;
             this.P_AnaMenü.VisibleChanged += new System.EventHandler(this.P_AnaMenü_VisibleChanged);
+            // 
+            // ÜcretHesaplama
+            // 
+            this.ÜcretHesaplama.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ÜcretHesaplama.AutoSize = true;
+            this.ÜcretHesaplama.BackColor = System.Drawing.Color.Transparent;
+            this.ÜcretHesaplama.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.ÜcretHesaplama.Location = new System.Drawing.Point(351, 292);
+            this.ÜcretHesaplama.Margin = new System.Windows.Forms.Padding(6);
+            this.ÜcretHesaplama.Name = "ÜcretHesaplama";
+            this.ÜcretHesaplama.Size = new System.Drawing.Size(130, 29);
+            this.ÜcretHesaplama.TabIndex = 7;
+            this.ÜcretHesaplama.Text = "Ücret Hesaplama";
+            this.ÜcretHesaplama.UseVisualStyleBackColor = true;
+            this.ÜcretHesaplama.Click += new System.EventHandler(this.Tuş_Click);
             // 
             // BarkodGirişi
             // 
@@ -297,6 +314,18 @@
             this.P_Ayarlar.Visible = false;
             this.P_Ayarlar.VisibleChanged += new System.EventHandler(this.P_AnaMenü_VisibleChanged);
             // 
+            // Değişkenler
+            // 
+            this.Değişkenler.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Değişkenler.Location = new System.Drawing.Point(190, 167);
+            this.Değişkenler.Margin = new System.Windows.Forms.Padding(6);
+            this.Değişkenler.Name = "Değişkenler";
+            this.Değişkenler.Size = new System.Drawing.Size(169, 68);
+            this.Değişkenler.TabIndex = 11;
+            this.Değişkenler.Text = "Değişkenler";
+            this.Değişkenler.UseVisualStyleBackColor = true;
+            this.Değişkenler.Click += new System.EventHandler(this.Tuş_Click);
+            // 
             // Etiketleme
             // 
             this.Etiketleme.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -381,18 +410,6 @@
             this.İpUcu.InitialDelay = 100;
             this.İpUcu.ReshowDelay = 20;
             // 
-            // Değişkenler
-            // 
-            this.Değişkenler.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Değişkenler.Location = new System.Drawing.Point(190, 167);
-            this.Değişkenler.Margin = new System.Windows.Forms.Padding(6);
-            this.Değişkenler.Name = "Değişkenler";
-            this.Değişkenler.Size = new System.Drawing.Size(169, 68);
-            this.Değişkenler.TabIndex = 11;
-            this.Değişkenler.Text = "Değişkenler";
-            this.Değişkenler.UseVisualStyleBackColor = true;
-            this.Değişkenler.Click += new System.EventHandler(this.Tuş_Click);
-            // 
             // Açılış_Ekranı
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 29F);
@@ -449,6 +466,7 @@
         private System.Windows.Forms.Panel P_AnaMenü;
         private System.Windows.Forms.TextBox BarkodGirişi;
         private System.Windows.Forms.Button Değişkenler;
+        public System.Windows.Forms.Button ÜcretHesaplama;
     }
 }
 
