@@ -759,18 +759,18 @@ namespace İş_ve_Depo_Takip
                 double MevcutÖnÖdeme = Ödemeler[i][0].NoktalıSayıya();
                 double AlınanÖdeme = Ödemeler[i][1].NoktalıSayıya();
                 double GenelToplam = Ödemeler[i][2].NoktalıSayıya();
-                double İşlemSonrasıÖnÖdeme = MevcutÖnÖdeme + AlınanÖdeme - GenelToplam;
+                double DevredenTutar = MevcutÖnÖdeme + AlınanÖdeme - GenelToplam;
 
-                Tablo[0, y].Value = Yazdır_Tarih(Ödemeler[i].Adı); //tarih
-                Tablo[0, y].ToolTipText = Ödemeler[i].Adı;
-                Tablo[1, y].Value = Yazdır_Ücret(MevcutÖnÖdeme);
-                Tablo[2, y].Value = Yazdır_Ücret(AlınanÖdeme);
-                Tablo[3, y].Value = Yazdır_Ücret(GenelToplam);
-                Tablo[4, y].Value = Yazdır_Ücret(İşlemSonrasıÖnÖdeme);
-                Tablo[5, y].Value = Ödemeler[i][3]; //Notlar
+                Tablo[Tablo.Columns["_3_Tablo_Tarih"].Index, y].Value = Yazdır_Tarih(Ödemeler[i].Adı); //tarih
+                Tablo[Tablo.Columns["_3_Tablo_Tarih"].Index, y].ToolTipText = Ödemeler[i].Adı;
+                Tablo[Tablo.Columns["_3_Tablo_MevcutÖnÖdeme"].Index, y].Value = Yazdır_Ücret(MevcutÖnÖdeme);
+                Tablo[Tablo.Columns["_3_Tablo_AlınanÖdeme"].Index, y].Value = Yazdır_Ücret(AlınanÖdeme);
+                Tablo[Tablo.Columns["_3_Tablo_GenelToplam"].Index, y].Value = Yazdır_Ücret(GenelToplam);
+                Tablo[Tablo.Columns["_3_Tablo_DevredenTutar"].Index, y].Value = Yazdır_Ücret(DevredenTutar);
+                Tablo[Tablo.Columns["_3_Tablo_Notlar"].Index, y].Value = Ödemeler[i][3]; //Notlar
 
-                if (MevcutÖnÖdeme < 0) Tablo[1, y].Style.BackColor = System.Drawing.Color.Salmon;
-                if (İşlemSonrasıÖnÖdeme < 0) Tablo[4, y].Style.BackColor = System.Drawing.Color.Salmon;
+                if (MevcutÖnÖdeme < 0) Tablo[Tablo.Columns["_3_Tablo_MevcutÖnÖdeme"].Index, y].Style.BackColor = System.Drawing.Color.Salmon;
+                if (DevredenTutar < 0) Tablo[Tablo.Columns["_3_Tablo_DevredenTutar"].Index, y].Style.BackColor = System.Drawing.Color.Salmon;
             }
 
             Tablo.ClearSelection();

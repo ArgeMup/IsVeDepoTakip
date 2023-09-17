@@ -51,7 +51,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 int Müşteriler_kapsamında = -1;
                 for (int i = 0; i < _2_Tablo.RowCount; i++)
                 {
-                    if ((string)_2_Tablo[1, i].Value == "Müşteriler kapsamında")
+                    if ((string)_2_Tablo[_2_Tablo_Açıklama.Index, i].Value == "Müşteriler kapsamında")
                     {
                         Müşteriler_kapsamında = i;
                         break;
@@ -73,12 +73,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void _1_Tablo_DoubleClick(object sender, EventArgs e)
         {
             if (_1_Tablo.RowCount < 1) return;
-            bool b = !(bool)_1_Tablo[0, 0].Value;
+            bool b = !(bool)_1_Tablo[_1_Tablo_Seç.Index, 0].Value;
 
             for (int i = 0; i < _1_Tablo.RowCount; i++)
             {
-                if (!_1_Tablo[0, i].Visible) continue;
-                _1_Tablo[0, i].Value = b;
+                if (!_1_Tablo.Rows[i].Visible) continue;
+                _1_Tablo[_1_Tablo_Seç.Index, i].Value = b;
             }
 
             _1_Hesapla(null, null);
@@ -90,18 +90,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (e.ColumnIndex == 0)
             {
                 //Seçme sutunu
-                _1_Tablo[0, e.RowIndex].Value = !(bool)_1_Tablo[0, e.RowIndex].Value;
+                _1_Tablo[_1_Tablo_Seç.Index, e.RowIndex].Value = !(bool)_1_Tablo[_1_Tablo_Seç.Index, e.RowIndex].Value;
 
                 _1_Hesapla(null, null);
             }
             else if (e.ColumnIndex == 5)
             {
                 //Listele tuşu
-                Seklemeler_Ödemeler.Text = "Ödemeler - " + _1_Tablo[1, e.RowIndex].Value;
+                Seklemeler_Ödemeler.Text = "Ödemeler - " + _1_Tablo[_1_Tablo_Müşteri.Index, e.RowIndex].Value;
                 Sekmeler.SelectedIndex = 2; //ödemeler
 
                 Sekmeler.Enabled = false;
-                Banka.Müşteri_Ödemeler_TablodaGöster((string)_1_Tablo[1, e.RowIndex].Value, _3_Tablo);
+                Banka.Müşteri_Ödemeler_TablodaGöster((string)_1_Tablo[_1_Tablo_Müşteri.Index, e.RowIndex].Value, _3_Tablo);
                 Sekmeler.Enabled = true;
             }
         }
@@ -161,13 +161,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 _1_Tablo.RowCount = _1_Dizi.Length;
                 for (int i = 0; i < _1_Tablo.RowCount; i++)
                 {
-                    _1_Tablo[0, i].Value = true;
-                    _1_Tablo[1, i].Value = _1_Dizi[i].müşteri;
+                    _1_Tablo[_1_Tablo_Seç.Index, i].Value = true;
+                    _1_Tablo[_1_Tablo_Müşteri.Index, i].Value = _1_Dizi[i].müşteri;
 
                     double ÖnÖdemeMiktarı = Banka.Müşteri_ÖnÖdemeMiktarı(_1_Dizi[i].müşteri);
-                    _1_Tablo[5, i].Value = Banka.Yazdır_Ücret(ÖnÖdemeMiktarı);
-                    if (ÖnÖdemeMiktarı > 0) _1_Tablo[5, i].Style.BackColor = System.Drawing.Color.Green;
-                    else if (ÖnÖdemeMiktarı < 0) _1_Tablo[5, i].Style.BackColor = System.Drawing.Color.Red;
+                    _1_Tablo[_1_Tablo_Ödeme.Index, i].Value = Banka.Yazdır_Ücret(ÖnÖdemeMiktarı);
+                    if (ÖnÖdemeMiktarı > 0) _1_Tablo[_1_Tablo_Ödeme.Index, i].Style.BackColor = System.Drawing.Color.Green;
+                    else if (ÖnÖdemeMiktarı < 0) _1_Tablo[_1_Tablo_Ödeme.Index, i].Style.BackColor = System.Drawing.Color.Red;
                 }
                 Ortak.Gösterge.Bitir();
             }
@@ -175,10 +175,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             //talep edilen müşterilerin talep edilen değerlerini hesapla
             for (int i = 0; i < _1_Tablo.RowCount; i++)
             {
-                Bütçe_Gelir_Gider_ gg = _1_Dizi.First(x => x.müşteri == (string)_1_Tablo[1, i].Value);
+                Bütçe_Gelir_Gider_ gg = _1_Dizi.First(x => x.müşteri == (string)_1_Tablo[_1_Tablo_Müşteri.Index, i].Value);
 
                 double top_gelir = 0, top_gider = 0;
-                if ((bool)_1_Tablo[0, i].Value)
+                if ((bool)_1_Tablo[_1_Tablo_Seç.Index, i].Value)
                 {
                     if (_1_Gelir_DevamEden.Checked) top_gelir += gg.gelir_devameden;
                     if (_1_Gelir_TeslimEdildi.Checked) top_gelir += gg.gelir_teslimedilen;
@@ -188,22 +188,22 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     if (_1_Gider_ÖdemeTalepEdildi.Checked) top_gider += gg.gider_ödemebekleyen;
                 }
 
-                _1_Tablo[2, i].Value = top_gelir;
-                _1_Tablo[2, i].ToolTipText = gg.gelir_ipucu;
+                _1_Tablo[_1_Tablo_Gelir.Index, i].Value = top_gelir;
+                _1_Tablo[_1_Tablo_Gelir.Index, i].ToolTipText = gg.gelir_ipucu;
 
-                _1_Tablo[3, i].Value = top_gider;
-                _1_Tablo[3, i].ToolTipText = gg.gider_ipucu;
+                _1_Tablo[_1_Tablo_Gider.Index, i].Value = top_gider;
+                _1_Tablo[_1_Tablo_Gider.Index, i].ToolTipText = gg.gider_ipucu;
 
-                _1_Tablo[4, i].Value = top_gelir - top_gider;
+                _1_Tablo[_1_Tablo_Fark.Index, i].Value = top_gelir - top_gider;
             }
 
             //talep edilenlerin çıktılarını topla
             double gel = 0, gid = 0, fark = 0;
             for (int i = 0; i < _1_Dizi.Length; i++)
             {
-                gel += (double)_1_Tablo[2, i].Value;
-                gid += (double)_1_Tablo[3, i].Value;
-                fark += (double)_1_Tablo[4, i].Value;
+                gel += (double)_1_Tablo[_1_Tablo_Gelir.Index, i].Value;
+                gid += (double)_1_Tablo[_1_Tablo_Gider.Index, i].Value;
+                fark += (double)_1_Tablo[_1_Tablo_Fark.Index, i].Value;
             }
 
             //çıktıları yazdır
@@ -506,19 +506,19 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void _2_Tablo_DoubleClick(object sender, EventArgs e)
         {
             if (_2_Tablo.RowCount < 1) return;
-            bool b = !(bool)_2_Tablo[0, 0].Value;
+            bool b = !(bool)_2_Tablo[_2_Tablo_Seç.Index, 0].Value;
 
             for (int i = 0; i < _2_Tablo.RowCount; i++)
             {
-                if (!_2_Tablo[0, i].Visible) continue;
-                _2_Tablo[0, i].Value = b;
+                if (!_2_Tablo.Rows[i].Visible) continue;
+                _2_Tablo[_2_Tablo_Seç.Index, i].Value = b;
             }
         }
         private void _2_Tablo_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0 || e.ColumnIndex > 0) return;
 
-            _2_Tablo[0, e.RowIndex].Value = !(bool)_2_Tablo[0, e.RowIndex].Value;
+            _2_Tablo[_2_Tablo_Seç.Index, e.RowIndex].Value = !(bool)_2_Tablo[_2_Tablo_Seç.Index, e.RowIndex].Value;
 
             _2_Hesapla(null, null);
         }
@@ -539,42 +539,42 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 double gelir = 0, gider = 0;
 
-                if (!string.IsNullOrEmpty((string)_2_Tablo[2, i].Value))
+                if (!string.IsNullOrEmpty((string)_2_Tablo[_2_Tablo_Gelir.Index, i].Value))
                 {
-                    string gecici = (string)_2_Tablo[2, i].Value;
+                    string gecici = (string)_2_Tablo[_2_Tablo_Gelir.Index, i].Value;
                     if (!Ortak.YazıyıSayıyaDönüştür(ref gecici,
-                        (string)_2_Tablo[1, i].Value + " (gelir sutununun " + (i + 1).ToString() + ". satırı)",
+                        (string)_2_Tablo[_2_Tablo_Açıklama.Index, i].Value + " (gelir sutununun " + (i + 1).ToString() + ". satırı)",
                         "Ücretlendirmek istemiyorsanız boş olarak bırakınız.", 0))
                     {
-                        _2_Tablo[2, i].Style.BackColor = System.Drawing.Color.Salmon;
+                        _2_Tablo[_2_Tablo_Gelir.Index, i].Style.BackColor = System.Drawing.Color.Salmon;
                         return;
                     }
-                    _2_Tablo[2, i].Style.BackColor = System.Drawing.Color.White;
+                    _2_Tablo[_2_Tablo_Gelir.Index, i].Style.BackColor = System.Drawing.Color.White;
 
-                    _2_Tablo[2, i].Value = gecici;
+                    _2_Tablo[_2_Tablo_Gelir.Index, i].Value = gecici;
                     gelir = gecici.NoktalıSayıya();
                 }
 
-                if (!string.IsNullOrEmpty((string)_2_Tablo[3, i].Value))
+                if (!string.IsNullOrEmpty((string)_2_Tablo[_2_Tablo_Gider.Index, i].Value))
                 {
-                    string gecici = (string)_2_Tablo[3, i].Value;
+                    string gecici = (string)_2_Tablo[_2_Tablo_Gider.Index, i].Value;
                     if (!Ortak.YazıyıSayıyaDönüştür(ref gecici,
-                        (string)_2_Tablo[1, i].Value + " (gider sutununun " + (i + 1).ToString() + ". satırı)",
+                        (string)_2_Tablo[_2_Tablo_Açıklama.Index, i].Value + " (gider sutununun " + (i + 1).ToString() + ". satırı)",
                         "Ücretlendirmek istemiyorsanız boş olarak bırakınız.", 0))
                     {
-                        _2_Tablo[3, i].Style.BackColor = System.Drawing.Color.Salmon;
+                        _2_Tablo[_2_Tablo_Gider.Index, i].Style.BackColor = System.Drawing.Color.Salmon;
                         return;
                     }
-                    _2_Tablo[3, i].Style.BackColor = System.Drawing.Color.White;
+                    _2_Tablo[_2_Tablo_Gider.Index, i].Style.BackColor = System.Drawing.Color.White;
 
-                    _2_Tablo[3, i].Value = gecici;
+                    _2_Tablo[_2_Tablo_Gider.Index, i].Value = gecici;
                     gider = gecici.NoktalıSayıya();
                 }
 
-                _2_Tablo[4, i].Value = (gelir - gider).Yazıya();
+                _2_Tablo[_2_Tablo_Fark.Index, i].Value = (gelir - gider).Yazıya();
 
-                if (_2_Tablo[0, i].Value == null) _2_Tablo[0, i].Value = true;
-                if ((bool)_2_Tablo[0, i].Value)
+                if (_2_Tablo[_2_Tablo_Seç.Index, i].Value == null) _2_Tablo[_2_Tablo_Seç.Index, i].Value = true;
+                if ((bool)_2_Tablo[_2_Tablo_Seç.Index, i].Value)
                 {
                     gelir_top += gelir;
                     gider_top += gider;
@@ -596,11 +596,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar_GenelAnlamda.Sil(null, false, true);
             for (int i = 0; i < _2_Tablo.RowCount; i++)
             {
-                if ((string)_2_Tablo[1, i].Value == "Müşteriler kapsamında") continue;
+                if ((string)_2_Tablo[_2_Tablo_Açıklama.Index, i].Value == "Müşteriler kapsamında") continue;
 
-                Ayarlar_GenelAnlamda.Yaz(i.ToString(), (string)_2_Tablo[1, i].Value, 0);
-                Ayarlar_GenelAnlamda.Yaz(i.ToString(), (string)_2_Tablo[2, i].Value, 1);
-                Ayarlar_GenelAnlamda.Yaz(i.ToString(), (string)_2_Tablo[3, i].Value, 2);
+                Ayarlar_GenelAnlamda.Yaz(i.ToString(), (string)_2_Tablo[_2_Tablo_Açıklama.Index, i].Value, 0);
+                Ayarlar_GenelAnlamda.Yaz(i.ToString(), (string)_2_Tablo[_2_Tablo_Gelir.Index, i].Value, 1);
+                Ayarlar_GenelAnlamda.Yaz(i.ToString(), (string)_2_Tablo[_2_Tablo_Gider.Index, i].Value, 2);
             }
 
             Banka.Değişiklikleri_Kaydet(_2_Kaydet);
