@@ -120,6 +120,7 @@ namespace İş_ve_Depo_Takip
             IDepo_Eleman ayr = Ayarlar["Son Banka Kayıt"];
             if (ayr.Oku(null, null, 2) != Sürüm)
             {
+                //KDV ayarı açık ise yeni yere kaydet
                 foreach (string müşteri in Müşteri_Listele(true))
                 {
                     IDepo_Eleman kdv = Ayarlar_Müşteri(müşteri, "Sayfa/Teslim Edildi/KDV");
@@ -129,6 +130,15 @@ namespace İş_ve_Depo_Takip
                         kdv.Sil(null);
                     }                    
                 }
+
+                //firma içi kişileri yeni yere kaydet
+                IDepo_Eleman fik_eski = Ayarlar_Kullanıcı("Tüm_İşler", "İşTakip_Eposta_Kişi");
+                if (fik_eski != null)
+                {
+                    Ayarlar_Genel("Eposta/Firma İçi Kişiler", true).Yaz(null, fik_eski.Oku(null));
+                    fik_eski.Sil(null);
+                }
+
                 ayr.Yaz(null, DateTime.Now, 1);
                 ayr.Yaz(null, Sürüm, 2);
 

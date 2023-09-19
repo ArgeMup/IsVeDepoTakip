@@ -61,12 +61,15 @@
             this.Imap_Sunucu_SSL = new System.Windows.Forms.CheckBox();
             this.groupBox_BeyazListe = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox_Kişiler = new System.Windows.Forms.GroupBox();
+            this.FirmaİçiKişiler = new System.Windows.Forms.TextBox();
             this.groupBox_Mesaj.SuspendLayout();
             this.groupBox_Smtp.SuspendLayout();
             this.groupBox_Gönderici.SuspendLayout();
             this.groupBox_Imap.SuspendLayout();
             this.groupBox_BeyazListe.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox_Kişiler.SuspendLayout();
             this.SuspendLayout();
             // 
             // Kaydet
@@ -364,6 +367,7 @@
             this.BeyazListe.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.BeyazListe.Multiline = true;
             this.BeyazListe.Name = "BeyazListe";
+            this.BeyazListe.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.BeyazListe.Size = new System.Drawing.Size(207, 179);
             this.BeyazListe.TabIndex = 4;
             this.BeyazListe.Text = "isim1@firmaadi.com;isim2@firmaadi.com";
@@ -455,11 +459,39 @@
             this.panel1.Size = new System.Drawing.Size(872, 214);
             this.panel1.TabIndex = 39;
             // 
+            // groupBox_Kişiler
+            // 
+            this.groupBox_Kişiler.Controls.Add(this.FirmaİçiKişiler);
+            this.groupBox_Kişiler.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupBox_Kişiler.Location = new System.Drawing.Point(644, 219);
+            this.groupBox_Kişiler.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.groupBox_Kişiler.Name = "groupBox_Kişiler";
+            this.groupBox_Kişiler.Padding = new System.Windows.Forms.Padding(10);
+            this.groupBox_Kişiler.Size = new System.Drawing.Size(233, 274);
+            this.groupBox_Kişiler.TabIndex = 40;
+            this.groupBox_Kişiler.TabStop = false;
+            this.groupBox_Kişiler.Text = "Firma içi kişiler";
+            // 
+            // FirmaİçiKişiler
+            // 
+            this.FirmaİçiKişiler.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FirmaİçiKişiler.Location = new System.Drawing.Point(10, 33);
+            this.FirmaİçiKişiler.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.FirmaİçiKişiler.Multiline = true;
+            this.FirmaİçiKişiler.Name = "FirmaİçiKişiler";
+            this.FirmaİçiKişiler.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.FirmaİçiKişiler.Size = new System.Drawing.Size(213, 231);
+            this.FirmaİçiKişiler.TabIndex = 8;
+            this.FirmaİçiKişiler.Text = "isim1@firmaadi.com;isim2@firmaadi.com";
+            this.İpUcu.SetToolTip(this.FirmaİçiKişiler, "HTML olarak mesaj içeriği\r\n\r\n%Müşteri% -> Müşteri adı");
+            this.FirmaİçiKişiler.TextChanged += new System.EventHandler(this.Ayar_Değişti);
+            // 
             // Ayarlar_Eposta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(882, 553);
+            this.Controls.Add(this.groupBox_Kişiler);
             this.Controls.Add(this.groupBox_Mesaj);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Kaydet);
@@ -480,6 +512,8 @@
             this.groupBox_BeyazListe.ResumeLayout(false);
             this.groupBox_BeyazListe.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.groupBox_Kişiler.ResumeLayout(false);
+            this.groupBox_Kişiler.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -518,5 +552,7 @@
         private System.Windows.Forms.GroupBox groupBox_BeyazListe;
         private System.Windows.Forms.TextBox BeyazListe;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.GroupBox groupBox_Kişiler;
+        private System.Windows.Forms.TextBox FirmaİçiKişiler;
     }
 }

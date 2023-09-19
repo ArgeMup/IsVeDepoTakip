@@ -366,7 +366,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
 
-            Banka.Müşteri_KDV_İskonto(Müşterıler.Text, Müşteriİçin_KDV.Checked, Müşteriİçin_İskonto.Text.NoktalıSayıya());
+            if (!TümMüşterilerİçinOrtak) Banka.Müşteri_KDV_İskonto(Müşterıler.Text, Müşteriİçin_KDV.Checked, Müşteriİçin_İskonto.Text.NoktalıSayıya());
             Banka.Ayarlar_Genel("Bütçe/KDV", true).Yaz(null, kdv);
 
             if (TümMüşterilerİçinOrtak)

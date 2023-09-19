@@ -28,6 +28,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             BeyazListe.Text = Ayarlar.Oku("Beyaz Liste");
             Mesaj_Konu.Text = Ayarlar.Oku("Mesaj/Konu", Mesaj_Konu.Text);
             Mesaj_İçerik.Text = Ayarlar.Oku("Mesaj/İçerik", Mesaj_İçerik.Text);
+            FirmaİçiKişiler.Text = Ayarlar.Oku("Firma İçi Kişiler");
             
             Kaydet.Enabled = false;
         }
@@ -52,6 +53,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Gönderici_Adres.Text = Gönderici_Adres.Text.Trim().ToLower();
             BeyazListe.Text = BeyazListe.Text.Trim().ToLower();
+            FirmaİçiKişiler.Text = FirmaİçiKişiler.Text.Trim().ToLower();
 
             Ayarlar.Yaz("Sunucu Smtp/Adresi", Smtp_Sunucu_Adres.Text);
             Ayarlar.Yaz("Sunucu Smtp/Erişim Noktası", Smtp_Sunucu_ErişimNoktası.Text.NoktalıSayıya());
@@ -65,6 +67,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar.Yaz("Beyaz Liste", BeyazListe.Text);
             Ayarlar.Yaz("Mesaj/Konu", Mesaj_Konu.Text);
             Ayarlar.Yaz("Mesaj/İçerik", Mesaj_İçerik.Text);
+            Ayarlar.Yaz("Firma İçi Kişiler", FirmaİçiKişiler.Text);
             Banka.Değişiklikleri_Kaydet(Kaydet);
 
             Eposta.Durdur();
