@@ -43,23 +43,29 @@
             this.dahiliDeğişkenlerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ücretiToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.Zam_Yap = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.AramaÇubuğu_Müşteri = new System.Windows.Forms.TextBox();
+            this.Müşteriİçin = new System.Windows.Forms.Panel();
+            this.Müşteriİçin_İskonto = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.Müşteriİçin_KDV = new System.Windows.Forms.CheckBox();
             this.AramaÇubuğu_İşTürü = new System.Windows.Forms.TextBox();
             this.Kaydet = new System.Windows.Forms.Button();
             this.KDV = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.DeğişkenlerEkranı = new System.Windows.Forms.Button();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             this.SağTuşMenü_Değişkenler.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.Müşteriİçin.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -130,7 +136,7 @@
             this.Tablo.ShowCellErrors = false;
             this.Tablo.ShowEditingIcon = false;
             this.Tablo.ShowRowErrors = false;
-            this.Tablo.Size = new System.Drawing.Size(777, 459);
+            this.Tablo.Size = new System.Drawing.Size(777, 415);
             this.Tablo.TabIndex = 1;
             this.Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellValueChanged);
             // 
@@ -171,7 +177,7 @@
             this.dahiliDeğişkenlerToolStripMenuItem});
             this.SağTuşMenü_Değişkenler.Name = "SağTuşMenü_Değişkenler";
             this.SağTuşMenü_Değişkenler.ShowImageMargin = false;
-            this.SağTuşMenü_Değişkenler.Size = new System.Drawing.Size(186, 56);
+            this.SağTuşMenü_Değişkenler.Size = new System.Drawing.Size(175, 28);
             // 
             // dahiliDeğişkenlerToolStripMenuItem
             // 
@@ -181,13 +187,13 @@
             this.toolStripMenuItem3,
             this.toolStripSeparator2});
             this.dahiliDeğişkenlerToolStripMenuItem.Name = "dahiliDeğişkenlerToolStripMenuItem";
-            this.dahiliDeğişkenlerToolStripMenuItem.Size = new System.Drawing.Size(185, 24);
+            this.dahiliDeğişkenlerToolStripMenuItem.Size = new System.Drawing.Size(174, 24);
             this.dahiliDeğişkenlerToolStripMenuItem.Text = "Dahili Değişkenler";
             // 
             // ücretiToolStripMenuItem1
             // 
             this.ücretiToolStripMenuItem1.Name = "ücretiToolStripMenuItem1";
-            this.ücretiToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.ücretiToolStripMenuItem1.Size = new System.Drawing.Size(171, 26);
             this.ücretiToolStripMenuItem1.Text = "Ortak Ücreti";
             this.ücretiToolStripMenuItem1.ToolTipText = "Seçtiğiniz iş türünün\r\ntüm müşteriler için ortak ücretini\r\nhesaba katmak için seç" +
     "ebilirsiniz.\r\n\r\nBirim ücret sutunu içerisinde kullanılamaz.";
@@ -196,16 +202,25 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(171, 26);
             this.toolStripMenuItem2.Text = "Maliyeti";
             this.toolStripMenuItem2.ToolTipText = "Seçtiğiniz iş türünün\r\nmaliyetini \r\nhesaba katmak için seçebilirsiniz.\r\n\r\nMaliyet" +
     " sutunu içerisinde kullanılamaz.\r\n";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.SağTuşMenü_Değişkenler_Click);
             // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(171, 26);
+            this.toolStripMenuItem3.Text = "=0";
+            this.toolStripMenuItem3.ToolTipText = "Hücre içeriğindeki işlemin\r\nhesaplanması neticesinde\r\nsonucun sıfır olabilme ihti" +
+    "mali var ise kullanabilirsiniz. ";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.SağTuşMenü_Değişkenler_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(221, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(168, 6);
             // 
             // Zam_Yap
             // 
@@ -235,6 +250,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.Tablo);
+            this.splitContainer1.Panel2.Controls.Add(this.Müşteriİçin);
             this.splitContainer1.Panel2.Controls.Add(this.AramaÇubuğu_İşTürü);
             this.splitContainer1.Panel2.Enabled = false;
             this.splitContainer1.Size = new System.Drawing.Size(1022, 497);
@@ -249,6 +265,68 @@
             this.AramaÇubuğu_Müşteri.Size = new System.Drawing.Size(233, 34);
             this.AramaÇubuğu_Müşteri.TabIndex = 4;
             this.AramaÇubuğu_Müşteri.TextChanged += new System.EventHandler(this.AramaÇubuğu_Müşteri_TextChanged);
+            // 
+            // Müşteriİçin
+            // 
+            this.Müşteriİçin.AutoScroll = true;
+            this.Müşteriİçin.Controls.Add(this.Müşteriİçin_İskonto);
+            this.Müşteriİçin.Controls.Add(this.label4);
+            this.Müşteriİçin.Controls.Add(this.label3);
+            this.Müşteriİçin.Controls.Add(this.Müşteriİçin_KDV);
+            this.Müşteriİçin.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Müşteriİçin.Location = new System.Drawing.Point(0, 449);
+            this.Müşteriİçin.Name = "Müşteriİçin";
+            this.Müşteriİçin.Padding = new System.Windows.Forms.Padding(5);
+            this.Müşteriİçin.Size = new System.Drawing.Size(777, 44);
+            this.Müşteriİçin.TabIndex = 5;
+            // 
+            // Müşteriİçin_İskonto
+            // 
+            this.Müşteriİçin_İskonto.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Müşteriİçin_İskonto.Location = new System.Drawing.Point(345, 5);
+            this.Müşteriİçin_İskonto.Margin = new System.Windows.Forms.Padding(4);
+            this.Müşteriİçin_İskonto.Name = "Müşteriİçin_İskonto";
+            this.Müşteriİçin_İskonto.Size = new System.Drawing.Size(293, 34);
+            this.Müşteriİçin_İskonto.TabIndex = 11;
+            this.Müşteriİçin_İskonto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Müşteriİçin_İskonto.TextChanged += new System.EventHandler(this.Ayar_Değişti);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label4.Location = new System.Drawing.Point(638, 5);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(134, 29);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "iskonto yap";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label3.Location = new System.Drawing.Point(76, 5);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(269, 29);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Alt Toplam üzerinden %";
+            // 
+            // Müşteriİçin_KDV
+            // 
+            this.Müşteriİçin_KDV.Appearance = System.Windows.Forms.Appearance.Button;
+            this.Müşteriİçin_KDV.AutoSize = true;
+            this.Müşteriİçin_KDV.Dock = System.Windows.Forms.DockStyle.Left;
+            this.Müşteriİçin_KDV.FlatAppearance.CheckedBackColor = System.Drawing.Color.YellowGreen;
+            this.Müşteriİçin_KDV.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Müşteriİçin_KDV.Location = new System.Drawing.Point(5, 5);
+            this.Müşteriİçin_KDV.Name = "Müşteriİçin_KDV";
+            this.Müşteriİçin_KDV.Size = new System.Drawing.Size(71, 34);
+            this.Müşteriİçin_KDV.TabIndex = 0;
+            this.Müşteriİçin_KDV.Text = "KDV";
+            this.Müşteriİçin_KDV.UseVisualStyleBackColor = true;
+            this.Müşteriİçin_KDV.CheckedChanged += new System.EventHandler(this.Müşteriİçin_KDV_CheckedChanged);
             // 
             // AramaÇubuğu_İşTürü
             // 
@@ -323,15 +401,6 @@
             this.DeğişkenlerEkranı.UseVisualStyleBackColor = true;
             this.DeğişkenlerEkranı.Click += new System.EventHandler(this.Değişkenler_Click);
             // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(224, 26);
-            this.toolStripMenuItem3.Text = "=0";
-            this.toolStripMenuItem3.ToolTipText = "Hücre içeriğindeki işlemin\r\nhesaplanması neticesinde\r\nsonucun sıfır olabilme ihti" +
-    "mali var ise kullanabilirsiniz. ";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.SağTuşMenü_Değişkenler_Click);
-            // 
             // Ücretler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
@@ -355,6 +424,8 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.Müşteriİçin.ResumeLayout(false);
+            this.Müşteriİçin.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -384,5 +455,10 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.Button DeğişkenlerEkranı;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.Panel Müşteriİçin;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox Müşteriİçin_İskonto;
+        private System.Windows.Forms.CheckBox Müşteriİçin_KDV;
+        private System.Windows.Forms.Label label4;
     }
 }

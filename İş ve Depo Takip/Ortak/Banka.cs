@@ -27,7 +27,7 @@ namespace İş_ve_Depo_Takip
 
     public class Banka
     {
-        public const string Sürüm = "1";
+        public const string Sürüm = "2";
         const int Malzemeler_GeriyeDönükİstatistik_Ay = 36;
         static System.Threading.Mutex Kilit_Tablo = new System.Threading.Mutex(), Kilit_DosyaEkleri = new System.Threading.Mutex();
         
@@ -115,6 +115,30 @@ namespace İş_ve_Depo_Takip
             #endregion
 
             #region Yeni Sürüme Uygun Hale Getirme
+            Değişiklikler_TamponuSıfırla();
+            Ayarlar = Depo_Aç("Ay");
+            IDepo_Eleman ayr = Ayarlar["Son Banka Kayıt"];
+            if (ayr.Oku(null, null, 2) != Sürüm)
+            {
+                foreach (string müşteri in Müşteri_Listele(true))
+                {
+                    IDepo_Eleman kdv = Ayarlar_Müşteri(müşteri, "Sayfa/Teslim Edildi/KDV");
+                    if (kdv != null && kdv.Oku_Bit(null))
+                    {
+                        if (kdv.Oku_Bit(null)) Müşteri_KDV_İskonto(müşteri, true, 0);
+                        kdv.Sil(null);
+                    }                    
+                }
+                ayr.Yaz(null, DateTime.Now, 1);
+                ayr.Yaz(null, Sürüm, 2);
+
+                Değişiklikleri_Kaydet(null);
+                Yedekle_Banka();
+                Değişiklikler_TamponuSıfırla();
+
+                Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Yeni Sürüme Uygunlaştırma", ref Açılışİşlemi_Tik);
+            }
+            
             //if (Koşul)
             //{
             //    Değişiklikler_TamponuSıfırla();
@@ -243,8 +267,9 @@ namespace İş_ve_Depo_Takip
 
             Depo.Yaz("Ödeme/Alt Toplam", Toplam);
 
-            bool KDV = Ayarlar_Müşteri(Müşteri, "Sayfa/Teslim Edildi", true).Oku_Bit("KDV", true);
-            if (KDV) Depo.Yaz("Ödeme/Alt Toplam", Ayarlar_Genel("Bütçe/KDV", true).Oku_Sayı(null, 8), 1);
+            Müşteri_KDV_İskonto(Müşteri, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde);
+            if (KDV_Ekle) Depo.Yaz("Ödeme/Alt Toplam", KDV_Yüzde, 1);
+            if (İskonto_Yap) Depo.Yaz("Ödeme/Alt Toplam", İskonto_Yüzde, 2);
 
             return Depo;
         }
@@ -805,6 +830,28 @@ namespace İş_ve_Depo_Takip
             Depo = new Depo_(Depo.YazıyaDönüştür()); //Bağımsız kopya
             IDepo_Eleman ÖdemeDalı = Depo.Bul("Ödeme");
             ÖdemeDalı["Müşteri_ÖdemeTalebi_GeciciDetaylarıEkle"].İçeriği = new string[] { o.ÖnÖdeme_AlınanÖdeme.Yazıya(), o.Genel_Toplam.Yazıya(), o.ÖnÖdeme_MevcutÖnÖdeme.Yazıya(), Müşteri_ÖnÖdemeMiktarı(Müşteri).Yazıya() };
+        }
+        public static void Müşteri_KDV_İskonto(string Müşteri, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde)
+        {
+            KDV_Ekle = false;
+            KDV_Yüzde = 10;
+            İskonto_Yap = false;
+            İskonto_Yüzde = 0;
+
+            IDepo_Eleman müş = Ayarlar_Müşteri(Müşteri, "Bütçe");
+            if (müş == null) return;
+
+            KDV_Ekle = müş.Oku_Bit(null, false, 0);
+            if (KDV_Ekle) KDV_Yüzde = Ayarlar_Genel("Bütçe", true).Oku_Sayı("KDV", 10);
+
+            İskonto_Yüzde = müş.Oku_Sayı(null, 0, 1);
+            İskonto_Yap = İskonto_Yüzde > 0;
+        }
+        public static void Müşteri_KDV_İskonto(string Müşteri, bool KDV_Ekle, double İskonto_Yüzde = double.NaN)
+        {
+            IDepo_Eleman müş = Ayarlar_Müşteri(Müşteri, "Bütçe", true);
+            müş.Yaz(null, KDV_Ekle, 0);
+            if (!double.IsNaN(İskonto_Yüzde)) müş.Yaz(null, İskonto_Yüzde, 1);
         }
 
         public static List<string> İşTürü_Listele()
@@ -1907,7 +1954,7 @@ namespace İş_ve_Depo_Takip
                 }
             }
         }
-        public static string Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(string Müşteri, List<string> Seri_No_lar, string İlaveÖdeme_Açıklama, string İlaveÖdeme_Miktar, bool KDV, out string DosyaAdı)
+        public static string Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(string Müşteri, List<string> Seri_No_lar, string İlaveÖdeme_Açıklama, string İlaveÖdeme_Miktar, out string DosyaAdı)
         {
             DateTime t = DateTime.Now;
             DosyaAdı = t.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2);
@@ -1958,7 +2005,7 @@ namespace İş_ve_Depo_Takip
             }
 
             IDepo_Eleman müş = Ayarlar_Müşteri(Müşteri, "Sayfa/Teslim Edildi", true);
-            müş["KDV"].Yaz(null, KDV);
+            Müşteri_KDV_İskonto(Müşteri, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde);
 
             yeni_tablo.Yaz("Ödeme", t);
             if (!string.IsNullOrEmpty(İlaveÖdeme_Açıklama))
@@ -1970,7 +2017,8 @@ namespace İş_ve_Depo_Takip
             }
 
             yeni_tablo.Yaz("Ödeme/Alt Toplam", Alt_Toplam);
-            if (KDV) yeni_tablo.Yaz("Ödeme/Alt Toplam", Ayarlar_Genel("Bütçe/KDV", true).Oku_Sayı(null, 8), 1);
+            if (KDV_Ekle) yeni_tablo.Yaz("Ödeme/Alt Toplam", KDV_Yüzde, 1);
+            if (İskonto_Yap) yeni_tablo.Yaz("Ödeme/Alt Toplam", İskonto_Yüzde, 2);
             return null;
         }
         public static void Talep_İşaretle_ÖdemeTalepEdildi_TeslimEdildi(string Müşteri, string EkTanım)
@@ -2024,9 +2072,12 @@ namespace İş_ve_Depo_Takip
                 IDepo_Eleman ÖdemeDalı = yeni_tablo["Ödeme"];
                 double AltToplam = ÖdemeDalı.Oku_Sayı("Alt Toplam");
                 double KDV = ÖdemeDalı.Oku_Sayı("Alt Toplam", 0, 1);
-                double KDV_Hesaplanan = KDV == 0 ? 0 : AltToplam / 100 * KDV;
+                double İskonto = ÖdemeDalı.Oku_Sayı("Alt Toplam", 0, 2);
                 double İlaveÖdeme = ÖdemeDalı.Oku_Sayı("İlave Ödeme", 0, 1);
-                double GenelToplam = AltToplam + KDV_Hesaplanan + İlaveÖdeme;
+
+                double İskonto_Hesaplanan = İskonto == 0 ? 0 : AltToplam / 100 * İskonto;
+                double KDV_Hesaplanan = KDV == 0 ? 0 : (AltToplam - İskonto_Hesaplanan) / 100 * KDV;
+                double GenelToplam = AltToplam - İskonto_Hesaplanan + KDV_Hesaplanan + İlaveÖdeme;
 
                 Ödemeler.Yaz("Mevcut Ön Ödeme", MevcutÖnÖdeme.NoktalıSayıya() + AlınanÖdemeMiktarı.NoktalıSayıya() - GenelToplam);
                 Ödemeler["Ödemeler/" + t.Yazıya()].İçeriği = new string[]
@@ -2330,10 +2381,12 @@ namespace İş_ve_Depo_Takip
             Açıklamalar = new List<string>();
             Ücretler = new List<string>();
 
-            if (o.KDV_Oranı == 0 && !o.İlaveÖdeme_İşlemiVarmı) Açıklama = "Alt Toplam";
+            if (o.İskonto_Oranı == 0 && o.KDV_Oranı == 0 && !o.İlaveÖdeme_İşlemiVarmı) Açıklama = "Alt Toplam";
             else
             {
                 Açıklama = "Alt Toplam (" + Yazdır_Ücret(o.AltToplam) + ")";
+
+                if (o.İskonto_Oranı > 0) Açıklama += " - İskonto % " + o.İskonto_Oranı + " (" + Yazdır_Ücret(o.İskonto_Hesaplanan) + ")";
 
                 if (o.KDV_Oranı > 0) Açıklama += " + KDV % " + o.KDV_Oranı + " (" + Yazdır_Ücret(o.KDV_Hesaplanan) + ")";
 
@@ -2343,7 +2396,7 @@ namespace İş_ve_Depo_Takip
                     Notlar = Notlar + (Notlar.DoluMu() ? Environment.NewLine : null) + "Diğer : " + o.İlaveÖdeme_Açıklaması;
                 }
             }
-            Açıklamalar.Add(Açıklama); Ücretler.Add(Yazdır_Ücret(o.AltToplam + o.KDV_Hesaplanan + o.İlaveÖdeme, false));
+            Açıklamalar.Add(Açıklama); Ücretler.Add(Yazdır_Ücret(o.Genel_Toplam, false));
 
             if (o.Tarih_Ödendi.DoluMu())
             {
@@ -2354,7 +2407,7 @@ namespace İş_ve_Depo_Takip
                     //Diğer : İlave Ödeme Açıklaması (varsa)
                     //Ödendi : 31.01.2022 (varsa)
 
-                    //Alt Toplam (1.00 ₺) + KDV % 10 (0.10 ₺) + Diğer (0.50 ₺)                          1.60 ₺
+                    //Alt Toplam (10.00 ₺) - İskonto % 10 (1.00 ₺) + KDV % 10 (0.9 ₺) + Diğer (0.50 ₺) 10.40 ₺
                     //Alınan Ödeme (2.00 ₺) + Mevcut Ön Ödeme (2.00 ₺) / - Mevcut Borç (500,00 ₺)       4.00 ₺
                     //İşlem Sonrası / Müşterinin Borcu / Kalan Ön Ödeme                                 2.40 ₺
 
@@ -2375,7 +2428,7 @@ namespace İş_ve_Depo_Takip
                 //    //Diğer : İlave Ödeme Açıklaması (varsa)
                 //    //Ödendi : 31.01.2022 (varsa)
                 //
-                //    //Alt Toplam (1.00 ₺) + KDV % 10 (0.10 ₺) + Diğer (0.50 ₺) 1.60 ₺
+                //    //Alt Toplam (10.00 ₺) - İskonto % 10 (1.00 ₺) + KDV % 10 (0.9 ₺) + Diğer (0.50 ₺) 10.40 ₺
                 //}
 
                 Notlar = Notlar + (Notlar.DoluMu() ? Environment.NewLine : null) + "Ödendi : " + Yazdır_Tarih(o.Tarih_Ödendi);
@@ -2388,15 +2441,15 @@ namespace İş_ve_Depo_Takip
                     //Ödemeye eklenen notlar 
                     //Diğer : İlave Ödeme Açıklaması (varsa)
 
-                    //Alt Toplam (5.00 ₺) + KDV % 10 (0.50 ₺) + Diğer (0.50 ₺)       6.00 ₺
-                    //Devreden Tutar                                                10.00 ₺
-                    //İşlem Sonrası / Dönem Borcu / Artan                            4.00 ₺
+                    //Alt Toplam (10.00 ₺) - İskonto % 10 (1.00 ₺) + KDV % 10 (0.9 ₺) + Diğer (0.50 ₺)  10.40 ₺
+                    //Devreden Tutar                                                                    10.00 ₺
+                    //İşlem Sonrası / Dönem Borcu / Artan                                               20.40 ₺
 
                     Açıklamalar.Add("Devreden Tutar"); Ücretler.Add(Yazdır_Ücret(o.Gecici_Güncel_ÖnÖdeme, false));
 
                     if (!Yazdırmaİçin)
                     {
-                        //Devreden Tutar                                            10.00 ₺ | Son Dönem : Alınan Ödeme (20,00 ₺) + Mevcut Ön Ödeme (5,00 ₺) - Genel Toplam (10,00 ₺) - Mevcut Borç (5,00 ₺)
+                        //Devreden Tutar        10.00 ₺ | Son Dönem : Alınan Ödeme (20,00 ₺) + Mevcut Ön Ödeme (5,00 ₺) - Genel Toplam (10,00 ₺) - Mevcut Borç (5,00 ₺)
 
                         Açıklama = " | Son Dönem : Alınan Ödeme (" + Yazdır_Ücret(o.Gecici_EnSonÖdemeDokümanı_AlınanÖdeme) + ")";
 
@@ -2986,7 +3039,7 @@ namespace İş_ve_Depo_Takip
         }
         class _Talep_Ayıkla_ÖdemeDalı
         {
-            public double AltToplam, KDV_Oranı, KDV_Hesaplanan, Genel_Toplam;
+            public double AltToplam, İskonto_Oranı, İskonto_Hesaplanan, KDV_Oranı, KDV_Hesaplanan, Genel_Toplam;
             public string Tarih_ÖdemeTalebi, Tarih_Ödendi, Notlar;
             public bool MüşteriBorçluMu;
 
@@ -3005,13 +3058,16 @@ namespace İş_ve_Depo_Takip
             {
                 AltToplam = ÖdemeDalı.Oku_Sayı("Alt Toplam");
                 KDV_Oranı = ÖdemeDalı.Oku_Sayı("Alt Toplam", 0, 1);
-                KDV_Hesaplanan = KDV_Oranı == 0 ? 0 : AltToplam / 100 * KDV_Oranı;
+                İskonto_Oranı = ÖdemeDalı.Oku_Sayı("Alt Toplam", 0, 2);
+
+                İskonto_Hesaplanan = İskonto_Oranı == 0 ? 0 : AltToplam / 100 * İskonto_Oranı;
+                KDV_Hesaplanan = KDV_Oranı == 0 ? 0 : (AltToplam - İskonto_Hesaplanan) / 100 * KDV_Oranı;
 
                 İlaveÖdeme_Açıklaması = ÖdemeDalı.Oku("İlave Ödeme");
                 İlaveÖdeme = ÖdemeDalı.Oku_Sayı("İlave Ödeme", 0, 1);
                 İlaveÖdeme_İşlemiVarmı = İlaveÖdeme_Açıklaması.DoluMu(true);
 
-                Genel_Toplam = İlaveÖdeme + AltToplam + KDV_Hesaplanan;
+                Genel_Toplam = AltToplam - İskonto_Hesaplanan + KDV_Hesaplanan + İlaveÖdeme;
 
                 Tarih_ÖdemeTalebi = ÖdemeDalı[0];
                 Tarih_Ödendi = ÖdemeDalı[1];

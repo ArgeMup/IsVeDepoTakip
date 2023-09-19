@@ -270,27 +270,41 @@ namespace İş_ve_Depo_Takip
         #region Yardımcı Sınıflar
         public class İşTakip_TeslimEdildi_İşSeç_Seç
         {
-            public double AlınanÖdeme = 0, MevcutÖnÖdeme = 0, KDV_Oranı = 0, ToplamHarcama = 0, ToplamKDV = 0, İşlemSonrasıÖnÖdeme = 0;
+            public double MevcutÖnÖdeme = 0, İskonto_Oranı = 0, KDV_Oranı = 0;
+            public double AlınanÖdeme = 0, AltToplam = 0;
+            public double Hesaplanan_İskonto = 0, Hesaplanan_KDV = 0, Hesaplanan_GenelToplam, Hesaplanan_İşlemSonrasıÖnÖdeme = 0;
+
+            public void Güncelle()
+            {
+                Hesaplanan_İskonto = 0;
+                if (İskonto_Oranı > 0) Hesaplanan_İskonto = AltToplam / 100 * İskonto_Oranı;
+
+                Hesaplanan_KDV = 0;
+                if (KDV_Oranı > 0) Hesaplanan_KDV = (AltToplam - Hesaplanan_İskonto) / 100 * KDV_Oranı;
+
+                Hesaplanan_GenelToplam = AltToplam - Hesaplanan_İskonto + Hesaplanan_KDV;
+                Hesaplanan_İşlemSonrasıÖnÖdeme = MevcutÖnÖdeme + AlınanÖdeme - Hesaplanan_GenelToplam;
+            }
 
             public string Yazdır()
             {
-                //Alt Toplam (1.00 ₺) + KDV % 10 (0.10 ₺) = Genel Toplam  1.10 ₺
+                //Alt Toplam (1.00 ₺) - İskonto % 10 (0.10 ₺) + KDV % 10 (0.10 ₺) = Genel Toplam  1.10 ₺
                 //Mevcut Ön Ödeme (2.00 ₺) + Alınan Ödeme (2.00 ₺) = Ödemeler  4.00 ₺
                 //Ödemeler - Genel Toplam = İşlem Sonrası / Müşterinin Borcu / Kalan Ön Ödeme 2.90 ₺
 
-                return "Alt Toplam (" + Banka.Yazdır_Ücret(ToplamHarcama) + ") + KDV % " + KDV_Oranı + " (" + Banka.Yazdır_Ücret(ToplamKDV) + ") = Genel Toplam " + Banka.Yazdır_Ücret(ToplamHarcama + ToplamKDV) + Environment.NewLine +
+                return "Alt Toplam (" + Banka.Yazdır_Ücret(AltToplam) + ")" + (İskonto_Oranı > 0 ? " - İskonto % " + İskonto_Oranı + " (" + Banka.Yazdır_Ücret(Hesaplanan_İskonto) + ")" : null) + (KDV_Oranı > 0 ? " + KDV % " + KDV_Oranı + " (" + Banka.Yazdır_Ücret(Hesaplanan_KDV) + ")" : null) + " = Genel Toplam " + Banka.Yazdır_Ücret(Hesaplanan_GenelToplam) + Environment.NewLine +
                     "Mevcut Ön Ödeme (" + Banka.Yazdır_Ücret(MevcutÖnÖdeme) + ") + Alınan Ödeme (" + Banka.Yazdır_Ücret(AlınanÖdeme) + ") = Ödemeler " + Banka.Yazdır_Ücret(MevcutÖnÖdeme + AlınanÖdeme) + Environment.NewLine +
-                    "Ödemeler - Genel Toplam = İşlem Sonrası " + (İşlemSonrasıÖnÖdeme < 0 ? "Müşterinin Borcu " : "Kalan Ön Ödeme ") + Banka.Yazdır_Ücret(Math.Abs(İşlemSonrasıÖnÖdeme));
+                    "Ödemeler - Genel Toplam = İşlem Sonrası " + (Hesaplanan_İşlemSonrasıÖnÖdeme < 0 ? "Müşterinin Borcu " : "Kalan Ön Ödeme ") + Banka.Yazdır_Ücret(Math.Abs(Hesaplanan_İşlemSonrasıÖnÖdeme));
             }
             public string Yazdır_Kısa()
             {
-                //Alt Toplam + KDV = 1.10 ₺
+                //Alt Toplam - İskonto + KDV = 1.10 ₺
                 //Mevcut Ön Ödeme + Alınan Ödeme = 4.00 ₺
                 //Müşterinin Borcu / Kalan Ön Ödeme = 2.90 ₺
 
-                return "Alt Toplam" + (KDV_Oranı > 0 ? " + KDV" : null) + " = " + Banka.Yazdır_Ücret(ToplamHarcama + ToplamKDV) + Environment.NewLine +
+                return "Alt Toplam" + (İskonto_Oranı > 0 ? " - İskonto" : null) + (KDV_Oranı > 0 ? " + KDV" : null) + " = " + Banka.Yazdır_Ücret(Hesaplanan_GenelToplam) + Environment.NewLine +
                     "Mevcut Ön Ödeme + Alınan Ödeme : " + Banka.Yazdır_Ücret(MevcutÖnÖdeme + AlınanÖdeme) + Environment.NewLine +
-                    (İşlemSonrasıÖnÖdeme < 0 ? "Müşterinin Borcu = " : "Kalan Ön Ödeme = ") + Banka.Yazdır_Ücret(Math.Abs(İşlemSonrasıÖnÖdeme));
+                    (Hesaplanan_İşlemSonrasıÖnÖdeme < 0 ? "Müşterinin Borcu = " : "Kalan Ön Ödeme = ") + Banka.Yazdır_Ücret(Math.Abs(Hesaplanan_İşlemSonrasıÖnÖdeme));
             }
         }
 

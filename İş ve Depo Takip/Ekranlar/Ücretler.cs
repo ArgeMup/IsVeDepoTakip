@@ -1,5 +1,4 @@
-﻿using ArgeMup.HazirKod.Dönüştürme;
-using ArgeMup.HazirKod.Ekİşlemler;
+﻿using ArgeMup.HazirKod.Ekİşlemler;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -29,7 +28,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             Zam_Miktarı.Text = "0";
-            KDV.Text = Banka.Ayarlar_Genel("Bütçe/KDV", true).Oku_Sayı(null, 8).Yazıya();
+            KDV.Text = Banka.Ayarlar_Genel("Bütçe", true).Oku_Sayı("KDV", 10).Yazıya();
 
             #region Değişkenler
             for (int i = 0; i < Değişkenler.Sabitler.Length; i++)
@@ -168,9 +167,19 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             if (Müşterıler.Text == "Tüm müşteriler için ortak")
             {
+            	Müşteriİçin.Visible = false;
                 Banka.Ücretler_TablodaGöster(Tablo, null);
             }
-            else Banka.Ücretler_TablodaGöster(Tablo, Müşterıler.Text);
+            else
+            {
+            	Müşteriİçin.Visible = true;
+                Banka.Ücretler_TablodaGöster(Tablo, Müşterıler.Text);
+
+                Banka.Müşteri_KDV_İskonto(Müşterıler.Text, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde);
+                Müşteriİçin_KDV.Checked = KDV_Ekle;
+                Müşteriİçin_İskonto.Text = İskonto_Yüzde.Yazıya();
+                Müşteriİçin_İskonto.BackColor = !İskonto_Yap ? SystemColors.Window : İskonto_Yüzde > 25 ? Color.Salmon : Color.YellowGreen;
+            }
 
             AramaÇubuğu_İşTürü_TextChanged(null, null);
 
@@ -178,6 +187,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             splitContainer1.Panel2.Enabled = true;
             Zam_Yap.Enabled = true;
             Kaydet.Enabled = false;
+        }
+        private void Müşteriİçin_KDV_CheckedChanged(object sender, EventArgs e)
+        {
+            Müşteriİçin_KDV.Text = "KDV" + (Müşteriİçin_KDV.Checked ? " % " + KDV.Text : null);
+            Ayar_Değişti(null, null);
         }
         private void Tablo_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
@@ -313,6 +327,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             bool TümMüşterilerİçinOrtak = Müşterıler.Text == "Tüm müşteriler için ortak";
 
+            if (!TümMüşterilerİçinOrtak)
+            {
+                string müş_iskonto = Müşteriİçin_İskonto.Text;
+                if (!Ortak.YazıyıSayıyaDönüştür(ref müş_iskonto, "Müşteriye ait iskonto kutucuğu", null, 0, 100))
+                {
+                    Müşteriİçin_İskonto.Focus();
+                    return;
+                }
+                Müşteriİçin_İskonto.Text = müş_iskonto;
+            }
+
             for (int i = 0; i < Tablo.RowCount; i++)
             {
                 if (!string.IsNullOrEmpty((string)Tablo[Tablo_Ücret.Index, i].Value))
@@ -341,7 +366,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
 
+            Banka.Müşteri_KDV_İskonto(Müşterıler.Text, Müşteriİçin_KDV.Checked, Müşteriİçin_İskonto.Text.NoktalıSayıya());
             Banka.Ayarlar_Genel("Bütçe/KDV", true).Yaz(null, kdv);
+
             if (TümMüşterilerİçinOrtak)
             {
                 Banka.Ücretler_TablodakileriKaydet(Tablo, null);
@@ -351,6 +378,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Kaydet.Enabled = false;
             splitContainer1.Panel1.Enabled = true;
-        }
+        }   
     }
 }

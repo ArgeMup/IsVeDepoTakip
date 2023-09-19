@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
@@ -303,7 +302,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             IDepo_Eleman müş = Banka.Ayarlar_Müşteri(İşTakip_Müşteriler.Text, "Sayfa/Teslim Edildi", true);
             İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama.Text = müş["İlave Ödeme"][0];
             İşTakip_TeslimEdildi_İlaveÖdeme_Miktar.Text = müş["İlave Ödeme"][1];
-            İşTakip_TeslimEdildi_KDV.Checked = müş["KDV"].Oku_Bit(null, true);
             İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt.Checked = false;
             İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Notlar.Text = müş["ÖdemeAl Notlar"][0];
             //Ödeme bekleyen sayfası
@@ -323,6 +321,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
             İşTakip_Eposta_TeslimEdildi.Text = "Teslim edilen : " + bt.Talepler.Count + " iş";
             İşTakip_Eposta_ÖdemeBekleyen.Text = "Ödeme talebi : " + Banka.Dosya_Listele_Müşteri(İşTakip_Müşteriler.Text, false).Length + " dönem";
             İşTakip_Eposta_Ödendi.Text = "Ödendi : Son dönem";
+
+            //Müşteri bütçe görselleri
+            Banka.Müşteri_KDV_İskonto(İşTakip_Müşteriler.Text, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde);
+            Müşteri_KDV.CheckedChanged -= Müşteri_KDV_CheckedChanged;
+            Müşteri_KDV.Checked = KDV_Ekle;
+            Müşteri_KDV.CheckedChanged += Müşteri_KDV_CheckedChanged;
+            İpUcu.SetToolTip(Müşteri_KDV, "KDV % " + KDV_Yüzde.Yazıya());
+            Müşteri_İskonto.Checked = İskonto_Yap;
+            if (Müşteri_İskonto.Checked) Müşteri_İskonto.FlatAppearance.CheckedBackColor = İskonto_Yüzde > 25 ? Color.Salmon : Color.YellowGreen;
+            İpUcu.SetToolTip(Müşteri_İskonto, "İskonto % " + İskonto_Yüzde.Yazıya());
         }
         private void İşTakip_DevamEden_Sil_Click(object sender, EventArgs e)
         {
@@ -547,7 +555,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt.Checked = false;
 
-            string snç = Banka.Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(İşTakip_Müşteriler.Text, l, İlaveÖdeme_Açıklama, İlaveÖdeme_Miktar, İşTakip_TeslimEdildi_KDV.Checked, out _);
+            string snç = Banka.Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(İşTakip_Müşteriler.Text, l, İlaveÖdeme_Açıklama, İlaveÖdeme_Miktar, out _);
             if (string.IsNullOrEmpty(snç))
             {
                 //başarılı
@@ -588,80 +596,85 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_KadarİşiSeç_Click(object sender, EventArgs e)
         {
-            Ortak.İşTakip_TeslimEdildi_İşSeç_Seç o = new Ortak.İşTakip_TeslimEdildi_İşSeç_Seç();
-            İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Tag = o;
+            Ortak.İşTakip_TeslimEdildi_İşSeç_Seç ort_seçim = new Ortak.İşTakip_TeslimEdildi_İşSeç_Seç();
+            İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Tag = ort_seçim;
 
             if (Tablo.RowCount < 1) return;
 
-            string gecici = İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar.Text;
-            if (!Ortak.YazıyıSayıyaDönüştür(ref gecici, "İş Seçme Miktarı", null, 0))
+            string alınan_miktar = İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar.Text;
+            if (!Ortak.YazıyıSayıyaDönüştür(ref alınan_miktar, "İş Seçme Miktarı", null, 0))
             {
                 İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar.Focus();
                 return;
             }
-            o.AlınanÖdeme = gecici.NoktalıSayıya();
+            ort_seçim.AlınanÖdeme = alınan_miktar.NoktalıSayıya();
 
             //Ödeme Yapılarak Ödendi Olarak İşasaretleme
             IDepo_Eleman müş = Banka.Tablo_Dal(İşTakip_Müşteriler.Text, Banka.TabloTürü.Ödemeler, "Mevcut Ön Ödeme");
-            if (müş != null) o.MevcutÖnÖdeme = müş.Oku_Sayı(null);
+            if (müş != null) ort_seçim.MevcutÖnÖdeme = müş.Oku_Sayı(null);
 
-            for (int i = 0; i < Tablo.RowCount; i++) Tablo[0, i].Value = false;
-            if (İşTakip_TeslimEdildi_KDV.Checked) o.KDV_Oranı = Banka.Ayarlar_Genel("Bütçe/KDV", true).Oku_Sayı(null, 8);
+            for (int i = 0; i < Tablo.RowCount; i++) Tablo[Tablo_Seç.Index, i].Value = false;
+            Banka.Müşteri_KDV_İskonto(İşTakip_Müşteriler.Text, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde);
+            if (KDV_Ekle) ort_seçim.KDV_Oranı = KDV_Yüzde;
+            if (İskonto_Yap) ort_seçim.İskonto_Oranı = İskonto_Yüzde;
 
-            double YapılanÖdeme = o.MevcutÖnÖdeme + o.AlınanÖdeme;
+            double ToplamHarcama = 0;
             for (int i = 0; i < Tablo.RowCount; i++)
             {
-                double Hesaplanan_KDV = 0;
-                if (İşTakip_TeslimEdildi_KDV.Checked) Hesaplanan_KDV = (double)Tablo[6, i].Tag / 100 * o.KDV_Oranı;
+                double ücreti = (double)Tablo[Tablo_İş.Index, i].Tag;
+                ort_seçim.AltToplam = ücreti + ToplamHarcama;
+                ort_seçim.Güncelle();
 
-                if ((double)Tablo[6, i].Tag + Hesaplanan_KDV + o.ToplamHarcama + o.ToplamKDV > YapılanÖdeme) break;
+                if (ort_seçim.Hesaplanan_İşlemSonrasıÖnÖdeme < 0) break;
 
-                o.ToplamHarcama += (double)Tablo[6, i].Tag;
-                o.ToplamKDV += Hesaplanan_KDV;
-                Tablo[0, i].Value = true;
+                ToplamHarcama += ücreti;
+                Tablo[Tablo_Seç.Index, i].Value = true;
             }
 
-            o.İşlemSonrasıÖnÖdeme = o.MevcutÖnÖdeme + o.AlınanÖdeme - o.ToplamHarcama - o.ToplamKDV;
-            İşTakip_TeslimEdildi_Açıklama.Text = o.Yazdır();
-            İşTakip_TeslimEdildi_Açıklama.ForeColor = o.İşlemSonrasıÖnÖdeme < 0 ? Color.Red : SystemColors.ControlText;
+            ort_seçim.AltToplam = ToplamHarcama;
+            ort_seçim.Güncelle();
+
+            İşTakip_TeslimEdildi_Açıklama.Text = ort_seçim.Yazdır();
+            İşTakip_TeslimEdildi_Açıklama.ForeColor = ort_seçim.Hesaplanan_İşlemSonrasıÖnÖdeme < 0 ? Color.Red : SystemColors.ControlText;
         }
         private void İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_KadarİşiSeç_Click_2(object sender, EventArgs e)
         {
             if (!P_İşTakip_TeslimEdildi.Visible || !Banka.Müşteri_MevcutMu(İşTakip_Müşteriler.Text)) return;
 
-            Ortak.İşTakip_TeslimEdildi_İşSeç_Seç o = new Ortak.İşTakip_TeslimEdildi_İşSeç_Seç();
-            İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Tag = o;
+            Ortak.İşTakip_TeslimEdildi_İşSeç_Seç ort_seçim = new Ortak.İşTakip_TeslimEdildi_İşSeç_Seç();
+            İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Tag = ort_seçim;
 
-            string gecici = İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar.Text;
-            if (!Ortak.YazıyıSayıyaDönüştür(ref gecici, "Ödeme miktarı kutucuğu", "Kullanılmayacak ise 0 yazınız"))
+            string alınan_miktar = İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar.Text;
+            if (!Ortak.YazıyıSayıyaDönüştür(ref alınan_miktar, "Ödeme miktarı kutucuğu", "Kullanılmayacak ise 0 yazınız"))
             {
                 İşTakip_TeslimEdildi_Sekmeler.SelectedTab = İşTakip_TeslimEdildi_Sekmeler.TabPages["İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl"];
                 İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar.Focus();
                 return;
             }
-            İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar.Text = gecici;
-            o.AlınanÖdeme = gecici.NoktalıSayıya();
+            İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar.Text = alınan_miktar;
+            ort_seçim.AlınanÖdeme = alınan_miktar.NoktalıSayıya();
 
             //Ödeme Yapılarak Ödendi Olarak İşaretle
             IDepo_Eleman müş = Banka.Tablo_Dal(İşTakip_Müşteriler.Text, Banka.TabloTürü.Ödemeler, "Mevcut Ön Ödeme");
-            if (müş != null) o.MevcutÖnÖdeme = müş.Oku_Sayı(null);
+            if (müş != null) ort_seçim.MevcutÖnÖdeme = müş.Oku_Sayı(null);
 
-            if (İşTakip_TeslimEdildi_KDV.Checked) o.KDV_Oranı = Banka.Ayarlar_Genel("Bütçe/KDV", true).Oku_Sayı(null, 8);
+            Banka.Müşteri_KDV_İskonto(İşTakip_Müşteriler.Text, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde);
+            if (KDV_Ekle) ort_seçim.KDV_Oranı = KDV_Yüzde;
+            if (İskonto_Yap) ort_seçim.İskonto_Oranı = İskonto_Yüzde;
 
+            double ToplamHarcama = 0;
             for (int i = 0; i < Tablo.RowCount; i++)
             {
-                if (!(bool)Tablo[0, i].Value) continue;
+                if (!(bool)Tablo[Tablo_Seç.Index, i].Value) continue;
 
-                double Hesaplanan_KDV = 0;
-                if (İşTakip_TeslimEdildi_KDV.Checked) Hesaplanan_KDV = (double)Tablo[6, i].Tag / 100 * o.KDV_Oranı;
-
-                o.ToplamHarcama += (double)Tablo[6, i].Tag;
-                o.ToplamKDV += Hesaplanan_KDV;
+                ToplamHarcama += (double)Tablo[Tablo_İş.Index, i].Tag;
             }
 
-            o.İşlemSonrasıÖnÖdeme = o.MevcutÖnÖdeme + o.AlınanÖdeme - o.ToplamHarcama - o.ToplamKDV;
-            İşTakip_TeslimEdildi_Açıklama.Text = o.Yazdır();
-            İşTakip_TeslimEdildi_Açıklama.ForeColor = o.İşlemSonrasıÖnÖdeme < 0 ? Color.Red : SystemColors.ControlText;
+            ort_seçim.AltToplam = ToplamHarcama;
+            ort_seçim.Güncelle();
+
+            İşTakip_TeslimEdildi_Açıklama.Text = ort_seçim.Yazdır();
+            İşTakip_TeslimEdildi_Açıklama.ForeColor = ort_seçim.Hesaplanan_İşlemSonrasıÖnÖdeme < 0 ? Color.Red : SystemColors.ControlText;
         }
         private void İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_ÖdendiOlarakİşsaretle_Click(object sender, EventArgs e)
         {
@@ -673,8 +686,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_KadarİşiSeç_Click_2(null, null);
-            Ortak.İşTakip_TeslimEdildi_İşSeç_Seç o = İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Tag as Ortak.İşTakip_TeslimEdildi_İşSeç_Seç;
-            if (o == null || (o.ToplamHarcama == 0 && o.AlınanÖdeme == 0))
+            Ortak.İşTakip_TeslimEdildi_İşSeç_Seç ort_seçim = İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Tag as Ortak.İşTakip_TeslimEdildi_İşSeç_Seç;
+            if (ort_seçim == null || (ort_seçim.AltToplam == 0 && ort_seçim.AlınanÖdeme == 0))
             {
                 MessageBox.Show("Tabloda seçili iş bulunamadı veya aldığınız ödeme 0 ₺ olduğundan işlem ilerleyemedi", Text);
                 return;
@@ -684,20 +697,20 @@ namespace İş_ve_Depo_Takip.Ekranlar
             List<DataGridViewRow> silinecek_satırlar = new List<DataGridViewRow>();
             for (int i = 0; i < Tablo.RowCount; i++)
             {
-                if ((bool)Tablo[0, i].Value)
+                if ((bool)Tablo[Tablo_Seç.Index, i].Value)
                 {
-                    l.Add((string)Tablo[1, i].Value);
+                    l.Add((string)Tablo[Tablo_SeriNo.Index, i].Value);
                     silinecek_satırlar.Add(Tablo.Rows[i]);
                 }
             }
 
             string soru = (l.Count == 0 ? null : "Alttaki detayların oluşturulmasında kullanılan seçili işler KALICI olarak ÖDENDİ olarak işaretlenecek." + Environment.NewLine + Environment.NewLine) +
                 "İşleme devam etmek istiyor musunuz?" + Environment.NewLine + Environment.NewLine +
-                o.Yazdır_Kısa();
+                ort_seçim.Yazdır_Kısa();
             DialogResult Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
 
-            string snç = Banka.Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(İşTakip_Müşteriler.Text, l, null, null, İşTakip_TeslimEdildi_KDV.Checked, out string DosyaAdı);
+            string snç = Banka.Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(İşTakip_Müşteriler.Text, l, null, null, out string DosyaAdı);
             if (!string.IsNullOrEmpty(snç))
             {
                 //hatalı
@@ -1563,6 +1576,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 Arama_İş_Türleri.SetItemChecked(i, şimdi);
             }
+        }
+        private void Müşteri_KDV_CheckedChanged(object sender, EventArgs e)
+        {
+            if (İşTakip_Müşteriler.SelectedIndex < 0 || İşTakip_Müşteriler.Text.BoşMu(true)) return;
+
+            Banka.Müşteri_KDV_İskonto(İşTakip_Müşteriler.Text, Müşteri_KDV.Checked);
+            Banka.Değişiklikleri_Kaydet(Müşteri_KDV);
+            if (Seviye2_TeslimEdildi.Checked) İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_KadarİşiSeç_Click_2(null, null);
         }
 
         List<string> Malzemeler_Malzeme_AramaÇubuğu_Liste = null;
