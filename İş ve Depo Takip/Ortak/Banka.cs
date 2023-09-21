@@ -117,8 +117,8 @@ namespace İş_ve_Depo_Takip
             #region Yeni Sürüme Uygun Hale Getirme
             Değişiklikler_TamponuSıfırla();
             Ayarlar = Depo_Aç("Ay");
-            IDepo_Eleman ayr = Ayarlar["Son Banka Kayıt"];
-            if (ayr.Oku(null, null, 2) != Sürüm)
+            IDepo_Eleman ayr = Ayarlar.Bul("Son Banka Kayıt");
+            if (ayr != null && ayr.Oku(null, null, 2) != Sürüm)
             {
                 //KDV ayarı açık ise yeni yere kaydet
                 foreach (string müşteri in Müşteri_Listele(true))
