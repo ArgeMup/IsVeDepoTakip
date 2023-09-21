@@ -87,7 +87,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             ArgeMup.HazirKod.Depo_ d = Banka.ÖrnekMüşteriTablosuOluştur();
             string dosyayolu = Ortak.Klasör_Gecici + Path.GetRandomFileName() + ".pdf";
             Yazdırma y = new Yazdırma();
-            y.Yazdır_Depo(d, dosyayolu);
+            y.İşler_Yazdır(d, dosyayolu);
             y.Dispose();
 
             Eposta.Gönder(Gönderici_Adres.Text, null, null, "Deneme Mesajı", "Deneme Mesajı İçeriği", null, new string[] { dosyayolu }, _GeriBildirimİşlemi_Tamamlandı);

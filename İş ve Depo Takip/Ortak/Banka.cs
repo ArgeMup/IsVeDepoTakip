@@ -768,7 +768,16 @@ namespace İş_ve_Depo_Takip
 
             return 0;
         }
-        public static void Müşteri_Ödemeler_TablodaGöster(string Adı, DataGridView Tablo)
+        public static void Müşteri_Ayıkla_ÖdemeDalı(IDepo_Eleman ÖdemeDalı, out string Tarih, out double MevcutÖnÖdeme, out double AlınanÖdeme, out double GenelToplam, out double DevredenTutar, out string Notlar)
+        {
+            Tarih = ÖdemeDalı.Adı;
+            MevcutÖnÖdeme = ÖdemeDalı[0].NoktalıSayıya();
+            AlınanÖdeme = ÖdemeDalı[1].NoktalıSayıya();
+            GenelToplam = ÖdemeDalı[2].NoktalıSayıya();
+            DevredenTutar = MevcutÖnÖdeme + AlınanÖdeme - GenelToplam;
+            Notlar = ÖdemeDalı[3];
+        }
+        public static void Müşteri_Ödemeler_TablodaGöster(string Adı, DataGridView Tablo, int Listelenecek_Adet)
         {
             Tablo.Rows.Clear();
             if (Tablo.SortedColumn != null)
@@ -783,7 +792,7 @@ namespace İş_ve_Depo_Takip
 
             IDepo_Eleman[] Ödemeler = liste.Elemanları;
             Ortak.Gösterge.Başlat("Liste Dolduruluyor", true, null, Ödemeler.Length);
-            for (int i = Ödemeler.Length - 1; i >= 0 && Ortak.Gösterge.Çalışsın; i--)
+            for (int i = Ödemeler.Length - 1; i >= 0 && Ortak.Gösterge.Çalışsın && Listelenecek_Adet-- > 0; i--)
             {
                 Ortak.Gösterge.İlerleme = 1;
 
@@ -791,18 +800,14 @@ namespace İş_ve_Depo_Takip
                 int y = Tablo.RowCount;
                 Tablo.RowCount++;
 
-                double MevcutÖnÖdeme = Ödemeler[i][0].NoktalıSayıya();
-                double AlınanÖdeme = Ödemeler[i][1].NoktalıSayıya();
-                double GenelToplam = Ödemeler[i][2].NoktalıSayıya();
-                double DevredenTutar = MevcutÖnÖdeme + AlınanÖdeme - GenelToplam;
-
-                Tablo[Tablo.Columns["_3_Tablo_Tarih"].Index, y].Value = Yazdır_Tarih(Ödemeler[i].Adı); //tarih
-                Tablo[Tablo.Columns["_3_Tablo_Tarih"].Index, y].ToolTipText = Ödemeler[i].Adı;
+                Müşteri_Ayıkla_ÖdemeDalı(Ödemeler[i], out string Tarih, out double MevcutÖnÖdeme, out double AlınanÖdeme, out double GenelToplam, out double DevredenTutar, out string Notlar);
+                Tablo[Tablo.Columns["_3_Tablo_Tarih"].Index, y].Value = Yazdır_Tarih(Tarih);
+                Tablo[Tablo.Columns["_3_Tablo_Tarih"].Index, y].ToolTipText = Tarih;
                 Tablo[Tablo.Columns["_3_Tablo_MevcutÖnÖdeme"].Index, y].Value = Yazdır_Ücret(MevcutÖnÖdeme);
                 Tablo[Tablo.Columns["_3_Tablo_AlınanÖdeme"].Index, y].Value = Yazdır_Ücret(AlınanÖdeme);
                 Tablo[Tablo.Columns["_3_Tablo_GenelToplam"].Index, y].Value = Yazdır_Ücret(GenelToplam);
                 Tablo[Tablo.Columns["_3_Tablo_DevredenTutar"].Index, y].Value = Yazdır_Ücret(DevredenTutar);
-                Tablo[Tablo.Columns["_3_Tablo_Notlar"].Index, y].Value = Ödemeler[i][3]; //Notlar
+                Tablo[Tablo.Columns["_3_Tablo_Notlar"].Index, y].Value = Notlar;
 
                 if (MevcutÖnÖdeme < 0) Tablo[Tablo.Columns["_3_Tablo_MevcutÖnÖdeme"].Index, y].Style.BackColor = System.Drawing.Color.Salmon;
                 if (DevredenTutar < 0) Tablo[Tablo.Columns["_3_Tablo_DevredenTutar"].Index, y].Style.BackColor = System.Drawing.Color.Salmon;

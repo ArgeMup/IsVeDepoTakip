@@ -97,12 +97,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             else if (e.ColumnIndex == 5)
             {
                 //Listele tuşu
-                Seklemeler_Ödemeler.Text = "Ödemeler - " + _1_Tablo[_1_Tablo_Müşteri.Index, e.RowIndex].Value;
-                Sekmeler.SelectedIndex = 2; //ödemeler
-
-                Sekmeler.Enabled = false;
-                Banka.Müşteri_Ödemeler_TablodaGöster((string)_1_Tablo[_1_Tablo_Müşteri.Index, e.RowIndex].Value, _3_Tablo);
-                Sekmeler.Enabled = true;
+                _3_Başlat((string)_1_Tablo[_1_Tablo_Müşteri.Index, e.RowIndex].Value);
             }
         }
 
@@ -605,6 +600,127 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Banka.Değişiklikleri_Kaydet(_2_Kaydet);
             _2_Kaydet.Enabled = false;
+        }
+        #endregion
+        
+        #region _3_
+        string _3_Müşteri;
+        private void _3_Başlat(string Müşteri)
+        {
+            if (!Banka.Müşteri_MevcutMu(Müşteri)) { _3_Müşteri = null; return; }
+            _3_Müşteri = Müşteri;
+
+            Seklemeler_Ödemeler.Text = "Ödemeler - " + _3_Müşteri;
+            Sekmeler.SelectedIndex = 2; //ödemeler
+
+            Sekmeler.Enabled = false;
+            Banka.Müşteri_Ödemeler_TablodaGöster(_3_Müşteri, _3_Tablo, (int)_3_Görüntüle_Adet.Value);
+            Sekmeler.Enabled = true;
+        }
+        private void _3_Görüntüle_Listele_Click(object sender, EventArgs e)
+        {
+            _3_Başlat(_3_Müşteri);
+        }
+        string _3_Yazdır()
+        {
+            if (_3_Müşteri.BoşMu()) return null;
+
+            ArgeMup.HazirKod.Depo_ depo = Banka.Tablo(_3_Müşteri, Banka.TabloTürü.Ödemeler);
+            if (depo == null || depo.Elemanları.Length == 0) return null;
+
+            string dosyayolu = Ortak.Klasör_Gecici + "Ödemeler_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
+
+            Yazdırma y = new Yazdırma();
+            y.Ödemeler_Yazdır(depo, dosyayolu, (int)_3_Görüntüle_Adet.Value, _3_Yazdırma_NotlarDahil.Checked);
+            y.Dispose();
+
+            return dosyayolu;
+        }
+        private void _3_Yazdırma_Yazdır_Click(object sender, EventArgs e)
+        {
+            string dosyayolu = _3_Yazdır();
+            if (dosyayolu.BoşMu()) return;
+
+            if (!string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Pdf))
+            {
+                string gerçekdosyadı = "Ödemeler_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
+                string hedef = Ortak.Kullanıcı_Klasör_Pdf + _3_Müşteri + "\\" + gerçekdosyadı;
+                if (!Dosya.Kopyala(dosyayolu, hedef))
+                {
+                    MessageBox.Show("Üretilen pdf kullanıcı klasörüne kopyalanamadı", Text);
+                }
+                else
+                {
+                    if (_3_Yazdırma_VeGörüntüle.Checked) Ortak.Çalıştır.UygulamayaİşletimSistemiKararVersin(hedef);
+                    if (_3_Yazdırma_VeKlasörüAç.Checked) Ortak.Çalıştır.DosyaGezginindeGöster(hedef);
+                }
+            }
+            else
+            {
+                if (_3_Yazdırma_VeGörüntüle.Checked) Ortak.Çalıştır.UygulamayaİşletimSistemiKararVersin(dosyayolu);
+                if (_3_Yazdırma_VeKlasörüAç.Checked) Ortak.Çalıştır.DosyaGezginindeGöster(dosyayolu);
+            }
+
+            IDepo_Eleman Ayrl_Kullanıcı = Banka.Ayarlar_Kullanıcı(Name, null);
+            Ayrl_Kullanıcı.Yaz("_3_Yazdırma_VeGörüntüle", _3_Yazdırma_VeGörüntüle.Checked);
+            Ayrl_Kullanıcı.Yaz("_3_Yazdırma_VeKlasörüAç", _3_Yazdırma_VeKlasörüAç.Checked);
+        }
+        private void _3_Eposta_Kişiye_CheckedChanged(object sender, EventArgs e)
+        {
+            _3_Eposta_Gönder.Text = _3_Eposta_Kişiye.Checked ? "Kişiye Gönder" : "Müşteriye Gönder";
+        }
+        private void _3_Eposta_Gönder_Click(object sender, EventArgs e)
+        {
+            if (_3_Müşteri.BoşMu()) return;
+
+            if (!Eposta.BirEpostaHesabıEklenmişMi)
+            {
+                MessageBox.Show("Bir eposta hesabı tanımlanması gerekmektedir." + Environment.NewLine + "Ana Ekran - Ayarlar - E-posta sayfasınından ayarlar gözden geçirilebilir", Text);
+                return;
+            }
+
+            string FirmaİçiKişiler = null;
+            if (_3_Eposta_Kişiye.Checked)
+            {
+                IDepo_Eleman fik = Banka.Ayarlar_Genel("Eposta/Firma İçi Kişiler");
+                if (fik != null) FirmaİçiKişiler = fik.Oku(null);
+
+                if (FirmaİçiKişiler.BoşMu(true))
+                {
+                    MessageBox.Show("Firma içi kişi adresi bulunamadı" + Environment.NewLine + "Ana Ekran - Ayarlar - Eposta sayfasını kullanabilirsiniz", Text);
+                    return;
+                }
+            }
+            else
+            {
+                IDepo_Eleman m = Banka.Ayarlar_Müşteri(_3_Müşteri, "Eposta");
+                if (m == null || string.IsNullOrEmpty(m.Oku("Kime") + m.Oku("Bilgi") + m.Oku("Gizli")))
+                {
+                    MessageBox.Show("Müşteriye tanımlı e-posta adresi bulunamadı" + Environment.NewLine + "Ana Ekran - Ayarlar - Müşteriler sayfasını kullanabilirsiniz", Text);
+                    return;
+                }
+            }
+
+            string dosyayolu = _3_Yazdır();
+            if (dosyayolu.BoşMu())
+            {
+                MessageBox.Show("Hiç kayıt bulunamadı", Text);
+                return;
+            }
+
+            DialogResult Dr = MessageBox.Show("Oluşturulan belge e-posta yoluyla gönderilecek" +
+            Environment.NewLine + Environment.NewLine +
+            _3_Müşteri + Environment.NewLine + Environment.NewLine +
+            FirmaİçiKişiler + Environment.NewLine + Environment.NewLine +
+            "Devam etmek için Evet tuşuna basınız", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (Dr == DialogResult.No) return;
+
+            if (_3_Eposta_Kişiye.Checked) Eposta.Gönder_Kişiye(FirmaİçiKişiler, _3_Müşteri, new string[] { dosyayolu }, _GeriBildirimİşlemei_Tamamlandı);
+            else Eposta.Gönder_Müşteriye(_3_Müşteri, new string[] { dosyayolu }, _GeriBildirimİşlemei_Tamamlandı);
+            void _GeriBildirimİşlemei_Tamamlandı(string Sonuç)
+            {
+                if (!string.IsNullOrEmpty(Sonuç)) MessageBox.Show(Sonuç, Text);
+            }
         }
         #endregion
 

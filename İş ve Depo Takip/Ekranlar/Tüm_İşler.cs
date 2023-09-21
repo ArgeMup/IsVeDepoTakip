@@ -303,6 +303,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             İşTakip_TeslimEdildi_İlaveÖdeme_Miktar.Text = müş["İlave Ödeme"][1];
             İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt.Checked = false;
             İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Notlar.Text = müş["ÖdemeAl Notlar"][0];
+            
             //Ödeme bekleyen sayfası
             müş = Banka.Ayarlar_Müşteri(İşTakip_Müşteriler.Text, "Sayfa/Ödeme Bekleyen", true);
             İşTakip_ÖdemeBekleyen_Notlar.Text = müş["Notlar", 0];
@@ -330,6 +331,19 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Müşteri_İskonto.Checked = İskonto_Yap;
             if (Müşteri_İskonto.Checked) Müşteri_İskonto.FlatAppearance.CheckedBackColor = İskonto_Yüzde > 25 ? Color.Salmon : Color.YellowGreen;
             İpUcu.SetToolTip(Müşteri_İskonto, "İskonto % " + İskonto_Yüzde.Yazıya());
+
+            //Müşteri Notları
+            müş = Banka.Ayarlar_Müşteri(İşTakip_Müşteriler.Text, "Notlar");
+            if (müş != null && müş[0].DoluMu(true))
+            {
+                Müşteri_Notlar.Checked = true;
+                İpUcu.SetToolTip(Müşteri_Notlar, müş[0]);
+            }
+            else
+            {
+                Müşteri_Notlar.Checked = false;
+                İpUcu.SetToolTip(Müşteri_Notlar, null);
+            }
         }
         private void İşTakip_DevamEden_Sil_Click(object sender, EventArgs e)
         {
@@ -579,8 +593,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt_CheckedChanged(object sender, EventArgs e)
         {
-            İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama.ReadOnly = !İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt.Checked;
-            İşTakip_TeslimEdildi_İlaveÖdeme_Miktar.ReadOnly = !İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt.Checked;
+            İşTakip_TeslimEdildi_İlaveÖdeme.Enabled = İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt.Checked;
         }
         private void İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama_TextChanged(object sender, EventArgs e)
         {
@@ -996,7 +1009,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             string dosyayolu = Ortak.Klasör_Gecici + Path.GetRandomFileName() + ".pdf";
 
             Yazdırma y = new Yazdırma();
-            y.Yazdır_Depo(depo, dosyayolu);
+            y.İşler_Yazdır(depo, dosyayolu);
             y.Dispose();
 
             if (!string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Pdf))
@@ -1091,7 +1104,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     depo = Banka.YazdırmayaHazırla_ÜcretHesaplama(depo);
                     if (depo == null) return;
 
-                    y.Yazdır_Depo(depo, gecici_dosyadı);
+                    y.İşler_Yazdır(depo, gecici_dosyadı);
                 }
             }
 
@@ -1111,7 +1124,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     gecici_dosyadı = gecici_klasör + "Devam_Eden_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
 
-                    y.Yazdır_Depo(depo, gecici_dosyadı);
+                    y.İşler_Yazdır(depo, gecici_dosyadı);
                 }
             }
 
@@ -1131,7 +1144,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     gecici_dosyadı = gecici_klasör + "Teslim_Edildi_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
 
-                    y.Yazdır_Depo(depo, gecici_dosyadı);
+                    y.İşler_Yazdır(depo, gecici_dosyadı);
                 }
             }
 
@@ -1148,7 +1161,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                             Banka.Müşteri_ÖdemeTalebi_GeciciDetaylarıEkle(İşTakip_Müşteriler.Text, ref depo);
 
                             gecici_dosyadı = gecici_klasör + "Ödeme_Talebi_" + ö + ".pdf";
-                            y.Yazdır_Depo(depo, gecici_dosyadı);
+                            y.İşler_Yazdır(depo, gecici_dosyadı);
                         }
                     }
                 }
@@ -1177,7 +1190,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         if (de != null && de.Elemanları.Length > 0)
                         {
                             gecici_dosyadı = gecici_klasör + "Ödendi_" + dönem + ".pdf";
-                            y.Yazdır_Depo(depo, gecici_dosyadı);
+                            y.İşler_Yazdır(depo, gecici_dosyadı);
                         }
                     }
                 }
@@ -1580,6 +1593,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void Müşteri_KDV_CheckedChanged(object sender, EventArgs e)
         {
             if (İşTakip_Müşteriler.SelectedIndex < 0 || İşTakip_Müşteriler.Text.BoşMu(true)) return;
+
+            DialogResult Dr = MessageBox.Show("Bu ayar siz tekrar seçim yapana kadar KALICI olarak değiştirilecek." + Environment.NewLine + Environment.NewLine +
+                "Devam etmek istediğinize emin misiniz?" + Environment.NewLine + Environment.NewLine,
+                Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            if (Dr == DialogResult.No) 
+            {
+                Müşteri_KDV.CheckedChanged -= Müşteri_KDV_CheckedChanged;
+                Müşteri_KDV.Checked = !Müşteri_KDV.Checked;
+                Müşteri_KDV.CheckedChanged += Müşteri_KDV_CheckedChanged;
+                return; 
+            }
 
             Banka.Müşteri_KDV_İskonto(İşTakip_Müşteriler.Text, Müşteri_KDV.Checked);
             Banka.Değişiklikleri_Kaydet(Müşteri_KDV);
