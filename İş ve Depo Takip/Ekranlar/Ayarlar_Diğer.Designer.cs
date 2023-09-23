@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ayarlar_Diğer));
-            this.Kaydet = new System.Windows.Forms.Button();
+            this.ÖnYüzler_Kaydet = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox_Klasörler = new System.Windows.Forms.GroupBox();
             this.Klasör_Yedekleme_5 = new System.Windows.Forms.TextBox();
@@ -89,21 +89,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.HttpSunucu_ErişimNoktası)).BeginInit();
             this.SuspendLayout();
             // 
-            // Kaydet
+            // ÖnYüzler_Kaydet
             // 
-            this.Kaydet.AutoSize = true;
-            this.Kaydet.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Kaydet.Enabled = false;
-            this.Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
-            this.Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Kaydet.Location = new System.Drawing.Point(5, 1000);
-            this.Kaydet.Name = "Kaydet";
-            this.Kaydet.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.Kaydet.Size = new System.Drawing.Size(551, 44);
-            this.Kaydet.TabIndex = 20;
-            this.Kaydet.Text = "Kaydet";
-            this.Kaydet.UseVisualStyleBackColor = true;
-            this.Kaydet.Click += new System.EventHandler(this.Kaydet_Click);
+            this.ÖnYüzler_Kaydet.AutoSize = true;
+            this.ÖnYüzler_Kaydet.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ÖnYüzler_Kaydet.Enabled = false;
+            this.ÖnYüzler_Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
+            this.ÖnYüzler_Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ÖnYüzler_Kaydet.Location = new System.Drawing.Point(5, 1000);
+            this.ÖnYüzler_Kaydet.Name = "ÖnYüzler_Kaydet";
+            this.ÖnYüzler_Kaydet.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.ÖnYüzler_Kaydet.Size = new System.Drawing.Size(551, 44);
+            this.ÖnYüzler_Kaydet.TabIndex = 20;
+            this.ÖnYüzler_Kaydet.Text = "Kaydet";
+            this.ÖnYüzler_Kaydet.UseVisualStyleBackColor = true;
+            this.ÖnYüzler_Kaydet.Click += new System.EventHandler(this.ÖnYüzler_Kaydet_Click);
             // 
             // label1
             // 
@@ -686,7 +686,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(582, 503);
-            this.Controls.Add(this.Kaydet);
+            this.Controls.Add(this.ÖnYüzler_Kaydet);
             this.Controls.Add(this.groupBox_Sunucu);
             this.Controls.Add(this.groupBox_Gizlilik);
             this.Controls.Add(this.DosyaEkleri_Açıklama);
@@ -723,7 +723,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button Kaydet;
+        private System.Windows.Forms.Button ÖnYüzler_Kaydet;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox_Klasörler;
         private System.Windows.Forms.TextBox Klasör_Pdf;

@@ -244,16 +244,34 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private static void Ekran_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Önyüz_ öndeki;
+
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                Önyüz_ öndeki = Tümü.First(x => x.Ekran == sender);
+                öndeki = Tümü.First(x => x.Ekran == sender);
                 if (öndeki != Tümü.Last()) throw new System.Exception("1 Listedeki son eleman olmamasına rağmen kapatma isteği geldi " + öndeki.Ekran.Text);
 
-                Control[] kydt = öndeki.Ekran.Controls.Find("Kaydet", true);
-                if (kydt == null || kydt.Length != 1 || !kydt[0].Enabled) return;
+                foreach (Control ÜstEleman in öndeki.Ekran.Controls)
+                {
+                    _Bul_(ÜstEleman);
+                }
+            }
 
-                DialogResult Dr = MessageBox.Show("Değişiklikleri kaydetmeden çıkmak istediğinize emin misiniz?", öndeki.Ekran.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                e.Cancel = Dr == DialogResult.No;
+            bool _Bul_(Control Eleman)
+            {
+                if (Eleman.Name.StartsWith("ÖnYüzler_Kaydet") && Eleman.Enabled)
+                {
+                    DialogResult Dr = MessageBox.Show("Değişiklikleri kaydetmeden çıkmak istediğinize emin misiniz?", öndeki.Ekran.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                    e.Cancel = Dr == DialogResult.No;
+                    return true;
+                }
+
+                foreach (Control AltEleman in Eleman.Controls)
+                {
+                    if (_Bul_(AltEleman)) return true;
+                }
+
+                return false;
             }
         }
         private static void Ekran_FormClosed(object sender, FormClosedEventArgs e)

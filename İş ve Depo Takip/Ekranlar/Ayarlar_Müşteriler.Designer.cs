@@ -42,7 +42,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.Eposta_Kime = new System.Windows.Forms.TextBox();
-            this.Kaydet = new System.Windows.Forms.Button();
+            this.ÖnYüzler_Kaydet = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.AramaÇubuğu = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -194,20 +194,20 @@
             this.İpUcu.SetToolTip(this.Eposta_Kime, "noktalı virgül ile ayrılmış birden fazla adres girilebilir");
             this.Eposta_Kime.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
-            // Kaydet
+            // ÖnYüzler_Kaydet
             // 
-            this.Kaydet.AutoSize = true;
-            this.Kaydet.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Kaydet.Enabled = false;
-            this.Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
-            this.Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Kaydet.Location = new System.Drawing.Point(0, 432);
-            this.Kaydet.Name = "Kaydet";
-            this.Kaydet.Size = new System.Drawing.Size(399, 52);
-            this.Kaydet.TabIndex = 4;
-            this.Kaydet.Text = "Kaydet";
-            this.Kaydet.UseVisualStyleBackColor = true;
-            this.Kaydet.Click += new System.EventHandler(this.Kaydet_Click);
+            this.ÖnYüzler_Kaydet.AutoSize = true;
+            this.ÖnYüzler_Kaydet.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ÖnYüzler_Kaydet.Enabled = false;
+            this.ÖnYüzler_Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
+            this.ÖnYüzler_Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.ÖnYüzler_Kaydet.Location = new System.Drawing.Point(0, 432);
+            this.ÖnYüzler_Kaydet.Name = "ÖnYüzler_Kaydet";
+            this.ÖnYüzler_Kaydet.Size = new System.Drawing.Size(399, 52);
+            this.ÖnYüzler_Kaydet.TabIndex = 4;
+            this.ÖnYüzler_Kaydet.Text = "Kaydet";
+            this.ÖnYüzler_Kaydet.UseVisualStyleBackColor = true;
+            this.ÖnYüzler_Kaydet.Click += new System.EventHandler(this.ÖnYüzler_Kaydet_Click);
             // 
             // splitContainer1
             // 
@@ -227,7 +227,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
             this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
-            this.splitContainer1.Panel2.Controls.Add(this.Kaydet);
+            this.splitContainer1.Panel2.Controls.Add(this.ÖnYüzler_Kaydet);
             this.splitContainer1.Panel2.Enabled = false;
             this.splitContainer1.Size = new System.Drawing.Size(831, 488);
             this.splitContainer1.SplitterDistance = 424;
@@ -309,7 +309,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox Eposta_Kime;
-        private System.Windows.Forms.Button Kaydet;
+        private System.Windows.Forms.Button ÖnYüzler_Kaydet;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox Notlar;

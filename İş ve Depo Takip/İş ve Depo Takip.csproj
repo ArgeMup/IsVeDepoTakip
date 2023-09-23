@@ -78,11 +78,11 @@
     <Compile Include="Ekranlar\Barkod_Okuma_Seçenekleri.Designer.cs">
       <DependentUpon>Barkod_Okuma_Seçenekleri.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ekranlar\Değişkenler_Ekranı.cs">
+    <Compile Include="Ekranlar\Ayarlar_Değişkenler.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ekranlar\Değişkenler_Ekranı.Designer.cs">
-      <DependentUpon>Değişkenler_Ekranı.cs</DependentUpon>
+    <Compile Include="Ekranlar\Ayarlar_Değişkenler.Designer.cs">
+      <DependentUpon>Ayarlar_Değişkenler.cs</DependentUpon>
     </Compile>
     <Compile Include="Ekranlar\Parola_Kontrol.cs">
       <SubType>Form</SubType>
@@ -126,23 +126,23 @@
     <Compile Include="Ekranlar\Takvim.Designer.cs">
       <DependentUpon>Takvim.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ekranlar\Malzemeler.cs">
+    <Compile Include="Ekranlar\Ayarlar_Malzemeler.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ekranlar\Malzemeler.Designer.cs">
-      <DependentUpon>Malzemeler.cs</DependentUpon>
+    <Compile Include="Ekranlar\Ayarlar_Malzemeler.Designer.cs">
+      <DependentUpon>Ayarlar_Malzemeler.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ekranlar\Bütçe.cs">
+    <Compile Include="Ekranlar\Ayarlar_Bütçe.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ekranlar\Bütçe.Designer.cs">
-      <DependentUpon>Bütçe.cs</DependentUpon>
+    <Compile Include="Ekranlar\Ayarlar_Bütçe.Designer.cs">
+      <DependentUpon>Ayarlar_Bütçe.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ekranlar\Etiketleme.cs">
+    <Compile Include="Ekranlar\Ayarlar_Etiketleme.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ekranlar\Etiketleme.Designer.cs">
-      <DependentUpon>Etiketleme.cs</DependentUpon>
+    <Compile Include="Ekranlar\Ayarlar_Etiketleme.Designer.cs">
+      <DependentUpon>Ayarlar_Etiketleme.cs</DependentUpon>
     </Compile>
     <Compile Include="Ekranlar\Yeni_İş_Girişi_Epostalar.cs">
       <SubType>Form</SubType>
@@ -156,23 +156,23 @@
     <Compile Include="Ekranlar\Yeni_İş_Girişi_DosyaEkleri.Designer.cs">
       <DependentUpon>Yeni_İş_Girişi_DosyaEkleri.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ekranlar\İş_Türleri.cs">
+    <Compile Include="Ekranlar\Ayarlar_İş_Türleri.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ekranlar\İş_Türleri.Designer.cs">
-      <DependentUpon>İş_Türleri.cs</DependentUpon>
+    <Compile Include="Ekranlar\Ayarlar_İş_Türleri.Designer.cs">
+      <DependentUpon>Ayarlar_İş_Türleri.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ekranlar\Yazdırma.cs">
+    <Compile Include="Ekranlar\Ayarlar_Yazdırma.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ekranlar\Yazdırma.Designer.cs">
-      <DependentUpon>Yazdırma.cs</DependentUpon>
+    <Compile Include="Ekranlar\Ayarlar_Yazdırma.Designer.cs">
+      <DependentUpon>Ayarlar_Yazdırma.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ekranlar\Ücretler.cs">
+    <Compile Include="Ekranlar\Ayarlar_Ücretler.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ekranlar\Ücretler.Designer.cs">
-      <DependentUpon>Ücretler.cs</DependentUpon>
+    <Compile Include="Ekranlar\Ayarlar_Ücretler.Designer.cs">
+      <DependentUpon>Ayarlar_Ücretler.cs</DependentUpon>
     </Compile>
     <Compile Include="Ekranlar\Tüm_İşler.cs">
       <SubType>Form</SubType>
@@ -180,11 +180,11 @@
     <Compile Include="Ekranlar\Tüm_İşler.Designer.cs">
       <DependentUpon>Tüm_İşler.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ekranlar\Müşteriler.cs">
+    <Compile Include="Ekranlar\Ayarlar_Müşteriler.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ekranlar\Müşteriler.Designer.cs">
-      <DependentUpon>Müşteriler.cs</DependentUpon>
+    <Compile Include="Ekranlar\Ayarlar_Müşteriler.Designer.cs">
+      <DependentUpon>Ayarlar_Müşteriler.cs</DependentUpon>
     </Compile>
     <Compile Include="HazirKod_Cdiyez\ArkaPlan.cs" />
     <Compile Include="HazirKod_Cdiyez\Depo.cs" />
@@ -226,8 +226,8 @@
     <EmbeddedResource Include="Ekranlar\Barkod_Okuma_Seçenekleri.resx">
       <DependentUpon>Barkod_Okuma_Seçenekleri.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ekranlar\Değişkenler_Ekranı.resx">
-      <DependentUpon>Değişkenler_Ekranı.cs</DependentUpon>
+    <EmbeddedResource Include="Ekranlar\Ayarlar_Değişkenler.resx">
+      <DependentUpon>Ayarlar_Değişkenler.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Parola_Kontrol.resx">
@@ -245,8 +245,8 @@
     <EmbeddedResource Include="Ekranlar\Açılış_Ekranı.resx">
       <DependentUpon>Açılış_Ekranı.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ekranlar\Etiketleme.resx">
-      <DependentUpon>Etiketleme.cs</DependentUpon>
+    <EmbeddedResource Include="Ekranlar\Ayarlar_Etiketleme.resx">
+      <DependentUpon>Ayarlar_Etiketleme.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Korumalı_Alan.resx">
       <DependentUpon>Korumalı_Alan.cs</DependentUpon>
@@ -254,11 +254,11 @@
     <EmbeddedResource Include="Ekranlar\Takvim.resx">
       <DependentUpon>Takvim.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ekranlar\Malzemeler.resx">
-      <DependentUpon>Malzemeler.cs</DependentUpon>
+    <EmbeddedResource Include="Ekranlar\Ayarlar_Malzemeler.resx">
+      <DependentUpon>Ayarlar_Malzemeler.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ekranlar\Bütçe.resx">
-      <DependentUpon>Bütçe.cs</DependentUpon>
+    <EmbeddedResource Include="Ekranlar\Ayarlar_Bütçe.resx">
+      <DependentUpon>Ayarlar_Bütçe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Yeni_İş_Girişi_Epostalar.resx">
       <DependentUpon>Yeni_İş_Girişi_Epostalar.cs</DependentUpon>
@@ -268,14 +268,14 @@
       <DependentUpon>Yeni_İş_Girişi_DosyaEkleri.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ekranlar\İş_Türleri.resx">
-      <DependentUpon>İş_Türleri.cs</DependentUpon>
+    <EmbeddedResource Include="Ekranlar\Ayarlar_İş_Türleri.resx">
+      <DependentUpon>Ayarlar_İş_Türleri.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ekranlar\Yazdırma.resx">
-      <DependentUpon>Yazdırma.cs</DependentUpon>
+    <EmbeddedResource Include="Ekranlar\Ayarlar_Yazdırma.resx">
+      <DependentUpon>Ayarlar_Yazdırma.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ekranlar\Ücretler.resx">
-      <DependentUpon>Ücretler.cs</DependentUpon>
+    <EmbeddedResource Include="Ekranlar\Ayarlar_Ücretler.resx">
+      <DependentUpon>Ayarlar_Ücretler.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Tüm_İşler.resx">
       <DependentUpon>Tüm_İşler.cs</DependentUpon>
@@ -285,8 +285,8 @@
       <DependentUpon>Yeni_İş_Girişi.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ekranlar\Müşteriler.resx">
-      <DependentUpon>Müşteriler.cs</DependentUpon>
+    <EmbeddedResource Include="Ekranlar\Ayarlar_Müşteriler.resx">
+      <DependentUpon>Ayarlar_Müşteriler.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

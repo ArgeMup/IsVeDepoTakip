@@ -113,7 +113,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             if (Ortak.ParolaGirilmesiGerekiyor) return;
 
-            string sn = Etiketleme.SeriNoyuBulmayaÇalış(Barkod).ToUpper();
+            string sn = Ayarlar_Etiketleme.SeriNoyuBulmayaÇalış(Barkod).ToUpper();
             Banka.Talep_Bul_Detaylar_ detaylar = Banka.Talep_Bul(sn);
             if (detaylar == null) return;
 

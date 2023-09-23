@@ -268,7 +268,7 @@ namespace İş_ve_Depo_Takip
                         DialogResult Dr = MessageBox.Show("Bir hata farkedildi." + Environment.NewLine + Environment.NewLine +
                             iş[0] + " : " + snç + Environment.NewLine + Environment.NewLine +
                             "Ücretler sayfasını açmak ister misiniz?", "Ücret Hesaplama", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                        if (Dr == DialogResult.Yes) Ekranlar.ÖnYüzler.Ekle(new Ekranlar.Ücretler());
+                        if (Dr == DialogResult.Yes) Ekranlar.ÖnYüzler.Ekle(new Ekranlar.Ayarlar_Ücretler());
 
                         return null;
                     }

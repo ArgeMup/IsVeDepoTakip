@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ayarlar_Eposta));
-            this.Kaydet = new System.Windows.Forms.Button();
+            this.ÖnYüzler_Kaydet = new System.Windows.Forms.Button();
             this.groupBox_Mesaj = new System.Windows.Forms.GroupBox();
             this.Mesaj_İçerik = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -54,6 +54,7 @@
             this.Imap_Sunucu_Adres = new System.Windows.Forms.TextBox();
             this.Imap_Sunucu_ErişimNoktası = new System.Windows.Forms.TextBox();
             this.BeyazListe = new System.Windows.Forms.TextBox();
+            this.FirmaİçiKişiler = new System.Windows.Forms.TextBox();
             this.groupBox_Imap = new System.Windows.Forms.GroupBox();
             this.Imap_AlmayıDene = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -62,7 +63,6 @@
             this.groupBox_BeyazListe = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox_Kişiler = new System.Windows.Forms.GroupBox();
-            this.FirmaİçiKişiler = new System.Windows.Forms.TextBox();
             this.groupBox_Mesaj.SuspendLayout();
             this.groupBox_Smtp.SuspendLayout();
             this.groupBox_Gönderici.SuspendLayout();
@@ -72,21 +72,21 @@
             this.groupBox_Kişiler.SuspendLayout();
             this.SuspendLayout();
             // 
-            // Kaydet
+            // ÖnYüzler_Kaydet
             // 
-            this.Kaydet.AutoSize = true;
-            this.Kaydet.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Kaydet.Enabled = false;
-            this.Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
-            this.Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Kaydet.Location = new System.Drawing.Point(5, 493);
-            this.Kaydet.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Kaydet.Name = "Kaydet";
-            this.Kaydet.Size = new System.Drawing.Size(872, 55);
-            this.Kaydet.TabIndex = 9;
-            this.Kaydet.Text = "Kaydet";
-            this.Kaydet.UseVisualStyleBackColor = true;
-            this.Kaydet.Click += new System.EventHandler(this.Kaydet_Click);
+            this.ÖnYüzler_Kaydet.AutoSize = true;
+            this.ÖnYüzler_Kaydet.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ÖnYüzler_Kaydet.Enabled = false;
+            this.ÖnYüzler_Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
+            this.ÖnYüzler_Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ÖnYüzler_Kaydet.Location = new System.Drawing.Point(5, 493);
+            this.ÖnYüzler_Kaydet.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ÖnYüzler_Kaydet.Name = "ÖnYüzler_Kaydet";
+            this.ÖnYüzler_Kaydet.Size = new System.Drawing.Size(872, 55);
+            this.ÖnYüzler_Kaydet.TabIndex = 9;
+            this.ÖnYüzler_Kaydet.Text = "Kaydet";
+            this.ÖnYüzler_Kaydet.UseVisualStyleBackColor = true;
+            this.ÖnYüzler_Kaydet.Click += new System.EventHandler(this.ÖnYüzler_Kaydet_Click);
             // 
             // groupBox_Mesaj
             // 
@@ -374,6 +374,20 @@
             this.İpUcu.SetToolTip(this.BeyazListe, resources.GetString("BeyazListe.ToolTip"));
             this.BeyazListe.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
+            // FirmaİçiKişiler
+            // 
+            this.FirmaİçiKişiler.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FirmaİçiKişiler.Location = new System.Drawing.Point(10, 33);
+            this.FirmaİçiKişiler.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.FirmaİçiKişiler.Multiline = true;
+            this.FirmaİçiKişiler.Name = "FirmaİçiKişiler";
+            this.FirmaİçiKişiler.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.FirmaİçiKişiler.Size = new System.Drawing.Size(213, 231);
+            this.FirmaİçiKişiler.TabIndex = 8;
+            this.FirmaİçiKişiler.Text = "isim1@firmaadi.com;isim2@firmaadi.com";
+            this.İpUcu.SetToolTip(this.FirmaİçiKişiler, "HTML olarak mesaj içeriği\r\n\r\n%Müşteri% -> Müşteri adı");
+            this.FirmaİçiKişiler.TextChanged += new System.EventHandler(this.Ayar_Değişti);
+            // 
             // groupBox_Imap
             // 
             this.groupBox_Imap.Controls.Add(this.Imap_AlmayıDene);
@@ -472,20 +486,6 @@
             this.groupBox_Kişiler.TabStop = false;
             this.groupBox_Kişiler.Text = "Firma içi kişiler";
             // 
-            // FirmaİçiKişiler
-            // 
-            this.FirmaİçiKişiler.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FirmaİçiKişiler.Location = new System.Drawing.Point(10, 33);
-            this.FirmaİçiKişiler.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.FirmaİçiKişiler.Multiline = true;
-            this.FirmaİçiKişiler.Name = "FirmaİçiKişiler";
-            this.FirmaİçiKişiler.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.FirmaİçiKişiler.Size = new System.Drawing.Size(213, 231);
-            this.FirmaİçiKişiler.TabIndex = 8;
-            this.FirmaİçiKişiler.Text = "isim1@firmaadi.com;isim2@firmaadi.com";
-            this.İpUcu.SetToolTip(this.FirmaİçiKişiler, "HTML olarak mesaj içeriği\r\n\r\n%Müşteri% -> Müşteri adı");
-            this.FirmaİçiKişiler.TextChanged += new System.EventHandler(this.Ayar_Değişti);
-            // 
             // Ayarlar_Eposta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -494,7 +494,7 @@
             this.Controls.Add(this.groupBox_Kişiler);
             this.Controls.Add(this.groupBox_Mesaj);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.Kaydet);
+            this.Controls.Add(this.ÖnYüzler_Kaydet);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Ayarlar_Eposta";
@@ -521,7 +521,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button Kaydet;
+        private System.Windows.Forms.Button ÖnYüzler_Kaydet;
         private System.Windows.Forms.GroupBox groupBox_Mesaj;
         private System.Windows.Forms.TextBox Gönderici_Adres;
         private System.Windows.Forms.Label label3;

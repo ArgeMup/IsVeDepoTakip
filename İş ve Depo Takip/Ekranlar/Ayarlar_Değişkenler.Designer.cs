@@ -1,6 +1,6 @@
 ﻿namespace İş_ve_Depo_Takip.Ekranlar
 {
-    partial class Değişkenler_Ekranı
+    partial class Ayarlar_Değişkenler
     {
         /// <summary>
         /// Required designer variable.
@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Değişkenler_Ekranı));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ayarlar_Değişkenler));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.Kaydet = new System.Windows.Forms.Button();
+            this.ÖnYüzler_Kaydet = new System.Windows.Forms.Button();
             this.TabloİçeriğiArama = new System.Windows.Forms.TextBox();
             this.Tablo = new System.Windows.Forms.DataGridView();
             this.Tablo_Adı = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,18 +44,18 @@
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // Kaydet
+            // ÖnYüzler_Kaydet
             // 
-            this.Kaydet.AutoSize = true;
-            this.Kaydet.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Kaydet.Enabled = false;
-            this.Kaydet.Location = new System.Drawing.Point(0, 0);
-            this.Kaydet.Name = "Kaydet";
-            this.Kaydet.Size = new System.Drawing.Size(267, 46);
-            this.Kaydet.TabIndex = 18;
-            this.Kaydet.Text = "Kaydet";
-            this.Kaydet.UseVisualStyleBackColor = true;
-            this.Kaydet.Click += new System.EventHandler(this.Kaydet_Click);
+            this.ÖnYüzler_Kaydet.AutoSize = true;
+            this.ÖnYüzler_Kaydet.Dock = System.Windows.Forms.DockStyle.Left;
+            this.ÖnYüzler_Kaydet.Enabled = false;
+            this.ÖnYüzler_Kaydet.Location = new System.Drawing.Point(0, 0);
+            this.ÖnYüzler_Kaydet.Name = "ÖnYüzler_Kaydet";
+            this.ÖnYüzler_Kaydet.Size = new System.Drawing.Size(267, 46);
+            this.ÖnYüzler_Kaydet.TabIndex = 18;
+            this.ÖnYüzler_Kaydet.Text = "Kaydet";
+            this.ÖnYüzler_Kaydet.UseVisualStyleBackColor = true;
+            this.ÖnYüzler_Kaydet.Click += new System.EventHandler(this.ÖnYüzler_Kaydet_Click);
             // 
             // TabloİçeriğiArama
             // 
@@ -137,7 +137,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.TabloİçeriğiArama);
-            this.panel1.Controls.Add(this.Kaydet);
+            this.panel1.Controls.Add(this.ÖnYüzler_Kaydet);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(7, 7);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
@@ -157,7 +157,7 @@
             this.İpUcu_Genel.UseAnimation = false;
             this.İpUcu_Genel.UseFading = false;
             // 
-            // Değişkenler_Ekranı
+            // Ayarlar_Değişkenler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -167,7 +167,7 @@
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "Değişkenler_Ekranı";
+            this.Name = "Ayarlar_Değişkenler";
             this.Padding = new System.Windows.Forms.Padding(7);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Değişkenler";
@@ -181,7 +181,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button Kaydet;
+        private System.Windows.Forms.Button ÖnYüzler_Kaydet;
         private System.Windows.Forms.TextBox TabloİçeriğiArama;
         private System.Windows.Forms.DataGridView Tablo;
         private System.Windows.Forms.Panel panel1;

@@ -1,6 +1,6 @@
 ﻿namespace İş_ve_Depo_Takip.Ekranlar
 {
-    partial class İş_Türleri
+    partial class Ayarlar_İş_Türleri
     {
         /// <summary>
         /// Required designer variable.
@@ -38,7 +38,7 @@
             this.SağTuşMenü_Sil = new System.Windows.Forms.ToolStripMenuItem();
             this.Yeni = new System.Windows.Forms.TextBox();
             this.Ekle = new System.Windows.Forms.Button();
-            this.Kaydet = new System.Windows.Forms.Button();
+            this.ÖnYüzler_Kaydet = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.AramaÇubuğu = new System.Windows.Forms.TextBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -140,22 +140,22 @@
             this.Ekle.UseVisualStyleBackColor = true;
             this.Ekle.Click += new System.EventHandler(this.Ekle_Click);
             // 
-            // Kaydet
+            // ÖnYüzler_Kaydet
             // 
-            this.Kaydet.AutoSize = true;
-            this.Kaydet.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Kaydet.Enabled = false;
-            this.Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
-            this.Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Kaydet.Location = new System.Drawing.Point(0, 478);
-            this.Kaydet.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.Kaydet.Name = "Kaydet";
-            this.Kaydet.Size = new System.Drawing.Size(806, 45);
-            this.Kaydet.TabIndex = 4;
-            this.Kaydet.Text = "Kaydet";
-            this.İpUcu.SetToolTip(this.Kaydet, "Silinmek istenen malzemenin miktarı 0 yazılmalıdır");
-            this.Kaydet.UseVisualStyleBackColor = true;
-            this.Kaydet.Click += new System.EventHandler(this.Kaydet_Click);
+            this.ÖnYüzler_Kaydet.AutoSize = true;
+            this.ÖnYüzler_Kaydet.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ÖnYüzler_Kaydet.Enabled = false;
+            this.ÖnYüzler_Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
+            this.ÖnYüzler_Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.ÖnYüzler_Kaydet.Location = new System.Drawing.Point(0, 478);
+            this.ÖnYüzler_Kaydet.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.ÖnYüzler_Kaydet.Name = "ÖnYüzler_Kaydet";
+            this.ÖnYüzler_Kaydet.Size = new System.Drawing.Size(806, 45);
+            this.ÖnYüzler_Kaydet.TabIndex = 4;
+            this.ÖnYüzler_Kaydet.Text = "Kaydet";
+            this.İpUcu.SetToolTip(this.ÖnYüzler_Kaydet, "Silinmek istenen malzemenin miktarı 0 yazılmalıdır");
+            this.ÖnYüzler_Kaydet.UseVisualStyleBackColor = true;
+            this.ÖnYüzler_Kaydet.Click += new System.EventHandler(this.ÖnYüzler_Kaydet_Click);
             // 
             // splitContainer1
             // 
@@ -176,7 +176,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Panel2.Controls.Add(this.Kaydet);
+            this.splitContainer1.Panel2.Controls.Add(this.ÖnYüzler_Kaydet);
             this.splitContainer1.Panel2.Enabled = false;
             this.splitContainer1.Size = new System.Drawing.Size(1126, 523);
             this.splitContainer1.SplitterDistance = 317;
@@ -415,7 +415,7 @@
             this.İpUcu.UseAnimation = false;
             this.İpUcu.UseFading = false;
             // 
-            // İş_Türleri
+            // Ayarlar_İş_Türleri
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -423,7 +423,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.Name = "İş_Türleri";
+            this.Name = "Ayarlar_İş_Türleri";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "İş Türleri";
@@ -458,7 +458,7 @@
         private System.Windows.Forms.ListBox Liste;
         private System.Windows.Forms.TextBox Yeni;
         private System.Windows.Forms.Button Ekle;
-        private System.Windows.Forms.Button Kaydet;
+        private System.Windows.Forms.Button ÖnYüzler_Kaydet;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox Notlar;

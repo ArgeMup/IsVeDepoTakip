@@ -1,6 +1,6 @@
 ﻿namespace İş_ve_Depo_Takip.Ekranlar
 {
-    partial class Yazdırma
+    partial class Ayarlar_Yazdırma
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Yazdırma));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ayarlar_Yazdırma));
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.Önizleme = new System.Windows.Forms.PrintPreviewControl();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
@@ -45,7 +45,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.KarakterBüyüklüğü_Diğerleri = new System.Windows.Forms.NumericUpDown();
             this.KarakterBüyüklüğü_Müşteri = new System.Windows.Forms.NumericUpDown();
-            this.Kaydet = new System.Windows.Forms.Button();
+            this.ÖnYüzler_Kaydet = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -251,16 +251,16 @@
             0,
             0});
             // 
-            // Kaydet
+            // ÖnYüzler_Kaydet
             // 
-            this.Kaydet.Enabled = false;
-            this.Kaydet.Location = new System.Drawing.Point(17, 375);
-            this.Kaydet.Name = "Kaydet";
-            this.Kaydet.Size = new System.Drawing.Size(334, 44);
-            this.Kaydet.TabIndex = 19;
-            this.Kaydet.Text = "Kaydet";
-            this.Kaydet.UseVisualStyleBackColor = true;
-            this.Kaydet.Click += new System.EventHandler(this.Kaydet_Click);
+            this.ÖnYüzler_Kaydet.Enabled = false;
+            this.ÖnYüzler_Kaydet.Location = new System.Drawing.Point(17, 375);
+            this.ÖnYüzler_Kaydet.Name = "ÖnYüzler_Kaydet";
+            this.ÖnYüzler_Kaydet.Size = new System.Drawing.Size(334, 44);
+            this.ÖnYüzler_Kaydet.TabIndex = 19;
+            this.ÖnYüzler_Kaydet.Text = "Kaydet";
+            this.ÖnYüzler_Kaydet.UseVisualStyleBackColor = true;
+            this.ÖnYüzler_Kaydet.Click += new System.EventHandler(this.ÖnYüzler_Kaydet_Click);
             // 
             // groupBox1
             // 
@@ -371,7 +371,7 @@
             this.DosyayaYazdır.Text = "Dosyaya Yazdır";
             this.DosyayaYazdır.UseVisualStyleBackColor = true;
             // 
-            // Yazdırma
+            // Ayarlar_Yazdırma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -379,7 +379,7 @@
             this.Controls.Add(this.DosyayaYazdır);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.Kaydet);
+            this.Controls.Add(this.ÖnYüzler_Kaydet);
             this.Controls.Add(this.KarakterKümeleri);
             this.Controls.Add(this.KenarBoşluğu);
             this.Controls.Add(this.label3);
@@ -389,7 +389,7 @@
             this.Controls.Add(this.Önizleme);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "Yazdırma";
+            this.Name = "Ayarlar_Yazdırma";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Yazdırma";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -425,7 +425,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.NumericUpDown KarakterBüyüklüğü_Diğerleri;
         private System.Windows.Forms.NumericUpDown KarakterBüyüklüğü_Müşteri;
-        private System.Windows.Forms.Button Kaydet;
+        private System.Windows.Forms.Button ÖnYüzler_Kaydet;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label5;

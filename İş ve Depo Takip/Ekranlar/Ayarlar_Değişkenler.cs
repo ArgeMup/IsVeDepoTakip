@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
-    public partial class Değişkenler_Ekranı : Form
+    public partial class Ayarlar_Değişkenler : Form
     {
         #region Yasaklı kelimeler ile uygunluk kontrolü
         List<string> YasakKelimeler_Ad = new List<string>();
@@ -51,7 +51,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         #endregion
 
-        public Değişkenler_Ekranı()
+        public Ayarlar_Değişkenler()
         {
             InitializeComponent();
 
@@ -83,7 +83,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (Tablo.Rows.Count > 0) Tablo_CellValueChanged(null, new DataGridViewCellEventArgs(Tablo_İçeriği.Index, 0));
 
             Tablo.ClearSelection();
-            Kaydet.Enabled = false;
+            ÖnYüzler_Kaydet.Enabled = false;
             Tablo.Enabled = true;
         }
         private void Değişkenler_Ekranı_FormClosed(object sender, FormClosedEventArgs e)
@@ -148,11 +148,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
             }
 
-            Kaydet.Enabled = true;
+            ÖnYüzler_Kaydet.Enabled = true;
             Tablo.Tag = null;
         }
 
-        private void Kaydet_Click(object sender, EventArgs e)
+        private void ÖnYüzler_Kaydet_Click(object sender, EventArgs e)
         {
             IDepo_Eleman Ayarlar = Banka.Ayarlar_Genel("Değişkenler", true);
             Ayarlar.Sil(null, false, true);
@@ -168,8 +168,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Ayarlar.Yaz(adı, içeriği);
             }
 
-            Banka.Değişiklikleri_Kaydet(Kaydet);
-            Kaydet.Enabled = false;
+            Banka.Değişiklikleri_Kaydet(ÖnYüzler_Kaydet);
+            ÖnYüzler_Kaydet.Enabled = false;
             Değişkenler.Tümü = null;
         }
 

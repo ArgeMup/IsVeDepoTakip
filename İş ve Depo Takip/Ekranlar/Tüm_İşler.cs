@@ -591,7 +591,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     "Ücretler sayfasını açmak ister misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 if (Dr == DialogResult.No) return;
 
-                Ekranlar.ÖnYüzler.Ekle(new Ücretler());
+                Ekranlar.ÖnYüzler.Ekle(new Ayarlar_Ücretler());
             }
         }
         private void İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt_CheckedChanged(object sender, EventArgs e)
@@ -735,7 +735,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     "Ücretler sayfasını açmak ister misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 if (Dr == DialogResult.No) return;
 
-                Ekranlar.ÖnYüzler.Ekle(new Ücretler());
+                Ekranlar.ÖnYüzler.Ekle(new Ayarlar_Ücretler());
                 return;
             }
 
@@ -1011,7 +1011,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             string dosyayolu = Ortak.Klasör_Gecici + Path.GetRandomFileName() + ".pdf";
 
-            Yazdırma y = new Yazdırma();
+            Ayarlar_Yazdırma y = new Ayarlar_Yazdırma();
             y.İşler_Yazdır(depo, dosyayolu);
             y.Dispose();
 
@@ -1087,7 +1087,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             string gecici_klasör = Ortak.Klasör_Gecici + Path.GetRandomFileName() + "\\";
             Directory.CreateDirectory(gecici_klasör);
 
-            Yazdırma y = new Yazdırma();
+            Ayarlar_Yazdırma y = new Ayarlar_Yazdırma();
 
             if (İşTakip_Eposta_ÜcretiHesaplanan.Checked)
             {

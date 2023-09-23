@@ -11,11 +11,11 @@ using ArgeMup.HazirKod.Ekİşlemler;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
-    public partial class Yazdırma : Form
+    public partial class Ayarlar_Yazdırma : Form
     {
         IDepo_Eleman Ayarlar = null, Ayarlar_Bilgisayar = null;
 
-        public Yazdırma(bool ÖnyüzüGöster = false)
+        public Ayarlar_Yazdırma(bool ÖnyüzüGöster = false)
         {
             InitializeComponent();
 
@@ -79,10 +79,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             else Hide();
 
-            Kaydet.Enabled = false;
+            ÖnYüzler_Kaydet.Enabled = false;
         }
 
-        private void Kaydet_Click(object sender, EventArgs e)
+        private void ÖnYüzler_Kaydet_Click(object sender, EventArgs e)
         {
             Ayarlar_Bilgisayar.Yaz("Yazıcı", Yazcılar.Text);
             Ayarlar_Bilgisayar.Yaz("Yazıcı", (double)KenarBoşluğu.Value, 1);
@@ -94,12 +94,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar.Yaz("Firma Logosu", (double)FirmaLogo_Genişlik.Value, 0);
             Ayarlar.Yaz("Firma Logosu", (double)FirmaLogo_Yükseklik.Value, 1);
 
-            Banka.Değişiklikleri_Kaydet(Kaydet);
-            Kaydet.Enabled = false;
+            Banka.Değişiklikleri_Kaydet(ÖnYüzler_Kaydet);
+            ÖnYüzler_Kaydet.Enabled = false;
         }
         private void Ayar_Değişti(object sender, EventArgs e)
         {
-            Kaydet.Enabled = true;
+            ÖnYüzler_Kaydet.Enabled = true;
 
             try
             {

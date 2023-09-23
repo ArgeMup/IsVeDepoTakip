@@ -48,7 +48,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             HttpSunucu_ErişimNoktası.Value = Ayarlar_Bilgisayar.Oku_TamSayı("Http Sunucu");
             HttpSunucu_ErişimNoktası_ValueChanged(null, null);
 
-            Kaydet.Enabled = false;
+            ÖnYüzler_Kaydet.Enabled = false;
         }
 
         private void HttpSunucu_ErişimNoktası_ValueChanged(object sender, EventArgs e)
@@ -78,9 +78,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void Ayar_Değişti(object sender, EventArgs e)
         {
-            Kaydet.Enabled = true;
+            ÖnYüzler_Kaydet.Enabled = true;
         }
-        private void Kaydet_Click(object sender, EventArgs e)
+        private void ÖnYüzler_Kaydet_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Klasör_Yedekleme_1.Text)) Klasör_Yedekleme_1.Text = null;
             else
@@ -235,13 +235,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Ayarlar_Bilgisayar.Yaz("Http Sunucu", (int)HttpSunucu_ErişimNoktası.Value);
 
-            Banka.Değişiklikleri_Kaydet(Kaydet);
+            Banka.Değişiklikleri_Kaydet(ÖnYüzler_Kaydet);
 
             Ortak.Kullanıcı_Klasör_Yedek = Ayarlar_Bilgisayar.Bul("Klasör/Yedek", true).İçeriği;
             Ortak.Kullanıcı_Klasör_Pdf = Klasör_Pdf.Text;
             Ortak.Kullanıcı_KüçültüldüğündeParolaSor = KüçültüldüğündeParolaSor.Checked;
             Ortak.Kullanıcı_KüçültüldüğündeParolaSor_sn = (int)KüçültüldüğündeParolaSor_sn.Value;
-            Kaydet.Enabled = false;
+            ÖnYüzler_Kaydet.Enabled = false;
         }
     }
 }

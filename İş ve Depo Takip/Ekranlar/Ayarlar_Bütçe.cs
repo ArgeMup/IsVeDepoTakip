@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
-    public partial class Bütçe : Form
+    public partial class Ayarlar_Bütçe : Form
     {
         struct Bütçe_Gelir_Gider_
         {
@@ -18,7 +18,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         };
         Bütçe_Gelir_Gider_[] _1_Dizi = null;
 
-        public Bütçe()
+        public Ayarlar_Bütçe()
         {
             InitializeComponent();
 
@@ -521,7 +521,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             if (e.RowIndex < 0) return;
 
-            if (e.ColumnIndex >= 1 && e.ColumnIndex <= 3) _2_Kaydet.Enabled = true;
+            if (e.ColumnIndex >= 1 && e.ColumnIndex <= 3) ÖnYüzler_Kaydet_2_Kaydet.Enabled = true;
 
             if (e.ColumnIndex == 0 || e.ColumnIndex == 2 || e.ColumnIndex == 3) _2_Hesapla(null, null);
         }
@@ -598,8 +598,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Ayarlar_GenelAnlamda.Yaz(i.ToString(), (string)_2_Tablo[_2_Tablo_Gider.Index, i].Value, 2);
             }
 
-            Banka.Değişiklikleri_Kaydet(_2_Kaydet);
-            _2_Kaydet.Enabled = false;
+            Banka.Değişiklikleri_Kaydet(ÖnYüzler_Kaydet_2_Kaydet);
+            ÖnYüzler_Kaydet_2_Kaydet.Enabled = false;
         }
         #endregion
         
@@ -630,7 +630,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             string dosyayolu = Ortak.Klasör_Gecici + "Ödemeler_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
 
-            Yazdırma y = new Yazdırma();
+            Ayarlar_Yazdırma y = new Ayarlar_Yazdırma();
             y.Ödemeler_Yazdır(depo, dosyayolu, (int)_3_Görüntüle_Adet.Value, _3_Yazdırma_NotlarDahil.Checked);
             y.Dispose();
 

@@ -7,9 +7,9 @@ using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
-    public partial class Malzemeler : Form
+    public partial class Ayarlar_Malzemeler : Form
     {
-        public Malzemeler()
+        public Ayarlar_Malzemeler()
         {
             InitializeComponent();
 
@@ -45,7 +45,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             splitContainer1.Panel1.Enabled = true;
             splitContainer1.Panel2.Enabled = true;
-            Kaydet.Enabled = false;
+            ÖnYüzler_Kaydet.Enabled = false;
             Liste.Focus();
         }
         private void Yeni_TextChanged(object sender, System.EventArgs e)
@@ -132,9 +132,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void Ayar_Değişti(object sender, EventArgs e)
         {
             splitContainer1.Panel1.Enabled = false;
-            Kaydet.Enabled = true;
+            ÖnYüzler_Kaydet.Enabled = true;
         }
-        private void Kaydet_Click(object sender, EventArgs e)
+        private void ÖnYüzler_Kaydet_Click(object sender, EventArgs e)
         {
             string mevcut = Miktarı.Text;
             if (!Ortak.YazıyıSayıyaDönüştür(ref mevcut, "Mevcut kutucuğu")) return;
@@ -150,7 +150,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             Banka.Malzeme_DetaylarıKaydet(Liste.Text, mevcut, Birimi.Text, uyarımiktarı, DetaylıKullanım.Checked, Notlar.Text.Trim());
-            Banka.Değişiklikleri_Kaydet(Kaydet);
+            Banka.Değişiklikleri_Kaydet(ÖnYüzler_Kaydet);
 
             splitContainer1.Panel1.Enabled = true;
             Liste_SelectedValueChanged(null, null);

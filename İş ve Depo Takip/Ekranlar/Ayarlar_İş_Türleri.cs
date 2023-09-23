@@ -4,9 +4,9 @@ using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
-    public partial class İş_Türleri : Form
+    public partial class Ayarlar_İş_Türleri : Form
     {
-        public İş_Türleri()
+        public Ayarlar_İş_Türleri()
         {
             InitializeComponent();
 
@@ -58,7 +58,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             splitContainer1.Panel1.Enabled = true;
             splitContainer1.Panel2.Enabled = true;
-            Kaydet.Enabled = false;
+            ÖnYüzler_Kaydet.Enabled = false;
         }
         private void Yeni_TextChanged(object sender, System.EventArgs e)
         {
@@ -135,9 +135,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void Ayar_Değişti(object sender, EventArgs e)
         {
             splitContainer1.Panel1.Enabled = false;
-            Kaydet.Enabled = true;
+            ÖnYüzler_Kaydet.Enabled = true;
         }     
-        private void Kaydet_Click(object sender, EventArgs e)
+        private void ÖnYüzler_Kaydet_Click(object sender, EventArgs e)
         {
             List<string> Malzemeler = new List<string>();
             List<string> Miktarlar = new List<string>();
@@ -171,7 +171,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             Banka.İşTürü_Malzemeler_Kaydet(Liste.Text, Malzemeler, Miktarlar, MüşteriyeGösterilecekOlanAdı.Text.Trim(), Notlar.Text.Trim());
-            Banka.Değişiklikleri_Kaydet(Kaydet);
+            Banka.Değişiklikleri_Kaydet(ÖnYüzler_Kaydet);
 
             splitContainer1.Panel1.Enabled = true;
             Liste_SelectedValueChanged(null, null);

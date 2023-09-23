@@ -1,6 +1,6 @@
 ﻿namespace İş_ve_Depo_Takip.Ekranlar
 {
-    partial class Etiketleme
+    partial class Ayarlar_Etiketleme
     {
         /// <summary>
         /// Required designer variable.
@@ -40,7 +40,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.YeniİşGirişi_Barkod_OkuyucuSeriPort = new System.Windows.Forms.ComboBox();
-            this.Kaydet = new System.Windows.Forms.Button();
+            this.ÖnYüzler_Kaydet = new System.Windows.Forms.Button();
             this.YeniİşGirişi_BarkodAyarları = new System.Windows.Forms.Button();
             this.YeniİşGirişi_EtiketAyarları = new System.Windows.Forms.Button();
             this.SağTuşMenü_Barkodİçeriği.SuspendLayout();
@@ -142,7 +142,7 @@
             // 
             this.groupBox2.Controls.Add(this.YeniİşGirişi_Barkod_İçeriği);
             this.groupBox2.Controls.Add(this.YeniİşGirişi_Barkod_OkuyucuSeriPort);
-            this.groupBox2.Controls.Add(this.Kaydet);
+            this.groupBox2.Controls.Add(this.ÖnYüzler_Kaydet);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(10, 33);
             this.groupBox2.Name = "groupBox2";
@@ -165,17 +165,17 @@
             this.YeniİşGirişi_Barkod_OkuyucuSeriPort.TabIndex = 5;
             this.YeniİşGirişi_Barkod_OkuyucuSeriPort.SelectedIndexChanged += new System.EventHandler(this.YeniİşGirişi_Barkod_AyarDeğişti);
             // 
-            // Kaydet
+            // ÖnYüzler_Kaydet
             // 
-            this.Kaydet.AutoSize = true;
-            this.Kaydet.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Kaydet.Location = new System.Drawing.Point(367, 33);
-            this.Kaydet.Name = "Kaydet";
-            this.Kaydet.Size = new System.Drawing.Size(99, 143);
-            this.Kaydet.TabIndex = 3;
-            this.Kaydet.Text = "Kaydet";
-            this.Kaydet.UseVisualStyleBackColor = true;
-            this.Kaydet.Click += new System.EventHandler(this.YeniİşGirişi_Barkod_İçeriğiKaydet_Click);
+            this.ÖnYüzler_Kaydet.AutoSize = true;
+            this.ÖnYüzler_Kaydet.Dock = System.Windows.Forms.DockStyle.Right;
+            this.ÖnYüzler_Kaydet.Location = new System.Drawing.Point(367, 33);
+            this.ÖnYüzler_Kaydet.Name = "ÖnYüzler_Kaydet";
+            this.ÖnYüzler_Kaydet.Size = new System.Drawing.Size(99, 143);
+            this.ÖnYüzler_Kaydet.TabIndex = 3;
+            this.ÖnYüzler_Kaydet.Text = "Kaydet";
+            this.ÖnYüzler_Kaydet.UseVisualStyleBackColor = true;
+            this.ÖnYüzler_Kaydet.Click += new System.EventHandler(this.ÖnYüzler_Kaydet_YeniİşGirişi_Barkod_İçeriği_Click);
             // 
             // YeniİşGirişi_BarkodAyarları
             // 
@@ -201,7 +201,7 @@
             this.YeniİşGirişi_EtiketAyarları.UseVisualStyleBackColor = true;
             this.YeniİşGirişi_EtiketAyarları.Click += new System.EventHandler(this.YeniİşGirişi_EtiketAyarları_Click);
             // 
-            // Etiketleme
+            // Ayarlar_Etiketleme
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -211,7 +211,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.MaximizeBox = false;
-            this.Name = "Etiketleme";
+            this.Name = "Ayarlar_Etiketleme";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Etiketleme";
             this.SağTuşMenü_Barkodİçeriği.ResumeLayout(false);
@@ -234,7 +234,7 @@
         private System.Windows.Forms.ToolStripMenuItem SağTuşMenü_Barkodİçeriği_HastaAdı;
         private System.Windows.Forms.ToolStripMenuItem SağTuşMenü_Barkodİçeriği_SeriNo;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button Kaydet;
+        private System.Windows.Forms.Button ÖnYüzler_Kaydet;
         private System.Windows.Forms.ToolStripMenuItem SağTuşMenü_Barkodİçeriği_BilgisayarınYerelAdresi;
         private System.Windows.Forms.ToolStripMenuItem SağTuşMenü_Barkodİçeriği_HttpSunucuErişimNoktası;
         private System.Windows.Forms.ComboBox YeniİşGirişi_Barkod_OkuyucuSeriPort;

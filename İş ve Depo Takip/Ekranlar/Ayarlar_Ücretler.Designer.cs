@@ -1,6 +1,6 @@
 ﻿namespace İş_ve_Depo_Takip.Ekranlar
 {
-    partial class Ücretler
+    partial class Ayarlar_Ücretler
     {
         /// <summary>
         /// Required designer variable.
@@ -54,7 +54,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.Müşteriİçin_KDV = new System.Windows.Forms.CheckBox();
             this.AramaÇubuğu_İşTürü = new System.Windows.Forms.TextBox();
-            this.Kaydet = new System.Windows.Forms.Button();
+            this.ÖnYüzler_Kaydet = new System.Windows.Forms.Button();
             this.KDV = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -337,19 +337,19 @@
             this.AramaÇubuğu_İşTürü.TabIndex = 4;
             this.AramaÇubuğu_İşTürü.TextChanged += new System.EventHandler(this.AramaÇubuğu_İşTürü_TextChanged);
             // 
-            // Kaydet
+            // ÖnYüzler_Kaydet
             // 
-            this.Kaydet.AutoSize = true;
-            this.Kaydet.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Kaydet.Enabled = false;
-            this.Kaydet.Location = new System.Drawing.Point(925, 0);
-            this.Kaydet.Margin = new System.Windows.Forms.Padding(4);
-            this.Kaydet.Name = "Kaydet";
-            this.Kaydet.Size = new System.Drawing.Size(97, 36);
-            this.Kaydet.TabIndex = 2;
-            this.Kaydet.Text = "Kaydet";
-            this.Kaydet.UseVisualStyleBackColor = true;
-            this.Kaydet.Click += new System.EventHandler(this.Kaydet_Click);
+            this.ÖnYüzler_Kaydet.AutoSize = true;
+            this.ÖnYüzler_Kaydet.Dock = System.Windows.Forms.DockStyle.Right;
+            this.ÖnYüzler_Kaydet.Enabled = false;
+            this.ÖnYüzler_Kaydet.Location = new System.Drawing.Point(925, 0);
+            this.ÖnYüzler_Kaydet.Margin = new System.Windows.Forms.Padding(4);
+            this.ÖnYüzler_Kaydet.Name = "ÖnYüzler_Kaydet";
+            this.ÖnYüzler_Kaydet.Size = new System.Drawing.Size(97, 36);
+            this.ÖnYüzler_Kaydet.TabIndex = 2;
+            this.ÖnYüzler_Kaydet.Text = "Kaydet";
+            this.ÖnYüzler_Kaydet.UseVisualStyleBackColor = true;
+            this.ÖnYüzler_Kaydet.Click += new System.EventHandler(this.ÖnYüzler_Kaydet_Click);
             // 
             // KDV
             // 
@@ -376,7 +376,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.DeğişkenlerEkranı);
-            this.panel1.Controls.Add(this.Kaydet);
+            this.panel1.Controls.Add(this.ÖnYüzler_Kaydet);
             this.panel1.Controls.Add(this.Zam_Yap);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.Zam_Miktarı);
@@ -401,7 +401,7 @@
             this.DeğişkenlerEkranı.UseVisualStyleBackColor = true;
             this.DeğişkenlerEkranı.Click += new System.EventHandler(this.Değişkenler_Click);
             // 
-            // Ücretler
+            // Ayarlar_Ücretler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -410,7 +410,7 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "Ücretler";
+            this.Name = "Ayarlar_Ücretler";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ücretler";
@@ -439,7 +439,7 @@
         private System.Windows.Forms.DataGridView Tablo;
         private System.Windows.Forms.Button Zam_Yap;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Button Kaydet;
+        private System.Windows.Forms.Button ÖnYüzler_Kaydet;
         private System.Windows.Forms.TextBox AramaÇubuğu_Müşteri;
         private System.Windows.Forms.TextBox AramaÇubuğu_İşTürü;
         private System.Windows.Forms.TextBox KDV;

@@ -36,7 +36,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             splitContainer1.Panel1.Enabled = true;
             splitContainer1.Panel2.Enabled = true;
-            Kaydet.Enabled = false;
+            ÖnYüzler_Kaydet.Enabled = false;
         }
         private void Yeni_TextChanged(object sender, System.EventArgs e)
         {
@@ -124,9 +124,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void Ayar_Değişti(object sender, EventArgs e)
         {
             splitContainer1.Panel1.Enabled = false;
-            Kaydet.Enabled = true;
+            ÖnYüzler_Kaydet.Enabled = true;
         }
-        private void Kaydet_Click(object sender, EventArgs e)
+        private void ÖnYüzler_Kaydet_Click(object sender, EventArgs e)
         {
             Eposta_Kime.Text = Eposta_Kime.Text.Trim().ToLower();
             Eposta_Bilgi.Text = Eposta_Bilgi.Text.Trim().ToLower();
@@ -137,7 +137,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             m.Yaz("Bilgi", Eposta_Bilgi.Text);
             m.Yaz("Gizli", Eposta_Gizli.Text);
             Banka.Ayarlar_Müşteri(Liste.Text, "Notlar", true)[0] = Notlar.Text.Trim();
-            Banka.Değişiklikleri_Kaydet(Kaydet);
+            Banka.Değişiklikleri_Kaydet(ÖnYüzler_Kaydet);
 
             splitContainer1.Panel1.Enabled = true;
             Liste_SelectedValueChanged(null, null);

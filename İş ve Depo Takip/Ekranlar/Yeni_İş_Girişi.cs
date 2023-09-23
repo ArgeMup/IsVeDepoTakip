@@ -630,7 +630,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Değişiklik_Yapılıyor(null, null);
             }
         }
-        private void Kaydet_Click(object sender, EventArgs e)
+        private void ÖnYüzler_Kaydet_Click(object sender, EventArgs e)
         {
             if (!_Kaydet_()) return;
 
@@ -640,7 +640,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void KaydetVeEtiketiYazdır_Click(object sender, EventArgs e)
         {
             bool İşKaydıYapıldı = false;
-            if (Kaydet.Enabled)
+            if (ÖnYüzler_Kaydet.Enabled)
             {
                 if (!_Kaydet_()) return;
                 else Kaydet_TuşGörünürlüğü(false);
@@ -648,14 +648,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 İşKaydıYapıldı = true;
             }
 
-            string sonuç = Etiketleme.YeniİşGirişi_Etiket_Üret(Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, SeriNo ?? YeniKayıtİçinTutulanSeriNo, Banka.Yazdır_Tarih((string)Tablo[Tablo_Giriş_Tarihi.Index, Tablo.RowCount - 2].Value), (string)Tablo[Tablo_İş_Türü.Index, Tablo.RowCount - 2].Value, false);
+            string sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, SeriNo ?? YeniKayıtİçinTutulanSeriNo, Banka.Yazdır_Tarih((string)Tablo[Tablo_Giriş_Tarihi.Index, Tablo.RowCount - 2].Value), (string)Tablo[Tablo_İş_Türü.Index, Tablo.RowCount - 2].Value, false);
             if (sonuç.DoluMu()) MessageBox.Show((İşKaydıYapıldı ? "İş kaydı yapıldı fakat y" : "Y") + "azdırma aşamasında bir sorun ile karşılaşıldı" + Environment.NewLine + Environment.NewLine + sonuç, Text);
 
             Close();
         }
         void Kaydet_TuşGörünürlüğü(bool Görünsün)
         {
-            Kaydet.Enabled = Görünsün;
+            ÖnYüzler_Kaydet.Enabled = Görünsün;
             KaydetVeEtiketiYazdır.Visible = SeriNoTürü != Banka.TabloTürü.ÜcretHesaplama;
 
             if (Görünsün)
@@ -788,7 +788,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Banka.Talep_Ekle(Detaylar, SeriNoTürü == Banka.TabloTürü.ÜcretHesaplama);
             Banka.Ayarlar_Kullanıcı(Name, "Hastalar_AdVeSoyadıDüzelt").Yaz(null, Hastalar_AdVeSoyadıDüzelt.Checked);
-            Banka.Değişiklikleri_Kaydet(Kaydet);
+            Banka.Değişiklikleri_Kaydet(ÖnYüzler_Kaydet);
             Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(Detaylar.SeriNo);
 
             P_Yeni_İş_Girişi_Epostalar.KullanılanEpostayıİşle();
@@ -800,7 +800,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             if (SeriNo.DoluMu() && GüncellenenSeriNolar.Contains(SeriNo))
             {
-                Kaydet.Enabled = false;
+                ÖnYüzler_Kaydet.Enabled = false;
                 Close();
             }
         }

@@ -30,14 +30,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Mesaj_İçerik.Text = Ayarlar.Oku("Mesaj/İçerik", Mesaj_İçerik.Text);
             FirmaİçiKişiler.Text = Ayarlar.Oku("Firma İçi Kişiler");
             
-            Kaydet.Enabled = false;
+            ÖnYüzler_Kaydet.Enabled = false;
         }
         
         private void Ayar_Değişti(object sender, EventArgs e)
         {
-            Kaydet.Enabled = true;
+            ÖnYüzler_Kaydet.Enabled = true;
         }
-        private void Kaydet_Click(object sender, EventArgs e)
+        private void ÖnYüzler_Kaydet_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(Smtp_Sunucu_ErişimNoktası.Text, out _))
             {
@@ -68,25 +68,25 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar.Yaz("Mesaj/Konu", Mesaj_Konu.Text);
             Ayarlar.Yaz("Mesaj/İçerik", Mesaj_İçerik.Text);
             Ayarlar.Yaz("Firma İçi Kişiler", FirmaİçiKişiler.Text);
-            Banka.Değişiklikleri_Kaydet(Kaydet);
+            Banka.Değişiklikleri_Kaydet(ÖnYüzler_Kaydet);
 
             Eposta.Durdur();
 
-            Kaydet.Enabled = false;
+            ÖnYüzler_Kaydet.Enabled = false;
         }
         
         private void GöndermeyiDene_Click(object sender, EventArgs e)
         {
-            if (Kaydet.Enabled)
+            if (ÖnYüzler_Kaydet.Enabled)
             {
-                Kaydet_Click(null, null);
-                if (Kaydet.Enabled) return; //birşeyler ters gitti
+                ÖnYüzler_Kaydet_Click(null, null);
+                if (ÖnYüzler_Kaydet.Enabled) return; //birşeyler ters gitti
             }
 
             Eposta.Durdur();
             ArgeMup.HazirKod.Depo_ d = Banka.ÖrnekMüşteriTablosuOluştur();
             string dosyayolu = Ortak.Klasör_Gecici + Path.GetRandomFileName() + ".pdf";
-            Yazdırma y = new Yazdırma();
+            Ayarlar_Yazdırma y = new Ayarlar_Yazdırma();
             y.İşler_Yazdır(d, dosyayolu);
             y.Dispose();
 
@@ -99,10 +99,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Imap_AlmayıDene_Click(object sender, EventArgs e)
         {
-            if (Kaydet.Enabled)
+            if (ÖnYüzler_Kaydet.Enabled)
             {
-                Kaydet_Click(null, null);
-                if (Kaydet.Enabled) return; //birşeyler ters gitti
+                ÖnYüzler_Kaydet_Click(null, null);
+                if (ÖnYüzler_Kaydet.Enabled) return; //birşeyler ters gitti
             }
 
             Eposta.Durdur();

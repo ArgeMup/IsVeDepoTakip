@@ -7,10 +7,10 @@ using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
-    public partial class Ücretler : Form
+    public partial class Ayarlar_Ücretler : Form
     {
         bool MutlakaGüncelle = false;
-        public Ücretler()
+        public Ayarlar_Ücretler()
         {
             InitializeComponent();
 
@@ -48,7 +48,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             #endregion
 
             Müşterıler.Text = "Tüm müşteriler için ortak";
-            Kaydet.Enabled = false;
+            ÖnYüzler_Kaydet.Enabled = false;
             splitContainer1.Panel1.Enabled = true;
             Müşterıler.Focus();
         }
@@ -186,7 +186,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             splitContainer1.Panel1.Enabled = true;
             splitContainer1.Panel2.Enabled = true;
             Zam_Yap.Enabled = true;
-            Kaydet.Enabled = false;
+            ÖnYüzler_Kaydet.Enabled = false;
         }
         private void Müşteriİçin_KDV_CheckedChanged(object sender, EventArgs e)
         {
@@ -259,7 +259,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void Ayar_Değişti(object sender, EventArgs e)
         {
             splitContainer1.Panel1.Enabled = false;
-            Kaydet.Enabled = true;
+            ÖnYüzler_Kaydet.Enabled = true;
         }
 
         private void Zam_Yap_Click(object sender, EventArgs e)
@@ -311,11 +311,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void Değişkenler_Click(object sender, EventArgs e)
         {
-            Ekranlar.ÖnYüzler.Ekle(new Değişkenler_Ekranı());
+            Ekranlar.ÖnYüzler.Ekle(new Ayarlar_Değişkenler());
             MutlakaGüncelle = true;
         }
 
-        private void Kaydet_Click(object sender, EventArgs e)
+        private void ÖnYüzler_Kaydet_Click(object sender, EventArgs e)
         {
             string kdv = KDV.Text;
             if (!Ortak.YazıyıSayıyaDönüştür(ref kdv, "KDV kutucuğu", null, 0, 100))
@@ -374,9 +374,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Banka.Ücretler_TablodakileriKaydet(Tablo, null);
             }
             else Banka.Ücretler_TablodakileriKaydet(Tablo, Müşterıler.Text);
-            Banka.Değişiklikleri_Kaydet(Kaydet);
+            Banka.Değişiklikleri_Kaydet(ÖnYüzler_Kaydet);
 
-            Kaydet.Enabled = false;
+            ÖnYüzler_Kaydet.Enabled = false;
             splitContainer1.Panel1.Enabled = true;
         }   
     }

@@ -6,7 +6,7 @@ using ArgeMup.HazirKod.Ekİşlemler;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
-    public partial class Etiketleme : Form
+    public partial class Ayarlar_Etiketleme : Form
     {
         #region STATİC Yeni İş Girişi
         static string YeniİşGirişi_Barkodİçeriği_ = null;
@@ -194,7 +194,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         #endregion
 
-        public Etiketleme()
+        public Ayarlar_Etiketleme()
         {
             InitializeComponent();
 
@@ -202,7 +202,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             YeniİşGirişi_Barkod_OkuyucuSeriPort.Items.AddRange(System.IO.Ports.SerialPort.GetPortNames());
             YeniİşGirişi_Barkod_OkuyucuSeriPort.Text = Banka.Ayarlar_BilgisayarVeKullanıcı("Barkod Okuyucu", true).Oku(null, "Kapalı");
             İpUcu.SetToolTip(YeniİşGirişi_Barkod_OkuyucuSeriPort, "Barkod okuyucu seri port durumu :" + Environment.NewLine + BarkodSorgulama.SonMesaj);
-            Kaydet.Enabled = false;
+            ÖnYüzler_Kaydet.Enabled = false;
         }
 
         #region Yeni İş Gİrişi
@@ -215,19 +215,19 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void YeniİşGirişi_Barkod_AyarDeğişti(object sender, EventArgs e)
         {
-            Kaydet.Enabled = true;
+            ÖnYüzler_Kaydet.Enabled = true;
         }
-        private void YeniİşGirişi_Barkod_İçeriğiKaydet_Click(object sender, EventArgs e)
+        private void ÖnYüzler_Kaydet_YeniİşGirişi_Barkod_İçeriği_Click(object sender, EventArgs e)
         {
             Banka.Ayarlar_Genel("Etiketler", true).Yaz("Yeni İş Girişi", YeniİşGirişi_Barkod_İçeriği.Text);
             Banka.Ayarlar_BilgisayarVeKullanıcı("Barkod Okuyucu", true).Yaz(null, YeniİşGirişi_Barkod_OkuyucuSeriPort.Text);
-            Banka.Değişiklikleri_Kaydet(Kaydet);
+            Banka.Değişiklikleri_Kaydet(ÖnYüzler_Kaydet);
             
             YeniİşGirişi_Barkodİçeriği_ = null;
             BarkodSorgulama.Durdur();
             BarkodSorgulama.Başlat();
 
-            Kaydet.Enabled = false;
+            ÖnYüzler_Kaydet.Enabled = false;
         }
 
         private void YeniİşGirişi_BarkodAyarları_Click(object sender, System.EventArgs e)

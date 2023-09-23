@@ -32,10 +32,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Yeni_İş_Girişi));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Notlar = new System.Windows.Forms.TextBox();
             this.Tablo = new System.Windows.Forms.DataGridView();
             this.Tablo_İş_Türü = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,7 +43,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Tablo_Ücret = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tablo_Giriş_Tarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tablo_Çıkış_Tarihi = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Kaydet = new System.Windows.Forms.Button();
+            this.ÖnYüzler_Kaydet = new System.Windows.Forms.Button();
             this.Seçili_Satırı_Sil = new System.Windows.Forms.Button();
             this.İskonto = new System.Windows.Forms.TextBox();
             this.İpUcu_Ücretlendirme = new System.Windows.Forms.ToolTip(this.components);
@@ -168,14 +168,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.Tablo.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.Tablo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Tablo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Tablo_İş_Türü,
@@ -217,9 +217,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // Tablo_Adet
             // 
             this.Tablo_Adet.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.NullValue = null;
-            this.Tablo_Adet.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.NullValue = null;
+            this.Tablo_Adet.DefaultCellStyle = dataGridViewCellStyle10;
             this.Tablo_Adet.HeaderText = "Adet";
             this.Tablo_Adet.MinimumWidth = 6;
             this.Tablo_Adet.Name = "Tablo_Adet";
@@ -229,8 +229,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // Tablo_Ücret
             // 
             this.Tablo_Ücret.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Ücret.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Ücret.DefaultCellStyle = dataGridViewCellStyle11;
             this.Tablo_Ücret.FillWeight = 30F;
             this.Tablo_Ücret.HeaderText = "Ücret ₺";
             this.Tablo_Ücret.MinimumWidth = 6;
@@ -241,8 +241,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // Tablo_Giriş_Tarihi
             // 
             this.Tablo_Giriş_Tarihi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Giriş_Tarihi.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Giriş_Tarihi.DefaultCellStyle = dataGridViewCellStyle12;
             this.Tablo_Giriş_Tarihi.HeaderText = "Kabul Tarihi";
             this.Tablo_Giriş_Tarihi.MinimumWidth = 6;
             this.Tablo_Giriş_Tarihi.Name = "Tablo_Giriş_Tarihi";
@@ -258,23 +258,23 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Tablo_Çıkış_Tarihi.Name = "Tablo_Çıkış_Tarihi";
             this.Tablo_Çıkış_Tarihi.Width = 99;
             // 
-            // Kaydet
+            // ÖnYüzler_Kaydet
             // 
-            this.Kaydet.AutoSize = true;
-            this.Kaydet.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Kaydet.Enabled = false;
-            this.Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
-            this.Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Kaydet.Location = new System.Drawing.Point(553, 0);
-            this.Kaydet.Margin = new System.Windows.Forms.Padding(2);
-            this.Kaydet.Name = "Kaydet";
-            this.Kaydet.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.Kaydet.Size = new System.Drawing.Size(132, 33);
-            this.Kaydet.TabIndex = 11;
-            this.Kaydet.Text = "Kaydet";
-            this.Kaydet.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Kaydet.UseVisualStyleBackColor = true;
-            this.Kaydet.Click += new System.EventHandler(this.Kaydet_Click);
+            this.ÖnYüzler_Kaydet.AutoSize = true;
+            this.ÖnYüzler_Kaydet.Dock = System.Windows.Forms.DockStyle.Right;
+            this.ÖnYüzler_Kaydet.Enabled = false;
+            this.ÖnYüzler_Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
+            this.ÖnYüzler_Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.ÖnYüzler_Kaydet.Location = new System.Drawing.Point(553, 0);
+            this.ÖnYüzler_Kaydet.Margin = new System.Windows.Forms.Padding(2);
+            this.ÖnYüzler_Kaydet.Name = "ÖnYüzler_Kaydet";
+            this.ÖnYüzler_Kaydet.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.ÖnYüzler_Kaydet.Size = new System.Drawing.Size(132, 33);
+            this.ÖnYüzler_Kaydet.TabIndex = 11;
+            this.ÖnYüzler_Kaydet.Text = "Kaydet";
+            this.ÖnYüzler_Kaydet.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ÖnYüzler_Kaydet.UseVisualStyleBackColor = true;
+            this.ÖnYüzler_Kaydet.Click += new System.EventHandler(this.ÖnYüzler_Kaydet_Click);
             // 
             // Seçili_Satırı_Sil
             // 
@@ -1054,7 +1054,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             this.panel1.Controls.Add(this.Seçili_Satırı_Sil);
             this.panel1.Controls.Add(this.KaydetVeEtiketiYazdır);
-            this.panel1.Controls.Add(this.Kaydet);
+            this.panel1.Controls.Add(this.ÖnYüzler_Kaydet);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 296);
             this.panel1.Name = "panel1";
@@ -1243,7 +1243,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         #endregion
         private System.Windows.Forms.TextBox Notlar;
         private System.Windows.Forms.DataGridView Tablo;
-        private System.Windows.Forms.Button Kaydet;
+        private System.Windows.Forms.Button ÖnYüzler_Kaydet;
         private System.Windows.Forms.Button Seçili_Satırı_Sil;
         private System.Windows.Forms.TextBox İskonto;
         private System.Windows.Forms.ToolTip İpUcu_Ücretlendirme;
