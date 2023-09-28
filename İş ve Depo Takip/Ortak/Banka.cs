@@ -1987,7 +1987,6 @@ namespace İş_ve_Depo_Takip
                 seri_no_dalı.Sil(null);
             }
 
-            IDepo_Eleman müş = Ayarlar_Müşteri(Müşteri, "Sayfa/Teslim Edildi", true);
             Müşteri_KDV_İskonto(Müşteri, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde);
 
             yeni_tablo.Yaz("Ödeme", t);
@@ -1995,8 +1994,6 @@ namespace İş_ve_Depo_Takip
             {
                 yeni_tablo.Yaz("Ödeme/İlave Ödeme", İlaveÖdeme_Açıklama, 0);
                 yeni_tablo.Yaz("Ödeme/İlave Ödeme", İlaveÖdeme_Miktar, 1);
-
-                müş["İlave Ödeme"].İçeriği = new string[] { İlaveÖdeme_Açıklama, İlaveÖdeme_Miktar };
             }
 
             yeni_tablo.Yaz("Ödeme/Alt Toplam", Alt_Toplam);

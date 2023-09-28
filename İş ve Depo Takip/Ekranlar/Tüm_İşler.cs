@@ -301,15 +301,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (c != null) Seviye_Değişti(c, null);
 
             //İlave Ödeme Detayları
-            IDepo_Eleman müş = Banka.Ayarlar_Müşteri(İşTakip_Müşteriler.Text, "Sayfa/Teslim Edildi", true);
-            İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama.Text = müş["İlave Ödeme"][0];
-            İşTakip_TeslimEdildi_İlaveÖdeme_Miktar.Text = müş["İlave Ödeme"][1];
+            İşTakip_TeslimEdildi_İlaveÖdeme_Açıklama.Text = null;
+            İşTakip_TeslimEdildi_İlaveÖdeme_Miktar.Text = null;
             İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt.Checked = false;
-            İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Notlar.Text = müş["ÖdemeAl Notlar"][0];
-            
+            İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Notlar.Text = null;
+
             //Ödeme bekleyen sayfası
-            müş = Banka.Ayarlar_Müşteri(İşTakip_Müşteriler.Text, "Sayfa/Ödeme Bekleyen", true);
-            İşTakip_ÖdemeBekleyen_Notlar.Text = müş["Notlar", 0];
+            İşTakip_ÖdemeBekleyen_Notlar.Text = null;
 
             //eposta gönderimi için iş adetlerinin menüde gösterilemsi
             İşTakip_Eposta_DevamEden.Checked = false;
@@ -336,7 +334,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             İpUcu.SetToolTip(Müşteri_İskonto, "İskonto % " + İskonto_Yüzde.Yazıya());
 
             //Müşteri Notları
-            müş = Banka.Ayarlar_Müşteri(İşTakip_Müşteriler.Text, "Notlar");
+            IDepo_Eleman müş = Banka.Ayarlar_Müşteri(İşTakip_Müşteriler.Text, "Notlar");
             if (müş != null && müş[0].DoluMu(true))
             {
                 Müşteri_Notlar.Checked = true;
@@ -740,8 +738,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             if (string.IsNullOrWhiteSpace(İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Notlar.Text)) İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Notlar.Text = null;
-            Banka.Ayarlar_Müşteri(İşTakip_Müşteriler.Text, "Sayfa/Teslim Edildi/ÖdemeAl Notlar", true)[0] = İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Notlar.Text;
-
+            
             Banka.Talep_İşaretle_ÖdemeTalepEdildi_Ödendi(İşTakip_Müşteriler.Text, DosyaAdı, İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar.Text, İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Notlar.Text);
 
             //başarılı
@@ -879,7 +876,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (Dr == DialogResult.No) return;
 
             Banka.Talep_İşaretle_ÖdemeTalepEdildi_Ödendi(İşTakip_Müşteriler.Text, İşTakip_ÖdemeBekleyen_Dönem.Text, İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text, İşTakip_ÖdemeBekleyen_Notlar.Text);
-            Banka.Ayarlar_Müşteri(İşTakip_Müşteriler.Text, "Sayfa/Ödeme Bekleyen/Notlar", true)[0] = İşTakip_ÖdemeBekleyen_Notlar.Text;
             Banka.Değişiklikleri_Kaydet(İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle);
             foreach (DataGridViewRow biri in Tablo.Rows) Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(biri.Cells[Tablo_SeriNo.Index].Value as string);
             Banka.Değişiklikler_TamponuSıfırla();
@@ -1222,6 +1218,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void İşTakip_Eposta_Kişiye_CheckedChanged(object sender, EventArgs e)
         {
             İşTakip_Eposta_Gönder.Text = İşTakip_Eposta_Kişiye.Checked ? "Kişiye" : "Müşteriye";
+        }
+        private void İşTakip_TeslimEdildi_ÖdemeBekleyen_Notlar_TextChanged(object sender, EventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            tb.BackColor = tb.Text.DoluMu(true) ? SystemColors.Window : Color.Salmon;
         }
 
         private void Tablo_TümünüSeç_Click(object sender, EventArgs e)
