@@ -115,41 +115,9 @@ namespace İş_ve_Depo_Takip
             #endregion
 
             #region Yeni Sürüme Uygun Hale Getirme
-            Değişiklikler_TamponuSıfırla();
-            Ayarlar = Depo_Aç("Ay");
-            IDepo_Eleman ayr = Ayarlar.Bul("Son Banka Kayıt");
-            if (ayr != null && ayr.Oku(null, null, 2) != Sürüm)
-            {
-                //KDV ayarı açık ise yeni yere kaydet
-                foreach (string müşteri in Müşteri_Listele(true))
-                {
-                    IDepo_Eleman kdv = Ayarlar_Müşteri(müşteri, "Sayfa/Teslim Edildi/KDV");
-                    if (kdv != null && kdv.Oku_Bit(null))
-                    {
-                        if (kdv.Oku_Bit(null)) Müşteri_KDV_İskonto(müşteri, true, 0);
-                        kdv.Sil(null);
-                    }                    
-                }
-
-                //firma içi kişileri yeni yere kaydet
-                IDepo_Eleman fik_eski = Ayarlar_Kullanıcı("Tüm_İşler", "İşTakip_Eposta_Kişi");
-                if (fik_eski != null)
-                {
-                    Ayarlar_Genel("Eposta/Firma İçi Kişiler", true).Yaz(null, fik_eski.Oku(null));
-                    fik_eski.Sil(null);
-                }
-
-                ayr.Yaz(null, DateTime.Now, 1);
-                ayr.Yaz(null, Sürüm, 2);
-
-                Değişiklikleri_Kaydet(null);
-                Yedekle_Banka();
-                Değişiklikler_TamponuSıfırla();
-
-                Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Yeni Sürüme Uygunlaştırma", ref Açılışİşlemi_Tik);
-            }
-            
-            //if (Koşul)
+            //Ayarlar = Depo_Aç("Ay");
+            //IDepo_Eleman ayr = Ayarlar.Bul("Son Banka Kayıt");
+            //if (ayr != null && ayr.Oku(null, null, 2) != Sürüm)
             //{
             //    Değişiklikler_TamponuSıfırla();
             //    string ydk_zip = "SürümYükseltmeÖncesiYedeği.zip";
@@ -161,9 +129,8 @@ namespace İş_ve_Depo_Takip
 
             //    Günlük.Ekle("Banka yeni sürüme geçirme aşama x tamam");
 
-            //    //Ayarlar
-            //    Ayarlar = Depo_Aç("Ay");
-            //    IDepo_Eleman ayr = Ayarlar["Son Banka Kayıt"];
+            //    ...
+
             //    ayr.Yaz(null, DateTime.Now, 1);
             //    ayr.Yaz(null, Sürüm, 2);
 
@@ -171,9 +138,10 @@ namespace İş_ve_Depo_Takip
             //    Yedekle_Banka();
             //    Değişiklikler_TamponuSıfırla();
 
+            //    Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Yeni Sürüme Uygunlaştırma", ref Açılışİşlemi_Tik);
+
             //    Dosya.Sil(Kendi.Klasörü + "\\" + ydk_zip);
             //}
-            //Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Yeni Sürüme Uygunlaştırma", ref Açılışİşlemi_Tik);
             #endregion
 
             Ortak.Hatırlatıcılar.KontrolEt();
@@ -2701,26 +2669,28 @@ namespace İş_ve_Depo_Takip
             //Güncel tabloda olmayan önceden kayıtlı eklerin silinmesi
             for (int i = 0; i < SeriNonun_DosyaEkleri.Elemanları.Length; i++)
             {
+                string KullanıcıKlasöründekiKonumu = Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri + SeriNonun_DosyaEkleri.Elemanları[i][0];
                 int sırano = DosyaEkleri == null ? -1 : DosyaEkleri.IndexOf(SeriNonun_DosyaEkleri.Elemanları[i][1]);
+
                 if (sırano < 0 /*listede yoksa*/)
                 {
-                    FarkDosyaBoyutu -= new FileInfo(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri + SeriNonun_DosyaEkleri.Elemanları[i][0]).Length;
-                    Dosya.Sil(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri + SeriNonun_DosyaEkleri.Elemanları[i][0]);
+                    FarkDosyaBoyutu -= new FileInfo(KullanıcıKlasöründekiKonumu).Length;
+                    Dosya.Sil(KullanıcıKlasöründekiKonumu);
                     SeriNonun_DosyaEkleri.Elemanları[i].Sil(null);
                 }
                 else
                 {
                     SeriNonun_DosyaEkleri.Elemanları[i].Yaz(null, DosyaEkleri_Html_denGöster[sırano], 2);
 
-                    //çevirme vb. işlem neticesinde dosya içeriğinde değişiklik yapılmış olma ihtimali var
+                    //resim çevirme vb. işlem neticesinde dosya içeriğinde değişiklik yapılmış olma ihtimali var
                     string SahteDosyaAdı = Ortak.Klasör_Gecici + "DoEk\\" + SeriNonun_DosyaEkleri.Elemanları[i][0] + "." + SeriNonun_DosyaEkleri.Elemanları[i][1];
                     if (File.Exists(SahteDosyaAdı))
                     {
-                        if (File.GetLastWriteTime(SahteDosyaAdı).Year != 2000)
+                        if (File.GetLastWriteTime(SahteDosyaAdı) != File.GetLastWriteTime(KullanıcıKlasöründekiKonumu))
                         {
                             byte[] içerik = File.ReadAllBytes(SahteDosyaAdı);
                             içerik = Dosya_Karıştır(içerik);
-                            File.WriteAllBytes(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri + SeriNonun_DosyaEkleri.Elemanları[i][0], içerik);
+                            File.WriteAllBytes(KullanıcıKlasöründekiKonumu, içerik);
                         }
                     }
                 }
@@ -2785,17 +2755,18 @@ namespace İş_ve_Depo_Takip
             {
                 if (biri[1] == DosyaAdı)
                 {
-                    if (File.Exists(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri + biri[0]))
+                    string KullanıcıKlasöründekiKonumu = Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri + biri[0];
+                    if (File.Exists(KullanıcıKlasöründekiKonumu))
                     {
                         HedefDosyaAdı = Ortak.Klasör_Gecici + "DoEk\\" + biri[0] + "." + biri[1];
                         EklenmeTarihi = biri.Adı.TarihSaate();
 
                         if (!File.Exists(HedefDosyaAdı))
                         {
-                            byte[] içerik = File.ReadAllBytes(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri + biri[0]);
+                            byte[] içerik = File.ReadAllBytes(KullanıcıKlasöründekiKonumu);
                             içerik = Dosya_Düzelt(içerik);
                             File.WriteAllBytes(HedefDosyaAdı, içerik);
-                            File.SetLastWriteTime(HedefDosyaAdı, new DateTime(2000, 1, 1));
+                            File.SetLastWriteTime(HedefDosyaAdı, File.GetLastWriteTime(KullanıcıKlasöründekiKonumu));
                         }
                     }
 

@@ -385,7 +385,7 @@
             this.FirmaİçiKişiler.Size = new System.Drawing.Size(213, 231);
             this.FirmaİçiKişiler.TabIndex = 8;
             this.FirmaİçiKişiler.Text = "isim1@firmaadi.com;isim2@firmaadi.com";
-            this.İpUcu.SetToolTip(this.FirmaİçiKişiler, "HTML olarak mesaj içeriği\r\n\r\n%Müşteri% -> Müşteri adı");
+            this.İpUcu.SetToolTip(this.FirmaİçiKişiler, "Kişiye eposta gönderimi aşamasında kullanılacak olan adresler");
             this.FirmaİçiKişiler.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
             // groupBox_Imap

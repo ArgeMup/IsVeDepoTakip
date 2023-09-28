@@ -40,7 +40,7 @@ namespace İş_ve_Depo_Takip
             {
                 string[] istek = ((byte[])İçerik).Yazıya().Split('\n');
                 string[] Sayfa_İçeriği = istek[0].Trim(' ', '\r').Split(' ')[1].Trim('/').Split('/');
-                byte[] Gönderilecek_İçerik, Gönderilecek_Sayfa;
+                byte[] Gönderilecek_İçerik = null, Gönderilecek_Sayfa;
                 string SayfaBaşlığı = "ArGeMuP " + Kendi.Adı + " " + Kendi.Sürüm;
 
                 if (Sayfa_İçeriği[0] == "DoEk")
@@ -70,14 +70,39 @@ namespace İş_ve_Depo_Takip
                     else if (Soyadı == "pdf") Soyadı = "application/pdf";
                     else if (Soyadı == "txt") Soyadı = "text/plain";
                     else Soyadı = "application/octet-stream";
-                    
-                    Gönderilecek_İçerik = File.ReadAllBytes(KapalıAdı);
-                    Gönderilecek_Sayfa = (
-                            "HTTP/1.1 200 OK" + Environment.NewLine +
-                            "Server: " + SayfaBaşlığı + Environment.NewLine +
-                            "Content-Length: " + Gönderilecek_İçerik.Length + Environment.NewLine +
-                            "Content-Type: " + Soyadı + Environment.NewLine +
-                            "Connection: Closed" + Environment.NewLine + Environment.NewLine).BaytDizisine();
+
+                    string ÜretilenEtag = File.GetLastWriteTime(KapalıAdı).Yazıya();
+                    string TalepEdilenEtag = null;
+                    foreach (string başlık in istek)
+                    {
+                        if (başlık.StartsWith("If-None-Match"))
+                        {
+                            TalepEdilenEtag = başlık.Substring("If-None-Match".Length).Trim(':', ' ', '\r');
+                            break;
+                        }
+                    }
+
+                    if (ÜretilenEtag == TalepEdilenEtag)
+                    {
+                        Gönderilecek_Sayfa = (
+                                "HTTP/1.1 304 Not Modified" + Environment.NewLine +
+                                "Server: " + SayfaBaşlığı + Environment.NewLine +
+                                "Content-Length: 0" + Environment.NewLine +
+                                "Connection: keep-alive" + Environment.NewLine +
+                                Environment.NewLine).BaytDizisine();
+                    }
+                    else
+                    {
+                        Gönderilecek_İçerik = File.ReadAllBytes(KapalıAdı);
+                        Gönderilecek_Sayfa = (
+                                "HTTP/1.1 200 OK" + Environment.NewLine +
+                                "Server: " + SayfaBaşlığı + Environment.NewLine +
+                                "Content-Length: " + Gönderilecek_İçerik.Length + Environment.NewLine +
+                                "Content-Type: " + Soyadı + Environment.NewLine +
+                                "Cache-Control: max-age=604800, public" + Environment.NewLine + //1 hafta
+                                "ETag: " + ÜretilenEtag + Environment.NewLine +
+                                "Connection: keep-alive" + Environment.NewLine + Environment.NewLine).BaytDizisine();
+                    }
                 }
                 else
                 {
@@ -173,13 +198,18 @@ namespace İş_ve_Depo_Takip
                             "Server: " + SayfaBaşlığı + Environment.NewLine +
                             "Content-Length: " + Gönderilecek_İçerik.Length + Environment.NewLine +
                             "Content-Type: text/html;charset=utf-8" + Environment.NewLine +
-                            "Connection: Closed" + Environment.NewLine + Environment.NewLine).BaytDizisine();
+                            "Cache-Control: no-cache" + Environment.NewLine +
+                            "Connection: keep-alive" + Environment.NewLine + Environment.NewLine).BaytDizisine();
                 }
 
-                byte[] çıktı = new byte[Gönderilecek_Sayfa.Length + Gönderilecek_İçerik.Length];
-                Array.Copy(Gönderilecek_Sayfa, 0, çıktı, 0, Gönderilecek_Sayfa.Length);
-                Array.Copy(Gönderilecek_İçerik, 0, çıktı, Gönderilecek_Sayfa.Length, Gönderilecek_İçerik.Length);
-                Sunucu_DoHa.Gönder(çıktı, Kaynak);
+                if (Gönderilecek_İçerik == null) Sunucu_DoHa.Gönder(Gönderilecek_Sayfa, Kaynak);
+                else
+                {
+                    byte[] çıktı = new byte[Gönderilecek_Sayfa.Length + Gönderilecek_İçerik.Length];
+                    Array.Copy(Gönderilecek_Sayfa, 0, çıktı, 0, Gönderilecek_Sayfa.Length);
+                    Array.Copy(Gönderilecek_İçerik, 0, çıktı, Gönderilecek_Sayfa.Length, Gönderilecek_İçerik.Length);
+                    Sunucu_DoHa.Gönder(çıktı, Kaynak);
+                }
             }
             return;
 
@@ -199,6 +229,7 @@ namespace İş_ve_Depo_Takip
         //sec-ch-ua: "Google Chrome";v="111", "Not(A:Brand";v="8", "Chromium";v="111"
         //sec-ch-ua-mobile: ?0
         //sec-ch-ua-platform: "Windows"
+        //If-None-Match: ETag
         //DNT: 1
         //Upgrade-Insecure-Requests: 1
         //User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36
@@ -216,7 +247,8 @@ namespace İş_ve_Depo_Takip
         //Server: Argemup Reklamı
         //Content-Length: 6                bayt olarak
         //Content-Type: text/html/plain image/x-icon/jpeg/png/bmp/gif application/pdf/octet-stream
-        //Connection: Closed
+        //Connection: keep-alive
+        //ETag: görseller için
         //
         //içerik
         #endregion
