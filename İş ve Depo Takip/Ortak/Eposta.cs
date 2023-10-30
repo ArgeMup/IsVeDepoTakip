@@ -51,6 +51,20 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Dçk_Rsa.Dispose();
             Depo_Komut.Yaz("Kimlik Kontrolü/ParolaRsa", ParolaRsa.Taban64e());
 
+            //Uygulamanın kendisinin kontrolü
+            string SihirliKelime = Path.GetRandomFileName();
+            Depo_Komut["Komutlar/Diğer"].İçeriği = new string[] { "Kendini Tanıt", _Karıştır_(SihirliKelime) };
+            File.WriteAllText(EpostaAltyapısı_KomutDosyasıYolu, Depo_Komut.YazıyaDönüştür());
+            if (!_DepoDosyasınınGüncellenmesiniBekle_()) return "Epostanın cevap vermesi çok uzun sürdü, tekrar deneyiniz";
+            Depo_Komut = new Depo_(File.ReadAllText(EpostaAltyapısı_KomutDosyasıYolu));
+            if (Depo_Komut["Cevaplar/Diğer", 0] != "Başarılı" || Depo_Komut["Cevaplar/Diğer", 1].Düzelt(Parola.Yazı_Eposta) != SihirliKelime)
+            {
+                Durdur();
+                Thread.Sleep(100);
+                Klasör.Sil(EpostaAltyapısı_KomutDosyasıYolu.DosyaYolu_ÜstKlasör());
+                return "Eposta uygulaması doğrulanamadı, tekrar deneyiniz.";
+            }
+
             Depo_Komut.Yaz("Kimlik Kontrolü/Gönderici", _Karıştır_(ayarlar_eposta.Oku("Gönderici/Adı")), 0);
             Depo_Komut.Yaz("Kimlik Kontrolü/Gönderici", _Karıştır_(ayarlar_eposta.Oku("Gönderici/Adresi")), 1);
             Depo_Komut.Yaz("Kimlik Kontrolü/Gönderici", _Karıştır_(ayarlar_eposta.Oku("Gönderici/Şifresi")), 2);

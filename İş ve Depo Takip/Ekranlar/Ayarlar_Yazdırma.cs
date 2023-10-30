@@ -202,7 +202,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 pd.Print();
                 pd.Dispose();
 
-                if (!Ortak.Dosya_TutmayaÇalış(DosyaAdı)) throw new Exception("Pdf dosyası oluşturulamadı" + Environment.NewLine + DosyaAdı);
+                if (Dosya.BaşkaBirYerdeAçıkMı(DosyaAdı)) throw new Exception("Pdf dosyası oluşturulamadı" + Environment.NewLine + DosyaAdı);
             }
 
             void İşler_Yazdır_pd(object senderr, PrintPageEventArgs ev)
@@ -637,7 +637,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 pd.Print();
                 pd.Dispose();
 
-                if (!Ortak.Dosya_TutmayaÇalış(DosyaAdı)) throw new Exception("Pdf dosyası oluşturulamadı" + Environment.NewLine + DosyaAdı);
+                if (Dosya.BaşkaBirYerdeAçıkMı(DosyaAdı)) throw new Exception("Pdf dosyası oluşturulamadı" + Environment.NewLine + DosyaAdı);
             }
 
             void Ödemeler_Yazdır_pd(object senderr, PrintPageEventArgs ev)

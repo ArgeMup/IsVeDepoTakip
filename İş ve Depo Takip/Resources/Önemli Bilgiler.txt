@@ -11,14 +11,6 @@ Ugulama içerisinde gösterilen resimlerin değiştirilmesi
     <Kök Klasör>\Kullanıcı Dosyaları\Arka Plan Resimleri
     klasörü altına <*.bmp|png|jpg> şeklindeki istenilen resimler eklenebilir.
 
-Yedek alma işlemi
-    Vakit alan bir işlem olduğundan uygulama küçültüldüğünde kendiliğinden çalışır.
-    Yedek alma öncesi veya sonrası çağırılması gereken işlemler var ise alttaki dosyalar oluşturulup komut satırı girdileri eklenebilir.
-    <Kök Klasör>\Kullanıcı Dosyaları\YedekOncesi.bat
-    <Kök Klasör>\Kullanıcı Dosyaları\YedekOncesi_Bekle.bat
-    <Kök Klasör>\Kullanıcı Dosyaları\YedekSonrasi.bat
-    <Kök Klasör>\Kullanıcı Dosyaları\YedekSonrasi_Bekle.bat
-
 Yeni yazılım sürüm kontrolü
     Uygulama çalıştırıldığında, sunucuda yeni bir sürüm varsa, ilgili dosya indirilir, bir sonraki çalıştırılmada devreye alınır. Bu işlevi kapatmak için alttaki dosya oluşturulabilir.
      <Kök Klasör>\Kullanıcı Dosyaları\YeniSurumuKontrolEtme.txt

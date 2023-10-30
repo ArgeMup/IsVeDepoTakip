@@ -173,30 +173,6 @@ namespace İş_ve_Depo_Takip
             }
         }
 
-        public static bool Dosya_TutmayaÇalış(string DosyaYolu, int ZamanAşımı_msn = 5000)
-        {
-            FileStream KilitDosyası;
-            int za = Environment.TickCount + ZamanAşımı_msn;
-            while (za > Environment.TickCount)
-            {
-                System.Threading.Thread.Sleep(100);
-
-                try
-                {
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
-
-                    KilitDosyası = new FileStream(DosyaYolu, FileMode.Open, FileAccess.Read, FileShare.None);
-                    KilitDosyası.Close();
-
-                    return true;
-                }
-                catch (Exception) { }
-            }
-
-            return false;
-        }
-
         public static bool Klasör_TamKopya(string Kaynak, string Hedef, bool DoğrulamaKodunuKontrolEt_Yavaşlatır = true)
         {
             int ZamanAşımı_msn = Environment.TickCount + 15000;
@@ -247,13 +223,13 @@ namespace İş_ve_Depo_Takip
             ListeKutucuğu.Enabled = ListeKutucuğu.Items.Count > 0;            
         }
 
-        public static void BatDosyasıCalistir(string DosyaAdı)
-        {
-            if (!File.Exists(Klasör_KullanıcıDosyaları + DosyaAdı)) return;
-            
-            System.Diagnostics.Process İşlem = Çalıştır.UygulamayıDoğrudanÇalıştır(Klasör_KullanıcıDosyaları + DosyaAdı, null, true);
-            if (DosyaAdı.EndsWith("_Bekle.bat")) İşlem.WaitForExit();
-        }
+        //public static void BatDosyasıCalistir(string DosyaAdı)
+        //{
+        //    if (!File.Exists(Klasör_KullanıcıDosyaları + DosyaAdı)) return;
+        //    
+        //    System.Diagnostics.Process İşlem = Çalıştır.UygulamayıDoğrudanÇalıştır(Klasör_KullanıcıDosyaları + DosyaAdı, null, true);
+        //    if (DosyaAdı.EndsWith("_Bekle.bat")) İşlem.WaitForExit();
+        //}
 
         public static void AltSayfayıYükle(Panel ÜzerineYerleştirilecekYüzey, Form AltSayfa)
         {
