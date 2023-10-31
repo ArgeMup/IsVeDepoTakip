@@ -174,7 +174,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             public List<İşler_Bir_Satır_Bilgi_> Ödemeler = new List<İşler_Bir_Satır_Bilgi_>();
             public float Ödemeler_Notlar_Yükseklik = 0;
         }
-        public void İşler_Yazdır(Depo_ Depo, string DosyaAdı = null)
+        public void İşler_Yazdır(Depo_ Depo, string DosyaAdı = null, short KopyaSayısı = 1)
         {
             İşler_Bir_Sayfa_ Sayfa = null;
             PrintDocument pd = new PrintDocument();
@@ -196,6 +196,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             pd.PrinterSettings.PrinterName = Yazcılar.Text;
             pd.PrintPage += İşler_Yazdır_pd;
             if (!pd.PrinterSettings.IsValid) throw new Exception("Yazıcı kullanılamıyor " + pd.PrinterSettings.PrinterName);
+            pd.PrinterSettings.Copies = KopyaSayısı;
 
             if (DosyaAdı != null)
             {

@@ -251,7 +251,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             string çizelgeç_dosyayolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Çizelgeç", "") + "\\Çizelgeç.exe";
             YeniYazılımKontrolü_ yyk = new YeniYazılımKontrolü_();
-            if (File.Exists(çizelgeç_dosyayolu)) yyk.KontrolTamamlandı = true;
+            if (Ortak.DosyaGüncelMi(çizelgeç_dosyayolu, 0, 0)) yyk.KontrolTamamlandı = true;
             else yyk.Başlat(new Uri("https://github.com/ArgeMup/Cizelgec/blob/main/%C3%87izelge%C3%A7/bin/Release/%C3%87izelge%C3%A7.exe?raw=true"), null, çizelgeç_dosyayolu);
 
             Ortak.Gösterge.Başlat("Hesaplanıyor", true, Sekmeler, kademe);

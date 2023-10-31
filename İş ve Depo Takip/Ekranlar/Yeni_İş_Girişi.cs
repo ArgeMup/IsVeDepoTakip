@@ -179,7 +179,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 P_DosyaEkleri_TuşunuGüncelle();
             }
 
-            if (SeriNoTürü == Banka.TabloTürü.ÜcretHesaplama) KurlarVeSüreler.BackColor = System.Drawing.Color.Violet;
+            if (SeriNoTürü == Banka.TabloTürü.ÜcretHesaplama)
+            {
+                KurlarVeSüreler.BackColor = System.Drawing.Color.Violet;
+                Ayraç_Detaylar_EtiketSayısı.Panel2Collapsed = true;
+            }
 
             P_Yeni_İş_Girişi_DosyaEkleri.SadeceOkunabilir = SadeceOkunabilir;
             P_Yeni_İş_Girişi_DosyaEkleri.ÖnYüzGörseliniGüncelle = P_DosyaEkleri_TuşunuGüncelle;
@@ -648,9 +652,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 İşKaydıYapıldı = true;
             }
 
-            string sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, SeriNo ?? YeniKayıtİçinTutulanSeriNo, Banka.Yazdır_Tarih((string)Tablo[Tablo_Giriş_Tarihi.Index, Tablo.RowCount - 2].Value), (string)Tablo[Tablo_İş_Türü.Index, Tablo.RowCount - 2].Value, false);
+            string sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(true, (int)EtiketSayısı_Kayıt.Value, Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, SeriNo ?? YeniKayıtİçinTutulanSeriNo, Banka.Yazdır_Tarih((string)Tablo[Tablo_Giriş_Tarihi.Index, Tablo.RowCount - 2].Value), (string)Tablo[Tablo_İş_Türü.Index, Tablo.RowCount - 2].Value, false);
             if (sonuç.DoluMu()) MessageBox.Show((İşKaydıYapıldı ? "İş kaydı yapıldı fakat y" : "Y") + "azdırma aşamasında bir sorun ile karşılaşıldı" + Environment.NewLine + Environment.NewLine + sonuç, Text);
 
+            if (EtiketSayısı_Acil.Value > 0)
+            {
+                sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(false, (int)EtiketSayısı_Acil.Value, Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, SeriNo ?? YeniKayıtİçinTutulanSeriNo, Banka.Yazdır_Tarih((string)Tablo[Tablo_Giriş_Tarihi.Index, Tablo.RowCount - 2].Value), (string)Tablo[Tablo_İş_Türü.Index, Tablo.RowCount - 2].Value, false);
+                if (sonuç.DoluMu()) MessageBox.Show((İşKaydıYapıldı ? "İş kaydı yapıldı fakat y" : "Y") + "azdırma aşamasında bir sorun ile karşılaşıldı" + Environment.NewLine + Environment.NewLine + sonuç, Text);
+            }
+            
             Close();
         }
         void Kaydet_TuşGörünürlüğü(bool Görünsün)
@@ -784,6 +794,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 Detaylar.DosyaEkleri.Add(P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items[i].ToString());
                 Detaylar.DosyaEkleri_Html_denGöster.Add(P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.GetItemChecked(i));
+            }
+
+            //acil iş olarak kaydedilmesi
+            if (EtiketSayısı_Acil.Value > 0)
+            {
+                IDepo_Eleman tablo_hatırlatıcılar_SeriNoluİş = Banka.Tablo_Dal(null, Banka.TabloTürü.Takvim, "Hatırlatıcılar SeriNoluİş", true);
+                tablo_hatırlatıcılar_SeriNoluİş.Yaz(SeriNo ?? YeniKayıtİçinTutulanSeriNo, t);
             }
 
             Banka.Talep_Ekle(Detaylar, SeriNoTürü == Banka.TabloTürü.ÜcretHesaplama);

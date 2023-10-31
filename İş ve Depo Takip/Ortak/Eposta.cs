@@ -25,7 +25,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Durdur();
             YeniYazılımKontrolü_ yyk = new YeniYazılımKontrolü_();
-            if (File.Exists(EpostaAltyapısı_Eposta_dosyayolu)) yyk.KontrolTamamlandı = true;
+            if (Ortak.DosyaGüncelMi(EpostaAltyapısı_Eposta_dosyayolu, 0, 5)) yyk.KontrolTamamlandı = true;
             else yyk.Başlat(new Uri("https://github.com/ArgeMup/Eposta/blob/main/Eposta/bin/Release/Eposta.exe?raw=true"), null, EpostaAltyapısı_Eposta_dosyayolu);
 
             int za;

@@ -81,7 +81,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             string Barkod_Uret_dosyayolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Barkod_Uret", "") + "\\Barkod_Uret.exe";
             YeniYazılımKontrolü_ yyk = new YeniYazılımKontrolü_();
-            if (File.Exists(Barkod_Uret_dosyayolu)) yyk.KontrolTamamlandı = true;
+            if (Ortak.DosyaGüncelMi(Barkod_Uret_dosyayolu, 0, 4)) yyk.KontrolTamamlandı = true;
             else yyk.Başlat(new Uri("https://github.com/ArgeMup/Barkod_Uret/blob/main/Barkod_Uret/bin/Release/Barkod_Uret.exe?raw=true"), null, Barkod_Uret_dosyayolu);
 
             if (!yyk.KontrolTamamlandı)
@@ -127,14 +127,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             
             return sonuç;
         }
-        public static string YeniİşGirişi_Etiket_Üret(string Müşteri, string Hasta, string SeriNo, string SonİşKabulTarihi, string SonİşTürü, bool SadeceAyarla)
+        public static string YeniİşGirişi_Etiket_Üret(bool Kayıt1_Acil0, int KopyaSayısı, string Müşteri, string Hasta, string SeriNo, string SonİşKabulTarihi, string SonİşTürü, bool SadeceAyarla)
         {
             string sonuç = YeniİşGirişi_Barkod_Üret(Müşteri, Hasta, SeriNo, false);
             if (sonuç.DoluMu()) return "Barkod Üretimi Hatalı -> " + sonuç;
 
             Depo_ Depo_Komut = new Depo_();
-            Depo_Komut["Komut"].İçeriği = SadeceAyarla ? new string[] { "Ayarla" } : new string[] { "Yazdır" };
-            Depo_Komut["Ayarlar", 0] = Ortak.Klasör_KullanıcıDosyaları_Etiketleme + "YeniİşGirişi_Etiket.mup";
+            Depo_Komut["Komut"].İçeriği = new string[] { SadeceAyarla ? "Ayarla" : "Yazdır", KopyaSayısı.Yazıya() };
+            Depo_Komut["Ayarlar", 0] = Ortak.Klasör_KullanıcıDosyaları_Etiketleme + (Kayıt1_Acil0 ? "YeniİşGirişi_Etiket.mup" : "YeniİşGirişi_Etiket_Acil.mup");
 
             IDepo_Eleman d = Depo_Komut["Değişkenler"];
             d["Firma Adı"].İçeriği = new string[] { Banka.Ayarlar_Genel("Eposta", true).Oku("Gönderici/Adı") };
@@ -149,7 +149,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             string Etiket_dosyayolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Etiket", "") + "\\Etiket.exe";
             YeniYazılımKontrolü_ yyk = new YeniYazılımKontrolü_();
-            if (File.Exists(Etiket_dosyayolu)) yyk.KontrolTamamlandı = true;
+            if (Ortak.DosyaGüncelMi(Etiket_dosyayolu, 0, 4)) yyk.KontrolTamamlandı = true;
             else yyk.Başlat(new Uri("https://github.com/ArgeMup/Etiket/blob/main/Etiket/bin/Release/Etiket.exe?raw=true"), null, Etiket_dosyayolu);
 
             if (!yyk.KontrolTamamlandı)
@@ -237,13 +237,22 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (sonuç.DoluMu()) MessageBox.Show(sonuç, Text);
             YeniİşGirişi_BarkodAyarları.Enabled = true;
         }
-        private void YeniİşGirişi_EtiketAyarları_Click(object sender, System.EventArgs e)
+        private void YeniİşGirişi_KayıtEtiketiAyarları_Click(object sender, System.EventArgs e)
         {
-            YeniİşGirişi_EtiketAyarları.Enabled = false;
-            string sonuç = YeniİşGirişi_Etiket_Üret("Örnek Müşteri Adı", "Örnek Hasta Adı", "Örnek Seri No", "GG.AA.YYYY", "Örnek İş Türü", true);
+            YeniİşGirişi_KayıtEtiketiAyarları.Enabled = false;
+            string sonuç = YeniİşGirişi_Etiket_Üret(true, 1, "Örnek Müşteri Adı", "Örnek Hasta Adı", "Örnek Seri No", "GG.AA.YYYY", "Örnek İş Türü", true);
             if (sonuç.DoluMu()) MessageBox.Show(sonuç, Text);
-            YeniİşGirişi_EtiketAyarları.Enabled = true;
+            YeniİşGirişi_KayıtEtiketiAyarları.Enabled = true;
+        }
+        private void YeniİşGirişi_AcilİşEtiketiAyarları_Click(object sender, EventArgs e)
+        {
+            YeniİşGirişi_AcilİşEtiketiAyarları.Enabled = false;
+            string sonuç = YeniİşGirişi_Etiket_Üret(false, 1, "Örnek Müşteri Adı", "Örnek Hasta Adı", "Örnek Seri No", "GG.AA.YYYY", "Örnek İş Türü", true);
+            if (sonuç.DoluMu()) MessageBox.Show(sonuç, Text);
+            YeniİşGirişi_AcilİşEtiketiAyarları.Enabled = true;
         }
         #endregion
+
+
     }
 }

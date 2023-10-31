@@ -189,6 +189,21 @@ namespace İş_ve_Depo_Takip
 
             return false;
         }
+        public static bool DosyaGüncelMi(string DosyaYolu, int Sürüm_Y, int Sürüm_D)
+        {
+            if (!File.Exists(DosyaYolu)) return false;
+
+            System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(DosyaYolu);
+
+            if (fvi.FileMajorPart < Sürüm_Y) return false;
+
+            if (fvi.FileMajorPart == Sürüm_Y)
+            {
+                if (fvi.FileMinorPart < Sürüm_D) return false;
+            }
+
+            return true;
+        }
 
         public static void GrupArayıcı(ListBox ListeKutucuğu, System.Collections.Generic.List<string> Liste = null, string Aranan = null)
         {

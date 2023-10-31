@@ -32,10 +32,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Yeni_İş_Girişi));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Notlar = new System.Windows.Forms.TextBox();
             this.Tablo = new System.Windows.Forms.DataGridView();
             this.Tablo_İş_Türü = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -108,6 +108,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.KaydetVeEtiketiYazdır = new System.Windows.Forms.Button();
             this.DosyaEkleri = new System.Windows.Forms.Button();
             this.Ayraç_Kat_2_3 = new System.Windows.Forms.SplitContainer();
+            this.Ayraç_Detaylar_EtiketSayısı = new System.Windows.Forms.SplitContainer();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.EtiketSayısı_Acil = new System.Windows.Forms.NumericUpDown();
+            this.EtiketSayısı_Kayıt = new System.Windows.Forms.NumericUpDown();
             this.Ayraç_Kat_1_2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.KurlarVeSüreler = new System.Windows.Forms.TextBox();
@@ -134,6 +139,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Kat_2_3.Panel1.SuspendLayout();
             this.Ayraç_Kat_2_3.Panel2.SuspendLayout();
             this.Ayraç_Kat_2_3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Detaylar_EtiketSayısı)).BeginInit();
+            this.Ayraç_Detaylar_EtiketSayısı.Panel1.SuspendLayout();
+            this.Ayraç_Detaylar_EtiketSayısı.Panel2.SuspendLayout();
+            this.Ayraç_Detaylar_EtiketSayısı.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.EtiketSayısı_Acil)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EtiketSayısı_Kayıt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Kat_1_2)).BeginInit();
             this.Ayraç_Kat_1_2.Panel1.SuspendLayout();
             this.Ayraç_Kat_1_2.Panel2.SuspendLayout();
@@ -149,12 +160,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Notlar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Notlar.Location = new System.Drawing.Point(3, 35);
+            this.Notlar.Location = new System.Drawing.Point(4, 35);
             this.Notlar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Notlar.Multiline = true;
             this.Notlar.Name = "Notlar";
             this.Notlar.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.Notlar.Size = new System.Drawing.Size(968, 57);
+            this.Notlar.Size = new System.Drawing.Size(840, 57);
             this.Notlar.TabIndex = 5;
             this.İpUcu_Ücretlendirme.SetToolTip(this.Notlar, resources.GetString("Notlar.ToolTip"));
             this.Notlar.TextChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
@@ -168,14 +179,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.Tablo.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.Tablo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Tablo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Tablo_İş_Türü,
@@ -217,9 +228,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // Tablo_Adet
             // 
             this.Tablo_Adet.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.NullValue = null;
-            this.Tablo_Adet.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.NullValue = null;
+            this.Tablo_Adet.DefaultCellStyle = dataGridViewCellStyle6;
             this.Tablo_Adet.HeaderText = "Adet";
             this.Tablo_Adet.MinimumWidth = 6;
             this.Tablo_Adet.Name = "Tablo_Adet";
@@ -229,8 +240,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // Tablo_Ücret
             // 
             this.Tablo_Ücret.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Ücret.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Ücret.DefaultCellStyle = dataGridViewCellStyle7;
             this.Tablo_Ücret.FillWeight = 30F;
             this.Tablo_Ücret.HeaderText = "Ücret ₺";
             this.Tablo_Ücret.MinimumWidth = 6;
@@ -241,8 +252,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // Tablo_Giriş_Tarihi
             // 
             this.Tablo_Giriş_Tarihi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tablo_Giriş_Tarihi.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tablo_Giriş_Tarihi.DefaultCellStyle = dataGridViewCellStyle8;
             this.Tablo_Giriş_Tarihi.HeaderText = "Kabul Tarihi";
             this.Tablo_Giriş_Tarihi.MinimumWidth = 6;
             this.Tablo_Giriş_Tarihi.Name = "Tablo_Giriş_Tarihi";
@@ -296,7 +307,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // İskonto
             // 
             this.İskonto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.İskonto.Location = new System.Drawing.Point(857, 5);
+            this.İskonto.Location = new System.Drawing.Point(746, 4);
             this.İskonto.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.İskonto.Name = "İskonto";
             this.İskonto.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -462,7 +473,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(767, 7);
+            this.label6.Location = new System.Drawing.Point(656, 7);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(82, 20);
@@ -1084,7 +1095,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.DosyaEkleri.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.DosyaEkleri.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
             this.DosyaEkleri.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.DosyaEkleri.Location = new System.Drawing.Point(390, 3);
+            this.DosyaEkleri.Location = new System.Drawing.Point(331, 0);
             this.DosyaEkleri.Margin = new System.Windows.Forms.Padding(2);
             this.DosyaEkleri.Name = "DosyaEkleri";
             this.DosyaEkleri.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -1106,11 +1117,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             // Ayraç_Kat_2_3.Panel1
             // 
-            this.Ayraç_Kat_2_3.Panel1.Controls.Add(this.Notlar);
-            this.Ayraç_Kat_2_3.Panel1.Controls.Add(this.DosyaEkleri);
-            this.Ayraç_Kat_2_3.Panel1.Controls.Add(this.label7);
-            this.Ayraç_Kat_2_3.Panel1.Controls.Add(this.İskonto);
-            this.Ayraç_Kat_2_3.Panel1.Controls.Add(this.label6);
+            this.Ayraç_Kat_2_3.Panel1.Controls.Add(this.Ayraç_Detaylar_EtiketSayısı);
             // 
             // Ayraç_Kat_2_3.Panel2
             // 
@@ -1118,6 +1125,96 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Kat_2_3.Size = new System.Drawing.Size(978, 432);
             this.Ayraç_Kat_2_3.SplitterDistance = 99;
             this.Ayraç_Kat_2_3.TabIndex = 25;
+            // 
+            // Ayraç_Detaylar_EtiketSayısı
+            // 
+            this.Ayraç_Detaylar_EtiketSayısı.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.Ayraç_Detaylar_EtiketSayısı.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Ayraç_Detaylar_EtiketSayısı.Location = new System.Drawing.Point(0, 0);
+            this.Ayraç_Detaylar_EtiketSayısı.Name = "Ayraç_Detaylar_EtiketSayısı";
+            // 
+            // Ayraç_Detaylar_EtiketSayısı.Panel1
+            // 
+            this.Ayraç_Detaylar_EtiketSayısı.Panel1.Controls.Add(this.label6);
+            this.Ayraç_Detaylar_EtiketSayısı.Panel1.Controls.Add(this.Notlar);
+            this.Ayraç_Detaylar_EtiketSayısı.Panel1.Controls.Add(this.DosyaEkleri);
+            this.Ayraç_Detaylar_EtiketSayısı.Panel1.Controls.Add(this.label7);
+            this.Ayraç_Detaylar_EtiketSayısı.Panel1.Controls.Add(this.İskonto);
+            // 
+            // Ayraç_Detaylar_EtiketSayısı.Panel2
+            // 
+            this.Ayraç_Detaylar_EtiketSayısı.Panel2.Controls.Add(this.label34);
+            this.Ayraç_Detaylar_EtiketSayısı.Panel2.Controls.Add(this.label3);
+            this.Ayraç_Detaylar_EtiketSayısı.Panel2.Controls.Add(this.EtiketSayısı_Acil);
+            this.Ayraç_Detaylar_EtiketSayısı.Panel2.Controls.Add(this.EtiketSayısı_Kayıt);
+            this.Ayraç_Detaylar_EtiketSayısı.Panel2.Padding = new System.Windows.Forms.Padding(3);
+            this.Ayraç_Detaylar_EtiketSayısı.Size = new System.Drawing.Size(978, 99);
+            this.Ayraç_Detaylar_EtiketSayısı.SplitterDistance = 852;
+            this.Ayraç_Detaylar_EtiketSayısı.TabIndex = 21;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(4, 44);
+            this.label34.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(37, 20);
+            this.label34.TabIndex = 19;
+            this.label34.Text = "Acil";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(4, 12);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(46, 20);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "Kayıt";
+            // 
+            // EtiketSayısı_Acil
+            // 
+            this.EtiketSayısı_Acil.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.EtiketSayısı_Acil.BackColor = System.Drawing.Color.LavenderBlush;
+            this.EtiketSayısı_Acil.Location = new System.Drawing.Point(57, 42);
+            this.EtiketSayısı_Acil.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.EtiketSayısı_Acil.Name = "EtiketSayısı_Acil";
+            this.EtiketSayısı_Acil.Size = new System.Drawing.Size(55, 26);
+            this.EtiketSayısı_Acil.TabIndex = 1;
+            this.EtiketSayısı_Acil.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.İpUcu_Genel.SetToolTip(this.EtiketSayısı_Acil, "Acil iş etiketi sayısı");
+            // 
+            // EtiketSayısı_Kayıt
+            // 
+            this.EtiketSayısı_Kayıt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.EtiketSayısı_Kayıt.BackColor = System.Drawing.Color.Azure;
+            this.EtiketSayısı_Kayıt.Location = new System.Drawing.Point(57, 10);
+            this.EtiketSayısı_Kayıt.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.EtiketSayısı_Kayıt.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.EtiketSayısı_Kayıt.Name = "EtiketSayısı_Kayıt";
+            this.EtiketSayısı_Kayıt.Size = new System.Drawing.Size(55, 26);
+            this.EtiketSayısı_Kayıt.TabIndex = 0;
+            this.EtiketSayısı_Kayıt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.İpUcu_Genel.SetToolTip(this.EtiketSayısı_Kayıt, "Kayıt etiketi sayısı");
+            this.EtiketSayısı_Kayıt.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // Ayraç_Kat_1_2
             // 
@@ -1223,10 +1320,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.Ayraç_Kat_2_3.Panel1.ResumeLayout(false);
-            this.Ayraç_Kat_2_3.Panel1.PerformLayout();
             this.Ayraç_Kat_2_3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Kat_2_3)).EndInit();
             this.Ayraç_Kat_2_3.ResumeLayout(false);
+            this.Ayraç_Detaylar_EtiketSayısı.Panel1.ResumeLayout(false);
+            this.Ayraç_Detaylar_EtiketSayısı.Panel1.PerformLayout();
+            this.Ayraç_Detaylar_EtiketSayısı.Panel2.ResumeLayout(false);
+            this.Ayraç_Detaylar_EtiketSayısı.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Detaylar_EtiketSayısı)).EndInit();
+            this.Ayraç_Detaylar_EtiketSayısı.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.EtiketSayısı_Acil)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EtiketSayısı_Kayıt)).EndInit();
             this.Ayraç_Kat_1_2.Panel1.ResumeLayout(false);
             this.Ayraç_Kat_1_2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Ayraç_Kat_1_2)).EndInit();
@@ -1317,5 +1421,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Ücret;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Giriş_Tarihi;
         private System.Windows.Forms.DataGridViewButtonColumn Tablo_Çıkış_Tarihi;
+        private System.Windows.Forms.SplitContainer Ayraç_Detaylar_EtiketSayısı;
+        private System.Windows.Forms.NumericUpDown EtiketSayısı_Acil;
+        private System.Windows.Forms.NumericUpDown EtiketSayısı_Kayıt;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label3;
     }
 }
