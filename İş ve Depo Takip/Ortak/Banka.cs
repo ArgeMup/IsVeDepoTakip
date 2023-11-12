@@ -31,9 +31,8 @@ namespace İş_ve_Depo_Takip
         const int Malzemeler_GeriyeDönükİstatistik_Ay = 36;
         static System.Threading.Mutex Kilit_Tablo = new System.Threading.Mutex(), Kilit_DosyaEkleri = new System.Threading.Mutex();
         
-        public static void Giriş_İşlemleri(Label AçılışYazısı)
+        public static void Giriş_İşlemleri()
         {
-            int Açılışİşlemi_Tik = Environment.TickCount;
             Klasör.Oluştur(Ortak.Klasör_Banka);
             Klasör.Oluştur(Ortak.Klasör_İçYedek);
             Klasör.Oluştur(Ortak.Klasör_KullanıcıDosyaları);
@@ -43,10 +42,10 @@ namespace İş_ve_Depo_Takip
             Klasör.Oluştur(Ortak.Klasör_KullanıcıDosyaları_ArkaPlanResimleri);
             Klasör.Oluştur(Ortak.Klasör_Gecici + "DoEk");
             File.WriteAllText(Kendi.Klasörü + "\\Önemli Bilgiler.txt", Properties.Resources.Önemli_Bilgiler);
-            Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Klasörler", ref Açılışİşlemi_Tik);
+            Ortak.Gösterge.Başlat("Klasörler".Günlük(), false, null, 8);
 
             DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı);
-            Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Bütünlük Kontrolü", ref Açılışİşlemi_Tik);
+            Ortak.Gösterge.Açıklama = "Bütünlük Kontrolü".Günlük(); Ortak.Gösterge.İlerleme = 1;
             Günlük.Ekle("Bütünlük Kontrolü " + snç.ToString());
             switch (snç)
             {
@@ -90,7 +89,6 @@ namespace İş_ve_Depo_Takip
             Ortak.Kullanıcı_Klasör_Pdf = d_ayarlar_bilgisayar_kullanıcı.Oku("Pdf");
 
             Depo_ d = Tablo(null, TabloTürü.Ayarlar, true);
-            Ortak.Kullanıcı_KüçültüldüğündeParolaSor = d.Oku_Bit("Küçültüldüğünde Parola Sor", true, 0);
             Ortak.Kullanıcı_KüçültüldüğündeParolaSor_sn = d.Oku_TamSayı("Küçültüldüğünde Parola Sor", 60, 1);
 
             while (d.Oku_TarihSaat("Son Banka Kayıt", default, 1) > DateTime.Now)
@@ -99,19 +97,15 @@ namespace İş_ve_Depo_Takip
                     "Bilgisayarınızın saati : " + DateTime.Now.Yazıya() + Environment.NewLine + Environment.NewLine +
                     "Muhtemelen bilgisayarınızın saati geri kaldı, lütfen düzeltip devam ediniz";
 
-                MessageBox.Show(msg.Günlük(), Ortak.AnaEkran.Text + " Bütünlük Kontrolü");
+                MessageBox.Show(msg.Günlük(), "Bütünlük Kontrolü");
             }
 
-            Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Ayarlar", ref Açılışİşlemi_Tik);
+            Ortak.Gösterge.Açıklama = "Ayarlar".Günlük(); Ortak.Gösterge.İlerleme = 1;
             #endregion
 
             #region yedekleme
-            Yedekle_DahaYeniYedekVarsa_KullanıcıyaSor();
-            Yedekleme_İzleyici_Başlat();
-            Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Yedekleme", ref Açılışİşlemi_Tik);
-
             Yedekle_Banka();
-            Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "İlk Kullanıma Hazırlanıyor", ref Açılışİşlemi_Tik);
+            Ortak.Gösterge.Açıklama = "İlk Kullanıma Hazırlanıyor".Günlük(); Ortak.Gösterge.İlerleme = 1;
             #endregion
 
             #region Yeni Sürüme Uygun Hale Getirme
@@ -144,16 +138,16 @@ namespace İş_ve_Depo_Takip
             //}
             #endregion
 
-            Ortak.Hatırlatıcılar.KontrolEt();
-            Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Takvim", ref Açılışİşlemi_Tik);
+            Ortak.Hatırlatıcılar.KontrolEt(); 
+            Ortak.Gösterge.Açıklama = "Takvim".Günlük(); Ortak.Gösterge.İlerleme = 1;
 
             Malzeme_KritikMiktarKontrolü();
-            Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Malzeme Durumu", ref Açılışİşlemi_Tik);
+            Ortak.Gösterge.Açıklama = "Malzeme Durumu".Günlük(); Ortak.Gösterge.İlerleme = 1;
 
-            DosyaEkleri_İlkAçılışKontrolü();
-            Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Dosya Ekleri Durumu", ref Açılışİşlemi_Tik);
+            DosyaEkleri_İlkAçılışKontrolü(); 
+            Ortak.Gösterge.Açıklama = "Dosya Ekleri Durumu".Günlük(); Ortak.Gösterge.İlerleme = 1;
 
-            Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Tamamlandı", ref Açılışİşlemi_Tik);
+            Ortak.Gösterge.Bitir();
         }
         public static Depo_ ÖrnekMüşteriTablosuOluştur()
         {
@@ -411,6 +405,20 @@ namespace İş_ve_Depo_Takip
                         depo = DosyaEkleri;
                         break;
 
+                    case TabloTürü.Kullanıcı_İzinleri:
+                        if (Kullanıcı_İzinleri == null)
+                        {
+                            if (!Depo_DosyaVarMı("Kuİz"))
+                            {
+                                if (!YoksaOluştur) goto Çıkış;
+                            }
+
+                            Kullanıcı_İzinleri = Depo_Aç("Kuİz");
+                        }
+                        else KontrolEdildi = true;
+
+                        depo = Kullanıcı_İzinleri;
+                        break;
                     default:
                         goto Çıkış;
                 }
@@ -2801,29 +2809,9 @@ namespace İş_ve_Depo_Takip
                 Ortak.Gösterge.Bitir();
             }
 
-            if (Yedekleme_İzleyici_DeğişiklikYapıldı != null)
-            {
-                Günlük.Ekle("Değişiklikleri_Kaydet Yedekleme_İzleyici_DeğişiklikYapıldı " + Yedekleme_İzleyici_DeğişiklikYapıldı);
-
-                string soru = "Yedeğinizin içeriği uygulama haricinde değiştirildi." + Environment.NewLine +
-                "Uygulamayı yeniden başlatmak ister misiniz?" + Environment.NewLine + Environment.NewLine +
-                "Evet : Tavsiye edilir fakat şuanda yaptığınız işlemden feragat edeceksiniz." + Environment.NewLine +
-                "Hayır : İşlemlerinizin sonuçları değişen yedeğin üzerine kaydedilir." + Environment.NewLine + Environment.NewLine +
-                Yedekleme_İzleyici_DeğişiklikYapıldı;
-
-                DialogResult Dr = MessageBox.Show(soru, Ortak.AnaEkran.Text + " Yedekleme", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
-                if (Dr == DialogResult.Yes) 
-                { 
-                    System.Windows.Forms.Application.Restart(); 
-                    return; 
-                }
-
-                Yedekleme_İzleyici_DeğişiklikYapıldı = null;
-            }
-
             Günlük.Ekle("Değişiklikleri_Kaydet Başladı");
             bool EnAzBirDeğişiklikYapıldı = false;
-            Ortak.Gösterge.Başlat("Kaydediliyor", false, Tetikleyen, 8 + (Müşteriler == null ? 0 : Müşteriler.Count * 5) + (MalzemeKullanımDetayları == null ? 0 : MalzemeKullanımDetayları.Count * 1));
+            Ortak.Gösterge.Başlat("Kaydediliyor", false, Tetikleyen, 9 + (Müşteriler == null ? 0 : Müşteriler.Count * 5) + (MalzemeKullanımDetayları == null ? 0 : MalzemeKullanımDetayları.Count * 1));
 
             if (Müşteriler != null && Müşteriler.Count > 0)
             {
@@ -2886,7 +2874,10 @@ namespace İş_ve_Depo_Takip
 
             Ortak.Gösterge.İlerleme = 1;
             if (DosyaEkleri != null && DosyaEkleri.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("DoEk", DosyaEkleri); EnAzBirDeğişiklikYapıldı = true; }
-
+ 
+            Ortak.Gösterge.İlerleme = 1;
+            if (Kullanıcı_İzinleri != null && Kullanıcı_İzinleri.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Kuİz", Kullanıcı_İzinleri); EnAzBirDeğişiklikYapıldı = true; }
+            
             Ortak.Gösterge.İlerleme = 1;
             if (EnAzBirDeğişiklikYapıldı || (Ayarlar != null && Ayarlar.EnAzBir_ElemanAdıVeyaİçeriği_Değişti))
             {
@@ -2928,6 +2919,8 @@ namespace İş_ve_Depo_Takip
             KorumalıAlan = null;
             Takvim = null;
             MalzemeKullanımDetayları = null;
+            Kullanıcı_İzinleri = null;
+            Kullanıcı_İzinleri_Tutucusu = null;
 
             //Kullanıcılar = null; Önemsiz kullanıcı ayarları
 
@@ -2957,8 +2950,83 @@ namespace İş_ve_Depo_Takip
             return çıktı + " ₺";
         }
 
+        #region Kullanıcı_İzinleri
+        public enum Ayarlar_Kullanıcılar_İzin
+        {
+            Boşta,
+            Ayarları_değiştirebilir,
+            Yeni_iş_ekleyebilir,
+
+            SonEleman,
+            DiziElemanSayısı = SonEleman
+        };
+        public static ArgeMup.HazirKod.Ekranlar.Kullanıcılar_Ayarlar_ Kullanıcı_İzinleri_Tutucusu
+        {
+            get
+            {
+                if (Kullanıcı_İzinleri_Tutucusu_ == null)
+                {
+                    Kullanıcı_İzinleri = Tablo(null, TabloTürü.Kullanıcı_İzinleri);
+                    Kullanıcı_İzinleri_Tutucusu_ = Sınıf_Oluştur(typeof(ArgeMup.HazirKod.Ekranlar.Kullanıcılar_Ayarlar_), Kullanıcı_İzinleri) as ArgeMup.HazirKod.Ekranlar.Kullanıcılar_Ayarlar_;
+                    if (Kullanıcı_İzinleri_Tutucusu_ == null) throw new Exception("Kullanıcı_İzinleri_Tutucusu_ == null");
+
+                    Kullanıcı_İzinleri_Tutucusu_.Başlat((int)Ayarlar_Kullanıcılar_İzin.DiziElemanSayısı, true);
+                }
+
+                return Kullanıcı_İzinleri_Tutucusu_;
+            }
+            set
+            {
+                Kullanıcı_İzinleri_Tutucusu_ = null;
+            }
+        }
+        static ArgeMup.HazirKod.Ekranlar.Kullanıcılar_Ayarlar_ Kullanıcı_İzinleri_Tutucusu_ = null;
+        static Değişken_ Kullanıcı_İzinleri_Değişken = new Değişken_() { Filtre_BoşVeyaVarsayılanDeğerdeİse_HariçTut = true };
+
+        public static void Kullanıcı_İzinleri_Kaydet()
+        {
+            Sınıf_Kaydet(Kullanıcı_İzinleri_Tutucusu, ref Kullanıcı_İzinleri);
+        }
+        public static bool İzinliMi(Ayarlar_Kullanıcılar_İzin İzin)
+        {
+            return Kullanıcı_İzinleri_Tutucusu.İzinliMi(İzin == Ayarlar_Kullanıcılar_İzin.Boşta ? (Enum)null : İzin);
+        }
+        public static bool İzinliMi(IEnumerable<Ayarlar_Kullanıcılar_İzin> İzinler)
+        {
+            foreach (Ayarlar_Kullanıcılar_İzin izin in İzinler)
+            {
+                if (İzinliMi(izin)) return true;
+            }
+
+            return false;
+        }
+        public static string KullancıAdı
+        {
+            get
+            {
+                return Kullanıcı_İzinleri_Tutucusu.KullanıcıAdı;
+            }
+        }
+
+        static object Sınıf_Oluştur(Type Tipi, Depo_ Depo)
+        {
+            if (Depo == null) Depo = new Depo_();
+            object sınıf = Kullanıcı_İzinleri_Değişken.Üret(Tipi, Depo["ArGeMuP"]);
+
+            return sınıf;
+        }
+        static void Sınıf_Kaydet(object Sınıf, ref Depo_ depo)
+        {
+            if (Sınıf == null) throw new Exception("Sınıf(" + (Sınıf == null) + ") == null");
+
+            if (depo == null) depo = new Depo_();
+            Kullanıcı_İzinleri_Değişken.Depola(Sınıf, depo["ArGeMuP"]);
+            depo.EnAzBir_ElemanAdıVeyaİçeriği_Değişti = true;
+        }
+        #endregion
+
         #region Demirbaşlar
-        public enum TabloTürü { Ayarlar, İşTürleri, Malzemeler, MalzemeKullanımDetayı, Ödemeler, Kullanıcılar, Takvim, KorumalıAlan, DosyaEkleri,
+        public enum TabloTürü { Ayarlar, İşTürleri, Malzemeler, MalzemeKullanımDetayı, Ödemeler, Kullanıcılar, Takvim, KorumalıAlan, DosyaEkleri, Kullanıcı_İzinleri,
                                 ÜcretHesaplama, DevamEden, TeslimEdildi, ÖdemeTalepEdildi, Ödendi,
                                 DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi
         }
@@ -2969,6 +3037,7 @@ namespace İş_ve_Depo_Takip
         static Depo_ Kullanıcılar = null;
         static Depo_ KorumalıAlan = null;
         static Depo_ Takvim = null;
+        static Depo_ Kullanıcı_İzinleri = null;
 
         class Müşteri_
         {
@@ -3283,95 +3352,6 @@ namespace İş_ve_Depo_Takip
         public static bool Yedekleme_EnAz1Kez_Değişiklikler_Kaydedildi = false;
         public static string Yedekleme_Hatalar = null;
 
-        static FileSystemWatcher[] Yedekleme_izleyiciler = null;
-        static string _Yedekleme_İzleyici_DeğişiklikYapıldı = null;
-        static string Yedekleme_İzleyici_DeğişiklikYapıldı
-        {
-            get
-            {
-                return _Yedekleme_İzleyici_DeğişiklikYapıldı;
-            }
-            set
-            {
-                _Yedekleme_İzleyici_DeğişiklikYapıldı = value;
-                if (Ortak.AnaEkran != null)
-                {
-                    Ortak.AnaEkran.Invoke(new Action(() =>
-                    {
-                        if (_Yedekleme_İzleyici_DeğişiklikYapıldı == null)
-                        {
-                            Ortak.AnaEkran.YedekleKapat.BackColor = System.Drawing.Color.Transparent;
-                            Ortak.AnaEkran.YedekleKapat.Text = "Yedekle ve kapat";
-                        }
-                        else
-                        {
-                            Ortak.AnaEkran.YedekleKapat.BackColor = System.Drawing.Color.Khaki;
-                            Ortak.AnaEkran.YedekleKapat.Text = "Yeniden başlat";
-                        }
-                    }));
-                }
-            }
-        }
-
-        static void Yedekleme_İzleyici_Başlat()
-        {
-            Yedekleme_İzleyici_Durdur();
-
-            List<FileSystemWatcher> liste = new List<FileSystemWatcher>();
-            for (int i = 0; i < Ortak.Kullanıcı_Klasör_Yedek.Length; i++)
-            {
-                Günlük.Ekle("Yedekleme_İzleyici_Başlat deneniyor " + i + " " + Ortak.Kullanıcı_Klasör_Yedek[i]);
-
-                if (string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Yedek[i])) continue;
-                if (!Klasör.Oluştur(Ortak.Kullanıcı_Klasör_Yedek[i]))
-                {
-                    Günlük.Ekle("Yedekleme_İzleyici_Başlat oluşturulamadı " + Ortak.Kullanıcı_Klasör_Yedek[i]);
-                    MessageBox.Show("Klasör oluşturulamadı, belirtilen konuma yedek alınmayacaktır" + Environment.NewLine + Environment.NewLine +
-                        Ortak.Kullanıcı_Klasör_Yedek[i], Ortak.AnaEkran.Text + " Yedekleme");
-                    continue;
-                }
-
-                FileSystemWatcher yeni = new FileSystemWatcher(Ortak.Kullanıcı_Klasör_Yedek[i], "*.mup");
-                yeni.Changed += Yeni_Created_Changed_Deleted;
-                yeni.Created += Yeni_Created_Changed_Deleted;
-                yeni.Error += Yeni_Error;
-                yeni.Deleted += Yeni_Created_Changed_Deleted;
-                yeni.Renamed += Yeni_Renamed;
-                yeni.IncludeSubdirectories = true;
-                yeni.EnableRaisingEvents = true;
-                liste.Add(yeni);
-            }
-
-            if (liste.Count > 0) Yedekleme_izleyiciler = liste.ToArray();
-            else Yedekleme_izleyiciler = null;
-
-            void Yeni_Renamed(object sender, RenamedEventArgs e)
-            {
-                Yedekleme_İzleyici_DeğişiklikYapıldı = e.FullPath;
-                Günlük.Ekle(e.ChangeType.ToString() + " " + e.OldFullPath + " " + e.FullPath);
-            }
-            void Yeni_Created_Changed_Deleted(object sender, FileSystemEventArgs e)
-            {
-                Yedekleme_İzleyici_DeğişiklikYapıldı = e.FullPath;
-                Günlük.Ekle(e.ChangeType.ToString() + " " + e.FullPath);
-            }
-            void Yeni_Error(object sender, ErrorEventArgs e)
-            {
-                Yedekleme_İzleyici_DeğişiklikYapıldı = e.GetException().Message;
-                Günlük.Ekle(e.GetException().ToString());
-            }
-        }
-        static void Yedekleme_İzleyici_Durdur()
-        {
-            if (Yedekleme_izleyiciler != null)
-            {
-                foreach (var a in Yedekleme_izleyiciler) a.Dispose();
-                Yedekleme_izleyiciler = null;
-            }
-
-            Yedekleme_İzleyici_DeğişiklikYapıldı = null;
-        }
-
         public static void Yedekle_Tümü()
         {
             Günlük.Ekle("Yedekle_Tümü " + Yedekleme_Tümü_Çalışıyor + " " + Yedekleme_EnAz1Kez_Değişiklikler_Kaydedildi);
@@ -3379,27 +3359,6 @@ namespace İş_ve_Depo_Takip
             if (Yedekleme_Tümü_Çalışıyor || !Yedekleme_EnAz1Kez_Değişiklikler_Kaydedildi) return;
             Yedekleme_Tümü_Çalışıyor = true;
             Yedekleme_Hatalar = null;
-
-            if (Yedekleme_İzleyici_DeğişiklikYapıldı != null)
-            {
-                Günlük.Ekle("Yedekle_Tümü Yedekleme_İzleyici_DeğişiklikYapıldı " + Yedekleme_İzleyici_DeğişiklikYapıldı);
-
-                string soru = "Yedeğinizin içeriği uygulama haricinde değiştirildi." + Environment.NewLine +
-                "Uygulamayı yeniden başlatmak ister misiniz?" + Environment.NewLine + Environment.NewLine +
-                "Evet : Tavsiye edilir." + Environment.NewLine +
-                "Hayır : İşlemlerinizin sonuçları değişen yedeğin üzerine kaydedilir." + Environment.NewLine + Environment.NewLine +
-                Yedekleme_İzleyici_DeğişiklikYapıldı;
-
-                DialogResult Dr = MessageBox.Show(soru, Ortak.AnaEkran.Text + " Yedekleme", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
-                if (Dr == DialogResult.Yes) 
-                {
-                    System.Windows.Forms.Application.Restart();
-                    Yedekleme_Tümü_Çalışıyor = false;
-                    return;
-                }
-                
-                Yedekleme_İzleyici_DeğişiklikYapıldı = null;
-            }
 
             System.Threading.Tasks.Task.Run(() =>
             {
@@ -3445,7 +3404,6 @@ namespace İş_ve_Depo_Takip
                         SıkıştırılmışDosya.Klasörden(k, h);
                     }
 
-                    Yedekleme_İzleyici_Durdur();
                     if (Ortak.Kullanıcı_Klasör_Yedek.Length > 0)
                     {
                         for (int i = 0; i < Ortak.Kullanıcı_Klasör_Yedek.Length; i++)
@@ -3460,8 +3418,6 @@ namespace İş_ve_Depo_Takip
 
                             if (!sonuç) Yedekleme_Hatalar += ("Yedek no : " + (i+1) + " yedekleme başarısız").Günlük() + Environment.NewLine;
                         }
-
-                        Yedekleme_İzleyici_Başlat();
                     }
 
                     Yedekleme_EnAz1Kez_Değişiklikler_Kaydedildi = false;
@@ -3508,144 +3464,6 @@ namespace İş_ve_Depo_Takip
             }
             
             Günlük.Ekle("Yedekle_Banka_Kurtar>Başarılı");
-        }
-        static void Yedekle_DahaYeniYedekVarsa_KullanıcıyaSor()
-        {
-            string yenidenbaşlatmamesajı = null;
-
-            //bize ait detayların okunması
-            DateTime bizimki_saat = default;
-            string bizimki_uygulamakimliği = "";
-            Depo_ bizimki_d = Tablo(null, TabloTürü.Ayarlar);
-            if (bizimki_d != null)
-            {
-                bizimki_saat = bizimki_d.Oku_TarihSaat("Son Banka Kayıt", default, 1);
-                bizimki_uygulamakimliği = bizimki_d.Oku("Uygulama Kimliği");
-            }
-
-            Dictionary<string, DateTime> l = new Dictionary<string, DateTime>();
-
-            for (int i = 0; i < Ortak.Kullanıcı_Klasör_Yedek.Length && yenidenbaşlatmamesajı == null; i++)
-            {
-                try
-                {
-                    string bnk_yolu = Ortak.Kullanıcı_Klasör_Yedek[i] + "Banka\\";
-                    Günlük.Ekle("Deneniyor " + bnk_yolu);
-
-                    if (string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Yedek[i]) ||
-                        DoğrulamaKodu.KontrolEt.Klasör(bnk_yolu,
-                            SearchOption.AllDirectories, Parola.Yazı) !=
-                            DoğrulamaKodu.KontrolEt.Durum_.Aynı ||
-                        !File.Exists(bnk_yolu + "Ay.mup")) continue;
-
-                    Depo_ d = Depo_Aç("Ay", bnk_yolu);
-
-                    //uygulama kimliği kontrolü
-                    if (bizimki_uygulamakimliği != d.Oku("Uygulama Kimliği")) continue;
-
-                    if (Sürüm.TamSayıya() < d.Oku_TamSayı("Son Banka Kayıt", 0, 2))
-                    {
-                        Ortak.Gösterge.Başlat("Banka sürümü daha yüksek bir yedek bulundu." + Environment.NewLine +
-                            "Güncelleme tamamlanana kadar bekleyiniz.", false, null, 0);
-                        while (!Ortak.YeniYazılımKontrolü.KontrolTamamlandı && Ortak.Gösterge.Çalışsın) System.Threading.Thread.Sleep(500);
-                        Ortak.Gösterge.Bitir();
-                        yenidenbaşlatmamesajı = "Banka sürümü daha yüksek bir yedek bulundu. Bizimki:" + Sürüm + ", Yedek:" + d.Oku("Son Banka Kayıt", null, 2);
-                        throw new Exception();
-                    }
-
-                    //ayarlar dan son kayıt tarihini al
-                    l.Add(bnk_yolu, d.Oku_TarihSaat("Son Banka Kayıt", default, 1));
-                    Günlük.Ekle("Kabul edildi " + d.Oku("Son Banka Kayıt", default, 1));
-                }
-                catch (Exception) { }
-
-                if (yenidenbaşlatmamesajı.DoluMu()) throw new Exception(yenidenbaşlatmamesajı);
-            }
-            if (l.Count == 0) return;
-
-            l = l.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
-            Günlük.Ekle("İşleniyor " + l.Values.First().Yazıya());
-
-            //karşılaştırma
-            if (l.Values.First() > bizimki_saat)
-            {
-                Depo_ d = Depo_Aç("Ay", l.Keys.First());
-
-                string soru = "Mevcut kayıtlarınızdan daha yeni bir yedek bulundu." + Environment.NewLine + Environment.NewLine +
-                    "Mevcut kullanıcı : " + bizimki_d.Oku("Son Banka Kayıt") + Environment.NewLine +
-                    "Diğer kullanıcı : " + d.Oku("Son Banka Kayıt") + Environment.NewLine + Environment.NewLine +
-                    "Mevcut kayıt saati : " + bizimki_saat.Yazıya() + Environment.NewLine +
-                    "Diğer kayıt saati : " + l.Values.First().Yazıya() + Environment.NewLine + Environment.NewLine +
-                    "Mevcut kayıtlarınız yerine DAHA YENİ olan DİĞER kayıtları kullanarak devam etmek ister misiniz?";
-
-                DialogResult Dr = MessageBox.Show(soru, Ortak.AnaEkran.Text + " Mevcut kayılarınız daha eski", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                Dr.Günlük("Mevcut kayıtlarınızdan daha yeni bir yedek bulundu. ");
-                if (Dr == DialogResult.No) return;
-                string hata;
-
-                // banka -> banka2
-                if (!Ortak.Klasör_TamKopya(Ortak.Klasör_Banka, Ortak.Klasör_Banka2))
-                {
-                    throw new Exception("AslınaUygunHaleGetir>" + Ortak.Klasör_Banka + ">" + Ortak.Klasör_Banka2);
-                }
-
-                // yedek -> gecici
-                string kla_gecici = Ortak.Klasör_Gecici + Path.GetRandomFileName();
-                if (!Ortak.Klasör_TamKopya(l.Keys.First(), kla_gecici))
-                {
-                    hata = "1.AslınaUygunHaleGetir>" + l.Keys.First() + ">" + kla_gecici;
-                    goto HatalıCıkış;
-                }
-
-                // gecici 2. kez doko
-                DoğrulamaKodu.KontrolEt.Durum_ doko = DoğrulamaKodu.KontrolEt.Klasör(kla_gecici, SearchOption.AllDirectories, Parola.Yazı);
-                if (doko != DoğrulamaKodu.KontrolEt.Durum_.Aynı)
-                {
-                    hata = "2.DoğrulamaKodu.KontrolEt.Klasör>" + doko.ToString() + ">" + kla_gecici;
-                    goto HatalıCıkış;
-                }
-
-                // gecici -> banka
-                if (!Ortak.Klasör_TamKopya(kla_gecici, Ortak.Klasör_Banka))
-                {
-                    hata = "3.AslınaUygunHaleGetir>" + kla_gecici + ">" + Ortak.Klasör_Banka;
-                    goto HatalıCıkış;
-                }
-
-                // banka 2. kez doko
-                doko = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı);
-                if (doko != DoğrulamaKodu.KontrolEt.Durum_.Aynı)
-                {
-                    hata = "4.DoğrulamaKodu.KontrolEt.Klasör>" + doko.ToString() + ">" + Ortak.Klasör_Banka;
-                    goto HatalıCıkış;
-                }
-
-                hata = Klasör.ÜstKlasör(l.Keys.First()) + "\\";
-                Ortak.Klasör_TamKopya(hata + "Kullanıcı Dosyaları", Ortak.Klasör_KullanıcıDosyaları);
-                Ortak.Klasör_TamKopya(hata + "Yedek", Ortak.Klasör_İçYedek);
-                Klasör.Sil(kla_gecici);
-                Değişiklikler_TamponuSıfırla();
-                return;
-
-            HatalıCıkış:
-                // banka2 -> banka
-                if (Ortak.Klasör_TamKopya(Ortak.Klasör_Banka2, Ortak.Klasör_Banka))
-                {
-                    hata = "Yedekleme başarısız oldu fakat mevcut kayıtlarınız sağlam," + Environment.NewLine +
-                        "uygulamayı kapatıp açmak yardımcı olabilir" + Environment.NewLine + Environment.NewLine +
-                        "Hata : " + hata;
-                }
-                else
-                {
-                    hata = "Yedekleme başarısız oldu, lütfen uygulamayı kapatıp YEDEK klasörünüdeki en yeni yedeği BANKA içerisine kopyalayınız" + Environment.NewLine + Environment.NewLine +
-                        "YEDEK : " + Ortak.Klasör_İçYedek + Environment.NewLine +
-                        "BANKA : " + Ortak.Klasör_Banka + Environment.NewLine + Environment.NewLine +
-                        "Hata : " + hata;
-                }
-                
-                try { MessageBox.Show(hata, "Yedekleme"); } catch (Exception) { }
-                throw new Exception(hata).Günlük();
-            }
         }
         #endregion
     }

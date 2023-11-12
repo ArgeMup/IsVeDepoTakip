@@ -11,8 +11,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             InitializeComponent();
 
-            Ortak.AnaEkran = this;
-           
             Controls.Add(P_AnaMenü); P_AnaMenü.Dock = DockStyle.Fill;
             Controls.Add(P_Ayarlar); P_Ayarlar.Dock = DockStyle.Fill;
         }
@@ -31,25 +29,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         break;
                 }
             }
-        }
-        private void Açılış_Ekranı_FormClosing(object sender, FormClosingEventArgs e)
-        {
-#if DEBUG
-            e = new FormClosingEventArgs(CloseReason.None, false);
-#endif
-
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                e.Cancel = true;
-                WindowState = FormWindowState.Minimized;
-            }
-        }
-        private void Açılış_Ekranı_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Enabled = false;
-
-            Ortak.Kapan(e.CloseReason.ToString());
-            Application.Exit(); //en alttaki parola kontrol uygulamasını kapatmak için
         }
 
         private void P_AnaMenü_VisibleChanged(object sender, EventArgs e)
@@ -96,21 +75,23 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Form ÖndekiEkran;
             switch ((sender as Button).Text)
             {
-                case "Yeni İş Girişi":  ÖndekiEkran = new Yeni_İş_Girişi(); break;
-                case "Tüm İşler":       ÖndekiEkran = new Tüm_İşler(false); break;
-                case "Takvim":          ÖndekiEkran = new Takvim(); break;
-                case "Korumalı Alan":   ÖndekiEkran = new Korumalı_Alan(); break;
-                case "Müşteriler":      ÖndekiEkran = new Müşteriler(); break;
-                case "İş Türleri":      ÖndekiEkran = new Ayarlar_İş_Türleri(); break;
-                case "Ücretler":        ÖndekiEkran = new Ayarlar_Ücretler(); break;
-                case "Bütçe":           ÖndekiEkran = new Ayarlar_Bütçe(); break;
-                case "Malzemeler":      ÖndekiEkran = new Ayarlar_Malzemeler(); break;
-                case "Yazdırma":        ÖndekiEkran = new Ayarlar_Yazdırma(true); break;
-                case "E-posta":         ÖndekiEkran = new Ayarlar_Eposta(); break;
-                case "Etiketleme":      ÖndekiEkran = new Ayarlar_Etiketleme(); break;
-                case "Değişkenler":     ÖndekiEkran = new Ayarlar_Değişkenler(); break;
-                case "Diğer":           ÖndekiEkran = new Ayarlar_Diğer(); break;
-                case "Ücret Hesaplama": ÖndekiEkran = new Yeni_İş_Girişi(SeriNoTürü:Banka.TabloTürü.ÜcretHesaplama); break;
+                case "Yeni İş Girişi":      ÖndekiEkran = new Yeni_İş_Girişi(); break;
+                case "Tüm İşler":           ÖndekiEkran = new Tüm_İşler(false); break;
+                case "Takvim":              ÖndekiEkran = new Takvim(); break;
+                case "Korumalı Alan":       ÖndekiEkran = new Korumalı_Alan(); break;
+                case "Müşteriler":          ÖndekiEkran = new Müşteriler(); break;
+                case "İş Türleri":          ÖndekiEkran = new Ayarlar_İş_Türleri(); break;
+                case "Ücretler":            ÖndekiEkran = new Ayarlar_Ücretler(); break;
+                case "Bütçe":               ÖndekiEkran = new Ayarlar_Bütçe(); break;
+                case "Malzemeler":          ÖndekiEkran = new Ayarlar_Malzemeler(); break;
+                case "Yazdırma":            ÖndekiEkran = new Ayarlar_Yazdırma(true); break;
+                case "E-posta":             ÖndekiEkran = new Ayarlar_Eposta(); break;
+                case "Etiketleme":          ÖndekiEkran = new Ayarlar_Etiketleme(); break;
+                case "Değişkenler":         ÖndekiEkran = new Ayarlar_Değişkenler(); break;
+                case "Diğer":               ÖndekiEkran = new Ayarlar_Diğer(); break;
+                case "Ücret Hesaplama":     ÖndekiEkran = new Yeni_İş_Girişi(SeriNoTürü:Banka.TabloTürü.ÜcretHesaplama); break;
+                case "Kullanıcılar":        ÖndekiEkran = new Ayarlar_Kullanıcılar(ArgeMup.HazirKod.Ekranlar.Kullanıcılar.İşlemTürü_.Ayarlar); break;
+                case "Parolayı Değiştir":   ÖndekiEkran = new Ayarlar_Kullanıcılar(ArgeMup.HazirKod.Ekranlar.Kullanıcılar.İşlemTürü_.ParolaDeğiştirme); break;
                 default : throw new Exception("Tuş_Click " + (sender as Button).Text);
             }
 
@@ -145,10 +126,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 Application.Exit();
             }
-        }
-        private void ParolayıDeğiştir_Click(object sender, EventArgs e)
-        {
-            Ekranlar.ÖnYüzler.Ekle(new Parola_Kontrol(false, true));
         }
         private void BarkodGirişi_KeyDown(object sender, KeyEventArgs e)
         {

@@ -36,6 +36,7 @@
             this.Ücretler = new System.Windows.Forms.Button();
             this.Yazdırma = new System.Windows.Forms.Button();
             this.P_AnaMenü = new System.Windows.Forms.Panel();
+            this.ParolayıDeğiştir = new System.Windows.Forms.Button();
             this.ÜcretHesaplama = new System.Windows.Forms.Button();
             this.BarkodGirişi = new System.Windows.Forms.TextBox();
             this.KorumalıAlan = new System.Windows.Forms.Button();
@@ -47,11 +48,11 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.P_Ayarlar = new System.Windows.Forms.Panel();
+            this.Kullanıcılar = new System.Windows.Forms.Button();
             this.Değişkenler = new System.Windows.Forms.Button();
             this.Etiketleme = new System.Windows.Forms.Button();
             this.Malzemeler = new System.Windows.Forms.Button();
             this.Bütçe = new System.Windows.Forms.Button();
-            this.ParolayıDeğiştir = new System.Windows.Forms.Button();
             this.Eposta = new System.Windows.Forms.Button();
             this.Diğer = new System.Windows.Forms.Button();
             this.Hata = new System.Windows.Forms.ErrorProvider(this.components);
@@ -146,6 +147,7 @@
             // 
             this.P_AnaMenü.BackgroundImage = global::İş_ve_Depo_Takip.Properties.Resources.logo_512_seffaf;
             this.P_AnaMenü.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.P_AnaMenü.Controls.Add(this.ParolayıDeğiştir);
             this.P_AnaMenü.Controls.Add(this.ÜcretHesaplama);
             this.P_AnaMenü.Controls.Add(this.BarkodGirişi);
             this.P_AnaMenü.Controls.Add(this.KorumalıAlan);
@@ -160,6 +162,20 @@
             this.P_AnaMenü.TabIndex = 10;
             this.P_AnaMenü.Visible = false;
             this.P_AnaMenü.VisibleChanged += new System.EventHandler(this.P_AnaMenü_VisibleChanged);
+            // 
+            // ParolayıDeğiştir
+            // 
+            this.ParolayıDeğiştir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ParolayıDeğiştir.AutoSize = true;
+            this.ParolayıDeğiştir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.ParolayıDeğiştir.Location = new System.Drawing.Point(6, 324);
+            this.ParolayıDeğiştir.Margin = new System.Windows.Forms.Padding(6);
+            this.ParolayıDeğiştir.Name = "ParolayıDeğiştir";
+            this.ParolayıDeğiştir.Size = new System.Drawing.Size(121, 29);
+            this.ParolayıDeğiştir.TabIndex = 8;
+            this.ParolayıDeğiştir.Text = "Parolayı Değiştir";
+            this.ParolayıDeğiştir.UseVisualStyleBackColor = true;
+            this.ParolayıDeğiştir.Click += new System.EventHandler(this.Tuş_Click);
             // 
             // ÜcretHesaplama
             // 
@@ -295,11 +311,11 @@
             // 
             // P_Ayarlar
             // 
+            this.P_Ayarlar.Controls.Add(this.Kullanıcılar);
             this.P_Ayarlar.Controls.Add(this.Değişkenler);
             this.P_Ayarlar.Controls.Add(this.Etiketleme);
             this.P_Ayarlar.Controls.Add(this.Malzemeler);
             this.P_Ayarlar.Controls.Add(this.Bütçe);
-            this.P_Ayarlar.Controls.Add(this.ParolayıDeğiştir);
             this.P_Ayarlar.Controls.Add(this.Eposta);
             this.P_Ayarlar.Controls.Add(this.Diğer);
             this.P_Ayarlar.Controls.Add(this.Müşteriler);
@@ -313,6 +329,18 @@
             this.P_Ayarlar.TabIndex = 12;
             this.P_Ayarlar.Visible = false;
             this.P_Ayarlar.VisibleChanged += new System.EventHandler(this.P_AnaMenü_VisibleChanged);
+            // 
+            // Kullanıcılar
+            // 
+            this.Kullanıcılar.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.Kullanıcılar.Location = new System.Drawing.Point(361, 167);
+            this.Kullanıcılar.Margin = new System.Windows.Forms.Padding(6);
+            this.Kullanıcılar.Name = "Kullanıcılar";
+            this.Kullanıcılar.Size = new System.Drawing.Size(169, 68);
+            this.Kullanıcılar.TabIndex = 11;
+            this.Kullanıcılar.Text = "Kullanıcılar";
+            this.Kullanıcılar.UseVisualStyleBackColor = true;
+            this.Kullanıcılar.Click += new System.EventHandler(this.Tuş_Click);
             // 
             // Değişkenler
             // 
@@ -362,18 +390,6 @@
             this.Bütçe.UseVisualStyleBackColor = true;
             this.Bütçe.Click += new System.EventHandler(this.Tuş_Click);
             // 
-            // ParolayıDeğiştir
-            // 
-            this.ParolayıDeğiştir.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.ParolayıDeğiştir.Location = new System.Drawing.Point(361, 167);
-            this.ParolayıDeğiştir.Margin = new System.Windows.Forms.Padding(6);
-            this.ParolayıDeğiştir.Name = "ParolayıDeğiştir";
-            this.ParolayıDeğiştir.Size = new System.Drawing.Size(169, 68);
-            this.ParolayıDeğiştir.TabIndex = 7;
-            this.ParolayıDeğiştir.Text = "Parola";
-            this.ParolayıDeğiştir.UseVisualStyleBackColor = true;
-            this.ParolayıDeğiştir.Click += new System.EventHandler(this.ParolayıDeğiştir_Click);
-            // 
             // Eposta
             // 
             this.Eposta.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -418,13 +434,10 @@
             this.Controls.Add(this.tab_sayfası);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.Name = "Açılış_Ekranı";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Açılış_Ekranı_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Açılış_Ekranı_FormClosed);
             this.Shown += new System.EventHandler(this.Açılış_Ekranı_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Açılış_Ekranı_KeyDown);
             this.P_AnaMenü.ResumeLayout(false);
@@ -455,7 +468,6 @@
         private System.Windows.Forms.ErrorProvider Hata;
         private System.Windows.Forms.Button Diğer;
         private System.Windows.Forms.Button Eposta;
-        private System.Windows.Forms.Button ParolayıDeğiştir;
         private System.Windows.Forms.Button Bütçe;
         public System.Windows.Forms.Button YedekleKapat;
         private System.Windows.Forms.Button Malzemeler;
@@ -467,6 +479,8 @@
         private System.Windows.Forms.TextBox BarkodGirişi;
         private System.Windows.Forms.Button Değişkenler;
         public System.Windows.Forms.Button ÜcretHesaplama;
+        private System.Windows.Forms.Button Kullanıcılar;
+        private System.Windows.Forms.Button ParolayıDeğiştir;
     }
 }
 

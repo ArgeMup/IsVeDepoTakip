@@ -72,6 +72,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ekranlar\Ayarlar_Kullanıcılar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ekranlar\Ayarlar_Kullanıcılar.designer.cs">
+      <DependentUpon>Ayarlar_Kullanıcılar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ekranlar\Barkod_Okuma_Seçenekleri.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,12 +89,6 @@
     </Compile>
     <Compile Include="Ekranlar\Ayarlar_Değişkenler.Designer.cs">
       <DependentUpon>Ayarlar_Değişkenler.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Ekranlar\Parola_Kontrol.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Ekranlar\Parola_Kontrol.Designer.cs">
-      <DependentUpon>Parola_Kontrol.cs</DependentUpon>
     </Compile>
     <Compile Include="Ekranlar\Bekleyiniz.cs">
       <SubType>Form</SubType>
@@ -202,6 +202,19 @@
     <Compile Include="HazirKod_Cdiyez\KlasörDosya.cs" />
     <Compile Include="HazirKod_Cdiyez\KlavyeFareGozlemcisi.cs" />
     <Compile Include="HazirKod_Cdiyez\Liste.cs" />
+    <Compile Include="HazirKod_Cdiyez\Ekranlar\Kullanıcılar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HazirKod_Cdiyez\Ekranlar\Kullanıcılar.designer.cs">
+      <DependentUpon>Kullanıcılar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HazirKod_Cdiyez\Ekranlar\ListeKutusu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HazirKod_Cdiyez\Ekranlar\ListeKutusu.designer.cs">
+      <DependentUpon>ListeKutusu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HazirKod_Cdiyez\Matematiksel.cs" />
     <Compile Include="HazirKod_Cdiyez\Sıkıştırma.cs" />
     <Compile Include="HazirKod_Cdiyez\UygulamaOncedenCalistirildiMi.cs" />
     <Compile Include="HazirKod_Cdiyez\Win32Kutuphaneleri.cs" />
@@ -223,15 +236,15 @@
       <DependentUpon>Yeni_İş_Girişi.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <EmbeddedResource Include="Ekranlar\Ayarlar_Kullanıcılar.resx">
+      <DependentUpon>Ayarlar_Kullanıcılar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Barkod_Okuma_Seçenekleri.resx">
       <DependentUpon>Barkod_Okuma_Seçenekleri.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Ayarlar_Değişkenler.resx">
       <DependentUpon>Ayarlar_Değişkenler.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Ekranlar\Parola_Kontrol.resx">
-      <DependentUpon>Parola_Kontrol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Bekleyiniz.resx">
       <DependentUpon>Bekleyiniz.cs</DependentUpon>
@@ -287,6 +300,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Ayarlar_Müşteriler.resx">
       <DependentUpon>Ayarlar_Müşteriler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HazirKod_Cdiyez\Ekranlar\Kullanıcılar.resx">
+      <DependentUpon>Kullanıcılar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HazirKod_Cdiyez\Ekranlar\ListeKutusu.resx">
+      <DependentUpon>ListeKutusu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -9,12 +9,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
     class Önyüz_
     {
         public Form Ekran;
-        public FormWindowState İlkDurumu;
 
         public Önyüz_(Form ekran)
         {
             Ekran = ekran;
-            İlkDurumu = ekran.WindowState;
         }
     }
     public interface IEkran
@@ -32,11 +30,20 @@ namespace İş_ve_Depo_Takip.Ekranlar
         static KlavyeFareGozlemcisi_ ÖndekiEkran_KlaFaGö = null;
         static System.Windows.Forms.Timer ÖndekiEkran_Zamanlayıcı = null;
         static List<string> GüncellenenSeriNolar = new List<string>();
+        static DateTime SonHarekenAnı = DateTime.Now;
+        
+        public static Form AnaEkran
+        {
+            get
+            {
+                if (Tümü.Count == 0) return null;
+
+                return Tümü.First().Ekran;
+            }
+        }
 
         public static void Başlat()
         {
-            Ekle(new Açılış_Ekranı()); //0. eleman
-
 #if DEBUG
             ÖndekiEkran_KlaFaGö = new KlavyeFareGozlemcisi_(false, false, false);//denemelerde kasıyor
 #else
@@ -75,10 +82,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             void T_Tick(object senderr, EventArgs ee)
             {
-                Form f = Tümü.Last().Ekran;
+                Form f = Tümü.Count > 0 ? Tümü.Last().Ekran : null;
                 ÖndekiEkran_Zamanlayıcı.Stop();
 
-                if (f.WindowState == FormWindowState.Minimized)
+                if (f == null || f.WindowState == FormWindowState.Minimized)
                 {
                     ÖndekiEkran_Zamanlayıcı.Interval = 5000;
                 }
@@ -116,7 +123,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         if (f.Opacity <= 0)
                         {
                             f.WindowState = FormWindowState.Minimized;
-                            f.Opacity = 1;
                         }
                     }
                 }
@@ -139,54 +145,58 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 son_açılan.Hide();
             }
 
-            if (Ekran is Parola_Kontrol)
-            {
-                Ekran.FormClosed += Ekran_FormClosed;
-            }
-            else if (Ekran is Açılış_Ekranı)
-            {
-                Ekran.KeyDown += Ekran_KeyDown;
-                Ekran.Resize += Ekran_Resize;
-            }
-            else
-            {
-                Ekran.KeyDown += Ekran_KeyDown;
-                Ekran.Resize += Ekran_Resize;
-                Ekran.FormClosing += Ekran_FormClosing;
-                Ekran.FormClosed += Ekran_FormClosed;
-            }
-
+            Ekran.Activated += Ekran_Activated;
+            Ekran.Deactivate += Ekran_Deactivate;
+            Ekran.KeyDown += Ekran_KeyDown;
+            Ekran.Resize += Ekran_Resize;
+            Ekran.FormClosing += Ekran_FormClosing;
+            Ekran.FormClosed += Ekran_FormClosed;
+            
             Ekran.Text = "ArGeMuP " + Kendi.Adı + " " + Ekran.Text + " " + Ortak.YeniYazılımKontrolü_Mesajı;
             Ekran.Icon = Properties.Resources.kendi;
             Ekran.KeyPreview = true;
 
+            SonHarekenAnı = DateTime.Now;
             Tümü.Add(new Önyüz_(Ekran));
             Ekran.Show();
 
             Günlük.Ekle("Yan uygulama açıldı " + Ekran.Text);
         }
+
         public static void GüncellenenSeriNoyuİşaretle(string SeriNo)
         {
             GüncellenenSeriNolar.Add(SeriNo);
         }
-        public static void Durdur()
+        public static void PencereleriKapat()
         {
             GüncellenenSeriNolar.Clear();
 
+            foreach (Önyüz_ önyüz in Tümü)
+            {
+                try
+                {
+                    önyüz.Ekran.Activated -= Ekran_Activated;
+                    önyüz.Ekran.Deactivate -= Ekran_Deactivate;
+                    önyüz.Ekran.KeyDown -= Ekran_KeyDown;
+                    önyüz.Ekran.Resize -= Ekran_Resize;
+                    önyüz.Ekran.FormClosing -= Ekran_FormClosing;
+                    önyüz.Ekran.FormClosed -= Ekran_FormClosed;
+
+                    önyüz.Ekran.Dispose();
+                }
+                catch (Exception) { }
+            }
+
+            Tümü.Clear();
+        }
+        public static void Durdur()
+        {
             ÖndekiEkran_Zamanlayıcı?.Dispose();
             ÖndekiEkran_Zamanlayıcı = null;
             ÖndekiEkran_KlaFaGö?.Dispose();
             ÖndekiEkran_KlaFaGö = null;
 
-            for (int i = Tümü.Count - 1; i > 0; i--) //açılış ekranı hariç
-            {
-                try
-                {
-                    Tümü[i].Ekran.Dispose();
-                }
-                catch (Exception) { }
-            }
-            Tümü.Clear();
+            PencereleriKapat();
         }
         public static void SürümKontrolMesajınıGüncelle()
         {
@@ -196,6 +206,19 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
         }
 
+        private static void Ekran_Activated(object sender, EventArgs e)
+        {
+            if (Banka.Kullanıcı_İzinleri_Tutucusu.ParolaKontrolüGerekiyorMu &&
+                (DateTime.Now - SonHarekenAnı).TotalSeconds > Ortak.Kullanıcı_KüçültüldüğündeParolaSor_sn)
+            {
+                //şifre sayfasını aç
+                Form ayrlr_klc = new Ayarlar_Kullanıcılar(ArgeMup.HazirKod.Ekranlar.Kullanıcılar.İşlemTürü_.Giriş, sender == null);
+            }
+        }
+        private static void Ekran_Deactivate(object sender, EventArgs e)
+        {
+            SonHarekenAnı = DateTime.Now;
+        }
         private static void Ekran_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -227,19 +250,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             if (şimdiki.WindowState == FormWindowState.Minimized)
             {
-                if (Ortak.Kullanıcı_KüçültüldüğündeParolaSor) Ortak.ParolaGirilmesiGerekiyor = true;
-                
                 Banka.Yedekle_Tümü();
+
+                SonHarekenAnı = DateTime.Now.AddDays(-1);
+                Ekran_Activated(null, null);
             }
             else
             {
                 şimdiki.Opacity = 1;
-
-                if (Ortak.ParolaGirilmesiGerekiyor)
-                {
-                    //şifre sayfasını aç
-                    Ekranlar.ÖnYüzler.Ekle(new Parola_Kontrol(false));
-                }
             }
         }
         private static void Ekran_FormClosing(object sender, FormClosingEventArgs e)
@@ -254,6 +272,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 foreach (Control ÜstEleman in öndeki.Ekran.Controls)
                 {
                     _Bul_(ÜstEleman);
+                }
+
+                if (Tümü.Count == 1)
+                {
+                    öndeki.Ekran.WindowState = FormWindowState.Minimized;
+                    e.Cancel = true;
                 }
             }
 
@@ -281,30 +305,20 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Önyüz_ öndeki = Tümü.First(x => x.Ekran == sender);
                 if (öndeki != Tümü.Last()) throw new System.Exception("2 Listedeki son eleman olmamasına rağmen kapatma isteği geldi " + öndeki.Ekran.Text);
 
-                if (Ortak.ParolaGirilmesiGerekiyor) throw new System.Exception("Ortak.ParolaGirilmesiGerekiyor " + öndeki.Ekran.Text);
-
                 Tümü.Remove(öndeki);
-                if (Tümü.Count == 1) GüncellenenSeriNolar.Clear();
 
-                Önyüz_ Arkadaki = Tümü.Last();
-                Arkadaki.Ekran.Show();
-                if (GüncellenenSeriNolar.Count > 0 && !Arkadaki.Ekran.Disposing && !Arkadaki.Ekran.IsDisposed)
+                if (Tümü.Count > 0)
                 {
-                    IGüncellenenSeriNolar arakontrol = Arkadaki.Ekran as IGüncellenenSeriNolar;
-                    arakontrol?.KontrolEt(GüncellenenSeriNolar);
+                    Önyüz_ Arkadaki = Tümü.Last();
+                    Arkadaki.Ekran.Show();
+                    if (GüncellenenSeriNolar.Count > 0 && !Arkadaki.Ekran.Disposing && !Arkadaki.Ekran.IsDisposed)
+                    {
+                        IGüncellenenSeriNolar arakontrol = Arkadaki.Ekran as IGüncellenenSeriNolar;
+                        arakontrol?.KontrolEt(GüncellenenSeriNolar);
+                    }
                 }
-
-                if (öndeki.Ekran is Parola_Kontrol)
-                {
-                    Arkadaki.Ekran.WindowState = Arkadaki.İlkDurumu;
-                }
-
+                        
                 Günlük.Ekle("Yan uygulama kapatıldı " + öndeki.Ekran.Text);
-            }
-            else
-            {
-                Ortak.Kapan(e.CloseReason.ToString());
-                Application.Exit(); //en alttaki parola kontrol uygulamasını kapatmak için
             }
         }
     }

@@ -91,6 +91,7 @@
             this.printPreviewDialog1.Enabled = true;
             this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
             this.printPreviewDialog1.Name = "printPreviewDialog1";
+            this.printPreviewDialog1.ShowIcon = false;
             this.printPreviewDialog1.Visible = false;
             // 
             // Yazcılar

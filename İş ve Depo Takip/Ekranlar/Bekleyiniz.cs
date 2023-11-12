@@ -44,6 +44,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 else İlerlemeÇubuğu.Value = toplam;
 
                 tlp.Geçerli_Kademe = İlerlemeÇubuğu.Value;
+
+                _ = Çalışsın;
             }
         }
         public string Açıklama

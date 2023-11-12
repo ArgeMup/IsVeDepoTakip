@@ -40,7 +40,6 @@
             this.Klasör_Yedekleme_2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.Klasör_Yedekleme_3 = new System.Windows.Forms.TextBox();
-            this.KüçültüldüğündeParolaSor = new System.Windows.Forms.CheckBox();
             this.KüçültüldüğündeParolaSor_sn = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -96,7 +95,7 @@
             this.ÖnYüzler_Kaydet.Enabled = false;
             this.ÖnYüzler_Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.ÖnYüzler_Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ÖnYüzler_Kaydet.Location = new System.Drawing.Point(5, 1000);
+            this.ÖnYüzler_Kaydet.Location = new System.Drawing.Point(5, 971);
             this.ÖnYüzler_Kaydet.Name = "ÖnYüzler_Kaydet";
             this.ÖnYüzler_Kaydet.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.ÖnYüzler_Kaydet.Size = new System.Drawing.Size(551, 44);
@@ -213,23 +212,9 @@
             this.Klasör_Yedekleme_3.TabIndex = 26;
             this.Klasör_Yedekleme_3.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
-            // KüçültüldüğündeParolaSor
-            // 
-            this.KüçültüldüğündeParolaSor.AutoSize = true;
-            this.KüçültüldüğündeParolaSor.Checked = true;
-            this.KüçültüldüğündeParolaSor.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.KüçültüldüğündeParolaSor.Location = new System.Drawing.Point(15, 28);
-            this.KüçültüldüğündeParolaSor.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
-            this.KüçültüldüğündeParolaSor.Name = "KüçültüldüğündeParolaSor";
-            this.KüçültüldüğündeParolaSor.Size = new System.Drawing.Size(234, 24);
-            this.KüçültüldüğündeParolaSor.TabIndex = 23;
-            this.KüçültüldüğündeParolaSor.Text = "Küçültüldüğünde parola sor";
-            this.KüçültüldüğündeParolaSor.UseVisualStyleBackColor = true;
-            this.KüçültüldüğündeParolaSor.CheckedChanged += new System.EventHandler(this.Ayar_Değişti);
-            // 
             // KüçültüldüğündeParolaSor_sn
             // 
-            this.KüçültüldüğündeParolaSor_sn.Location = new System.Drawing.Point(15, 56);
+            this.KüçültüldüğündeParolaSor_sn.Location = new System.Drawing.Point(15, 26);
             this.KüçültüldüğündeParolaSor_sn.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.KüçültüldüğündeParolaSor_sn.Maximum = new decimal(new int[] {
             99999,
@@ -255,7 +240,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(106, 58);
+            this.label3.Location = new System.Drawing.Point(106, 28);
             this.label3.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(277, 20);
@@ -436,7 +421,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(106, 88);
+            this.label10.Location = new System.Drawing.Point(106, 58);
             this.label10.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(283, 20);
@@ -445,7 +430,7 @@
             // 
             // KorumalıAlan_SürümSayısı
             // 
-            this.KorumalıAlan_SürümSayısı.Location = new System.Drawing.Point(15, 86);
+            this.KorumalıAlan_SürümSayısı.Location = new System.Drawing.Point(15, 56);
             this.KorumalıAlan_SürümSayısı.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.KorumalıAlan_SürümSayısı.Minimum = new decimal(new int[] {
             1,
@@ -493,13 +478,12 @@
             // 
             this.groupBox_Gizlilik.Controls.Add(this.KorumalıAlan_SürümSayısı);
             this.groupBox_Gizlilik.Controls.Add(this.label10);
-            this.groupBox_Gizlilik.Controls.Add(this.KüçültüldüğündeParolaSor);
             this.groupBox_Gizlilik.Controls.Add(this.KüçültüldüğündeParolaSor_sn);
             this.groupBox_Gizlilik.Controls.Add(this.label3);
             this.groupBox_Gizlilik.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox_Gizlilik.Location = new System.Drawing.Point(5, 757);
             this.groupBox_Gizlilik.Name = "groupBox_Gizlilik";
-            this.groupBox_Gizlilik.Size = new System.Drawing.Size(551, 122);
+            this.groupBox_Gizlilik.Size = new System.Drawing.Size(551, 93);
             this.groupBox_Gizlilik.TabIndex = 30;
             this.groupBox_Gizlilik.TabStop = false;
             this.groupBox_Gizlilik.Text = "Gizlilik";
@@ -632,7 +616,7 @@
             this.groupBox_Sunucu.Controls.Add(this.label13);
             this.groupBox_Sunucu.Controls.Add(this.HttpSunucu_Açıklama);
             this.groupBox_Sunucu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox_Sunucu.Location = new System.Drawing.Point(5, 879);
+            this.groupBox_Sunucu.Location = new System.Drawing.Point(5, 850);
             this.groupBox_Sunucu.Name = "groupBox_Sunucu";
             this.groupBox_Sunucu.Padding = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.groupBox_Sunucu.Size = new System.Drawing.Size(551, 121);
@@ -729,7 +713,6 @@
         private System.Windows.Forms.TextBox Klasör_Pdf;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox Klasör_Yedekleme_1;
-        private System.Windows.Forms.CheckBox KüçültüldüğündeParolaSor;
         private System.Windows.Forms.TextBox Klasör_Yedekleme_5;
         private System.Windows.Forms.TextBox Klasör_Yedekleme_4;
         private System.Windows.Forms.TextBox Klasör_Yedekleme_3;

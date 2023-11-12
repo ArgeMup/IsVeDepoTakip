@@ -111,16 +111,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         public static void SeçenekleriGöster(string Barkod)
         {
-            if (Ortak.ParolaGirilmesiGerekiyor) return;
+            Form AnaEkran = Ekranlar.ÖnYüzler.AnaEkran;
+            if (AnaEkran == null) return;
 
             string sn = Ayarlar_Etiketleme.SeriNoyuBulmayaÇalış(Barkod).ToUpper();
             Banka.Talep_Bul_Detaylar_ detaylar = Banka.Talep_Bul(sn);
             if (detaylar == null) return;
 
-            if (!Ortak.AnaEkran.InvokeRequired) Ekranlar.ÖnYüzler.Ekle(new Barkod_Okuma_Seçenekleri(detaylar));
+            if (!AnaEkran.InvokeRequired) Ekranlar.ÖnYüzler.Ekle(new Barkod_Okuma_Seçenekleri(detaylar));
             else
             {
-                Ortak.AnaEkran.Invoke(new Action(() =>
+                AnaEkran.Invoke(new Action(() =>
                 {
                     Ekranlar.ÖnYüzler.Ekle(new Barkod_Okuma_Seçenekleri(detaylar));
                 }));

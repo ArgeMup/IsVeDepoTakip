@@ -25,8 +25,6 @@ namespace İş_ve_Depo_Takip
 
         public static YeniYazılımKontrolü_ YeniYazılımKontrolü = new YeniYazılımKontrolü_();
         public static string YeniYazılımKontrolü_Mesajı_Sabiti = "Yeni sürüm kontrol ediliyor", YeniYazılımKontrolü_Mesajı = YeniYazılımKontrolü_Mesajı_Sabiti;
-        public static bool ParolaGirilmesiGerekiyor = true;
-        public static Ekranlar.Açılış_Ekranı AnaEkran;
         public static Çalıştır_ Çalıştır = new Çalıştır_();
         
         public static void Kapan(string Bilgi)
@@ -46,7 +44,6 @@ namespace İş_ve_Depo_Takip
 
         public static string[] Kullanıcı_Klasör_Yedek = null;
         public static string Kullanıcı_Klasör_Pdf = null;
-        public static bool Kullanıcı_KüçültüldüğündeParolaSor = true;
         public static int Kullanıcı_KüçültüldüğündeParolaSor_sn = 60;
 
         public static bool YazıyıSayıyaDönüştür(ref string YazıŞeklindeSayı, string Konum, string YardımcıAçıklama = null, double EnDüşük = double.MinValue, double EnYüksek = double.MaxValue, bool Tamsayı = false)
@@ -118,14 +115,6 @@ namespace İş_ve_Depo_Takip
         }
 
         public static System.Collections.Generic.Dictionary<string, string> Gösterge_UyarıVerenMalzemeler = new System.Collections.Generic.Dictionary<string, string>();
-        public static void Gösterge_Açılışİşlemi(Label Gösterge, string Açıklama, ref int Tik)
-        {
-            int geçensüre = Environment.TickCount - Tik;
-            Açıklama = Açıklama + " (" + geçensüre + " msn)";
-            Gösterge.Text += Environment.NewLine + Açıklama.Günlük();
-            Gösterge.Refresh();
-            Tik = Environment.TickCount;
-        }
         public static Ekranlar.Bekleyiniz Gösterge = new Ekranlar.Bekleyiniz();
 
         static Random rnd = new Random();

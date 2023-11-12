@@ -1,5 +1,4 @@
-﻿using ArgeMup.HazirKod;
-using ArgeMup.HazirKod.Dönüştürme;
+﻿using ArgeMup.HazirKod.Dönüştürme;
 
 namespace İş_ve_Depo_Takip
 {
@@ -7,13 +6,8 @@ namespace İş_ve_Depo_Takip
     {
         public static string Yazı = "ArGeMuP İş Ve Depo Takip Uygulaması";
         public static byte[] Dizi = D_Yazı.BaytDizisine(Yazı);
-        public static void Kaydet(string KullanıcıParalosu)
-        {
-            Banka.Ayarlar_Genel("Kullanıcı Şifresi", true)[0] = DoğrulamaKodu.Üret.Yazıdan(KullanıcıParalosu + "ArGeMuP");
-        }
-        public static bool KontrolEt(string KullanıcıParalosu)
-        {
-            return Banka.Ayarlar_Genel("Kullanıcı Şifresi")[0] == DoğrulamaKodu.Üret.Yazıdan(KullanıcıParalosu + "ArGeMuP");
-        }
+
+        public static string Yazı_Eposta = "ArGeMuP Eposta Uygulaması";
+        public static string Yazı_GelirGiderTakip = "ArGeMuP Gelir Gider Takip Uygulaması";
     }
 }

@@ -36,7 +36,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Klasör_Yedekleme_5.Text = Ayarlar_Bilgisayar.Oku("Klasör/Yedek", null, 4);
             Klasör_Pdf.Text = Ayarlar_Bilgisayar.Oku("Klasör/Pdf");
 
-            KüçültüldüğündeParolaSor.Checked = Ayarlar_Küçültüldüğünde.Oku_Bit(null, true, 0);
             KüçültüldüğündeParolaSor_sn.Value = Ayarlar_Küçültüldüğünde.Oku_TamSayı(null, 60, 1);
 
             KorumalıAlan_SürümSayısı.Value = Ayarlar_SürümKontrol.Oku_TamSayı(null, 15);
@@ -225,7 +224,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar_Bilgisayar.Yaz("Klasör/Yedek", Klasör_Yedekleme_5.Text, 4);
             Ayarlar_Bilgisayar.Yaz("Klasör/Pdf", Klasör_Pdf.Text);
 
-            Ayarlar_Küçültüldüğünde.Yaz(null, KüçültüldüğündeParolaSor.Checked, 0);
             Ayarlar_Küçültüldüğünde.Yaz(null, (int)KüçültüldüğündeParolaSor_sn.Value, 1);
 
             Ayarlar_SürümKontrol.Yaz(null, (int)KorumalıAlan_SürümSayısı.Value);
@@ -239,7 +237,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Ortak.Kullanıcı_Klasör_Yedek = Ayarlar_Bilgisayar.Bul("Klasör/Yedek", true).İçeriği;
             Ortak.Kullanıcı_Klasör_Pdf = Klasör_Pdf.Text;
-            Ortak.Kullanıcı_KüçültüldüğündeParolaSor = KüçültüldüğündeParolaSor.Checked;
             Ortak.Kullanıcı_KüçültüldüğündeParolaSor_sn = (int)KüçültüldüğündeParolaSor_sn.Value;
             ÖnYüzler_Kaydet.Enabled = false;
         }
