@@ -14,8 +14,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             InitializeComponent();
 
             AramaÇubuğu_Liste = Banka.KorumalıAlan_Listele_Dosyalar();
-            Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste);
-            Ortak.GrupArayıcı(Sürümler);
+            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Liste, AramaÇubuğu_Liste);
+            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Sürümler);
         }
         private void KorumalıAlan_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -82,7 +82,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     }
 
                     Banka.Değişiklikleri_Kaydet(null);
-                    Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);
+                    ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);
                 }
                 catch (Exception ex)
                 {
@@ -99,15 +99,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             splitContainer1.Panel2.Enabled = false;
             Sil.Enabled = false;
-         
-            Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);
+
+            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);
         }
 
         private void Liste_SelectedValueChanged(object sender, System.EventArgs e)
         {
             if (Liste.SelectedIndex < 0) { splitContainer1.Panel2.Enabled = false; return; }
 
-            Ortak.GrupArayıcı(Sürümler, Banka.KorumalıAlan_Listele_Sürümler(Liste.Text));
+            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Sürümler, Banka.KorumalıAlan_Listele_Sürümler(Liste.Text));
             if (Sürümler.Items.Count > 0) Sürümler.SelectedIndex = 0;
 
             splitContainer1.Panel2.Enabled = true;
@@ -139,7 +139,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Banka.Değişiklikleri_Kaydet(null);
 
             AramaÇubuğu_Liste.Remove(Liste.Text);
-            Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);
+            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);
             splitContainer1.Enabled = true;
         }
 

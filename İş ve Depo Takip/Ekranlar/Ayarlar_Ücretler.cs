@@ -16,7 +16,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             AramaÇubuğu_Müşteri_Liste = Banka.Müşteri_Listele();
             AramaÇubuğu_Müşteri_Liste.Insert(0, "Tüm müşteriler için ortak");
-            Ortak.GrupArayıcı(Müşterıler, AramaÇubuğu_Müşteri_Liste);
+            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Müşterıler, AramaÇubuğu_Müşteri_Liste);
 
             Tablo.Rows.Clear();
             foreach (string it in Banka.İşTürü_Listele())
@@ -77,7 +77,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             splitContainer1.Panel2.Enabled = false;
             Zam_Yap.Enabled = false;
 
-            Ortak.GrupArayıcı(Müşterıler, AramaÇubuğu_Müşteri_Liste, AramaÇubuğu_Müşteri.Text);
+            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Müşterıler, AramaÇubuğu_Müşteri_Liste, AramaÇubuğu_Müşteri.Text);
         }
 
         bool TabloİçeriğiArama_Çalışıyor = false;

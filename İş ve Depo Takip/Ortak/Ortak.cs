@@ -194,47 +194,6 @@ namespace İş_ve_Depo_Takip
             return true;
         }
 
-        public static void GrupArayıcı(ListBox ListeKutucuğu, System.Collections.Generic.List<string> Liste = null, string Aranan = null)
-        {
-            ListeKutucuğu.Items.Clear();
-
-            if (Liste != null)
-            {
-                string[] arananlar, bulunanlar;
-
-                if (string.IsNullOrEmpty(Aranan)) bulunanlar = Liste.ToArray();
-                else
-                {
-                    arananlar = Aranan.Trim().ToLower().Split(' ');
-                    bulunanlar = Liste.FindAll(x => KontrolEt(x)).ToArray();
-                }
-
-                ListeKutucuğu.Items.AddRange(bulunanlar);
-
-                bool KontrolEt(string Girdi)
-                {
-                    Girdi = Girdi.ToLower();
-
-                    foreach (string arn in arananlar)
-                    {
-                        if (!Girdi.Contains(arn)) return false;
-                    }
-
-                    return true;
-                }
-            }
-
-            ListeKutucuğu.Enabled = ListeKutucuğu.Items.Count > 0;            
-        }
-
-        //public static void BatDosyasıCalistir(string DosyaAdı)
-        //{
-        //    if (!File.Exists(Klasör_KullanıcıDosyaları + DosyaAdı)) return;
-        //    
-        //    System.Diagnostics.Process İşlem = Çalıştır.UygulamayıDoğrudanÇalıştır(Klasör_KullanıcıDosyaları + DosyaAdı, null, true);
-        //    if (DosyaAdı.EndsWith("_Bekle.bat")) İşlem.WaitForExit();
-        //}
-
         public static void AltSayfayıYükle(Panel ÜzerineYerleştirilecekYüzey, Form AltSayfa)
         {
             AltSayfa.TopLevel = false;

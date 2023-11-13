@@ -276,8 +276,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 if (Tümü.Count == 1)
                 {
+#if DEBUG
+                    Application.Exit();
+#else
                     öndeki.Ekran.WindowState = FormWindowState.Minimized;
                     e.Cancel = true;
+#endif
                 }
             }
 

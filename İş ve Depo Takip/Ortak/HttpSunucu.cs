@@ -344,7 +344,7 @@ namespace İş_ve_Depo_Takip
                     string Dosya_TCMB = Ortak.Klasör_Gecici + "TCMB_Kurlar.xml";
                     Dosya.Sil(Dosya_TCMB);
                     YeniYazılımKontrolü_ Kaynak_TCMB = new YeniYazılımKontrolü_();
-                    Kaynak_TCMB.Başlat(new Uri("http://www.tcmb.gov.tr/kurlar/today.xml"), HedefDosyaYolu: Dosya_TCMB);
+                    Kaynak_TCMB.Başlat(new Uri("https://www.tcmb.gov.tr/kurlar/today.xml"), HedefDosyaYolu: Dosya_TCMB);
 
                     string Dosya_GenelPara = Ortak.Klasör_Gecici + "GenelPara_Kurlar.xml";
                     Dosya.Sil(Dosya_GenelPara);

@@ -673,8 +673,6 @@ namespace İş_ve_Depo_Takip
                 else l.Add(e.Adı);
             }
 
-            l.Sort();
-            l_gizli.Sort();
             l.AddRange(l_gizli);
 
             return l;
@@ -688,6 +686,10 @@ namespace İş_ve_Depo_Takip
             if (!Klasör.Oluştur(Ortak.Klasör_Banka_Müşteriler + kls_müş)) throw new Exception("Klasör oluşturulamadı " + Ortak.Klasör_Banka_Müşteriler + kls_müş);
 
             müş.Yaz(null, kls_müş);
+        }
+        public static void Müşteri_Sırala(List<string> ElemanAdıSıralaması)
+        {
+            Ayarlar_Genel("Müşteriler", true).Sırala(null, ElemanAdıSıralaması);
         }
         public static void Müşteri_Sil(string Adı)
         {
@@ -863,6 +865,10 @@ namespace İş_ve_Depo_Takip
         public static void İşTürü_Ekle(string Adı)
         {
             Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri/" + Adı, true)[0] = ".";
+        }
+        public static void İşTürü_Sırala(List<string> ElemanAdıSıralaması)
+        {
+            Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri", true).Sırala(null, ElemanAdıSıralaması);
         }
         public static void İşTürü_Sil(string Adı)
         {
@@ -1119,7 +1125,19 @@ namespace İş_ve_Depo_Takip
         public static void Malzeme_Sil(string Adı)
         {
             IDepo_Eleman d = Tablo_Dal(null, TabloTürü.Malzemeler, "Malzemeler/" + Adı);
-            if (d != null) d.Sil(null);
+            if (d != null)
+            {
+                string kls = d.Oku("Klasör KuDe");
+                if (kls.DoluMu())
+                {
+                    if (!Klasör.Sil(Ortak.Klasör_Banka_MalzemeKullanımDetayları + kls))
+                    {
+                        throw new Exception("Klasör silinemedi." + Environment.NewLine + Ortak.Klasör_Banka_MalzemeKullanımDetayları + kls);
+                    }
+                }
+
+                d.Sil(null);
+            }
         }
         public static bool Malzeme_MevcutMu(string Adı)
         {
@@ -3006,6 +3024,26 @@ namespace İş_ve_Depo_Takip
             {
                 return Kullanıcı_İzinleri_Tutucusu.KullanıcıAdı;
             }
+        }
+        public static ArgeMup.HazirKod.Ekranlar.ListeKutusu.Ayarlar_ ListeKutusu_Ayarlar(bool SadeceOkunabilir, bool ÇokluSeçim)
+        {
+            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Ayarlar_ ListeKutusu_Ayarlar = new ArgeMup.HazirKod.Ekranlar.ListeKutusu.Ayarlar_();
+            bool Ayarları_değiştirebilir = İzinliMi(Ayarlar_Kullanıcılar_İzin.Ayarları_değiştirebilir);
+
+            if (SadeceOkunabilir) ListeKutusu_Ayarlar.TümTuşlarıKapat();
+            else
+            {
+                ListeKutusu_Ayarlar.Eklenebilir = Ayarları_değiştirebilir;
+                ListeKutusu_Ayarlar.AdıDeğiştirilebilir = Ayarları_değiştirebilir;
+                ListeKutusu_Ayarlar.ElemanKonumu = Ayarları_değiştirebilir ? ArgeMup.HazirKod.Ekranlar.ListeKutusu.Ayarlar_.ElemanKonumu_.Değiştirilebilir : ArgeMup.HazirKod.Ekranlar.ListeKutusu.Ayarlar_.ElemanKonumu_.OlduğuGibi;
+                ListeKutusu_Ayarlar.Silinebilir = Ayarları_değiştirebilir;
+                ListeKutusu_Ayarlar.Gizlenebilir = Ayarları_değiştirebilir;
+            }
+
+            ListeKutusu_Ayarlar.GizliOlanlarıGöster = !SadeceOkunabilir && Ayarları_değiştirebilir;
+            ListeKutusu_Ayarlar.ÇokluSeçim = ÇokluSeçim ? ArgeMup.HazirKod.Ekranlar.ListeKutusu.Ayarlar_.ÇokluSeçim_.SolFareTuşuİle : ArgeMup.HazirKod.Ekranlar.ListeKutusu.Ayarlar_.ÇokluSeçim_.Kapalı;
+
+            return ListeKutusu_Ayarlar;
         }
 
         static object Sınıf_Oluştur(Type Tipi, Depo_ Depo)

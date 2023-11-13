@@ -29,12 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.Liste = new System.Windows.Forms.ListBox();
-            this.SağTuşMenü = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.SağTuşMenü_YenidenAdlandır = new System.Windows.Forms.ToolStripMenuItem();
-            this.SağTuşMenü_Sil = new System.Windows.Forms.ToolStripMenuItem();
-            this.Yeni = new System.Windows.Forms.TextBox();
-            this.Ekle = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Müşteriler));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Eposta_Gizli = new System.Windows.Forms.TextBox();
             this.Eposta_Bilgi = new System.Windows.Forms.TextBox();
@@ -44,11 +39,10 @@
             this.Eposta_Kime = new System.Windows.Forms.TextBox();
             this.ÖnYüzler_Kaydet = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.AramaÇubuğu = new System.Windows.Forms.TextBox();
+            this.Liste_Müşteriler = new ArgeMup.HazirKod.Ekranlar.ListeKutusu();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Notlar = new System.Windows.Forms.TextBox();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
-            this.SağTuşMenü.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -56,67 +50,6 @@
             this.splitContainer1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // Liste
-            // 
-            this.Liste.ContextMenuStrip = this.SağTuşMenü;
-            this.Liste.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Liste.FormattingEnabled = true;
-            this.Liste.ItemHeight = 29;
-            this.Liste.Location = new System.Drawing.Point(0, 36);
-            this.Liste.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.Liste.Name = "Liste";
-            this.Liste.Size = new System.Drawing.Size(420, 360);
-            this.Liste.TabIndex = 0;
-            this.Liste.SelectedValueChanged += new System.EventHandler(this.Liste_SelectedValueChanged);
-            // 
-            // SağTuşMenü
-            // 
-            this.SağTuşMenü.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.SağTuşMenü.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.SağTuşMenü_YenidenAdlandır,
-            this.SağTuşMenü_Sil});
-            this.SağTuşMenü.Name = "SağTuşMenü";
-            this.SağTuşMenü.ShowImageMargin = false;
-            this.SağTuşMenü.Size = new System.Drawing.Size(165, 52);
-            // 
-            // SağTuşMenü_YenidenAdlandır
-            // 
-            this.SağTuşMenü_YenidenAdlandır.Name = "SağTuşMenü_YenidenAdlandır";
-            this.SağTuşMenü_YenidenAdlandır.Size = new System.Drawing.Size(164, 24);
-            this.SağTuşMenü_YenidenAdlandır.Text = "Yeniden adlandır";
-            this.SağTuşMenü_YenidenAdlandır.Click += new System.EventHandler(this.SağTuşMenü_YenidenAdlandır_Click);
-            // 
-            // SağTuşMenü_Sil
-            // 
-            this.SağTuşMenü_Sil.Name = "SağTuşMenü_Sil";
-            this.SağTuşMenü_Sil.Size = new System.Drawing.Size(164, 24);
-            this.SağTuşMenü_Sil.Text = "Sil";
-            this.SağTuşMenü_Sil.Click += new System.EventHandler(this.SağTuşMenü_Sil_Click);
-            // 
-            // Yeni
-            // 
-            this.Yeni.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Yeni.Location = new System.Drawing.Point(0, 396);
-            this.Yeni.Name = "Yeni";
-            this.Yeni.Size = new System.Drawing.Size(420, 36);
-            this.Yeni.TabIndex = 2;
-            this.Yeni.TextChanged += new System.EventHandler(this.Yeni_TextChanged);
-            // 
-            // Ekle
-            // 
-            this.Ekle.AutoSize = true;
-            this.Ekle.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Ekle.Enabled = false;
-            this.Ekle.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
-            this.Ekle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Ekle.Location = new System.Drawing.Point(0, 432);
-            this.Ekle.Name = "Ekle";
-            this.Ekle.Size = new System.Drawing.Size(420, 52);
-            this.Ekle.TabIndex = 1;
-            this.Ekle.Text = "Ekle";
-            this.Ekle.UseVisualStyleBackColor = true;
-            this.Ekle.Click += new System.EventHandler(this.Ekle_Click);
             // 
             // groupBox1
             // 
@@ -218,30 +151,27 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.Liste);
-            this.splitContainer1.Panel1.Controls.Add(this.AramaÇubuğu);
-            this.splitContainer1.Panel1.Controls.Add(this.Yeni);
-            this.splitContainer1.Panel1.Controls.Add(this.Ekle);
+            this.splitContainer1.Panel1.Controls.Add(this.Liste_Müşteriler);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
             this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel2.Controls.Add(this.ÖnYüzler_Kaydet);
-            this.splitContainer1.Panel2.Enabled = false;
             this.splitContainer1.Size = new System.Drawing.Size(831, 488);
             this.splitContainer1.SplitterDistance = 424;
             this.splitContainer1.TabIndex = 5;
             // 
-            // AramaÇubuğu
+            // Liste_Müşteriler
             // 
-            this.AramaÇubuğu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.AramaÇubuğu.Location = new System.Drawing.Point(0, 0);
-            this.AramaÇubuğu.Name = "AramaÇubuğu";
-            this.AramaÇubuğu.Size = new System.Drawing.Size(420, 36);
-            this.AramaÇubuğu.TabIndex = 4;
-            this.İpUcu.SetToolTip(this.AramaÇubuğu, "Arama çubuğu");
-            this.AramaÇubuğu.TextChanged += new System.EventHandler(this.AramaÇubuğu_TextChanged);
+            this.Liste_Müşteriler.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Liste_Müşteriler.Location = new System.Drawing.Point(0, 0);
+            this.Liste_Müşteriler.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
+            this.Liste_Müşteriler.Name = "Liste_Müşteriler";
+            this.Liste_Müşteriler.SeçilenEleman_Adı = null;
+            this.Liste_Müşteriler.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("Liste_Müşteriler.SeçilenEleman_Adları")));
+            this.Liste_Müşteriler.Size = new System.Drawing.Size(420, 484);
+            this.Liste_Müşteriler.TabIndex = 0;
             // 
             // groupBox2
             // 
@@ -282,11 +212,9 @@
             this.Padding = new System.Windows.Forms.Padding(5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Müşteriler";
-            this.SağTuşMenü.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -298,10 +226,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox Liste;
-        private System.Windows.Forms.TextBox Yeni;
-        private System.Windows.Forms.Button Ekle;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox Eposta_Gizli;
         private System.Windows.Forms.TextBox Eposta_Bilgi;
@@ -314,9 +238,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox Notlar;
         private System.Windows.Forms.ToolTip İpUcu;
-        private System.Windows.Forms.TextBox AramaÇubuğu;
-        private System.Windows.Forms.ContextMenuStrip SağTuşMenü;
-        private System.Windows.Forms.ToolStripMenuItem SağTuşMenü_YenidenAdlandır;
-        private System.Windows.Forms.ToolStripMenuItem SağTuşMenü_Sil;
+        private ArgeMup.HazirKod.Ekranlar.ListeKutusu Liste_Müşteriler;
     }
 }

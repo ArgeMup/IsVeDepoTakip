@@ -39,6 +39,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Tüm_İşler));
             this.P_Üst_Alt = new System.Windows.Forms.SplitContainer();
             this.P_SolOrta_Sağ = new System.Windows.Forms.SplitContainer();
             this.P_Sol_Orta = new System.Windows.Forms.SplitContainer();
@@ -104,10 +105,6 @@
             this.Arama_GirişTarihi_Başlangıç = new System.Windows.Forms.DateTimePicker();
             this.Arama_GirişTarihi_Bitiş = new System.Windows.Forms.DateTimePicker();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.Arama_Müşteriler = new System.Windows.Forms.CheckedListBox();
-            this.Arama_Müşteriler_Seç = new System.Windows.Forms.Button();
-            this.Arama_İş_Türleri = new System.Windows.Forms.CheckedListBox();
-            this.Arama_İşTürleri_Seç = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.P_Malzemeler = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -157,6 +154,8 @@
             this.Müşteri_Notlar = new System.Windows.Forms.CheckBox();
             this.Tablo_TümünüSeç = new System.Windows.Forms.Button();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
+            this.Arama_Müşteriler = new ArgeMup.HazirKod.Ekranlar.ListeKutusu();
+            this.Arama_İş_Türleri = new ArgeMup.HazirKod.Ekranlar.ListeKutusu();
             ((System.ComponentModel.ISupportInitialize)(this.P_Üst_Alt)).BeginInit();
             this.P_Üst_Alt.Panel1.SuspendLayout();
             this.P_Üst_Alt.Panel2.SuspendLayout();
@@ -455,10 +454,10 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.P_İşTakip_TeslimEdildi);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Location = new System.Drawing.Point(4, 29);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(663, 241);
+            this.tabPage4.Size = new System.Drawing.Size(666, 238);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Teslim Edildi";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -618,10 +617,10 @@
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Controls.Add(this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_ÖdendiOlarakİşsaretle);
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Controls.Add(this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_KadarİşiSeç);
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Controls.Add(this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar);
-            this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Location = new System.Drawing.Point(4, 22);
+            this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Location = new System.Drawing.Point(4, 25);
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Name = "İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl";
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Padding = new System.Windows.Forms.Padding(3);
-            this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Size = new System.Drawing.Size(447, 176);
+            this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Size = new System.Drawing.Size(447, 173);
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.TabIndex = 1;
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Text = "Ödeme Al";
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.UseVisualStyleBackColor = true;
@@ -699,11 +698,11 @@
             // 
             this.tabPage5.AutoScroll = true;
             this.tabPage5.Controls.Add(this.P_İşTakip_ÖdemeBekleyen);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Location = new System.Drawing.Point(4, 29);
             this.tabPage5.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage5.Size = new System.Drawing.Size(663, 241);
+            this.tabPage5.Size = new System.Drawing.Size(666, 238);
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "Ödeme Bekleyen";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -867,11 +866,11 @@
             // 
             this.tabPage6.AutoScroll = true;
             this.tabPage6.Controls.Add(this.P_İşTakip_Ödendi);
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Location = new System.Drawing.Point(4, 29);
             this.tabPage6.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage6.Size = new System.Drawing.Size(663, 241);
+            this.tabPage6.Size = new System.Drawing.Size(666, 238);
             this.tabPage6.TabIndex = 3;
             this.tabPage6.Text = "Ödendi";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -974,10 +973,10 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.P_Arama);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(663, 241);
+            this.tabPage1.Size = new System.Drawing.Size(666, 238);
             this.tabPage1.TabIndex = 4;
             this.tabPage1.Text = "Arama";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1078,72 +1077,23 @@
             // splitContainer3.Panel1
             // 
             this.splitContainer3.Panel1.Controls.Add(this.Arama_Müşteriler);
-            this.splitContainer3.Panel1.Controls.Add(this.Arama_Müşteriler_Seç);
             // 
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.AutoScroll = true;
             this.splitContainer3.Panel2.Controls.Add(this.Arama_İş_Türleri);
-            this.splitContainer3.Panel2.Controls.Add(this.Arama_İşTürleri_Seç);
             this.splitContainer3.Size = new System.Drawing.Size(354, 175);
             this.splitContainer3.SplitterDistance = 170;
             this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 1;
             // 
-            // Arama_Müşteriler
-            // 
-            this.Arama_Müşteriler.CheckOnClick = true;
-            this.Arama_Müşteriler.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Arama_Müşteriler.FormattingEnabled = true;
-            this.Arama_Müşteriler.Location = new System.Drawing.Point(0, 0);
-            this.Arama_Müşteriler.Margin = new System.Windows.Forms.Padding(2);
-            this.Arama_Müşteriler.Name = "Arama_Müşteriler";
-            this.Arama_Müşteriler.Size = new System.Drawing.Size(166, 138);
-            this.Arama_Müşteriler.TabIndex = 13;
-            this.Arama_Müşteriler.SelectedIndexChanged += new System.EventHandler(this.Arama_Müşteriler_İşler_SelectedIndexChanged);
-            // 
-            // Arama_Müşteriler_Seç
-            // 
-            this.Arama_Müşteriler_Seç.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Arama_Müşteriler_Seç.Location = new System.Drawing.Point(0, 138);
-            this.Arama_Müşteriler_Seç.Name = "Arama_Müşteriler_Seç";
-            this.Arama_Müşteriler_Seç.Size = new System.Drawing.Size(166, 33);
-            this.Arama_Müşteriler_Seç.TabIndex = 14;
-            this.Arama_Müşteriler_Seç.Text = "Seç";
-            this.Arama_Müşteriler_Seç.UseVisualStyleBackColor = true;
-            this.Arama_Müşteriler_Seç.Click += new System.EventHandler(this.Arama_Müşteriler_Seç_Click);
-            // 
-            // Arama_İş_Türleri
-            // 
-            this.Arama_İş_Türleri.CheckOnClick = true;
-            this.Arama_İş_Türleri.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Arama_İş_Türleri.FormattingEnabled = true;
-            this.Arama_İş_Türleri.Location = new System.Drawing.Point(0, 0);
-            this.Arama_İş_Türleri.Margin = new System.Windows.Forms.Padding(2);
-            this.Arama_İş_Türleri.Name = "Arama_İş_Türleri";
-            this.Arama_İş_Türleri.Size = new System.Drawing.Size(177, 138);
-            this.Arama_İş_Türleri.Sorted = true;
-            this.Arama_İş_Türleri.TabIndex = 15;
-            this.Arama_İş_Türleri.SelectedIndexChanged += new System.EventHandler(this.Arama_Müşteriler_İşler_SelectedIndexChanged);
-            // 
-            // Arama_İşTürleri_Seç
-            // 
-            this.Arama_İşTürleri_Seç.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Arama_İşTürleri_Seç.Location = new System.Drawing.Point(0, 138);
-            this.Arama_İşTürleri_Seç.Name = "Arama_İşTürleri_Seç";
-            this.Arama_İşTürleri_Seç.Size = new System.Drawing.Size(177, 33);
-            this.Arama_İşTürleri_Seç.TabIndex = 16;
-            this.Arama_İşTürleri_Seç.Text = "Seç";
-            this.Arama_İşTürleri_Seç.UseVisualStyleBackColor = true;
-            this.Arama_İşTürleri_Seç.Click += new System.EventHandler(this.Arama_İşTürleri_Seç_Click);
-            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.P_Malzemeler);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(663, 241);
+            this.tabPage2.Size = new System.Drawing.Size(666, 238);
             this.tabPage2.TabIndex = 5;
             this.tabPage2.Text = "Malzemeler";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1816,6 +1766,28 @@
             this.İpUcu.UseAnimation = false;
             this.İpUcu.UseFading = false;
             // 
+            // Arama_Müşteriler
+            // 
+            this.Arama_Müşteriler.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Arama_Müşteriler.Location = new System.Drawing.Point(0, 0);
+            this.Arama_Müşteriler.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.Arama_Müşteriler.Name = "Arama_Müşteriler";
+            this.Arama_Müşteriler.SeçilenEleman_Adı = null;
+            this.Arama_Müşteriler.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("Arama_Müşteriler.SeçilenEleman_Adları")));
+            this.Arama_Müşteriler.Size = new System.Drawing.Size(166, 171);
+            this.Arama_Müşteriler.TabIndex = 0;
+            // 
+            // Arama_İş_Türleri
+            // 
+            this.Arama_İş_Türleri.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Arama_İş_Türleri.Location = new System.Drawing.Point(0, 0);
+            this.Arama_İş_Türleri.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.Arama_İş_Türleri.Name = "Arama_İş_Türleri";
+            this.Arama_İş_Türleri.SeçilenEleman_Adı = null;
+            this.Arama_İş_Türleri.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("Arama_İş_Türleri.SeçilenEleman_Adları")));
+            this.Arama_İş_Türleri.Size = new System.Drawing.Size(177, 171);
+            this.Arama_İş_Türleri.TabIndex = 0;
+            // 
             // Tüm_İşler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -1912,8 +1884,6 @@
         #endregion
         private System.Windows.Forms.SplitContainer P_Üst_Alt;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.CheckedListBox Arama_Müşteriler;
-        private System.Windows.Forms.CheckedListBox Arama_İş_Türleri;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker Arama_GirişTarihi_Bitiş;
         private System.Windows.Forms.DateTimePicker Arama_GirişTarihi_Başlangıç;
@@ -1958,8 +1928,6 @@
         private System.Windows.Forms.Panel P_İşTakip_DevamEden;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.SplitContainer P_SolOrta_Sağ;
-        private System.Windows.Forms.Button Arama_Müşteriler_Seç;
-        private System.Windows.Forms.Button Arama_İşTürleri_Seç;
         private System.Windows.Forms.SplitContainer P_Sol_Orta;
         private System.Windows.Forms.ListBox İşTakip_Müşteriler;
         private System.Windows.Forms.TextBox İşTakip_Müşteriler_AramaÇubuğu;
@@ -2028,5 +1996,7 @@
         private System.Windows.Forms.CheckBox Müşteri_KDV;
         private System.Windows.Forms.CheckBox Müşteri_İskonto;
         private System.Windows.Forms.CheckBox Müşteri_Notlar;
+        private ArgeMup.HazirKod.Ekranlar.ListeKutusu Arama_Müşteriler;
+        private ArgeMup.HazirKod.Ekranlar.ListeKutusu Arama_İş_Türleri;
     }
 }

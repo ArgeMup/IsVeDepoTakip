@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ArgeMup.HazirKod.Ekİşlemler;
+using ArgeMup.HazirKod.Ekranlar;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -10,117 +12,66 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             InitializeComponent();
 
-            AramaÇubuğu_Liste = Banka.İşTürü_Listele();
-            Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste);
+            Liste_işTürleri.Başlat(null, Banka.İşTürü_Listele(), "İş Türleri", Banka.ListeKutusu_Ayarlar(false, false));
+            Liste_işTürleri.GeriBildirim_İşlemi += Liste_işTürleri_GeriBildirim_İşlemi;
 
-            Malzeme_Liste = Banka.Malzeme_Listele();
-            Ortak.GrupArayıcı(Malzeme_SeçimKutusu, Malzeme_Liste);
+            Liste_Malzemeler.Başlat(null, Banka.Malzeme_Listele(), "Malzemeler", Banka.ListeKutusu_Ayarlar(true, false));
         }
 
-        List<string> AramaÇubuğu_Liste = null;
-        private void AramaÇubuğu_TextChanged(object sender, EventArgs e)
+        private bool Liste_işTürleri_GeriBildirim_İşlemi(string Adı, ListeKutusu.İşlemTürü Türü, string YeniAdı = null)
         {
-            splitContainer1.Panel2.Enabled = false;
+            if (Adı.BoşMu()) return true;
 
-            Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);   
+            switch (Türü)
+            {
+                case ListeKutusu.İşlemTürü.ElemanSeçildi:
+                    Banka.İşTürü_Malzemeler_TablodaGöster(Tablo, Adı, out string MüşteriyeGösterilecekAdı, out string Notları);
+                    MüşteriyeGösterilecekOlanAdı.Text = MüşteriyeGösterilecekAdı;
+                    Notlar.Text = Notları;
+
+                    ÖnYüzler_Kaydet.Enabled = false;
+                    break;
+
+                case ListeKutusu.İşlemTürü.YeniEklendi:
+                    Banka.İşTürü_Ekle(Adı);
+                    Banka.Değişiklikleri_Kaydet(Liste_işTürleri);
+                    break;
+                case ListeKutusu.İşlemTürü.AdıDeğiştirildi:
+                case ListeKutusu.İşlemTürü.Gizlendi:
+                case ListeKutusu.İşlemTürü.GörünürDurumaGetirildi:
+                    Ortak.Gösterge.Başlat("Bekleyiniz", false, Liste_işTürleri, System.IO.Directory.GetFiles(Ortak.Klasör_Banka, "*.mup", System.IO.SearchOption.AllDirectories).Length);
+                    Banka.İşTürü_YenidenAdlandır(Adı, YeniAdı);
+                    Banka.Değişiklikleri_Kaydet(Liste_işTürleri);
+                    Banka.Değişiklikler_TamponuSıfırla();
+                    Ortak.Gösterge.Bitir();
+                    break;
+                case ListeKutusu.İşlemTürü.KonumDeğişikliğiKaydedildi:
+                    Banka.İşTürü_Sırala(Liste_işTürleri.Tüm_Elemanlar);
+                    Banka.Değişiklikleri_Kaydet(Liste_işTürleri);
+                    break;
+                case ListeKutusu.İşlemTürü.Silindi:
+                    Banka.İşTürü_Sil(Liste_işTürleri.SeçilenEleman_Adı);
+                    Banka.Değişiklikleri_Kaydet(Liste_işTürleri);
+                    break;
+            }
+
+            return true;
         }
-
-        List<string> Malzeme_Liste = null;
-        private void Malzeme_TextChanged(object sender, EventArgs e)
+        private void Liste_Malzemeler_DoubleClick(object sender, EventArgs e)
         {
-            Malzeme_SeçiliSatıraKopyala.Enabled = false;
-
-            Ortak.GrupArayıcı(Malzeme_SeçimKutusu, Malzeme_Liste, Malzeme_AramaÇubuğu.Text);
-        }
-        private void Malzeme_SeçimKutusu_SelectedValueChanged(object sender, System.EventArgs e)
-        {
-            Malzeme_SeçiliSatıraKopyala.Enabled = !string.IsNullOrEmpty(Malzeme_SeçimKutusu.Text);
+            Malzeme_SeçiliSatıraKopyala_Click(null, null);
         }
         private void Malzeme_SeçiliSatıraKopyala_Click(object sender, EventArgs e)
         {
+            if (Liste_Malzemeler.SeçilenEleman_Adı.BoşMu()) return;
+
             var l = Tablo.SelectedRows;
             if (l == null || l.Count != 1) return;
 
             int konum = l[0].Index;
             if (konum == Tablo.RowCount - 1) Tablo.RowCount++;
 
-            Tablo[0, konum].Value = Malzeme_SeçimKutusu.Text;
-        }
-
-        private void Liste_SelectedValueChanged(object sender, System.EventArgs e)
-        {
-            if (Liste.SelectedIndex < 0) { splitContainer1.Panel2.Enabled = false; return; }
-            Yeni.Text = Liste.Text;
-
-            Banka.İşTürü_Malzemeler_TablodaGöster(Tablo, Liste.Text, out string MüşteriyeGösterilecekAdı, out string Notları);
-            MüşteriyeGösterilecekOlanAdı.Text = MüşteriyeGösterilecekAdı;
-            Notlar.Text = Notları;
-
-            splitContainer1.Panel1.Enabled = true;
-            splitContainer1.Panel2.Enabled = true;
-            ÖnYüzler_Kaydet.Enabled = false;
-        }
-        private void Yeni_TextChanged(object sender, System.EventArgs e)
-        {
-            Ekle.Enabled = !string.IsNullOrWhiteSpace(Yeni.Text);
-        }
-        private void SağTuşMenü_YenidenAdlandır_Click(object sender, EventArgs e)
-        {
-            if (!Liste.Enabled || Liste.SelectedIndex < 0 || string.IsNullOrWhiteSpace(Yeni.Text)) return;
-
-            if (Liste.Text == Yeni.Text)
-            {
-                MessageBox.Show("Mevcut ile yeni isimler aynı", Text);
-                return;
-            }
-
-            if (Banka.İşTürü_MevcutMu(Yeni.Text))
-            {
-                MessageBox.Show("Kullanılmayan bir isim seçiniz", Text);
-                return;
-            }
-
-            DialogResult Dr = MessageBox.Show("İsim değişikliği işlemine devam etmek istiyor musunuz?" + Environment.NewLine + Environment.NewLine +
-                Liste.Text + " -> " + Yeni.Text, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-            if (Dr == DialogResult.No) return;
-
-            Ortak.Gösterge.Başlat("Bekleyiniz", false, Liste, System.IO.Directory.GetFiles(Ortak.Klasör_Banka, "*.mup", System.IO.SearchOption.AllDirectories).Length);
-           
-            Banka.İşTürü_YenidenAdlandır(Liste.Text, Yeni.Text);
-            Banka.Değişiklikleri_Kaydet(Liste);
-            Banka.Değişiklikler_TamponuSıfırla();
-            Ortak.Gösterge.Bitir();
-
-            AramaÇubuğu_Liste.Remove(Liste.Text);
-            AramaÇubuğu_Liste.Add(Yeni.Text);
-            Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);
-        }
-        private void SağTuşMenü_Sil_Click(object sender, EventArgs e)
-        {
-            if (!Liste.Enabled || Liste.SelectedIndex < 0 || Liste.SelectedIndex >= Liste.Items.Count) return;
-
-            DialogResult Dr = MessageBox.Show(Liste.Text + " öğesini silmek istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-            if (Dr == DialogResult.No) return;
-
-            Banka.İşTürü_Sil(Liste.Text);
-            Banka.Değişiklikleri_Kaydet(Liste);
-
-            AramaÇubuğu_Liste.Remove(Liste.Text);
-            Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);
-        }
-        private void Ekle_Click(object sender, System.EventArgs e)
-        {
-            if (Banka.İşTürü_MevcutMu(Yeni.Text))
-            {
-                MessageBox.Show("Önceden eklenmiş", Text);
-                return;
-            }
-
-            Banka.İşTürü_Ekle(Yeni.Text);
-            Banka.Değişiklikleri_Kaydet(Ekle);
-
-            AramaÇubuğu_Liste.Add(Yeni.Text);
-            Ortak.GrupArayıcı(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);
+            Tablo[0, konum].Value = Liste_Malzemeler.SeçilenEleman_Adı;
         }
 
         private void Tablo_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -134,11 +85,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Ayar_Değişti(object sender, EventArgs e)
         {
-            splitContainer1.Panel1.Enabled = false;
             ÖnYüzler_Kaydet.Enabled = true;
         }     
         private void ÖnYüzler_Kaydet_Click(object sender, EventArgs e)
         {
+            if (Liste_işTürleri.SeçilenEleman_Adı.BoşMu()) return;
+
             List<string> Malzemeler = new List<string>();
             List<string> Miktarlar = new List<string>();
             List<string> EklenmişMalzmeler = new List<string>();
@@ -170,11 +122,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Miktarlar.Add((string)Tablo[1, i].Value);
             }
 
-            Banka.İşTürü_Malzemeler_Kaydet(Liste.Text, Malzemeler, Miktarlar, MüşteriyeGösterilecekOlanAdı.Text.Trim(), Notlar.Text.Trim());
+            Banka.İşTürü_Malzemeler_Kaydet(Liste_işTürleri.SeçilenEleman_Adı, Malzemeler, Miktarlar, MüşteriyeGösterilecekOlanAdı.Text.Trim(), Notlar.Text.Trim());
             Banka.Değişiklikleri_Kaydet(ÖnYüzler_Kaydet);
 
-            splitContainer1.Panel1.Enabled = true;
-            Liste_SelectedValueChanged(null, null);
+            Liste_işTürleri_GeriBildirim_İşlemi(Liste_işTürleri.SeçilenEleman_Adı, ListeKutusu.İşlemTürü.ElemanSeçildi);
         }
     }
 }

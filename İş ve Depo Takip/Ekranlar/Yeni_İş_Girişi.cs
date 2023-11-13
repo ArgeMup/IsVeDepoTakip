@@ -34,7 +34,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.SeriNoTürü = SeriNoTürü;
 
             İşTürleri_Liste = Banka.İşTürü_Listele();
-            Ortak.GrupArayıcı(İşTürleri_SeçimKutusu, İşTürleri_Liste);
+            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(İşTürleri_SeçimKutusu, İşTürleri_Liste);
 
             string ipucu = "Arama Çubuğu";
             if (İşTürleri_Liste.Count > 0)
@@ -64,8 +64,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (SeriNo == null)
             {
                 Müşteriler_Liste = Banka.Müşteri_Listele();
-                Ortak.GrupArayıcı(Müşteriler_SeçimKutusu, Müşteriler_Liste);
-                Ortak.GrupArayıcı(Hastalar_SeçimKutusu);
+                ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Müşteriler_SeçimKutusu, Müşteriler_Liste);
+                ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Hastalar_SeçimKutusu);
 
                 Tablo_Giriş_Tarihi.Visible = false;
                 Tablo_Çıkış_Tarihi.Visible = false;
@@ -240,7 +240,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Müşteriler_AramaÇubuğu_TextChanged(object sender, EventArgs e)
         {
-            Ortak.GrupArayıcı(Müşteriler_SeçimKutusu, Müşteriler_Liste, Müşteriler_AramaÇubuğu.Text);
+            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Müşteriler_SeçimKutusu, Müşteriler_Liste, Müşteriler_AramaÇubuğu.Text);
 
             Müşteriler_SeçimKutusu_SelectedIndexChanged(null, null);
         }
@@ -254,7 +254,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void Müşteriler_SeçimKutusu_SelectedIndexChanged(object sender, EventArgs e)
         {
             Hastalar_Liste.Clear();
-            Ortak.GrupArayıcı(Hastalar_SeçimKutusu);
+            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Hastalar_SeçimKutusu);
             if (Müşteriler_SeçimKutusu.SelectedIndex < 0 || !Banka.Müşteri_MevcutMu(Müşteriler_SeçimKutusu.Text)) return;
 
             IDepo_Eleman Talepler = Banka.Tablo_Dal(Müşteriler_SeçimKutusu.Text, SeriNoTürü == Banka.TabloTürü.ÜcretHesaplama ? Banka.TabloTürü.ÜcretHesaplama : Banka.TabloTürü.DevamEden, "Talepler");
@@ -269,14 +269,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Hastalar_Liste.Add(ha);
             }
 
-            Ortak.GrupArayıcı(Hastalar_SeçimKutusu, Hastalar_Liste, Hastalar_AramaÇubuğu.Text);
+            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Hastalar_SeçimKutusu, Hastalar_Liste, Hastalar_AramaÇubuğu.Text);
         }
 
         private void Hastalar_AramaÇubuğu_TextChanged(object sender, EventArgs e)
         {
             if (SeriNo != null) Değişiklik_Yapılıyor(null, null);
-            
-            Ortak.GrupArayıcı(Hastalar_SeçimKutusu, Hastalar_Liste, Hastalar_AramaÇubuğu.Text);
+
+            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Hastalar_SeçimKutusu, Hastalar_Liste, Hastalar_AramaÇubuğu.Text);
         }
         private void Hastalar_AramaÇubuğu_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -359,7 +359,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             İştürü_SeçiliSatıraKopyala.Enabled = false;
 
-            Ortak.GrupArayıcı(İşTürleri_SeçimKutusu, İşTürleri_Liste, İşTürleri_AramaÇubuğu.Text);
+            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(İşTürleri_SeçimKutusu, İşTürleri_Liste, İşTürleri_AramaÇubuğu.Text);
         }
         private void İşTürleri_AramaÇubuğu_KeyPress(object sender, KeyPressEventArgs e)
         {
