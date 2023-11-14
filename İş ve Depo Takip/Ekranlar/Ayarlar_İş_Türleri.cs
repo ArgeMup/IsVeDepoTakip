@@ -20,7 +20,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private bool Liste_işTürleri_GeriBildirim_İşlemi(string Adı, ListeKutusu.İşlemTürü Türü, string YeniAdı = null)
         {
-            if (Adı.BoşMu()) return true;
+            if (Adı.BoşMu()) return false;
 
             switch (Türü)
             {

@@ -1,7 +1,6 @@
 ﻿using ArgeMup.HazirKod;
 using ArgeMup.HazirKod.Ekİşlemler;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
@@ -13,8 +12,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             InitializeComponent();
 
-            AramaÇubuğu_Liste = Banka.KorumalıAlan_Listele_Dosyalar();
-            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Liste, AramaÇubuğu_Liste);
+            var ayrl = Banka.ListeKutusu_Ayarlar(true, false);
+            ayrl.Silinebilir = true;
+            ayrl.ElemanKonumu = ArgeMup.HazirKod.Ekranlar.ListeKutusu.Ayarlar_.ElemanKonumu_.AdanZyeSıralanmış;
+            Liste.Başlat(null, Banka.KorumalıAlan_Listele_Dosyalar(), "Dosya ve klasörler", ayrl);
+            Liste.GeriBildirim_İşlemi += Liste_GeriBildirim_İşlemi;
+
             ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Sürümler);
         }
         private void KorumalıAlan_FormClosing(object sender, FormClosingEventArgs e)
@@ -66,7 +69,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         void KorumalıAlan_DragDrop(object sender, DragEventArgs e)
         {
-            splitContainer1.Enabled = false;
             string[] dosyalar = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (dosyalar != null && dosyalar.Length > 0)
             {
@@ -78,11 +80,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                         string adı = Path.GetFileName(dosya);
                         if (!File.Exists(dosya) && Directory.Exists(dosya)) adı = ":" + adı;
-                        if (!AramaÇubuğu_Liste.Contains(adı)) AramaÇubuğu_Liste.Add(adı);
+                        if (!Liste.Tüm_Elemanlar.Contains(adı)) Liste.Tüm_Elemanlar.Add(adı);
                     }
 
                     Banka.Değişiklikleri_Kaydet(null);
-                    ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);
+                    Liste.Yenile();
                 }
                 catch (Exception ex)
                 {
@@ -90,29 +92,36 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     MessageBox.Show("İşlem başarısız, gerekli izin veya yetkilere sahip olduğunuzu teyit ediniz." + Environment.NewLine + Environment.NewLine + ex.Günlük().Message, Text);
                 }
             }
-
-            splitContainer1.Enabled = true;
         }
 
-        List<string> AramaÇubuğu_Liste = null;
-        private void AramaÇubuğu_TextChanged(object sender, EventArgs e)
+        private bool Liste_GeriBildirim_İşlemi(string Adı, ArgeMup.HazirKod.Ekranlar.ListeKutusu.İşlemTürü Türü, string YeniAdı = null)
         {
-            splitContainer1.Panel2.Enabled = false;
-            Sil.Enabled = false;
+            MasaüstüneKopyala.Enabled = false;
 
-            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);
+            if (Adı.BoşMu()) return false;
+
+            switch (Türü)
+            {
+                case ArgeMup.HazirKod.Ekranlar.ListeKutusu.İşlemTürü.ElemanSeçildi:
+                    ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Sürümler, Banka.KorumalıAlan_Listele_Sürümler(Adı));
+                    if (Sürümler.Items.Count > 0) Sürümler.SelectedIndex = 0;
+                    break;
+
+                case ArgeMup.HazirKod.Ekranlar.ListeKutusu.İşlemTürü.Silindi:
+                    string soru = Adı + " dosyası tüm sürümleriyle birlikte KALICI olarak SİLİNECEK." + Environment.NewLine + Environment.NewLine +
+                       "Geri Dönüşüm Kutusundan ERİŞİLEMEYECEK." + Environment.NewLine + Environment.NewLine +
+                       "İşleme devam etmek istiyor musunuz?";
+                    DialogResult Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                    if (Dr == DialogResult.No) return false;
+
+                    Banka.KorumalıAlan_Sil(Adı);
+                    Banka.Değişiklikleri_Kaydet(Liste);
+                    break;
+            }
+
+            return true;
         }
 
-        private void Liste_SelectedValueChanged(object sender, System.EventArgs e)
-        {
-            if (Liste.SelectedIndex < 0) { splitContainer1.Panel2.Enabled = false; return; }
-
-            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Sürümler, Banka.KorumalıAlan_Listele_Sürümler(Liste.Text));
-            if (Sürümler.Items.Count > 0) Sürümler.SelectedIndex = 0;
-
-            splitContainer1.Panel2.Enabled = true;
-            Sil.Enabled = true;
-        }
         private void Sürümler_SelectedIndexChanged(object sender, EventArgs e)
         {
             MasaüstüneKopyala.Enabled = true;
@@ -121,36 +130,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             MasaüstüneKopyala_Click(null, null);
         }
-
-        private void Sil_Click(object sender, System.EventArgs e)
-        {
-            if (Liste.SelectedIndex < 0) return;
-
-            string soru = Liste.Text + " dosyası tüm sürümleriyle birlikte KALICI olarak SİLİNECEK." + Environment.NewLine + Environment.NewLine +
-                "Geri Dönüşüm Kutusundan ERİŞİLEMEYECEK." + Environment.NewLine + Environment.NewLine +
-                "İşleme devam etmek istiyor musunuz?";
-            DialogResult Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-            if (Dr == DialogResult.No) return;
-
-            splitContainer1.Enabled = false;
-            Sil.Enabled = false;
-
-            Banka.KorumalıAlan_Sil(Liste.Text);
-            Banka.Değişiklikleri_Kaydet(null);
-
-            AramaÇubuğu_Liste.Remove(Liste.Text);
-            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Liste, AramaÇubuğu_Liste, AramaÇubuğu.Text);
-            splitContainer1.Enabled = true;
-        }
-
         private void MasaüstüneKopyala_Click(object sender, EventArgs e)
         {
-            if (Liste.SelectedIndex < 0 || Sürümler.SelectedIndex < 0) return;
+            string dsy_kls_adı = Liste.SeçilenEleman_Adı;
+            if (dsy_kls_adı.BoşMu() || Sürümler.SelectedIndex < 0) return;
 
-            if (Liste.Text.StartsWith(":"))
+            if (dsy_kls_adı.StartsWith(":"))
             {
                 //klasör
-                string açık_hali = Klasör.Depolama(Klasör.Kapsamı.Masaüstü, "", "", "") + "\\" + Liste.Text.Substring(1);
+                string açık_hali = Klasör.Depolama(Klasör.Kapsamı.Masaüstü, "", "", "") + "\\" + dsy_kls_adı.Substring(1);
                 if (Directory.Exists(açık_hali))
                 {
                     MessageBox.Show("Seçtiğniz klasör masaüstünde mevcut. Üzerine yazıp bilgi kaybına sebep olmamak için işlem duraklatıldı." + Environment.NewLine + Environment.NewLine +
@@ -162,7 +150,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             else
             {
                 //dosya
-                string açık_hali = Klasör.Depolama(Klasör.Kapsamı.Masaüstü, "", "", "") + "\\" + Liste.Text;
+                string açık_hali = Klasör.Depolama(Klasör.Kapsamı.Masaüstü, "", "", "") + "\\" + dsy_kls_adı;
                 if (File.Exists(açık_hali))
                 {
                     MessageBox.Show("Seçtiğniz dosya masaüstünde mevcut. Üzerine yazıp bilgi kaybına sebep olmamak için işlem duraklatıldı." + Environment.NewLine + Environment.NewLine +
@@ -172,9 +160,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
             }
 
-            splitContainer1.Enabled = false;
-            Banka.KorumalıAlan_MasaüstüneKopyala(Liste.Text, Sürümler.Text);
-            splitContainer1.Enabled = true;
+            Banka.KorumalıAlan_MasaüstüneKopyala(dsy_kls_adı, Sürümler.Text);
         }
 
         private void İçeriAl_Click(object sender, EventArgs e)
@@ -184,7 +170,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 "İşleme devam etmek istiyor musunuz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2); ;
             if (Dr == DialogResult.No) return;
 
-            splitContainer1.Enabled = false;
             try
             {
                 foreach (string eleman in Banka.KorumalıAlan_Listele_Dosyalar())
@@ -210,18 +195,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         }
                     }
 
-                    Liste.Text = eleman;
+                    Liste.SeçilenEleman_Adı = eleman;
                 }
 
-                Banka.Değişiklikleri_Kaydet(null);
-                Liste_SelectedValueChanged(null, null);
+                Banka.Değişiklikleri_Kaydet(Liste);
             }
             catch (Exception ex)
             {
                 Banka.Değişiklikler_TamponuSıfırla();
                 MessageBox.Show("Bİr sorunla karşılaşıldı. Lütfen tekrar deneyiniz" + Environment.NewLine + Environment.NewLine + ex.Günlük().Message, Text);
             }
-            splitContainer1.Enabled = true;
         }
     }
 }

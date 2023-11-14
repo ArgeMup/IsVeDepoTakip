@@ -12,7 +12,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         readonly string Müşteri = null, SeriNo = null, YeniKayıtİçinTutulanSeriNo = null, EkTanım = null;
         readonly Banka.TabloTürü SeriNoTürü = Banka.TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi;
         bool SadeceOkunabilir = false, Notlar_TarihSaatEklendi = false;
-        List<string> Müşteriler_Liste = null, Hastalar_Liste = new List<string>(), İşTürleri_Liste = null;
+        List<string> Müşteriler_Liste = null, Hastalar_Liste = new List<string>();
         Yeni_İş_Girişi_DosyaEkleri P_Yeni_İş_Girişi_DosyaEkleri = new Yeni_İş_Girişi_DosyaEkleri();
         Yeni_İş_Girişi_Epostalar P_Yeni_İş_Girişi_Epostalar = new Yeni_İş_Girişi_Epostalar();
 
@@ -33,14 +33,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             this.SeriNoTürü = SeriNoTürü;
 
-            İşTürleri_Liste = Banka.İşTürü_Listele();
-            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(İşTürleri_SeçimKutusu, İşTürleri_Liste);
-
+            List<string> iş_tür_leri = Banka.İşTürü_Listele();
             string ipucu = "Arama Çubuğu";
-            if (İşTürleri_Liste.Count > 0)
+            if (iş_tür_leri.Count > 0)
             {
-                ipucu += Environment.NewLine + Environment.NewLine + "Alttaki şekilde arattırabilirsiniz." + Environment.NewLine + Environment.NewLine + İşTürleri_Liste[0] + Environment.NewLine + Environment.NewLine;
-                string[] d = İşTürleri_Liste[0].Trim().ToLower().Split(' ');
+                ipucu += Environment.NewLine + Environment.NewLine + "Alttaki şekilde arattırabilirsiniz." + Environment.NewLine + Environment.NewLine + iş_tür_leri[0] + Environment.NewLine + Environment.NewLine;
+                string[] d = iş_tür_leri[0].Trim().ToLower().Split(' ');
                 foreach (string dd in d)
                 {
                     string ddd = dd.Trim();
@@ -49,7 +47,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     else ipucu += ddd + " ";
                 }
             }
-            İpUcu_Genel.SetToolTip(İşTürleri_AramaÇubuğu, ipucu);
+            Liste_İşTürleri.Başlat(null, iş_tür_leri, "İş Türleri" + Environment.NewLine + ipucu, Banka.ListeKutusu_Ayarlar(true, false));
+
             Hastalar_AdVeSoyadıDüzelt.Checked = Banka.Ayarlar_Kullanıcı(Name, "Hastalar_AdVeSoyadıDüzelt").Oku_Bit(null, true);
 
             System.Windows.Forms.Padding pd = new System.Windows.Forms.Padding(0);
@@ -131,7 +130,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     Banka.Talep_Ayıkla_İşTürüDalı(detaylar.SeriNoDalı.Elemanları[i], out string İşTürü, out string GirişTarihi, out string ÇıkışTarihi, out string Ücret1, out string _, out byte[] Kullanım_AdetVeKonum);
 
-                    if (!İşTürleri_Liste.Contains(İşTürü) && !SadeceOkunabilir)
+                    if (!iş_tür_leri.Contains(İşTürü) && !SadeceOkunabilir)
                     {
                         //eskiden varolan şuanda bulunmayan bir iş türü 
                         hata_bilgilendirmesi += (i + 1) + ". satırdaki \"" + İşTürü + "\" olarak tanımlı iş türü şuanda mevcut olmadığından satır içeriği boş olarak bırakıldı" + Environment.NewLine;
@@ -282,7 +281,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                İşTürleri_AramaÇubuğu.Focus();
+                Liste_İşTürleri.Odaklan();
             }
         }
         private void Hastalar_AramaÇubuğu_Leave(object sender, EventArgs e)
@@ -355,40 +354,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ekranlar.ÖnYüzler.Ekle(new Yeni_İş_Girişi(sn, Müşteriler_SeçimKutusu.Text, SeriNoTürü));
         }
 
-        private void İşTürleri_AramaÇubuğu_TextChanged(object sender, EventArgs e)
+        private void Liste_İşTürleri_DoubleClick(object sender, EventArgs e)
         {
-            İştürü_SeçiliSatıraKopyala.Enabled = false;
-
-            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(İşTürleri_SeçimKutusu, İşTürleri_Liste, İşTürleri_AramaÇubuğu.Text);
-        }
-        private void İşTürleri_AramaÇubuğu_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                if (İşTürleri_SeçimKutusu.Items.Count > 0)
-                {
-                    İşTürleri_SeçimKutusu.SelectedIndex = 0;
-                    İşTürleri_SeçimKutusu.Focus();
-                }
-            }
-        }
-        private void İşTürleri_SeçimKutusu_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                İştürü_SeçiliSatıraKopyala_Click(null, null);
-
-                İşTürleri_AramaÇubuğu.Focus();
-            }
-        }
-        private void İşTürleri_SeçimKutusu_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            İştürü_SeçiliSatıraKopyala.Enabled = İşTürleri_SeçimKutusu.Items.Count > 0;
+            İştürü_SeçiliSatıraKopyala_Click(null, null);
         }
         private void İştürü_SeçiliSatıraKopyala_Click(object sender, EventArgs e)
         {
+            string İt_adı = Liste_İşTürleri.SeçilenEleman_Adı;
             var l = Tablo.SelectedRows;
-            if (l == null || l.Count != 1 || İşTürleri_SeçimKutusu.SelectedIndex < 0) return;
+            if (l == null || l.Count != 1 || İt_adı.BoşMu()) return;
             if (!SadeceOkunabilirSatırİseKullanıcıyaSor_DevamEt(l[0])) return;
 
             int konum = l[0].Index;
@@ -396,8 +370,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (Tablo.RowCount < konum + 2) Tablo.RowCount++;
             Tablo.Rows[konum + 1].Selected = true;
 
-            Tablo[Tablo_İş_Türü.Index, konum].Value = İşTürleri_SeçimKutusu.Text;
-            Tablo[Tablo_İş_Türü.Index, konum].ToolTipText = Banka.Ücretler_BirimÜcretMaliyet_Detaylı(Müşteriler_SeçimKutusu.Text, İşTürleri_SeçimKutusu.Text);
+            Tablo[Tablo_İş_Türü.Index, konum].Value = İt_adı;
+            Tablo[Tablo_İş_Türü.Index, konum].ToolTipText = Banka.Ücretler_BirimÜcretMaliyet_Detaylı(Müşteriler_SeçimKutusu.Text, İt_adı);
             
             if (((string)Tablo[Tablo_Adet.Index, konum].Value).BoşMu()) Tablo[Tablo_Adet.Index, konum].Value = "1";
             Tablo[Tablo_Adet.Index, konum].Style.BackColor = System.Drawing.Color.Salmon;
@@ -634,6 +608,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Değişiklik_Yapılıyor(null, null);
             }
         }
+
         private void ÖnYüzler_Kaydet_Click(object sender, EventArgs e)
         {
             if (!_Kaydet_()) return;

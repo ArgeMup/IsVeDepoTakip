@@ -49,14 +49,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İpUcu_Ücretlendirme = new System.Windows.Forms.ToolTip(this.components);
             this.Müşteriler_AramaÇubuğu = new System.Windows.Forms.TextBox();
             this.Hastalar_AramaÇubuğu = new System.Windows.Forms.TextBox();
-            this.İşTürleri_AramaÇubuğu = new System.Windows.Forms.TextBox();
             this.Hastalar_AdVeSoyadıDüzelt = new System.Windows.Forms.CheckBox();
             this.Müşteriler_Grup = new System.Windows.Forms.GroupBox();
             this.Müşteriler_SeçimKutusu = new System.Windows.Forms.ListBox();
             this.Hastalar_Grup = new System.Windows.Forms.GroupBox();
             this.Hastalar_SeçimKutusu = new System.Windows.Forms.ListBox();
             this.İşTürleri = new System.Windows.Forms.GroupBox();
-            this.İşTürleri_SeçimKutusu = new System.Windows.Forms.ListBox();
             this.İştürü_SeçiliSatıraKopyala = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -117,6 +115,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.KurlarVeSüreler = new System.Windows.Forms.TextBox();
             this.İpUcu_Genel = new System.Windows.Forms.ToolTip(this.components);
+            this.Liste_İşTürleri = new ArgeMup.HazirKod.Ekranlar.ListeKutusu();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             this.Müşteriler_Grup.SuspendLayout();
             this.Hastalar_Grup.SuspendLayout();
@@ -351,16 +350,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Hastalar_AramaÇubuğu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Hastalar_AramaÇubuğu_KeyPress);
             this.Hastalar_AramaÇubuğu.Leave += new System.EventHandler(this.Hastalar_AramaÇubuğu_Leave);
             // 
-            // İşTürleri_AramaÇubuğu
-            // 
-            this.İşTürleri_AramaÇubuğu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.İşTürleri_AramaÇubuğu.Location = new System.Drawing.Point(3, 22);
-            this.İşTürleri_AramaÇubuğu.Name = "İşTürleri_AramaÇubuğu";
-            this.İşTürleri_AramaÇubuğu.Size = new System.Drawing.Size(279, 26);
-            this.İşTürleri_AramaÇubuğu.TabIndex = 6;
-            this.İşTürleri_AramaÇubuğu.TextChanged += new System.EventHandler(this.İşTürleri_AramaÇubuğu_TextChanged);
-            this.İşTürleri_AramaÇubuğu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.İşTürleri_AramaÇubuğu_KeyPress);
-            // 
             // Hastalar_AdVeSoyadıDüzelt
             // 
             this.Hastalar_AdVeSoyadıDüzelt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -428,8 +417,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             // İşTürleri
             // 
-            this.İşTürleri.Controls.Add(this.İşTürleri_SeçimKutusu);
-            this.İşTürleri.Controls.Add(this.İşTürleri_AramaÇubuğu);
+            this.İşTürleri.Controls.Add(this.Liste_İşTürleri);
             this.İşTürleri.Controls.Add(this.İştürü_SeçiliSatıraKopyala);
             this.İşTürleri.Dock = System.Windows.Forms.DockStyle.Fill;
             this.İşTürleri.Location = new System.Drawing.Point(0, 0);
@@ -439,25 +427,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İşTürleri.TabStop = false;
             this.İşTürleri.Text = "İş Türleri";
             // 
-            // İşTürleri_SeçimKutusu
-            // 
-            this.İşTürleri_SeçimKutusu.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.İşTürleri_SeçimKutusu.FormattingEnabled = true;
-            this.İşTürleri_SeçimKutusu.ItemHeight = 20;
-            this.İşTürleri_SeçimKutusu.Location = new System.Drawing.Point(3, 48);
-            this.İşTürleri_SeçimKutusu.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.İşTürleri_SeçimKutusu.Name = "İşTürleri_SeçimKutusu";
-            this.İşTürleri_SeçimKutusu.Size = new System.Drawing.Size(279, 244);
-            this.İşTürleri_SeçimKutusu.TabIndex = 7;
-            this.İşTürleri_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.İşTürleri_SeçimKutusu_SelectedIndexChanged);
-            this.İşTürleri_SeçimKutusu.DoubleClick += new System.EventHandler(this.İştürü_SeçiliSatıraKopyala_Click);
-            this.İşTürleri_SeçimKutusu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.İşTürleri_SeçimKutusu_KeyPress);
-            // 
             // İştürü_SeçiliSatıraKopyala
             // 
             this.İştürü_SeçiliSatıraKopyala.AutoSize = true;
             this.İştürü_SeçiliSatıraKopyala.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.İştürü_SeçiliSatıraKopyala.Enabled = false;
             this.İştürü_SeçiliSatıraKopyala.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.İştürü_SeçiliSatıraKopyala.Location = new System.Drawing.Point(3, 292);
             this.İştürü_SeçiliSatıraKopyala.Margin = new System.Windows.Forms.Padding(2);
@@ -1278,6 +1251,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İpUcu_Genel.UseAnimation = false;
             this.İpUcu_Genel.UseFading = false;
             // 
+            // Liste_İşTürleri
+            // 
+            this.Liste_İşTürleri.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Liste_İşTürleri.Location = new System.Drawing.Point(3, 22);
+            this.Liste_İşTürleri.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.Liste_İşTürleri.Name = "Liste_İşTürleri";
+            this.Liste_İşTürleri.SeçilenEleman_Adı = null;
+            this.Liste_İşTürleri.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("Liste_İşTürleri.SeçilenEleman_Adları")));
+            this.Liste_İşTürleri.Size = new System.Drawing.Size(279, 270);
+            this.Liste_İşTürleri.TabIndex = 9;
+            this.Liste_İşTürleri.DoubleClick += new System.EventHandler(this.Liste_İşTürleri_DoubleClick);
+            // 
             // Yeni_İş_Girişi
             // 
             this.AllowDrop = true;
@@ -1355,8 +1340,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private System.Windows.Forms.GroupBox Hastalar_Grup;
         private System.Windows.Forms.TextBox Hastalar_AramaÇubuğu;
         private System.Windows.Forms.GroupBox İşTürleri;
-        private System.Windows.Forms.TextBox İşTürleri_AramaÇubuğu;
-        private System.Windows.Forms.ListBox İşTürleri_SeçimKutusu;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button İştürü_SeçiliSatıraKopyala;
@@ -1425,5 +1408,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private System.Windows.Forms.NumericUpDown EtiketSayısı_Kayıt;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label3;
+        private ArgeMup.HazirKod.Ekranlar.ListeKutusu Liste_İşTürleri;
     }
 }
