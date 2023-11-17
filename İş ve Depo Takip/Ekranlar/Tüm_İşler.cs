@@ -12,6 +12,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 {
     public partial class Tüm_İşler : Form, IGüncellenenSeriNolar
     {
+        bool İzin_Ayarlar, İzin_DevamEden, İzin_Tamamlandı;
         public Tüm_İşler(bool AramaPenceresiİleAçılsın)
         {
             InitializeComponent();
@@ -65,6 +66,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             Logo.Image = Ortak.Firma_Logo;
+
+            İzin_Ayarlar = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Ayarları_değiştirebilir); ;
+            İzin_Tamamlandı = İzin_Ayarlar ? true : Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Tamamlanmış_işler_içinde_işlem_yapabilir);
+            İzin_DevamEden = İzin_Tamamlandı ? true : Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Devam_eden_işler_içinde_işlem_yapabilir);
+            Müşteri_KDV.Visible = İzin_Tamamlandı;
+            Müşteri_İskonto.Visible = İzin_Tamamlandı;
+            Seviye2_ÖdemeBekleyen.Visible = İzin_Tamamlandı;
+            Seviye2_Ödendi.Visible = İzin_Tamamlandı;
         }
         private void Tüm_İşler_Shown(object sender, EventArgs e)
         {
@@ -97,7 +106,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 case 1:
                     //iş takip
-                    if (Seviye1_işTakip.Checked)
+                    if (Seviye1_işTakip.Checked && İzin_Tamamlandı)
                     {
                         //malzeme kullanım detayı sayfasına geç
                         Seviye1_işTakip.Tag = 3;
@@ -137,6 +146,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     break;
 
                 case 3:
+                    //Malzeme kullanım detay sayfasından iş takip sayfasına dön
                     Seviye1_işTakip.FlatAppearance.CheckedBackColor = Color.SkyBlue;
                     Seviye1_işTakip.Tag = 1;
                     Seviye1_işTakip.Checked = false;
@@ -180,6 +190,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 case 12:
                     //ödeme bekliyor
+                    if (!İzin_Tamamlandı) return;
                     if (!Seviye1_işTakip.Checked) goto AramaİçinSeçenekleriBelirle;
 
                     Seviye2_DevamEden.Checked = false;
@@ -201,6 +212,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 case 13:
                     //ödendi
+                    if (!İzin_Tamamlandı) return;
                     if (!Seviye1_işTakip.Checked) goto AramaİçinSeçenekleriBelirle;
 
                     Seviye2_DevamEden.Checked = false;
@@ -261,7 +273,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             return;
 
         AramaİçinSeçenekleriBelirle:
-            (sender as CheckBox).Checked = !(sender as CheckBox).Checked;
+            CheckBox chcb = sender as CheckBox;
+            chcb.Checked = !chcb.Checked;
         }
         
         private bool İşTakip_Müşteriler_GeriBildirim_İşlemi(string MüşteriAdı, ArgeMup.HazirKod.Ekranlar.ListeKutusu.İşlemTürü Türü, string YeniAdı = null)

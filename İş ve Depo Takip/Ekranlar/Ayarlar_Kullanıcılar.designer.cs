@@ -38,14 +38,14 @@
             this.Ekran.Location = new System.Drawing.Point(3, 3);
             this.Ekran.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.Ekran.Name = "Ekran";
-            this.Ekran.Size = new System.Drawing.Size(726, 447);
+            this.Ekran.Size = new System.Drawing.Size(633, 392);
             this.Ekran.TabIndex = 0;
             // 
             // Ayarlar_Kullanıcılar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(732, 453);
+            this.ClientSize = new System.Drawing.Size(639, 398);
             this.Controls.Add(this.Ekran);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Name = "Ayarlar_Kullanıcılar";

@@ -16,6 +16,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
         public Yeni_İş_Girişi_DosyaEkleri()
         {
             InitializeComponent();
+
+            P_DosyaEkleri_GelenKutusunuAç.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Epostaları_okuyabilir);
         }
         private void Yeni_İş_Girişi_DosyaEkleri_Shown(object sender, EventArgs e)
         {

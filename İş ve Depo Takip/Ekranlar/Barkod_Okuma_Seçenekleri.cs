@@ -112,7 +112,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
         public static void SeçenekleriGöster(string Barkod)
         {
             Form AnaEkran = Ekranlar.ÖnYüzler.AnaEkran;
-            if (AnaEkran == null) return;
+            bool İzinliMi = Banka.İzinliMi(new Banka.Ayarlar_Kullanıcılar_İzin[] { Banka.Ayarlar_Kullanıcılar_İzin.Devam_eden_işler_içinde_işlem_yapabilir, Banka.Ayarlar_Kullanıcılar_İzin.Tamamlanmış_işler_içinde_işlem_yapabilir });
+            if (AnaEkran == null || !İzinliMi) return;
 
             string sn = Ayarlar_Etiketleme.SeriNoyuBulmayaÇalış(Barkod).ToUpper();
             Banka.Talep_Bul_Detaylar_ detaylar = Banka.Talep_Bul(sn);

@@ -2972,8 +2972,21 @@ namespace İş_ve_Depo_Takip
         public enum Ayarlar_Kullanıcılar_İzin
         {
             Boşta,
+
             Ayarları_değiştirebilir,
-            Yeni_iş_ekleyebilir,
+
+            Korumalı_alan_içinde_işlem_yapabilir,
+            Takvim_içinde_işlem_yapabilir,
+            Epostaları_okuyabilir,
+            Tamamlanmış_işler_içinde_işlem_yapabilir,   //Ödeme bekleyen + Ödendi + Malzeme kullanım detayı
+            Devam_eden_işler_içinde_işlem_yapabilir,    //Devam eden + Teslim edildi
+            Yeni_iş_oluşturabilir,
+            
+            //Gelir_gider_ayarlarını_değiştirebilir,
+            //Gelir_gider_cari_döküm_içinde_işlem_yapabilir,
+            //Gelir_gider_cari_dökümü_görebilir,
+            //Gelir_gider_avans_peşinat_taksit_ve_üyelik_ekleyebilir,
+            //Gelir_gider_ekleyebilir,
 
             SonEleman,
             DiziElemanSayısı = SonEleman

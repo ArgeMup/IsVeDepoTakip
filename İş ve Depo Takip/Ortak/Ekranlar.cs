@@ -224,19 +224,19 @@ namespace İş_ve_Depo_Takip.Ekranlar
             switch (e.KeyCode)
             {
                 case Keys.F1:
-                    Ekle(new Yeni_İş_Girişi());
+                    if (Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Yeni_iş_oluşturabilir)) Ekle(new Yeni_İş_Girişi());
                     break;
 
                 case Keys.F2:
-                    Ekle(new Tüm_İşler(false));
+                    if (Banka.İzinliMi(new Banka.Ayarlar_Kullanıcılar_İzin[] { Banka.Ayarlar_Kullanıcılar_İzin.Devam_eden_işler_içinde_işlem_yapabilir, Banka.Ayarlar_Kullanıcılar_İzin.Tamamlanmış_işler_içinde_işlem_yapabilir })) Ekle(new Tüm_İşler(false));
                     break;
 
                 case Keys.F3:
-                    Ekle(new Tüm_İşler(true));
+                    if (Banka.İzinliMi(new Banka.Ayarlar_Kullanıcılar_İzin[] { Banka.Ayarlar_Kullanıcılar_İzin.Devam_eden_işler_içinde_işlem_yapabilir, Banka.Ayarlar_Kullanıcılar_İzin.Tamamlanmış_işler_içinde_işlem_yapabilir })) Ekle(new Tüm_İşler(true));
                     break;
 
                 case Keys.F4:
-                    Ekle(new Takvim());
+                    if (Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Takvim_içinde_işlem_yapabilir)) Ekle(new Takvim());
                     break;
 
                 case Keys.Escape:

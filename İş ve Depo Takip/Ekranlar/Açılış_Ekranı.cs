@@ -13,6 +13,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Controls.Add(P_AnaMenü); P_AnaMenü.Dock = DockStyle.Fill;
             Controls.Add(P_Ayarlar); P_Ayarlar.Dock = DockStyle.Fill;
+
+            Tüm_Talepler.Visible = Banka.İzinliMi(new Banka.Ayarlar_Kullanıcılar_İzin[] { Banka.Ayarlar_Kullanıcılar_İzin.Devam_eden_işler_içinde_işlem_yapabilir, Banka.Ayarlar_Kullanıcılar_İzin.Tamamlanmış_işler_içinde_işlem_yapabilir });
+            Yeni_Talep_Girişi.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Yeni_iş_oluşturabilir);
+
+            ParolayıDeğiştir.Visible = !Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Ayarları_değiştirebilir);
+            ÜcretHesaplama.Visible = Yeni_Talep_Girişi.Visible;
+            BarkodGirişi.Visible = Tüm_Talepler.Visible;
+
+            Ayarlar.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Ayarları_değiştirebilir);
+            KorumalıAlan.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Korumalı_alan_içinde_işlem_yapabilir);
+            Takvim.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Takvim_içinde_işlem_yapabilir);
         }
         private void Açılış_Ekranı_Shown(object sender, EventArgs e)
         {
