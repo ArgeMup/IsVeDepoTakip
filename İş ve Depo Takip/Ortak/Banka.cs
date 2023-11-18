@@ -1372,6 +1372,59 @@ namespace İş_ve_Depo_Takip
                 }
             }
         }
+        static void Malzeme_İştürüneGöreHareket(string SeriNo, string Müşteri, string Hasta, string İşTürü, string İşGirişTarihi, byte[] Eski_Kullanım_İşTürüoDalı_Eleman4, byte[] Yeni_Kullanım_İşTürüoDalı_Eleman4)
+        {
+            IDepo_Eleman d_malzemeler = Tablo_Dal(null, TabloTürü.Malzemeler, "Malzemeler");
+            if (d_malzemeler == null || d_malzemeler.Elemanları.Length == 0) return;
+
+            IDepo_Eleman d_iştürleri = Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri");
+            if (d_iştürleri == null || d_iştürleri.Elemanları.Length == 0) return;
+
+            IDepo_Eleman iştürünün_malzemeleri = d_iştürleri.Bul(İşTürü + "/Malzemeler");
+            if (iştürünün_malzemeleri == null) return;
+
+            int eski_adet = Ücretler_AdetÇarpanı(Eski_Kullanım_İşTürüoDalı_Eleman4);
+            int yeni_adet = Ücretler_AdetÇarpanı(Yeni_Kullanım_İşTürüoDalı_Eleman4);
+
+            foreach (IDepo_Eleman iştürünün_malzemesi in iştürünün_malzemeleri.Elemanları)
+            {
+                IDepo_Eleman malzeme = d_malzemeler.Bul(iştürünün_malzemesi.Adı);
+                if (malzeme == null) continue;
+
+                double Mevcut = malzeme.Oku_Sayı(null, 0, 0);
+                double Kullanım_Toplam = malzeme.Oku_Sayı("Tüketim", 0, 0);
+                double Kullanım_BuAy = malzeme.Oku_Sayı("Tüketim", 0, 1);
+
+                //depoya geri iade et
+                double Miktar = iştürünün_malzemesi.Oku_Sayı(null) * eski_adet;
+                Mevcut += Miktar;
+                Kullanım_Toplam -= Miktar;
+                Kullanım_BuAy -= Miktar;
+                
+                //Depodaki malzemeyi işe harca
+                Miktar = iştürünün_malzemesi.Oku_Sayı(null) * yeni_adet;
+                Mevcut -= Miktar;
+                Kullanım_Toplam += Miktar;
+                Kullanım_BuAy += Miktar;
+
+                malzeme.Yaz(null, Mevcut, 0);                  //Mevcut
+                malzeme.Yaz("Tüketim", Kullanım_Toplam, 0);    //Toplam
+                malzeme.Yaz("Tüketim", Kullanım_BuAy, 1);      //BuAy
+
+                double uyarıvermemiktarı = malzeme.Oku_Sayı(null, 0, 2);
+                if (uyarıvermemiktarı > 0 && Mevcut <= uyarıvermemiktarı) Ortak.Gösterge_UyarıVerenMalzemeler[malzeme.Adı] = Mevcut.Yazıya() + " " + malzeme[1];
+                else if (Ortak.Gösterge_UyarıVerenMalzemeler.ContainsKey(malzeme.Adı)) Ortak.Gösterge_UyarıVerenMalzemeler[malzeme.Adı] = null;
+
+                if (malzeme.Oku_Bit(null, false, 3))                    //Detaylı
+                {
+                    IDepo_Eleman detay = Tablo_Dal(malzeme.Adı, TabloTürü.MalzemeKullanımDetayı, "İşlemler/" + SeriNo, true);
+                    detay[0] = Müşteri;
+                    detay[1] = Hasta;
+
+                    detay[İşGirişTarihi].İçeriği = new string[] { İşTürü, Miktar.Yazıya() };
+                }
+            }
+        }
         public static void Malzeme_KullanımDetayı_TablodaGöster(DataGridView Tablo, string Malzeme, out string Açıklama)
         {
             Açıklama = null;
@@ -1732,8 +1785,14 @@ namespace İş_ve_Depo_Takip
                 {
                     foreach (var biri_ekle in eklenecekler.Elemanları)
                     {
-                        if (biri_sil.Adı == biri_ekle.Adı && biri_sil[0] == biri_ekle[0]) //giriş tarihi && iş türü
+                        if (biri_sil.Adı == biri_ekle.Adı &&    //giriş tarihi
+                            biri_sil[0] == biri_ekle[0])        //iş türü)       
                         {
+                            if (biri_sil[4] != biri_ekle[4])    //adeti
+                            {
+                                Malzeme_İştürüneGöreHareket(Detaylar.SeriNo, Detaylar.Müşteri, Detaylar.Hasta, biri_sil[0], biri_sil.Adı, biri_sil.Oku_BaytDizisi(null, null, 4), biri_ekle.Oku_BaytDizisi(null, null, 4));
+                            }
+
                             biri_sil.Sil(null);
                             biri_ekle.Sil(null);
                             break;
