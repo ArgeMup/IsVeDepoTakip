@@ -57,9 +57,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (GelirGider_CariDöküm.Visible) { GelirGider_CariDöküm.Left = x; }
 
             x = YedekleKapat.Top - 5;
+            if (ParolayıDeğiştir.Visible) { x -= ParolayıDeğiştir.Height; ParolayıDeğiştir.Top = x; x -= 5; }
             if (BarkodGirişi.Visible) { x -= BarkodGirişi.Height; BarkodGirişi.Top = x; x -= 5; }
-            if (ÜcretHesaplama.Visible) { x -= ÜcretHesaplama.Height; ÜcretHesaplama.Top = x; x -= 5; }
-            if (ParolayıDeğiştir.Visible) { x -= ParolayıDeğiştir.Height; ParolayıDeğiştir.Top = x; }
+            if (ÜcretHesaplama.Visible) { x -= ÜcretHesaplama.Height; ÜcretHesaplama.Top = x; }
+            
         }
         private void Açılış_Ekranı_KeyDown(object sender, KeyEventArgs e)
         {

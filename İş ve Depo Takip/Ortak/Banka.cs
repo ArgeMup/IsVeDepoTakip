@@ -3058,7 +3058,7 @@ namespace İş_ve_Depo_Takip
                     Kullanıcı_İzinleri_Tutucusu_ = Sınıf_Oluştur(typeof(ArgeMup.HazirKod.Ekranlar.Kullanıcılar_Ayarlar_), Kullanıcı_İzinleri) as ArgeMup.HazirKod.Ekranlar.Kullanıcılar_Ayarlar_;
                     if (Kullanıcı_İzinleri_Tutucusu_ == null) throw new Exception("Kullanıcı_İzinleri_Tutucusu_ == null");
 
-                    Kullanıcı_İzinleri_Tutucusu_.Başlat((int)Ayarlar_Kullanıcılar_İzin.DiziElemanSayısı_, true);
+                    Kullanıcı_İzinleri_Tutucusu_.Başlat((int)Ayarlar_Kullanıcılar_İzin.DiziElemanSayısı_, true, Parola.Yazı);
                 }
 
                 return Kullanıcı_İzinleri_Tutucusu_;

@@ -200,7 +200,7 @@
             this.ParolayıDeğiştir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ParolayıDeğiştir.AutoSize = true;
             this.ParolayıDeğiştir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.ParolayıDeğiştir.Location = new System.Drawing.Point(351, 256);
+            this.ParolayıDeğiştir.Location = new System.Drawing.Point(351, 324);
             this.ParolayıDeğiştir.Margin = new System.Windows.Forms.Padding(6);
             this.ParolayıDeğiştir.Name = "ParolayıDeğiştir";
             this.ParolayıDeğiştir.Size = new System.Drawing.Size(130, 29);
@@ -215,7 +215,7 @@
             this.ÜcretHesaplama.AutoSize = true;
             this.ÜcretHesaplama.BackColor = System.Drawing.Color.Transparent;
             this.ÜcretHesaplama.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.ÜcretHesaplama.Location = new System.Drawing.Point(351, 292);
+            this.ÜcretHesaplama.Location = new System.Drawing.Point(351, 260);
             this.ÜcretHesaplama.Margin = new System.Windows.Forms.Padding(6);
             this.ÜcretHesaplama.Name = "ÜcretHesaplama";
             this.ÜcretHesaplama.Size = new System.Drawing.Size(130, 29);
@@ -228,7 +228,7 @@
             // 
             this.BarkodGirişi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BarkodGirişi.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.BarkodGirişi.Location = new System.Drawing.Point(351, 327);
+            this.BarkodGirişi.Location = new System.Drawing.Point(351, 295);
             this.BarkodGirişi.Margin = new System.Windows.Forms.Padding(0);
             this.BarkodGirişi.Name = "BarkodGirişi";
             this.BarkodGirişi.Size = new System.Drawing.Size(130, 23);
