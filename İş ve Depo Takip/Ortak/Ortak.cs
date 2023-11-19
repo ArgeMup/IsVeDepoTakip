@@ -162,6 +162,25 @@ namespace İş_ve_Depo_Takip
             }
         }
 
+        public static bool Dosya_TamKopya(string Kaynak, string Hedef)
+        {
+            int ZamanAşımı_msn = Environment.TickCount + 15000;
+            while (ZamanAşımı_msn > Environment.TickCount)
+            {
+                try
+                {
+                    File.Copy(Kaynak, Hedef, true);
+                    File.SetAttributes(Hedef, File.GetAttributes(Kaynak));
+                    File.SetLastWriteTime(Hedef, File.GetLastWriteTime(Kaynak));
+                    return true;
+                }
+                catch (Exception ex) { ex.Günlük(); }
+                
+                System.Threading.Thread.Sleep(100);
+            }
+
+            return false;
+        }
         public static bool Klasör_TamKopya(string Kaynak, string Hedef, bool DoğrulamaKodunuKontrolEt_Yavaşlatır = true)
         {
             int ZamanAşımı_msn = Environment.TickCount + 15000;
@@ -172,7 +191,7 @@ namespace İş_ve_Depo_Takip
                     if (Klasör.Kopyala(Kaynak, Hedef, true, DoğrulamaKodunuKontrolEt_Yavaşlatır)) return true;
                 }
                 catch (Exception ex) { ex.Günlük(); }
-                
+
                 System.Threading.Thread.Sleep(100);
             }
 

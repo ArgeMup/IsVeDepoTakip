@@ -132,8 +132,6 @@ namespace İş_ve_Depo_Takip
             //    Yedekle_Banka();
             //    Değişiklikler_TamponuSıfırla();
 
-            //    Ortak.Gösterge_Açılışİşlemi(AçılışYazısı, "Yeni Sürüme Uygunlaştırma", ref Açılışİşlemi_Tik);
-
             //    Dosya.Sil(Kendi.Klasörü + "\\" + ydk_zip);
             //}
             #endregion
@@ -3473,8 +3471,6 @@ namespace İş_ve_Depo_Takip
             System.Threading.Tasks.Task.Run(() =>
             {
                 Günlük.Ekle("Yedekle_Tümü Başladı");
-                //Ortak.BatDosyasıCalistir("YedekOncesi.bat");
-                //Ortak.BatDosyasıCalistir("YedekOncesi_Bekle.bat");
 
                 try
                 {
@@ -3524,7 +3520,7 @@ namespace İş_ve_Depo_Takip
                             sonuç &= Ortak.Klasör_TamKopya(Ortak.Klasör_Banka, Ortak.Kullanıcı_Klasör_Yedek[i] + "Banka");
                             sonuç &= Ortak.Klasör_TamKopya(Ortak.Klasör_KullanıcıDosyaları, Ortak.Kullanıcı_Klasör_Yedek[i] + "Kullanıcı Dosyaları");
                             sonuç &= Ortak.Klasör_TamKopya(Ortak.Klasör_İçYedek, Ortak.Kullanıcı_Klasör_Yedek[i] + "Yedek", false);
-                            sonuç &= Dosya.Kopyala(Kendi.DosyaYolu, Ortak.Kullanıcı_Klasör_Yedek[i] + Kendi.DosyaAdı);
+                            sonuç &= Ortak.Dosya_TamKopya(Kendi.DosyaYolu, Ortak.Kullanıcı_Klasör_Yedek[i] + Kendi.DosyaAdı);
 
                             if (!sonuç) Yedekleme_Hatalar += ("Yedek no : " + (i+1) + " yedekleme başarısız").Günlük() + Environment.NewLine;
                         }
@@ -3533,9 +3529,6 @@ namespace İş_ve_Depo_Takip
                     Yedekleme_EnAz1Kez_Değişiklikler_Kaydedildi = false;
                 }
                 catch (Exception ex) { Yedekleme_Hatalar += ex.Günlük().Message + Environment.NewLine; }
-
-                //Ortak.BatDosyasıCalistir("YedekSonrasi.bat");
-                //Ortak.BatDosyasıCalistir("YedekSonrasi_Bekle.bat");
 
                 Günlük.Ekle("Yedekle_Tümü Bitti " + Yedekleme_Hatalar);
                 Yedekleme_Tümü_Çalışıyor = false;
