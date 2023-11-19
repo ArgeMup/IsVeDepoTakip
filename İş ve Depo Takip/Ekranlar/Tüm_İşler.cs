@@ -12,7 +12,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 {
     public partial class Tüm_İşler : Form, IGüncellenenSeriNolar
     {
-        bool İzin_Ayarlar, İzin_DevamEden, İzin_Tamamlandı;
+        bool İzin_Ayarlar, İzin_Tamamlandı;
         public Tüm_İşler(bool AramaPenceresiİleAçılsın)
         {
             InitializeComponent();
@@ -69,11 +69,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             İzin_Ayarlar = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Ayarları_değiştirebilir); ;
             İzin_Tamamlandı = İzin_Ayarlar ? true : Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Tamamlanmış_işler_içinde_işlem_yapabilir);
-            İzin_DevamEden = İzin_Tamamlandı ? true : Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Devam_eden_işler_içinde_işlem_yapabilir);
-            Müşteri_KDV.Visible = İzin_Tamamlandı;
-            Müşteri_İskonto.Visible = İzin_Tamamlandı;
-            Seviye2_ÖdemeBekleyen.Visible = İzin_Tamamlandı;
-            Seviye2_Ödendi.Visible = İzin_Tamamlandı;
+            if (!İzin_Tamamlandı)
+            {
+                İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt.Visible = false;
+                İşTakip_TeslimEdildi_İlaveÖdeme.Visible = false;
+                İşTakip_TeslimEdildi_Sekmeler.TabPages.Remove(İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl);
+                İşTakip_TeslimEdildi_ÖdemeTalebiOluştur.Visible = false;
+                İşTakip_TeslimEdildi_Açıklama.Visible = false;
+                Müşteri_KDV.Visible = false;
+                Müşteri_İskonto.Visible = false;
+                Seviye2_ÖdemeBekleyen.Visible = false;
+                Seviye2_Ödendi.Visible = false;
+            }
         }
         private void Tüm_İşler_Shown(object sender, EventArgs e)
         {

@@ -3030,7 +3030,7 @@ namespace İş_ve_Depo_Takip
         #region Kullanıcı_İzinleri
         public enum Ayarlar_Kullanıcılar_İzin
         {
-            Boşta,
+            Boşta_,
 
             Ayarları_değiştirebilir,
 
@@ -3047,8 +3047,8 @@ namespace İş_ve_Depo_Takip
             //Gelir_gider_avans_peşinat_taksit_ve_üyelik_ekleyebilir,
             //Gelir_gider_ekleyebilir,
 
-            SonEleman,
-            DiziElemanSayısı = SonEleman
+            SonEleman_,
+            DiziElemanSayısı_ = SonEleman_
         };
         public static ArgeMup.HazirKod.Ekranlar.Kullanıcılar_Ayarlar_ Kullanıcı_İzinleri_Tutucusu
         {
@@ -3060,7 +3060,7 @@ namespace İş_ve_Depo_Takip
                     Kullanıcı_İzinleri_Tutucusu_ = Sınıf_Oluştur(typeof(ArgeMup.HazirKod.Ekranlar.Kullanıcılar_Ayarlar_), Kullanıcı_İzinleri) as ArgeMup.HazirKod.Ekranlar.Kullanıcılar_Ayarlar_;
                     if (Kullanıcı_İzinleri_Tutucusu_ == null) throw new Exception("Kullanıcı_İzinleri_Tutucusu_ == null");
 
-                    Kullanıcı_İzinleri_Tutucusu_.Başlat((int)Ayarlar_Kullanıcılar_İzin.DiziElemanSayısı, true);
+                    Kullanıcı_İzinleri_Tutucusu_.Başlat((int)Ayarlar_Kullanıcılar_İzin.DiziElemanSayısı_, true);
                 }
 
                 return Kullanıcı_İzinleri_Tutucusu_;
@@ -3079,7 +3079,7 @@ namespace İş_ve_Depo_Takip
         }
         public static bool İzinliMi(Ayarlar_Kullanıcılar_İzin İzin)
         {
-            return Kullanıcı_İzinleri_Tutucusu.İzinliMi(İzin == Ayarlar_Kullanıcılar_İzin.Boşta ? (Enum)null : İzin);
+            return Kullanıcı_İzinleri_Tutucusu.İzinliMi(İzin == Ayarlar_Kullanıcılar_İzin.Boşta_ ? (Enum)null : İzin);
         }
         public static bool İzinliMi(IEnumerable<Ayarlar_Kullanıcılar_İzin> İzinler)
         {
@@ -3129,7 +3129,7 @@ namespace İş_ve_Depo_Takip
         {
             if (Sınıf == null) throw new Exception("Sınıf(" + (Sınıf == null) + ") == null");
 
-            if (depo == null) depo = new Depo_();
+            depo = new Depo_();
             Kullanıcı_İzinleri_Değişken.Depola(Sınıf, depo["ArGeMuP"]);
             depo.EnAzBir_ElemanAdıVeyaİçeriği_Değişti = true;
         }

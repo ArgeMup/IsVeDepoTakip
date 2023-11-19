@@ -36,6 +36,8 @@
             this.Ücretler = new System.Windows.Forms.Button();
             this.Yazdırma = new System.Windows.Forms.Button();
             this.P_AnaMenü = new System.Windows.Forms.Panel();
+            this.GelirGider_CariDöküm = new System.Windows.Forms.Button();
+            this.GelirGider_Ekle = new System.Windows.Forms.Button();
             this.ParolayıDeğiştir = new System.Windows.Forms.Button();
             this.ÜcretHesaplama = new System.Windows.Forms.Button();
             this.BarkodGirişi = new System.Windows.Forms.TextBox();
@@ -57,8 +59,6 @@
             this.Diğer = new System.Windows.Forms.Button();
             this.Hata = new System.Windows.Forms.ErrorProvider(this.components);
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
-            this.GelirGider_Ekle = new System.Windows.Forms.Button();
-            this.GelirGider_CariDöküm = new System.Windows.Forms.Button();
             this.P_AnaMenü.SuspendLayout();
             this.tab_sayfası.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -166,6 +166,34 @@
             this.P_AnaMenü.TabIndex = 10;
             this.P_AnaMenü.Visible = false;
             this.P_AnaMenü.VisibleChanged += new System.EventHandler(this.P_AnaMenü_VisibleChanged);
+            // 
+            // GelirGider_CariDöküm
+            // 
+            this.GelirGider_CariDöküm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.GelirGider_CariDöküm.AutoSize = true;
+            this.GelirGider_CariDöküm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.GelirGider_CariDöküm.Location = new System.Drawing.Point(130, 324);
+            this.GelirGider_CariDöküm.Name = "GelirGider_CariDöküm";
+            this.GelirGider_CariDöküm.Size = new System.Drawing.Size(91, 29);
+            this.GelirGider_CariDöküm.TabIndex = 10;
+            this.GelirGider_CariDöküm.Text = "Cari Döküm";
+            this.İpUcu.SetToolTip(this.GelirGider_CariDöküm, "F4");
+            this.GelirGider_CariDöküm.UseVisualStyleBackColor = true;
+            this.GelirGider_CariDöküm.Visible = false;
+            // 
+            // GelirGider_Ekle
+            // 
+            this.GelirGider_Ekle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.GelirGider_Ekle.AutoSize = true;
+            this.GelirGider_Ekle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.GelirGider_Ekle.Location = new System.Drawing.Point(6, 324);
+            this.GelirGider_Ekle.Name = "GelirGider_Ekle";
+            this.GelirGider_Ekle.Size = new System.Drawing.Size(118, 29);
+            this.GelirGider_Ekle.TabIndex = 9;
+            this.GelirGider_Ekle.Text = "Gelir Gider Ekle";
+            this.İpUcu.SetToolTip(this.GelirGider_Ekle, "F4");
+            this.GelirGider_Ekle.UseVisualStyleBackColor = true;
+            this.GelirGider_Ekle.Visible = false;
             // 
             // ParolayıDeğiştir
             // 
@@ -429,34 +457,6 @@
             this.İpUcu.AutoPopDelay = 10000;
             this.İpUcu.InitialDelay = 100;
             this.İpUcu.ReshowDelay = 20;
-            // 
-            // GelirGider_Ekle
-            // 
-            this.GelirGider_Ekle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.GelirGider_Ekle.AutoSize = true;
-            this.GelirGider_Ekle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.GelirGider_Ekle.Location = new System.Drawing.Point(6, 318);
-            this.GelirGider_Ekle.Name = "GelirGider_Ekle";
-            this.GelirGider_Ekle.Size = new System.Drawing.Size(114, 29);
-            this.GelirGider_Ekle.TabIndex = 9;
-            this.GelirGider_Ekle.Text = "Gelir gider ekle";
-            this.İpUcu.SetToolTip(this.GelirGider_Ekle, "F4");
-            this.GelirGider_Ekle.UseVisualStyleBackColor = true;
-            this.GelirGider_Ekle.Visible = false;
-            // 
-            // GelirGider_CariDöküm
-            // 
-            this.GelirGider_CariDöküm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.GelirGider_CariDöküm.AutoSize = true;
-            this.GelirGider_CariDöküm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.GelirGider_CariDöküm.Location = new System.Drawing.Point(6, 283);
-            this.GelirGider_CariDöküm.Name = "GelirGider_CariDöküm";
-            this.GelirGider_CariDöküm.Size = new System.Drawing.Size(114, 29);
-            this.GelirGider_CariDöküm.TabIndex = 10;
-            this.GelirGider_CariDöküm.Text = "Cari döküm";
-            this.İpUcu.SetToolTip(this.GelirGider_CariDöküm, "F4");
-            this.GelirGider_CariDöküm.UseVisualStyleBackColor = true;
-            this.GelirGider_CariDöküm.Visible = false;
             // 
             // Açılış_Ekranı
             // 

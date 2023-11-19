@@ -74,7 +74,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     break;
             }
 
-            Ekran_Başlat_Ayarlar();
+            List<string> İzinler = new List<string>();
+            for (int i = 0; i < (int)Banka.Ayarlar_Kullanıcılar_İzin.DiziElemanSayısı_; i++) { İzinler.Add(((Banka.Ayarlar_Kullanıcılar_İzin)i).Yazdır()); }
+            Ekran.Başlat(İşlemTürü, İzinler, Banka.Kullanıcı_İzinleri_Tutucusu);
+
             Show();
         }
         private void Ayarlar_Kullanıcılar_Shown(object sender, EventArgs e)
@@ -96,13 +99,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Ortak.Kapan(e.CloseReason.ToString());
                 Application.Exit(); //en alttaki parola kontrol uygulamasını kapatmak için
             }
-        }
-        void Ekran_Başlat_Ayarlar()
-        {
-            List<string> İzinler = new List<string>();
-            for (int i = 0; i < (int)Banka.Ayarlar_Kullanıcılar_İzin.DiziElemanSayısı; i++) { İzinler.Add(((Banka.Ayarlar_Kullanıcılar_İzin)i).Yazdır()); }
-
-            Ekran.Başlat(İşlemTürü, İzinler, Banka.Kullanıcı_İzinleri_Tutucusu);
         }
 
         private void Ekran_GeriBildirim_GirişBaşarılı()
@@ -151,7 +147,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         "İşlem iptal edildi");
 
                     Banka.Değişiklikler_TamponuSıfırla();
-                    Ekran_Başlat_Ayarlar();
+                    Ekran.Yenile(Banka.Kullanıcı_İzinleri_Tutucusu);
                     return;
                 }
             }

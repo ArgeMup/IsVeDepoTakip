@@ -14,12 +14,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Controls.Add(P_AnaMenü); P_AnaMenü.Dock = DockStyle.Fill;
             Controls.Add(P_Ayarlar); P_Ayarlar.Dock = DockStyle.Fill;
 
-            Tüm_Talepler.Visible = Banka.İzinliMi(new Banka.Ayarlar_Kullanıcılar_İzin[] { Banka.Ayarlar_Kullanıcılar_İzin.Devam_eden_işler_içinde_işlem_yapabilir, Banka.Ayarlar_Kullanıcılar_İzin.Tamamlanmış_işler_içinde_işlem_yapabilir });
-            Yeni_Talep_Girişi.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Yeni_iş_oluşturabilir);
+            bool İzin_Tüm_Talepler = Banka.İzinliMi(new Banka.Ayarlar_Kullanıcılar_İzin[] { Banka.Ayarlar_Kullanıcılar_İzin.Devam_eden_işler_içinde_işlem_yapabilir, Banka.Ayarlar_Kullanıcılar_İzin.Tamamlanmış_işler_içinde_işlem_yapabilir });
+            bool İzin_Yeni_Talep_Girişi = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Yeni_iş_oluşturabilir);
+            Tüm_Talepler.Visible = İzin_Tüm_Talepler;
+            Yeni_Talep_Girişi.Visible = İzin_Yeni_Talep_Girişi;
 
             ParolayıDeğiştir.Visible = !Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Ayarları_değiştirebilir);
-            ÜcretHesaplama.Visible = Yeni_Talep_Girişi.Visible;
-            BarkodGirişi.Visible = Tüm_Talepler.Visible;
+            ÜcretHesaplama.Visible = İzin_Yeni_Talep_Girişi;
+            BarkodGirişi.Visible = İzin_Tüm_Talepler;
 
             Ayarlar.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Ayarları_değiştirebilir);
             KorumalıAlan.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Korumalı_alan_içinde_işlem_yapabilir);
@@ -28,6 +30,36 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void Açılış_Ekranı_Shown(object sender, EventArgs e)
         {
             P_AnaMenü.Visible = true;
+
+            int x = (Tüm_Talepler.Visible ? Tüm_Talepler.Width : 0) + (Yeni_Talep_Girişi.Visible ? Yeni_Talep_Girişi.Width : 0);
+            if (x > 0)
+            {
+                x += 5; //orta ayraç
+                x = (P_AnaMenü.Width - x) / 2;
+
+                if (Yeni_Talep_Girişi.Visible) { Yeni_Talep_Girişi.Left = x; x += Yeni_Talep_Girişi.Width + 5; }
+                if (Tüm_Talepler.Visible) { Tüm_Talepler.Left = x; }
+            }
+
+            bool EnAz1ElemanSeçildi = false;
+            x = 5;
+            if (Takvim.Visible) { Takvim.Left = x; x += Takvim.Width + Hata.GetIconPadding(Takvim) + Hata.Icon.Width + 5; EnAz1ElemanSeçildi = true; }
+            if (KorumalıAlan.Visible) { KorumalıAlan.Left = x; x += KorumalıAlan.Width + 5; EnAz1ElemanSeçildi = true; }
+            if (Ayarlar.Visible) { Ayarlar.Left = x; EnAz1ElemanSeçildi = true; }
+
+            //gelir giderleri yer varsa en alta at
+            if (EnAz1ElemanSeçildi) x = Takvim.Top - 5 - GelirGider_Ekle.Height;
+            else x = Takvim.Top;
+            GelirGider_Ekle.Top = x;
+            GelirGider_CariDöküm.Top = x;
+            x = 5;
+            if (GelirGider_Ekle.Visible) { GelirGider_Ekle.Left = x; x += GelirGider_Ekle.Width + 5; }
+            if (GelirGider_CariDöküm.Visible) { GelirGider_CariDöküm.Left = x; }
+
+            x = YedekleKapat.Top - 5;
+            if (BarkodGirişi.Visible) { x -= BarkodGirişi.Height; BarkodGirişi.Top = x; x -= 5; }
+            if (ÜcretHesaplama.Visible) { x -= ÜcretHesaplama.Height; ÜcretHesaplama.Top = x; x -= 5; }
+            if (ParolayıDeğiştir.Visible) { x -= ParolayıDeğiştir.Height; ParolayıDeğiştir.Top = x; }
         }
         private void Açılış_Ekranı_KeyDown(object sender, KeyEventArgs e)
         {
