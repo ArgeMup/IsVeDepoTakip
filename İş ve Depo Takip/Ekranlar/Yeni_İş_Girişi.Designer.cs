@@ -55,6 +55,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Hastalar_Grup = new System.Windows.Forms.GroupBox();
             this.Hastalar_SeçimKutusu = new System.Windows.Forms.ListBox();
             this.İşTürleri = new System.Windows.Forms.GroupBox();
+            this.Liste_İşTürleri = new ArgeMup.HazirKod.Ekranlar.ListeKutusu();
             this.İştürü_SeçiliSatıraKopyala = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -115,7 +116,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.KurlarVeSüreler = new System.Windows.Forms.TextBox();
             this.İpUcu_Genel = new System.Windows.Forms.ToolTip(this.components);
-            this.Liste_İşTürleri = new ArgeMup.HazirKod.Ekranlar.ListeKutusu();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             this.Müşteriler_Grup.SuspendLayout();
             this.Hastalar_Grup.SuspendLayout();
@@ -426,6 +426,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İşTürleri.TabIndex = 14;
             this.İşTürleri.TabStop = false;
             this.İşTürleri.Text = "İş Türleri";
+            // 
+            // Liste_İşTürleri
+            // 
+            this.Liste_İşTürleri.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Liste_İşTürleri.Location = new System.Drawing.Point(3, 22);
+            this.Liste_İşTürleri.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.Liste_İşTürleri.Name = "Liste_İşTürleri";
+            this.Liste_İşTürleri.SeçilenEleman_Adı = null;
+            this.Liste_İşTürleri.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("Liste_İşTürleri.SeçilenEleman_Adları")));
+            this.Liste_İşTürleri.Size = new System.Drawing.Size(279, 270);
+            this.Liste_İşTürleri.TabIndex = 9;
+            this.Liste_İşTürleri.DoubleClick += new System.EventHandler(this.Liste_İşTürleri_DoubleClick);
             // 
             // İştürü_SeçiliSatıraKopyala
             // 
@@ -1160,6 +1172,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.EtiketSayısı_Acil.TabIndex = 1;
             this.EtiketSayısı_Acil.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.İpUcu_Genel.SetToolTip(this.EtiketSayısı_Acil, "Acil iş etiketi sayısı");
+            this.EtiketSayısı_Acil.Enter += new System.EventHandler(this.EtiketSayısı_Enter);
             // 
             // EtiketSayısı_Kayıt
             // 
@@ -1172,21 +1185,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
             0,
             0,
             0});
-            this.EtiketSayısı_Kayıt.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.EtiketSayısı_Kayıt.Name = "EtiketSayısı_Kayıt";
             this.EtiketSayısı_Kayıt.Size = new System.Drawing.Size(55, 26);
             this.EtiketSayısı_Kayıt.TabIndex = 0;
             this.EtiketSayısı_Kayıt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.İpUcu_Genel.SetToolTip(this.EtiketSayısı_Kayıt, "Kayıt etiketi sayısı");
-            this.EtiketSayısı_Kayıt.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.EtiketSayısı_Kayıt.Enter += new System.EventHandler(this.EtiketSayısı_Enter);
             // 
             // Ayraç_Kat_1_2
             // 
@@ -1250,18 +1254,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İpUcu_Genel.ToolTipTitle = "Yeni İş Girişi / Düzenleme";
             this.İpUcu_Genel.UseAnimation = false;
             this.İpUcu_Genel.UseFading = false;
-            // 
-            // Liste_İşTürleri
-            // 
-            this.Liste_İşTürleri.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Liste_İşTürleri.Location = new System.Drawing.Point(3, 22);
-            this.Liste_İşTürleri.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.Liste_İşTürleri.Name = "Liste_İşTürleri";
-            this.Liste_İşTürleri.SeçilenEleman_Adı = null;
-            this.Liste_İşTürleri.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("Liste_İşTürleri.SeçilenEleman_Adları")));
-            this.Liste_İşTürleri.Size = new System.Drawing.Size(279, 270);
-            this.Liste_İşTürleri.TabIndex = 9;
-            this.Liste_İşTürleri.DoubleClick += new System.EventHandler(this.Liste_İşTürleri_DoubleClick);
             // 
             // Yeni_İş_Girişi
             // 

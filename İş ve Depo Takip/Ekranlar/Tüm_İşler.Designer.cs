@@ -116,7 +116,7 @@
             this.İşTakip_Eposta_TeslimEdildi = new System.Windows.Forms.CheckBox();
             this.İşTakip_Eposta_Gönder = new System.Windows.Forms.Button();
             this.İşTakip_Eposta_Kişiye = new System.Windows.Forms.CheckBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.P_Yazdırma = new System.Windows.Forms.GroupBox();
             this.İşTakip_Yazdırma_VeGörüntüle = new System.Windows.Forms.CheckBox();
             this.İşTakip_Yazdırma_VeKlasörüAç = new System.Windows.Forms.CheckBox();
             this.İşTakip_Yazdırma_Yazdır = new System.Windows.Forms.Button();
@@ -197,7 +197,7 @@
             this.splitContainer1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel7.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.P_Yazdırma.SuspendLayout();
             this.P_Üstteki_İşTakip_Arama_Tip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
@@ -241,7 +241,7 @@
             // P_SolOrta_Sağ.Panel2
             // 
             this.P_SolOrta_Sağ.Panel2.Controls.Add(this.groupBox2);
-            this.P_SolOrta_Sağ.Panel2.Controls.Add(this.groupBox3);
+            this.P_SolOrta_Sağ.Panel2.Controls.Add(this.P_Yazdırma);
             this.P_SolOrta_Sağ.Panel2.Padding = new System.Windows.Forms.Padding(5);
             this.P_SolOrta_Sağ.Size = new System.Drawing.Size(1099, 285);
             this.P_SolOrta_Sağ.SplitterDistance = 839;
@@ -405,10 +405,10 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.P_İşTakip_TeslimEdildi);
-            this.tabPage4.Location = new System.Drawing.Point(4, 29);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(666, 238);
+            this.tabPage4.Size = new System.Drawing.Size(663, 238);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Teslim Edildi";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1210,19 +1210,19 @@
             this.İşTakip_Eposta_Kişiye.UseVisualStyleBackColor = true;
             this.İşTakip_Eposta_Kişiye.CheckedChanged += new System.EventHandler(this.İşTakip_Eposta_Kişiye_CheckedChanged);
             // 
-            // groupBox3
+            // P_Yazdırma
             // 
-            this.groupBox3.Controls.Add(this.İşTakip_Yazdırma_VeGörüntüle);
-            this.groupBox3.Controls.Add(this.İşTakip_Yazdırma_VeKlasörüAç);
-            this.groupBox3.Controls.Add(this.İşTakip_Yazdırma_Yazdır);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox3.Location = new System.Drawing.Point(5, 5);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(5, 3, 10, 3);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(242, 51);
-            this.groupBox3.TabIndex = 11;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Yazdırma";
+            this.P_Yazdırma.Controls.Add(this.İşTakip_Yazdırma_VeGörüntüle);
+            this.P_Yazdırma.Controls.Add(this.İşTakip_Yazdırma_VeKlasörüAç);
+            this.P_Yazdırma.Controls.Add(this.İşTakip_Yazdırma_Yazdır);
+            this.P_Yazdırma.Dock = System.Windows.Forms.DockStyle.Top;
+            this.P_Yazdırma.Location = new System.Drawing.Point(5, 5);
+            this.P_Yazdırma.Margin = new System.Windows.Forms.Padding(5, 3, 10, 3);
+            this.P_Yazdırma.Name = "P_Yazdırma";
+            this.P_Yazdırma.Size = new System.Drawing.Size(242, 51);
+            this.P_Yazdırma.TabIndex = 11;
+            this.P_Yazdırma.TabStop = false;
+            this.P_Yazdırma.Text = "Yazdırma";
             // 
             // İşTakip_Yazdırma_VeGörüntüle
             // 
@@ -1743,8 +1743,8 @@
             this.groupBox2.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.P_Yazdırma.ResumeLayout(false);
+            this.P_Yazdırma.PerformLayout();
             this.P_Üstteki_İşTakip_Arama_Tip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).EndInit();
@@ -1802,7 +1802,7 @@
         private System.Windows.Forms.SplitContainer P_SolOrta_Sağ;
         private System.Windows.Forms.SplitContainer P_Sol_Orta;
         private System.Windows.Forms.Button İşTakip_Yazdırma_Yazdır;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox P_Yazdırma;
         private System.Windows.Forms.CheckBox İşTakip_Yazdırma_VeGörüntüle;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox İşTakip_Eposta_ÖdemeBekleyen;

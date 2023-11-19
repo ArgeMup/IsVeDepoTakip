@@ -80,6 +80,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Müşteri_İskonto.Visible = false;
                 Seviye2_ÖdemeBekleyen.Visible = false;
                 Seviye2_Ödendi.Visible = false;
+                P_Yazdırma.Visible = false;
+                İşTakip_Eposta_Kişiye.Visible = false;
             }
         }
         private void Tüm_İşler_Shown(object sender, EventArgs e)

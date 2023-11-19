@@ -159,6 +159,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     }
                 }
 
+                Ayraç_Detaylar_EtiketSayısı.Panel2Collapsed = SadeceOkunabilir;
+
                 Tablo_Dişler.Enabled = !SadeceOkunabilir;
                 Dişler_GörseliniGüncelle();
                 
@@ -426,6 +428,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Notlar.Select(Notlar.Text.Length, 0);
         }
 
+        private void EtiketSayısı_Enter(object sender, EventArgs e)
+        {
+            NumericUpDown nud = sender as NumericUpDown;
+            if (nud.Value == 0) nud.Value = 1;
+        }
+
         void Dişler_GörseliniGüncelle()
         {
             List<byte> tümü = new List<byte>();
@@ -627,12 +635,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 İşKaydıYapıldı = true;
             }
 
-            string sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(true, (int)EtiketSayısı_Kayıt.Value, Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, SeriNo ?? YeniKayıtİçinTutulanSeriNo, Banka.Yazdır_Tarih((string)Tablo[Tablo_Giriş_Tarihi.Index, Tablo.RowCount - 2].Value), (string)Tablo[Tablo_İş_Türü.Index, Tablo.RowCount - 2].Value, false);
-            if (sonuç.DoluMu()) MessageBox.Show((İşKaydıYapıldı ? "İş kaydı yapıldı fakat y" : "Y") + "azdırma aşamasında bir sorun ile karşılaşıldı" + Environment.NewLine + Environment.NewLine + sonuç, Text);
+            if (EtiketSayısı_Kayıt.Value == 0 && EtiketSayısı_Acil.Value == 0) EtiketSayısı_Kayıt.Value = 1;
+
+            if (EtiketSayısı_Kayıt.Value > 0)
+            {
+                string sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(true, (int)EtiketSayısı_Kayıt.Value, Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, SeriNo ?? YeniKayıtİçinTutulanSeriNo, Banka.Yazdır_Tarih((string)Tablo[Tablo_Giriş_Tarihi.Index, Tablo.RowCount - 2].Value), (string)Tablo[Tablo_İş_Türü.Index, Tablo.RowCount - 2].Value, false);
+                if (sonuç.DoluMu()) MessageBox.Show((İşKaydıYapıldı ? "İş kaydı yapıldı fakat y" : "Y") + "azdırma aşamasında bir sorun ile karşılaşıldı" + Environment.NewLine + Environment.NewLine + sonuç, Text);
+            }
 
             if (EtiketSayısı_Acil.Value > 0)
             {
-                sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(false, (int)EtiketSayısı_Acil.Value, Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, SeriNo ?? YeniKayıtİçinTutulanSeriNo, Banka.Yazdır_Tarih((string)Tablo[Tablo_Giriş_Tarihi.Index, Tablo.RowCount - 2].Value), (string)Tablo[Tablo_İş_Türü.Index, Tablo.RowCount - 2].Value, false);
+                string sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(false, (int)EtiketSayısı_Acil.Value, Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, SeriNo ?? YeniKayıtİçinTutulanSeriNo, Banka.Yazdır_Tarih((string)Tablo[Tablo_Giriş_Tarihi.Index, Tablo.RowCount - 2].Value), (string)Tablo[Tablo_İş_Türü.Index, Tablo.RowCount - 2].Value, false);
                 if (sonuç.DoluMu()) MessageBox.Show((İşKaydıYapıldı ? "İş kaydı yapıldı fakat y" : "Y") + "azdırma aşamasında bir sorun ile karşılaşıldı" + Environment.NewLine + Environment.NewLine + sonuç, Text);
             }
             
