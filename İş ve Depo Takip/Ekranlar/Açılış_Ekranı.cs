@@ -30,6 +30,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void Açılış_Ekranı_Shown(object sender, EventArgs e)
         {
             P_AnaMenü.Visible = true;
+            İpUcu.SetToolTip(YedekleKapat, ("Kullanıcı : " + Banka.KullancıAdı).Günlük());
 
             int x = (Tüm_Talepler.Visible ? Tüm_Talepler.Width : 0) + (Yeni_Talep_Girişi.Visible ? Yeni_Talep_Girişi.Width : 0);
             if (x > 0)
@@ -60,7 +61,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (ParolayıDeğiştir.Visible) { x -= ParolayıDeğiştir.Height; ParolayıDeğiştir.Top = x; x -= 5; }
             if (BarkodGirişi.Visible) { x -= BarkodGirişi.Height; BarkodGirişi.Top = x; x -= 5; }
             if (ÜcretHesaplama.Visible) { x -= ÜcretHesaplama.Height; ÜcretHesaplama.Top = x; }
-            
         }
         private void Açılış_Ekranı_KeyDown(object sender, KeyEventArgs e)
         {

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ayarlar_Ücretler));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -59,6 +60,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.DeğişkenlerEkranı = new System.Windows.Forms.Button();
+            this.İpUcu_Ücretlendirme = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             this.SağTuşMenü_Değişkenler.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -79,6 +81,7 @@
             this.Müşterıler.Name = "Müşterıler";
             this.Müşterıler.Size = new System.Drawing.Size(233, 459);
             this.Müşterıler.TabIndex = 0;
+            this.İpUcu_Ücretlendirme.SetToolTip(this.Müşterıler, resources.GetString("Müşterıler.ToolTip"));
             this.Müşterıler.SelectedIndexChanged += new System.EventHandler(this.Müşterıler_SelectedIndexChanged);
             // 
             // label1
@@ -401,6 +404,18 @@
             this.DeğişkenlerEkranı.UseVisualStyleBackColor = true;
             this.DeğişkenlerEkranı.Click += new System.EventHandler(this.Değişkenler_Click);
             // 
+            // İpUcu_Ücretlendirme
+            // 
+            this.İpUcu_Ücretlendirme.AutomaticDelay = 100;
+            this.İpUcu_Ücretlendirme.AutoPopDelay = 20000;
+            this.İpUcu_Ücretlendirme.InitialDelay = 100;
+            this.İpUcu_Ücretlendirme.IsBalloon = true;
+            this.İpUcu_Ücretlendirme.ReshowDelay = 20;
+            this.İpUcu_Ücretlendirme.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.İpUcu_Ücretlendirme.ToolTipTitle = "Ücretlendirme";
+            this.İpUcu_Ücretlendirme.UseAnimation = false;
+            this.İpUcu_Ücretlendirme.UseFading = false;
+            // 
             // Ayarlar_Ücretler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
@@ -460,5 +475,6 @@
         private System.Windows.Forms.TextBox Müşteriİçin_İskonto;
         private System.Windows.Forms.CheckBox Müşteriİçin_KDV;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ToolTip İpUcu_Ücretlendirme;
     }
 }

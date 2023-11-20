@@ -31,11 +31,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Yeni_İş_Girişi));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Yeni_İş_Girişi));
             this.Notlar = new System.Windows.Forms.TextBox();
             this.Tablo = new System.Windows.Forms.DataGridView();
             this.Tablo_İş_Türü = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,7 +46,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.ÖnYüzler_Kaydet = new System.Windows.Forms.Button();
             this.Seçili_Satırı_Sil = new System.Windows.Forms.Button();
             this.İskonto = new System.Windows.Forms.TextBox();
-            this.İpUcu_Ücretlendirme = new System.Windows.Forms.ToolTip(this.components);
             this.Müşteriler_AramaÇubuğu = new System.Windows.Forms.TextBox();
             this.Hastalar_AramaÇubuğu = new System.Windows.Forms.TextBox();
             this.Hastalar_AdVeSoyadıDüzelt = new System.Windows.Forms.CheckBox();
@@ -55,7 +54,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Hastalar_Grup = new System.Windows.Forms.GroupBox();
             this.Hastalar_SeçimKutusu = new System.Windows.Forms.ListBox();
             this.İşTürleri = new System.Windows.Forms.GroupBox();
-            this.Liste_İşTürleri = new ArgeMup.HazirKod.Ekranlar.ListeKutusu();
             this.İştürü_SeçiliSatıraKopyala = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -115,7 +113,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Kat_1_2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.KurlarVeSüreler = new System.Windows.Forms.TextBox();
-            this.İpUcu_Genel = new System.Windows.Forms.ToolTip(this.components);
+            this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
+            this.Liste_İşTürleri = new ArgeMup.HazirKod.Ekranlar.ListeKutusu();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             this.Müşteriler_Grup.SuspendLayout();
             this.Hastalar_Grup.SuspendLayout();
@@ -166,7 +165,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Notlar.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.Notlar.Size = new System.Drawing.Size(840, 57);
             this.Notlar.TabIndex = 5;
-            this.İpUcu_Ücretlendirme.SetToolTip(this.Notlar, resources.GetString("Notlar.ToolTip"));
             this.Notlar.TextChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
             this.Notlar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Notlar_KeyDown);
             // 
@@ -315,18 +313,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İskonto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.İskonto.TextChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
             // 
-            // İpUcu_Ücretlendirme
-            // 
-            this.İpUcu_Ücretlendirme.AutomaticDelay = 100;
-            this.İpUcu_Ücretlendirme.AutoPopDelay = 20000;
-            this.İpUcu_Ücretlendirme.InitialDelay = 100;
-            this.İpUcu_Ücretlendirme.IsBalloon = true;
-            this.İpUcu_Ücretlendirme.ReshowDelay = 20;
-            this.İpUcu_Ücretlendirme.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.İpUcu_Ücretlendirme.ToolTipTitle = "Ücretlendirme";
-            this.İpUcu_Ücretlendirme.UseAnimation = false;
-            this.İpUcu_Ücretlendirme.UseFading = false;
-            // 
             // Müşteriler_AramaÇubuğu
             // 
             this.Müşteriler_AramaÇubuğu.Dock = System.Windows.Forms.DockStyle.Top;
@@ -334,7 +320,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Müşteriler_AramaÇubuğu.Name = "Müşteriler_AramaÇubuğu";
             this.Müşteriler_AramaÇubuğu.Size = new System.Drawing.Size(340, 26);
             this.Müşteriler_AramaÇubuğu.TabIndex = 0;
-            this.İpUcu_Genel.SetToolTip(this.Müşteriler_AramaÇubuğu, "Arama çubuğu");
+            this.İpUcu.SetToolTip(this.Müşteriler_AramaÇubuğu, "Arama çubuğu");
             this.Müşteriler_AramaÇubuğu.TextChanged += new System.EventHandler(this.Müşteriler_AramaÇubuğu_TextChanged);
             this.Müşteriler_AramaÇubuğu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Müşteriler_AramaÇubuğu_KeyPress);
             // 
@@ -345,7 +331,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Hastalar_AramaÇubuğu.Name = "Hastalar_AramaÇubuğu";
             this.Hastalar_AramaÇubuğu.Size = new System.Drawing.Size(337, 26);
             this.Hastalar_AramaÇubuğu.TabIndex = 2;
-            this.İpUcu_Genel.SetToolTip(this.Hastalar_AramaÇubuğu, "Arama çubuğu");
+            this.İpUcu.SetToolTip(this.Hastalar_AramaÇubuğu, "Arama çubuğu");
             this.Hastalar_AramaÇubuğu.TextChanged += new System.EventHandler(this.Hastalar_AramaÇubuğu_TextChanged);
             this.Hastalar_AramaÇubuğu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Hastalar_AramaÇubuğu_KeyPress);
             this.Hastalar_AramaÇubuğu.Leave += new System.EventHandler(this.Hastalar_AramaÇubuğu_Leave);
@@ -360,7 +346,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Hastalar_AdVeSoyadıDüzelt.Name = "Hastalar_AdVeSoyadıDüzelt";
             this.Hastalar_AdVeSoyadıDüzelt.Size = new System.Drawing.Size(18, 17);
             this.Hastalar_AdVeSoyadıDüzelt.TabIndex = 4;
-            this.İpUcu_Genel.SetToolTip(this.Hastalar_AdVeSoyadıDüzelt, "Ad SOYAD olarak düzenle");
+            this.İpUcu.SetToolTip(this.Hastalar_AdVeSoyadıDüzelt, "Ad SOYAD olarak düzenle");
             this.Hastalar_AdVeSoyadıDüzelt.UseVisualStyleBackColor = true;
             // 
             // Müşteriler_Grup
@@ -426,18 +412,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İşTürleri.TabIndex = 14;
             this.İşTürleri.TabStop = false;
             this.İşTürleri.Text = "İş Türleri";
-            // 
-            // Liste_İşTürleri
-            // 
-            this.Liste_İşTürleri.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Liste_İşTürleri.Location = new System.Drawing.Point(3, 22);
-            this.Liste_İşTürleri.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.Liste_İşTürleri.Name = "Liste_İşTürleri";
-            this.Liste_İşTürleri.SeçilenEleman_Adı = null;
-            this.Liste_İşTürleri.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("Liste_İşTürleri.SeçilenEleman_Adları")));
-            this.Liste_İşTürleri.Size = new System.Drawing.Size(279, 270);
-            this.Liste_İşTürleri.TabIndex = 9;
-            this.Liste_İşTürleri.DoubleClick += new System.EventHandler(this.Liste_İşTürleri_DoubleClick);
             // 
             // İştürü_SeçiliSatıraKopyala
             // 
@@ -1087,7 +1061,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.DosyaEkleri.TabIndex = 12;
             this.DosyaEkleri.Text = "Dosya Ekleri (0)";
             this.DosyaEkleri.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.İpUcu_Genel.SetToolTip(this.DosyaEkleri, "Bu sayfa üzerine sürükleyerek dosya eki oluşturabilirsiniz.");
+            this.İpUcu.SetToolTip(this.DosyaEkleri, "Bu sayfa üzerine sürükleyerek dosya eki oluşturabilirsiniz.");
             this.DosyaEkleri.UseVisualStyleBackColor = true;
             this.DosyaEkleri.Click += new System.EventHandler(this.DosyaEkleri_Click);
             // 
@@ -1171,7 +1145,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.EtiketSayısı_Acil.Size = new System.Drawing.Size(55, 26);
             this.EtiketSayısı_Acil.TabIndex = 1;
             this.EtiketSayısı_Acil.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.İpUcu_Genel.SetToolTip(this.EtiketSayısı_Acil, "Acil iş etiketi sayısı");
+            this.İpUcu.SetToolTip(this.EtiketSayısı_Acil, "Acil iş etiketi sayısı");
             this.EtiketSayısı_Acil.Enter += new System.EventHandler(this.EtiketSayısı_Enter);
             // 
             // EtiketSayısı_Kayıt
@@ -1189,7 +1163,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.EtiketSayısı_Kayıt.Size = new System.Drawing.Size(55, 26);
             this.EtiketSayısı_Kayıt.TabIndex = 0;
             this.EtiketSayısı_Kayıt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.İpUcu_Genel.SetToolTip(this.EtiketSayısı_Kayıt, "Kayıt etiketi sayısı");
+            this.İpUcu.SetToolTip(this.EtiketSayısı_Kayıt, "Kayıt etiketi sayısı");
             this.EtiketSayısı_Kayıt.Enter += new System.EventHandler(this.EtiketSayısı_Enter);
             // 
             // Ayraç_Kat_1_2
@@ -1243,17 +1217,29 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.KurlarVeSüreler.TabIndex = 0;
             this.KurlarVeSüreler.WordWrap = false;
             // 
-            // İpUcu_Genel
+            // İpUcu
             // 
-            this.İpUcu_Genel.AutomaticDelay = 100;
-            this.İpUcu_Genel.AutoPopDelay = 10000;
-            this.İpUcu_Genel.InitialDelay = 100;
-            this.İpUcu_Genel.IsBalloon = true;
-            this.İpUcu_Genel.ReshowDelay = 20;
-            this.İpUcu_Genel.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.İpUcu_Genel.ToolTipTitle = "Yeni İş Girişi / Düzenleme";
-            this.İpUcu_Genel.UseAnimation = false;
-            this.İpUcu_Genel.UseFading = false;
+            this.İpUcu.AutomaticDelay = 100;
+            this.İpUcu.AutoPopDelay = 10000;
+            this.İpUcu.InitialDelay = 100;
+            this.İpUcu.IsBalloon = true;
+            this.İpUcu.ReshowDelay = 20;
+            this.İpUcu.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.İpUcu.ToolTipTitle = "Yeni İş Girişi / Düzenleme";
+            this.İpUcu.UseAnimation = false;
+            this.İpUcu.UseFading = false;
+            // 
+            // Liste_İşTürleri
+            // 
+            this.Liste_İşTürleri.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Liste_İşTürleri.Location = new System.Drawing.Point(3, 22);
+            this.Liste_İşTürleri.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.Liste_İşTürleri.Name = "Liste_İşTürleri";
+            this.Liste_İşTürleri.SeçilenEleman_Adı = null;
+            this.Liste_İşTürleri.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("Liste_İşTürleri.SeçilenEleman_Adları")));
+            this.Liste_İşTürleri.Size = new System.Drawing.Size(279, 270);
+            this.Liste_İşTürleri.TabIndex = 9;
+            this.Liste_İşTürleri.DoubleClick += new System.EventHandler(this.Liste_İşTürleri_DoubleClick);
             // 
             // Yeni_İş_Girişi
             // 
@@ -1326,7 +1312,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private System.Windows.Forms.Button ÖnYüzler_Kaydet;
         private System.Windows.Forms.Button Seçili_Satırı_Sil;
         private System.Windows.Forms.TextBox İskonto;
-        private System.Windows.Forms.ToolTip İpUcu_Ücretlendirme;
         private System.Windows.Forms.GroupBox Müşteriler_Grup;
         private System.Windows.Forms.TextBox Müşteriler_AramaÇubuğu;
         private System.Windows.Forms.GroupBox Hastalar_Grup;
@@ -1342,7 +1327,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private System.Windows.Forms.ListBox Müşteriler_SeçimKutusu;
         private System.Windows.Forms.ListBox Hastalar_SeçimKutusu;
         private System.Windows.Forms.CheckBox Hastalar_AdVeSoyadıDüzelt;
-        private System.Windows.Forms.ToolTip İpUcu_Genel;
+        private System.Windows.Forms.ToolTip İpUcu;
         private System.Windows.Forms.Button DosyaEkleri;
         private System.Windows.Forms.Panel P_DosyaEkleri;
         private System.Windows.Forms.Button KaydetVeEtiketiYazdır;

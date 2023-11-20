@@ -27,7 +27,7 @@ namespace İş_ve_Depo_Takip
 
     public class Banka
     {
-        public const string Sürüm = "2";
+        public const string Sürüm = "3";
         const int Malzemeler_GeriyeDönükİstatistik_Ay = 36;
         static System.Threading.Mutex Kilit_Tablo = new System.Threading.Mutex(), Kilit_DosyaEkleri = new System.Threading.Mutex();
         
@@ -109,8 +109,38 @@ namespace İş_ve_Depo_Takip
             #endregion
 
             #region Yeni Sürüme Uygun Hale Getirme
-            //Ayarlar = Depo_Aç("Ay");
-            //IDepo_Eleman ayr = Ayarlar.Bul("Son Banka Kayıt");
+            IDepo_Eleman ayr = d["Son Banka Kayıt"];
+            if (ayr != null && ayr.Oku(null, null, 2) != Sürüm)
+            {
+                Değişiklikler_TamponuSıfırla();
+                string ydk_zip = "SürümYükseltmeÖncesiYedeği.zip";
+                if (!File.Exists(Kendi.Klasörü + "\\" + ydk_zip))
+                {
+                    SıkıştırılmışDosya.Klasörden(Kendi.Klasörü, Ortak.Klasör_Gecici + ydk_zip);
+                    Dosya.Kopyala(Ortak.Klasör_Gecici + ydk_zip, Kendi.Klasörü + "\\" + ydk_zip);
+                }
+                Günlük.Ekle("Banka yeni sürüme geçirme aşama 1 tamam");
+
+                var klclar = Kullanıcı_İzinleri_Tutucusu;
+                bool[] izinler = new bool[(int)Ayarlar_Kullanıcılar_İzin.DiziElemanSayısı_];
+                for (int i = 0; i < izinler.Length; i++) izinler[i] = true;
+                klclar.Roller.Add("Yönetici", izinler);
+                klclar.Kişiler.Add(new ArgeMup.HazirKod.Ekranlar.Ayarlar_Kullanıcı_() { Adı = "Geçici Kullanıcı", RolAdı = "Yönetici", Parolası = Ayarlar_Genel("Kullanıcı Şifresi")[0] });
+                Kullanıcı_İzinleri_Kaydet();
+                Günlük.Ekle("Banka yeni sürüme geçirme aşama 2 tamam");
+
+                ayr = Ayarlar_Genel("Son Banka Kayıt");
+                ayr.Yaz(null, DateTime.Now, 1);
+                ayr.Yaz(null, Sürüm, 2);
+
+                Değişiklikleri_Kaydet(null);
+                Yedekle_Banka();
+                Değişiklikler_TamponuSıfırla();
+
+                Dosya.Sil(Kendi.Klasörü + "\\" + ydk_zip);
+            }
+
+            //IDepo_Eleman ayr = d["Son Banka Kayıt"];
             //if (ayr != null && ayr.Oku(null, null, 2) != Sürüm)
             //{
             //    Değişiklikler_TamponuSıfırla();
@@ -120,11 +150,12 @@ namespace İş_ve_Depo_Takip
             //        SıkıştırılmışDosya.Klasörden(Kendi.Klasörü, Ortak.Klasör_Gecici + ydk_zip);
             //        Dosya.Kopyala(Ortak.Klasör_Gecici + ydk_zip, Kendi.Klasörü + "\\" + ydk_zip);
             //    }
-
-            //    Günlük.Ekle("Banka yeni sürüme geçirme aşama x tamam");
+            //    Günlük.Ekle("Banka yeni sürüme geçirme aşama 1 tamam");
 
             //    ...
+            //    Günlük.Ekle("Banka yeni sürüme geçirme aşama x tamam");
 
+            //    ayr = Ayarlar_Genel("Son Banka Kayıt");
             //    ayr.Yaz(null, DateTime.Now, 1);
             //    ayr.Yaz(null, Sürüm, 2);
 

@@ -318,6 +318,7 @@
             this.TabloİçeriğiArama.Name = "TabloİçeriğiArama";
             this.TabloİçeriğiArama.Size = new System.Drawing.Size(142, 26);
             this.TabloİçeriğiArama.TabIndex = 5;
+            this.TabloİçeriğiArama.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.İpUcu_Genel.SetToolTip(this.TabloİçeriğiArama, "Arama Çubuğu");
             this.TabloİçeriğiArama.TextChanged += new System.EventHandler(this.TabloİçeriğiArama_TextChanged);
             // 
