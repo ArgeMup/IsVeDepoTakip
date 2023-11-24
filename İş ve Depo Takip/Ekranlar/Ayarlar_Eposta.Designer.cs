@@ -99,7 +99,7 @@
             this.groupBox_Mesaj.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.groupBox_Mesaj.Name = "groupBox_Mesaj";
             this.groupBox_Mesaj.Padding = new System.Windows.Forms.Padding(10);
-            this.groupBox_Mesaj.Size = new System.Drawing.Size(872, 274);
+            this.groupBox_Mesaj.Size = new System.Drawing.Size(639, 274);
             this.groupBox_Mesaj.TabIndex = 24;
             this.groupBox_Mesaj.TabStop = false;
             this.groupBox_Mesaj.Text = "Mesaj";
@@ -112,7 +112,7 @@
             this.Mesaj_İçerik.Multiline = true;
             this.Mesaj_İçerik.Name = "Mesaj_İçerik";
             this.Mesaj_İçerik.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.Mesaj_İçerik.Size = new System.Drawing.Size(852, 151);
+            this.Mesaj_İçerik.Size = new System.Drawing.Size(619, 151);
             this.Mesaj_İçerik.TabIndex = 8;
             this.Mesaj_İçerik.Text = "<h1>Sayın %Müşteri%</h1>\r\n<br>\r\nGüncel işlere ait detaylar ekte sunulmuştur.\r\n<br" +
     "><br>\r\nİyi çalışmalar dileriz.";
@@ -136,7 +136,7 @@
             this.Mesaj_Konu.Location = new System.Drawing.Point(10, 58);
             this.Mesaj_Konu.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Mesaj_Konu.Name = "Mesaj_Konu";
-            this.Mesaj_Konu.Size = new System.Drawing.Size(852, 30);
+            this.Mesaj_Konu.Size = new System.Drawing.Size(619, 30);
             this.Mesaj_Konu.TabIndex = 7;
             this.Mesaj_Konu.Text = "Güncel çalışmalar hk.";
             this.Mesaj_Konu.TextChanged += new System.EventHandler(this.Ayar_Değişti);
@@ -491,8 +491,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(882, 553);
-            this.Controls.Add(this.groupBox_Kişiler);
             this.Controls.Add(this.groupBox_Mesaj);
+            this.Controls.Add(this.groupBox_Kişiler);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.ÖnYüzler_Kaydet);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));

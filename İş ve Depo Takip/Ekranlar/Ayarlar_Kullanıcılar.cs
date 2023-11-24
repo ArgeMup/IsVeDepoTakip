@@ -70,6 +70,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     break;
 
                 case Kullanıcılar.İşlemTürü_.Ayarlar:
+                    GelirGiderTakip.Durdur();
                     Ekran.GeriBildirim_Değişiklikleri_Kaydet += Ekran_Değişiklikleri_Kaydet_Ayarlar;
                     break;
             }
@@ -140,13 +141,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 int AyarlarıDeğiştirebilenKullanıcıSayısı = Banka.Kullanıcı_İzinleri_Tutucusu.Kişiler.Where(x => x.Parolası.DoluMu(true) && x.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Ayarları_değiştirebilir)).Count();
                 if (AyarlarıDeğiştirebilenKullanıcıSayısı < 1)
                 {
+                    Banka.Değişiklikler_TamponuSıfırla();
                     MessageBox.Show("Son değişiklik ile hiçbir kullanıcı bu sayfaya ulaşamayacak." +
                         Environment.NewLine + Environment.NewLine +
                         "Öncelikle ayarları değiştirebilme hakkına sahip bir rol oluşturun" + Environment.NewLine +
                         "Sonra bu rolu parolası olan bir kulanıcıya eşleyin.",
                         "İşlem iptal edildi");
-
-                    Banka.Değişiklikler_TamponuSıfırla();
                     Ekran.Yenile(Banka.Kullanıcı_İzinleri_Tutucusu);
                     return;
                 }

@@ -179,7 +179,7 @@
             this.GelirGider_CariDöküm.Text = "Cari Döküm";
             this.İpUcu.SetToolTip(this.GelirGider_CariDöküm, "F4");
             this.GelirGider_CariDöküm.UseVisualStyleBackColor = true;
-            this.GelirGider_CariDöküm.Visible = false;
+            this.GelirGider_CariDöküm.Click += new System.EventHandler(this.GelirGider_CariDöküm_Click);
             // 
             // GelirGider_Ekle
             // 
@@ -193,7 +193,7 @@
             this.GelirGider_Ekle.Text = "Gelir Gider Ekle";
             this.İpUcu.SetToolTip(this.GelirGider_Ekle, "F4");
             this.GelirGider_Ekle.UseVisualStyleBackColor = true;
-            this.GelirGider_Ekle.Visible = false;
+            this.GelirGider_Ekle.Click += new System.EventHandler(this.GelirGider_Ekle_Click);
             // 
             // ParolayıDeğiştir
             // 

@@ -17,46 +17,90 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             get
             {
-                Bir_Talep_ tlp = Tümü.LastOrDefault();
-                if (tlp == default) return false;
-
-                if (Tik < Environment.TickCount) 
+                bool sonuç = false;
+                if (!Pencere.InvokeRequired) sonuç = _İşlem_();
+                else
                 {
-                    if (!Visible) Show();
-
-                    Application.DoEvents(); 
-                    Tik = Environment.TickCount + Tik_ZamanAşımmı_msn; 
+                    Pencere.Invoke(new Action(() =>
+                    {
+                        sonuç = _İşlem_();
+                    }));
                 }
 
-                return tlp.Çalışsın;
+                return sonuç;
+
+                bool _İşlem_()
+                {
+                    Bir_Talep_ tlp = Tümü.LastOrDefault();
+                    if (tlp == default) return false;
+
+                    if (Tik < Environment.TickCount)
+                    {
+                        if (!Visible) Show();
+
+                        Application.DoEvents();
+                        Tik = Environment.TickCount + Tik_ZamanAşımmı_msn;
+                    }
+
+                    return tlp.Çalışsın;
+                }
             }
         }
         public int İlerleme
         {
             set
             {
-                Bir_Talep_ tlp = Tümü.LastOrDefault();
-                if (tlp == default) return;
+                if (!Pencere.InvokeRequired) _İşlem_();
+                else
+                {
+                    Pencere.Invoke(new Action(() =>
+                    {
+                        _İşlem_();
+                    }));
+                }
 
-                int toplam = İlerlemeÇubuğu.Value + value;
+                void _İşlem_()
+                {
+                    Bir_Talep_ tlp = Tümü.LastOrDefault();
+                    if (tlp == default) return;
 
-                if (toplam >= İlerlemeÇubuğu.Maximum) İlerlemeÇubuğu.Value = İlerlemeÇubuğu.Maximum;
-                else İlerlemeÇubuğu.Value = toplam;
+                    int toplam = İlerlemeÇubuğu.Value + value;
 
-                tlp.Geçerli_Kademe = İlerlemeÇubuğu.Value;
+                    if (toplam >= İlerlemeÇubuğu.Maximum) İlerlemeÇubuğu.Value = İlerlemeÇubuğu.Maximum;
+                    else İlerlemeÇubuğu.Value = toplam;
 
-                _ = Çalışsın;
+                    tlp.Geçerli_Kademe = İlerlemeÇubuğu.Value;
+
+                    _ = Çalışsın;
+                }
             }
         }
         public string Açıklama
         {
             get
             {
-                return Pencere.Mesaj.Text;
+                string sonuç = null;
+                if (!Pencere.InvokeRequired) sonuç = Pencere.Mesaj.Text;
+                else
+                {
+                    Pencere.Invoke(new Action(() =>
+                    {
+                        sonuç = Pencere.Mesaj.Text;
+                    }));
+                }
+
+                return sonuç;
             }
             set
             {
-                Pencere.Mesaj.Text = value;
+                if (!Pencere.InvokeRequired) Pencere.Mesaj.Text = value;
+                else
+                {
+                    Pencere.Invoke(new Action(() =>
+                    {
+                        Pencere.Mesaj.Text = value;
+                    }));
+                }
             }
         }
 

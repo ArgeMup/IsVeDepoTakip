@@ -43,7 +43,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Sekmeler_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Sekmeler.SelectedIndex == 1)
+            if (Sekmeler.SelectedTab == Sekmeler_GenelAnlamda)
             {
                 //genel anlamda
 
@@ -67,8 +67,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 _2_Hesapla(null, null);
             }
+            else if (Sekmeler.SelectedTab == Sekmeler_GelirGiderTakip)
+            {
+                IDepo_Eleman Ayarlar = Banka.Ayarlar_BilgisayarVeKullanıcı("GelirGiderTakip", true);
+                _4_EpostaGönderimi_Saat.Value = Ayarlar.Oku_TamSayı(null, 18, 0);
+                _4_EpostaGönderimi_YazdırmaŞablonu.Text = Ayarlar.Oku(null, null, 1);
+                _4_EpostaGönderimi_Kişiler.Text = Ayarlar.Oku(null, null, 2);
+                ÖnYüzler_Kaydet_4_Kaydet.Enabled = false;
+            }
         }
-
         #region _1_
         private void _1_Tablo_DoubleClick(object sender, EventArgs e)
         {
@@ -721,6 +728,84 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 if (!string.IsNullOrEmpty(Sonuç)) MessageBox.Show(Sonuç, Text);
             }
+        }
+        #endregion
+
+        #region _4_ Gelir Gider Takip
+        private void _4_AyarlarSayfasınıAç_Click(object sender, EventArgs e)
+        {
+            GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.İlkAçılışAyarları_Komut_.Sayfa_Ayarlar);
+        }
+        private void _4_Yazdır_Click(object sender, EventArgs e)
+        {
+            string dsy = Ortak.Klasör_Gecici + "Cari_Döküm_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
+            string snç = GelirGiderTakip.Komut_Yazdır(dsy, _4_EpostaGönderimi_YazdırmaŞablonu.Text);
+            if (snç.BoşMu()) Ortak.Çalıştır.UygulamayaİşletimSistemiKararVersin(dsy);
+            else MessageBox.Show(snç, Text);
+        }
+        private void _4_EpostaGönderimi_Ayar_Değişti(object sender, EventArgs e)
+        {
+            ÖnYüzler_Kaydet_4_Kaydet.Enabled = true;
+        }
+        private void ÖnYüzler_Kaydet_4_Kaydet_Click(object sender, EventArgs e)
+        {
+            IDepo_Eleman Ayarlar = Banka.Ayarlar_BilgisayarVeKullanıcı("GelirGiderTakip", true);
+            Ayarlar.Yaz(null, (int)_4_EpostaGönderimi_Saat.Value, 0);
+            Ayarlar.Yaz(null, _4_EpostaGönderimi_YazdırmaŞablonu.Text, 1);
+            Ayarlar.Yaz(null, _4_EpostaGönderimi_Kişiler.Text, 2);
+
+            Banka.Değişiklikleri_Kaydet(ÖnYüzler_Kaydet_4_Kaydet);
+            ÖnYüzler_Kaydet_4_Kaydet.Enabled = false;
+
+            CariDökümüHergünEpostaİleGönder_Başlat();
+        }
+        public static bool CariDökümüHergünEpostaİleGönder_Başlat()
+        {
+            IDepo_Eleman Ayarlar = Banka.Ayarlar_BilgisayarVeKullanıcı("GelirGiderTakip");
+
+            if (Ayarlar != null &&
+                Ayarlar.Oku(null, null, 2).DoluMu() && //kişiler
+                Eposta.BirEpostaHesabıEklenmişMi)
+            {
+                DateTime t = DateTime.Now;
+                t = new DateTime(t.Year, t.Month, t.Day, Ayarlar.Oku_TamSayı(null), 0, 0);
+
+                if (Ortak.Hatırlatıcı == null) Ortak.Hatırlatıcı = new ArgeMup.HazirKod.ArkaPlan.Hatırlatıcı_();
+                Ortak.Hatırlatıcı.Sil("GelirGiderTakip Eposta Gönderimi");
+                Ortak.Hatırlatıcı.Ekle("GelirGiderTakip Eposta Gönderimi", t, null, CariDökümüHergünEpostaİleGönder_Hatırlatıcı_GerBildirimİşlemi, null, true);
+                return true;
+            }
+            else
+            {
+                Ortak.Hatırlatıcı?.AyarlarıOku(true);
+                Ortak.Hatırlatıcı = null;
+                return false;
+            }
+        }
+        static int CariDökümüHergünEpostaİleGönder_Hatırlatıcı_GerBildirimİşlemi(string TakmaAdı, object Hatırlatıcı)
+        {
+            if(CariDökümüHergünEpostaİleGönder_Başlat())
+            {
+                IDepo_Eleman Ayarlar = Banka.Ayarlar_BilgisayarVeKullanıcı("GelirGiderTakip");
+
+                string[] ek = new string[] { Ortak.Klasör_Gecici + "Cari_Döküm_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf" };
+                string snç = GelirGiderTakip.Komut_Yazdır(ek[0], Ayarlar.Oku(null, null, 1 /*şablon*/));
+                snç.Günlük("_4_EpostaGönder Aşama 1 ");
+                if (File.Exists(ek[0]) && snç.BoşMu() /*herşey yolunda*/) snç = "Güncel durum ekteki gibidir.";
+                else { ek = null; snç = "Gelir Gider Takip Yazdırma işlem sonucu " + Environment.NewLine + Environment.NewLine + snç; }
+                
+                string mesaj = "<h1>Sayın " + Banka.İşyeri_Adı + "</h1>" +
+                    "<br>" + snç +
+                    "<br><br>İyi çalışmalar.";
+
+                Eposta.Gönder_Kişiye(Ayarlar.Oku(null, null, 2), "Güncel Ödemeler Hk.", mesaj, ek, _GeriBildirimİşlemei_Tamamlandı);
+                void _GeriBildirimİşlemei_Tamamlandı(string Sonuç)
+                {
+                    snç.Günlük("_4_EpostaGönder Aşama 2");
+                }
+            }
+            
+            return -1;
         }
         #endregion
 

@@ -135,6 +135,9 @@
   <metadata name="_1_Tablo_Ödeme.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="İpUcu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <metadata name="_2_Tablo_Seç.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -171,6 +174,14 @@
   <metadata name="İpUcu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="_4_EpostaGönderimi_YazdırmaŞablonu.ToolTip" xml:space="preserve">
+    <value>Gelir gider takip uygulaması içindeki
+Cari döküm sayfasındaki
+tanımlı şablonun adını buraya yazarak
+yazdırma aşamasında kullanılacak görünümü seçebilirsiniz.
+
+Kullanılmayacak ise boş bırakılabilir. </value>
+  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>53</value>
   </metadata>

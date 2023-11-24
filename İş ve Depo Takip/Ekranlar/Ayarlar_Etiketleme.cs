@@ -137,7 +137,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Depo_Komut["Ayarlar", 0] = Ortak.Klasör_KullanıcıDosyaları_Etiketleme + (Kayıt1_Acil0 ? "YeniİşGirişi_Etiket.mup" : "YeniİşGirişi_Etiket_Acil.mup");
 
             IDepo_Eleman d = Depo_Komut["Değişkenler"];
-            d["Firma Adı"].İçeriği = new string[] { Banka.Ayarlar_Genel("Eposta", true).Oku("Gönderici/Adı") };
+            d["Firma Adı"].İçeriği = new string[] { Banka.İşyeri_Adı };
             d["Firma Logo"].İçeriği = new string[] { Ortak.Firma_Logo_DosyaYolu };
             d["Müşteri"].İçeriği = new string[] { Müşteri };
             d["Hasta"].İçeriği = new string[] { Hasta };
@@ -252,7 +252,5 @@ namespace İş_ve_Depo_Takip.Ekranlar
             YeniİşGirişi_AcilİşEtiketiAyarları.Enabled = true;
         }
         #endregion
-
-
     }
 }

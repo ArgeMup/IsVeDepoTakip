@@ -28,6 +28,13 @@ namespace İş_ve_Depo_Takip
     public class Banka
     {
         public const string Sürüm = "3";
+        public static string İşyeri_Adı
+        {
+            get
+            {
+                return Ayarlar_Genel("Eposta", true).Oku("Gönderici/Adı", "ArGeMuP");
+            }
+        }
         const int Malzemeler_GeriyeDönükİstatistik_Ay = 36;
         static System.Threading.Mutex Kilit_Tablo = new System.Threading.Mutex(), Kilit_DosyaEkleri = new System.Threading.Mutex();
         
@@ -176,6 +183,7 @@ namespace İş_ve_Depo_Takip
             DosyaEkleri_İlkAçılışKontrolü(); 
             Ortak.Gösterge.Açıklama = "Dosya Ekleri Durumu".Günlük(); Ortak.Gösterge.İlerleme = 1;
 
+            Ekranlar.Ayarlar_Bütçe.CariDökümüHergünEpostaİleGönder_Başlat();
             Ortak.Gösterge.Bitir();
         }
         public static Depo_ ÖrnekMüşteriTablosuOluştur()
@@ -2142,6 +2150,7 @@ namespace İş_ve_Depo_Takip
         {
             //AlınanÖdemeMiktarı kullanılmıyor ise 0 olmalı
 
+            double miktar = AlınanÖdemeMiktarı.NoktalıSayıya();
             DateTime t = DateTime.Now;
             string t2 = t.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2);
             Depo_ depo = Tablo(Müşteri, TabloTürü.ÖdemeTalepEdildi, false, EkTanım);
@@ -2155,7 +2164,7 @@ namespace İş_ve_Depo_Takip
             yeni_tablo.Yaz("Ödeme", Notlar, 2);
 
             //Ödeme Yapılarak Ödendi Olarak İşasaretleme
-            Depo_ Ödemeler = Tablo(Müşteri, TabloTürü.Ödemeler, AlınanÖdemeMiktarı.NoktalıSayıya() != 0);
+            Depo_ Ödemeler = Tablo(Müşteri, TabloTürü.Ödemeler, miktar != 0);
             if (Ödemeler != null)
             {
                 //ödendi tablosuna kayıt
@@ -2173,7 +2182,7 @@ namespace İş_ve_Depo_Takip
                 double KDV_Hesaplanan = KDV == 0 ? 0 : (AltToplam - İskonto_Hesaplanan) / 100 * KDV;
                 double GenelToplam = AltToplam - İskonto_Hesaplanan + KDV_Hesaplanan + İlaveÖdeme;
 
-                Ödemeler.Yaz("Mevcut Ön Ödeme", MevcutÖnÖdeme.NoktalıSayıya() + AlınanÖdemeMiktarı.NoktalıSayıya() - GenelToplam);
+                Ödemeler.Yaz("Mevcut Ön Ödeme", MevcutÖnÖdeme.NoktalıSayıya() + miktar - GenelToplam);
                 Ödemeler["Ödemeler/" + t.Yazıya()].İçeriği = new string[]
                 {
                     MevcutÖnÖdeme, AlınanÖdemeMiktarı, GenelToplam.Yazıya(),
@@ -2186,6 +2195,19 @@ namespace İş_ve_Depo_Takip
             Depo_Kaydet("Mü\\" + müş[0] + "\\Mü_C\\Mü_C_" + t2, yeni_tablo);
             
             depo.Yaz("Silinecek", "Evet");
+
+            var ödeme = Ekranlar.GelirGiderTakip.Komut_Ekle_GelirGider("Müşteri", Müşteri, 
+                Ekranlar.GelirGiderTakip.İşyeri_Ödeme_İşlem_Tipi_.Gelir, Ekranlar.GelirGiderTakip.İşyeri_Ödeme_İşlem_Durum_.TamÖdendi, 
+                miktar, Ekranlar.GelirGiderTakip.İşyeri_Ödeme_ParaBirimi_.TürkLirası, t,
+                EkTanım + (Notlar.DoluMu(true) ? Environment.NewLine + Notlar : null), 
+                0, Ekranlar.GelirGiderTakip.Muhatap_Üyelik_Dönem_.Boşta, 0, t);
+            string sonuç = Ekranlar.GelirGiderTakip.Komut_Ekle_GelirGider(new List<Ekranlar.GelirGiderTakip.İlkAçılışAyarları_Ekle_GelirGider_Talep_>() { ödeme });
+            if (sonuç.DoluMu())
+            {
+                sonuç = "İşleminiz \"İş ve Depo Takip\" içerisine kaydedildi fakat" + Environment.NewLine +
+                    "\"Gelir Gider Takip\" içerisine kaydederken bir sorun oluştu." + Environment.NewLine + Environment.NewLine + sonuç;
+                MessageBox.Show(sonuç.Günlük("Gelir Gider Takip "), "Gelir Gider Takip");
+            }
         }
         public static void Talep_TablodaGöster(DataGridView Tablo, Banka_Tablo_ İçerik, bool ÖnceTemizle = true)
         {
@@ -3025,8 +3047,11 @@ namespace İş_ve_Depo_Takip
             KorumalıAlan = null;
             Takvim = null;
             MalzemeKullanımDetayları = null;
+
+            string GeçerliKullanıcıAdı = KullancıAdı;
             Kullanıcı_İzinleri = null;
             Kullanıcı_İzinleri_Tutucusu = null;
+            if (GeçerliKullanıcıAdı.DoluMu()) Kullanıcı_İzinleri_Tutucusu.GeçerliKullanıcı = Kullanıcı_İzinleri_Tutucusu.Kişiler.FirstOrDefault(x => x.Adı == GeçerliKullanıcıAdı);
 
             //Kullanıcılar = null; Önemsiz kullanıcı ayarları
 
@@ -3069,15 +3094,16 @@ namespace İş_ve_Depo_Takip
             Tamamlanmış_işler_içinde_işlem_yapabilir,   //Ödeme bekleyen + Ödendi + Malzeme kullanım detayı
             Devam_eden_işler_içinde_işlem_yapabilir,    //Devam eden + Teslim edildi
             Yeni_iş_oluşturabilir,
-            
-            //Gelir_gider_ayarlarını_değiştirebilir,
-            //Gelir_gider_cari_döküm_içinde_işlem_yapabilir,
-            //Gelir_gider_cari_dökümü_görebilir,
-            //Gelir_gider_avans_peşinat_taksit_ve_üyelik_ekleyebilir,
-            //Gelir_gider_ekleyebilir,
 
-            SonEleman_,
-            DiziElemanSayısı_ = SonEleman_
+            Gelir_gider_Boşta_,
+            Gelir_gider_ayarlarını_değiştirebilir = Gelir_gider_Boşta_,
+            Gelir_gider_cari_döküm_içinde_işlem_yapabilir,
+            Gelir_gider_cari_dökümü_görebilir,
+            Gelir_gider_avans_peşinat_taksit_ve_üyelik_ekleyebilir,
+            Gelir_gider_ekleyebilir,
+
+            DiziElemanSayısı_,
+            DiziElemanSayısı_Gelir_gider_ = Gelir_gider_ekleyebilir - Gelir_gider_Boşta_ + 1
         };
         public static ArgeMup.HazirKod.Ekranlar.Kullanıcılar_Ayarlar_ Kullanıcı_İzinleri_Tutucusu
         {
@@ -3154,7 +3180,7 @@ namespace İş_ve_Depo_Takip
 
             return sınıf;
         }
-        static void Sınıf_Kaydet(object Sınıf, ref Depo_ depo)
+        public static void Sınıf_Kaydet(object Sınıf, ref Depo_ depo)
         {
             if (Sınıf == null) throw new Exception("Sınıf(" + (Sınıf == null) + ") == null");
 

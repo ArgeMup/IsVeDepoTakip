@@ -26,6 +26,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Ayarları_değiştirebilir);
             KorumalıAlan.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Korumalı_alan_içinde_işlem_yapabilir);
             Takvim.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Takvim_içinde_işlem_yapabilir);
+
+            GelirGider_Ekle.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Gelir_gider_ekleyebilir);
+            GelirGider_CariDöküm.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Gelir_gider_cari_dökümü_görebilir);
         }
         private void Açılış_Ekranı_Shown(object sender, EventArgs e)
         {
@@ -142,6 +145,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ekranlar.ÖnYüzler.Ekle(ÖndekiEkran);
         }
 
+        private void GelirGider_Ekle_Click(object sender, EventArgs e)
+        {
+            GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.İlkAçılışAyarları_Komut_.Sayfa_GelirGiderEkle);
+        }
+        private void GelirGider_CariDöküm_Click(object sender, EventArgs e)
+        {
+            GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.İlkAçılışAyarları_Komut_.Sayfa_CariDöküm);
+        }
         private void Ayarlar_Click(object sender, EventArgs e)
         {
             P_AnaMenü.Visible = false;

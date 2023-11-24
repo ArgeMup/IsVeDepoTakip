@@ -2,7 +2,6 @@
 using ArgeMup.HazirKod.Ekİşlemler;
 using ArgeMup.HazirKod.Ekranlar;
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace İş_ve_Depo_Takip.Ekranlar
@@ -15,6 +14,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Liste_Müşteriler.Başlat(null, Banka.Müşteri_Listele(true), "Müşteriler", Banka.ListeKutusu_Ayarlar(false, false));
             Liste_Müşteriler.GeriBildirim_İşlemi += Liste_Müşteriler_GeriBildirim_İşlemi;
+
+            GelirGiderTakip.Durdur();
         }
         private bool Liste_Müşteriler_GeriBildirim_İşlemi(string Adı, ArgeMup.HazirKod.Ekranlar.ListeKutusu.İşlemTürü Türü, string YeniAdı = null)
         {

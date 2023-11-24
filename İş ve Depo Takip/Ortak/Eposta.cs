@@ -296,6 +296,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             IDepo_Eleman ayar = Banka.Ayarlar_Genel("Eposta/Mesaj");
             Gönder(Kişi, null, null, Müşteri + " " + ayar.Oku("Konu"), ayar.Oku("İçerik").Replace("%Müşteri%", Müşteri), null, DosyaEkleri, GeriBildirimİşlemi_Tamamlandı);
         }
+        public static void Gönder_Kişiye(string Kişi, string Konu, string Mesaj_Html, string[] DosyaEkleri, Action<string> GeriBildirimİşlemi_Tamamlandı = null)
+        {
+            Gönder(Kişi, null, null, Konu, Mesaj_Html, null, DosyaEkleri, GeriBildirimİşlemi_Tamamlandı);
+        }
         public static void YenileİşaretleSil(string KlasörAdı, int Yenile_GündenEskiOlanlar = 7, bool Yenile_SadeceOkunmamışlar = true, string[] OkunduOlarakİşaretle = null, string[] Taşı = null, string Taşı_HedefKlasör = null, Action<string> GeriBildirimİşlemi_Tamamlandı = null)
         {
             string sonuç = null;

@@ -31,6 +31,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             FirmaİçiKişiler.Text = Ayarlar.Oku("Firma İçi Kişiler");
             
             ÖnYüzler_Kaydet.Enabled = false;
+
+            GelirGiderTakip.Durdur();
         }
         
         private void Ayar_Değişti(object sender, EventArgs e)
