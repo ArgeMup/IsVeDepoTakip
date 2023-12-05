@@ -736,6 +736,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.İlkAçılışAyarları_Komut_.Sayfa_Ayarlar);
         }
+        private void _4_CariDökümSayfasınıAç_Click(object sender, EventArgs e)
+        {
+            GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.İlkAçılışAyarları_Komut_.Sayfa_CariDöküm);
+        }
         private void _4_Yazdır_Click(object sender, EventArgs e)
         {
             string dsy = Ortak.Klasör_Gecici + "Cari_Döküm_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";

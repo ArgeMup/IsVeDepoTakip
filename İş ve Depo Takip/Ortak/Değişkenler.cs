@@ -259,23 +259,29 @@ namespace İş_ve_Depo_Takip
 
                     if (Sabit_Değişken_Sıra_No >= 0)
                     {
-                        bool bekle = true;
-                        Ortak.Gösterge.Başlat("Değişkenler" + Environment.NewLine + "Güncel kur değerleri okunuyor", false, null, 1000);
-                        Döviz.KurlarıAl(_GeriBildirim_Kurlar_);
-                        System.Threading.Thread.Sleep(1);
-                        while (ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın && bekle && Ortak.Gösterge.Çalışsın)
+                        if (!Döviz.Oku(out string[] Kurlar))
                         {
-                            Ortak.Gösterge.İlerleme = 1;
-                            System.Threading.Thread.Sleep(1);
-                            Application.DoEvents();
-                        }
-                        Ortak.Gösterge.Bitir();
+                            bool bekle = true;
+                            Ortak.Gösterge.Başlat("Değişkenler" + Environment.NewLine + "Güncel kur değerleri okunuyor", false, null, 15000/35);
 
-                        void _GeriBildirim_Kurlar_(string Yazı, string[] Dizi)
-                        {
-                            TümDeğişkenler[DeğişkenAdı] = Dizi[Sabit_Değişken_Sıra_No];
-                            bekle = false;
+                            Döviz.KurlarıAl(_GeriBildirim_Kurlar_);
+                            void _GeriBildirim_Kurlar_(string Yazı, string[] Sayı)
+                            {
+                                Kurlar = Sayı;
+                                bekle = false;
+                            }
+
+                            while (ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın && bekle && Ortak.Gösterge.Çalışsın)
+                            {
+                                Ortak.Gösterge.İlerleme = 1;
+                                System.Threading.Thread.Sleep(35);
+                                Application.DoEvents();
+                            }
+
+                            Ortak.Gösterge.Bitir();
                         }
+
+                        TümDeğişkenler[DeğişkenAdı] = Kurlar[Sabit_Değişken_Sıra_No];
                     }
 
                     içerik = TümDeğişkenler[DeğişkenAdı];

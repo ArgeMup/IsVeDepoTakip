@@ -108,6 +108,7 @@
             this._4_AyarlarSayfasınıAç = new System.Windows.Forms.Button();
             this.TabloİçeriğiArama = new System.Windows.Forms.TextBox();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
+            this._4_CariDökümSayfasınıAç = new System.Windows.Forms.Button();
             this._1_Gelir.SuspendLayout();
             this._1_Gider.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1_Tablo)).BeginInit();
@@ -828,6 +829,7 @@
             // 
             // Sekmeler_GelirGiderTakip
             // 
+            this.Sekmeler_GelirGiderTakip.Controls.Add(this._4_CariDökümSayfasınıAç);
             this.Sekmeler_GelirGiderTakip.Controls.Add(this._4_Yazdır);
             this.Sekmeler_GelirGiderTakip.Controls.Add(this.groupBox4);
             this.Sekmeler_GelirGiderTakip.Controls.Add(this._4_AyarlarSayfasınıAç);
@@ -843,7 +845,7 @@
             // 
             this._4_Yazdır.AutoSize = true;
             this._4_Yazdır.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this._4_Yazdır.Location = new System.Drawing.Point(9, 56);
+            this._4_Yazdır.Location = new System.Drawing.Point(9, 97);
             this._4_Yazdır.Name = "_4_Yazdır";
             this._4_Yazdır.Size = new System.Drawing.Size(250, 35);
             this._4_Yazdır.TabIndex = 21;
@@ -861,7 +863,7 @@
             this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Controls.Add(this._4_EpostaGönderimi_Saat);
             this.groupBox4.Controls.Add(this.label1);
-            this.groupBox4.Location = new System.Drawing.Point(9, 97);
+            this.groupBox4.Location = new System.Drawing.Point(9, 138);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(367, 188);
             this.groupBox4.TabIndex = 20;
@@ -884,6 +886,7 @@
             // ÖnYüzler_Kaydet_4_Kaydet
             // 
             this.ÖnYüzler_Kaydet_4_Kaydet.AutoSize = true;
+            this.ÖnYüzler_Kaydet_4_Kaydet.Enabled = false;
             this.ÖnYüzler_Kaydet_4_Kaydet.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.ÖnYüzler_Kaydet_4_Kaydet.Location = new System.Drawing.Point(17, 140);
             this.ÖnYüzler_Kaydet_4_Kaydet.Name = "ÖnYüzler_Kaydet_4_Kaydet";
@@ -981,6 +984,19 @@
             this.İpUcu.ReshowDelay = 20;
             this.İpUcu.UseAnimation = false;
             this.İpUcu.UseFading = false;
+            // 
+            // _4_CariDökümSayfasınıAç
+            // 
+            this._4_CariDökümSayfasınıAç.AutoSize = true;
+            this._4_CariDökümSayfasınıAç.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this._4_CariDökümSayfasınıAç.Location = new System.Drawing.Point(9, 56);
+            this._4_CariDökümSayfasınıAç.Name = "_4_CariDökümSayfasınıAç";
+            this._4_CariDökümSayfasınıAç.Size = new System.Drawing.Size(250, 35);
+            this._4_CariDökümSayfasınıAç.TabIndex = 22;
+            this._4_CariDökümSayfasınıAç.Text = "Cari döküm sayfasını aç";
+            this.İpUcu.SetToolTip(this._4_CariDökümSayfasınıAç, "F4");
+            this._4_CariDökümSayfasınıAç.UseVisualStyleBackColor = true;
+            this._4_CariDökümSayfasınıAç.Click += new System.EventHandler(this._4_CariDökümSayfasınıAç_Click);
             // 
             // Ayarlar_Bütçe
             // 
@@ -1095,5 +1111,6 @@
         private System.Windows.Forms.NumericUpDown _4_EpostaGönderimi_Saat;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button _4_Yazdır;
+        private System.Windows.Forms.Button _4_CariDökümSayfasınıAç;
     }
 }

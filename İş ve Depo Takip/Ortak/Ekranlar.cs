@@ -188,6 +188,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             Tümü.Clear();
+
+            GelirGiderTakip.Durdur();
         }
         public static void Durdur()
         {
@@ -212,7 +214,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 (DateTime.Now - SonHarekenAnı).TotalSeconds > Ortak.Kullanıcı_KüçültüldüğündeParolaSor_sn)
             {
                 //şifre sayfasını aç
-                Form ayrlr_klc = new Ayarlar_Kullanıcılar(ArgeMup.HazirKod.Ekranlar.Kullanıcılar.İşlemTürü_.Giriş, sender == null);
+                new Ayarlar_Kullanıcılar(ArgeMup.HazirKod.Ekranlar.Kullanıcılar.İşlemTürü_.Giriş, sender == null);
             }
         }
         private static void Ekran_Deactivate(object sender, EventArgs e)
@@ -237,6 +239,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 case Keys.F4:
                     if (Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Takvim_içinde_işlem_yapabilir)) Ekle(new Takvim());
+                    break;
+
+                case Keys.F5:
+                    if (Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Gelir_gider_ekleyebilir)) GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.İlkAçılışAyarları_Komut_.Sayfa_GelirGiderEkle);
                     break;
 
                 case Keys.Escape:

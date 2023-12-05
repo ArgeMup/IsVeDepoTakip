@@ -177,7 +177,6 @@
             this.GelirGider_CariDöküm.Size = new System.Drawing.Size(91, 29);
             this.GelirGider_CariDöküm.TabIndex = 10;
             this.GelirGider_CariDöküm.Text = "Cari Döküm";
-            this.İpUcu.SetToolTip(this.GelirGider_CariDöküm, "F4");
             this.GelirGider_CariDöküm.UseVisualStyleBackColor = true;
             this.GelirGider_CariDöküm.Click += new System.EventHandler(this.GelirGider_CariDöküm_Click);
             // 
@@ -191,7 +190,7 @@
             this.GelirGider_Ekle.Size = new System.Drawing.Size(118, 29);
             this.GelirGider_Ekle.TabIndex = 9;
             this.GelirGider_Ekle.Text = "Gelir Gider Ekle";
-            this.İpUcu.SetToolTip(this.GelirGider_Ekle, "F4");
+            this.İpUcu.SetToolTip(this.GelirGider_Ekle, "F5");
             this.GelirGider_Ekle.UseVisualStyleBackColor = true;
             this.GelirGider_Ekle.Click += new System.EventHandler(this.GelirGider_Ekle_Click);
             // 

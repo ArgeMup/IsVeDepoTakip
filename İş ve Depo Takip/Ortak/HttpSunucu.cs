@@ -417,5 +417,11 @@ namespace İş_ve_Depo_Takip
                 İşlem?.Invoke(Çıktı_yazı, Çıktı_dizi);
             });
         }
+        public static bool Oku(out string[] Kurlar)
+        {
+            Kurlar = Çıktı_dizi;
+
+            return (DateTime.Now - EnSonGüncelleme).TotalMinutes <= 5;
+        }
     }
 }
