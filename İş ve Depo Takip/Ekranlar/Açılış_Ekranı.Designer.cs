@@ -36,8 +36,9 @@
             this.Ücretler = new System.Windows.Forms.Button();
             this.Yazdırma = new System.Windows.Forms.Button();
             this.P_AnaMenü = new System.Windows.Forms.Panel();
+            this.GelirGider_Ekle_Gider = new System.Windows.Forms.Button();
             this.GelirGider_CariDöküm = new System.Windows.Forms.Button();
-            this.GelirGider_Ekle = new System.Windows.Forms.Button();
+            this.GelirGider_Ekle_Gelir = new System.Windows.Forms.Button();
             this.ParolayıDeğiştir = new System.Windows.Forms.Button();
             this.ÜcretHesaplama = new System.Windows.Forms.Button();
             this.BarkodGirişi = new System.Windows.Forms.TextBox();
@@ -149,8 +150,9 @@
             // 
             this.P_AnaMenü.BackgroundImage = global::İş_ve_Depo_Takip.Properties.Resources.logo_512_seffaf;
             this.P_AnaMenü.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.P_AnaMenü.Controls.Add(this.GelirGider_Ekle_Gider);
             this.P_AnaMenü.Controls.Add(this.GelirGider_CariDöküm);
-            this.P_AnaMenü.Controls.Add(this.GelirGider_Ekle);
+            this.P_AnaMenü.Controls.Add(this.GelirGider_Ekle_Gelir);
             this.P_AnaMenü.Controls.Add(this.ParolayıDeğiştir);
             this.P_AnaMenü.Controls.Add(this.ÜcretHesaplama);
             this.P_AnaMenü.Controls.Add(this.BarkodGirişi);
@@ -167,32 +169,47 @@
             this.P_AnaMenü.Visible = false;
             this.P_AnaMenü.VisibleChanged += new System.EventHandler(this.P_AnaMenü_VisibleChanged);
             // 
+            // GelirGider_Ekle_Gider
+            // 
+            this.GelirGider_Ekle_Gider.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.GelirGider_Ekle_Gider.AutoSize = true;
+            this.GelirGider_Ekle_Gider.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.GelirGider_Ekle_Gider.Location = new System.Drawing.Point(91, 324);
+            this.GelirGider_Ekle_Gider.Name = "GelirGider_Ekle_Gider";
+            this.GelirGider_Ekle_Gider.Size = new System.Drawing.Size(84, 29);
+            this.GelirGider_Ekle_Gider.TabIndex = 11;
+            this.GelirGider_Ekle_Gider.Text = "Gider Ekle";
+            this.İpUcu.SetToolTip(this.GelirGider_Ekle_Gider, "F6");
+            this.GelirGider_Ekle_Gider.UseVisualStyleBackColor = true;
+            this.GelirGider_Ekle_Gider.Click += new System.EventHandler(this.GelirGider_Ekle_Gider_Click);
+            // 
             // GelirGider_CariDöküm
             // 
             this.GelirGider_CariDöküm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.GelirGider_CariDöküm.AutoSize = true;
             this.GelirGider_CariDöküm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.GelirGider_CariDöküm.Location = new System.Drawing.Point(130, 324);
+            this.GelirGider_CariDöküm.Location = new System.Drawing.Point(181, 324);
             this.GelirGider_CariDöküm.Name = "GelirGider_CariDöküm";
             this.GelirGider_CariDöküm.Size = new System.Drawing.Size(91, 29);
             this.GelirGider_CariDöküm.TabIndex = 10;
             this.GelirGider_CariDöküm.Text = "Cari Döküm";
+            this.İpUcu.SetToolTip(this.GelirGider_CariDöküm, "F7");
             this.GelirGider_CariDöküm.UseVisualStyleBackColor = true;
             this.GelirGider_CariDöküm.Click += new System.EventHandler(this.GelirGider_CariDöküm_Click);
             // 
-            // GelirGider_Ekle
+            // GelirGider_Ekle_Gelir
             // 
-            this.GelirGider_Ekle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.GelirGider_Ekle.AutoSize = true;
-            this.GelirGider_Ekle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.GelirGider_Ekle.Location = new System.Drawing.Point(6, 324);
-            this.GelirGider_Ekle.Name = "GelirGider_Ekle";
-            this.GelirGider_Ekle.Size = new System.Drawing.Size(118, 29);
-            this.GelirGider_Ekle.TabIndex = 9;
-            this.GelirGider_Ekle.Text = "Gelir Gider Ekle";
-            this.İpUcu.SetToolTip(this.GelirGider_Ekle, "F5");
-            this.GelirGider_Ekle.UseVisualStyleBackColor = true;
-            this.GelirGider_Ekle.Click += new System.EventHandler(this.GelirGider_Ekle_Click);
+            this.GelirGider_Ekle_Gelir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.GelirGider_Ekle_Gelir.AutoSize = true;
+            this.GelirGider_Ekle_Gelir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.GelirGider_Ekle_Gelir.Location = new System.Drawing.Point(6, 324);
+            this.GelirGider_Ekle_Gelir.Name = "GelirGider_Ekle_Gelir";
+            this.GelirGider_Ekle_Gelir.Size = new System.Drawing.Size(79, 29);
+            this.GelirGider_Ekle_Gelir.TabIndex = 9;
+            this.GelirGider_Ekle_Gelir.Text = "Gelir Ekle";
+            this.İpUcu.SetToolTip(this.GelirGider_Ekle_Gelir, "F5");
+            this.GelirGider_Ekle_Gelir.UseVisualStyleBackColor = true;
+            this.GelirGider_Ekle_Gelir.Click += new System.EventHandler(this.GelirGider_Ekle_Gelir_Click);
             // 
             // ParolayıDeğiştir
             // 
@@ -513,7 +530,8 @@
         private System.Windows.Forms.Button Kullanıcılar;
         private System.Windows.Forms.Button ParolayıDeğiştir;
         private System.Windows.Forms.Button GelirGider_CariDöküm;
-        private System.Windows.Forms.Button GelirGider_Ekle;
+        private System.Windows.Forms.Button GelirGider_Ekle_Gelir;
+        private System.Windows.Forms.Button GelirGider_Ekle_Gider;
     }
 }
 

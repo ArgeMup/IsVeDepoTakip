@@ -27,7 +27,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             KorumalıAlan.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Korumalı_alan_içinde_işlem_yapabilir);
             Takvim.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Takvim_içinde_işlem_yapabilir);
 
-            GelirGider_Ekle.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Gelir_gider_ekleyebilir);
+            bool Gelir_gider_ekleyebilir = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Gelir_gider_ekleyebilir);
+            GelirGider_Ekle_Gelir.Visible = Gelir_gider_ekleyebilir;
+            GelirGider_Ekle_Gider.Visible = Gelir_gider_ekleyebilir;
             GelirGider_CariDöküm.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Gelir_gider_cari_dökümü_görebilir);
         }
         private void Açılış_Ekranı_Shown(object sender, EventArgs e)
@@ -52,12 +54,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (Ayarlar.Visible) { Ayarlar.Left = x; EnAz1ElemanSeçildi = true; }
 
             //gelir giderleri yer varsa en alta at
-            if (EnAz1ElemanSeçildi) x = Takvim.Top - 5 - GelirGider_Ekle.Height;
+            if (EnAz1ElemanSeçildi) x = Takvim.Top - 5 - GelirGider_Ekle_Gelir.Height;
             else x = Takvim.Top;
-            GelirGider_Ekle.Top = x;
+            GelirGider_Ekle_Gelir.Top = x;
+            GelirGider_Ekle_Gider.Top = x;
             GelirGider_CariDöküm.Top = x;
             x = 5;
-            if (GelirGider_Ekle.Visible) { GelirGider_Ekle.Left = x; x += GelirGider_Ekle.Width + 5; }
+            if (GelirGider_Ekle_Gelir.Visible) 
+            { 
+                GelirGider_Ekle_Gelir.Left = x; x += GelirGider_Ekle_Gelir.Width + 5;
+                GelirGider_Ekle_Gider.Left = x; x += GelirGider_Ekle_Gider.Width + 5;
+            }
             if (GelirGider_CariDöküm.Visible) { GelirGider_CariDöküm.Left = x; }
 
             x = YedekleKapat.Top - 5;
@@ -145,7 +152,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ekranlar.ÖnYüzler.Ekle(ÖndekiEkran);
         }
 
-        private void GelirGider_Ekle_Click(object sender, EventArgs e)
+        private void GelirGider_Ekle_Gelir_Click(object sender, EventArgs e)
+        {
+            GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.İlkAçılışAyarları_Komut_.Sayfa_GelirGiderEkle, true);
+        }
+        private void GelirGider_Ekle_Gider_Click(object sender, EventArgs e)
         {
             GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.İlkAçılışAyarları_Komut_.Sayfa_GelirGiderEkle);
         }

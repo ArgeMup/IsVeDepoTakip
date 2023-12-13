@@ -225,24 +225,32 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             switch (e.KeyCode)
             {
-                case Keys.F1:
+                case Keys.F1: //Yeni iş girişi
                     if (Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Yeni_iş_oluşturabilir)) Ekle(new Yeni_İş_Girişi());
                     break;
 
-                case Keys.F2:
+                case Keys.F2: //Tüm işler
                     if (Banka.İzinliMi(new Banka.Ayarlar_Kullanıcılar_İzin[] { Banka.Ayarlar_Kullanıcılar_İzin.Devam_eden_işler_içinde_işlem_yapabilir, Banka.Ayarlar_Kullanıcılar_İzin.Tamamlanmış_işler_içinde_işlem_yapabilir })) Ekle(new Tüm_İşler(false));
                     break;
 
-                case Keys.F3:
+                case Keys.F3: //Tüm işler - Arama
                     if (Banka.İzinliMi(new Banka.Ayarlar_Kullanıcılar_İzin[] { Banka.Ayarlar_Kullanıcılar_İzin.Devam_eden_işler_içinde_işlem_yapabilir, Banka.Ayarlar_Kullanıcılar_İzin.Tamamlanmış_işler_içinde_işlem_yapabilir })) Ekle(new Tüm_İşler(true));
                     break;
 
-                case Keys.F4:
+                case Keys.F4: //Takvim
                     if (Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Takvim_içinde_işlem_yapabilir)) Ekle(new Takvim());
                     break;
 
-                case Keys.F5:
+                case Keys.F5: //Gelir
+                    if (Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Gelir_gider_ekleyebilir)) GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.İlkAçılışAyarları_Komut_.Sayfa_GelirGiderEkle, true);
+                    break;
+
+                case Keys.F6: //Gider
                     if (Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Gelir_gider_ekleyebilir)) GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.İlkAçılışAyarları_Komut_.Sayfa_GelirGiderEkle);
+                    break;
+
+                case Keys.F7: //Cari döküm
+                    if (Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Gelir_gider_cari_dökümü_görebilir)) GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.İlkAçılışAyarları_Komut_.Sayfa_CariDöküm);
                     break;
 
                 case Keys.Escape:

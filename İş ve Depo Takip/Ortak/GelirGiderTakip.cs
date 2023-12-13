@@ -70,13 +70,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
         static string[] Komut_DosyasıYolu = new string[] { Path.GetDirectoryName(Uygulama_DosyaYolu) + "\\Komut.mup" };
         static İlkAçılışAyarları_ İlkAçılışAyarları = null;
 
-        public static string Komut_SayfaAç(İlkAçılışAyarları_Komut_ Komut)
+        public static string Komut_SayfaAç(İlkAçılışAyarları_Komut_ Komut, bool Sayfa_GelirGiderEkle_GelirOlarakAçılsın = false)
         {
             if (Komut < İlkAçılışAyarları_Komut_.Sayfa_GelirGiderEkle || Komut > İlkAçılışAyarları_Komut_.Sayfa_Ayarlar) return "Hatalı Komut " + Komut;
 
             if (İlkAçılışAyarları == null) İlkAçılışAyarları = new İlkAçılışAyarları_();
 
             İlkAçılışAyarları.Kullanıcı_Komut = Komut;
+            İlkAçılışAyarları.Kullanıcı_Komut_EkTanım = Sayfa_GelirGiderEkle_GelirOlarakAçılsın ? new string[] { "Gelir" } : null;
 
             return Çalıştır(true, 0);
         }
