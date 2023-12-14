@@ -127,6 +127,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Dosyalar.Items.Clear(); Dosyalar.BackColor = SystemColors.Window;
             Dosyalar_Resim.Image?.Dispose(); Dosyalar_Resim.Image = null;
             Yazılar.Text = null;
+            Dosyalar_PanodanResimAl.Enabled = false;
+            Dosyalar_İlgiliUygulamadaAç.Enabled = false;
+            Dosyalar_MasaüstüneKopyala.Enabled = false;
 
             if (e.ColumnIndex < 0 || e.RowIndex < 0 || Tablo.Rows[e.RowIndex].Tag == null || Epostalar == null) return;
             IDepo_Eleman epst = Epostalar.Bul("Liste/" + Tablo.Rows[e.RowIndex].Tag);
@@ -143,6 +146,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     Dosyalar.Items.Add(dsy[0]);
                 }
+
+                Dosyalar_PanodanResimAl.Enabled = true;
+                Dosyalar_İlgiliUygulamadaAç.Enabled = true;
+                Dosyalar_MasaüstüneKopyala.Enabled = true;
             }
             else Dosyalar.BackColor = Color.Salmon;
 
@@ -166,16 +173,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Dosyalar_Resim.Image.Dispose();
                 Dosyalar_Resim.Image = null;
             }
-            if (Dosyalar.SelectedIndex < 0 || Tablo.SelectedRows.Count < 1 || Tablo.SelectedRows[0].Tag == null) return;
 
-            IDepo_Eleman epst = Epostalar.Bul("Liste/" + Tablo.SelectedRows[0].Tag);
-            if (epst == null) return;
+            string dsy = Epostalar_SeçiliDosyaYolu();
+            if (dsy.BoşMu()) return;
 
-            string soyad = Path.GetExtension(epst["Ekler"].Elemanları[Dosyalar.SelectedIndex].Adı).ToLower();
+            string soyad = Path.GetExtension(dsy).ToLower();
             if (soyad == ".png" || soyad == ".bmp" || soyad == ".jpg" || soyad == ".gif")
             {
                 Dosyalar_Resim_YaklaşmaOranı.Value = 0;
-                Image rsm = Image.FromFile(epst["Ekler"].Elemanları[Dosyalar.SelectedIndex].Adı);
+                Image rsm = Image.FromFile(dsy);
                 Dosyalar_Resim.Dock = DockStyle.Fill;
                 Dosyalar_Resim.Size = rsm.Size;
                 Dosyalar_Resim.Image = rsm;
@@ -193,6 +199,65 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if (Dosyalar_Resim.Dock != DockStyle.None) Dosyalar_Resim.Dock = DockStyle.None;
                 Dosyalar_Resim.Size = new Size((int)(Dosyalar_Resim.Image.Size.Width * Dosyalar_Resim_YaklaşmaOranı.Value), (int)(Dosyalar_Resim.Image.Size.Height * Dosyalar_Resim_YaklaşmaOranı.Value));
             }
+        }
+        private void Dosyalar_MasaüstüneKopyala_Click(object sender, EventArgs e)
+        {
+            string SahteKonum = Epostalar_SeçiliDosyaYolu();
+            if (SahteKonum.BoşMu()) return;
+
+            string masaüstü_yansıma_adı = Klasör.Depolama(Klasör.Kapsamı.Masaüstü, "", "", "") + "\\" + Path.GetFileName(SahteKonum);
+
+            if (File.Exists(masaüstü_yansıma_adı))
+            {
+                MessageBox.Show("Masaüstünde aynı isimli bir dosya bulunduğundan işlem durduruldu", Text);
+            }
+            else Dosya.Kopyala(SahteKonum, masaüstü_yansıma_adı);
+        }
+        private void Dosyalar_İlgiliUygulamadaAç_Click(object sender, EventArgs e)
+        {
+            string SahteKonum = Epostalar_SeçiliDosyaYolu();
+            if (SahteKonum.BoşMu()) return;
+
+            Ortak.Çalıştır.UygulamayaİşletimSistemiKararVersin(SahteKonum);
+        }
+        private void Dosyalar_PanodanResimAl_Click(object sender, EventArgs e)
+        {
+            if (Clipboard.ContainsImage())
+            {
+                Image PanodanAlınanResim = Clipboard.GetImage();
+                string dsy = Ortak.Klasör_Gecici + "Pano_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".png";
+                PanodanAlınanResim.Save(dsy, System.Drawing.Imaging.ImageFormat.Png);
+                Epostalar_DosyaEkle(dsy);
+            }
+        }
+
+        string Epostalar_SeçiliDosyaYolu()
+        {
+            if (Dosyalar.SelectedIndex < 0 || Tablo.SelectedRows.Count < 1 || Tablo.SelectedRows[0].Tag == null) return null;
+
+            IDepo_Eleman epst = Epostalar.Bul("Liste/" + Tablo.SelectedRows[0].Tag);
+            if (epst == null) return null;
+
+            return epst["Ekler"].Elemanları[Dosyalar.SelectedIndex].Adı;
+        }
+        void Epostalar_DosyaEkle(string KaynakDosya)
+        {
+            if (Dosyalar.Items.Count < 1 || Tablo.SelectedRows.Count < 1 || Tablo.SelectedRows[0].Tag == null)
+            {
+                MessageBox.Show("Öncelikle eki olan bir eposta seçiniz.");
+                return;
+            }
+
+            IDepo_Eleman epst = Epostalar.Bul("Liste/" + Tablo.SelectedRows[0].Tag);
+            if (epst == null) return;
+
+            string dsy_adı = Path.GetFileName(KaynakDosya);
+            string kopyalanacak_kls = Klasör.ÜstKlasör(epst["Ekler"].Elemanları[0].Adı);
+            string HedefDosya = kopyalanacak_kls + "\\" + dsy_adı;
+            if (!Dosya.Kopyala(KaynakDosya, HedefDosya)) return;
+
+            epst["Ekler/" + HedefDosya].Yaz(null, dsy_adı);
+            Dosyalar.Items.Add(dsy_adı);
         }
 
         public bool NotlarıVeDosyaEkleriniAl(out string Yazı, out string[] DosyaEkleri)

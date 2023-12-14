@@ -62,6 +62,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Çıkış_KlasöreTaşı = new System.Windows.Forms.RadioButton();
             this.Çıkış_OkunduOlarakİşaretle = new System.Windows.Forms.RadioButton();
             this.Çıkış_Geri = new System.Windows.Forms.Button();
+            this.Dosyalar_PanodanResimAl = new System.Windows.Forms.Button();
+            this.Dosyalar_İlgiliUygulamadaAç = new System.Windows.Forms.Button();
+            this.Dosyalar_MasaüstüneKopyala = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Dosyalar_Resim_YaklaşmaOranı)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Seç_GünKadarEskiEpostalar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
@@ -103,7 +106,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Seç_Klasör.FormattingEnabled = true;
             this.Seç_Klasör.Location = new System.Drawing.Point(4, 4);
             this.Seç_Klasör.Name = "Seç_Klasör";
-            this.Seç_Klasör.Size = new System.Drawing.Size(286, 28);
+            this.Seç_Klasör.Size = new System.Drawing.Size(202, 28);
             this.Seç_Klasör.Sorted = true;
             this.Seç_Klasör.TabIndex = 7;
             this.İpUcu_Genel.SetToolTip(this.Seç_Klasör, "Görüntülenecek klasörü buradan seçebilirsiniz.");
@@ -111,7 +114,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // TabloİçeriğiArama
             // 
             this.TabloİçeriğiArama.Dock = System.Windows.Forms.DockStyle.Right;
-            this.TabloİçeriğiArama.Location = new System.Drawing.Point(763, 4);
+            this.TabloİçeriğiArama.Location = new System.Drawing.Point(679, 4);
             this.TabloİçeriğiArama.Name = "TabloİçeriğiArama";
             this.TabloİçeriğiArama.Size = new System.Drawing.Size(203, 26);
             this.TabloİçeriğiArama.TabIndex = 10;
@@ -125,7 +128,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Dosyalar.FormattingEnabled = true;
             this.Dosyalar.Location = new System.Drawing.Point(4, 4);
             this.Dosyalar.Name = "Dosyalar";
-            this.Dosyalar.Size = new System.Drawing.Size(314, 175);
+            this.Dosyalar.Size = new System.Drawing.Size(286, 88);
             this.Dosyalar.TabIndex = 11;
             this.İpUcu_Genel.SetToolTip(this.Dosyalar, resources.GetString("Dosyalar.ToolTip"));
             this.Dosyalar.SelectedIndexChanged += new System.EventHandler(this.Dosyalar_SelectedIndexChanged);
@@ -139,9 +142,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             0,
             0,
             65536});
-            this.Dosyalar_Resim_YaklaşmaOranı.Location = new System.Drawing.Point(4, 179);
+            this.Dosyalar_Resim_YaklaşmaOranı.Location = new System.Drawing.Point(4, 92);
             this.Dosyalar_Resim_YaklaşmaOranı.Name = "Dosyalar_Resim_YaklaşmaOranı";
-            this.Dosyalar_Resim_YaklaşmaOranı.Size = new System.Drawing.Size(314, 26);
+            this.Dosyalar_Resim_YaklaşmaOranı.Size = new System.Drawing.Size(286, 26);
             this.Dosyalar_Resim_YaklaşmaOranı.TabIndex = 13;
             this.Dosyalar_Resim_YaklaşmaOranı.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.İpUcu_Genel.SetToolTip(this.Dosyalar_Resim_YaklaşmaOranı, "Resim Yakınlaştırma Oranı\r\n\r\nDosya eki bir resim ise buradan büyütülebilir.");
@@ -159,7 +162,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Çıkış_Klasör.FormattingEnabled = true;
             this.Çıkış_Klasör.Location = new System.Drawing.Point(453, 23);
             this.Çıkış_Klasör.Name = "Çıkış_Klasör";
-            this.Çıkış_Klasör.Size = new System.Drawing.Size(525, 28);
+            this.Çıkış_Klasör.Size = new System.Drawing.Size(441, 28);
             this.Çıkış_Klasör.Sorted = true;
             this.Çıkış_Klasör.TabIndex = 2;
             this.İpUcu_Genel.SetToolTip(this.Çıkış_Klasör, "Taşıma işlemi için kullanılabilecek klasörler");
@@ -167,7 +170,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // Seç_GünKadarEskiEpostalar
             // 
             this.Seç_GünKadarEskiEpostalar.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Seç_GünKadarEskiEpostalar.Location = new System.Drawing.Point(569, 4);
+            this.Seç_GünKadarEskiEpostalar.Location = new System.Drawing.Point(485, 4);
             this.Seç_GünKadarEskiEpostalar.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -196,7 +199,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Yazılar.Multiline = true;
             this.Yazılar.Name = "Yazılar";
             this.Yazılar.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.Yazılar.Size = new System.Drawing.Size(864, 100);
+            this.Yazılar.Size = new System.Drawing.Size(780, 100);
             this.Yazılar.TabIndex = 1;
             this.İpUcu_Genel.SetToolTip(this.Yazılar, "Buradaki yazılar düzenlebilir.\r\n\r\nHemen soldaki onay kutusu seçili hale getiriler" +
         "ek\r\nmevcut işin notlarına eklenebilir.");
@@ -217,7 +220,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(982, 497);
+            this.splitContainer2.Size = new System.Drawing.Size(898, 497);
             this.splitContainer2.SplitterDistance = 164;
             this.splitContainer2.TabIndex = 13;
             // 
@@ -229,7 +232,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.P_Seç_Klasör.Location = new System.Drawing.Point(0, 0);
             this.P_Seç_Klasör.Name = "P_Seç_Klasör";
             this.P_Seç_Klasör.Padding = new System.Windows.Forms.Padding(4);
-            this.P_Seç_Klasör.Size = new System.Drawing.Size(978, 160);
+            this.P_Seç_Klasör.Size = new System.Drawing.Size(894, 160);
             this.P_Seç_Klasör.TabIndex = 8;
             // 
             // Tablo
@@ -264,7 +267,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Tablo.ShowCellErrors = false;
             this.Tablo.ShowEditingIcon = false;
             this.Tablo.ShowRowErrors = false;
-            this.Tablo.Size = new System.Drawing.Size(970, 116);
+            this.Tablo.Size = new System.Drawing.Size(886, 116);
             this.Tablo.TabIndex = 7;
             this.Tablo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellClick);
             // 
@@ -308,7 +311,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.panel2.Location = new System.Drawing.Point(4, 4);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(4);
-            this.panel2.Size = new System.Drawing.Size(970, 36);
+            this.panel2.Size = new System.Drawing.Size(886, 36);
             this.panel2.TabIndex = 6;
             // 
             // Seç_SadeceOkunmamışlar
@@ -316,7 +319,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Seç_SadeceOkunmamışlar.AutoSize = true;
             this.Seç_SadeceOkunmamışlar.Checked = true;
             this.Seç_SadeceOkunmamışlar.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Seç_SadeceOkunmamışlar.Location = new System.Drawing.Point(290, 4);
+            this.Seç_SadeceOkunmamışlar.Location = new System.Drawing.Point(206, 4);
             this.Seç_SadeceOkunmamışlar.Name = "Seç_SadeceOkunmamışlar";
             this.Seç_SadeceOkunmamışlar.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.Seç_SadeceOkunmamışlar.Size = new System.Drawing.Size(199, 28);
@@ -329,7 +332,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             this.Seç_Tümü.AutoSize = true;
             this.Seç_Tümü.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Seç_Tümü.Location = new System.Drawing.Point(489, 4);
+            this.Seç_Tümü.Location = new System.Drawing.Point(405, 4);
             this.Seç_Tümü.Name = "Seç_Tümü";
             this.Seç_Tümü.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Seç_Tümü.Size = new System.Drawing.Size(80, 28);
@@ -342,7 +345,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Yenile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Yenile.Dock = System.Windows.Forms.DockStyle.Right;
             this.Yenile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Yenile.Location = new System.Drawing.Point(635, 4);
+            this.Yenile.Location = new System.Drawing.Point(551, 4);
             this.Yenile.Name = "Yenile";
             this.Yenile.Size = new System.Drawing.Size(128, 28);
             this.Yenile.TabIndex = 8;
@@ -365,7 +368,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer1);
-            this.splitContainer3.Size = new System.Drawing.Size(982, 329);
+            this.splitContainer3.Size = new System.Drawing.Size(898, 329);
             this.splitContainer3.SplitterDistance = 112;
             this.splitContainer3.TabIndex = 14;
             // 
@@ -377,7 +380,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
             this.panel4.Padding = new System.Windows.Forms.Padding(4);
-            this.panel4.Size = new System.Drawing.Size(978, 108);
+            this.panel4.Size = new System.Drawing.Size(894, 108);
             this.panel4.TabIndex = 10;
             // 
             // Seç_YazılarıNotlaraEkle
@@ -402,6 +405,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             this.splitContainer1.Panel1.Controls.Add(this.Dosyalar);
             this.splitContainer1.Panel1.Controls.Add(this.Dosyalar_Resim_YaklaşmaOranı);
+            this.splitContainer1.Panel1.Controls.Add(this.Dosyalar_PanodanResimAl);
+            this.splitContainer1.Panel1.Controls.Add(this.Dosyalar_İlgiliUygulamadaAç);
+            this.splitContainer1.Panel1.Controls.Add(this.Dosyalar_MasaüstüneKopyala);
             this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(4);
             // 
             // splitContainer1.Panel2
@@ -409,8 +415,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.splitContainer1.Panel2.AutoScroll = true;
             this.splitContainer1.Panel2.Controls.Add(this.Dosyalar_Resim);
             this.splitContainer1.Panel2.Padding = new System.Windows.Forms.Padding(4);
-            this.splitContainer1.Size = new System.Drawing.Size(982, 213);
-            this.splitContainer1.SplitterDistance = 326;
+            this.splitContainer1.Size = new System.Drawing.Size(898, 213);
+            this.splitContainer1.SplitterDistance = 298;
             this.splitContainer1.TabIndex = 12;
             // 
             // Dosyalar_Resim
@@ -432,7 +438,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.groupBox1.Location = new System.Drawing.Point(0, 497);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(982, 56);
+            this.groupBox1.Size = new System.Drawing.Size(898, 56);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "İş kaydedildikten sonra kullanılan epostayı";
@@ -478,11 +484,62 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Çıkış_Geri.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.Çıkış_Geri.UseVisualStyleBackColor = true;
             // 
+            // Dosyalar_PanodanResimAl
+            // 
+            this.Dosyalar_PanodanResimAl.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Dosyalar_PanodanResimAl.Enabled = false;
+            this.Dosyalar_PanodanResimAl.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
+            this.Dosyalar_PanodanResimAl.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Dosyalar_PanodanResimAl.Location = new System.Drawing.Point(4, 118);
+            this.Dosyalar_PanodanResimAl.Margin = new System.Windows.Forms.Padding(0);
+            this.Dosyalar_PanodanResimAl.Name = "Dosyalar_PanodanResimAl";
+            this.Dosyalar_PanodanResimAl.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.Dosyalar_PanodanResimAl.Size = new System.Drawing.Size(286, 29);
+            this.Dosyalar_PanodanResimAl.TabIndex = 19;
+            this.Dosyalar_PanodanResimAl.Text = "Panodan Resim Al";
+            this.Dosyalar_PanodanResimAl.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Dosyalar_PanodanResimAl.UseVisualStyleBackColor = true;
+            this.Dosyalar_PanodanResimAl.Click += new System.EventHandler(this.Dosyalar_PanodanResimAl_Click);
+            // 
+            // Dosyalar_İlgiliUygulamadaAç
+            // 
+            this.Dosyalar_İlgiliUygulamadaAç.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Dosyalar_İlgiliUygulamadaAç.Enabled = false;
+            this.Dosyalar_İlgiliUygulamadaAç.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
+            this.Dosyalar_İlgiliUygulamadaAç.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Dosyalar_İlgiliUygulamadaAç.Location = new System.Drawing.Point(4, 147);
+            this.Dosyalar_İlgiliUygulamadaAç.Margin = new System.Windows.Forms.Padding(0);
+            this.Dosyalar_İlgiliUygulamadaAç.Name = "Dosyalar_İlgiliUygulamadaAç";
+            this.Dosyalar_İlgiliUygulamadaAç.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.Dosyalar_İlgiliUygulamadaAç.Size = new System.Drawing.Size(286, 29);
+            this.Dosyalar_İlgiliUygulamadaAç.TabIndex = 18;
+            this.Dosyalar_İlgiliUygulamadaAç.Text = "İlgili Uygulamada Aç";
+            this.Dosyalar_İlgiliUygulamadaAç.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Dosyalar_İlgiliUygulamadaAç.UseVisualStyleBackColor = true;
+            this.Dosyalar_İlgiliUygulamadaAç.Click += new System.EventHandler(this.Dosyalar_İlgiliUygulamadaAç_Click);
+            // 
+            // Dosyalar_MasaüstüneKopyala
+            // 
+            this.Dosyalar_MasaüstüneKopyala.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Dosyalar_MasaüstüneKopyala.Enabled = false;
+            this.Dosyalar_MasaüstüneKopyala.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
+            this.Dosyalar_MasaüstüneKopyala.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Dosyalar_MasaüstüneKopyala.Location = new System.Drawing.Point(4, 176);
+            this.Dosyalar_MasaüstüneKopyala.Margin = new System.Windows.Forms.Padding(0);
+            this.Dosyalar_MasaüstüneKopyala.Name = "Dosyalar_MasaüstüneKopyala";
+            this.Dosyalar_MasaüstüneKopyala.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.Dosyalar_MasaüstüneKopyala.Size = new System.Drawing.Size(286, 29);
+            this.Dosyalar_MasaüstüneKopyala.TabIndex = 17;
+            this.Dosyalar_MasaüstüneKopyala.Text = "Masa Üstüne Kopyala";
+            this.Dosyalar_MasaüstüneKopyala.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Dosyalar_MasaüstüneKopyala.UseVisualStyleBackColor = true;
+            this.Dosyalar_MasaüstüneKopyala.Click += new System.EventHandler(this.Dosyalar_MasaüstüneKopyala_Click);
+            // 
             // Yeni_İş_Girişi_Epostalar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(982, 553);
+            this.ClientSize = new System.Drawing.Size(898, 553);
             this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -546,5 +603,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private System.Windows.Forms.CheckBox Seç_YazılarıNotlaraEkle;
         private System.Windows.Forms.CheckedListBox Dosyalar;
         private System.Windows.Forms.TextBox Yazılar;
+        private System.Windows.Forms.Button Dosyalar_PanodanResimAl;
+        private System.Windows.Forms.Button Dosyalar_İlgiliUygulamadaAç;
+        private System.Windows.Forms.Button Dosyalar_MasaüstüneKopyala;
     }
 }

@@ -30,7 +30,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         static KlavyeFareGozlemcisi_ ÖndekiEkran_KlaFaGö = null;
         static System.Windows.Forms.Timer ÖndekiEkran_Zamanlayıcı = null;
         static List<string> GüncellenenSeriNolar = new List<string>();
-        static DateTime SonHarekenAnı = DateTime.Now;
         
         public static Form AnaEkran
         {
@@ -145,8 +144,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 son_açılan.Hide();
             }
 
-            Ekran.Activated += Ekran_Activated;
-            Ekran.Deactivate += Ekran_Deactivate;
             Ekran.KeyDown += Ekran_KeyDown;
             Ekran.Resize += Ekran_Resize;
             Ekran.FormClosing += Ekran_FormClosing;
@@ -156,7 +153,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ekran.Icon = Properties.Resources.kendi;
             Ekran.KeyPreview = true;
 
-            SonHarekenAnı = DateTime.Now;
             Tümü.Add(new Önyüz_(Ekran));
             Ekran.Show();
 
@@ -175,8 +171,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 try
                 {
-                    önyüz.Ekran.Activated -= Ekran_Activated;
-                    önyüz.Ekran.Deactivate -= Ekran_Deactivate;
                     önyüz.Ekran.KeyDown -= Ekran_KeyDown;
                     önyüz.Ekran.Resize -= Ekran_Resize;
                     önyüz.Ekran.FormClosing -= Ekran_FormClosing;
@@ -208,19 +202,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
         }
 
-        private static void Ekran_Activated(object sender, EventArgs e)
-        {
-            if (Banka.Kullanıcı_İzinleri_Tutucusu.ParolaKontrolüGerekiyorMu &&
-                (DateTime.Now - SonHarekenAnı).TotalSeconds > Ortak.Kullanıcı_KüçültüldüğündeParolaSor_sn)
-            {
-                //şifre sayfasını aç
-                new Ayarlar_Kullanıcılar(ArgeMup.HazirKod.Ekranlar.Kullanıcılar.İşlemTürü_.Giriş, sender == null);
-            }
-        }
-        private static void Ekran_Deactivate(object sender, EventArgs e)
-        {
-            SonHarekenAnı = DateTime.Now;
-        }
         private static void Ekran_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -266,8 +247,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 Banka.Yedekle_Tümü();
 
-                SonHarekenAnı = DateTime.Now.AddDays(-1);
-                Ekran_Activated(null, null);
+                if (Banka.Kullanıcı_İzinleri_Tutucusu.ParolaKontrolüGerekiyorMu)
+                {
+                    //şifre sayfasını aç
+                    new Ayarlar_Kullanıcılar(ArgeMup.HazirKod.Ekranlar.Kullanıcılar.İşlemTürü_.Giriş, true);
+                }
             }
             else
             {

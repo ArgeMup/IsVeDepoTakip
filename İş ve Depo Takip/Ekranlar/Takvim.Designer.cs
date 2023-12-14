@@ -66,6 +66,7 @@
             this.Hatırlatıcılar_Filtrele_Notlar = new System.Windows.Forms.CheckBox();
             this.Hatırlatıcılar_Filtrele_İşler = new System.Windows.Forms.CheckBox();
             this.İpUcu_Genel = new System.Windows.Forms.ToolTip(this.components);
+            this.SağTuşMenü_TeslimEdildiOlarakİşaretle = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             this.SağTuşMenü.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -226,11 +227,12 @@
             this.SağTuşMenü_Ertele_4,
             this.SağTuşMenü_Ertele_5,
             this.SağTuşMenü_ErtelemeyiKaldır_Sil,
-            this.SağTuşMenü_MüşteriyeGönder});
+            this.SağTuşMenü_MüşteriyeGönder,
+            this.SağTuşMenü_TeslimEdildiOlarakİşaretle});
             this.SağTuşMenü.Name = "SağTuşMenü";
             this.SağTuşMenü.ShowImageMargin = false;
             this.SağTuşMenü.ShowItemToolTips = false;
-            this.SağTuşMenü.Size = new System.Drawing.Size(309, 202);
+            this.SağTuşMenü.Size = new System.Drawing.Size(309, 254);
             this.SağTuşMenü.Opening += new System.ComponentModel.CancelEventHandler(this.SağTuşMenü_Opening);
             // 
             // SağTuşMenü_Ertele_Varsayılan
@@ -436,6 +438,13 @@
             this.İpUcu_Genel.UseAnimation = false;
             this.İpUcu_Genel.UseFading = false;
             // 
+            // SağTuşMenü_TeslimEdildiOlarakİşaretle
+            // 
+            this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Name = "SağTuşMenü_TeslimEdildiOlarakİşaretle";
+            this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Size = new System.Drawing.Size(308, 24);
+            this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Text = "Teslim Edildi Olarak İşaretle";
+            this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Click += new System.EventHandler(this.SağTuşMenü_TeslimEdildiOlarakİşaretle_Click);
+            // 
             // Takvim
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -492,5 +501,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_İş;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Gerçekleşme_Tarihi;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tablo_Notlar;
+        private System.Windows.Forms.ToolStripMenuItem SağTuşMenü_TeslimEdildiOlarakİşaretle;
     }
 }

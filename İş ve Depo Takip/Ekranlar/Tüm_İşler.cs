@@ -302,8 +302,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             İşTakip_TeslimEdildi_İlaveÖdeme_Miktar.Text = null;
             İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt.Checked = false;
             İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Notlar.Text = null;
+            İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar.Text = "0";
 
             //Ödeme bekleyen sayfası
+            İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text = null;
             İşTakip_ÖdemeBekleyen_Notlar.Text = null;
 
             //eposta gönderimi için iş adetlerinin menüde gösterilemsi
@@ -783,14 +785,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 return;
             }
 
-            string gecici = İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text;
-            if (!Ortak.YazıyıSayıyaDönüştür(ref gecici, "Ödeme miktarı kutucuğu", "Kullanılmayacak ise 0 yazınız"))
-            {
-                İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Focus();
-                return;
-            }
-            İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text = gecici;
-
             Banka_Tablo_ bt = Banka.Talep_Listele(MüşteriAdı, Banka.TabloTürü.ÖdemeTalepEdildi, İşTakip_ÖdemeBekleyen_Dönem.Text);
             Banka.Talep_TablodaGöster(Tablo, bt);
             Tablo_İçeriğeGöreGüncelle();
@@ -830,12 +824,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void İşTakip_ÖdemeBekleyen_ÖdemeMiktarı_DoubleClick(object sender, EventArgs e)
         {
-            if (İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text == "0")
+            if (İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text.BoşMu(true))
             {
                 if (İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Tag == null) return;
                 İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text = string.Format("{0:,0.00}", (double)İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Tag);
             }
-            else İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text = "0";
+            else İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text = null;
         }
         private void İşTakip_ÖdemeBekleyen_ÖdendiOlarakİşaretle_Click(object sender, EventArgs e)
         {

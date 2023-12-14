@@ -22,6 +22,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void Yeni_İş_Girişi_DosyaEkleri_Shown(object sender, EventArgs e)
         {
             P_DosyaEkleri_GelenKutusunuAç.Enabled = Eposta.BirEpostaHesabıEklenmişMi && !SadeceOkunabilir;
+            P_DosyaEkleri_PanodanResimAl.Enabled = !SadeceOkunabilir;
         }
         public void Yeni_İş_Girişi_DragEnter(object sender, DragEventArgs e)
         {
@@ -197,6 +198,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (SahteKonum.BoşMu()) return;
 
             Ortak.Çalıştır.UygulamayaİşletimSistemiKararVersin(SahteKonum);
+        }
+        private void P_DosyaEkleri_PanodanResimAl_Click(object sender, EventArgs e)
+        {
+            if (Clipboard.ContainsImage())
+            {
+                Image PanodanAlınanResim = Clipboard.GetImage();
+                string dsy = Ortak.Klasör_Gecici + "Pano_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".png";
+                PanodanAlınanResim.Save(dsy, System.Drawing.Imaging.ImageFormat.Png);
+                Ekle(new string[] { dsy });
+            }
         }
         private void P_DosyaEkleri_Sil_Click(object sender, EventArgs e)
         {

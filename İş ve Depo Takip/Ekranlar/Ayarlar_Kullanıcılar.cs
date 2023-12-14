@@ -41,11 +41,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
                             Ortak.YeniYazılımKontrolü_Mesajı = "V" + ArgeMup.HazirKod.Kendi.Sürümü_Dosya + " Yeni sürüm kontrol hatası : " + Açıklama.Replace("\r", null).Replace("\n", null);
                         }
 
-                        Invoke(new Action(() =>
+                        try
                         {
-                            ÖnYüzler.SürümKontrolMesajınıGüncelle();
-                            Text = Text.Replace(Ortak.YeniYazılımKontrolü_Mesajı_Sabiti, Ortak.YeniYazılımKontrolü_Mesajı);
-                        }));
+                            Invoke(new Action(() =>
+                            {
+                                ÖnYüzler.SürümKontrolMesajınıGüncelle();
+                                Text = Text.Replace(Ortak.YeniYazılımKontrolü_Mesajı_Sabiti, Ortak.YeniYazılımKontrolü_Mesajı);
+                            }));
+                        }
+                        catch (Exception) { }
                     }
                 }
                 else Ortak.YeniYazılımKontrolü.Durdur();

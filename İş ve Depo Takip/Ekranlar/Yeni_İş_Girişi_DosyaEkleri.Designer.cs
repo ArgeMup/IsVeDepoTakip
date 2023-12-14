@@ -44,6 +44,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.P_DosyaEkleri_EklenmeTarihi = new System.Windows.Forms.Label();
             this.P_DosyaEkleri_Resim = new System.Windows.Forms.PictureBox();
             this.İpUcu_Genel = new System.Windows.Forms.ToolTip(this.components);
+            this.P_DosyaEkleri_PanodanResimAl = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.P_DosyaEkleri_Ayraç_SolSağ)).BeginInit();
             this.P_DosyaEkleri_Ayraç_SolSağ.Panel1.SuspendLayout();
             this.P_DosyaEkleri_Ayraç_SolSağ.Panel2.SuspendLayout();
@@ -63,6 +64,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.P_DosyaEkleri_Ayraç_SolSağ.Panel1.Controls.Add(this.P_DosyaEkleri_Liste);
             this.P_DosyaEkleri_Ayraç_SolSağ.Panel1.Controls.Add(this.P_DosyaEkleri_YakınlaşmaOranı);
             this.P_DosyaEkleri_Ayraç_SolSağ.Panel1.Controls.Add(this.P_DosyaEkleri_GelenKutusunuAç);
+            this.P_DosyaEkleri_Ayraç_SolSağ.Panel1.Controls.Add(this.P_DosyaEkleri_PanodanResimAl);
             this.P_DosyaEkleri_Ayraç_SolSağ.Panel1.Controls.Add(this.P_DosyaEkleri_İlgiliUygulamadaAç);
             this.P_DosyaEkleri_Ayraç_SolSağ.Panel1.Controls.Add(this.P_DosyaEkleri_MasaüstüneKopyala);
             this.P_DosyaEkleri_Ayraç_SolSağ.Panel1.Controls.Add(this.P_DosyaEkleri_Sil);
@@ -74,7 +76,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.P_DosyaEkleri_Ayraç_SolSağ.Panel2.Controls.Add(this.P_DosyaEkleri_ResimiÇevir);
             this.P_DosyaEkleri_Ayraç_SolSağ.Panel2.Controls.Add(this.P_DosyaEkleri_EklenmeTarihi);
             this.P_DosyaEkleri_Ayraç_SolSağ.Panel2.Controls.Add(this.P_DosyaEkleri_Resim);
-            this.P_DosyaEkleri_Ayraç_SolSağ.Size = new System.Drawing.Size(898, 226);
+            this.P_DosyaEkleri_Ayraç_SolSağ.Size = new System.Drawing.Size(898, 264);
             this.P_DosyaEkleri_Ayraç_SolSağ.SplitterDistance = 224;
             this.P_DosyaEkleri_Ayraç_SolSağ.TabIndex = 1;
             // 
@@ -85,7 +87,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.P_DosyaEkleri_Liste.FormattingEnabled = true;
             this.P_DosyaEkleri_Liste.Location = new System.Drawing.Point(0, 0);
             this.P_DosyaEkleri_Liste.Name = "P_DosyaEkleri_Liste";
-            this.P_DosyaEkleri_Liste.Size = new System.Drawing.Size(224, 55);
+            this.P_DosyaEkleri_Liste.Size = new System.Drawing.Size(224, 64);
             this.P_DosyaEkleri_Liste.TabIndex = 3;
             this.İpUcu_Genel.SetToolTip(this.P_DosyaEkleri_Liste, resources.GetString("P_DosyaEkleri_Liste.ToolTip"));
             this.P_DosyaEkleri_Liste.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.P_DosyaEkleri_Liste_ItemCheck);
@@ -100,7 +102,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             0,
             0,
             65536});
-            this.P_DosyaEkleri_YakınlaşmaOranı.Location = new System.Drawing.Point(0, 55);
+            this.P_DosyaEkleri_YakınlaşmaOranı.Location = new System.Drawing.Point(0, 64);
             this.P_DosyaEkleri_YakınlaşmaOranı.Name = "P_DosyaEkleri_YakınlaşmaOranı";
             this.P_DosyaEkleri_YakınlaşmaOranı.Size = new System.Drawing.Size(224, 26);
             this.P_DosyaEkleri_YakınlaşmaOranı.TabIndex = 0;
@@ -119,7 +121,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.P_DosyaEkleri_GelenKutusunuAç.Enabled = false;
             this.P_DosyaEkleri_GelenKutusunuAç.Image = global::İş_ve_Depo_Takip.Properties.Resources.Eposta;
             this.P_DosyaEkleri_GelenKutusunuAç.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.P_DosyaEkleri_GelenKutusunuAç.Location = new System.Drawing.Point(0, 81);
+            this.P_DosyaEkleri_GelenKutusunuAç.Location = new System.Drawing.Point(0, 90);
             this.P_DosyaEkleri_GelenKutusunuAç.Margin = new System.Windows.Forms.Padding(0);
             this.P_DosyaEkleri_GelenKutusunuAç.Name = "P_DosyaEkleri_GelenKutusunuAç";
             this.P_DosyaEkleri_GelenKutusunuAç.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -135,7 +137,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.P_DosyaEkleri_İlgiliUygulamadaAç.Enabled = false;
             this.P_DosyaEkleri_İlgiliUygulamadaAç.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
             this.P_DosyaEkleri_İlgiliUygulamadaAç.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.P_DosyaEkleri_İlgiliUygulamadaAç.Location = new System.Drawing.Point(0, 110);
+            this.P_DosyaEkleri_İlgiliUygulamadaAç.Location = new System.Drawing.Point(0, 148);
             this.P_DosyaEkleri_İlgiliUygulamadaAç.Margin = new System.Windows.Forms.Padding(0);
             this.P_DosyaEkleri_İlgiliUygulamadaAç.Name = "P_DosyaEkleri_İlgiliUygulamadaAç";
             this.P_DosyaEkleri_İlgiliUygulamadaAç.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -152,7 +154,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.P_DosyaEkleri_MasaüstüneKopyala.Enabled = false;
             this.P_DosyaEkleri_MasaüstüneKopyala.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
             this.P_DosyaEkleri_MasaüstüneKopyala.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.P_DosyaEkleri_MasaüstüneKopyala.Location = new System.Drawing.Point(0, 139);
+            this.P_DosyaEkleri_MasaüstüneKopyala.Location = new System.Drawing.Point(0, 177);
             this.P_DosyaEkleri_MasaüstüneKopyala.Margin = new System.Windows.Forms.Padding(0);
             this.P_DosyaEkleri_MasaüstüneKopyala.Name = "P_DosyaEkleri_MasaüstüneKopyala";
             this.P_DosyaEkleri_MasaüstüneKopyala.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -169,7 +171,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.P_DosyaEkleri_Sil.Enabled = false;
             this.P_DosyaEkleri_Sil.Image = global::İş_ve_Depo_Takip.Properties.Resources.sil;
             this.P_DosyaEkleri_Sil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.P_DosyaEkleri_Sil.Location = new System.Drawing.Point(0, 168);
+            this.P_DosyaEkleri_Sil.Location = new System.Drawing.Point(0, 206);
             this.P_DosyaEkleri_Sil.Margin = new System.Windows.Forms.Padding(0);
             this.P_DosyaEkleri_Sil.Name = "P_DosyaEkleri_Sil";
             this.P_DosyaEkleri_Sil.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -185,7 +187,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.P_DosyaEkleri_Geri.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.P_DosyaEkleri_Geri.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol;
             this.P_DosyaEkleri_Geri.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.P_DosyaEkleri_Geri.Location = new System.Drawing.Point(0, 197);
+            this.P_DosyaEkleri_Geri.Location = new System.Drawing.Point(0, 235);
             this.P_DosyaEkleri_Geri.Margin = new System.Windows.Forms.Padding(2);
             this.P_DosyaEkleri_Geri.Name = "P_DosyaEkleri_Geri";
             this.P_DosyaEkleri_Geri.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -200,7 +202,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             this.P_DosyaEkleri_ResimiÇevir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.P_DosyaEkleri_ResimiÇevir.Enabled = false;
-            this.P_DosyaEkleri_ResimiÇevir.Location = new System.Drawing.Point(4, 184);
+            this.P_DosyaEkleri_ResimiÇevir.Location = new System.Drawing.Point(4, 222);
             this.P_DosyaEkleri_ResimiÇevir.Name = "P_DosyaEkleri_ResimiÇevir";
             this.P_DosyaEkleri_ResimiÇevir.Size = new System.Drawing.Size(101, 39);
             this.P_DosyaEkleri_ResimiÇevir.TabIndex = 3;
@@ -238,11 +240,28 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İpUcu_Genel.UseAnimation = false;
             this.İpUcu_Genel.UseFading = false;
             // 
+            // P_DosyaEkleri_PanodanResimAl
+            // 
+            this.P_DosyaEkleri_PanodanResimAl.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.P_DosyaEkleri_PanodanResimAl.Enabled = false;
+            this.P_DosyaEkleri_PanodanResimAl.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
+            this.P_DosyaEkleri_PanodanResimAl.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.P_DosyaEkleri_PanodanResimAl.Location = new System.Drawing.Point(0, 119);
+            this.P_DosyaEkleri_PanodanResimAl.Margin = new System.Windows.Forms.Padding(0);
+            this.P_DosyaEkleri_PanodanResimAl.Name = "P_DosyaEkleri_PanodanResimAl";
+            this.P_DosyaEkleri_PanodanResimAl.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.P_DosyaEkleri_PanodanResimAl.Size = new System.Drawing.Size(224, 29);
+            this.P_DosyaEkleri_PanodanResimAl.TabIndex = 16;
+            this.P_DosyaEkleri_PanodanResimAl.Text = "Panodan Resim Al";
+            this.P_DosyaEkleri_PanodanResimAl.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.P_DosyaEkleri_PanodanResimAl.UseVisualStyleBackColor = true;
+            this.P_DosyaEkleri_PanodanResimAl.Click += new System.EventHandler(this.P_DosyaEkleri_PanodanResimAl_Click);
+            // 
             // Yeni_İş_Girişi_DosyaEkleri
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(898, 226);
+            this.ClientSize = new System.Drawing.Size(898, 264);
             this.Controls.Add(this.P_DosyaEkleri_Ayraç_SolSağ);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -276,5 +295,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         public System.Windows.Forms.CheckedListBox P_DosyaEkleri_Liste;
         private System.Windows.Forms.Button P_DosyaEkleri_İlgiliUygulamadaAç;
         private System.Windows.Forms.Button P_DosyaEkleri_ResimiÇevir;
+        private System.Windows.Forms.Button P_DosyaEkleri_PanodanResimAl;
     }
 }

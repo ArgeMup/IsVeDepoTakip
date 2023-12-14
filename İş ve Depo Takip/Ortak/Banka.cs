@@ -2196,17 +2196,21 @@ namespace İş_ve_Depo_Takip
             
             depo.Yaz("Silinecek", "Evet");
 
-            var ödeme = Ekranlar.GelirGiderTakip.Komut_Ekle_GelirGider("Müşteri", Müşteri, 
-                Ekranlar.GelirGiderTakip.İşyeri_Ödeme_İşlem_Tipi_.Gelir, Ekranlar.GelirGiderTakip.İşyeri_Ödeme_İşlem_Durum_.TamÖdendi, 
-                miktar, Ekranlar.GelirGiderTakip.İşyeri_Ödeme_ParaBirimi_.TürkLirası, t,
-                EkTanım + (Notlar.DoluMu(true) ? Environment.NewLine + Notlar : null), 
-                0, Ekranlar.GelirGiderTakip.Muhatap_Üyelik_Dönem_.Boşta, 0, t);
-            string sonuç = Ekranlar.GelirGiderTakip.Komut_Ekle_GelirGider(new List<Ekranlar.GelirGiderTakip.İlkAçılışAyarları_Ekle_GelirGider_Talep_>() { ödeme });
-            if (sonuç.DoluMu())
+            if (miktar >= 0)
             {
-                sonuç = "İşleminiz \"İş ve Depo Takip\" içerisine kaydedildi fakat" + Environment.NewLine +
-                    "\"Gelir Gider Takip\" içerisine kaydederken bir sorun oluştu." + Environment.NewLine + Environment.NewLine + sonuç;
-                MessageBox.Show(sonuç.Günlük("Gelir Gider Takip "), "Gelir Gider Takip");
+                var ödeme = Ekranlar.GelirGiderTakip.Komut_Ekle_GelirGider("Müşteri", Müşteri,
+                    Ekranlar.GelirGiderTakip.İşyeri_Ödeme_İşlem_Tipi_.Gelir, Ekranlar.GelirGiderTakip.İşyeri_Ödeme_İşlem_Durum_.TamÖdendi,
+                    miktar, Ekranlar.GelirGiderTakip.İşyeri_Ödeme_ParaBirimi_.TürkLirası, t,
+                    EkTanım + (Notlar.DoluMu(true) ? Environment.NewLine + Notlar : null),
+                    0, Ekranlar.GelirGiderTakip.Muhatap_Üyelik_Dönem_.Boşta, 0, t);
+                
+                string sonuç = Ekranlar.GelirGiderTakip.Komut_Ekle_GelirGider(new List<Ekranlar.GelirGiderTakip.İlkAçılışAyarları_Ekle_GelirGider_Talep_>() { ödeme });
+                if (sonuç.DoluMu())
+                {
+                    sonuç = "İşleminiz \"İş ve Depo Takip\" içerisine kaydedildi fakat" + Environment.NewLine +
+                        "\"Gelir Gider Takip\" içerisine kaydederken bir sorun oluştu." + Environment.NewLine + Environment.NewLine + sonuç;
+                    MessageBox.Show(sonuç.Günlük("Gelir Gider Takip "), "Gelir Gider Takip");
+                }
             }
         }
         public static void Talep_TablodaGöster(DataGridView Tablo, Banka_Tablo_ İçerik, bool ÖnceTemizle = true)

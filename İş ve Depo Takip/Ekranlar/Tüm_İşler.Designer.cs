@@ -705,7 +705,6 @@
             this.İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Name = "İşTakip_ÖdemeBekleyen_ÖdemeMiktarı";
             this.İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Size = new System.Drawing.Size(71, 26);
             this.İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.TabIndex = 27;
-            this.İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text = "0";
             this.İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.İpUcu.SetToolTip(this.İşTakip_ÖdemeBekleyen_ÖdemeMiktarı, "Alınan Ödeme\r\n\r\nÖdeme alınmadan ilerlenecek ise 0 olarak bırakınız\r\n\r\nMüşterinizi" +
         "n bu döneme ait borcunu kapatmak için ödemesi gereken miktarı görmek için çift t" +

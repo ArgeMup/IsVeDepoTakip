@@ -316,8 +316,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             //SağTuşMenü_ErtelemeyiKaldır.Visible = false;
             SağTuşMenü_ErtelemeyiKaldır_Sil.Visible = false;
-            SağTuşMenü_MüşteriyeGönder.Visible = h.Tip == Ortak.Hatırlatıcılar.Tip_.SeriNoluİş_DevamEdenTablosundan || h.Tip == Ortak.Hatırlatıcılar.Tip_.SeriNoluİş_TakvimTablosundan;
-            
+            bool MüşteriyeGönderilebilir = h.Tip == Ortak.Hatırlatıcılar.Tip_.SeriNoluİş_DevamEdenTablosundan || h.Tip == Ortak.Hatırlatıcılar.Tip_.SeriNoluİş_TakvimTablosundan;
+            SağTuşMenü_MüşteriyeGönder.Visible = MüşteriyeGönderilebilir;
+            SağTuşMenü_TeslimEdildiOlarakİşaretle.Visible = MüşteriyeGönderilebilir;
+
             switch (h.Tip)
             {
                 case Ortak.Hatırlatıcılar.Tip_.KullanıcıNotu:
@@ -407,6 +409,22 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Banka.Talep_İşaretle_DevamEden_MüşteriyeGönderildi((string)Tablo[1, s.Index].Value, new string[] { (string)Tablo[0, s.Index].Value }.ToList());
             Banka.Değişiklikleri_Kaydet(Tablo);
+
+            Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle((string)Tablo[0, s.Index].Value);
+            Hatırlatıcılar_Filtrele_CheckedChanged(null, null);
+        }
+        private void SağTuşMenü_TeslimEdildiOlarakİşaretle_Click(object sender, EventArgs e)
+        {
+            string soru = "Seçtiniz iş teslim edildi olarak işaretlenecek." + Environment.NewLine + Environment.NewLine +
+                "İşleme devam etmek istiyor musunuz?";
+            DialogResult Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            if (Dr == DialogResult.No) return;
+
+            DataGridViewRow s = Tablo.SelectedRows[0];
+
+            Banka.Talep_İşaretle_DevamEden_TeslimEdilen((string)Tablo[1, s.Index].Value, new string[] { (string)Tablo[0, s.Index].Value }.ToList(), true);
+            Banka.Değişiklikleri_Kaydet(Tablo);
+
             Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle((string)Tablo[0, s.Index].Value);
             Hatırlatıcılar_Filtrele_CheckedChanged(null, null);
         }
