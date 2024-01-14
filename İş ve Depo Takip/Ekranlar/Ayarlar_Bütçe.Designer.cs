@@ -96,8 +96,10 @@
             this._3_Yazdırma_VeKlasörüAç = new System.Windows.Forms.CheckBox();
             this._3_Yazdırma_NotlarDahil = new System.Windows.Forms.CheckBox();
             this.Sekmeler_GelirGiderTakip = new System.Windows.Forms.TabPage();
+            this._4_CariDökümSayfasınıAç = new System.Windows.Forms.Button();
             this._4_Yazdır = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this._4_EpostaGönderimi_Dene = new System.Windows.Forms.Button();
             this._4_EpostaGönderimi_Kişiler = new System.Windows.Forms.TextBox();
             this.ÖnYüzler_Kaydet_4_Kaydet = new System.Windows.Forms.Button();
             this._4_EpostaGönderimi_YazdırmaŞablonu = new System.Windows.Forms.TextBox();
@@ -108,7 +110,6 @@
             this._4_AyarlarSayfasınıAç = new System.Windows.Forms.Button();
             this.TabloİçeriğiArama = new System.Windows.Forms.TextBox();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
-            this._4_CariDökümSayfasınıAç = new System.Windows.Forms.Button();
             this._1_Gelir.SuspendLayout();
             this._1_Gider.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1_Tablo)).BeginInit();
@@ -841,6 +842,18 @@
             this.Sekmeler_GelirGiderTakip.Text = "Gelir Gider Takip";
             this.Sekmeler_GelirGiderTakip.UseVisualStyleBackColor = true;
             // 
+            // _4_CariDökümSayfasınıAç
+            // 
+            this._4_CariDökümSayfasınıAç.AutoSize = true;
+            this._4_CariDökümSayfasınıAç.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this._4_CariDökümSayfasınıAç.Location = new System.Drawing.Point(9, 56);
+            this._4_CariDökümSayfasınıAç.Name = "_4_CariDökümSayfasınıAç";
+            this._4_CariDökümSayfasınıAç.Size = new System.Drawing.Size(250, 35);
+            this._4_CariDökümSayfasınıAç.TabIndex = 22;
+            this._4_CariDökümSayfasınıAç.Text = "Cari döküm sayfasını aç";
+            this._4_CariDökümSayfasınıAç.UseVisualStyleBackColor = true;
+            this._4_CariDökümSayfasınıAç.Click += new System.EventHandler(this._4_CariDökümSayfasınıAç_Click);
+            // 
             // _4_Yazdır
             // 
             this._4_Yazdır.AutoSize = true;
@@ -850,12 +863,12 @@
             this._4_Yazdır.Size = new System.Drawing.Size(250, 35);
             this._4_Yazdır.TabIndex = 21;
             this._4_Yazdır.Text = "Yazdır";
-            this.İpUcu.SetToolTip(this._4_Yazdır, "F4");
             this._4_Yazdır.UseVisualStyleBackColor = true;
             this._4_Yazdır.Click += new System.EventHandler(this._4_Yazdır_Click);
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this._4_EpostaGönderimi_Dene);
             this.groupBox4.Controls.Add(this._4_EpostaGönderimi_Kişiler);
             this.groupBox4.Controls.Add(this.ÖnYüzler_Kaydet_4_Kaydet);
             this.groupBox4.Controls.Add(this._4_EpostaGönderimi_YazdırmaŞablonu);
@@ -865,19 +878,31 @@
             this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Location = new System.Drawing.Point(9, 138);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(367, 188);
+            this.groupBox4.Size = new System.Drawing.Size(424, 188);
             this.groupBox4.TabIndex = 20;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Eposta gönderimi";
             this.İpUcu.SetToolTip(this.groupBox4, "Buradaki seçenekler <Bilgisayar Adı>/<Kullanıcı Adı> \'na özeldir.\r\nFarklı bir bil" +
         "gisayarda kullanılacak ise yeniden girilmelidir.");
             // 
+            // _4_EpostaGönderimi_Dene
+            // 
+            this._4_EpostaGönderimi_Dene.AutoSize = true;
+            this._4_EpostaGönderimi_Dene.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this._4_EpostaGönderimi_Dene.Location = new System.Drawing.Point(120, 140);
+            this._4_EpostaGönderimi_Dene.Name = "_4_EpostaGönderimi_Dene";
+            this._4_EpostaGönderimi_Dene.Size = new System.Drawing.Size(73, 38);
+            this._4_EpostaGönderimi_Dene.TabIndex = 27;
+            this._4_EpostaGönderimi_Dene.Text = "Dene";
+            this._4_EpostaGönderimi_Dene.UseVisualStyleBackColor = true;
+            this._4_EpostaGönderimi_Dene.Click += new System.EventHandler(this._4_EpostaGönderimi_Dene_Click);
+            // 
             // _4_EpostaGönderimi_Kişiler
             // 
-            this._4_EpostaGönderimi_Kişiler.Location = new System.Drawing.Point(163, 92);
+            this._4_EpostaGönderimi_Kişiler.Location = new System.Drawing.Point(199, 92);
             this._4_EpostaGönderimi_Kişiler.Multiline = true;
             this._4_EpostaGönderimi_Kişiler.Name = "_4_EpostaGönderimi_Kişiler";
-            this._4_EpostaGönderimi_Kişiler.Size = new System.Drawing.Size(189, 86);
+            this._4_EpostaGönderimi_Kişiler.Size = new System.Drawing.Size(213, 86);
             this._4_EpostaGönderimi_Kişiler.TabIndex = 19;
             this.İpUcu.SetToolTip(this._4_EpostaGönderimi_Kişiler, "Noktalı virgül ile ayrılmış olarak\r\nbirden fazla eklenebilir.\r\n\r\nEposta mekanizma" +
         "sı kullanılmayacak ise \r\nbu alanı boş bırakınız.");
@@ -890,18 +915,17 @@
             this.ÖnYüzler_Kaydet_4_Kaydet.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.ÖnYüzler_Kaydet_4_Kaydet.Location = new System.Drawing.Point(17, 140);
             this.ÖnYüzler_Kaydet_4_Kaydet.Name = "ÖnYüzler_Kaydet_4_Kaydet";
-            this.ÖnYüzler_Kaydet_4_Kaydet.Size = new System.Drawing.Size(103, 38);
+            this.ÖnYüzler_Kaydet_4_Kaydet.Size = new System.Drawing.Size(97, 38);
             this.ÖnYüzler_Kaydet_4_Kaydet.TabIndex = 14;
             this.ÖnYüzler_Kaydet_4_Kaydet.Text = "Kaydet";
-            this.İpUcu.SetToolTip(this.ÖnYüzler_Kaydet_4_Kaydet, "F4");
             this.ÖnYüzler_Kaydet_4_Kaydet.UseVisualStyleBackColor = true;
             this.ÖnYüzler_Kaydet_4_Kaydet.Click += new System.EventHandler(this.ÖnYüzler_Kaydet_4_Kaydet_Click);
             // 
             // _4_EpostaGönderimi_YazdırmaŞablonu
             // 
-            this._4_EpostaGönderimi_YazdırmaŞablonu.Location = new System.Drawing.Point(163, 60);
+            this._4_EpostaGönderimi_YazdırmaŞablonu.Location = new System.Drawing.Point(199, 60);
             this._4_EpostaGönderimi_YazdırmaŞablonu.Name = "_4_EpostaGönderimi_YazdırmaŞablonu";
-            this._4_EpostaGönderimi_YazdırmaŞablonu.Size = new System.Drawing.Size(189, 26);
+            this._4_EpostaGönderimi_YazdırmaŞablonu.Size = new System.Drawing.Size(213, 26);
             this._4_EpostaGönderimi_YazdırmaŞablonu.TabIndex = 26;
             this.İpUcu.SetToolTip(this._4_EpostaGönderimi_YazdırmaŞablonu, resources.GetString("_4_EpostaGönderimi_YazdırmaŞablonu.ToolTip"));
             this._4_EpostaGönderimi_YazdırmaŞablonu.TextChanged += new System.EventHandler(this._4_EpostaGönderimi_Ayar_Değişti);
@@ -926,14 +950,14 @@
             // 
             // _4_EpostaGönderimi_Saat
             // 
-            this._4_EpostaGönderimi_Saat.Location = new System.Drawing.Point(163, 28);
+            this._4_EpostaGönderimi_Saat.Location = new System.Drawing.Point(199, 28);
             this._4_EpostaGönderimi_Saat.Maximum = new decimal(new int[] {
             23,
             0,
             0,
             0});
             this._4_EpostaGönderimi_Saat.Name = "_4_EpostaGönderimi_Saat";
-            this._4_EpostaGönderimi_Saat.Size = new System.Drawing.Size(189, 26);
+            this._4_EpostaGönderimi_Saat.Size = new System.Drawing.Size(213, 26);
             this._4_EpostaGönderimi_Saat.TabIndex = 24;
             this._4_EpostaGönderimi_Saat.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this._4_EpostaGönderimi_Saat.Value = new decimal(new int[] {
@@ -961,7 +985,6 @@
             this._4_AyarlarSayfasınıAç.Size = new System.Drawing.Size(250, 35);
             this._4_AyarlarSayfasınıAç.TabIndex = 13;
             this._4_AyarlarSayfasınıAç.Text = "Ayarlar sayfasını aç";
-            this.İpUcu.SetToolTip(this._4_AyarlarSayfasınıAç, "F4");
             this._4_AyarlarSayfasınıAç.UseVisualStyleBackColor = true;
             this._4_AyarlarSayfasınıAç.Click += new System.EventHandler(this._4_AyarlarSayfasınıAç_Click);
             // 
@@ -984,19 +1007,6 @@
             this.İpUcu.ReshowDelay = 20;
             this.İpUcu.UseAnimation = false;
             this.İpUcu.UseFading = false;
-            // 
-            // _4_CariDökümSayfasınıAç
-            // 
-            this._4_CariDökümSayfasınıAç.AutoSize = true;
-            this._4_CariDökümSayfasınıAç.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this._4_CariDökümSayfasınıAç.Location = new System.Drawing.Point(9, 56);
-            this._4_CariDökümSayfasınıAç.Name = "_4_CariDökümSayfasınıAç";
-            this._4_CariDökümSayfasınıAç.Size = new System.Drawing.Size(250, 35);
-            this._4_CariDökümSayfasınıAç.TabIndex = 22;
-            this._4_CariDökümSayfasınıAç.Text = "Cari döküm sayfasını aç";
-            this.İpUcu.SetToolTip(this._4_CariDökümSayfasınıAç, "F4");
-            this._4_CariDökümSayfasınıAç.UseVisualStyleBackColor = true;
-            this._4_CariDökümSayfasınıAç.Click += new System.EventHandler(this._4_CariDökümSayfasınıAç_Click);
             // 
             // Ayarlar_Bütçe
             // 
@@ -1112,5 +1122,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button _4_Yazdır;
         private System.Windows.Forms.Button _4_CariDökümSayfasınıAç;
+        private System.Windows.Forms.Button _4_EpostaGönderimi_Dene;
     }
 }

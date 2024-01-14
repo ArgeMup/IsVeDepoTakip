@@ -20,6 +20,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             //görsel çiziminin iyileşmsi için
             typeof(Control).InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty, null, Tablo, new object[] { DoubleBuffered });
 
+            İzin_Ayarlar = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Ayarları_değiştirebilir);
+            İzin_Tamamlandı = İzin_Ayarlar ? true : Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Tamamlanmış_işler_içinde_işlem_yapabilir);
+
             İşTakip_Müşteriler.Başlat(null, Banka.Müşteri_Listele(), "Müşteriler", Banka.ListeKutusu_Ayarlar(true, false));
             İşTakip_Müşteriler.GeriBildirim_İşlemi += İşTakip_Müşteriler_GeriBildirim_İşlemi;
             
@@ -27,7 +30,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Malzemeler_Malzeme.GeriBildirim_İşlemi += Malzemeler_Malzeme_GeriBildirim_İşlemi;
 
             var ayrl_arama = Banka.ListeKutusu_Ayarlar(true, true);
-            ayrl_arama.GizliOlanlarıGöster = true;
+            ayrl_arama.GizliOlanlarıGöster = İzin_Tamamlandı;
             Arama_Müşteriler.Başlat(null, Banka.Müşteri_Listele(true), "Müşteriler", ayrl_arama);
             Arama_İş_Türleri.Başlat(null, Banka.İşTürü_Listele(), "İş Türleri", ayrl_arama);
 
@@ -67,8 +70,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Logo.Image = Ortak.Firma_Logo;
 
-            İzin_Ayarlar = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Ayarları_değiştirebilir); ;
-            İzin_Tamamlandı = İzin_Ayarlar ? true : Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Tamamlanmış_işler_içinde_işlem_yapabilir);
             if (!İzin_Tamamlandı)
             {
                 İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt.Visible = false;

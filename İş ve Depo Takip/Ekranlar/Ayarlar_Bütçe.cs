@@ -14,6 +14,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             public double gelir_devameden, gelir_teslimedilen, gelir_ödemebekleyen;
             public double gider_devameden, gider_teslimedilen, gider_ödemebekleyen;
+            public double ÖnÖdeme;
             public string müşteri, gelir_ipucu, gider_ipucu;
         };
         Bütçe_Gelir_Gider_[] _1_Dizi = null;
@@ -156,6 +157,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         "Devam eden : " + Banka.Yazdır_Ücret(gg.gider_devameden) + Environment.NewLine +
                         "Teslim edilen : " + Banka.Yazdır_Ücret(gg.gider_teslimedilen) + Environment.NewLine +
                         "Ödeme talebi : " + Banka.Yazdır_Ücret(gg.gider_ödemebekleyen);
+                    gg.ÖnÖdeme = Banka.Müşteri_ÖnÖdemeMiktarı(gg.müşteri);
                     _1_Dizi[i] = gg;
                 }
 
@@ -166,15 +168,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     _1_Tablo[_1_Tablo_Seç.Index, i].Value = true;
                     _1_Tablo[_1_Tablo_Müşteri.Index, i].Value = _1_Dizi[i].müşteri;
 
-                    double ÖnÖdemeMiktarı = Banka.Müşteri_ÖnÖdemeMiktarı(_1_Dizi[i].müşteri);
-                    _1_Tablo[_1_Tablo_Ödeme.Index, i].Value = Banka.Yazdır_Ücret(ÖnÖdemeMiktarı);
-                    if (ÖnÖdemeMiktarı > 0) _1_Tablo[_1_Tablo_Ödeme.Index, i].Style.BackColor = System.Drawing.Color.Green;
-                    else if (ÖnÖdemeMiktarı < 0) _1_Tablo[_1_Tablo_Ödeme.Index, i].Style.BackColor = System.Drawing.Color.Red;
+                    _1_Tablo[_1_Tablo_Ödeme.Index, i].Value = Banka.Yazdır_Ücret(_1_Dizi[i].ÖnÖdeme);
+                    if (_1_Dizi[i].ÖnÖdeme > 0) _1_Tablo[_1_Tablo_Ödeme.Index, i].Style.BackColor = System.Drawing.Color.Green;
+                    else if (_1_Dizi[i].ÖnÖdeme < 0) _1_Tablo[_1_Tablo_Ödeme.Index, i].Style.BackColor = System.Drawing.Color.Red;
                 }
                 Ortak.Gösterge.Bitir();
             }
 
             //talep edilen müşterilerin talep edilen değerlerini hesapla
+            double top_önödeme = 0;
             for (int i = 0; i < _1_Tablo.RowCount; i++)
             {
                 Bütçe_Gelir_Gider_ gg = _1_Dizi.First(x => x.müşteri == (string)_1_Tablo[_1_Tablo_Müşteri.Index, i].Value);
@@ -188,6 +190,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     if (_1_Gider_DevamEden.Checked) top_gider += gg.gider_devameden;
                     if (_1_Gider_TeslimEdildi.Checked) top_gider += gg.gider_teslimedilen;
                     if (_1_Gider_ÖdemeTalepEdildi.Checked) top_gider += gg.gider_ödemebekleyen;
+                    top_önödeme += gg.ÖnÖdeme;
                 }
 
                 _1_Tablo[_1_Tablo_Gelir.Index, i].Value = top_gelir;
@@ -212,7 +215,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             _1_AltToplam.Text = "Alt Toplam   /   " +
                 "Gelir : " + Banka.Yazdır_Ücret(gel) + "   /   " +
                 "Gider : " + Banka.Yazdır_Ücret(gid) + "   /   " +
-                "Fark : " + Banka.Yazdır_Ücret(fark);
+                "Fark : " + Banka.Yazdır_Ücret(fark) + "   /   " +
+                "Alacak : " + Banka.Yazdır_Ücret(top_önödeme * -1);
 
             _1_Gelir.Tag = gel;
             _1_Gider.Tag = gid;
@@ -750,6 +754,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void _4_EpostaGönderimi_Ayar_Değişti(object sender, EventArgs e)
         {
             ÖnYüzler_Kaydet_4_Kaydet.Enabled = true;
+        }
+        private void _4_EpostaGönderimi_Dene_Click(object sender, EventArgs e)
+        {
+            Ayarlar_Bütçe.CariDökümüHergünEpostaİleGönder_Hatırlatıcı_GerBildirimİşlemi(null, null);
         }
         private void ÖnYüzler_Kaydet_4_Kaydet_Click(object sender, EventArgs e)
         {

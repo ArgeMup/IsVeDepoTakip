@@ -3172,7 +3172,7 @@ namespace İş_ve_Depo_Takip
             }
 
             ListeKutusu_Ayarlar.GizliOlanlarıGöster = !SadeceOkunabilir && Ayarları_değiştirebilir;
-            ListeKutusu_Ayarlar.ÇokluSeçim = ÇokluSeçim ? ArgeMup.HazirKod.Ekranlar.ListeKutusu.Ayarlar_.ÇokluSeçim_.SolFareTuşuİle : ArgeMup.HazirKod.Ekranlar.ListeKutusu.Ayarlar_.ÇokluSeçim_.Kapalı;
+            ListeKutusu_Ayarlar.ÇokluSeçim = ÇokluSeçim ? ArgeMup.HazirKod.Ekranlar.ListeKutusu.Ayarlar_.ÇokluSeçim_.CtrlTuşuİle : ArgeMup.HazirKod.Ekranlar.ListeKutusu.Ayarlar_.ÇokluSeçim_.Kapalı;
 
             return ListeKutusu_Ayarlar;
         }
