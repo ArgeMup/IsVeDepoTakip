@@ -3532,6 +3532,8 @@ namespace İş_ve_Depo_Takip
             System.Threading.Tasks.Task.Run(() =>
             {
                 Günlük.Ekle("Yedekle_Tümü Başladı");
+                Ortak.BatDosyasıCalistir("YedekOncesi.bat");
+                Ortak.BatDosyasıCalistir("YedekOncesi_Bekle.bat");
 
                 try
                 {
@@ -3590,6 +3592,9 @@ namespace İş_ve_Depo_Takip
                     Yedekleme_EnAz1Kez_Değişiklikler_Kaydedildi = false;
                 }
                 catch (Exception ex) { Yedekleme_Hatalar += ex.Günlük().Message + Environment.NewLine; }
+
+                Ortak.BatDosyasıCalistir("YedekSonrasi.bat");
+                Ortak.BatDosyasıCalistir("YedekSonrasi_Bekle.bat");
 
                 Günlük.Ekle("Yedekle_Tümü Bitti " + Yedekleme_Hatalar);
                 Yedekleme_Tümü_Çalışıyor = false;

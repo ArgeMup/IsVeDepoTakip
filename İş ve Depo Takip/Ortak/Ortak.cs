@@ -217,7 +217,13 @@ namespace İş_ve_Depo_Takip
 
             return true;
         }
+        public static void BatDosyasıCalistir(string DosyaAdı)
+        {
+            if (!File.Exists(Klasör_KullanıcıDosyaları + DosyaAdı)) return;
 
+            System.Diagnostics.Process İşlem = Çalıştır.UygulamayıDoğrudanÇalıştır(Klasör_KullanıcıDosyaları + DosyaAdı, null, true);
+            if (DosyaAdı.EndsWith("_Bekle.bat")) İşlem.WaitForExit();
+        }
         public static void AltSayfayıYükle(Panel ÜzerineYerleştirilecekYüzey, Form AltSayfa)
         {
             AltSayfa.TopLevel = false;
