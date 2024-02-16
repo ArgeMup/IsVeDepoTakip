@@ -27,7 +27,7 @@ namespace İş_ve_Depo_Takip
 
     public class Banka
     {
-        public const string Sürüm = "3";
+        public const string Sürüm = "4";
         public static string İşyeri_Adı
         {
             get
@@ -128,12 +128,10 @@ namespace İş_ve_Depo_Takip
                 }
                 Günlük.Ekle("Banka yeni sürüme geçirme aşama 1 tamam");
 
-                var klclar = Kullanıcı_İzinleri_Tutucusu;
-                bool[] izinler = new bool[(int)Ayarlar_Kullanıcılar_İzin.DiziElemanSayısı_];
-                for (int i = 0; i < izinler.Length; i++) izinler[i] = true;
-                klclar.Roller.Add("Yönetici", izinler);
-                klclar.Kişiler.Add(new ArgeMup.HazirKod.Ekranlar.Ayarlar_Kullanıcı_() { Adı = "Geçici Kullanıcı", RolAdı = "Yönetici", Parolası = Ayarlar_Genel("Kullanıcı Şifresi")[0] });
-                Kullanıcı_İzinleri_Kaydet();
+                foreach (string kls in Klasör.Listele_Klasör(Ortak.Klasör_Banka_Müşteriler, "Mü_B"))
+                {
+                    if (Klasör.Listele_Dosya(kls).Length <= 0) Directory.Delete(kls, true);
+                }
                 Günlük.Ekle("Banka yeni sürüme geçirme aşama 2 tamam");
 
                 ayr = Ayarlar_Genel("Son Banka Kayıt");
@@ -2956,8 +2954,22 @@ namespace İş_ve_Depo_Takip
                         {
                             if (a.Value == null) continue;
 
-                            if (!string.IsNullOrEmpty(a.Value.Oku("Silinecek"))) { Dosya.Sil(Ortak.Klasör_Banka_Müşteriler + m.KlasörAdı + "\\Mü_B\\Mü_B_" + a.Key + ".mup"); EnAzBirDeğişiklikYapıldı = true; }
-                            else if (a.Value.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Mü\\" + m.KlasörAdı + "\\Mü_B\\Mü_B_" + a.Key, a.Value); EnAzBirDeğişiklikYapıldı = true; }
+                            if (!string.IsNullOrEmpty(a.Value.Oku("Silinecek"))) 
+                            {
+                                string kls = Ortak.Klasör_Banka_Müşteriler + m.KlasörAdı + "\\Mü_B";
+                                string dsy = kls + "\\Mü_B_" + a.Key + ".mup";
+
+                                if (!Dosya.Sil(dsy)) throw new Exception("Dosya silinemedi " + dsy);
+                                if (Klasör.Listele_Dosya(kls).Length <= 0) Directory.Delete(kls, true);
+
+                                EnAzBirDeğişiklikYapıldı = true;
+                            }
+                            else if (a.Value.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) 
+                            { 
+                                Depo_Kaydet("Mü\\" + m.KlasörAdı + "\\Mü_B\\Mü_B_" + a.Key, a.Value); 
+                                
+                                EnAzBirDeğişiklikYapıldı = true; 
+                            }
                         }
                     }
                     m.ÖdemeTalepEdildi = null;

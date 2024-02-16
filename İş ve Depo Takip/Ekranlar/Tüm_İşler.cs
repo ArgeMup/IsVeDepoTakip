@@ -890,7 +890,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Banka.Değişiklikler_TamponuSıfırla();
 
             Seviye_Değişti(Seviye2_ÖdemeBekleyen, null);
-            İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text = "0";
+            İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Text = null;
             İşTakip_ÖdemeBekleyen_Dönem_TextChanged(null, null);
         }
         private bool İşTakip_Ödendi_Dönem_GeriBildirim_İşlemi(string Adı, ArgeMup.HazirKod.Ekranlar.ListeKutusu.İşlemTürü Türü, string YeniAdı = null)
