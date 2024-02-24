@@ -201,6 +201,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 _1_Tablo[_1_Tablo_Fark.Index, i].Value = top_gelir - top_gider;
             }
+            top_önödeme *= -1;
 
             //talep edilenlerin çıktılarını topla
             double gel = 0, gid = 0, fark = 0;
@@ -216,7 +217,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 "Gelir : " + Banka.Yazdır_Ücret(gel) + "   /   " +
                 "Gider : " + Banka.Yazdır_Ücret(gid) + "   /   " +
                 "Fark : " + Banka.Yazdır_Ücret(fark) + "   /   " +
-                "Alacak : " + Banka.Yazdır_Ücret(top_önödeme * -1);
+                "Alacak : " + Banka.Yazdır_Ücret(top_önödeme) + "   /   " +
+                "Genel Toplam : " + Banka.Yazdır_Ücret(fark + top_önödeme);
 
             _1_Gelir.Tag = gel;
             _1_Gider.Tag = gid;
@@ -237,6 +239,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         HataMesajı, Text);
                 }
             }
+
+            Banka.Müşteri_KDV_İskonto(Müşteri, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde);
+            double İskonto_Hesaplanan = İskonto_Yap ? Gelir / 100 * İskonto_Yüzde : 0;
+            double KDV_Hesaplanan = KDV_Ekle ? (Gelir - İskonto_Hesaplanan) / 100 * KDV_Yüzde : 0;
+            Gelir = Gelir - İskonto_Hesaplanan + KDV_Hesaplanan;
         }
 
         private void _1_GenelDurumRaporu_Click(object sender, EventArgs e)

@@ -2960,7 +2960,7 @@ namespace İş_ve_Depo_Takip
                                 string dsy = kls + "\\Mü_B_" + a.Key + ".mup";
 
                                 if (!Dosya.Sil(dsy)) throw new Exception("Dosya silinemedi " + dsy);
-                                if (Klasör.Listele_Dosya(kls).Length <= 0) Directory.Delete(kls, true);
+                                if (Klasör.Listele_Dosya(kls).Length <= 0) Klasör.Sil(kls);
 
                                 EnAzBirDeğişiklikYapıldı = true;
                             }

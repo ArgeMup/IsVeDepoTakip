@@ -29,21 +29,21 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ayarlar_Bütçe));
             this._1_Gelir = new System.Windows.Forms.GroupBox();
             this._1_Gelir_ÖdemeTalepEdildi = new System.Windows.Forms.CheckBox();
@@ -252,14 +252,14 @@
             this._1_Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this._1_Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this._1_Tablo.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this._1_Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this._1_Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this._1_Tablo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._1_Tablo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this._1_Tablo_Seç,
@@ -281,7 +281,7 @@
             this._1_Tablo.ShowCellErrors = false;
             this._1_Tablo.ShowEditingIcon = false;
             this._1_Tablo.ShowRowErrors = false;
-            this._1_Tablo.Size = new System.Drawing.Size(960, 400);
+            this._1_Tablo.Size = new System.Drawing.Size(761, 229);
             this._1_Tablo.TabIndex = 10;
             this._1_Tablo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this._1_Tablo_CellClick);
             this._1_Tablo.DoubleClick += new System.EventHandler(this._1_Tablo_DoubleClick);
@@ -305,10 +305,10 @@
             // 
             // _1_Tablo_Gelir
             // 
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle17.Format = "0.00";
-            dataGridViewCellStyle17.NullValue = null;
-            this._1_Tablo_Gelir.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Format = "0.00";
+            dataGridViewCellStyle2.NullValue = null;
+            this._1_Tablo_Gelir.DefaultCellStyle = dataGridViewCellStyle2;
             this._1_Tablo_Gelir.FillWeight = 15F;
             this._1_Tablo_Gelir.HeaderText = "Gelir ₺";
             this._1_Tablo_Gelir.MinimumWidth = 6;
@@ -317,9 +317,9 @@
             // 
             // _1_Tablo_Gider
             // 
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle18.Format = "0.00";
-            this._1_Tablo_Gider.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.Format = "0.00";
+            this._1_Tablo_Gider.DefaultCellStyle = dataGridViewCellStyle3;
             this._1_Tablo_Gider.FillWeight = 15F;
             this._1_Tablo_Gider.HeaderText = "Gider ₺";
             this._1_Tablo_Gider.MinimumWidth = 6;
@@ -328,9 +328,9 @@
             // 
             // _1_Tablo_Fark
             // 
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle19.Format = "0.00";
-            this._1_Tablo_Fark.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.Format = "0.00";
+            this._1_Tablo_Fark.DefaultCellStyle = dataGridViewCellStyle4;
             this._1_Tablo_Fark.FillWeight = 15F;
             this._1_Tablo_Fark.HeaderText = "Fark ₺";
             this._1_Tablo_Fark.MinimumWidth = 6;
@@ -356,7 +356,7 @@
             this.Sekmeler.Margin = new System.Windows.Forms.Padding(2);
             this.Sekmeler.Name = "Sekmeler";
             this.Sekmeler.SelectedIndex = 0;
-            this.Sekmeler.Size = new System.Drawing.Size(972, 543);
+            this.Sekmeler.Size = new System.Drawing.Size(773, 372);
             this.Sekmeler.TabIndex = 16;
             this.Sekmeler.SelectedIndexChanged += new System.EventHandler(this.Sekmeler_SelectedIndexChanged);
             // 
@@ -370,7 +370,7 @@
             this.Sekmeler_1.Margin = new System.Windows.Forms.Padding(2);
             this.Sekmeler_1.Name = "Sekmeler_1";
             this.Sekmeler_1.Padding = new System.Windows.Forms.Padding(2);
-            this.Sekmeler_1.Size = new System.Drawing.Size(964, 510);
+            this.Sekmeler_1.Size = new System.Drawing.Size(765, 339);
             this.Sekmeler_1.TabIndex = 0;
             this.Sekmeler_1.Text = "Müşteriler kapsamında";
             this.Sekmeler_1.UseVisualStyleBackColor = true;
@@ -383,7 +383,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(960, 80);
+            this.panel1.Size = new System.Drawing.Size(761, 80);
             this.panel1.TabIndex = 17;
             // 
             // _1_GenelDurumRaporu
@@ -392,7 +392,7 @@
             this._1_GenelDurumRaporu.Dock = System.Windows.Forms.DockStyle.Fill;
             this._1_GenelDurumRaporu.Location = new System.Drawing.Point(723, 0);
             this._1_GenelDurumRaporu.Name = "_1_GenelDurumRaporu";
-            this._1_GenelDurumRaporu.Size = new System.Drawing.Size(237, 80);
+            this._1_GenelDurumRaporu.Size = new System.Drawing.Size(38, 80);
             this._1_GenelDurumRaporu.TabIndex = 16;
             this._1_GenelDurumRaporu.Text = "Genel Durum Raporu";
             this._1_GenelDurumRaporu.UseVisualStyleBackColor = true;
@@ -401,11 +401,11 @@
             // _1_AltToplam
             // 
             this._1_AltToplam.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this._1_AltToplam.Location = new System.Drawing.Point(2, 482);
+            this._1_AltToplam.Location = new System.Drawing.Point(2, 311);
             this._1_AltToplam.Margin = new System.Windows.Forms.Padding(2);
             this._1_AltToplam.Name = "_1_AltToplam";
             this._1_AltToplam.ReadOnly = true;
-            this._1_AltToplam.Size = new System.Drawing.Size(960, 26);
+            this._1_AltToplam.Size = new System.Drawing.Size(761, 26);
             this._1_AltToplam.TabIndex = 15;
             this._1_AltToplam.Text = "Alt Toplam";
             this._1_AltToplam.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -418,7 +418,7 @@
             this.Sekmeler_GenelAnlamda.Margin = new System.Windows.Forms.Padding(2);
             this.Sekmeler_GenelAnlamda.Name = "Sekmeler_GenelAnlamda";
             this.Sekmeler_GenelAnlamda.Padding = new System.Windows.Forms.Padding(2);
-            this.Sekmeler_GenelAnlamda.Size = new System.Drawing.Size(964, 510);
+            this.Sekmeler_GenelAnlamda.Size = new System.Drawing.Size(765, 339);
             this.Sekmeler_GenelAnlamda.TabIndex = 1;
             this.Sekmeler_GenelAnlamda.Text = "Genel anlamda";
             this.Sekmeler_GenelAnlamda.UseVisualStyleBackColor = true;
@@ -429,14 +429,14 @@
             this._2_Tablo.AllowUserToResizeRows = false;
             this._2_Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this._2_Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this._2_Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this._2_Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this._2_Tablo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._2_Tablo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this._2_Tablo_Seç,
@@ -456,7 +456,7 @@
             this._2_Tablo.ShowCellErrors = false;
             this._2_Tablo.ShowEditingIcon = false;
             this._2_Tablo.ShowRowErrors = false;
-            this._2_Tablo.Size = new System.Drawing.Size(960, 476);
+            this._2_Tablo.Size = new System.Drawing.Size(761, 305);
             this._2_Tablo.TabIndex = 16;
             this._2_Tablo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this._2_Tablo_CellClick);
             this._2_Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this._2_Tablo_CellValueChanged);
@@ -480,8 +480,8 @@
             // 
             // _2_Tablo_Gelir
             // 
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this._2_Tablo_Gelir.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this._2_Tablo_Gelir.DefaultCellStyle = dataGridViewCellStyle6;
             this._2_Tablo_Gelir.FillWeight = 20F;
             this._2_Tablo_Gelir.HeaderText = "Gelir ₺";
             this._2_Tablo_Gelir.MinimumWidth = 6;
@@ -489,8 +489,8 @@
             // 
             // _2_Tablo_Gider
             // 
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this._2_Tablo_Gider.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this._2_Tablo_Gider.DefaultCellStyle = dataGridViewCellStyle7;
             this._2_Tablo_Gider.FillWeight = 20F;
             this._2_Tablo_Gider.HeaderText = "Gider ₺";
             this._2_Tablo_Gider.MinimumWidth = 6;
@@ -498,8 +498,8 @@
             // 
             // _2_Tablo_Fark
             // 
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this._2_Tablo_Fark.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this._2_Tablo_Fark.DefaultCellStyle = dataGridViewCellStyle8;
             this._2_Tablo_Fark.FillWeight = 20F;
             this._2_Tablo_Fark.HeaderText = "Fark ₺";
             this._2_Tablo_Fark.MinimumWidth = 6;
@@ -511,9 +511,9 @@
             this.panel2.Controls.Add(this._2_AltToplam);
             this.panel2.Controls.Add(this.ÖnYüzler_Kaydet_2_Kaydet);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(2, 478);
+            this.panel2.Location = new System.Drawing.Point(2, 307);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(960, 30);
+            this.panel2.Size = new System.Drawing.Size(761, 30);
             this.panel2.TabIndex = 19;
             // 
             // _2_AltToplam
@@ -523,7 +523,7 @@
             this._2_AltToplam.Margin = new System.Windows.Forms.Padding(2);
             this._2_AltToplam.Name = "_2_AltToplam";
             this._2_AltToplam.ReadOnly = true;
-            this._2_AltToplam.Size = new System.Drawing.Size(851, 26);
+            this._2_AltToplam.Size = new System.Drawing.Size(652, 26);
             this._2_AltToplam.TabIndex = 17;
             this._2_AltToplam.Text = "Alt Toplam";
             this._2_AltToplam.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -550,7 +550,7 @@
             this.Seklemeler_Ödemeler.Margin = new System.Windows.Forms.Padding(2);
             this.Seklemeler_Ödemeler.Name = "Seklemeler_Ödemeler";
             this.Seklemeler_Ödemeler.Padding = new System.Windows.Forms.Padding(2);
-            this.Seklemeler_Ödemeler.Size = new System.Drawing.Size(964, 510);
+            this.Seklemeler_Ödemeler.Size = new System.Drawing.Size(765, 339);
             this.Seklemeler_Ödemeler.TabIndex = 2;
             this.Seklemeler_Ödemeler.Text = "Ödemeler";
             this.Seklemeler_Ödemeler.UseVisualStyleBackColor = true;
@@ -563,14 +563,14 @@
             this._3_Tablo.AllowUserToResizeRows = false;
             this._3_Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this._3_Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this._3_Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this._3_Tablo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this._3_Tablo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._3_Tablo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this._3_Tablo_Tarih,
@@ -592,14 +592,14 @@
             this._3_Tablo.ShowCellErrors = false;
             this._3_Tablo.ShowEditingIcon = false;
             this._3_Tablo.ShowRowErrors = false;
-            this._3_Tablo.Size = new System.Drawing.Size(960, 457);
+            this._3_Tablo.Size = new System.Drawing.Size(761, 286);
             this._3_Tablo.TabIndex = 11;
             // 
             // _3_Tablo_Tarih
             // 
             this._3_Tablo_Tarih.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this._3_Tablo_Tarih.DefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this._3_Tablo_Tarih.DefaultCellStyle = dataGridViewCellStyle10;
             this._3_Tablo_Tarih.FillWeight = 12F;
             this._3_Tablo_Tarih.HeaderText = "Tarih";
             this._3_Tablo_Tarih.MinimumWidth = 6;
@@ -609,8 +609,8 @@
             // _3_Tablo_GenelToplam
             // 
             this._3_Tablo_GenelToplam.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this._3_Tablo_GenelToplam.DefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this._3_Tablo_GenelToplam.DefaultCellStyle = dataGridViewCellStyle11;
             this._3_Tablo_GenelToplam.FillWeight = 12F;
             this._3_Tablo_GenelToplam.HeaderText = "Genel Toplam";
             this._3_Tablo_GenelToplam.MinimumWidth = 6;
@@ -620,8 +620,8 @@
             // _3_Tablo_MevcutÖnÖdeme
             // 
             this._3_Tablo_MevcutÖnÖdeme.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this._3_Tablo_MevcutÖnÖdeme.DefaultCellStyle = dataGridViewCellStyle27;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this._3_Tablo_MevcutÖnÖdeme.DefaultCellStyle = dataGridViewCellStyle12;
             this._3_Tablo_MevcutÖnÖdeme.FillWeight = 12F;
             this._3_Tablo_MevcutÖnÖdeme.HeaderText = "Mevcut Ön Ödeme";
             this._3_Tablo_MevcutÖnÖdeme.MinimumWidth = 6;
@@ -631,8 +631,8 @@
             // _3_Tablo_AlınanÖdeme
             // 
             this._3_Tablo_AlınanÖdeme.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this._3_Tablo_AlınanÖdeme.DefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this._3_Tablo_AlınanÖdeme.DefaultCellStyle = dataGridViewCellStyle13;
             this._3_Tablo_AlınanÖdeme.FillWeight = 12F;
             this._3_Tablo_AlınanÖdeme.HeaderText = "Alınan Ödeme";
             this._3_Tablo_AlınanÖdeme.MinimumWidth = 6;
@@ -642,8 +642,8 @@
             // _3_Tablo_DevredenTutar
             // 
             this._3_Tablo_DevredenTutar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this._3_Tablo_DevredenTutar.DefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this._3_Tablo_DevredenTutar.DefaultCellStyle = dataGridViewCellStyle14;
             this._3_Tablo_DevredenTutar.FillWeight = 12F;
             this._3_Tablo_DevredenTutar.HeaderText = "Devreden Tutar";
             this._3_Tablo_DevredenTutar.MinimumWidth = 6;
@@ -653,8 +653,8 @@
             // _3_Tablo_Notlar
             // 
             this._3_Tablo_Notlar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this._3_Tablo_Notlar.DefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this._3_Tablo_Notlar.DefaultCellStyle = dataGridViewCellStyle15;
             this._3_Tablo_Notlar.FillWeight = 40F;
             this._3_Tablo_Notlar.HeaderText = "Notlar";
             this._3_Tablo_Notlar.MinimumWidth = 6;
@@ -668,9 +668,9 @@
             this.panel3.Controls.Add(this.groupBox1);
             this.panel3.Controls.Add(this.groupBox3);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(2, 459);
+            this.panel3.Location = new System.Drawing.Point(2, 288);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(960, 49);
+            this.panel3.Size = new System.Drawing.Size(761, 49);
             this.panel3.TabIndex = 12;
             // 
             // groupBox2
@@ -680,7 +680,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(461, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(303, 49);
+            this.groupBox2.Size = new System.Drawing.Size(104, 49);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "E-posta";
@@ -692,7 +692,7 @@
             this._3_Eposta_Gönder.Location = new System.Drawing.Point(3, 22);
             this._3_Eposta_Gönder.Margin = new System.Windows.Forms.Padding(2);
             this._3_Eposta_Gönder.Name = "_3_Eposta_Gönder";
-            this._3_Eposta_Gönder.Size = new System.Drawing.Size(104, 24);
+            this._3_Eposta_Gönder.Size = new System.Drawing.Size(0, 24);
             this._3_Eposta_Gönder.TabIndex = 4;
             this._3_Eposta_Gönder.Text = "Kişiye Gönder";
             this._3_Eposta_Gönder.UseVisualStyleBackColor = true;
@@ -704,7 +704,7 @@
             this._3_Eposta_Kişiye.Checked = true;
             this._3_Eposta_Kişiye.CheckState = System.Windows.Forms.CheckState.Checked;
             this._3_Eposta_Kişiye.Dock = System.Windows.Forms.DockStyle.Right;
-            this._3_Eposta_Kişiye.Location = new System.Drawing.Point(107, 22);
+            this._3_Eposta_Kişiye.Location = new System.Drawing.Point(-92, 22);
             this._3_Eposta_Kişiye.Name = "_3_Eposta_Kişiye";
             this._3_Eposta_Kişiye.Size = new System.Drawing.Size(193, 24);
             this._3_Eposta_Kişiye.TabIndex = 12;
@@ -717,7 +717,7 @@
             this.groupBox1.Controls.Add(this._3_Görüntüle_Listele);
             this.groupBox1.Controls.Add(this._3_Görüntüle_Adet);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox1.Location = new System.Drawing.Point(764, 0);
+            this.groupBox1.Location = new System.Drawing.Point(565, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(196, 49);
             this.groupBox1.TabIndex = 13;
@@ -837,7 +837,7 @@
             this.Sekmeler_GelirGiderTakip.Location = new System.Drawing.Point(4, 29);
             this.Sekmeler_GelirGiderTakip.Name = "Sekmeler_GelirGiderTakip";
             this.Sekmeler_GelirGiderTakip.Padding = new System.Windows.Forms.Padding(3);
-            this.Sekmeler_GelirGiderTakip.Size = new System.Drawing.Size(964, 510);
+            this.Sekmeler_GelirGiderTakip.Size = new System.Drawing.Size(765, 339);
             this.Sekmeler_GelirGiderTakip.TabIndex = 3;
             this.Sekmeler_GelirGiderTakip.Text = "Gelir Gider Takip";
             this.Sekmeler_GelirGiderTakip.UseVisualStyleBackColor = true;
@@ -991,7 +991,7 @@
             // TabloİçeriğiArama
             // 
             this.TabloİçeriğiArama.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.TabloİçeriğiArama.Location = new System.Drawing.Point(754, 4);
+            this.TabloİçeriğiArama.Location = new System.Drawing.Point(555, 4);
             this.TabloİçeriğiArama.Margin = new System.Windows.Forms.Padding(2);
             this.TabloİçeriğiArama.Name = "TabloİçeriğiArama";
             this.TabloİçeriğiArama.Size = new System.Drawing.Size(223, 26);
@@ -1012,7 +1012,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(982, 553);
+            this.ClientSize = new System.Drawing.Size(783, 382);
             this.Controls.Add(this.TabloİçeriğiArama);
             this.Controls.Add(this.Sekmeler);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
