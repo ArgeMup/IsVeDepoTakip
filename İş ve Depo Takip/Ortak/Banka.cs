@@ -2211,7 +2211,7 @@ namespace İş_ve_Depo_Takip
                 }
             }
         }
-        public static void Talep_TablodaGöster(DataGridView Tablo, Banka_Tablo_ İçerik, bool ÖnceTemizle = true)
+        public static void Talep_TablodaGöster(DataGridView Tablo, Banka_Tablo_ İçerik, bool ÖnceTemizle = true, bool TeslimEdildiKırmızı = false)
         {
             Tablo.Tag = 0;
 
@@ -2226,6 +2226,7 @@ namespace İş_ve_Depo_Takip
                     col.SortMode = DataGridViewColumnSortMode.Automatic;
                 }
             }
+            Tablo.Columns["Tablo_Teslim_Edildi"].DefaultCellStyle.ForeColor = TeslimEdildiKırmızı ? System.Drawing.Color.Red : System.Drawing.Color.Black;
 
             string tar_ödeme_talep = null, tar_ödendi = null;
             object tar_ödeme_talep_t = null, tar_ödendi_t = null;

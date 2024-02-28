@@ -257,8 +257,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     Seviye2_DevamEden.Checked = true;
                     Seviye2_TeslimEdildi.Checked = true;
-                    Seviye2_ÖdemeBekleyen.Checked = false;
-                    Seviye2_Ödendi.Checked = false;
+                    Seviye2_ÖdemeBekleyen.Checked = true;
+                    Seviye2_Ödendi.Checked = true;
                     Arama_Sorgula_Click(null, null);
                 }
 
@@ -1538,7 +1538,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             bt.Talepler = uyuşanlar;
-            Banka.Talep_TablodaGöster(Tablo, bt, false);
+            Banka.Talep_TablodaGöster(Tablo, bt, false, true);
         }
 
         private void Müşteri_KDV_CheckedChanged(object sender, EventArgs e)
