@@ -81,76 +81,78 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void ÖnYüzler_Kaydet_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Klasör_Yedekleme_1.Text)) Klasör_Yedekleme_1.Text = null;
-            else
+            #region Kls kontrolü
+            (bool, string) _Kls_Dene_(string _Kls_)
             {
-                Klasör_Yedekleme_1.Text = Klasör_Yedekleme_1.Text.TrimEnd(' ', '\\') + "\\";
-                if (!Klasör.Oluştur(Klasör_Yedekleme_1.Text))
+                if (string.IsNullOrWhiteSpace(_Kls_)) _Kls_ = null;
+                else
                 {
-                    MessageBox.Show("Yedek klasörü 1 oluşturulamıyor", Text);
-                    Klasör_Yedekleme_1.Focus();
-                    return;
+                    _Kls_ = _Kls_.TrimEnd(' ', '\\') + "\\";
+
+                    if (Ortak.Klasör_KendiKlasörleriİçindeMi(_Kls_))
+                    {
+                        MessageBox.Show("Yedek klasörü yolunu uygulamanın kendi klasörlerinden farklı olacak şekilde seçiniz." + Environment.NewLine + Environment.NewLine + _Kls_, Text);
+                        return (false, _Kls_);
+                    }
+
+                    if (!Klasör.Oluştur(_Kls_))
+                    {
+                        MessageBox.Show("Yedek klasörü oluşturulamıyor" + Environment.NewLine + Environment.NewLine + _Kls_, Text);
+                        return (false, _Kls_);
+                    }
                 }
+
+                return (true, _Kls_);
             }
 
-            if (string.IsNullOrWhiteSpace(Klasör_Yedekleme_2.Text)) Klasör_Yedekleme_2.Text = null;
-            else
+            (bool, string) _kls_dene_sonuç_ = _Kls_Dene_(Klasör_Yedekleme_1.Text);
+            Klasör_Yedekleme_1.Text = _kls_dene_sonuç_.Item2;
+            if (!_kls_dene_sonuç_.Item1)
             {
-                Klasör_Yedekleme_2.Text = Klasör_Yedekleme_2.Text.TrimEnd(' ', '\\') + "\\";
-                if (!Klasör.Oluştur(Klasör_Yedekleme_2.Text))
-                {
-                    MessageBox.Show("Yedek klasörü 2 oluşturulamıyor", Text);
-                    Klasör_Yedekleme_2.Focus();
-                    return;
-                }
+                Klasör_Yedekleme_1.Focus();
+                return;
             }
 
-            if (string.IsNullOrWhiteSpace(Klasör_Yedekleme_3.Text)) Klasör_Yedekleme_3.Text = null;
-            else
+            _kls_dene_sonuç_ = _Kls_Dene_(Klasör_Yedekleme_2.Text);
+            Klasör_Yedekleme_2.Text = _kls_dene_sonuç_.Item2;
+            if (!_kls_dene_sonuç_.Item1)
             {
-                Klasör_Yedekleme_3.Text = Klasör_Yedekleme_3.Text.TrimEnd(' ', '\\') + "\\";
-                if (!Klasör.Oluştur(Klasör_Yedekleme_3.Text))
-                {
-                    MessageBox.Show("Yedek klasörü 3 oluşturulamıyor", Text);
-                    Klasör_Yedekleme_3.Focus();
-                    return;
-                }
+                Klasör_Yedekleme_2.Focus();
+                return;
             }
 
-            if (string.IsNullOrWhiteSpace(Klasör_Yedekleme_4.Text)) Klasör_Yedekleme_4.Text = null;
-            else
+            _kls_dene_sonuç_ = _Kls_Dene_(Klasör_Yedekleme_3.Text);
+            Klasör_Yedekleme_3.Text = _kls_dene_sonuç_.Item2;
+            if (!_kls_dene_sonuç_.Item1)
             {
-                Klasör_Yedekleme_4.Text = Klasör_Yedekleme_4.Text.TrimEnd(' ', '\\') + "\\";
-                if (!Klasör.Oluştur(Klasör_Yedekleme_4.Text))
-                {
-                    MessageBox.Show("Yedek klasörü 4 oluşturulamıyor", Text);
-                    Klasör_Yedekleme_4.Focus();
-                    return;
-                }
+                Klasör_Yedekleme_3.Focus();
+                return;
             }
 
-            if (string.IsNullOrWhiteSpace(Klasör_Yedekleme_5.Text)) Klasör_Yedekleme_5.Text = null;
-            else
+            _kls_dene_sonuç_ = _Kls_Dene_(Klasör_Yedekleme_4.Text);
+            Klasör_Yedekleme_4.Text = _kls_dene_sonuç_.Item2;
+            if (!_kls_dene_sonuç_.Item1)
             {
-                Klasör_Yedekleme_5.Text = Klasör_Yedekleme_5.Text.TrimEnd(' ', '\\') + "\\";
-                if (!Klasör.Oluştur(Klasör_Yedekleme_5.Text))
-                {
-                    MessageBox.Show("Yedek klasörü 5 oluşturulamıyor", Text);
-                    Klasör_Yedekleme_5.Focus();
-                    return;
-                }
+                Klasör_Yedekleme_4.Focus();
+                return;
             }
 
-            if (string.IsNullOrWhiteSpace(Klasör_Pdf.Text)) Klasör_Pdf.Text = null;
-            else
+            _kls_dene_sonuç_ = _Kls_Dene_(Klasör_Yedekleme_5.Text);
+            Klasör_Yedekleme_5.Text = _kls_dene_sonuç_.Item2;
+            if (!_kls_dene_sonuç_.Item1)
             {
-                Klasör_Pdf.Text = Klasör_Pdf.Text.TrimEnd(' ', '\\') + "\\";
-                if (!Klasör.Oluştur(Klasör_Pdf.Text))
-                {
-                    MessageBox.Show("Pdf klasörü oluşturulamıyor", Text);
-                    return;
-                }
+                Klasör_Yedekleme_5.Focus();
+                return;
             }
+
+            _kls_dene_sonuç_ = _Kls_Dene_(Klasör_Pdf.Text);
+            Klasör_Pdf.Text = _kls_dene_sonuç_.Item2;
+            if (!_kls_dene_sonuç_.Item1)
+            {
+                Klasör_Pdf.Focus();
+                return;
+            }
+            #endregion
 
             string gecici = Takvim_Erteleme_İşKabulTarihi.Text;
             if (!Ortak.YazıyıSayıyaDönüştür(ref gecici, "İş kabul tarihi erteleme kutucuğu", null, 0.1))

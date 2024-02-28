@@ -202,6 +202,11 @@ namespace İş_ve_Depo_Takip
 
             return false;
         }
+        public static bool Klasör_KendiKlasörleriİçindeMi(string Klasör)
+        {
+            Klasör = new DirectoryInfo(Klasör).FullName; //kısa -> tam yol
+            return Klasör.StartsWith(Kendi.Klasörü);
+        }
         public static bool DosyaGüncelMi(string DosyaYolu, int Sürüm_Y, int Sürüm_D)
         {
             if (!File.Exists(DosyaYolu)) return false;

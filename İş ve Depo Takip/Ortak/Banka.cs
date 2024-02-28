@@ -3589,7 +3589,8 @@ namespace İş_ve_Depo_Takip
                     {
                         for (int i = 0; i < Ortak.Kullanıcı_Klasör_Yedek.Length; i++)
                         {
-                            if (string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Yedek[i])) continue;
+                            if (string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Yedek[i]) ||
+                                Ortak.Klasör_KendiKlasörleriİçindeMi(Ortak.Kullanıcı_Klasör_Yedek[i])) continue;
 
                             bool sonuç = true;
                             sonuç &= Ortak.Klasör_TamKopya(Ortak.Klasör_Banka, Ortak.Kullanıcı_Klasör_Yedek[i] + "Banka");

@@ -1012,7 +1012,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             y.İşler_Yazdır(depo, dosyayolu);
             y.Dispose();
 
-            if (!string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Pdf))
+            if (!string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Pdf) &&
+                !Ortak.Klasör_KendiKlasörleriİçindeMi(Ortak.Kullanıcı_Klasör_Pdf))
             {
                 string hedef = Ortak.Kullanıcı_Klasör_Pdf + MüşteriAdı + "\\" + gerçekdosyadı;
                 if (!Dosya.Kopyala(dosyayolu, hedef))

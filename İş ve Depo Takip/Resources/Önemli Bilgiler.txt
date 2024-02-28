@@ -22,3 +22,7 @@ Yedek alma işlemi
 Yeni yazılım sürüm kontrolü
     Uygulama çalıştırıldığında, sunucuda yeni bir sürüm varsa, ilgili dosya indirilir, bir sonraki çalıştırılmada devreye alınır. Bu işlevi kapatmak için alttaki dosya oluşturulabilir.
      <Kök Klasör>\Kullanıcı Dosyaları\YeniSurumuKontrolEtme.txt
+
+İşletim sisteminin uygulamayı engellemesi
+    Alttaki sayfadaki dosyayı indirip (tarayıcının adres çubuğuna yapıştırın) uygulamanın olduğu yere kopyalayın. Ardından uygulamaya çift tıklayınca çıkan soruyu cevaplayın.
+     https://github.com/ArgeMup/IsVeDepoTakip/raw/main/%C4%B0%C5%9F%20ve%20Depo%20Takip/bin/Release/%C4%B0%C5%9F%20ve%20Depo%20Takip.exe

@@ -659,7 +659,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             string dosyayolu = _3_Yazdır();
             if (dosyayolu.BoşMu()) return;
 
-            if (!string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Pdf))
+            if (!string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Pdf) &&
+                !Ortak.Klasör_KendiKlasörleriİçindeMi(Ortak.Kullanıcı_Klasör_Pdf))
             {
                 string gerçekdosyadı = "Ödemeler_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
                 string hedef = Ortak.Kullanıcı_Klasör_Pdf + _3_Müşteri + "\\" + gerçekdosyadı;
