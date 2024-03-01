@@ -57,6 +57,7 @@
             this.SağTuşMenü_Ertele_5 = new System.Windows.Forms.ToolStripMenuItem();
             this.SağTuşMenü_ErtelemeyiKaldır_Sil = new System.Windows.Forms.ToolStripMenuItem();
             this.SağTuşMenü_MüşteriyeGönder = new System.Windows.Forms.ToolStripMenuItem();
+            this.SağTuşMenü_TeslimEdildiOlarakİşaretle = new System.Windows.Forms.ToolStripMenuItem();
             this.Hatırlatıcılar_Filtrele_Yaklaşanlar = new System.Windows.Forms.CheckBox();
             this.TabloİçeriğiArama = new System.Windows.Forms.TextBox();
             this.YeniOluştur_Oluştur = new System.Windows.Forms.Button();
@@ -66,7 +67,6 @@
             this.Hatırlatıcılar_Filtrele_Notlar = new System.Windows.Forms.CheckBox();
             this.Hatırlatıcılar_Filtrele_İşler = new System.Windows.Forms.CheckBox();
             this.İpUcu_Genel = new System.Windows.Forms.ToolTip(this.components);
-            this.SağTuşMenü_TeslimEdildiOlarakİşaretle = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             this.SağTuşMenü.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -129,7 +129,7 @@
             this.Tablo.ShowCellErrors = false;
             this.Tablo.ShowEditingIcon = false;
             this.Tablo.ShowRowErrors = false;
-            this.Tablo.Size = new System.Drawing.Size(968, 292);
+            this.Tablo.Size = new System.Drawing.Size(968, 291);
             this.Tablo.TabIndex = 8;
             this.Tablo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellDoubleClick);
             // 
@@ -230,71 +230,83 @@
             this.SağTuşMenü_MüşteriyeGönder,
             this.SağTuşMenü_TeslimEdildiOlarakİşaretle});
             this.SağTuşMenü.Name = "SağTuşMenü";
-            this.SağTuşMenü.ShowImageMargin = false;
             this.SağTuşMenü.ShowItemToolTips = false;
-            this.SağTuşMenü.Size = new System.Drawing.Size(309, 254);
+            this.SağTuşMenü.Size = new System.Drawing.Size(338, 244);
             this.SağTuşMenü.Opening += new System.ComponentModel.CancelEventHandler(this.SağTuşMenü_Opening);
             // 
             // SağTuşMenü_Ertele_Varsayılan
             // 
             this.SağTuşMenü_Ertele_Varsayılan.Name = "SağTuşMenü_Ertele_Varsayılan";
-            this.SağTuşMenü_Ertele_Varsayılan.Size = new System.Drawing.Size(308, 24);
+            this.SağTuşMenü_Ertele_Varsayılan.Size = new System.Drawing.Size(337, 26);
             this.SağTuşMenü_Ertele_Varsayılan.Text = "Varsayılan gün kadar ertele";
             this.SağTuşMenü_Ertele_Varsayılan.Click += new System.EventHandler(this.SağTuşMenü_Ertele_X_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(305, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(334, 6);
             // 
             // SağTuşMenü_Ertele_1
             // 
             this.SağTuşMenü_Ertele_1.Name = "SağTuşMenü_Ertele_1";
-            this.SağTuşMenü_Ertele_1.Size = new System.Drawing.Size(308, 24);
+            this.SağTuşMenü_Ertele_1.Size = new System.Drawing.Size(337, 26);
             this.SağTuşMenü_Ertele_1.Text = "1 gün ertele -> 01 Ocak 2023 Çrş 10:00";
             this.SağTuşMenü_Ertele_1.Click += new System.EventHandler(this.SağTuşMenü_Ertele_X_Click);
             // 
             // SağTuşMenü_Ertele_2
             // 
             this.SağTuşMenü_Ertele_2.Name = "SağTuşMenü_Ertele_2";
-            this.SağTuşMenü_Ertele_2.Size = new System.Drawing.Size(308, 24);
+            this.SağTuşMenü_Ertele_2.Size = new System.Drawing.Size(337, 26);
             this.SağTuşMenü_Ertele_2.Text = "2";
             this.SağTuşMenü_Ertele_2.Click += new System.EventHandler(this.SağTuşMenü_Ertele_X_Click);
             // 
             // SağTuşMenü_Ertele_3
             // 
             this.SağTuşMenü_Ertele_3.Name = "SağTuşMenü_Ertele_3";
-            this.SağTuşMenü_Ertele_3.Size = new System.Drawing.Size(308, 24);
+            this.SağTuşMenü_Ertele_3.Size = new System.Drawing.Size(337, 26);
             this.SağTuşMenü_Ertele_3.Text = "3";
             this.SağTuşMenü_Ertele_3.Click += new System.EventHandler(this.SağTuşMenü_Ertele_X_Click);
             // 
             // SağTuşMenü_Ertele_4
             // 
             this.SağTuşMenü_Ertele_4.Name = "SağTuşMenü_Ertele_4";
-            this.SağTuşMenü_Ertele_4.Size = new System.Drawing.Size(308, 24);
+            this.SağTuşMenü_Ertele_4.Size = new System.Drawing.Size(337, 26);
             this.SağTuşMenü_Ertele_4.Text = "4";
             this.SağTuşMenü_Ertele_4.Click += new System.EventHandler(this.SağTuşMenü_Ertele_X_Click);
             // 
             // SağTuşMenü_Ertele_5
             // 
             this.SağTuşMenü_Ertele_5.Name = "SağTuşMenü_Ertele_5";
-            this.SağTuşMenü_Ertele_5.Size = new System.Drawing.Size(308, 24);
+            this.SağTuşMenü_Ertele_5.Size = new System.Drawing.Size(337, 26);
             this.SağTuşMenü_Ertele_5.Text = "5";
             this.SağTuşMenü_Ertele_5.Click += new System.EventHandler(this.SağTuşMenü_Ertele_X_Click);
             // 
             // SağTuşMenü_ErtelemeyiKaldır_Sil
             // 
+            this.SağTuşMenü_ErtelemeyiKaldır_Sil.BackColor = System.Drawing.Color.Salmon;
+            this.SağTuşMenü_ErtelemeyiKaldır_Sil.Image = global::İş_ve_Depo_Takip.Properties.Resources.sil;
             this.SağTuşMenü_ErtelemeyiKaldır_Sil.Name = "SağTuşMenü_ErtelemeyiKaldır_Sil";
-            this.SağTuşMenü_ErtelemeyiKaldır_Sil.Size = new System.Drawing.Size(308, 24);
+            this.SağTuşMenü_ErtelemeyiKaldır_Sil.Size = new System.Drawing.Size(337, 26);
             this.SağTuşMenü_ErtelemeyiKaldır_Sil.Text = "Ertelemeyi kaldır / Sil";
             this.SağTuşMenü_ErtelemeyiKaldır_Sil.Click += new System.EventHandler(this.SağTuşMenü_ErtelemeyiKaldır_Sil_Click);
             // 
             // SağTuşMenü_MüşteriyeGönder
             // 
+            this.SağTuşMenü_MüşteriyeGönder.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.SağTuşMenü_MüşteriyeGönder.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
             this.SağTuşMenü_MüşteriyeGönder.Name = "SağTuşMenü_MüşteriyeGönder";
-            this.SağTuşMenü_MüşteriyeGönder.Size = new System.Drawing.Size(308, 24);
+            this.SağTuşMenü_MüşteriyeGönder.Size = new System.Drawing.Size(337, 26);
             this.SağTuşMenü_MüşteriyeGönder.Text = "Müşteriye Gönder";
             this.SağTuşMenü_MüşteriyeGönder.Click += new System.EventHandler(this.SağTuşMenü_MüşteriyeGönder_Click);
+            // 
+            // SağTuşMenü_TeslimEdildiOlarakİşaretle
+            // 
+            this.SağTuşMenü_TeslimEdildiOlarakİşaretle.BackColor = System.Drawing.Color.YellowGreen;
+            this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
+            this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Name = "SağTuşMenü_TeslimEdildiOlarakİşaretle";
+            this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Size = new System.Drawing.Size(337, 26);
+            this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Text = "Teslim Edildi Olarak İşaretle";
+            this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Click += new System.EventHandler(this.SağTuşMenü_TeslimEdildiOlarakİşaretle_Click);
             // 
             // Hatırlatıcılar_Filtrele_Yaklaşanlar
             // 
@@ -332,6 +344,7 @@
             this.YeniOluştur_Oluştur.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.YeniOluştur_Oluştur.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.YeniOluştur_Oluştur.Location = new System.Drawing.Point(861, 0);
+            this.YeniOluştur_Oluştur.Margin = new System.Windows.Forms.Padding(4);
             this.YeniOluştur_Oluştur.Name = "YeniOluştur_Oluştur";
             this.YeniOluştur_Oluştur.Size = new System.Drawing.Size(104, 26);
             this.YeniOluştur_Oluştur.TabIndex = 7;
@@ -360,6 +373,7 @@
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer1.Location = new System.Drawing.Point(5, 5);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -377,7 +391,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.Tablo);
-            this.splitContainer1.Size = new System.Drawing.Size(968, 321);
+            this.splitContainer1.Size = new System.Drawing.Size(968, 320);
             this.splitContainer1.SplitterDistance = 25;
             this.splitContainer1.TabIndex = 17;
             // 
@@ -438,22 +452,15 @@
             this.İpUcu_Genel.UseAnimation = false;
             this.İpUcu_Genel.UseFading = false;
             // 
-            // SağTuşMenü_TeslimEdildiOlarakİşaretle
-            // 
-            this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Name = "SağTuşMenü_TeslimEdildiOlarakİşaretle";
-            this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Size = new System.Drawing.Size(308, 24);
-            this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Text = "Teslim Edildi Olarak İşaretle";
-            this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Click += new System.EventHandler(this.SağTuşMenü_TeslimEdildiOlarakİşaretle_Click);
-            // 
             // Takvim
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(978, 331);
+            this.ClientSize = new System.Drawing.Size(978, 330);
             this.Controls.Add(this.splitContainer1);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "Takvim";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

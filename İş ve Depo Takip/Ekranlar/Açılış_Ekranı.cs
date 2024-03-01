@@ -130,7 +130,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             switch ((sender as Button).Text)
             {
                 case "Yeni İş Girişi":      ÖndekiEkran = new Yeni_İş_Girişi(); break;
-                case "Tüm İşler":           ÖndekiEkran = new Tüm_İşler(false); break;
+                case "Tüm İşler":           ÖndekiEkran = new Tüm_İşler(); break;
                 case "Takvim":              ÖndekiEkran = new Takvim(); break;
                 case "Korumalı Alan":       ÖndekiEkran = new Korumalı_Alan(); break;
                 case "Müşteriler":          ÖndekiEkran = new Müşteriler(); break;

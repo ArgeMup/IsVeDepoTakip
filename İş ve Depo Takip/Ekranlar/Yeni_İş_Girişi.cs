@@ -254,6 +254,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Müşteriler_SeçimKutusu_SelectedIndexChanged(object sender, EventArgs e)
         {
+            GarantiKapsamındaOlabilir.Visible = false;
             Hastalar_Liste.Clear();
             ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Hastalar_SeçimKutusu);
             if (Müşteriler_SeçimKutusu.SelectedIndex < 0 || !Banka.Müşteri_MevcutMu(Müşteriler_SeçimKutusu.Text)) return;
@@ -278,6 +279,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (SeriNo != null) Değişiklik_Yapılıyor(null, null);
 
             ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Hastalar_SeçimKutusu, Hastalar_Liste, Hastalar_AramaÇubuğu.Text);
+            GarantiKapsamındaOlabilir.Visible = false;
         }
         private void Hastalar_AramaÇubuğu_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -288,19 +290,37 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Hastalar_AramaÇubuğu_Leave(object sender, EventArgs e)
         {
-            if (!Hastalar_AdVeSoyadıDüzelt.Checked) return;
-
-            string[] dizi = Hastalar_AramaÇubuğu.Text.Trim().Split(' ');
-            if (dizi.Length < 2 || dizi.Length > 3) return;
-
-            string yeni = "";
-            for (int i = 0; i < dizi.Length - 1; i++)
+            if (Hastalar_AdVeSoyadıDüzelt.Checked)
             {
-                yeni += dizi[i][0].ToString().ToUpper() + dizi[i].Substring(1).ToLower() + " ";
-            }
-            yeni += dizi[dizi.Length - 1].ToUpper();
+                string[] dizi = Hastalar_AramaÇubuğu.Text.Trim().Split(' ');
+                if (dizi.Length < 2 || dizi.Length > 3) return;
 
-            Hastalar_AramaÇubuğu.Text = yeni;
+                string yeni = "";
+                for (int i = 0; i < dizi.Length - 1; i++)
+                {
+                    yeni += dizi[i][0].ToString().ToUpper() + dizi[i].Substring(1).ToLower() + " ";
+                }
+                yeni += dizi[dizi.Length - 1].ToUpper();
+
+                Hastalar_AramaÇubuğu.Text = yeni;
+            }
+
+            if (GarantiKapsamındaOlabilir.Tag != null)
+            {
+                Tüm_İşler ti = GarantiKapsamındaOlabilir.Tag as Tüm_İşler;
+                if (ti != null) ti.Dispose();
+
+                GarantiKapsamındaOlabilir.Tag = null;
+            }
+            Hastalar_Hasta_GarantiKapsamındaMı(_İşlemSonucu_);
+            void _İşlemSonucu_(bool _EvetOlabilir_, Form _TümİşlerÖrneği_)
+            {
+                Invoke(new Action(() =>
+                {
+                    GarantiKapsamındaOlabilir.Visible = _EvetOlabilir_;
+                    GarantiKapsamındaOlabilir.Tag = _TümİşlerÖrneği_;
+                }));
+            }
         }
         private void Hastalar_SeçimKutusu_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -355,6 +375,73 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Close();
             Ekranlar.ÖnYüzler.Ekle(new Yeni_İş_Girişi(sn, Müşteriler_SeçimKutusu.Text, SeriNoTürü));
         }
+        private void Hastalar_GarantiKapsamındaOlabilir_Click(object sender, EventArgs e)
+        {
+            GarantiKapsamındaOlabilir.Enabled = false;
+            if (GarantiKapsamındaOlabilir.Tag == null)
+            {
+                Hastalar_Hasta_GarantiKapsamındaMı(_İşlemSonucu_);
+                return;
+
+                void _İşlemSonucu_(bool _EvetOlabilir_, Form _TümİşlerÖrneği_)
+                {
+                    Invoke(new Action(() =>
+                    {
+                        GarantiKapsamındaOlabilir.Visible = _EvetOlabilir_;
+                        GarantiKapsamındaOlabilir.Tag = _TümİşlerÖrneği_;
+
+                        if (GarantiKapsamındaOlabilir.Tag != null) Hastalar_GarantiKapsamındaOlabilir_Click(null, null);
+                    }));
+                }
+            }
+
+            ÖnYüzler.Ekle(GarantiKapsamındaOlabilir.Tag as Form);
+            GarantiKapsamındaOlabilir.Tag = null;
+            GarantiKapsamındaOlabilir.Enabled = true;
+        }
+        void Hastalar_Hasta_GarantiKapsamındaMı(Action<bool, Form> İşlemSonucu)
+        {
+            if (İşlemSonucu == null) throw new ArgumentNullException("İşlemSonucu boş olamaz");
+
+            string müşteri_adı = Müşteriler_SeçimKutusu.Text;
+
+            if (SeriNo == null &&                           //sadece yeni iş girişi
+                Hastalar_SeçimKutusu.Items.Count == 0 &&    //birebir sonuç bulunamadı
+                Banka.Müşteri_MevcutMu(müşteri_adı) && 
+                Hastalar_AramaÇubuğu.Text.DoluMu(true))
+            {
+                int GarantiKontrolSüresi_Gün = Banka.Tablo_Dal(null, Banka.TabloTürü.Takvim, "Erteleme Süresi", true).Oku_TamSayı("Garanti Kontrol Süresi", 90);
+                if (GarantiKontrolSüresi_Gün > 0)
+                {
+                    System.Threading.Tasks.Task.Run(() =>
+                    {
+                        DateTime GarantiKontrolSüresi_Bitiş = DateTime.Now;
+                        DateTime GarantiKontrolSüresi_Başlangıç = GarantiKontrolSüresi_Bitiş.AddDays(GarantiKontrolSüresi_Gün * -1);
+
+                        Tüm_İşler ti = null;
+                        Invoke(new Action(() =>
+                        {
+                            ti = new Tüm_İşler();
+                        }));
+
+                        int adt = ti.AramaPenceresiniAç(GarantiKontrolSüresi_Başlangıç, GarantiKontrolSüresi_Bitiş, müşteri_adı, Hastalar_AramaÇubuğu.Text, true, true);
+
+                        if (Disposing || IsDisposed || adt == 0)
+                        {
+                            ti.Dispose();
+                            ti = null;
+                            adt = 0;
+                        }
+
+                        İşlemSonucu(adt > 0, ti);
+                    });
+
+                    return;
+                }
+            }
+           
+            İşlemSonucu(false, null);
+        }
 
         private void Liste_İşTürleri_DoubleClick(object sender, EventArgs e)
         {
@@ -377,6 +464,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             
             if (((string)Tablo[Tablo_Adet.Index, konum].Value).BoşMu()) Tablo[Tablo_Adet.Index, konum].Value = "1";
             Tablo[Tablo_Adet.Index, konum].Style.BackColor = System.Drawing.Color.Salmon;
+
+            Liste_İşTürleri.Odaklan(true);
         }
         
         private void Tablo_CellValueChanged(object sender, DataGridViewCellEventArgs e)

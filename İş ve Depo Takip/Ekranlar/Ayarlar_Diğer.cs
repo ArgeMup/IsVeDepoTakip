@@ -28,6 +28,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Takvim_Erteleme_4.Text = Ayarlar_Takvim.Oku(null, "12", 5);
             Takvim_Erteleme_5.Text = Ayarlar_Takvim.Oku(null, "14", 6);
             Takvim_GecikmeleriGünBazındaHesapla.Checked = Ayarlar_Takvim.Oku_Bit("Gecikmeleri gün bazında hesapla", true);
+            Takvim_GarantiKontrolSüresi.Text = Ayarlar_Takvim.Oku("Garanti Kontrol Süresi", "90");
 
             Klasör_Yedekleme_1.Text = Ayarlar_Bilgisayar.Oku("Klasör/Yedek", null, 0);
             Klasör_Yedekleme_2.Text = Ayarlar_Bilgisayar.Oku("Klasör/Yedek", null, 1);
@@ -210,6 +211,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             Takvim_Erteleme_5.Text = gecici;
 
+            gecici = Takvim_GarantiKontrolSüresi.Text;
+            if (!Ortak.YazıyıSayıyaDönüştür(ref gecici, "Garanti kontrol süresi kutucuğu", null, 0, 3600, true))
+            {
+                Takvim_GarantiKontrolSüresi.Focus();
+                return;
+            }
+            Takvim_GarantiKontrolSüresi.Text = gecici;
+
             Ayarlar_Takvim[0] = Takvim_Erteleme_İşKabulTarihi.Text;
             Ayarlar_Takvim[1] = Takvim_Erteleme_ÖdemeTalepTarihi.Text;
             Ayarlar_Takvim[2] = Takvim_Erteleme_1.Text;
@@ -218,6 +227,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar_Takvim[5] = Takvim_Erteleme_4.Text;
             Ayarlar_Takvim[6] = Takvim_Erteleme_5.Text;
             Ayarlar_Takvim.Yaz("Gecikmeleri gün bazında hesapla", Takvim_GecikmeleriGünBazındaHesapla.Checked);
+            Ayarlar_Takvim.Yaz("Garanti Kontrol Süresi", Takvim_GarantiKontrolSüresi.Text);
 
             Ayarlar_Bilgisayar.Yaz("Klasör/Yedek", Klasör_Yedekleme_1.Text, 0);
             Ayarlar_Bilgisayar.Yaz("Klasör/Yedek", Klasör_Yedekleme_2.Text, 1);

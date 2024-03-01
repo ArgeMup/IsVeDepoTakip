@@ -54,10 +54,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Hastalar_Grup = new System.Windows.Forms.GroupBox();
             this.Hastalar_SeçimKutusu = new System.Windows.Forms.ListBox();
             this.İşTürleri = new System.Windows.Forms.GroupBox();
+            this.Liste_İşTürleri = new ArgeMup.HazirKod.Ekranlar.ListeKutusu();
             this.İştürü_SeçiliSatıraKopyala = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.GarantiKapsamındaOlabilir = new System.Windows.Forms.Button();
             this.Ayraç_Kat_3_SolSağ = new System.Windows.Forms.SplitContainer();
             this.Ayraç_Kat_3_SolSağ_Sağ_ÜstAlt = new System.Windows.Forms.SplitContainer();
             this.Tablo_Dişler = new System.Windows.Forms.TableLayoutPanel();
@@ -114,7 +116,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.KurlarVeSüreler = new System.Windows.Forms.TextBox();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
-            this.Liste_İşTürleri = new ArgeMup.HazirKod.Ekranlar.ListeKutusu();
             ((System.ComponentModel.ISupportInitialize)(this.Tablo)).BeginInit();
             this.Müşteriler_Grup.SuspendLayout();
             this.Hastalar_Grup.SuspendLayout();
@@ -329,7 +330,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Hastalar_AramaÇubuğu.Dock = System.Windows.Forms.DockStyle.Top;
             this.Hastalar_AramaÇubuğu.Location = new System.Drawing.Point(3, 22);
             this.Hastalar_AramaÇubuğu.Name = "Hastalar_AramaÇubuğu";
-            this.Hastalar_AramaÇubuğu.Size = new System.Drawing.Size(337, 26);
+            this.Hastalar_AramaÇubuğu.Size = new System.Drawing.Size(181, 26);
             this.Hastalar_AramaÇubuğu.TabIndex = 2;
             this.İpUcu.SetToolTip(this.Hastalar_AramaÇubuğu, "Arama çubuğu");
             this.Hastalar_AramaÇubuğu.TextChanged += new System.EventHandler(this.Hastalar_AramaÇubuğu_TextChanged);
@@ -342,7 +343,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Hastalar_AdVeSoyadıDüzelt.AutoSize = true;
             this.Hastalar_AdVeSoyadıDüzelt.Checked = true;
             this.Hastalar_AdVeSoyadıDüzelt.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Hastalar_AdVeSoyadıDüzelt.Location = new System.Drawing.Point(318, 24);
+            this.Hastalar_AdVeSoyadıDüzelt.Location = new System.Drawing.Point(162, 24);
             this.Hastalar_AdVeSoyadıDüzelt.Name = "Hastalar_AdVeSoyadıDüzelt";
             this.Hastalar_AdVeSoyadıDüzelt.Size = new System.Drawing.Size(18, 17);
             this.Hastalar_AdVeSoyadıDüzelt.TabIndex = 4;
@@ -383,7 +384,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Hastalar_Grup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Hastalar_Grup.Location = new System.Drawing.Point(0, 0);
             this.Hastalar_Grup.Name = "Hastalar_Grup";
-            this.Hastalar_Grup.Size = new System.Drawing.Size(343, 109);
+            this.Hastalar_Grup.Size = new System.Drawing.Size(187, 109);
             this.Hastalar_Grup.TabIndex = 14;
             this.Hastalar_Grup.TabStop = false;
             this.Hastalar_Grup.Text = "Hasta";
@@ -397,7 +398,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Hastalar_SeçimKutusu.Location = new System.Drawing.Point(3, 48);
             this.Hastalar_SeçimKutusu.Margin = new System.Windows.Forms.Padding(2);
             this.Hastalar_SeçimKutusu.Name = "Hastalar_SeçimKutusu";
-            this.Hastalar_SeçimKutusu.Size = new System.Drawing.Size(337, 58);
+            this.Hastalar_SeçimKutusu.Size = new System.Drawing.Size(181, 58);
             this.Hastalar_SeçimKutusu.TabIndex = 3;
             this.Hastalar_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.Hastalar_SeçimKutusu_SelectedIndexChanged);
             // 
@@ -412,6 +413,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İşTürleri.TabIndex = 14;
             this.İşTürleri.TabStop = false;
             this.İşTürleri.Text = "İş Türleri";
+            // 
+            // Liste_İşTürleri
+            // 
+            this.Liste_İşTürleri.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Liste_İşTürleri.Location = new System.Drawing.Point(3, 22);
+            this.Liste_İşTürleri.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.Liste_İşTürleri.Name = "Liste_İşTürleri";
+            this.Liste_İşTürleri.SeçilenEleman_Adı = null;
+            this.Liste_İşTürleri.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("Liste_İşTürleri.SeçilenEleman_Adları")));
+            this.Liste_İşTürleri.Size = new System.Drawing.Size(279, 270);
+            this.Liste_İşTürleri.TabIndex = 9;
+            this.Liste_İşTürleri.DoubleClick += new System.EventHandler(this.Liste_İşTürleri_DoubleClick);
             // 
             // İştürü_SeçiliSatıraKopyala
             // 
@@ -462,9 +475,24 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.Hastalar_Grup);
+            this.splitContainer1.Panel2.Controls.Add(this.GarantiKapsamındaOlabilir);
             this.splitContainer1.Size = new System.Drawing.Size(701, 113);
             this.splitContainer1.SplitterDistance = 350;
             this.splitContainer1.TabIndex = 23;
+            // 
+            // GarantiKapsamındaOlabilir
+            // 
+            this.GarantiKapsamındaOlabilir.AutoSize = true;
+            this.GarantiKapsamındaOlabilir.BackColor = System.Drawing.Color.Khaki;
+            this.GarantiKapsamındaOlabilir.Dock = System.Windows.Forms.DockStyle.Right;
+            this.GarantiKapsamındaOlabilir.Location = new System.Drawing.Point(187, 0);
+            this.GarantiKapsamındaOlabilir.Name = "GarantiKapsamındaOlabilir";
+            this.GarantiKapsamındaOlabilir.Size = new System.Drawing.Size(156, 109);
+            this.GarantiKapsamındaOlabilir.TabIndex = 15;
+            this.GarantiKapsamındaOlabilir.Text = "Garanti\r\nKapsamında\r\nOlabilir";
+            this.GarantiKapsamındaOlabilir.UseVisualStyleBackColor = false;
+            this.GarantiKapsamındaOlabilir.Visible = false;
+            this.GarantiKapsamındaOlabilir.Click += new System.EventHandler(this.Hastalar_GarantiKapsamındaOlabilir_Click);
             // 
             // Ayraç_Kat_3_SolSağ
             // 
@@ -1229,18 +1257,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İpUcu.UseAnimation = false;
             this.İpUcu.UseFading = false;
             // 
-            // Liste_İşTürleri
-            // 
-            this.Liste_İşTürleri.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Liste_İşTürleri.Location = new System.Drawing.Point(3, 22);
-            this.Liste_İşTürleri.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.Liste_İşTürleri.Name = "Liste_İşTürleri";
-            this.Liste_İşTürleri.SeçilenEleman_Adı = null;
-            this.Liste_İşTürleri.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("Liste_İşTürleri.SeçilenEleman_Adları")));
-            this.Liste_İşTürleri.Size = new System.Drawing.Size(279, 270);
-            this.Liste_İşTürleri.TabIndex = 9;
-            this.Liste_İşTürleri.DoubleClick += new System.EventHandler(this.Liste_İşTürleri_DoubleClick);
-            // 
             // Yeni_İş_Girişi
             // 
             this.AllowDrop = true;
@@ -1267,6 +1283,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.İşTürleri.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.Ayraç_Kat_3_SolSağ.Panel1.ResumeLayout(false);
@@ -1386,5 +1403,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label3;
         private ArgeMup.HazirKod.Ekranlar.ListeKutusu Liste_İşTürleri;
+        private System.Windows.Forms.Button GarantiKapsamındaOlabilir;
     }
 }

@@ -141,8 +141,10 @@
             this.Tablo_Ödendi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tablo_Notlar = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.Müşteri_KDV = new System.Windows.Forms.CheckBox();
             this.TabloİçeriğiArama = new System.Windows.Forms.TextBox();
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra = new System.Windows.Forms.CheckBox();
+            this.TabloİçeriğiArama_VeVeya = new System.Windows.Forms.CheckBox();
+            this.Müşteri_KDV = new System.Windows.Forms.CheckBox();
             this.Müşteri_İskonto = new System.Windows.Forms.CheckBox();
             this.Müşteri_Notlar = new System.Windows.Forms.CheckBox();
             this.Tablo_TümünüSeç = new System.Windows.Forms.Button();
@@ -1561,8 +1563,10 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.Müşteri_KDV);
             this.panel1.Controls.Add(this.TabloİçeriğiArama);
+            this.panel1.Controls.Add(this.TabloİçeriğiArama_SadeceHastaAdındaAra);
+            this.panel1.Controls.Add(this.TabloİçeriğiArama_VeVeya);
+            this.panel1.Controls.Add(this.Müşteri_KDV);
             this.panel1.Controls.Add(this.Müşteri_İskonto);
             this.panel1.Controls.Add(this.Müşteri_Notlar);
             this.panel1.Controls.Add(this.Tablo_TümünüSeç);
@@ -1571,6 +1575,60 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1095, 22);
             this.panel1.TabIndex = 1;
+            // 
+            // TabloİçeriğiArama
+            // 
+            this.TabloİçeriğiArama.BackColor = System.Drawing.SystemColors.Window;
+            this.TabloİçeriğiArama.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TabloİçeriğiArama.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.TabloİçeriğiArama.Location = new System.Drawing.Point(116, 0);
+            this.TabloİçeriğiArama.Margin = new System.Windows.Forms.Padding(2);
+            this.TabloİçeriğiArama.Name = "TabloİçeriğiArama";
+            this.TabloİçeriğiArama.Size = new System.Drawing.Size(680, 23);
+            this.TabloİçeriğiArama.TabIndex = 2;
+            this.TabloİçeriğiArama.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.İpUcu.SetToolTip(this.TabloİçeriğiArama, "Tablo içinde arama kutucuğu");
+            this.TabloİçeriğiArama.TextChanged += new System.EventHandler(this.TabloİçeriğiArama_TextChanged);
+            // 
+            // TabloİçeriğiArama_SadeceHastaAdındaAra
+            // 
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.Appearance = System.Windows.Forms.Appearance.Button;
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.AutoSize = true;
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.Dock = System.Windows.Forms.DockStyle.Right;
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.FlatAppearance.CheckedBackColor = System.Drawing.Color.YellowGreen;
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.Location = new System.Drawing.Point(796, 0);
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.Margin = new System.Windows.Forms.Padding(0);
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.Name = "TabloİçeriğiArama_SadeceHastaAdındaAra";
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.Size = new System.Drawing.Size(135, 22);
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.TabIndex = 20;
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.Text = "Sadece hasta adında ara";
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.İpUcu.SetToolTip(this.TabloİçeriğiArama_SadeceHastaAdındaAra, "Sadece hasta adında arar.");
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.UseVisualStyleBackColor = true;
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.CheckedChanged += new System.EventHandler(this.TabloİçeriğiArama_SadeceHastaAdındaAra_VeVeya_CheckedChanged);
+            // 
+            // TabloİçeriğiArama_VeVeya
+            // 
+            this.TabloİçeriğiArama_VeVeya.Appearance = System.Windows.Forms.Appearance.Button;
+            this.TabloİçeriğiArama_VeVeya.AutoSize = true;
+            this.TabloİçeriğiArama_VeVeya.Dock = System.Windows.Forms.DockStyle.Right;
+            this.TabloİçeriğiArama_VeVeya.FlatAppearance.CheckedBackColor = System.Drawing.Color.YellowGreen;
+            this.TabloİçeriğiArama_VeVeya.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TabloİçeriğiArama_VeVeya.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.TabloİçeriğiArama_VeVeya.Location = new System.Drawing.Point(931, 0);
+            this.TabloİçeriğiArama_VeVeya.Margin = new System.Windows.Forms.Padding(0);
+            this.TabloİçeriğiArama_VeVeya.Name = "TabloİçeriğiArama_VeVeya";
+            this.TabloİçeriğiArama_VeVeya.Size = new System.Drawing.Size(30, 22);
+            this.TabloİçeriğiArama_VeVeya.TabIndex = 19;
+            this.TabloİçeriğiArama_VeVeya.Text = "Ve";
+            this.TabloİçeriğiArama_VeVeya.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TabloİçeriğiArama_VeVeya.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.İpUcu.SetToolTip(this.TabloİçeriğiArama_VeVeya, resources.GetString("TabloİçeriğiArama_VeVeya.ToolTip"));
+            this.TabloİçeriğiArama_VeVeya.UseVisualStyleBackColor = true;
+            this.TabloİçeriğiArama_VeVeya.CheckedChanged += new System.EventHandler(this.TabloİçeriğiArama_SadeceHastaAdındaAra_VeVeya_CheckedChanged);
             // 
             // Müşteri_KDV
             // 
@@ -1590,20 +1648,6 @@
             this.Müşteri_KDV.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.Müşteri_KDV.UseVisualStyleBackColor = true;
             this.Müşteri_KDV.CheckedChanged += new System.EventHandler(this.Müşteri_KDV_CheckedChanged);
-            // 
-            // TabloİçeriğiArama
-            // 
-            this.TabloİçeriğiArama.BackColor = System.Drawing.SystemColors.Window;
-            this.TabloİçeriğiArama.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TabloİçeriğiArama.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.TabloİçeriğiArama.Location = new System.Drawing.Point(116, 0);
-            this.TabloİçeriğiArama.Margin = new System.Windows.Forms.Padding(2);
-            this.TabloİçeriğiArama.Name = "TabloİçeriğiArama";
-            this.TabloİçeriğiArama.Size = new System.Drawing.Size(884, 23);
-            this.TabloİçeriğiArama.TabIndex = 2;
-            this.TabloİçeriğiArama.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.İpUcu.SetToolTip(this.TabloİçeriğiArama, "Tablo içinde arama kutucuğu");
-            this.TabloİçeriğiArama.TextChanged += new System.EventHandler(this.TabloİçeriğiArama_TextChanged);
             // 
             // Müşteri_İskonto
             // 
@@ -1861,5 +1905,7 @@
         private ArgeMup.HazirKod.Ekranlar.ListeKutusu İşTakip_Müşteriler;
         private ArgeMup.HazirKod.Ekranlar.ListeKutusu İşTakip_Ödendi_Dönem;
         private ArgeMup.HazirKod.Ekranlar.ListeKutusu Malzemeler_Malzeme;
+        private System.Windows.Forms.CheckBox TabloİçeriğiArama_SadeceHastaAdındaAra;
+        private System.Windows.Forms.CheckBox TabloİçeriğiArama_VeVeya;
     }
 }

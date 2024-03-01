@@ -211,11 +211,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     break;
 
                 case Keys.F2: //Tüm işler
-                    if (Banka.İzinliMi(new Banka.Ayarlar_Kullanıcılar_İzin[] { Banka.Ayarlar_Kullanıcılar_İzin.Devam_eden_işler_içinde_işlem_yapabilir, Banka.Ayarlar_Kullanıcılar_İzin.Tamamlanmış_işler_içinde_işlem_yapabilir })) Ekle(new Tüm_İşler(false));
+                    if (Banka.İzinliMi(new Banka.Ayarlar_Kullanıcılar_İzin[] { Banka.Ayarlar_Kullanıcılar_İzin.Devam_eden_işler_içinde_işlem_yapabilir, Banka.Ayarlar_Kullanıcılar_İzin.Tamamlanmış_işler_içinde_işlem_yapabilir })) Ekle(new Tüm_İşler());
                     break;
 
                 case Keys.F3: //Tüm işler - Arama
-                    if (Banka.İzinliMi(new Banka.Ayarlar_Kullanıcılar_İzin[] { Banka.Ayarlar_Kullanıcılar_İzin.Devam_eden_işler_içinde_işlem_yapabilir, Banka.Ayarlar_Kullanıcılar_İzin.Tamamlanmış_işler_içinde_işlem_yapabilir })) Ekle(new Tüm_İşler(true));
+                    if (Banka.İzinliMi(new Banka.Ayarlar_Kullanıcılar_İzin[] { Banka.Ayarlar_Kullanıcılar_İzin.Devam_eden_işler_içinde_işlem_yapabilir, Banka.Ayarlar_Kullanıcılar_İzin.Tamamlanmış_işler_içinde_işlem_yapabilir }))
+                    {
+                        Tüm_İşler ti = new Tüm_İşler();
+                        Ekle(ti);
+                        ti.AramaPenceresiniAç();
+                    }
                     break;
 
                 case Keys.F4: //Takvim

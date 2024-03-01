@@ -13,7 +13,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
     public partial class Tüm_İşler : Form, IGüncellenenSeriNolar
     {
         bool İzin_Ayarlar, İzin_Tamamlandı;
-        public Tüm_İşler(bool AramaPenceresiİleAçılsın)
+        public Tüm_İşler()
         {
             InitializeComponent();
 
@@ -63,11 +63,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Seviye2_ÖdemeBekleyen.Tag = 12;
             Seviye2_Ödendi.Tag = 13;
 
-            if (AramaPenceresiİleAçılsın)
-            {
-                Seviye_Değişti(Seviye1_Arama, null);
-            }
-
             Logo.Image = Ortak.Firma_Logo;
 
             if (!İzin_Tamamlandı)
@@ -84,6 +79,21 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 P_Yazdırma.Visible = false;
                 İşTakip_Eposta_Kişiye.Visible = false;
             }
+        }
+        public int AramaPenceresiniAç(DateTime? BaşlangıçTarihi = null, DateTime? BitişTarihi = null, string Müşteri = null, string TabloİçeriğiArama_İçeriği = null, bool SadeceHastaAdındaAra = false, bool Ve0_Veya1 = false)
+        {
+            if (BaşlangıçTarihi != null) Arama_GirişTarihi_Başlangıç.Value = BaşlangıçTarihi.Value;
+            if (BitişTarihi != null) Arama_GirişTarihi_Bitiş.Value = BitişTarihi.Value;
+            if (Müşteri != null) { Arama_Müşteriler.Tüm_Elemanlar = new List<string>() { Müşteri }; Arama_Müşteriler.Yenile(); }
+
+            Seviye_Değişti(Seviye1_Arama, null);
+
+            TabloİçeriğiArama_SadeceHastaAdındaAra.Checked = SadeceHastaAdındaAra;
+            TabloİçeriğiArama_VeVeya.Checked = Ve0_Veya1;
+
+            if (TabloİçeriğiArama_İçeriği != null) TabloİçeriğiArama.Text = TabloİçeriğiArama_İçeriği;
+
+            return Tablo.Rows.GetRowCount(DataGridViewElementStates.Visible);
         }
         private void Tüm_İşler_Shown(object sender, EventArgs e)
         {
@@ -1358,13 +1368,29 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     if (string.IsNullOrEmpty(içerik)) Tablo[sutun, satır].Style.BackColor = Color.White;
                     else
                     {
-                        içerik = içerik.ToLower();
                         int bulundu_adet = 0;
-                        foreach (string arn in arananlar)
+                        if (!TabloİçeriğiArama_SadeceHastaAdındaAra.Checked ||
+                            (TabloİçeriğiArama_SadeceHastaAdındaAra.Checked && sutun == Tablo_Hasta.Index))
                         {
-                            if (!içerik.Contains(arn)) break;
-                                
-                            bulundu_adet++;
+                            içerik = içerik.ToLower();
+                            foreach (string arn in arananlar)
+                            {
+                                if (TabloİçeriğiArama_VeVeya.Checked)
+                                {
+                                    //veya
+                                    if (!içerik.Contains(arn)) continue;
+
+                                    bulundu_adet = arananlar.Length;
+                                    break; //veya için yeterli
+                                }
+                                else
+                                {
+                                    //ve
+                                    if (!içerik.Contains(arn)) break;
+
+                                    bulundu_adet++;
+                                }
+                            }
                         }
 
                         if (bulundu_adet == arananlar.Length)
@@ -1391,6 +1417,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             if (TabloİçeriğiArama_KapatmaTalebi) TabloİçeriğiArama_TextChanged(null, null);
             TabloİçeriğiArama_KapatmaTalebi = false;
+        }
+        private void TabloİçeriğiArama_SadeceHastaAdındaAra_VeVeya_CheckedChanged(object sender, EventArgs e)
+        {
+            TabloİçeriğiArama_VeVeya.Text = TabloİçeriğiArama_VeVeya.Checked ? "Veya" : "Ve";
+            TabloİçeriğiArama_TextChanged(null, null);
         }
 
         List<string> Arama_Sorgula_Aranan_Müşteriler, Arama_Sorgula_Aranan_İşTürleri;
