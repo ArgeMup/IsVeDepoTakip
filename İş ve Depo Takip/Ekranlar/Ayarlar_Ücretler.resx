@@ -123,15 +123,16 @@
   <data name="Müşterıler.ToolTip" xml:space="preserve">
     <value>Ücret, "Ödeme Talebi Oluşturma" aşamasında hesaplanır
 Ücret belirleme sıralaması :
-1 - Alttaki tablodaki ücret sutununda bir değer (&gt;=0₺) girilmiş ise ilgili işin ücreti buradaki değerdir
+1 - Alttaki tablodaki ücret sutununda bir değer (&gt;=0₺) girilmiş ise ilgili işin ücreti buradaki değerdir.
 1A - Adetli bir iş olsa bile tüm seçilen dişlere dair kullanıcının girdiği ücret kullanılır, diş sayısı ile ÇARPILMAZ.
-2 - Girilmemiş ise "Ana Ekran - Ayarlar - Ücretler" sayfasındaki değerlere bakılır
-2A - "Müşteri" ye ait sekmede ilgili iş türü için bir değer girilmiş ise ilgili satırın ücreti buradaki değerdir
-2B - Girilmemiş ise "Tüm müşteriler için ortak" sekmesinde ilgili iş türü için bir değer girilmiş ise ilgili satırın ücreti buradaki değerdir
-2C - Adetli bir iş ise diş sayısı ile ÇARPILIR. 
-3 - Halen bir ücret (&gt;=0₺) elde edilememiş ise hata oluşur ve işlemden çıkılır
-4 - Her bir satırın ücreti yukarıdaki adımlar eşliğinde ayrı ayrı hesaplanır ve alt toplama ulaşılır
-5 - İskonto kutucuğu içeriği sıfırdan büyük ise elde edilen alt toplama uygulanır
+2 - Girilmemiş ise "Ana Ekran - Ayarlar - Ücretler" sayfasındaki değerlere bakılır.
+2A - "Müşteri" ye ait sekmede ilgili iş türü için bir değer girilmiş ise ilgili satırın ücreti buradaki değerdir.
+2B - Girilmemiş ise "Birim ücret boş ise yapılacak hesaplama" içine bir değer girilmiş ise ilgili satırın ücreti buradaki değerdir.
+2C - Girilmemiş ise "Tüm müşteriler için ortak" sekmesinde ilgili iş türü için bir değer girilmiş ise ilgili satırın ücreti buradaki değerdir
+2D - Adetli bir iş ise diş sayısı ile ÇARPILIR. 
+3 - Halen bir ücret (&gt;=0₺) elde edilememiş ise hata oluşur ve işlemden çıkılır.
+4 - Her bir satırın ücreti yukarıdaki adımlar eşliğinde ayrı ayrı hesaplanır ve alt toplama ulaşılır.
+5 - İskonto kutucuğu içeriği sıfırdan büyük ise elde edilen alt toplama uygulanır.
 Alt Toplam - ( Alt Toplam x % iskonto ) = Genel Toplam
 </value>
   </data>

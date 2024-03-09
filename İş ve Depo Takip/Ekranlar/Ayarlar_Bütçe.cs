@@ -240,7 +240,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
             }
 
-            Banka.Müşteri_KDV_İskonto(Müşteri, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde);
+            Banka.Müşteri_KDV_İskonto(Müşteri, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde, out _);
             double İskonto_Hesaplanan = İskonto_Yap ? Gelir / 100 * İskonto_Yüzde : 0;
             double KDV_Hesaplanan = KDV_Ekle ? (Gelir - İskonto_Hesaplanan) / 100 * KDV_Yüzde : 0;
             Gelir = Gelir - İskonto_Hesaplanan + KDV_Hesaplanan;

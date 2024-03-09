@@ -274,7 +274,7 @@ namespace İş_ve_Depo_Takip
 
             Depo.Yaz("Ödeme/Alt Toplam", Toplam);
 
-            Müşteri_KDV_İskonto(Müşteri, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde);
+            Müşteri_KDV_İskonto(Müşteri, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde, out _);
             if (KDV_Ekle) Depo.Yaz("Ödeme/Alt Toplam", KDV_Yüzde, 1);
             if (İskonto_Yap) Depo.Yaz("Ödeme/Alt Toplam", İskonto_Yüzde, 2);
 
@@ -859,12 +859,13 @@ namespace İş_ve_Depo_Takip
             IDepo_Eleman ÖdemeDalı = Depo.Bul("Ödeme");
             ÖdemeDalı["Müşteri_ÖdemeTalebi_GeciciDetaylarıEkle"].İçeriği = new string[] { o.ÖnÖdeme_AlınanÖdeme.Yazıya(), o.Genel_Toplam.Yazıya(), o.ÖnÖdeme_MevcutÖnÖdeme.Yazıya(), Müşteri_ÖnÖdemeMiktarı(Müşteri).Yazıya() };
         }
-        public static void Müşteri_KDV_İskonto(string Müşteri, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde)
+        public static void Müşteri_KDV_İskonto(string Müşteri, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde, out string BirimÜcretBoşİseYapılacakHesaplama)
         {
             KDV_Ekle = false;
             KDV_Yüzde = 10;
             İskonto_Yap = false;
             İskonto_Yüzde = 0;
+            BirimÜcretBoşİseYapılacakHesaplama = null;
 
             IDepo_Eleman müş = Ayarlar_Müşteri(Müşteri, "Bütçe");
             if (müş == null) return;
@@ -874,12 +875,20 @@ namespace İş_ve_Depo_Takip
 
             İskonto_Yüzde = müş.Oku_Sayı(null, 0, 1);
             İskonto_Yap = İskonto_Yüzde > 0;
+
+            BirimÜcretBoşİseYapılacakHesaplama = müş.Oku(null, null, 2);
         }
-        public static void Müşteri_KDV_İskonto(string Müşteri, bool KDV_Ekle, double İskonto_Yüzde = double.NaN)
+        public static void Müşteri_KDV_İskonto(string Müşteri, bool KDV_Ekle)
         {
             IDepo_Eleman müş = Ayarlar_Müşteri(Müşteri, "Bütçe", true);
             müş.Yaz(null, KDV_Ekle, 0);
-            if (!double.IsNaN(İskonto_Yüzde)) müş.Yaz(null, İskonto_Yüzde, 1);
+        }
+        public static void Müşteri_KDV_İskonto(string Müşteri, bool KDV_Ekle, double İskonto_Yüzde, string BirimÜcretBoşİseYapılacakHesaplama)
+        {
+            IDepo_Eleman müş = Ayarlar_Müşteri(Müşteri, "Bütçe", true);
+            müş.Yaz(null, KDV_Ekle, 0);
+            müş.Yaz(null, İskonto_Yüzde, 1);
+            müş.Yaz(null, BirimÜcretBoşİseYapılacakHesaplama, 2);
         }
 
         public static List<string> İşTürü_Listele()
@@ -1675,42 +1684,62 @@ namespace İş_ve_Depo_Takip
                 }
             }
         }
-        static string Ücretler_BirimÜcret(string Müşteri, string İşTürü, out double Değeri)
+        public static string Ücretler_BirimÜcret(string Müşteri, string İşTürü, out double Değeri)
         {
             Değeri = 0;
-            string ücret = null;
+            bool Müşteriİçin_BirimÜcretBoşİseYapılacakHesaplama_Var = false;
+            string cevap, ÜcretiHesaplamaİşlemi = null, OrtakÜcreti = null; //tüm müşteriler için ortak ücret
+            IDepo_Eleman d = Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri/" + İşTürü + "/Bütçe");
+            if (d != null) OrtakÜcreti = d[0];
 
             //müşteriye özel ücret varmı diye bak
             if (Müşteri.DoluMu())
             {
-                IDepo_Eleman d = Ayarlar_Müşteri(Müşteri, "Bütçe/" + İşTürü);
-                if (d != null) ücret = d[0];
+                IDepo_Eleman ayrlr_müşteri_bütçe = Ayarlar_Müşteri(Müşteri, "Bütçe"); //müşteriye özel ücret
+                if (ayrlr_müşteri_bütçe != null)
+                {
+                    ÜcretiHesaplamaİşlemi = ayrlr_müşteri_bütçe[İşTürü, 0]; //müşteriye ve işe özel ücret
+
+                    if (string.IsNullOrEmpty(ÜcretiHesaplamaİşlemi))
+                    {
+                        ÜcretiHesaplamaİşlemi = ayrlr_müşteri_bütçe[2]; //Müşteriye ve işe özel ücret boş ise yapılacak hesaplama
+                        Müşteriİçin_BirimÜcretBoşİseYapılacakHesaplama_Var = ÜcretiHesaplamaİşlemi.DoluMu();
+                    }
+                }
             }
             
-            if (string.IsNullOrEmpty(ücret))
+            if (string.IsNullOrEmpty(ÜcretiHesaplamaİşlemi))
             {
-                //tüm müşteriler için ortak ücret
-                IDepo_Eleman d = Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri/" + İşTürü + "/Bütçe");
-                if (d != null) ücret = d[0];
+                //tüm müşteriler için ortak ücreti kullan
+                ÜcretiHesaplamaİşlemi = OrtakÜcreti;
             }
 
-            if (string.IsNullOrEmpty(ücret)) return "Ücret bilgisi girilmemiş.";
+            if (string.IsNullOrEmpty(ÜcretiHesaplamaİşlemi)) { cevap = "Ücret bilgisi girilmemiş."; goto Çıkış; }
 
-            if (ücret.Contains("%Maliyeti%"))
+            if (ÜcretiHesaplamaİşlemi.Contains("%Ortak Ücreti%"))
             {
-                string snç = Ücretler_BirimMaliyet(İşTürü, out Değeri);
-                if (snç.DoluMu()) return snç;
+                ÜcretiHesaplamaİşlemi = ÜcretiHesaplamaİşlemi.Replace("%Ortak Ücreti%", OrtakÜcreti);
+            }
+            
+            if (ÜcretiHesaplamaİşlemi.Contains("%Maliyeti%"))
+            {
+                cevap = Ücretler_BirimMaliyet(İşTürü, out Değeri);
+                if (cevap.DoluMu()) goto Çıkış;
 
-                ücret = ücret.Replace("%Maliyeti%", Değeri.Yazıya());
+                ÜcretiHesaplamaİşlemi = ÜcretiHesaplamaİşlemi.Replace("%Maliyeti%", Değeri.Yazıya());
             }
 
-            bool eşit_sıfır_olabilir = ücret.Contains("%=0%");
-            if (eşit_sıfır_olabilir) ücret = ücret.Replace("%=0%", "");
+            bool eşit_sıfır_olabilir = ÜcretiHesaplamaİşlemi.Contains("%=0%");
+            if (eşit_sıfır_olabilir) ÜcretiHesaplamaİşlemi = ÜcretiHesaplamaİşlemi.Replace("%=0%", "");
 
-            string cvp = Değişkenler.Hesapla(ücret, out Değeri);
-            if (cvp.DoluMu()) return cvp;
+            cevap = Değişkenler.Hesapla(ÜcretiHesaplamaİşlemi, out Değeri);
+            if (cevap.DoluMu()) goto Çıkış;
             else if (Değeri > 0 || (Değeri == 0 && eşit_sıfır_olabilir)) return null;
-            else return "Ücret 0 dan küçük veya eşit olamaz.";
+            else cevap = "Ücret 0 dan küçük veya eşit olamaz.";
+
+            Çıkış:
+            if (Müşteriİçin_BirimÜcretBoşİseYapılacakHesaplama_Var) cevap += Environment.NewLine + @"Müşterinize özel ""Birim ücret boş ise yapılacak hesaplama"" içeriğini de kontrol ediniz.";
+            return cevap;
         }
         static string Ücretler_BirimMaliyet(string İşTürü, out double Değeri)
         {
@@ -2107,7 +2136,7 @@ namespace İş_ve_Depo_Takip
                 seri_no_dalı.Sil(null);
             }
 
-            Müşteri_KDV_İskonto(Müşteri, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde);
+            Müşteri_KDV_İskonto(Müşteri, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde, out _);
 
             yeni_tablo.Yaz("Ödeme", t);
             if (!string.IsNullOrEmpty(İlaveÖdeme_Açıklama))

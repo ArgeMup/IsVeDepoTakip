@@ -334,7 +334,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             İşTakip_Eposta_Ödendi.Text = "Ödendi : Son dönem";
 
             //Müşteri bütçe görselleri
-            Banka.Müşteri_KDV_İskonto(MüşteriAdı, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde);
+            Banka.Müşteri_KDV_İskonto(MüşteriAdı, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde, out _);
             Müşteri_KDV.CheckedChanged -= Müşteri_KDV_CheckedChanged;
             Müşteri_KDV.Checked = KDV_Ekle;
             Müşteri_KDV.CheckedChanged += Müşteri_KDV_CheckedChanged;
@@ -650,7 +650,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (müş != null) ort_seçim.MevcutÖnÖdeme = müş.Oku_Sayı(null);
 
             for (int i = 0; i < Tablo.RowCount; i++) Tablo[Tablo_Seç.Index, i].Value = false;
-            Banka.Müşteri_KDV_İskonto(MüşteriAdı, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde);
+            Banka.Müşteri_KDV_İskonto(MüşteriAdı, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde, out _);
             if (KDV_Ekle) ort_seçim.KDV_Oranı = KDV_Yüzde;
             if (İskonto_Yap) ort_seçim.İskonto_Oranı = İskonto_Yüzde;
 
@@ -695,7 +695,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             IDepo_Eleman müş = Banka.Tablo_Dal(MüşteriAdı, Banka.TabloTürü.Ödemeler, "Mevcut Ön Ödeme");
             if (müş != null) ort_seçim.MevcutÖnÖdeme = müş.Oku_Sayı(null);
 
-            Banka.Müşteri_KDV_İskonto(MüşteriAdı, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde);
+            Banka.Müşteri_KDV_İskonto(MüşteriAdı, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde, out _);
             if (KDV_Ekle) ort_seçim.KDV_Oranı = KDV_Yüzde;
             if (İskonto_Yap) ort_seçim.İskonto_Oranı = İskonto_Yüzde;
 

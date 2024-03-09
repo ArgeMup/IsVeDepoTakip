@@ -66,9 +66,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void SağTuşMenü_Değişkenler_Click(object sender, EventArgs e)
         {
-            if (Tablo.SelectedCells.Count != 1 || Tablo.SelectedCells[0].ColumnIndex == Tablo_İş_Türleri.Index) return;
+            if (SağTuşMenü_Değişkenler.SourceControl == Tablo)
+            {
+                if (Tablo.SelectedCells.Count != 1 || Tablo.SelectedCells[0].ColumnIndex == Tablo_İş_Türleri.Index) return;
 
-            Tablo.SelectedCells[0].Value += "%" + (sender as ToolStripMenuItem).Text + "%";
+                Tablo.SelectedCells[0].Value += "%" + (sender as ToolStripMenuItem).Text + "%";
+            }
+            else
+            {
+                Müşteriİçin_BirimÜcretBoşİseYapılacakHesaplama.Text += "%" + (sender as ToolStripMenuItem).Text + "%";
+            }
         }
 
         List<string> AramaÇubuğu_Müşteri_Liste = null;
@@ -169,16 +176,19 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
             	Müşteriİçin.Visible = false;
                 Banka.Ücretler_TablodaGöster(Tablo, null);
+
+                Müşteriİçin_BirimÜcretBoşİseYapılacakHesaplama.Text = null;
             }
             else
             {
-            	Müşteriİçin.Visible = true;
-                Banka.Ücretler_TablodaGöster(Tablo, Müşterıler.Text);
-
-                Banka.Müşteri_KDV_İskonto(Müşterıler.Text, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde);
+                Banka.Müşteri_KDV_İskonto(Müşterıler.Text, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde, out string BirimÜcretBoşİseYapılacakHesaplama);
                 Müşteriİçin_KDV.Checked = KDV_Ekle;
                 Müşteriİçin_İskonto.Text = İskonto_Yüzde.Yazıya();
                 Müşteriİçin_İskonto.BackColor = !İskonto_Yap ? SystemColors.Window : İskonto_Yüzde > 25 ? Color.Salmon : Color.YellowGreen;
+                Müşteriİçin_BirimÜcretBoşİseYapılacakHesaplama.Text = BirimÜcretBoşİseYapılacakHesaplama;
+
+                Müşteriİçin.Visible = true;
+                Banka.Ücretler_TablodaGöster(Tablo, Müşterıler.Text);
             }
 
             AramaÇubuğu_İşTürü_TextChanged(null, null);
@@ -197,8 +207,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 1) return;
 
+            bool TümMüşterilerİçinOrtak = Müşterıler.Text == "Tüm müşteriler için ortak";
+            
             _SutunuHesapla_(Tablo_Ücret.Index);
-            if (Tablo_Maliyet.Visible) _SutunuHesapla_(Tablo_Maliyet.Index);
+            if (TümMüşterilerİçinOrtak) _SutunuHesapla_(Tablo_Maliyet.Index);
             
             Ayar_Değişti(null, null);
 
@@ -207,7 +219,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 string Formül = Tablo[SutunNo, e.RowIndex].Value as string;
                 if (Formül.DoluMu())
                 {
-                    if (SutunNo == Tablo_Ücret.Index) Formül = Formül.Replace("%Ortak Ücreti%", "");
+                    if (TümMüşterilerİçinOrtak && SutunNo == Tablo_Ücret.Index) Formül = Formül.Replace("%Ortak Ücreti%", "");
                     else if (SutunNo == Tablo_Maliyet.Index) Formül = Formül.Replace("%Maliyeti%", "");
                     Formül = Değişkenler.Düzenle(Formül);
                     Tablo[SutunNo, e.RowIndex].Value = Formül;
@@ -218,16 +230,28 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     {
                         Dictionary<string, string> tüm_değişkenler = new Dictionary<string, string>(Değişkenler.Tümü);
 
-                        string gecici = Tablo[Tablo_Ücret.Index, e.RowIndex].Value as string;
-                        if (gecici.DoluMu()) tüm_değişkenler.Add("Ortak Ücreti", gecici.Replace("%=0%", ""));
-                       
+                        string snç;
+                        double çıktı;
+                        bool eşit_sıfır_olabilir = Formül.Contains("%=0%");
+
+                        string gecici;
+                        if (TümMüşterilerİçinOrtak)
+                        {
+                            gecici = Tablo[Tablo_Ücret.Index, e.RowIndex].Value as string;
+                            if (gecici.DoluMu()) tüm_değişkenler.Add("Ortak Ücreti", gecici.Replace("%=0%", ""));
+                        }
+                        else
+                        {
+                            snç = Banka.Ücretler_BirimÜcret(null, Tablo[Tablo_İş_Türleri.Index, e.RowIndex].Value as string, out çıktı);
+                            tüm_değişkenler.Add("Ortak Ücreti", snç.DoluMu() ? snç : çıktı.Yazıya());
+                        }
+
                         gecici = Tablo[Tablo_Maliyet.Index, e.RowIndex].Value as string;
                         if (gecici.DoluMu()) tüm_değişkenler.Add("Maliyeti", gecici.Replace("%=0%", ""));
 
-                        bool eşit_sıfır_olabilir = Formül.Contains("%=0%");
                         if (eşit_sıfır_olabilir) Formül = Formül.Replace("%=0%", "");
 
-                        string snç = Değişkenler.Hesapla(Formül, out double çıktı, tüm_değişkenler); //işlem sonucu
+                        snç = Değişkenler.Hesapla(Formül, out çıktı, tüm_değişkenler); //işlem sonucu
                         if (snç.DoluMu() || çıktı < 0 || (çıktı == 0 && !eşit_sıfır_olabilir))
                         {
                             Tablo[SutunNo, e.RowIndex].Style.BackColor = Color.Salmon;
@@ -251,10 +275,22 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
                 else
                 {
-                    Tablo[SutunNo, e.RowIndex].Style.BackColor = Color.White;
-                    Tablo[SutunNo, e.RowIndex].ToolTipText = null;
+                    bool BirimÜcretBoşİseYapılacakHesaplamaİşlemiVar = Müşteriİçin_BirimÜcretBoşİseYapılacakHesaplama.Text.DoluMu() && SutunNo == Tablo_Ücret.Index;
+                    string mesaj = "Bu kutucuk boş olduğu için hesaplama aşamasında" + Environment.NewLine +
+                                "\"Birim ücret boş ise yapılacak hesaplama\"" + Environment.NewLine +
+                                "kutucuğu içindeki işlem kullanılacaktır.";
+
+                    Tablo[SutunNo, e.RowIndex].Style.BackColor = BirimÜcretBoşİseYapılacakHesaplamaİşlemiVar ? Color.Khaki : Color.White;
+                    Tablo[SutunNo, e.RowIndex].ToolTipText = BirimÜcretBoşİseYapılacakHesaplamaİşlemiVar ? mesaj : null;
                 }
             }
+        }
+        private void Ayar_Değişti_Müşteriİçin_BirimÜcretBoşİseYapılacakHesaplama(object sender, EventArgs e)
+        {
+            MutlakaGüncelle = true;
+            Ücretler_Activated(null, null);
+
+            Ayar_Değişti(null, null);
         }
         private void Ayar_Değişti(object sender, EventArgs e)
         {
@@ -336,6 +372,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     return;
                 }
                 Müşteriİçin_İskonto.Text = müş_iskonto;
+
+                Müşteriİçin_BirimÜcretBoşİseYapılacakHesaplama.Text = Değişkenler.Düzenle(Müşteriİçin_BirimÜcretBoşİseYapılacakHesaplama.Text);
             }
 
             for (int i = 0; i < Tablo.RowCount; i++)
@@ -366,7 +404,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
 
-            if (!TümMüşterilerİçinOrtak) Banka.Müşteri_KDV_İskonto(Müşterıler.Text, Müşteriİçin_KDV.Checked, Müşteriİçin_İskonto.Text.NoktalıSayıya());
+            if (!TümMüşterilerİçinOrtak) Banka.Müşteri_KDV_İskonto(Müşterıler.Text, Müşteriİçin_KDV.Checked, Müşteriİçin_İskonto.Text.NoktalıSayıya(), Müşteriİçin_BirimÜcretBoşİseYapılacakHesaplama.Text);
             Banka.Ayarlar_Genel("Bütçe/KDV", true).Yaz(null, kdv);
 
             if (TümMüşterilerİçinOrtak)
