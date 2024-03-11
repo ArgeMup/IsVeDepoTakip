@@ -2148,6 +2148,28 @@ namespace İş_ve_Depo_Takip
             yeni_tablo.Yaz("Ödeme/Alt Toplam", Alt_Toplam);
             if (KDV_Ekle) yeni_tablo.Yaz("Ödeme/Alt Toplam", KDV_Yüzde, 1);
             if (İskonto_Yap) yeni_tablo.Yaz("Ödeme/Alt Toplam", İskonto_Yüzde, 2);
+
+            #region Gelir Gider Takip
+            IDepo_Eleman ÖdemeDalı = yeni_tablo["Ödeme"];
+            Müşteri_ÖdemeTalebi_GeciciDetaylarıEkle(Müşteri, ref ÖdemeDalı);
+            _Talep_Ayıkla_ÖdemeDalı o = new _Talep_Ayıkla_ÖdemeDalı(ÖdemeDalı);
+            if (o.Gecici_Güncel_İşlemSonrasıMüşteriBorcu >= 0)
+            {
+                var ödeme = Ekranlar.GelirGiderTakip.Komut_Ekle_GelirGider("Müşteri", Müşteri,
+               Ekranlar.GelirGiderTakip.İşyeri_Ödeme_İşlem_Tipi_.Gelir, Ekranlar.GelirGiderTakip.İşyeri_Ödeme_İşlem_Durum_.Ödenmedi,
+               o.Gecici_Güncel_İşlemSonrasıMüşteriBorcu, Ekranlar.GelirGiderTakip.İşyeri_Ödeme_ParaBirimi_.TürkLirası, t,
+               DosyaAdı,
+               0, Ekranlar.GelirGiderTakip.Muhatap_Üyelik_Dönem_.Boşta, 0, t);
+
+                string sonuç = Ekranlar.GelirGiderTakip.Komut_Ekle_GelirGider(new List<Ekranlar.GelirGiderTakip.İlkAçılışAyarları_Ekle_GelirGider_Talep_>() { ödeme });
+                if (sonuç.DoluMu())
+                {
+                    return "İşleminiz \"İş ve Depo Takip\" içerisine kaydedildi fakat" + Environment.NewLine +
+                            "\"Gelir Gider Takip\" içerisine kaydederken bir sorun oluştu." + Environment.NewLine + Environment.NewLine + sonuç;
+                }
+            }
+            #endregion
+
             return null;
         }
         public static void Talep_İşaretle_ÖdemeTalepEdildi_TeslimEdildi(string Müşteri, string EkTanım)
@@ -2172,6 +2194,24 @@ namespace İş_ve_Depo_Takip
             }
 
             depo_ÖdemeTalepEdildi.Yaz("Silinecek", "Evet");
+
+            #region Gelir Gider Takip
+            _Talep_Ayıkla_ÖdemeDalı o = new _Talep_Ayıkla_ÖdemeDalı(depo_ÖdemeTalepEdildi["Ödeme"]);
+            DateTime t_talep = o.Tarih_ÖdemeTalebi.TarihSaate();
+            var ödeme = Ekranlar.GelirGiderTakip.Komut_Ekle_GelirGider("Müşteri", Müşteri,
+                Ekranlar.GelirGiderTakip.İşyeri_Ödeme_İşlem_Tipi_.Gelir, Ekranlar.GelirGiderTakip.İşyeri_Ödeme_İşlem_Durum_.İptalEdildi,
+                o.Genel_Toplam, Ekranlar.GelirGiderTakip.İşyeri_Ödeme_ParaBirimi_.TürkLirası, t_talep,
+                EkTanım,
+                0, Ekranlar.GelirGiderTakip.Muhatap_Üyelik_Dönem_.Boşta, 0, t_talep);
+
+            string sonuç = Ekranlar.GelirGiderTakip.Komut_Ekle_GelirGider(new List<Ekranlar.GelirGiderTakip.İlkAçılışAyarları_Ekle_GelirGider_Talep_>() { ödeme });
+            if (sonuç.DoluMu())
+            {
+                sonuç = "İşleminiz \"İş ve Depo Takip\" içerisine kaydedildi fakat" + Environment.NewLine +
+                        "\"Gelir Gider Takip\" içerisine kaydederken bir sorun oluştu." + Environment.NewLine + Environment.NewLine + sonuç;
+                MessageBox.Show(sonuç.Günlük("Gelir Gider Takip "), "Gelir Gider Takip");
+            }
+            #endregion
         }
         public static void Talep_İşaretle_ÖdemeTalepEdildi_Ödendi(string Müşteri, string EkTanım, string AlınanÖdemeMiktarı, string Notlar)
         {
@@ -2223,13 +2263,14 @@ namespace İş_ve_Depo_Takip
             
             depo.Yaz("Silinecek", "Evet");
 
+            #region Gelir Gider Takip
             if (miktar >= 0)
             {
                 var ödeme = Ekranlar.GelirGiderTakip.Komut_Ekle_GelirGider("Müşteri", Müşteri,
                     Ekranlar.GelirGiderTakip.İşyeri_Ödeme_İşlem_Tipi_.Gelir, Ekranlar.GelirGiderTakip.İşyeri_Ödeme_İşlem_Durum_.TamÖdendi,
                     miktar, Ekranlar.GelirGiderTakip.İşyeri_Ödeme_ParaBirimi_.TürkLirası, t,
-                    EkTanım + (Notlar.DoluMu(true) ? Environment.NewLine + Notlar : null),
-                    0, Ekranlar.GelirGiderTakip.Muhatap_Üyelik_Dönem_.Boşta, 0, t);
+                    t2 + (Notlar.DoluMu(true) ? Environment.NewLine + Notlar : null),
+                    0, Ekranlar.GelirGiderTakip.Muhatap_Üyelik_Dönem_.Boşta, 0, EkTanım.TarihSaate(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2));
                 
                 string sonuç = Ekranlar.GelirGiderTakip.Komut_Ekle_GelirGider(new List<Ekranlar.GelirGiderTakip.İlkAçılışAyarları_Ekle_GelirGider_Talep_>() { ödeme });
                 if (sonuç.DoluMu())
@@ -2239,6 +2280,7 @@ namespace İş_ve_Depo_Takip
                     MessageBox.Show(sonuç.Günlük("Gelir Gider Takip "), "Gelir Gider Takip");
                 }
             }
+            #endregion
         }
         public static void Talep_TablodaGöster(DataGridView Tablo, Banka_Tablo_ İçerik, bool ÖnceTemizle = true, bool TeslimEdildiKırmızı = false)
         {

@@ -132,7 +132,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             depo.YazıyaDönüştür().BaytDizisine().Karıştır(Parola.Dizi_GelirGiderTakip).Dosyaİçeriği_Yaz(Komut_DosyasıYolu[0]);
 
             YeniYazılımKontrolü_ yyk = new YeniYazılımKontrolü_();
-            if (Ortak.DosyaGüncelMi(Uygulama_DosyaYolu, 0, 8)) yyk.KontrolTamamlandı = true;
+            if (Ortak.DosyaGüncelMi(Uygulama_DosyaYolu, 0, 9)) yyk.KontrolTamamlandı = true;
             else yyk.Başlat(new Uri("https://github.com/ArgeMup/GelirGiderTakip/blob/main/bin/Yay%C4%B1nla/Gelir%20Gider%20Takip.exe?raw=true"), null, Uygulama_DosyaYolu);
 
             if (!yyk.KontrolTamamlandı)
