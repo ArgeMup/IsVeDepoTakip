@@ -10,9 +10,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
     public partial class Ayarlar_Kullanıcılar : Form
     {
         bool İlkAçılışKontrolleriniYap;
-        public Kullanıcılar.İşlemTürü_ İşlemTürü;
+        public Kullanıcılar2.İşlemTürü_ İşlemTürü;
 
-        public Ayarlar_Kullanıcılar(Kullanıcılar.İşlemTürü_ İşlemTürü, bool AşağıAtılmış = false, bool İlkAçılışKontrolleriniYap = false)
+        public Ayarlar_Kullanıcılar(Kullanıcılar2.İşlemTürü_ İşlemTürü, bool AşağıAtılmış = false, bool İlkAçılışKontrolleriniYap = false)
         {
             this.İşlemTürü = İşlemTürü;
             this.İlkAçılışKontrolleriniYap = İlkAçılışKontrolleriniYap;
@@ -63,17 +63,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
             switch (İşlemTürü)
             {
                 default:
-                case Kullanıcılar.İşlemTürü_.Giriş:
+                case Kullanıcılar2.İşlemTürü_.Giriş:
                     ÖnYüzler.PencereleriKapat();
                     if (AşağıAtılmış) WindowState = FormWindowState.Minimized;
                     Ekran.GeriBildirim_GirişBaşarılı += Ekran_GeriBildirim_GirişBaşarılı;
                     break;
 
-                case Kullanıcılar.İşlemTürü_.ParolaDeğiştirme:
+                case Kullanıcılar2.İşlemTürü_.ParolaDeğiştirme:
                     Ekran.GeriBildirim_Değişiklikleri_Kaydet += Ekran_Değişiklikleri_Kaydet_ParolaDeğiştirme;
                     break;
 
-                case Kullanıcılar.İşlemTürü_.Ayarlar:
+                case Kullanıcılar2.İşlemTürü_.Ayarlar:
                     GelirGiderTakip.Durdur();
                     Ekran.GeriBildirim_Değişiklikleri_Kaydet += Ekran_Değişiklikleri_Kaydet_Ayarlar;
                     break;
@@ -99,7 +99,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Ayarlar_Kullanıcılar_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (İşlemTürü == Kullanıcılar.İşlemTürü_.Giriş || e.CloseReason != CloseReason.UserClosing)
+            if (İşlemTürü == Kullanıcılar2.İşlemTürü_.Giriş || e.CloseReason != CloseReason.UserClosing)
             {
                 Ortak.Kapan(e.CloseReason.ToString());
                 Application.Exit(); //en alttaki parola kontrol uygulamasını kapatmak için
@@ -124,8 +124,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             else
             {
-                if (İşlemTürü != Kullanıcılar.İşlemTürü_.Giriş) Açılış_Ekranı_nı_Göster = false;
-                İşlemTürü = Kullanıcılar.İşlemTürü_.Boşta;
+                if (İşlemTürü != Kullanıcılar2.İşlemTürü_.Giriş) Açılış_Ekranı_nı_Göster = false;
+                İşlemTürü = Kullanıcılar2.İşlemTürü_.Boşta;
 
                 Close();
             }

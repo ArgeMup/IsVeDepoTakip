@@ -255,7 +255,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 if (Banka.Kullanıcı_İzinleri_Tutucusu.ParolaKontrolüGerekiyorMu)
                 {
                     //şifre sayfasını aç
-                    new Ayarlar_Kullanıcılar(ArgeMup.HazirKod.Ekranlar.Kullanıcılar.İşlemTürü_.Giriş, true);
+                    new Ayarlar_Kullanıcılar(ArgeMup.HazirKod.Ekranlar.Kullanıcılar2.İşlemTürü_.Giriş, true);
                 }
             }
             else

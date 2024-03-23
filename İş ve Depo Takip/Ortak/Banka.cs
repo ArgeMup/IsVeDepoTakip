@@ -3193,14 +3193,14 @@ namespace İş_ve_Depo_Takip
             DiziElemanSayısı_,
             DiziElemanSayısı_Gelir_gider_ = Gelir_gider_ekleyebilir - Gelir_gider_Boşta_ + 1
         };
-        public static ArgeMup.HazirKod.Ekranlar.Kullanıcılar_Ayarlar_ Kullanıcı_İzinleri_Tutucusu
+        public static ArgeMup.HazirKod.Ekranlar.Kullanıcılar2_Ayarlar_ Kullanıcı_İzinleri_Tutucusu
         {
             get
             {
                 if (Kullanıcı_İzinleri_Tutucusu_ == null)
                 {
                     Kullanıcı_İzinleri = Tablo(null, TabloTürü.Kullanıcı_İzinleri);
-                    Kullanıcı_İzinleri_Tutucusu_ = Sınıf_Oluştur(typeof(ArgeMup.HazirKod.Ekranlar.Kullanıcılar_Ayarlar_), Kullanıcı_İzinleri) as ArgeMup.HazirKod.Ekranlar.Kullanıcılar_Ayarlar_;
+                    Kullanıcı_İzinleri_Tutucusu_ = Sınıf_Oluştur(typeof(ArgeMup.HazirKod.Ekranlar.Kullanıcılar2_Ayarlar_), Kullanıcı_İzinleri) as ArgeMup.HazirKod.Ekranlar.Kullanıcılar2_Ayarlar_;
                     if (Kullanıcı_İzinleri_Tutucusu_ == null) throw new Exception("Kullanıcı_İzinleri_Tutucusu_ == null");
 
                     Kullanıcı_İzinleri_Tutucusu_.Başlat((int)Ayarlar_Kullanıcılar_İzin.DiziElemanSayısı_, true, Parola.Yazı);
@@ -3213,7 +3213,7 @@ namespace İş_ve_Depo_Takip
                 Kullanıcı_İzinleri_Tutucusu_ = null;
             }
         }
-        static ArgeMup.HazirKod.Ekranlar.Kullanıcılar_Ayarlar_ Kullanıcı_İzinleri_Tutucusu_ = null;
+        static ArgeMup.HazirKod.Ekranlar.Kullanıcılar2_Ayarlar_ Kullanıcı_İzinleri_Tutucusu_ = null;
         static Değişken_ Kullanıcı_İzinleri_Değişken = new Değişken_() { Filtre_BoşVeyaVarsayılanDeğerdeİse_HariçTut = true };
 
         public static void Kullanıcı_İzinleri_Kaydet()

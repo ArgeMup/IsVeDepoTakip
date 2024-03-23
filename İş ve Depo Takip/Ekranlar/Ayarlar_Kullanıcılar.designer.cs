@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Ekran = new ArgeMup.HazirKod.Ekranlar.Kullanıcılar();
+            this.Ekran = new ArgeMup.HazirKod.Ekranlar.Kullanıcılar2();
             this.SuspendLayout();
             // 
             // Ekran
@@ -59,6 +59,6 @@
         }
 
         #endregion
-        private global::ArgeMup.HazirKod.Ekranlar.Kullanıcılar Ekran;
+        private global::ArgeMup.HazirKod.Ekranlar.Kullanıcılar2 Ekran;
     }
 }

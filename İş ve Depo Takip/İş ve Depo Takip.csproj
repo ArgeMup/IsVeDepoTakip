@@ -195,6 +195,12 @@
     <Compile Include="HazirKod_Cdiyez\DonanımHaberleşmesi_Udp.cs" />
     <Compile Include="HazirKod_Cdiyez\DoğrulamaKodu.cs" />
     <Compile Include="HazirKod_Cdiyez\Dönüştürme.cs" />
+    <Compile Include="HazirKod_Cdiyez\Ekranlar\Kullanıcılar2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HazirKod_Cdiyez\Ekranlar\Kullanıcılar2.designer.cs">
+      <DependentUpon>Kullanıcılar2.cs</DependentUpon>
+    </Compile>
     <Compile Include="HazirKod_Cdiyez\Ekİşlemler.cs" />
     <Compile Include="HazirKod_Cdiyez\Günlük.cs" />
     <Compile Include="HazirKod_Cdiyez\Karmasiklastirma.cs" />
@@ -203,7 +209,7 @@
     <Compile Include="HazirKod_Cdiyez\KlavyeFareGozlemcisi.cs" />
     <Compile Include="HazirKod_Cdiyez\Liste.cs" />
     <Compile Include="HazirKod_Cdiyez\Ekranlar\Kullanıcılar.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="HazirKod_Cdiyez\Ekranlar\Kullanıcılar.designer.cs">
       <DependentUpon>Kullanıcılar.cs</DependentUpon>
@@ -305,6 +311,9 @@
     <EmbeddedResource Include="HazirKod_Cdiyez\Ekranlar\Kullanıcılar.resx">
       <DependentUpon>Kullanıcılar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="HazirKod_Cdiyez\Ekranlar\Kullanıcılar2.resx">
+      <DependentUpon>Kullanıcılar2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HazirKod_Cdiyez\Ekranlar\ListeKutusu.resx">
       <DependentUpon>ListeKutusu.cs</DependentUpon>
     </EmbeddedResource>
@@ -318,7 +327,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="HazirKod_Cdiyez\.git" />
     <None Include="HazirKod_Cdiyez\LICENSE" />
     <None Include="HazirKod_Cdiyez\README.md" />
     <None Include="Properties\Settings.settings">

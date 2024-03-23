@@ -46,7 +46,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Depo_ Depo_Komut = new Depo_(File.ReadAllText(EpostaAltyapısı_KomutDosyasıYolu));
             DahaCokKarmasiklastirma_Asimetrik_ Dçk_Rsa = new DahaCokKarmasiklastirma_Asimetrik_(Depo_Komut.Oku("Kimlik Kontrolü"));
-            EpostaAltyapısı_ParolaAes = Dçk_Rsa.ParolaÜret();
+            EpostaAltyapısı_ParolaAes = Rastgele.BaytDizisi(32);
             byte[] ParolaRsa = Dçk_Rsa.Karıştır(EpostaAltyapısı_ParolaAes);
             Dçk_Rsa.Dispose();
             Depo_Komut.Yaz("Kimlik Kontrolü/ParolaRsa", ParolaRsa.Taban64e());

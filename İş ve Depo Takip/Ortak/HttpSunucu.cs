@@ -9,7 +9,7 @@ namespace İş_ve_Depo_Takip
     public static class HttpSunucu
     {
         static TcpSunucu_ Sunucu = null;
-        static IDonanımHaberlleşmesi Sunucu_DoHa = null;
+        static IDonanımHaberleşmesi Sunucu_DoHa = null;
 
         public static void Başlat()
         {

@@ -85,7 +85,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
     public static class BarkodSorgulama
     {
-        static IDonanımHaberlleşmesi SeriPort = null;
+        static IDonanımHaberleşmesi SeriPort = null;
         public static string SonMesaj = null;
         public static void Başlat()
         {

@@ -144,8 +144,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 case "Değişkenler":         ÖndekiEkran = new Ayarlar_Değişkenler(); break;
                 case "Diğer":               ÖndekiEkran = new Ayarlar_Diğer(); break;
                 case "Ücret Hesaplama":     ÖndekiEkran = new Yeni_İş_Girişi(SeriNoTürü:Banka.TabloTürü.ÜcretHesaplama); break;
-                case "Kullanıcılar":        ÖndekiEkran = new Ayarlar_Kullanıcılar(ArgeMup.HazirKod.Ekranlar.Kullanıcılar.İşlemTürü_.Ayarlar); break;
-                case "Parolayı Değiştir":   ÖndekiEkran = new Ayarlar_Kullanıcılar(ArgeMup.HazirKod.Ekranlar.Kullanıcılar.İşlemTürü_.ParolaDeğiştirme); break;
+                case "Kullanıcılar":        ÖndekiEkran = new Ayarlar_Kullanıcılar(ArgeMup.HazirKod.Ekranlar.Kullanıcılar2.İşlemTürü_.Ayarlar); break;
+                case "Parolayı Değiştir":   ÖndekiEkran = new Ayarlar_Kullanıcılar(ArgeMup.HazirKod.Ekranlar.Kullanıcılar2.İşlemTürü_.ParolaDeğiştirme); break;
                 default : throw new Exception("Tuş_Click " + (sender as Button).Text);
             }
 

@@ -32,7 +32,7 @@ namespace İş_ve_Depo_Takip
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new Ekranlar.Ayarlar_Kullanıcılar(ArgeMup.HazirKod.Ekranlar.Kullanıcılar.İşlemTürü_.Giriş, false, true));
+                Application.Run(new Ekranlar.Ayarlar_Kullanıcılar(ArgeMup.HazirKod.Ekranlar.Kullanıcılar2.İşlemTürü_.Giriş, false, true));
             }
         }
 
