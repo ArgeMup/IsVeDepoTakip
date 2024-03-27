@@ -10,6 +10,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
     {
         #region STATİC Yeni İş Girişi
         static string YeniİşGirişi_Barkodİçeriği_ = null;
+        public enum YeniİşGirişi_Etiketi { Kayıt, Acilİş, Açıklama }
         public static string YeniİşGirişi_Barkodİçeriği
         {
             get
@@ -127,14 +128,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             
             return sonuç;
         }
-        public static string YeniİşGirişi_Etiket_Üret(bool Kayıt1_Acil0, int KopyaSayısı, string Müşteri, string Hasta, string SeriNo, string SonİşKabulTarihi, string SonİşTürü, bool SadeceAyarla)
+        public static string YeniİşGirişi_Etiket_Üret(YeniİşGirişi_Etiketi Tür, int KopyaSayısı, string Müşteri, string Hasta, string SeriNo, string SonİşKabulTarihi, string SonİşTürü, bool SadeceAyarla, string Açıklama = null)
         {
             string sonuç = YeniİşGirişi_Barkod_Üret(Müşteri, Hasta, SeriNo, false);
             if (sonuç.DoluMu()) return "Barkod Üretimi Hatalı -> " + sonuç;
 
             Depo_ Depo_Komut = new Depo_();
             Depo_Komut["Komut"].İçeriği = new string[] { SadeceAyarla ? "Ayarla" : "Yazdır", KopyaSayısı.Yazıya() };
-            Depo_Komut["Ayarlar", 0] = Ortak.Klasör_KullanıcıDosyaları_Etiketleme + (Kayıt1_Acil0 ? "YeniİşGirişi_Etiket.mup" : "YeniİşGirişi_Etiket_Acil.mup");
+            Depo_Komut["Ayarlar", 0] = Ortak.Klasör_KullanıcıDosyaları_Etiketleme + (Tür == YeniİşGirişi_Etiketi.Kayıt ? "YeniİşGirişi_Etiket.mup" : Tür == YeniİşGirişi_Etiketi.Acilİş ? "YeniİşGirişi_Etiket_Acil.mup" : "YeniİşGirişi_Etiket_Açıklama.mup");
 
             IDepo_Eleman d = Depo_Komut["Değişkenler"];
             d["Firma Adı"].İçeriği = new string[] { Banka.İşyeri_Adı };
@@ -146,6 +147,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             d["Son İş - Kabul Tarihi"].İçeriği = new string[] { SonİşKabulTarihi };
             d["Son İş - Türü"].İçeriği = new string[] { SonİşTürü };
             d["Tarih Saat Şimdi"].İçeriği = new string[] { DateTime.Now.Yazıya() };
+            d["Açıklama"].İçeriği = new string[] { Açıklama };
 
             string Etiket_dosyayolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Etiket", "") + "\\Etiket.exe";
             YeniYazılımKontrolü_ yyk = new YeniYazılımKontrolü_();
@@ -240,16 +242,23 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void YeniİşGirişi_KayıtEtiketiAyarları_Click(object sender, System.EventArgs e)
         {
             YeniİşGirişi_KayıtEtiketiAyarları.Enabled = false;
-            string sonuç = YeniİşGirişi_Etiket_Üret(true, 1, "Örnek Müşteri Adı", "Örnek Hasta Adı", "Örnek Seri No", "GG.AA.YYYY", "Örnek İş Türü", true);
+            string sonuç = YeniİşGirişi_Etiket_Üret(YeniİşGirişi_Etiketi.Kayıt, 1, "Örnek Müşteri Adı", "Örnek Hasta Adı", "Örnek Seri No", "GG.AA.YYYY", "Örnek İş Türü", true);
             if (sonuç.DoluMu()) MessageBox.Show(sonuç, Text);
             YeniİşGirişi_KayıtEtiketiAyarları.Enabled = true;
         }
         private void YeniİşGirişi_AcilİşEtiketiAyarları_Click(object sender, EventArgs e)
         {
             YeniİşGirişi_AcilİşEtiketiAyarları.Enabled = false;
-            string sonuç = YeniİşGirişi_Etiket_Üret(false, 1, "Örnek Müşteri Adı", "Örnek Hasta Adı", "Örnek Seri No", "GG.AA.YYYY", "Örnek İş Türü", true);
+            string sonuç = YeniİşGirişi_Etiket_Üret(YeniİşGirişi_Etiketi.Acilİş, 1, "Örnek Müşteri Adı", "Örnek Hasta Adı", "Örnek Seri No", "GG.AA.YYYY", "Örnek İş Türü", true);
             if (sonuç.DoluMu()) MessageBox.Show(sonuç, Text);
             YeniİşGirişi_AcilİşEtiketiAyarları.Enabled = true;
+        }
+        private void YeniİşGirişi_AçıklamaEtiketiAyarları_Click(object sender, EventArgs e)
+        {
+            YeniİşGirişi_AçıklamaEtiketiAyarları.Enabled = false;
+            string sonuç = YeniİşGirişi_Etiket_Üret(YeniİşGirişi_Etiketi.Açıklama, 1, "Örnek Müşteri Adı", "Örnek Hasta Adı", "Örnek Seri No", "GG.AA.YYYY", "Örnek İş Türü", true, "Örnek Açıklama");
+            if (sonuç.DoluMu()) MessageBox.Show(sonuç, Text);
+            YeniİşGirişi_AçıklamaEtiketiAyarları.Enabled = true;
         }
         #endregion
     }

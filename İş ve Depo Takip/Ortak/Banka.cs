@@ -454,6 +454,22 @@ namespace İş_ve_Depo_Takip
 
                         depo = Kullanıcı_İzinleri;
                         break;
+
+                    case TabloTürü.Etiket_Açıklamaları:
+                        if (Etiket_Açıklamaları == null)
+                        {
+                            if (!Depo_DosyaVarMı("Açıklamalar", Ortak.Klasör_KullanıcıDosyaları_Etiketleme))
+                            {
+                                if (!YoksaOluştur) goto Çıkış;
+                            }
+
+                            Etiket_Açıklamaları = Depo_Aç("Açıklamalar", Ortak.Klasör_KullanıcıDosyaları_Etiketleme);
+                        }
+                        else KontrolEdildi = true;
+
+                        depo = Etiket_Açıklamaları;
+                        break;
+
                     default:
                         goto Çıkış;
                 }
@@ -2710,6 +2726,25 @@ namespace İş_ve_Depo_Takip
 
             if (Firmaİçinde > Toplam) Firmaİçinde = Toplam;
         }
+        public static void Talep_Ekle_AçıklamaEtiketi(string Müşteri, string SeriNo, string Açıklama)
+        {
+            if (Açıklama.BoşMu(true)) return;
+            Açıklama = Açıklama.Trim();
+            if (Müşteri.BoşMu(true) || SeriNo.BoşMu(true)) throw new Exception("Müşteri(" + Müşteri + ").BoşMu(true) || SeriNo(" + SeriNo + ").BoşMu(true)");
+
+            Talep_Bul_Detaylar_ Talep_Bul_Detaylar = Talep_Bul(SeriNo, Müşteri);
+            if (Talep_Bul_Detaylar == null) throw new Exception("Talep_Bul_Detaylar == null");
+
+            Talep_Ayıkla_SeriNoDalı(Talep_Bul_Detaylar.SeriNoDalı, out _, out string Hasta, out _, out string Notlar, out _);
+            Talep_Ayıkla_İşTürüDalı(Talep_Bul_Detaylar.SeriNoDalı.Elemanları.Last(), out string SonİşTürü, out string SonGirişTarihi, out _, out _, out _, out _);
+
+            if (Notlar.DoluMu(true)) Notlar += Environment.NewLine;
+            Notlar += DateTime.Now.ToString("dd MMM ddd") + " " + Açıklama;
+            Talep_Bul_Detaylar.SeriNoDalı[2] = Notlar;
+
+            string sonuç = Ekranlar.Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(Ekranlar.Ayarlar_Etiketleme.YeniİşGirişi_Etiketi.Açıklama, 1, Müşteri, Hasta, SeriNo, SonGirişTarihi, SonİşTürü, false, Açıklama);
+            if (sonuç.DoluMu()) MessageBox.Show("Açıklama etiketinin yazdırılması aşamasında bir sorun ile karşılaşıldı" + Environment.NewLine + Environment.NewLine + sonuç, "Açıklama Etiketi");
+        }
 
         public static List<string> KorumalıAlan_Listele_Dosyalar()
         {
@@ -3013,7 +3048,7 @@ namespace İş_ve_Depo_Takip
 
             Günlük.Ekle("Değişiklikleri_Kaydet Başladı");
             bool EnAzBirDeğişiklikYapıldı = false;
-            Ortak.Gösterge.Başlat("Kaydediliyor", false, Tetikleyen, 9 + (Müşteriler == null ? 0 : Müşteriler.Count * 5) + (MalzemeKullanımDetayları == null ? 0 : MalzemeKullanımDetayları.Count * 1));
+            Ortak.Gösterge.Başlat("Kaydediliyor", false, Tetikleyen, 10 + (Müşteriler == null ? 0 : Müşteriler.Count * 5) + (MalzemeKullanımDetayları == null ? 0 : MalzemeKullanımDetayları.Count * 1));
 
             if (Müşteriler != null && Müşteriler.Count > 0)
             {
@@ -3093,7 +3128,10 @@ namespace İş_ve_Depo_Takip
  
             Ortak.Gösterge.İlerleme = 1;
             if (Kullanıcı_İzinleri != null && Kullanıcı_İzinleri.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Kuİz", Kullanıcı_İzinleri); EnAzBirDeğişiklikYapıldı = true; }
-            
+
+            Ortak.Gösterge.İlerleme = 1;
+            if (Etiket_Açıklamaları != null && Etiket_Açıklamaları.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Açıklamalar", Etiket_Açıklamaları, Ortak.Klasör_KullanıcıDosyaları_Etiketleme); }
+
             Ortak.Gösterge.İlerleme = 1;
             if (EnAzBirDeğişiklikYapıldı || (Ayarlar != null && Ayarlar.EnAzBir_ElemanAdıVeyaİçeriği_Değişti))
             {
@@ -3279,7 +3317,7 @@ namespace İş_ve_Depo_Takip
         #endregion
 
         #region Demirbaşlar
-        public enum TabloTürü { Ayarlar, İşTürleri, Malzemeler, MalzemeKullanımDetayı, Ödemeler, Kullanıcılar, Takvim, KorumalıAlan, DosyaEkleri, Kullanıcı_İzinleri,
+        public enum TabloTürü { Ayarlar, İşTürleri, Malzemeler, MalzemeKullanımDetayı, Ödemeler, Kullanıcılar, Takvim, KorumalıAlan, DosyaEkleri, Kullanıcı_İzinleri, Etiket_Açıklamaları,
                                 ÜcretHesaplama, DevamEden, TeslimEdildi, ÖdemeTalepEdildi, Ödendi,
                                 DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi
         }
@@ -3291,6 +3329,7 @@ namespace İş_ve_Depo_Takip
         static Depo_ KorumalıAlan = null;
         static Depo_ Takvim = null;
         static Depo_ Kullanıcı_İzinleri = null;
+        static Depo_ Etiket_Açıklamaları = null;
 
         class Müşteri_
         {

@@ -318,10 +318,21 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     Önyüz_ Arkadaki = Tümü.Last();
                     Arkadaki.Ekran.Show();
-                    if (GüncellenenSeriNolar.Count > 0 && !Arkadaki.Ekran.Disposing && !Arkadaki.Ekran.IsDisposed)
+
+                    if (Arkadaki.Ekran is Açılış_Ekranı)
                     {
-                        IGüncellenenSeriNolar arakontrol = Arkadaki.Ekran as IGüncellenenSeriNolar;
-                        arakontrol?.KontrolEt(GüncellenenSeriNolar);
+                        if (Tümü.Count != 1) throw new Exception("Ekran_FormClosed - Arkadaki is Açılış_Ekranı - Tümü.Count > 1");
+
+                        GüncellenenSeriNolar.Clear();
+                    }
+                    else if (öndeki.Ekran is Yeni_İş_Girişi_Açıklama) { }
+                    else if (Tümü.Count > 1)
+                    {
+                        if (GüncellenenSeriNolar.Count > 0 && !Arkadaki.Ekran.Disposing && !Arkadaki.Ekran.IsDisposed)
+                        {
+                            IGüncellenenSeriNolar arakontrol = Arkadaki.Ekran as IGüncellenenSeriNolar;
+                            arakontrol?.KontrolEt(GüncellenenSeriNolar);
+                        }
                     }
                 }
                         

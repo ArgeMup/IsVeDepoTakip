@@ -1594,6 +1594,8 @@
             // 
             this.TabloİçeriğiArama_SadeceHastaAdındaAra.Appearance = System.Windows.Forms.Appearance.Button;
             this.TabloİçeriğiArama_SadeceHastaAdındaAra.AutoSize = true;
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.Checked = true;
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.CheckState = System.Windows.Forms.CheckState.Checked;
             this.TabloİçeriğiArama_SadeceHastaAdındaAra.Dock = System.Windows.Forms.DockStyle.Right;
             this.TabloİçeriğiArama_SadeceHastaAdındaAra.FlatAppearance.CheckedBackColor = System.Drawing.Color.YellowGreen;
             this.TabloİçeriğiArama_SadeceHastaAdındaAra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

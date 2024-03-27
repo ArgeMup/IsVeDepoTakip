@@ -47,8 +47,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             else
             {
-                İsaretle_TeslimEdildi.Enabled = TeslimEdilmeTarihi.BoşMu();
-                MüşteriyeGönder.Enabled = Türü_ == Banka.TabloTürü.DevamEden && Sonİş_ÇıkışTarihi.BoşMu();
+                bool Kıstas_teslimedildi = TeslimEdilmeTarihi.BoşMu();
+                bool Kıstas_müşteriyegönder = Türü_ == Banka.TabloTürü.DevamEden && Sonİş_ÇıkışTarihi.BoşMu();
+                İsaretle_TeslimEdildi.Enabled = Kıstas_teslimedildi;
+                MüşteriyeGönder.Enabled = Kıstas_müşteriyegönder;
+                AçıklamaEtiketi.Enabled = Kıstas_teslimedildi || Kıstas_müşteriyegönder;
             }
         }
 
@@ -60,6 +63,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void MüşteriyeGönder_Click(object sender, EventArgs e)
         {
             Banka.Talep_İşaretle_DevamEden_MüşteriyeGönderildi(Müşteri_, new List<string>() { SeriNo_ });
+            Banka.Talep_Ekle_AçıklamaEtiketi(Müşteri_, SeriNo_, AçıklamaEtiketi.Tag as string);
             Banka.Değişiklikleri_Kaydet(MüşteriyeGönder);
             Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(SeriNo_);
             Close();
@@ -67,9 +71,24 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void İsaretle_TeslimEdildi_Click(object sender, EventArgs e)
         {
             Banka.Talep_İşaretle_DevamEden_TeslimEdilen(Müşteri_, new List<string>() { SeriNo_ }, true);
+            Banka.Talep_Ekle_AçıklamaEtiketi(Müşteri_, SeriNo_, AçıklamaEtiketi.Tag as string);
             Banka.Değişiklikleri_Kaydet(İsaretle_TeslimEdildi);
             Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(SeriNo_);
             Close();
+        }
+        private void AçıklamaEkle_Click(object sender, EventArgs e)
+        {
+            Yeni_İş_Girişi_Açıklama açklm = new Yeni_İş_Girişi_Açıklama();
+            açklm.Çıktı.Text = AçıklamaEtiketi.Tag as string;
+            açklm.FormClosed += Açklm_FormClosed;
+            ÖnYüzler.Ekle(açklm);
+
+            void Açklm_FormClosed(object _sender_, FormClosedEventArgs _e_)
+            {
+                AçıklamaEtiketi.Tag = açklm.Çıktı.Text;
+                AçıklamaEtiketi.BackColor = açklm.Çıktı.Text.DoluMu() ? System.Drawing.Color.YellowGreen : System.Drawing.SystemColors.Window;
+                İncele.Enabled = açklm.Çıktı.Text.BoşMu();
+            }
         }
 
         void IGüncellenenSeriNolar.KontrolEt(List<string> GüncellenenSeriNolar)

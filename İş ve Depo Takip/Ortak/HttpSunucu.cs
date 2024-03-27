@@ -348,8 +348,8 @@ namespace İş_ve_Depo_Takip
 
                     string Dosya_GenelPara = Ortak.Klasör_Gecici + "GenelPara_Kurlar.xml";
                     Dosya.Sil(Dosya_GenelPara);
-                    YeniYazılımKontrolü_ Kaynak_GenelPara = new YeniYazılımKontrolü_();
-                    Kaynak_GenelPara.Başlat(new Uri("https://api.genelpara.com/embed/doviz.json"), HedefDosyaYolu: Dosya_GenelPara);
+                    System.Collections.Generic.Dictionary<string, string> İstekBaşlıkları = new System.Collections.Generic.Dictionary<string, string>() { { "User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" } };
+                    Dosya.AğÜzerinde_ Kaynak_GenelPara = new Dosya.AğÜzerinde_(new Uri("https://api.genelpara.com/embed/para-birimleri.json"), Dosya_GenelPara, İstekBaşlıkları: İstekBaşlıkları);
 
                     int za = Environment.TickCount + 15000;
                     while (ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın && za > Environment.TickCount &&

@@ -144,6 +144,12 @@
     <Compile Include="Ekranlar\Ayarlar_Etiketleme.Designer.cs">
       <DependentUpon>Ayarlar_Etiketleme.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ekranlar\Yeni_İş_Girişi_Açıklama.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ekranlar\Yeni_İş_Girişi_Açıklama.Designer.cs">
+      <DependentUpon>Yeni_İş_Girişi_Açıklama.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ekranlar\Yeni_İş_Girişi_Epostalar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -279,6 +285,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Ayarlar_Bütçe.resx">
       <DependentUpon>Ayarlar_Bütçe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ekranlar\Yeni_İş_Girişi_Açıklama.resx">
+      <DependentUpon>Yeni_İş_Girişi_Açıklama.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Yeni_İş_Girişi_Epostalar.resx">
       <DependentUpon>Yeni_İş_Girişi_Epostalar.cs</DependentUpon>
