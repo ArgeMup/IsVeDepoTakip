@@ -54,14 +54,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 İşyeri_LogoDosyaYolu = Ortak.Firma_Logo_DosyaYolu;
                 KayıtKlasörü = Ortak.Klasör_KullanıcıDosyaları_GelirGiderTakip;
 
-                SabitMuhataplar = new Dictionary<string, List<string>>();
-                SabitMuhataplar.Add("Müşteri", Banka.Müşteri_Listele());
+                SabitMuhataplar = new Dictionary<string, List<string>>
+                {
+                    { "Müşteri", Banka.Müşteri_Listele() },
+                    { "Çalışan", Banka.K_lar.KullancıAdları }
+                };
 
-                List<string> Çalışanlar = new List<string>();
-                Banka.Kullanıcı_İzinleri_Tutucusu.Kişiler.ForEach(x => Çalışanlar.Add(x.Adı));
-                SabitMuhataplar.Add("Çalışan", Çalışanlar);
-
-                Kullanıcı_Rolİzinleri = new bool[(int)Banka.Ayarlar_Kullanıcılar_İzin.DiziElemanSayısı_Gelir_gider_ + 1 /*boşta*/];
+                Kullanıcı_Rolİzinleri = new bool[(int)Banka.K_lar.İzin.DiziElemanSayısı_Gelir_gider_ + 1 /*boşta*/];
             }
         }
 
@@ -119,11 +118,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
         static string Çalıştır(bool HatayıGöster, int ZamanAşımı_msn)
         {
             İlkAçılışAyarları.Benzersiz_Tanımlayıcı = DateTime.Now.Yazıya();
-            İlkAçılışAyarları.Kullanıcı_Adı = Banka.KullancıAdı;
-            int izinler_başlangıç = (int)Banka.Ayarlar_Kullanıcılar_İzin.Gelir_gider_Boşta_;
+            İlkAçılışAyarları.Kullanıcı_Adı = Banka.K_lar.KullancıAdı;
+            int izinler_başlangıç = (int)Banka.K_lar.İzin.Gelir_gider_Boşta_;
             for (int i = 1; i < İlkAçılışAyarları.Kullanıcı_Rolİzinleri.Length; i++)
             {
-                bool değeri = Banka.Kullanıcı_İzinleri_Tutucusu.GeçerliKullanıcı == null ? true : Banka.Kullanıcı_İzinleri_Tutucusu.GeçerliKullanıcı.Rol_İzinleri[izinler_başlangıç + i - 1];
+                bool değeri = Banka.K_lar.GeçerliKullanıcı == null ? true : Banka.K_lar.GeçerliKullanıcı.Rol_İzinleri[izinler_başlangıç + i - 1];
                 İlkAçılışAyarları.Kullanıcı_Rolİzinleri[i] = değeri;
             }
 

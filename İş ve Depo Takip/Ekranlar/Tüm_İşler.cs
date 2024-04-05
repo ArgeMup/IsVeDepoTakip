@@ -20,8 +20,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             //görsel çiziminin iyileşmsi için
             typeof(Control).InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty, null, Tablo, new object[] { DoubleBuffered });
 
-            İzin_Ayarlar = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Ayarları_değiştirebilir);
-            İzin_Tamamlandı = İzin_Ayarlar ? true : Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Tamamlanmış_işler_içinde_işlem_yapabilir);
+            İzin_Ayarlar = Banka.K_lar.İzinliMi(Banka.K_lar.İzin.Ayarları_değiştirebilir);
+            İzin_Tamamlandı = İzin_Ayarlar ? true : Banka.K_lar.İzinliMi(Banka.K_lar.İzin.Tamamlanmış_işler_içinde_işlem_yapabilir);
 
             İşTakip_Müşteriler.Başlat(null, Banka.Müşteri_Listele(), "Müşteriler", Banka.ListeKutusu_Ayarlar(true, false));
             İşTakip_Müşteriler.GeriBildirim_İşlemi += İşTakip_Müşteriler_GeriBildirim_İşlemi;
@@ -267,8 +267,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     Seviye2_DevamEden.Checked = true;
                     Seviye2_TeslimEdildi.Checked = true;
-                    Seviye2_ÖdemeBekleyen.Checked = true;
-                    Seviye2_Ödendi.Checked = true;
+                    Seviye2_ÖdemeBekleyen.Checked = İzin_Tamamlandı;
+                    Seviye2_Ödendi.Checked = İzin_Tamamlandı;
                     Arama_Sorgula_Click(null, null);
                 }
 

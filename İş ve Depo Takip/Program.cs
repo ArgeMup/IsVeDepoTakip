@@ -32,7 +32,11 @@ namespace İş_ve_Depo_Takip
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new Ekranlar.Ayarlar_Kullanıcılar(ArgeMup.HazirKod.Ekranlar.Kullanıcılar2.İşlemTürü_.Giriş, false, true));
+
+                Banka.K_lar.Başlat();
+                Banka.K_lar.GirişYap(false);
+                Application.Run(new Form() { Opacity = 0, ShowInTaskbar = false, Visible = false });
+                Ortak.Kapan("Normal");
             }
         }
 
@@ -52,12 +56,13 @@ namespace İş_ve_Depo_Takip
 
             try
             {
-                Banka.Yedekle_Banka_Kurtar();
+                bool işlem_yapıldı = Banka.Yedekle_SürümYükseltmeÖncesiYedeği_Kurtar();
+                if (!işlem_yapıldı) Banka.Yedekle_Banka_Kurtar();
 
-                MessageBox.Show("Bir sorun oluştu, uygulama yedekler ile kontrol edildi ve bir sorun görülmedi." + Environment.NewLine + Environment.NewLine +
-                    "Uygulama kapatılıp yeniden başlatılacak." + Environment.NewLine + Environment.NewLine +
-                    "Lütfen son işleminizi kontrol ediniz." + Environment.NewLine + Environment.NewLine +
-                    ex.Message, "İş Ve Depo Takip");
+                MessageBox.Show("Bir sorun oluştu." + Environment.NewLine + Environment.NewLine +
+                        "Uygulama kapatılıp yeniden başlatılacak." + Environment.NewLine + Environment.NewLine +
+                        "Lütfen son işleminizi kontrol ediniz." + Environment.NewLine + Environment.NewLine +
+                        ex.Message, "İş Ve Depo Takip");
 
                 //Ekranlar.Eposta.EpostaGönder_İstisna(ex);
 

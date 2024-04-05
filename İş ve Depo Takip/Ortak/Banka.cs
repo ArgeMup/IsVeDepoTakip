@@ -27,7 +27,7 @@ namespace İş_ve_Depo_Takip
 
     public class Banka
     {
-        public const string Sürüm = "4";
+        public const string Sürüm = "5";
         public static string İşyeri_Adı
         {
             get
@@ -37,8 +37,8 @@ namespace İş_ve_Depo_Takip
         }
         const int Malzemeler_GeriyeDönükİstatistik_Ay = 36;
         static System.Threading.Mutex Kilit_Tablo = new System.Threading.Mutex(), Kilit_DosyaEkleri = new System.Threading.Mutex();
-        
-        public static void Giriş_İşlemleri()
+
+        public static void Giriş_İşlemleri_Aşama_1()
         {
             Klasör.Oluştur(Ortak.Klasör_Banka);
             Klasör.Oluştur(Ortak.Klasör_İçYedek);
@@ -49,9 +49,195 @@ namespace İş_ve_Depo_Takip
             Klasör.Oluştur(Ortak.Klasör_KullanıcıDosyaları_ArkaPlanResimleri);
             Klasör.Oluştur(Ortak.Klasör_Gecici + "DoEk");
             File.WriteAllText(Kendi.Klasörü + "\\Önemli Bilgiler.txt", Properties.Resources.Önemli_Bilgiler);
-            Ortak.Gösterge.Başlat("Klasörler".Günlük(), false, null, 8);
 
-            DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı);
+            Yedekle_SürümYükseltmeÖncesiYedeği_Kurtar();
+
+            if (!File.Exists(Ortak.Klasör_Banka + @"ArgeMup.HazirKod_Cdiyez.Ekranlar.Kullanıcılar.Ayarlar"))
+            {
+                string ParolaYazı = 359000953 + " 115359 ArGeMuP " + 0 + " İş Ve idddda " + 48843548 + " Depo Takip " + 0 + "oooqu " + 343484688 + " Uygulaması 888818 " + 77900977;
+                byte[] ParolaDizi = D_Yazı.BaytDizisine(ParolaYazı);
+                DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, ParolaYazı);
+                ("Bütünlük Kontrolü Sürüm Geçişi " + snç).Günlük();
+                if (snç != DoğrulamaKodu.KontrolEt.Durum_.Aynı)
+                {
+                    #if DEBUG
+                        return;
+                    #else
+                        throw new Exception("Bütünlük Kontrolü Sürüm Geçişi " + snç);
+                    #endif
+                }
+
+                //yeni sürüme geçirme
+                Yedekle_SürümYükseltmeÖncesiYedeği();
+                Günlük.Ekle("Banka yeni sürüme geçirme aşama 1 tamam");
+
+                foreach (string DosyaYolu in Directory.GetFiles(Ortak.Klasör_Banka, "*.mup", SearchOption.AllDirectories))
+                {
+                    _Düzelt_Aç_(DosyaYolu);
+                }
+                Günlük.Ekle("Banka yeni sürüme geçirme aşama 2 tamam");
+
+                foreach (string DosyaYolu in Directory.GetFiles(Ortak.Klasör_KullanıcıDosyaları_Ayarlar, "*.mup", SearchOption.AllDirectories))
+                {
+                    _Düzelt_Aç_(DosyaYolu);
+                }
+                Günlük.Ekle("Banka yeni sürüme geçirme aşama 3 tamam");
+
+                foreach (string DosyaYolu in Directory.GetFiles(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri, "*.*", SearchOption.AllDirectories))
+                {
+                    _Düzelt_(DosyaYolu);
+                }
+                Günlük.Ekle("Banka yeni sürüme geçirme aşama 4 tamam");
+
+                _Düzelt_Aç_(Ortak.Klasör_KullanıcıDosyaları_Etiketleme + "Açıklamalar.mup");
+                Günlük.Ekle("Banka yeni sürüme geçirme aşama 5 tamam");
+
+                foreach (string DosyaYolu in Directory.GetFiles(Ortak.Klasör_KullanıcıDosyaları_KorumalıAlan, "*.*", SearchOption.AllDirectories))
+                {
+                    _Düzelt_Aç_(DosyaYolu);
+                }
+                Günlük.Ekle("Banka yeni sürüme geçirme aşama 6 tamam");
+
+                void _Düzelt_Aç_(string _DosyaYolu_)
+                {
+                    byte[] _İçerik_ = _DosyaYolu_.DosyaYolu_Oku_BaytDizisi();
+                    if (_İçerik_ == null || _İçerik_.Length == 0) throw new Exception("_İçerik_ == null || _İçerik_.Length == 0");
+
+                    //Şifre çözme
+                    byte[] _çıktı_ = DaÇoKa.Düzelt(_İçerik_, ParolaDizi);
+
+                    //Ara dosya
+                    string _Gecici_zip_dosyası_ = Path.GetRandomFileName();
+                    while (File.Exists(Ortak.Klasör_Gecici + _Gecici_zip_dosyası_)) _Gecici_zip_dosyası_ = Path.GetRandomFileName();
+                    _Gecici_zip_dosyası_ = Ortak.Klasör_Gecici + _Gecici_zip_dosyası_;
+                    File.WriteAllBytes(_Gecici_zip_dosyası_, _çıktı_);
+                    _çıktı_ = null;
+
+                    //Açma
+                    using (ZipArchive _Arşiv_ = ZipFile.OpenRead(_Gecici_zip_dosyası_))
+                    {
+                        byte[] _dizi_içerik_ = null, _dizi_doko_ = null;
+                        int _adt_ = 0;
+
+                        ZipArchiveEntry _Biri_ = _Arşiv_.GetEntry("doko");
+                        if (_Biri_ != null)
+                        {
+                            using (Stream _Akış_ = _Biri_.Open())
+                            {
+                                _dizi_doko_ = new byte[_Biri_.Length];
+                                _adt_ = _Akış_.Read(_dizi_doko_, 0, (int)_Biri_.Length);
+                            }
+                        }
+
+                        if (_dizi_doko_ != null && _dizi_doko_.Length > 0 && _dizi_doko_.Length == _adt_)
+                        {
+                            string _doko_ = _dizi_doko_.Yazıya();
+                            string[] _bölünmüş_ = _doko_.Split(';');
+                            if (_bölünmüş_.Length == 2)
+                            {
+                                string _tarih_saat_ = _bölünmüş_[0];
+                                _doko_ = _bölünmüş_[1];
+                                if (!string.IsNullOrEmpty(_doko_))
+                                {
+                                    _Biri_ = _Arşiv_.GetEntry(_tarih_saat_);
+                                    if (_Biri_ != null)
+                                    {
+                                        using (Stream _Akış_ = _Biri_.Open())
+                                        {
+                                            _dizi_içerik_ = new byte[_Biri_.Length];
+                                            _adt_ = _Akış_.Read(_dizi_içerik_, 0, (int)_Biri_.Length);
+                                        }
+                                    }
+
+                                    if (_dizi_içerik_ != null && _dizi_içerik_.Length == _adt_)
+                                    {
+                                        if (_doko_ == DoğrulamaKodu.Üret.BaytDizisinden(_dizi_içerik_).HexYazıya())
+                                        {
+                                            _çıktı_ = _dizi_içerik_;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    Dosya.Sil(_Gecici_zip_dosyası_);
+
+                    if (_çıktı_ == null || _çıktı_.Length == 0) throw new Exception(_DosyaYolu_ + " dosyası arızalı");
+                    File.WriteAllBytes(_DosyaYolu_, _çıktı_);
+                }
+                void _Düzelt_(string _DosyaYolu_)
+                {
+                    byte[] _çıktı_ = DaÇoKa.Düzelt(File.ReadAllBytes(_DosyaYolu_), ParolaDizi);
+                    if (_çıktı_ == null || _çıktı_.Length == 0) throw new Exception(_DosyaYolu_ + " dosyası arızalı");
+                    File.WriteAllBytes(_DosyaYolu_, _çıktı_);
+                }
+
+                //Fazla dosya
+                if (!Dosya.Sil(Ortak.Klasör_Banka + "Kuİz.mup")) throw new Exception("Dosya.Sil(Ortak.Klasör_Banka + \"Kuİz.mup\"");
+                //Korumalı alanın güncelleştirilmesi
+                Depo_ koal = new Depo_((Ortak.Klasör_Banka + "KoAl.mup").DosyaYolu_Oku_Yazı());
+                foreach (IDepo_Eleman girdi in koal["Dosyalar"].Elemanları)
+                {
+                    foreach (IDepo_Eleman sürüm in girdi.Elemanları)
+                    {
+                        string dsy_yolu = Ortak.Klasör_KullanıcıDosyaları_KorumalıAlan + sürüm[0];
+                        
+                        if (girdi.Adı.StartsWith(":"))
+                        {
+                            //klasör
+                            string Gecici_zip_klasörü = Ortak.Klasör_Gecici + sürüm[0];
+                            SıkıştırılmışDosya.Klasöre(dsy_yolu, Gecici_zip_klasörü);
+
+                            string DoKo = DoğrulamaKodu.Üret.Klasörden(Gecici_zip_klasörü, false, SearchOption.AllDirectories, ParolaYazı);
+                            if (sürüm[1] != DoKo) throw new Exception("Dosya doğrulama kodu hatalı " + sürüm[0]);
+
+                            DoKo = DoğrulamaKodu.Üret.Klasörden(Gecici_zip_klasörü, false);
+                            sürüm[1] = DoKo;
+                        }
+                    }
+                }
+                (Ortak.Klasör_Banka + "KoAl.mup").DosyaYolu_Yaz(koal.YazıyaDönüştür());
+                //Ayarların güncelleştirilmesi
+                Depo_ ay = new Depo_((Ortak.Klasör_Banka + "Ay.mup").DosyaYolu_Oku_Yazı());
+                ay["Kullanıcı Şifresi"].Sil(null);
+                ay["Son Banka Kayıt", 2] = Sürüm;
+                (Ortak.Klasör_Banka + "Ay.mup").DosyaYolu_Yaz(ay.YazıyaDönüştür());
+                //Yeni kul dosyasının oluşturulması
+                (Ortak.Klasör_Banka + @"ArgeMup.HazirKod_Cdiyez.Ekranlar.Kullanıcılar.Ayarlar").DosyaYolu_Yaz(" ");
+                //Doko üretilmesi
+                DoğrulamaKodu.Üret.Klasörden(Ortak.Klasör_Banka, true, SearchOption.AllDirectories, null);
+                Günlük.Ekle("Banka yeni sürüme geçirme aşama 7 tamam");
+
+                Yedekle_SürümYükseltmeÖncesiYedeği_Sil();
+                Günlük.Ekle("Banka yeni sürüme geçirme aşama 8 tamam");
+            }
+
+#if DEBUG
+            Ortak.YeniYazılımKontrolü.Durdur();
+#else
+            if (!System.IO.File.Exists(Ortak.Klasör_KullanıcıDosyaları + "YeniSurumuKontrolEtme.txt"))
+            {
+                Ortak.YeniYazılımKontrolü.Başlat(new Uri("https://github.com/ArgeMup/IsVeDepoTakip/blob/main/%C4%B0%C5%9F%20ve%20Depo%20Takip/bin/Release/%C4%B0%C5%9F%20ve%20Depo%20Takip.exe?raw=true"), _YeniYazılımKontrolü_GeriBildirim_);
+
+                void _YeniYazılımKontrolü_GeriBildirim_(bool Sonuç, string Açıklama)
+                {
+                    if (Sonuç) Ortak.YeniYazılımKontrolü_Mesajı = Açıklama.Replace("Güncel ", null);
+                    else
+                    {
+                        if (Açıklama == "Durduruldu") return;
+                        else if (Açıklama.Contains("github")) Açıklama = "Bağlantı kurulamadı";
+
+                        Ortak.YeniYazılımKontrolü_Mesajı = "V" + Kendi.Sürümü_Dosya + " Yeni sürüm kontrol hatası : " + Açıklama.Replace("\r", null).Replace("\n", null);
+                    }
+                }
+            }
+            else Ortak.YeniYazılımKontrolü.Durdur();
+#endif
+        }
+        public static void Giriş_İşlemleri_Aşama_2()
+        {
+            Ortak.Gösterge.Başlat("Klasörler".Günlük(), false, null, 8, true);
+            DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, K_lar.KökParola);
             Ortak.Gösterge.Açıklama = "Bütünlük Kontrolü".Günlük(); Ortak.Gösterge.İlerleme = 1;
             Günlük.Ekle("Bütünlük Kontrolü " + snç.ToString());
             switch (snç)
@@ -61,7 +247,7 @@ namespace İş_ve_Depo_Takip
 
                 case DoğrulamaKodu.KontrolEt.Durum_.DoğrulamaDosyasıYok:
 #if !DEBUG
-                    Klasör_ kls = new Klasör_(Ortak.Klasör_Banka, DoğrulamaKodunuÜret:false);
+                    Klasör_ kls = new Klasör_(Ortak.Klasör_Banka, DoğrulamaKodunuÜret: false);
                     if (kls.Dosyalar.Count > 0) throw new Exception("Büyük Hata A");
 #endif
                     goto Devam;
@@ -70,7 +256,7 @@ namespace İş_ve_Depo_Takip
                 case DoğrulamaKodu.KontrolEt.Durum_.DoğrulamaDosyasıİçeriğiHatalı:
                 case DoğrulamaKodu.KontrolEt.Durum_.Farklı:
                 case DoğrulamaKodu.KontrolEt.Durum_.FazlaKlasörVeyaDosyaVar:
-                    snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka2, SearchOption.AllDirectories, Parola.Yazı);
+                    snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka2, SearchOption.AllDirectories, K_lar.KökParola);
                     Günlük.Ekle("Bütünlük Kontrolü 2 " + snç.ToString());
                     if (snç == DoğrulamaKodu.KontrolEt.Durum_.Aynı)
                     {
@@ -91,6 +277,7 @@ namespace İş_ve_Depo_Takip
 
         Devam:
             #region Ayarlar
+            Ortak.Gösterge.Açıklama = "Ayarlar".Günlük();
             IDepo_Eleman d_ayarlar_bilgisayar_kullanıcı = Ayarlar_BilgisayarVeKullanıcı("Klasör", true);
             Ortak.Kullanıcı_Klasör_Yedek = d_ayarlar_bilgisayar_kullanıcı.Bul("Yedek", true).İçeriği;
             Ortak.Kullanıcı_Klasör_Pdf = d_ayarlar_bilgisayar_kullanıcı.Oku("Pdf");
@@ -106,55 +293,20 @@ namespace İş_ve_Depo_Takip
 
                 MessageBox.Show(msg.Günlük(), "Bütünlük Kontrolü");
             }
-
-            Ortak.Gösterge.Açıklama = "Ayarlar".Günlük(); Ortak.Gösterge.İlerleme = 1;
+            Ortak.Gösterge.İlerleme = 1;
             #endregion
 
             #region yedekleme
+            Ortak.Gösterge.Açıklama = "İlk Kullanıma Hazırlanıyor".Günlük();
             Yedekle_Banka();
-            Ortak.Gösterge.Açıklama = "İlk Kullanıma Hazırlanıyor".Günlük(); Ortak.Gösterge.İlerleme = 1;
+            Ortak.Gösterge.İlerleme = 1;
             #endregion
 
             #region Yeni Sürüme Uygun Hale Getirme
-            IDepo_Eleman ayr = d["Son Banka Kayıt"];
-            if (ayr != null && ayr.Oku(null, null, 2) != Sürüm)
-            {
-                Değişiklikler_TamponuSıfırla();
-                string ydk_zip = "SürümYükseltmeÖncesiYedeği.zip";
-                if (!File.Exists(Kendi.Klasörü + "\\" + ydk_zip))
-                {
-                    SıkıştırılmışDosya.Klasörden(Kendi.Klasörü, Ortak.Klasör_Gecici + ydk_zip);
-                    Dosya.Kopyala(Ortak.Klasör_Gecici + ydk_zip, Kendi.Klasörü + "\\" + ydk_zip);
-                }
-                Günlük.Ekle("Banka yeni sürüme geçirme aşama 1 tamam");
-
-                foreach (string kls in Klasör.Listele_Klasör(Ortak.Klasör_Banka_Müşteriler, "Mü_B"))
-                {
-                    if (Klasör.Listele_Dosya(kls).Length <= 0) Directory.Delete(kls, true);
-                }
-                Günlük.Ekle("Banka yeni sürüme geçirme aşama 2 tamam");
-
-                ayr = Ayarlar_Genel("Son Banka Kayıt");
-                ayr.Yaz(null, DateTime.Now, 1);
-                ayr.Yaz(null, Sürüm, 2);
-
-                Değişiklikleri_Kaydet(null);
-                Yedekle_Banka();
-                Değişiklikler_TamponuSıfırla();
-
-                Dosya.Sil(Kendi.Klasörü + "\\" + ydk_zip);
-            }
-
             //IDepo_Eleman ayr = d["Son Banka Kayıt"];
             //if (ayr != null && ayr.Oku(null, null, 2) != Sürüm)
             //{
-            //    Değişiklikler_TamponuSıfırla();
-            //    string ydk_zip = "SürümYükseltmeÖncesiYedeği.zip";
-            //    if (!File.Exists(Kendi.Klasörü + "\\" + ydk_zip))
-            //    {
-            //        SıkıştırılmışDosya.Klasörden(Kendi.Klasörü, Ortak.Klasör_Gecici + ydk_zip);
-            //        Dosya.Kopyala(Ortak.Klasör_Gecici + ydk_zip, Kendi.Klasörü + "\\" + ydk_zip);
-            //    }
+            //    Yedekle_SürümYükseltmeÖncesiYedeği();
             //    Günlük.Ekle("Banka yeni sürüme geçirme aşama 1 tamam");
 
             //    ...
@@ -168,18 +320,21 @@ namespace İş_ve_Depo_Takip
             //    Yedekle_Banka();
             //    Değişiklikler_TamponuSıfırla();
 
-            //    Dosya.Sil(Kendi.Klasörü + "\\" + ydk_zip);
+            //    Yedekle_SürümYükseltmeÖncesiYedeği_Sil();
             //}
             #endregion
-
+            
+            Ortak.Gösterge.Açıklama = "Takvim".Günlük();
             Ortak.Hatırlatıcılar.KontrolEt(); 
-            Ortak.Gösterge.Açıklama = "Takvim".Günlük(); Ortak.Gösterge.İlerleme = 1;
+            Ortak.Gösterge.İlerleme = 1;
 
+            Ortak.Gösterge.Açıklama = "Malzeme Durumu".Günlük();
             Malzeme_KritikMiktarKontrolü();
-            Ortak.Gösterge.Açıklama = "Malzeme Durumu".Günlük(); Ortak.Gösterge.İlerleme = 1;
+            Ortak.Gösterge.İlerleme = 1;
 
+            Ortak.Gösterge.Açıklama = "Dosya Ekleri Durumu".Günlük();
             DosyaEkleri_İlkAçılışKontrolü(); 
-            Ortak.Gösterge.Açıklama = "Dosya Ekleri Durumu".Günlük(); Ortak.Gösterge.İlerleme = 1;
+            Ortak.Gösterge.İlerleme = 1;
 
             Ekranlar.Ayarlar_Bütçe.CariDökümüHergünEpostaİleGönder_Başlat();
             Ortak.Gösterge.Bitir();
@@ -438,21 +593,6 @@ namespace İş_ve_Depo_Takip
                         else KontrolEdildi = true;
 
                         depo = DosyaEkleri;
-                        break;
-
-                    case TabloTürü.Kullanıcı_İzinleri:
-                        if (Kullanıcı_İzinleri == null)
-                        {
-                            if (!Depo_DosyaVarMı("Kuİz"))
-                            {
-                                if (!YoksaOluştur) goto Çıkış;
-                            }
-
-                            Kullanıcı_İzinleri = Depo_Aç("Kuİz");
-                        }
-                        else KontrolEdildi = true;
-
-                        depo = Kullanıcı_İzinleri;
                         break;
 
                     case TabloTürü.Etiket_Açıklamaları:
@@ -2796,7 +2936,7 @@ namespace İş_ve_Depo_Takip
                 içerik = File.ReadAllBytes(Gecici_zip_klasörü);
                 if (!Klasör.Sil(Klasör.ÜstKlasör(Gecici_zip_klasörü))) throw new Exception("Klasör silinemedi " + Gecici_zip_klasörü);
 
-                DoKo = DoğrulamaKodu.Üret.Klasörden(DosyaYolu, false, SearchOption.AllDirectories, Parola.Yazı);
+                DoKo = DoğrulamaKodu.Üret.Klasörden(DosyaYolu, false);
 
                 ıdepo_adı = ":" + Path.GetFileNameWithoutExtension(ıdepo_adı);
             }
@@ -2821,7 +2961,7 @@ namespace İş_ve_Depo_Takip
             string KapalıAdı = Path.GetRandomFileName();
             while (File.Exists(Ortak.Klasör_KullanıcıDosyaları_KorumalıAlan + KapalıAdı)) KapalıAdı = Path.GetRandomFileName();
 
-            File.WriteAllBytes(Ortak.Klasör_KullanıcıDosyaları_KorumalıAlan + KapalıAdı, Dosya_SıkıştırKarıştır(içerik));
+            File.WriteAllBytes(Ortak.Klasör_KullanıcıDosyaları_KorumalıAlan + KapalıAdı, Dosya_Karıştır(içerik));
             dosya[DateTime.Now.Yazıya()].İçeriği = new string[] { KapalıAdı, DoKo };
         }
         public static void KorumalıAlan_MasaüstüneKopyala(string DosyaAdı, string Sürüm)
@@ -2829,7 +2969,7 @@ namespace İş_ve_Depo_Takip
             IDepo_Eleman dosya = Tablo_Dal(null, TabloTürü.KorumalıAlan, "Dosyalar/" + DosyaAdı + "/" + Sürüm);
             if (dosya == null) throw new Exception("Dosya girdisi bulunamadı " + DosyaAdı);
             if (!File.Exists(Ortak.Klasör_KullanıcıDosyaları_KorumalıAlan + dosya[0])) throw new Exception("Dosya bulunamadı " + dosya[0]);
-            byte[] içerik = Dosya_DüzeltAç(File.ReadAllBytes(Ortak.Klasör_KullanıcıDosyaları_KorumalıAlan + dosya[0]));
+            byte[] içerik = Dosya_Düzelt(File.ReadAllBytes(Ortak.Klasör_KullanıcıDosyaları_KorumalıAlan + dosya[0]));
             
             if (DosyaAdı.StartsWith(":"))
             {
@@ -2844,7 +2984,7 @@ namespace İş_ve_Depo_Takip
                 SıkıştırılmışDosya.Klasöre(Gecici_zip_dosyası, Gecici_zip_klasörü);
                 if (!Dosya.Sil(Gecici_zip_dosyası)) throw new Exception("DOsya silinemedi " + Gecici_zip_dosyası);
 
-                string DoKo = DoğrulamaKodu.Üret.Klasörden(Gecici_zip_klasörü, false, SearchOption.AllDirectories, Parola.Yazı);
+                string DoKo = DoğrulamaKodu.Üret.Klasörden(Gecici_zip_klasörü, false);
                 if (dosya[1] != DoKo)
                 {
                     Klasör.Sil(Gecici_zip_klasörü);
@@ -3048,7 +3188,7 @@ namespace İş_ve_Depo_Takip
 
             Günlük.Ekle("Değişiklikleri_Kaydet Başladı");
             bool EnAzBirDeğişiklikYapıldı = false;
-            Ortak.Gösterge.Başlat("Kaydediliyor", false, Tetikleyen, 10 + (Müşteriler == null ? 0 : Müşteriler.Count * 5) + (MalzemeKullanımDetayları == null ? 0 : MalzemeKullanımDetayları.Count * 1));
+            Ortak.Gösterge.Başlat("Kaydediliyor", false, Tetikleyen, 9 + (Müşteriler == null ? 0 : Müşteriler.Count * 5) + (MalzemeKullanımDetayları == null ? 0 : MalzemeKullanımDetayları.Count * 1));
 
             if (Müşteriler != null && Müşteriler.Count > 0)
             {
@@ -3125,9 +3265,6 @@ namespace İş_ve_Depo_Takip
 
             Ortak.Gösterge.İlerleme = 1;
             if (DosyaEkleri != null && DosyaEkleri.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("DoEk", DosyaEkleri); EnAzBirDeğişiklikYapıldı = true; }
- 
-            Ortak.Gösterge.İlerleme = 1;
-            if (Kullanıcı_İzinleri != null && Kullanıcı_İzinleri.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Kuİz", Kullanıcı_İzinleri); EnAzBirDeğişiklikYapıldı = true; }
 
             Ortak.Gösterge.İlerleme = 1;
             if (Etiket_Açıklamaları != null && Etiket_Açıklamaları.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Açıklamalar", Etiket_Açıklamaları, Ortak.Klasör_KullanıcıDosyaları_Etiketleme); }
@@ -3154,7 +3291,7 @@ namespace İş_ve_Depo_Takip
             Ortak.Gösterge.İlerleme = 1;
             if (EnAzBirDeğişiklikYapıldı)
             {
-                DoğrulamaKodu.Üret.Klasörden(Ortak.Klasör_Banka, true, SearchOption.AllDirectories, Parola.Yazı);
+                DoğrulamaKodu.Üret.Klasörden(Ortak.Klasör_Banka, true, SearchOption.AllDirectories, K_lar.KökParola);
                 Yedekle_Banka();
                 Yedekleme_EnAz1Kez_Değişiklikler_Kaydedildi = true;
                 Ortak.Hatırlatıcılar.YenidenKontrolEdilmeli = true;
@@ -3174,12 +3311,8 @@ namespace İş_ve_Depo_Takip
             Takvim = null;
             MalzemeKullanımDetayları = null;
 
-            string GeçerliKullanıcıAdı = KullancıAdı;
-            Kullanıcı_İzinleri = null;
-            Kullanıcı_İzinleri_Tutucusu = null;
-            if (GeçerliKullanıcıAdı.DoluMu()) Kullanıcı_İzinleri_Tutucusu.GeçerliKullanıcı = Kullanıcı_İzinleri_Tutucusu.Kişiler.FirstOrDefault(x => x.Adı == GeçerliKullanıcıAdı);
-
             //Kullanıcılar = null; Önemsiz kullanıcı ayarları
+            //Etiket_Açıklamaları = null; Önemsiz etiket açıklamaları
 
             Günlük.Ekle("Değişiklikler_TamponuSıfırla");
         }
@@ -3206,82 +3339,185 @@ namespace İş_ve_Depo_Takip
 
             return çıktı + " ₺";
         }
-
-        #region Kullanıcı_İzinleri
-        public enum Ayarlar_Kullanıcılar_İzin
+       
+        public static class K_lar
         {
-            Boşta_,
-
-            Ayarları_değiştirebilir,
-
-            Korumalı_alan_içinde_işlem_yapabilir,
-            Takvim_içinde_işlem_yapabilir,
-            Epostaları_okuyabilir,
-            Tamamlanmış_işler_içinde_işlem_yapabilir,   //Ödeme bekleyen + Ödendi + Malzeme kullanım detayı
-            Devam_eden_işler_içinde_işlem_yapabilir,    //Devam eden + Teslim edildi
-            Yeni_iş_oluşturabilir,
-
-            Gelir_gider_Boşta_,
-            Gelir_gider_ayarlarını_değiştirebilir = Gelir_gider_Boşta_,
-            Gelir_gider_cari_döküm_içinde_işlem_yapabilir,
-            Gelir_gider_cari_dökümü_görebilir,
-            Gelir_gider_avans_peşinat_taksit_ve_üyelik_ekleyebilir,
-            Gelir_gider_ekleyebilir,
-
-            DiziElemanSayısı_,
-            DiziElemanSayısı_Gelir_gider_ = Gelir_gider_ekleyebilir - Gelir_gider_Boşta_ + 1
-        };
-        public static ArgeMup.HazirKod.Ekranlar.Kullanıcılar2_Ayarlar_ Kullanıcı_İzinleri_Tutucusu
-        {
-            get
+            public enum İzin
             {
-                if (Kullanıcı_İzinleri_Tutucusu_ == null)
-                {
-                    Kullanıcı_İzinleri = Tablo(null, TabloTürü.Kullanıcı_İzinleri);
-                    Kullanıcı_İzinleri_Tutucusu_ = Sınıf_Oluştur(typeof(ArgeMup.HazirKod.Ekranlar.Kullanıcılar2_Ayarlar_), Kullanıcı_İzinleri) as ArgeMup.HazirKod.Ekranlar.Kullanıcılar2_Ayarlar_;
-                    if (Kullanıcı_İzinleri_Tutucusu_ == null) throw new Exception("Kullanıcı_İzinleri_Tutucusu_ == null");
+                Boşta_,
 
-                    Kullanıcı_İzinleri_Tutucusu_.Başlat((int)Ayarlar_Kullanıcılar_İzin.DiziElemanSayısı_, true, Parola.Yazı);
+                Ayarları_değiştirebilir,
+
+                Korumalı_alan_içinde_işlem_yapabilir,
+                Takvim_içinde_işlem_yapabilir,
+                Epostaları_okuyabilir,
+                Tamamlanmış_işler_içinde_işlem_yapabilir,   //Ödeme bekleyen + Ödendi + Malzeme kullanım detayı
+                Devam_eden_işler_içinde_işlem_yapabilir,    //Devam eden + Teslim edildi
+                Yeni_iş_oluşturabilir,
+
+                Gelir_gider_Boşta_,
+                Gelir_gider_ayarlarını_değiştirebilir = Gelir_gider_Boşta_,
+                Gelir_gider_cari_döküm_içinde_işlem_yapabilir,
+                Gelir_gider_cari_dökümü_görebilir,
+                Gelir_gider_avans_peşinat_taksit_ve_üyelik_ekleyebilir,
+                Gelir_gider_ekleyebilir,
+
+                DiziElemanSayısı_,
+                DiziElemanSayısı_Gelir_gider_ = Gelir_gider_ekleyebilir - Gelir_gider_Boşta_ + 1
+            };
+            public static bool İzinliMi(İzin İzin)
+            {
+                return ArgeMup.HazirKod.Ekranlar.Kullanıcılar.İzinliMi(İzin == İzin.Boşta_ ? (Enum)null : İzin);
+            }
+            public static bool İzinliMi(IEnumerable<İzin> İzinler)
+            {
+                foreach (İzin izin in İzinler)
+                {
+                    if (İzinliMi(izin)) return true;
                 }
 
-                return Kullanıcı_İzinleri_Tutucusu_;
+                return false;
             }
-            set
+            public static string KullancıAdı
             {
-                Kullanıcı_İzinleri_Tutucusu_ = null;
+                get
+                {
+                    return ArgeMup.HazirKod.Ekranlar.Kullanıcılar.KullanıcıAdı;
+                }
             }
-        }
-        static ArgeMup.HazirKod.Ekranlar.Kullanıcılar2_Ayarlar_ Kullanıcı_İzinleri_Tutucusu_ = null;
-        static Değişken_ Kullanıcı_İzinleri_Değişken = new Değişken_() { Filtre_BoşVeyaVarsayılanDeğerdeİse_HariçTut = true };
+            public static ArgeMup.HazirKod.Ekranlar.Kullanıcılar.Ayarlar_Üst_.Ayarlar_Kullanıcı_ GeçerliKullanıcı
+            {
+                get
+                {
+                    return ArgeMup.HazirKod.Ekranlar.Kullanıcılar._Ayarlar_Üst_.GeçerliKullanıcı;
+                }
+            }
+            public static bool ParolaKontrolüGerekiyorMu
+            {
+                get
+                {
+                    return ArgeMup.HazirKod.Ekranlar.Kullanıcılar.ParolaKontrolüGerekiyorMu;
+                }
+            }
+            public static string KökParola
+            {
+                get
+                {
+                    return ArgeMup.HazirKod.Ekranlar.Kullanıcılar.KökParola;
+                }
+            }
+            public static byte[] KökParola_Dizi
+            {
+                get
+                {
+                    return ArgeMup.HazirKod.Ekranlar.Kullanıcılar.KökParola_Dizi;
+                }
+            }
+            public static List<string> KullancıAdları
+            {
+                get
+                {
+                    List<string> Kişi_ler = new List<string>();
+                    ArgeMup.HazirKod.Ekranlar.Kullanıcılar._Ayarlar_Üst_.Ayarlar_Alt.Kişiler.ForEach(x => Kişi_ler.Add(x.Adı));
+                    return Kişi_ler;
+                }
+            }
 
-        public static void Kullanıcı_İzinleri_Kaydet()
-        {
-            Sınıf_Kaydet(Kullanıcı_İzinleri_Tutucusu, ref Kullanıcı_İzinleri);
-        }
-        public static bool İzinliMi(Ayarlar_Kullanıcılar_İzin İzin)
-        {
-            return Kullanıcı_İzinleri_Tutucusu.İzinliMi(İzin == Ayarlar_Kullanıcılar_İzin.Boşta_ ? (Enum)null : İzin);
-        }
-        public static bool İzinliMi(IEnumerable<Ayarlar_Kullanıcılar_İzin> İzinler)
-        {
-            foreach (Ayarlar_Kullanıcılar_İzin izin in İzinler)
+            public static void Başlat()
             {
-                if (İzinliMi(izin)) return true;
+                Giriş_İşlemleri_Aşama_1();
+
+                List<Enum> İzinler = new List<Enum>();
+                for (int i = 0; i < (int)İzin.DiziElemanSayısı_; i++) { İzinler.Add(((İzin)i)); }
+                ArgeMup.HazirKod.Ekranlar.Kullanıcılar.Başlat(İzinler, İzin.Ayarları_değiştirebilir, GeriBildirimİşlemi_Önyüz_Ayarlar_Değişti, Ortak.Klasör_Banka + @"ArgeMup.HazirKod_Cdiyez.Ekranlar.Kullanıcılar.Ayarlar", Kendi.Adı);
+            }
+            static void GeriBildirimİşlemi_Önyüz_Ayarlar_Değişti(string AyarlarDosyaYolu, string AyarlarDosyaYolu_İçeriği, string Mevcut_KökParola, string Eski_KökParola)
+            {
+                if (Mevcut_KökParola != Eski_KökParola)
+                {
+                    Yedekle_SürümYükseltmeÖncesiYedeği();
+
+                    List<string> dsy_lar = new List<string>();
+                    dsy_lar.AddRange(Klasör.Listele_Dosya(Ortak.Klasör_Banka, "*.mup", SearchOption.AllDirectories));
+                    dsy_lar.AddRange(Klasör.Listele_Dosya(Ortak.Klasör_KullanıcıDosyaları_Ayarlar, "*.mup", SearchOption.AllDirectories));
+                    dsy_lar.AddRange(Klasör.Listele_Dosya(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri, "*.*", SearchOption.AllDirectories));
+                    dsy_lar.Add(Ortak.Klasör_KullanıcıDosyaları_Etiketleme + "Açıklamalar.mup");
+                    dsy_lar.AddRange(Klasör.Listele_Dosya(Ortak.Klasör_KullanıcıDosyaları_KorumalıAlan, "*.*", SearchOption.AllDirectories));
+                    Günlük.Ekle("Banka yeni sürüme geçirme aşama 2 tamam");
+
+                    Ortak.Gösterge.Başlat("Kullanıcılar işleniyor", false, null, dsy_lar.Count);
+                    bool _Mevcut_KökParola_VarMı_ = Mevcut_KökParola.DoluMu(true);
+                    byte[] _Mevcut_KökParola_ = _Mevcut_KökParola_VarMı_ ? Mevcut_KökParola.BaytDizisine_HexYazıdan() : null;
+                    bool _Eski_KökParola_VarMı_ = Eski_KökParola.DoluMu(true);
+                    byte[] _Eski_KökParola_ = _Eski_KökParola_VarMı_ ? Eski_KökParola.BaytDizisine_HexYazıdan() : null;
+                    foreach (string dsy in dsy_lar)
+                    {
+                        if (!File.Exists(dsy)) continue;
+
+                        byte[] içerik = File.ReadAllBytes(dsy);
+                        if (_Eski_KökParola_VarMı_) içerik = Dosya_Düzelt(içerik, _Eski_KökParola_);
+                        if (_Mevcut_KökParola_VarMı_) içerik = Dosya_Karıştır(içerik, _Mevcut_KökParola_);
+                        File.WriteAllBytes(dsy, içerik);
+                        Ortak.Gösterge.İlerleme = 1;
+                    }
+                    Günlük.Ekle("Banka yeni sürüme geçirme aşama 3 tamam");
+                    Ortak.Gösterge.Bitir();
+
+                    Yedekle_SürümYükseltmeÖncesiYedeği_Sil();
+                    Günlük.Ekle("Banka yeni sürüme geçirme aşama 4 tamam");
+                }
+
+                AyarlarDosyaYolu.DosyaYolu_Yaz(AyarlarDosyaYolu_İçeriği);
+                DoğrulamaKodu.Üret.Klasörden(Ortak.Klasör_Banka, true, SearchOption.AllDirectories, Mevcut_KökParola);
+                Günlük.Ekle("Banka yeni sürüme geçirme aşama 5 tamam");
             }
 
-            return false;
-        }
-        public static string KullancıAdı
-        {
-            get
+            static bool İlkAçılışKontrolleriniYapıldı = false;
+            public static void GirişYap(bool Küçültülmüş)
             {
-                return Kullanıcı_İzinleri_Tutucusu.KullanıcıAdı;
+                Ekranlar.ÖnYüzler.PencereleriKapat();
+                GeriBildirimİşlemi_Önyüz_Giriş(ArgeMup.HazirKod.Ekranlar.Kullanıcılar.GirişİşlemiSonucu_.Hatalı);
+
+                void GeriBildirimİşlemi_Önyüz_Giriş(ArgeMup.HazirKod.Ekranlar.Kullanıcılar.GirişİşlemiSonucu_ GirişİşlemiSonucu)
+                {
+                    switch (GirişİşlemiSonucu)
+                    {
+                        case ArgeMup.HazirKod.Ekranlar.Kullanıcılar.GirişİşlemiSonucu_.Başarılı:
+                            if (!İlkAçılışKontrolleriniYapıldı)
+                            {
+                                Banka.Giriş_İşlemleri_Aşama_2();
+
+                            #if !DEBUG
+                                Ekranlar.Eposta.Girişİşlemleri();
+                                Ekranlar.BarkodSorgulama.Başlat();
+                                HttpSunucu.Başlat();
+                            #endif
+
+                                Ekranlar.ÖnYüzler.Başlat();
+
+                                İlkAçılışKontrolleriniYapıldı = true;
+                            }
+
+                            Ekranlar.ÖnYüzler.Ekle(new Ekranlar.Açılış_Ekranı());
+                            break;
+
+                        case ArgeMup.HazirKod.Ekranlar.Kullanıcılar.GirişİşlemiSonucu_.Kapatıldı:
+                            Application.Exit();
+                            break;
+
+                        default:
+                            ArgeMup.HazirKod.Ekranlar.Kullanıcılar.Önyüz_Giriş(GeriBildirimİşlemi_Önyüz_Giriş, Küçültülmüş, 15);
+                            break;
+                    }
+                }
             }
         }
+
+        #region Sınıf İşlemleri
         public static ArgeMup.HazirKod.Ekranlar.ListeKutusu.Ayarlar_ ListeKutusu_Ayarlar(bool SadeceOkunabilir, bool ÇokluSeçim)
         {
             ArgeMup.HazirKod.Ekranlar.ListeKutusu.Ayarlar_ ListeKutusu_Ayarlar = new ArgeMup.HazirKod.Ekranlar.ListeKutusu.Ayarlar_();
-            bool Ayarları_değiştirebilir = İzinliMi(Ayarlar_Kullanıcılar_İzin.Ayarları_değiştirebilir);
+            bool Ayarları_değiştirebilir = K_lar.İzinliMi(K_lar.İzin.Ayarları_değiştirebilir);
 
             if (SadeceOkunabilir) ListeKutusu_Ayarlar.TümTuşlarıKapat();
             else
@@ -3298,11 +3534,11 @@ namespace İş_ve_Depo_Takip
 
             return ListeKutusu_Ayarlar;
         }
-
+        static Değişken_ _Değişken_ = new Değişken_() { Filtre_BoşVeyaVarsayılanDeğerdeİse_HariçTut = true };
         static object Sınıf_Oluştur(Type Tipi, Depo_ Depo)
         {
             if (Depo == null) Depo = new Depo_();
-            object sınıf = Kullanıcı_İzinleri_Değişken.Üret(Tipi, Depo["ArGeMuP"]);
+            object sınıf = _Değişken_.Üret(Tipi, Depo["ArGeMuP"]);
 
             return sınıf;
         }
@@ -3311,13 +3547,13 @@ namespace İş_ve_Depo_Takip
             if (Sınıf == null) throw new Exception("Sınıf(" + (Sınıf == null) + ") == null");
 
             depo = new Depo_();
-            Kullanıcı_İzinleri_Değişken.Depola(Sınıf, depo["ArGeMuP"]);
+            _Değişken_.Depola(Sınıf, depo["ArGeMuP"]);
             depo.EnAzBir_ElemanAdıVeyaİçeriği_Değişti = true;
         }
         #endregion
 
         #region Demirbaşlar
-        public enum TabloTürü { Ayarlar, İşTürleri, Malzemeler, MalzemeKullanımDetayı, Ödemeler, Kullanıcılar, Takvim, KorumalıAlan, DosyaEkleri, Kullanıcı_İzinleri, Etiket_Açıklamaları,
+        public enum TabloTürü { Ayarlar, İşTürleri, Malzemeler, MalzemeKullanımDetayı, Ödemeler, Kullanıcılar, Takvim, KorumalıAlan, DosyaEkleri, Etiket_Açıklamaları,
                                 ÜcretHesaplama, DevamEden, TeslimEdildi, ÖdemeTalepEdildi, Ödendi,
                                 DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi
         }
@@ -3328,7 +3564,6 @@ namespace İş_ve_Depo_Takip
         static Depo_ Kullanıcılar = null;
         static Depo_ KorumalıAlan = null;
         static Depo_ Takvim = null;
-        static Depo_ Kullanıcı_İzinleri = null;
         static Depo_ Etiket_Açıklamaları = null;
 
         class Müşteri_
@@ -3477,13 +3712,8 @@ namespace İş_ve_Depo_Takip
             string içerik = Depo.YazıyaDönüştür();
             if (string.IsNullOrEmpty(içerik)) içerik = " ";
 
-#if DEBUG
-            byte[] çıktı = içerik.BaytDizisine();
-#else
-            byte[] çıktı = Dosya_SıkıştırKarıştır(içerik.BaytDizisine());
-#endif
-
-            DosyaYolu = (BankaYolu == null ? Ortak.Klasör_Banka : BankaYolu)  + DosyaYolu + ".mup";
+            byte[] çıktı = Dosya_Karıştır(içerik.BaytDizisine());
+            DosyaYolu = (BankaYolu ?? Ortak.Klasör_Banka)  + DosyaYolu + ".mup";
             string yedek_dosya_yolu = DosyaYolu + ".yedek";
             Klasör.Oluştur(Path.GetDirectoryName(DosyaYolu));
 
@@ -3497,145 +3727,31 @@ namespace İş_ve_Depo_Takip
         }
         static Depo_ Depo_Aç(string DosyaYolu, string BankaYolu = null)
         {
-            DosyaYolu = (BankaYolu == null ? Ortak.Klasör_Banka : BankaYolu) + DosyaYolu + ".mup";
+            DosyaYolu = (BankaYolu ?? Ortak.Klasör_Banka) + DosyaYolu + ".mup";
             if (!File.Exists(DosyaYolu)) return new Depo_();
 
-#if DEBUG
-            return new Depo_(File.ReadAllBytes(DosyaYolu).Yazıya());
-#else
             Depo_ Depo = null;
-            byte[] çıktı = Dosya_DüzeltAç(File.ReadAllBytes(DosyaYolu));
+            byte[] çıktı = Dosya_Düzelt(File.ReadAllBytes(DosyaYolu));
             string okunan = çıktı.Yazıya();
             if (!string.IsNullOrEmpty(okunan)) Depo = new Depo_(okunan);
             if (Depo == null) throw new Exception(DosyaYolu + " dosyası arızalı");
 
             return Depo;
-#endif
         }
-        public static void BankayıDışarıyaAç()
+        public static byte[] Dosya_Karıştır(byte[] İçerik, byte[] Parola = null)
         {
-            Klasör.Oluştur(Ortak.Klasör_Gecici);
+            Parola = Parola ?? K_lar.KökParola_Dizi;
+            if (İçerik == null || İçerik.Length == 0 || Parola == null) return İçerik;
 
-            foreach (string dsy in Directory.GetFiles(Ortak.Klasör_Banka, "*.mup", SearchOption.AllDirectories))
-            {
-                string dsy_adı = dsy.Substring(Ortak.Klasör_Banka.Length);
-                Depo_ d = Depo_Aç(dsy_adı.Remove(dsy_adı.LastIndexOf('.')));
-                dsy_adı = "BankayıDışarıyaAç\\" + dsy_adı;
-                Klasör.Oluştur(Path.GetDirectoryName(dsy_adı));
-                File.WriteAllText(dsy_adı, d.YazıyaDönüştür());
-            }
+            return DaÇoKa.Karıştır(İçerik, Parola);
         }
-        static byte[] Dosya_SıkıştırKarıştır(byte[] İçerik)
+        public static byte[] Dosya_Düzelt(byte[] İçerik, byte[] Parola = null)
         {
-            if (İçerik == null || İçerik.Length == 0) return İçerik;
-
-            string tarihsaat = D_TarihSaat.Yazıya(DateTime.Now, D_TarihSaat.Şablon_DosyaAdı);
-            byte[] dizi_doko = D_Yazı.BaytDizisine(tarihsaat + ";" + DoğrulamaKodu.Üret.BaytDizisinden(İçerik).HexYazıya());
-
-            //Ara dosya
-            string Gecici_zip_dosyası = Path.GetRandomFileName();
-            while (File.Exists(Ortak.Klasör_Gecici + Gecici_zip_dosyası)) Gecici_zip_dosyası = Path.GetRandomFileName();
-            Gecici_zip_dosyası = Ortak.Klasör_Gecici + Gecici_zip_dosyası;
-
-            //Sıkıştırma
-            using (ZipArchive archive = ZipFile.Open(Gecici_zip_dosyası, ZipArchiveMode.Create))
-            {
-                ZipArchiveEntry biri = archive.CreateEntry("doko", CompressionLevel.Optimal);
-                using (Stream H = biri.Open())
-                {
-                    H.Write(dizi_doko, 0, dizi_doko.Length);
-                }
-
-                biri = archive.CreateEntry(tarihsaat, CompressionLevel.Optimal);
-                using (Stream H = biri.Open())
-                {
-                    H.Write(İçerik, 0, İçerik.Length);
-                }
-            }
-
-            //Şifreleme
-            byte[] çıktı = DaÇoKa.Karıştır(File.ReadAllBytes(Gecici_zip_dosyası), Parola.Dizi);
-            Dosya.Sil(Gecici_zip_dosyası);
-
-            return çıktı;
-        }
-        static byte[] Dosya_DüzeltAç(byte[] İçerik)
-        {
-            if (İçerik == null || İçerik.Length == 0) return İçerik;
+            Parola = Parola ?? K_lar.KökParola_Dizi;
+            if (İçerik == null || İçerik.Length == 0 || Parola == null) return İçerik;
 
             //Şifre çözme
-            byte[] çıktı = DaÇoKa.Düzelt(İçerik, Parola.Dizi);
-
-            //Ara dosya
-            string Gecici_zip_dosyası = Path.GetRandomFileName();
-            while (File.Exists(Ortak.Klasör_Gecici + Gecici_zip_dosyası)) Gecici_zip_dosyası = Path.GetRandomFileName();
-            Gecici_zip_dosyası = Ortak.Klasör_Gecici + Gecici_zip_dosyası;
-            File.WriteAllBytes(Gecici_zip_dosyası, çıktı);
-            çıktı = null;
-
-            //Açma
-            using (ZipArchive Arşiv = ZipFile.OpenRead(Gecici_zip_dosyası))
-            {
-                byte[] dizi_içerik = null, dizi_doko = null;
-                int adt = 0;
-
-                ZipArchiveEntry Biri = Arşiv.GetEntry("doko");
-                if (Biri != null)
-                {
-                    using (Stream Akış = Biri.Open())
-                    {
-                        dizi_doko = new byte[Biri.Length];
-                        adt = Akış.Read(dizi_doko, 0, (int)Biri.Length); //ReadExactly
-                    }
-                }
-
-                if (dizi_doko != null && dizi_doko.Length > 0 && dizi_doko.Length == adt)
-                {
-                    string doko = dizi_doko.Yazıya();
-                    string[] bölünmüş = doko.Split(';');
-                    if (bölünmüş.Length == 2)
-                    {
-                        string tarih_saat = bölünmüş[0];
-                        doko = bölünmüş[1];
-                        if (!string.IsNullOrEmpty(doko))
-                        {
-                            Biri = Arşiv.GetEntry(tarih_saat);
-                            if (Biri != null)
-                            {
-                                using (Stream Akış = Biri.Open())
-                                {
-                                    dizi_içerik = new byte[Biri.Length];
-                                    adt = Akış.Read(dizi_içerik, 0, (int)Biri.Length);
-                                }
-                            }
-
-                            if (dizi_içerik != null && dizi_içerik.Length == adt)
-                            {
-                                if (doko == DoğrulamaKodu.Üret.BaytDizisinden(dizi_içerik).HexYazıya())
-                                {
-                                    çıktı = dizi_içerik;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            Dosya.Sil(Gecici_zip_dosyası);
-
-            return çıktı;
-        }
-        static byte[] Dosya_Karıştır(byte[] İçerik)
-        {
-            if (İçerik == null || İçerik.Length == 0) return İçerik;
-
-            return DaÇoKa.Karıştır(İçerik, Parola.Dizi);
-        }
-        static byte[] Dosya_Düzelt(byte[] İçerik)
-        {
-            if (İçerik == null || İçerik.Length == 0) return İçerik;
-
-            //Şifre çözme
-            return DaÇoKa.Düzelt(İçerik, Parola.Dizi);
+            return DaÇoKa.Düzelt(İçerik, Parola);
         }
         #endregion
 
@@ -3735,10 +3851,10 @@ namespace İş_ve_Depo_Takip
         {
             Değişiklikler_TamponuSıfırla();
 
-            DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı);
+            DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, K_lar.KökParola);
             if (snç != DoğrulamaKodu.KontrolEt.Durum_.Aynı)
             {
-                snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka2, SearchOption.AllDirectories, Parola.Yazı);
+                snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka2, SearchOption.AllDirectories, K_lar.KökParola);
                 if (snç != DoğrulamaKodu.KontrolEt.Durum_.Aynı)
                 {
                     throw new Exception("Yedekle_Banka_Kurtar>Banka2>" + snç.ToString());
@@ -3749,7 +3865,7 @@ namespace İş_ve_Depo_Takip
                     throw new Exception("Yedekle_Banka_Kurtar>Banka2>Banka");
                 }
 
-                snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, Parola.Yazı);
+                snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, K_lar.KökParola);
                 if (snç != DoğrulamaKodu.KontrolEt.Durum_.Aynı)
                 {
                     throw new Exception("Yedekle_Banka_Kurtar>Banka>" + snç.ToString());
@@ -3757,6 +3873,53 @@ namespace İş_ve_Depo_Takip
             }
             
             Günlük.Ekle("Yedekle_Banka_Kurtar>Başarılı");
+        }
+        
+        public static void Yedekle_SürümYükseltmeÖncesiYedeği()
+        {
+            Değişiklikler_TamponuSıfırla();
+            string dsy_ydk = Kendi.Klasörü + "\\SürümYükseltmeÖncesiYedeği.zip";
+            if (File.Exists(dsy_ydk)) return;
+
+            Ortak.Gösterge.Başlat("Yedekleniyor", false, null, 4, true);
+            List<string> Filtre_Klasör = new List<string>()
+            {
+                Ortak.Klasör_Banka.TrimEnd('\\') + "*",
+                Ortak.Klasör_KullanıcıDosyaları.TrimEnd('\\') + "*"
+            };
+            Klasör_ birarada = new Klasör_(Kendi.Klasörü, Filtre_Klasör, DoğrulamaKodunuÜret: false); 
+            Ortak.Gösterge.İlerleme = 1;
+
+            string dsy_ydk_gecici = Ortak.Klasör_Gecici + Rastgele.Yazı() + "\\SürümYükseltmeÖncesiYedeği.zip";
+            SıkıştırılmışDosya.Klasörden(birarada, dsy_ydk_gecici); Ortak.Gösterge.İlerleme = 1;
+
+            Dosya.Kopyala(dsy_ydk_gecici, dsy_ydk); Ortak.Gösterge.İlerleme = 1;
+            Dosya.Sil(Ortak.Klasör_Banka + DoğrulamaKodu.DoğrulamaKodu_DosyaAdı);
+
+            Ortak.Gösterge.Bitir();
+            Günlük.Ekle("Yedekle_SürümYükseltmeÖncesiYedeği");
+        }
+        public static void Yedekle_SürümYükseltmeÖncesiYedeği_Sil()
+        {
+            string dsy_ydk = Kendi.Klasörü + "\\SürümYükseltmeÖncesiYedeği.zip";
+            if (!Dosya.Sil(dsy_ydk)) throw new Exception("!Dosya.Sil(dsy_ydk)");
+            Günlük.Ekle("Yedekle_SürümYükseltmeÖncesiYedeği_Sil");
+        }
+        public static bool Yedekle_SürümYükseltmeÖncesiYedeği_Kurtar()
+        {
+            string dsy_ydk = Kendi.Klasörü + "\\SürümYükseltmeÖncesiYedeği.zip";
+            if (!File.Exists(dsy_ydk)) return false;
+
+            string kls_ydk_gecici = Ortak.Klasör_Gecici + Rastgele.Yazı();
+            SıkıştırılmışDosya.Klasöre(dsy_ydk, kls_ydk_gecici);
+
+            if (!Klasör.Kopyala(kls_ydk_gecici + "\\Banka", Ortak.Klasör_Banka, true, AynıDoğrulamaKodunaSahipİse_DiğerFarklılıklarıGörmezdenGel: true)) throw new Exception("Yedekle_SürümYükseltmeÖncesiYedeği_Kurtar Klasör.Kopyala(kls_ydk_gecici + \"\\\\Banka\"");
+            if (!Klasör.Kopyala(kls_ydk_gecici + "\\Banka2", Ortak.Klasör_Banka2, true, AynıDoğrulamaKodunaSahipİse_DiğerFarklılıklarıGörmezdenGel: true)) throw new Exception("Yedekle_SürümYükseltmeÖncesiYedeği_Kurtar Klasör.Kopyala(kls_ydk_gecici + \"\\\\Banka2\"");
+            if (!Klasör.Kopyala(kls_ydk_gecici + "\\Kullanıcı Dosyaları", Ortak.Klasör_KullanıcıDosyaları, true, AynıDoğrulamaKodunaSahipİse_DiğerFarklılıklarıGörmezdenGel: true)) throw new Exception("Yedekle_SürümYükseltmeÖncesiYedeği_Kurtar Klasör.Kopyala(kls_ydk_gecici + \"\\\\Kullanıcı Dosyaları\"");
+            if (!Dosya.Sil(dsy_ydk)) throw new Exception("Yedekle_SürümYükseltmeÖncesiYedeği_Kurtar Dosya.Sil(dsy_ydk)");
+
+            Günlük.Ekle("Yedekle_SürümYükseltmeÖncesiYedeği_Kurtar");
+            return true;
         }
         #endregion
     }

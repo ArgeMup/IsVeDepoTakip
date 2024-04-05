@@ -72,12 +72,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ekranlar\Ayarlar_Kullanıcılar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Ekranlar\Ayarlar_Kullanıcılar.designer.cs">
-      <DependentUpon>Ayarlar_Kullanıcılar.cs</DependentUpon>
-    </Compile>
     <Compile Include="Ekranlar\Barkod_Okuma_Seçenekleri.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -201,12 +195,6 @@
     <Compile Include="HazirKod_Cdiyez\DonanımHaberleşmesi_Udp.cs" />
     <Compile Include="HazirKod_Cdiyez\DoğrulamaKodu.cs" />
     <Compile Include="HazirKod_Cdiyez\Dönüştürme.cs" />
-    <Compile Include="HazirKod_Cdiyez\Ekranlar\Kullanıcılar2.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="HazirKod_Cdiyez\Ekranlar\Kullanıcılar2.designer.cs">
-      <DependentUpon>Kullanıcılar2.cs</DependentUpon>
-    </Compile>
     <Compile Include="HazirKod_Cdiyez\Ekİşlemler.cs" />
     <Compile Include="HazirKod_Cdiyez\Günlük.cs" />
     <Compile Include="HazirKod_Cdiyez\Karmasiklastirma.cs" />
@@ -249,9 +237,6 @@
       <DependentUpon>Yeni_İş_Girişi.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <EmbeddedResource Include="Ekranlar\Ayarlar_Kullanıcılar.resx">
-      <DependentUpon>Ayarlar_Kullanıcılar.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Ekranlar\Barkod_Okuma_Seçenekleri.resx">
       <DependentUpon>Barkod_Okuma_Seçenekleri.cs</DependentUpon>
     </EmbeddedResource>
@@ -320,9 +305,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="HazirKod_Cdiyez\Ekranlar\Kullanıcılar.resx">
       <DependentUpon>Kullanıcılar.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="HazirKod_Cdiyez\Ekranlar\Kullanıcılar2.resx">
-      <DependentUpon>Kullanıcılar2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HazirKod_Cdiyez\Ekranlar\ListeKutusu.resx">
       <DependentUpon>ListeKutusu.cs</DependentUpon>

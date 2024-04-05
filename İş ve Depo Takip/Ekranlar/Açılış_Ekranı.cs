@@ -14,28 +14,28 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Controls.Add(P_AnaMenü); P_AnaMenü.Dock = DockStyle.Fill;
             Controls.Add(P_Ayarlar); P_Ayarlar.Dock = DockStyle.Fill;
 
-            bool İzin_Tüm_Talepler = Banka.İzinliMi(new Banka.Ayarlar_Kullanıcılar_İzin[] { Banka.Ayarlar_Kullanıcılar_İzin.Devam_eden_işler_içinde_işlem_yapabilir, Banka.Ayarlar_Kullanıcılar_İzin.Tamamlanmış_işler_içinde_işlem_yapabilir });
-            bool İzin_Yeni_Talep_Girişi = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Yeni_iş_oluşturabilir);
+            bool İzin_Tüm_Talepler = Banka.K_lar.İzinliMi(new Banka.K_lar.İzin[] { Banka.K_lar.İzin.Devam_eden_işler_içinde_işlem_yapabilir, Banka.K_lar.İzin.Tamamlanmış_işler_içinde_işlem_yapabilir });
+            bool İzin_Yeni_Talep_Girişi = Banka.K_lar.İzinliMi(Banka.K_lar.İzin.Yeni_iş_oluşturabilir);
             Tüm_Talepler.Visible = İzin_Tüm_Talepler;
             Yeni_Talep_Girişi.Visible = İzin_Yeni_Talep_Girişi;
 
-            ParolayıDeğiştir.Visible = !Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Ayarları_değiştirebilir);
+            ParolayıDeğiştir.Visible = !Banka.K_lar.İzinliMi(Banka.K_lar.İzin.Ayarları_değiştirebilir);
             ÜcretHesaplama.Visible = İzin_Yeni_Talep_Girişi;
             BarkodGirişi.Visible = İzin_Tüm_Talepler;
 
-            Ayarlar.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Ayarları_değiştirebilir);
-            KorumalıAlan.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Korumalı_alan_içinde_işlem_yapabilir);
-            Takvim.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Takvim_içinde_işlem_yapabilir);
+            Ayarlar.Visible = Banka.K_lar.İzinliMi(Banka.K_lar.İzin.Ayarları_değiştirebilir);
+            KorumalıAlan.Visible = Banka.K_lar.İzinliMi(Banka.K_lar.İzin.Korumalı_alan_içinde_işlem_yapabilir);
+            Takvim.Visible = Banka.K_lar.İzinliMi(Banka.K_lar.İzin.Takvim_içinde_işlem_yapabilir);
 
-            bool Gelir_gider_ekleyebilir = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Gelir_gider_ekleyebilir);
+            bool Gelir_gider_ekleyebilir = Banka.K_lar.İzinliMi(Banka.K_lar.İzin.Gelir_gider_ekleyebilir);
             GelirGider_Ekle_Gelir.Visible = Gelir_gider_ekleyebilir;
             GelirGider_Ekle_Gider.Visible = Gelir_gider_ekleyebilir;
-            GelirGider_CariDöküm.Visible = Banka.İzinliMi(Banka.Ayarlar_Kullanıcılar_İzin.Gelir_gider_cari_dökümü_görebilir);
+            GelirGider_CariDöküm.Visible = Banka.K_lar.İzinliMi(Banka.K_lar.İzin.Gelir_gider_cari_dökümü_görebilir);
         }
         private void Açılış_Ekranı_Shown(object sender, EventArgs e)
         {
             P_AnaMenü.Visible = true;
-            İpUcu.SetToolTip(YedekleKapat, ("Kullanıcı : " + Banka.KullancıAdı).Günlük());
+            İpUcu.SetToolTip(YedekleKapat, ("Kullanıcı : " + Banka.K_lar.KullancıAdı).Günlük());
 
             int x = (Tüm_Talepler.Visible ? Tüm_Talepler.Width : 0) + (Yeni_Talep_Girişi.Visible ? Yeni_Talep_Girişi.Width : 0);
             if (x > 0)
@@ -144,8 +144,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 case "Değişkenler":         ÖndekiEkran = new Ayarlar_Değişkenler(); break;
                 case "Diğer":               ÖndekiEkran = new Ayarlar_Diğer(); break;
                 case "Ücret Hesaplama":     ÖndekiEkran = new Yeni_İş_Girişi(SeriNoTürü:Banka.TabloTürü.ÜcretHesaplama); break;
-                case "Kullanıcılar":        ÖndekiEkran = new Ayarlar_Kullanıcılar(ArgeMup.HazirKod.Ekranlar.Kullanıcılar2.İşlemTürü_.Ayarlar); break;
-                case "Parolayı Değiştir":   ÖndekiEkran = new Ayarlar_Kullanıcılar(ArgeMup.HazirKod.Ekranlar.Kullanıcılar2.İşlemTürü_.ParolaDeğiştirme); break;
+                case "Kullanıcılar":        ÖndekiEkran = ArgeMup.HazirKod.Ekranlar.Kullanıcılar.Önyüz_Ayarlar(Font.Size); GelirGiderTakip.Durdur(); break;
+                case "Parolayı Değiştir":   ÖndekiEkran = ArgeMup.HazirKod.Ekranlar.Kullanıcılar.Önyüz_ParolaDeğiştir(Font.Size); break;
                 default : throw new Exception("Tuş_Click " + (sender as Button).Text);
             }
 

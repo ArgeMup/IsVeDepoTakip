@@ -112,9 +112,9 @@
             this.label1.Location = new System.Drawing.Point(9, 26);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(447, 20);
+            this.label1.Size = new System.Drawing.Size(432, 20);
             this.label1.TabIndex = 21;
-            this.label1.Text = "Yedekleme  (Yedekleme açılışta ve küçültüldüğünde yapılır)";
+            this.label1.Text = "Yedekleme  (Yedekleme pencere küçültüldüğünde yapılır)";
             // 
             // groupBox_Klasörler
             // 

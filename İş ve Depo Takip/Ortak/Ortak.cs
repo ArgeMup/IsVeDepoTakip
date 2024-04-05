@@ -1,6 +1,5 @@
 ﻿using ArgeMup.HazirKod;
 using ArgeMup.HazirKod.Ekİşlemler;
-using İş_ve_Depo_Takip.Ekranlar;
 using System;
 using System.Drawing;
 using System.IO;
@@ -26,7 +25,7 @@ namespace İş_ve_Depo_Takip
         public static string Klasör_Gecici = Klasör.Depolama(Klasör.Kapsamı.Geçici, Sürüm:"") + "\\";
 
         public static YeniYazılımKontrolü_ YeniYazılımKontrolü = new YeniYazılımKontrolü_();
-        public static string YeniYazılımKontrolü_Mesajı_Sabiti = "Yeni sürüm kontrol ediliyor", YeniYazılımKontrolü_Mesajı = YeniYazılımKontrolü_Mesajı_Sabiti;
+        public static string YeniYazılımKontrolü_Mesajı = "Yeni sürüm kontrol ediliyor";
         public static Çalıştır_ Çalıştır = new Çalıştır_();
         public static ArgeMup.HazirKod.ArkaPlan.Hatırlatıcı_ Hatırlatıcı;
 
@@ -40,7 +39,7 @@ namespace İş_ve_Depo_Takip
             Ekranlar.BarkodSorgulama.Durdur();
             Ekranlar.Eposta.Durdur();
             Çalıştır.Dispose();
-            GelirGiderTakip.Durdur();
+            Ekranlar.GelirGiderTakip.Durdur();
             Hatırlatıcı?.AyarlarıOku(true);
             Klasör.Sil(Ortak.Klasör_Gecici);
 

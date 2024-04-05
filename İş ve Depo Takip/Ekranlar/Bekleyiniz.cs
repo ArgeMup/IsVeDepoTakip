@@ -101,6 +101,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         Pencere.Mesaj.Text = value;
                     }));
                 }
+
+                Application.DoEvents();
             }
         }
 
@@ -115,9 +117,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Hide();
         }
         
-        public void Başlat(string Açıklama, bool İptalEdilebilir, Control Tetikleyen, int Toplam_Kademe)
+        public void Başlat(string Açıklama, bool İptalEdilebilir, Control Tetikleyen, int Toplam_Kademe, bool HemenGöster = false)
         {
-            Bir_Talep_ yeni = new Bir_Talep_(Açıklama, İptalEdilebilir, Tetikleyen, Toplam_Kademe);
+            Bir_Talep_ yeni = new Bir_Talep_(Açıklama, İptalEdilebilir, Tetikleyen, Toplam_Kademe, HemenGöster);
             Tümü.Add(yeni);
         }
         public void Bitir()
@@ -184,7 +186,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             public Control Tetikleyen;
             public int Toplam_Kademe, Geçerli_Kademe = 0;
 
-            public Bir_Talep_(string Açıklama, bool İptalEdilebilir, Control Tetikleyen, int Toplam_Kademe)
+            public Bir_Talep_(string Açıklama, bool İptalEdilebilir, Control Tetikleyen, int Toplam_Kademe, bool HemenGöster)
             {
                 this.Açıklama = Açıklama;
                 this.İptalEdilebilir = İptalEdilebilir;
@@ -198,9 +200,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
                 this.Tetikleyen = Tetikleyen;
 
-                EkranıGüncelle();
+                EkranıGüncelle(HemenGöster);
             }
-            public void EkranıGüncelle()
+            public void EkranıGüncelle(bool HemenGöster = false)
             {
                 if (!Pencere.InvokeRequired) _EkranıGüncelle_();
                 else
@@ -230,6 +232,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Pencere.İptalEt.Enabled = İptalEdilebilir;
 
                     Pencere.Tik = Environment.TickCount + Tik_ZamanAşımmı_msn;
+                    if (HemenGöster) Pencere.Visible = true;
 
                     Application.DoEvents();
                 }
