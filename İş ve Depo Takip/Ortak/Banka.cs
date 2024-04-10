@@ -2312,16 +2312,17 @@ namespace İş_ve_Depo_Takip
             if (o.Gecici_Güncel_İşlemSonrasıMüşteriBorcu >= 0)
             {
                 var ödeme = Ekranlar.GelirGiderTakip.Komut_Ekle_GelirGider("Müşteri", Müşteri,
-               Ekranlar.GelirGiderTakip.İşyeri_Ödeme_İşlem_Tipi_.Gelir, Ekranlar.GelirGiderTakip.İşyeri_Ödeme_İşlem_Durum_.Ödenmedi,
-               o.Gecici_Güncel_İşlemSonrasıMüşteriBorcu, Ekranlar.GelirGiderTakip.İşyeri_Ödeme_ParaBirimi_.TürkLirası, t,
-               DosyaAdı,
-               0, Ekranlar.GelirGiderTakip.Muhatap_Üyelik_Dönem_.Boşta, 0, t);
+                   Ekranlar.GelirGiderTakip.İşyeri_Ödeme_İşlem_Tipi_.Gelir, Ekranlar.GelirGiderTakip.İşyeri_Ödeme_İşlem_Durum_.Ödenmedi,
+                   o.Gecici_Güncel_İşlemSonrasıMüşteriBorcu, Ekranlar.GelirGiderTakip.İşyeri_Ödeme_ParaBirimi_.TürkLirası, t,
+                   DosyaAdı,
+                   0, Ekranlar.GelirGiderTakip.Muhatap_Üyelik_Dönem_.Boşta, 0, t);
 
                 string sonuç = Ekranlar.GelirGiderTakip.Komut_Ekle_GelirGider(new List<Ekranlar.GelirGiderTakip.İlkAçılışAyarları_Ekle_GelirGider_Talep_>() { ödeme });
                 if (sonuç.DoluMu())
                 {
-                    return "İşleminiz \"İş ve Depo Takip\" içerisine kaydedildi fakat" + Environment.NewLine +
+                    sonuç = "İşleminiz \"İş ve Depo Takip\" içerisine kaydedildi fakat" + Environment.NewLine +
                             "\"Gelir Gider Takip\" içerisine kaydederken bir sorun oluştu." + Environment.NewLine + Environment.NewLine + sonuç;
+                    MessageBox.Show(sonuç.Günlük("Gelir Gider Takip "), "Gelir Gider Takip");
                 }
             }
             #endregion
@@ -2432,7 +2433,7 @@ namespace İş_ve_Depo_Takip
                 if (sonuç.DoluMu())
                 {
                     sonuç = "İşleminiz \"İş ve Depo Takip\" içerisine kaydedildi fakat" + Environment.NewLine +
-                        "\"Gelir Gider Takip\" içerisine kaydederken bir sorun oluştu." + Environment.NewLine + Environment.NewLine + sonuç;
+                            "\"Gelir Gider Takip\" içerisine kaydederken bir sorun oluştu." + Environment.NewLine + Environment.NewLine + sonuç;
                     MessageBox.Show(sonuç.Günlük("Gelir Gider Takip "), "Gelir Gider Takip");
                 }
             }
