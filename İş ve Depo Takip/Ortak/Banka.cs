@@ -749,14 +749,9 @@ namespace İş_ve_Depo_Takip
             if (!KontrolEdildi)
             {
                 //dosya adı ve başlık uyumluluğu kontrolü
-                string tür = depo.Oku("Tür");
-                if (string.IsNullOrEmpty(tür)) depo["Tür"].İçeriği = new string[] { Tür.ToString(), MüşteriVeyaMalzeme, EkTanım };
-                else
-                {
-                    string tür_isteneen_depo = ("Tür>" + Tür.ToString() + ">" + MüşteriVeyaMalzeme + ">" + EkTanım).TrimEnd('>');
-                    tür = depo["Tür"].YazıyaDönüştür(null).TrimEnd('\n');
-                    if (tür != tür_isteneen_depo) throw new Exception("Banka/" + MüşteriVeyaMalzeme + "/" + Tür.ToString() + "/" + EkTanım + " anahtarının başlığı (" + tür + ") hatalı");
-                }
+                IDepo_Eleman tür = depo["Tür"];
+                if (string.IsNullOrEmpty(tür[0])) tür.İçeriği = new string[] { Tür.ToString(), MüşteriVeyaMalzeme, EkTanım };
+                else if (tür[0] != Tür.ToString() || tür[1] != MüşteriVeyaMalzeme || tür[2] != EkTanım) throw new Exception("Banka/" + MüşteriVeyaMalzeme + "/" + Tür.ToString() + "/" + EkTanım + " anahtarının başlığı (" + tür.YazıyaDönüştür(null) + ") hatalı");
             }
 
             Çıkış:
@@ -2599,6 +2594,9 @@ namespace İş_ve_Depo_Takip
             İskonto = SeriNoDalı[1];
             Notlar = SeriNoDalı[2];
             TeslimEdilmeTarihi = SeriNoDalı[3];
+
+            //notların proje içerisinde doğrudan kullanıldığı yerler var
+            //SeriNoDalı[2] olarak arat
         }
         public static void Talep_Ayıkla_SeriNoDalı(IDepo_Eleman SeriNoDalı, out string Hasta, out string İşler, ref double Toplam)
         {
@@ -2866,25 +2864,6 @@ namespace İş_ve_Depo_Takip
             }
 
             if (Firmaİçinde > Toplam) Firmaİçinde = Toplam;
-        }
-        public static void Talep_Ekle_AçıklamaEtiketi(string Müşteri, string SeriNo, string Açıklama)
-        {
-            if (Açıklama.BoşMu(true)) return;
-            Açıklama = Açıklama.Trim();
-            if (Müşteri.BoşMu(true) || SeriNo.BoşMu(true)) throw new Exception("Müşteri(" + Müşteri + ").BoşMu(true) || SeriNo(" + SeriNo + ").BoşMu(true)");
-
-            Talep_Bul_Detaylar_ Talep_Bul_Detaylar = Talep_Bul(SeriNo, Müşteri);
-            if (Talep_Bul_Detaylar == null) throw new Exception("Talep_Bul_Detaylar == null");
-
-            Talep_Ayıkla_SeriNoDalı(Talep_Bul_Detaylar.SeriNoDalı, out _, out string Hasta, out _, out string Notlar, out _);
-            Talep_Ayıkla_İşTürüDalı(Talep_Bul_Detaylar.SeriNoDalı.Elemanları.Last(), out string SonİşTürü, out string SonGirişTarihi, out _, out _, out _, out _);
-
-            if (Notlar.DoluMu(true)) Notlar += Environment.NewLine;
-            Notlar += DateTime.Now.ToString("dd MMM ddd") + " " + Açıklama;
-            Talep_Bul_Detaylar.SeriNoDalı[2] = Notlar;
-
-            string sonuç = Ekranlar.Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(Ekranlar.Ayarlar_Etiketleme.YeniİşGirişi_Etiketi.Açıklama, 1, Müşteri, Hasta, SeriNo, SonGirişTarihi, SonİşTürü, false, Açıklama);
-            if (sonuç.DoluMu()) MessageBox.Show("Açıklama etiketinin yazdırılması aşamasında bir sorun ile karşılaşıldı" + Environment.NewLine + Environment.NewLine + sonuç, "Açıklama Etiketi");
         }
 
         public static List<string> KorumalıAlan_Listele_Dosyalar()

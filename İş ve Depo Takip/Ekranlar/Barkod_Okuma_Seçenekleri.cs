@@ -9,8 +9,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
 {
     public partial class Barkod_Okuma_Seçenekleri : Form, IGüncellenenSeriNolar
     {
-        string Müşteri_, SeriNo_, Hasta_, EkTanım_;
-        Banka.TabloTürü Türü_;
+        string SeriNo_, Hasta_;
+        Banka.Talep_Bul_Detaylar_ Detaylar;
 
         public Barkod_Okuma_Seçenekleri(Banka.Talep_Bul_Detaylar_ Detaylar)
         {
@@ -20,6 +20,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         void Başlat(Banka.Talep_Bul_Detaylar_ Detaylar)
         {
+            this.Detaylar = Detaylar;
             Banka.Talep_Ayıkla_SeriNoDalı(Detaylar.SeriNoDalı, out SeriNo_, out Hasta_, out _, out _, out string TeslimEdilmeTarihi);
             Banka.Talep_Hesaplat_FirmaİçindekiSüreler(Detaylar.SeriNoDalı, out TimeSpan Firmaİçinde, out TimeSpan Toplam);
 
@@ -28,11 +29,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Müşteri.Text = Detaylar.Müşteri;
             Hasta.Text = Hasta_;
             Süre.Text = "Toplam " + Banka.Yazdır_Tarih_Gün(Toplam) + ", firma içinde " + Banka.Yazdır_Tarih_Gün(Firmaİçinde);
-
-            Müşteri_ = Detaylar.Müşteri;
-            EkTanım_ = Detaylar.EkTanım;
-            Türü_ = Detaylar.Tür;
-
+          
             İşler.Items.Clear();
             string Sonİş_ÇıkışTarihi = null;
             foreach (IDepo_Eleman İşTürüDalı in Detaylar.SeriNoDalı.Elemanları)
@@ -41,53 +38,65 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 İşler.Items.Add(İşTürü + " " + Banka.Ücretler_AdetÇarpanı(Kullanım_AdetVeKonum));
             }
 
-            if (Türü_ > Banka.TabloTürü.TeslimEdildi)
+            if (Detaylar.Tür > Banka.TabloTürü.TeslimEdildi)
             {
                 //sadece olunabilir
             }
             else
             {
                 bool Kıstas_teslimedildi = TeslimEdilmeTarihi.BoşMu();
-                bool Kıstas_müşteriyegönder = Türü_ == Banka.TabloTürü.DevamEden && Sonİş_ÇıkışTarihi.BoşMu();
+                bool Kıstas_müşteriyegönder = Detaylar.Tür == Banka.TabloTürü.DevamEden && Sonİş_ÇıkışTarihi.BoşMu();
                 İsaretle_TeslimEdildi.Enabled = Kıstas_teslimedildi;
                 MüşteriyeGönder.Enabled = Kıstas_müşteriyegönder;
-                AçıklamaEtiketi.Enabled = Kıstas_teslimedildi || Kıstas_müşteriyegönder;
             }
         }
 
         private void Düzenle_Click(object sender, EventArgs e)
         {
             Close();
-            Ekranlar.ÖnYüzler.Ekle(new Yeni_İş_Girişi(SeriNo_, Müşteri_, Türü_, EkTanım_));
+            Ekranlar.ÖnYüzler.Ekle(new Yeni_İş_Girişi(SeriNo_, Detaylar.Müşteri, Detaylar.Tür, Detaylar.EkTanım));
         }
         private void MüşteriyeGönder_Click(object sender, EventArgs e)
         {
-            Banka.Talep_İşaretle_DevamEden_MüşteriyeGönderildi(Müşteri_, new List<string>() { SeriNo_ });
-            Banka.Talep_Ekle_AçıklamaEtiketi(Müşteri_, SeriNo_, AçıklamaEtiketi.Tag as string);
+            Banka.Talep_İşaretle_DevamEden_MüşteriyeGönderildi(Detaylar.Müşteri, new List<string>() { SeriNo_ });
             Banka.Değişiklikleri_Kaydet(MüşteriyeGönder);
             Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(SeriNo_);
             Close();
         }
         private void İsaretle_TeslimEdildi_Click(object sender, EventArgs e)
         {
-            Banka.Talep_İşaretle_DevamEden_TeslimEdilen(Müşteri_, new List<string>() { SeriNo_ }, true);
-            Banka.Talep_Ekle_AçıklamaEtiketi(Müşteri_, SeriNo_, AçıklamaEtiketi.Tag as string);
+            Banka.Talep_İşaretle_DevamEden_TeslimEdilen(Detaylar.Müşteri, new List<string>() { SeriNo_ }, true);
             Banka.Değişiklikleri_Kaydet(İsaretle_TeslimEdildi);
             Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(SeriNo_);
             Close();
         }
-        private void AçıklamaEkle_Click(object sender, EventArgs e)
+        
+        private void AçıklamaEtiketi_Click(object sender, EventArgs e)
         {
             Yeni_İş_Girişi_Açıklama açklm = new Yeni_İş_Girişi_Açıklama();
-            açklm.Çıktı.Text = AçıklamaEtiketi.Tag as string;
             açklm.FormClosed += Açklm_FormClosed;
             ÖnYüzler.Ekle(açklm);
 
             void Açklm_FormClosed(object _sender_, FormClosedEventArgs _e_)
             {
-                AçıklamaEtiketi.Tag = açklm.Çıktı.Text;
-                AçıklamaEtiketi.BackColor = açklm.Çıktı.Text.DoluMu() ? System.Drawing.Color.YellowGreen : System.Drawing.SystemColors.Window;
-                İncele.Enabled = açklm.Çıktı.Text.BoşMu();
+                string Açıklama = açklm.YazdırVeKaydet.Tag as string;
+                if (Açıklama.BoşMu(true)) return;
+
+                if (Detaylar.Tür <= Banka.TabloTürü.TeslimEdildi)
+                {
+                    //sadece okunabilir değil
+                    string Notlar = Detaylar.SeriNoDalı[2];
+                    if (Notlar.DoluMu(true)) Notlar += Environment.NewLine;
+                    Notlar += DateTime.Now.ToString("dd MMM ddd") + " " + Açıklama;
+                   
+                    Detaylar.SeriNoDalı[2] = Notlar;
+                    Banka.Değişiklikleri_Kaydet(AçıklamaEtiketi);
+                    Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(SeriNo_);
+                }
+
+                Banka.Talep_Ayıkla_İşTürüDalı(Detaylar.SeriNoDalı.Elemanları[Detaylar.SeriNoDalı.Elemanları.Length - 1], out string SonİşTürü_, out string SonGirişTarihi_, out _, out _, out _, out _);
+                string sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(Ayarlar_Etiketleme.YeniİşGirişi_Etiketi.Açıklama, 1, Detaylar.Müşteri, Hasta_, SeriNo_, SonGirişTarihi_, SonİşTürü_, false, Açıklama);
+                if (sonuç.DoluMu()) MessageBox.Show("Açıklama etiketinin yazdırılması aşamasında bir sorun ile karşılaşıldı" + Environment.NewLine + Environment.NewLine + sonuç, "Açıklama Etiketi");
             }
         }
 

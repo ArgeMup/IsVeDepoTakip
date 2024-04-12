@@ -9,7 +9,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 {
     public partial class Yeni_İş_Girişi : Form, IGüncellenenSeriNolar
     {
-        readonly string Müşteri = null, SeriNo = null, YeniKayıtİçinTutulanSeriNo = null, EkTanım = null;
+        readonly string SeriNo = null, YeniKayıtİçinTutulanSeriNo = null;
         readonly Banka.TabloTürü SeriNoTürü = Banka.TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi;
         bool SadeceOkunabilir = false, Notlar_TarihSaatEklendi = false;
         List<string> Müşteriler_Liste = null, Hastalar_Liste = new List<string>();
@@ -22,14 +22,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             if (string.IsNullOrWhiteSpace(SeriNo))
             {
-                Müşteri = null;
                 SeriNo = null;
             }
             else
             {
-                this.Müşteri = Müşteri;
                 this.SeriNo = SeriNo;
-                this.EkTanım = EkTanım;
             }
             this.SeriNoTürü = SeriNoTürü;
 
@@ -118,9 +115,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         break;
                 }
 
-                Banka.Talep_Ayıkla_SeriNoDalı(detaylar.SeriNoDalı, out string _, out string Hasta, out string İskonto_, out string Notlar_, out string _);
+                Banka.Talep_Ayıkla_SeriNoDalı(detaylar.SeriNoDalı, out _, out string Hasta_, out string İskonto_, out string Notlar_, out _);
                 Text += " - " + SeriNo + " - " + SeriNoTürü.ToString();
-                Hastalar_AramaÇubuğu.Text = Hasta;
+                Hastalar_AramaÇubuğu.Text = Hasta_;
                 İskonto.Text = İskonto_;
                 Notlar.Text = Notlar_;
 
@@ -709,21 +706,38 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void AçıklamaEtiketi_Click(object sender, EventArgs e)
         {
             Yeni_İş_Girişi_Açıklama açklm = new Yeni_İş_Girişi_Açıklama();
-            açklm.Çıktı.Text = AçıklamaEtiketi.Tag as string;
             açklm.FormClosed += Açklm_FormClosed;
             ÖnYüzler.Ekle(açklm);
 
             void Açklm_FormClosed(object _sender_, FormClosedEventArgs _e_)
             {
-                AçıklamaEtiketi.Tag = açklm.Çıktı.Text;
-                İpUcu.SetToolTip(AçıklamaEtiketi, açklm.Çıktı.Text);
+                //Sadece okunabilir değil ise buraya geliyor
+                string Açıklama = açklm.YazdırVeKaydet.Tag as string;
+                if (Açıklama.BoşMu(true)) return;
 
-                if (açklm.Çıktı.Text.DoluMu())
+                bool KaydetTuşuEtkin = ÖnYüzler_Kaydet.Enabled;
+                Notlar.Text = Notlar.Text.Trim();
+                if (Notlar.Text.DoluMu(true)) Notlar.Text += Environment.NewLine;
+                Notlar.Text += DateTime.Now.ToString("dd MMM ddd") + " " + Açıklama;
+
+                string müşteri_adı = Müşteriler_SeçimKutusu.Text, SonİşTürü = null, SonGirişTarihi = null;
+
+                if (SeriNo.DoluMu(true) && müşteri_adı.DoluMu(true))
                 {
-                    AçıklamaEtiketi.BackColor = System.Drawing.Color.YellowGreen;
-                    Değişiklik_Yapılıyor(null, null);
+                    Banka.Talep_Bul_Detaylar_ detaylar = Banka.Talep_Bul(SeriNo, müşteri_adı);
+                    if (detaylar != null)
+                    {
+                        detaylar.SeriNoDalı[2] = Notlar.Text;
+                        Banka.Değişiklikleri_Kaydet(AçıklamaEtiketi);
+                        Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(SeriNo);
+
+                        if (!KaydetTuşuEtkin) Kaydet_TuşGörünürlüğü(false);
+                        Banka.Talep_Ayıkla_İşTürüDalı(detaylar.SeriNoDalı.Elemanları[detaylar.SeriNoDalı.Elemanları.Length - 1], out SonİşTürü, out SonGirişTarihi, out _, out _, out _, out _);
+                    }
                 }
-                else AçıklamaEtiketi.BackColor = System.Drawing.SystemColors.Window;
+
+                string sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(Ayarlar_Etiketleme.YeniİşGirişi_Etiketi.Açıklama, 1, müşteri_adı, Hastalar_AramaÇubuğu.Text, SeriNo, SonGirişTarihi, SonİşTürü, false, Açıklama);
+                if (sonuç.DoluMu()) MessageBox.Show("Açıklama etiketinin yazdırılması aşamasında bir sorun ile karşılaşıldı" + Environment.NewLine + Environment.NewLine + sonuç, "Açıklama Etiketi");
             }
         }
 
@@ -902,7 +916,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             Banka.Talep_Ekle(Detaylar, SeriNoTürü == Banka.TabloTürü.ÜcretHesaplama);
-            Banka.Talep_Ekle_AçıklamaEtiketi(Detaylar.Müşteri, SeriNo ?? YeniKayıtİçinTutulanSeriNo, AçıklamaEtiketi.Tag as string);
             Banka.Ayarlar_Kullanıcı(Name, "Hastalar_AdVeSoyadıDüzelt").Yaz(null, Hastalar_AdVeSoyadıDüzelt.Checked);
             Banka.Değişiklikleri_Kaydet(ÖnYüzler_Kaydet);
             Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(Detaylar.SeriNo);

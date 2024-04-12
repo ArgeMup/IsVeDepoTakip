@@ -143,7 +143,6 @@
             // 
             this.AçıklamaEtiketi.AutoSize = true;
             this.AçıklamaEtiketi.Dock = System.Windows.Forms.DockStyle.Top;
-            this.AçıklamaEtiketi.Enabled = false;
             this.AçıklamaEtiketi.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.AçıklamaEtiketi.Location = new System.Drawing.Point(3, 117);
             this.AçıklamaEtiketi.Margin = new System.Windows.Forms.Padding(2, 2, 0, 2);
@@ -153,7 +152,7 @@
             this.AçıklamaEtiketi.Text = "Açıklama Etiketi";
             this.AçıklamaEtiketi.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.AçıklamaEtiketi.UseVisualStyleBackColor = true;
-            this.AçıklamaEtiketi.Click += new System.EventHandler(this.AçıklamaEkle_Click);
+            this.AçıklamaEtiketi.Click += new System.EventHandler(this.AçıklamaEtiketi_Click);
             // 
             // İşler
             // 

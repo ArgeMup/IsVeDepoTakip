@@ -41,7 +41,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void SağaAkar_Click(object sender, EventArgs e)
         {
-            Çıktı.AppendText(SeçiliOlanAçıklama.Text);
+            Çıktı.AppendText((Çıktı.Text.DoluMu() ? " " : null) + SeçiliOlanAçıklama.Text);
+        }
+
+        private void ListeyeEkle_Click(object sender, EventArgs e)
+        {
+            Çıktı.Text = Çıktı.Text.Trim();
+            if (Çıktı.Text.DoluMu(true) && !depo.İçeriği.Contains(Çıktı.Text))
+            {
+                Açıklamalar.Tüm_Elemanlar.Add(Çıktı.Text);
+                Açıklamalar.Yenile();
+                depo.İçeriği = Açıklamalar.Tüm_Elemanlar.ToArray();
+            }
         }
 
         private void Geri_Click(object sender, EventArgs e)
@@ -49,11 +60,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Close();
         }
 
-        private void Yeni_İş_Girişi_Açıklama_FormClosing(object sender, FormClosingEventArgs e)
+        private void YazdırVeKaydet_Click(object sender, EventArgs e)
         {
             Çıktı.Text = Çıktı.Text.Trim();
+            if (Çıktı.Text.BoşMu()) return;
 
-            if (ListeyeEkle.Checked && Çıktı.Text.DoluMu(true) && !depo.İçeriği.Contains(Çıktı.Text)) depo[depo.İçeriği.Length] = Çıktı.Text;
+            YazdırVeKaydet.Tag = Çıktı.Text;
+
+            Close();
         }
     }
 }
