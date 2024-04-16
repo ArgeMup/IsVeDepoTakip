@@ -140,7 +140,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.ListeyeEkle.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.ListeyeEkle.Size = new System.Drawing.Size(444, 38);
             this.ListeyeEkle.TabIndex = 3;
-            this.ListeyeEkle.Text = "Listeye Ekle";
+            this.ListeyeEkle.Text = "Listeye ekle";
             this.ListeyeEkle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.ListeyeEkle.UseVisualStyleBackColor = true;
             this.ListeyeEkle.Click += new System.EventHandler(this.ListeyeEkle_Click);

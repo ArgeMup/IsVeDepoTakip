@@ -3409,7 +3409,7 @@ namespace İş_ve_Depo_Takip
 
                 List<Enum> İzinler = new List<Enum>();
                 for (int i = 0; i < (int)İzin.DiziElemanSayısı_; i++) { İzinler.Add(((İzin)i)); }
-                ArgeMup.HazirKod.Ekranlar.Kullanıcılar.Başlat(İzinler, İzin.Ayarları_değiştirebilir, GeriBildirimİşlemi_Önyüz_Ayarlar_Değişti, Ortak.Klasör_Banka + @"ArgeMup.HazirKod_Cdiyez.Ekranlar.Kullanıcılar.Ayarlar", Kendi.Adı);
+                ArgeMup.HazirKod.Ekranlar.Kullanıcılar.Başlat(İzinler, İzin.Ayarları_değiştirebilir, GeriBildirimİşlemi_Önyüz_Ayarlar_Değişti, Ortak.Klasör_Banka + @"ArgeMup.HazirKod_Cdiyez.Ekranlar.Kullanıcılar.Ayarlar", Kendi.Adı, "İş ve Depo Takip");
             }
             static void GeriBildirimİşlemi_Önyüz_Ayarlar_Değişti(string AyarlarDosyaYolu, string AyarlarDosyaYolu_İçeriği, string Mevcut_KökParola, string Eski_KökParola)
             {

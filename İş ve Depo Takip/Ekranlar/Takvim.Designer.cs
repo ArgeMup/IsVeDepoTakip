@@ -448,7 +448,7 @@
             this.İpUcu_Genel.IsBalloon = true;
             this.İpUcu_Genel.ReshowDelay = 20;
             this.İpUcu_Genel.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.İpUcu_Genel.ToolTipTitle = "Yeni İş Girişi / Düzenleme";
+            this.İpUcu_Genel.ToolTipTitle = "Takvim";
             this.İpUcu_Genel.UseAnimation = false;
             this.İpUcu_Genel.UseFading = false;
             // 
