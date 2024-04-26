@@ -13,8 +13,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
         public enum İşyeri_Ödeme_İşlem_Durum_ { Boşta, Ödenmedi, KısmenÖdendi, TamÖdendi, İptalEdildi, KısmiÖdemeYapıldı, PeşinatÖdendi }
         public enum İşyeri_Ödeme_ParaBirimi_ { Boşta, TürkLirası, Avro, Dolar, ElemanSayısı = 4 };
         public enum Muhatap_Üyelik_Dönem_ { Boşta, Günlük, Haftalık, Aylık, Yıllık };
-        public enum İlkAçılışAyarları_Komut_ { Boşta, Sayfa_GelirGiderEkle, Sayfa_CariDöküm, Sayfa_Ayarlar, Ekle_GelirGider, Yazdır };
-        public class İlkAçılışAyarları_Ekle_GelirGider_Talep_
+        public enum Şube_Talep_Komut_ { Boşta, Sayfa_GelirGiderEkle, Sayfa_CariDöküm, Sayfa_Ayarlar, Ekle_GelirGider, Yazdır, Kontrol };
+        public class Şube_Talep_Ekle_GelirGider_
         {
             [Değişken_.Niteliği.Adını_Değiştir("T", 0)] public string Ekle_MuhatapGrubuAdı;
             [Değişken_.Niteliği.Adını_Değiştir("T", 1)] public string Ekle_MuhatapAdı;
@@ -29,7 +29,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             [Değişken_.Niteliği.Adını_Değiştir("T", 10)] public int Ekle_Taksit_Dönem_Adet;
             [Değişken_.Niteliği.Adını_Değiştir("T", 11)] public DateTime? Ekle_KayıtTarihi = null;
         }
-        public class İlkAçılışAyarları_
+        public class Şube_Talep_
         {
             [Değişken_.Niteliği.Adını_Değiştir("Bt")] public string Benzersiz_Tanımlayıcı;
             [Değişken_.Niteliği.Adını_Değiştir("İy", 0)] public string İşyeri_Adı;
@@ -40,12 +40,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             [Değişken_.Niteliği.Adını_Değiştir("KuR")] public bool[] Kullanıcı_Rolİzinleri;
             [Değişken_.Niteliği.Adını_Değiştir("Ku", 0)] public string Kullanıcı_Adı;
-            [Değişken_.Niteliği.Adını_Değiştir("Ku", 1)] public İlkAçılışAyarları_Komut_ Kullanıcı_Komut;
+            [Değişken_.Niteliği.Adını_Değiştir("Ku", 1)] public Şube_Talep_Komut_ Kullanıcı_Komut;
             [Değişken_.Niteliği.Adını_Değiştir("KuEt")] public string[] Kullanıcı_Komut_EkTanım; //Yazdırma : pdf dosya yolu + Şablon Adı
 
-            [Değişken_.Niteliği.Adını_Değiştir("E GeGi")] public List<İlkAçılışAyarları_Ekle_GelirGider_Talep_> Ekle_GelirGider_Talepler;
+            [Değişken_.Niteliği.Adını_Değiştir("E GeGi")] public List<Şube_Talep_Ekle_GelirGider_> Ekle_GelirGider_Talepler;
 
-            public İlkAçılışAyarları_()
+            public Şube_Talep_()
             {
                 İşyeri_Adı = Banka.İşyeri_Adı;
                 İşyeri_Parolası = Banka.Ayarlar_Genel("Uygulama Kimliği", true).Oku(null);
@@ -63,30 +63,35 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Kullanıcı_Rolİzinleri = new bool[(int)Banka.K_lar.İzin.DiziElemanSayısı_Gelir_gider_ + 1 /*boşta*/];
             }
         }
-
-        static string Uygulama_DosyaYolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Gelir_Gider_Takip", "") + "\\Gelir Gider Takip.exe";
-        static string Uygulama_Sonuç_DosyaYolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Gelir_Gider_Takip", "") + "\\Sonuç.mup";
-        static string[] Komut_DosyasıYolu = new string[] { Path.GetDirectoryName(Uygulama_DosyaYolu) + "\\Komut.mup" };
-        static İlkAçılışAyarları_ İlkAçılışAyarları = null;
-
-        public static string Komut_SayfaAç(İlkAçılışAyarları_Komut_ Komut, bool Sayfa_GelirGiderEkle_GelirOlarakAçılsın = false)
+        class Şube_Talep_Cevap_
         {
-            if (Komut < İlkAçılışAyarları_Komut_.Sayfa_GelirGiderEkle || Komut > İlkAçılışAyarları_Komut_.Sayfa_Ayarlar) return "Hatalı Komut " + Komut;
+            [Değişken_.Niteliği.Adını_Değiştir("C", 0)] public string Benzersiz_Tanımlayıcı;
+            [Değişken_.Niteliği.Adını_Değiştir("C", 1)] public bool Başarılı;
 
-            if (İlkAçılışAyarları == null) İlkAçılışAyarları = new İlkAçılışAyarları_();
-
-            İlkAçılışAyarları.Kullanıcı_Komut = Komut;
-            İlkAçılışAyarları.Kullanıcı_Komut_EkTanım = Sayfa_GelirGiderEkle_GelirOlarakAçılsın ? new string[] { "Gelir" } : null;
-
-            return Çalıştır(true, 0);
+            [Değişken_.Niteliği.Adını_Değiştir("D")] public string[] Detaylar;
         }
-        public static İlkAçılışAyarları_Ekle_GelirGider_Talep_ Komut_Ekle_GelirGider(string MuhatapGrubuAdı, string MuhatapAdı,
+        static YanUygulama.Şebeke_ Şebeke;
+        static Şube_Talep_Cevap_ Cevap;
+        static Şube_Talep_ Şube_Talep = null;
+
+        public static string Komut_SayfaAç(Şube_Talep_Komut_ Komut, bool Sayfa_GelirGiderEkle_GelirOlarakAçılsın = false)
+        {
+            if (Komut < Şube_Talep_Komut_.Sayfa_GelirGiderEkle || Komut > Şube_Talep_Komut_.Sayfa_Ayarlar) return "Hatalı Komut " + Komut;
+
+            if (Şube_Talep == null) Şube_Talep = new Şube_Talep_();
+
+            Şube_Talep.Kullanıcı_Komut = Komut;
+            Şube_Talep.Kullanıcı_Komut_EkTanım = Sayfa_GelirGiderEkle_GelirOlarakAçılsın ? new string[] { "Gelir" } : null;
+
+            return Çalıştır(true, out _);
+        }
+        public static Şube_Talep_Ekle_GelirGider_ Komut_Ekle_GelirGider(string MuhatapGrubuAdı, string MuhatapAdı,
                     İşyeri_Ödeme_İşlem_Tipi_ Tipi, İşyeri_Ödeme_İşlem_Durum_ Durumu, double Miktar, İşyeri_Ödeme_ParaBirimi_ ParaBirimi,
                     DateTime İlkÖdemeTarihi, string Notlar,
                     int Taksit_Sayısı, Muhatap_Üyelik_Dönem_ Taksit_Dönem, int Taksit_Dönem_Adet,
                     DateTime? KayıtTarihi = null)
         {
-            return new İlkAçılışAyarları_Ekle_GelirGider_Talep_()
+            return new Şube_Talep_Ekle_GelirGider_()
             {
                 Ekle_MuhatapGrubuAdı = MuhatapGrubuAdı, Ekle_MuhatapAdı = MuhatapAdı,
                 Ekle_Tipi = Tipi, Ekle_Durumu = Durumu, Ekle_Miktar = Miktar, Ekle_ParaBirimi = ParaBirimi,
@@ -95,124 +100,136 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Ekle_KayıtTarihi = KayıtTarihi
             };
         }
-        public static string Komut_Ekle_GelirGider(List<İlkAçılışAyarları_Ekle_GelirGider_Talep_> Talepler)
+        public static string Komut_Ekle_GelirGider(List<Şube_Talep_Ekle_GelirGider_> Talepler)
         {
             if (Talepler == null || Talepler.Count == 0) return "Hiç ödeme bulunamadı";
 
-            if (İlkAçılışAyarları == null) İlkAçılışAyarları = new İlkAçılışAyarları_();
+            if (Şube_Talep == null) Şube_Talep = new Şube_Talep_();
 
-            İlkAçılışAyarları.Kullanıcı_Komut = İlkAçılışAyarları_Komut_.Ekle_GelirGider;
-            İlkAçılışAyarları.Ekle_GelirGider_Talepler = Talepler;
+            Şube_Talep.Kullanıcı_Komut = Şube_Talep_Komut_.Ekle_GelirGider;
+            Şube_Talep.Ekle_GelirGider_Talepler = Talepler;
 
-            return Çalıştır(false, 15000);
+            return Çalıştır(false, out _);
         }
         public static string Komut_Yazdır(string PdfDosyaYolu, string Şablon = null)
         {
-            if (İlkAçılışAyarları == null) İlkAçılışAyarları = new İlkAçılışAyarları_();
+            if (Şube_Talep == null) Şube_Talep = new Şube_Talep_();
 
-            İlkAçılışAyarları.Kullanıcı_Komut = İlkAçılışAyarları_Komut_.Yazdır;
-            İlkAçılışAyarları.Kullanıcı_Komut_EkTanım = new string[] { PdfDosyaYolu, Şablon };
+            Şube_Talep.Kullanıcı_Komut = Şube_Talep_Komut_.Yazdır;
+            Şube_Talep.Kullanıcı_Komut_EkTanım = new string[] { PdfDosyaYolu, Şablon };
 
-            return Çalıştır(false, 15000);
+            return Çalıştır(false, out _);
         }
-        static string Çalıştır(bool HatayıGöster, int ZamanAşımı_msn)
+        public static string Komut_Kontrol(bool PencereleriKapat, bool Yedekle, bool Durdur, out string[] Detaylar)
         {
-            İlkAçılışAyarları.Benzersiz_Tanımlayıcı = DateTime.Now.Yazıya();
-            İlkAçılışAyarları.Kullanıcı_Adı = Banka.K_lar.KullancıAdı;
+            if (Şube_Talep == null) { Detaylar = null; return null; }
+
+            Şube_Talep.Kullanıcı_Komut = Şube_Talep_Komut_.Kontrol;
+            Şube_Talep.Kullanıcı_Komut_EkTanım = new string[] { PencereleriKapat ? "1" : "0", Yedekle ? "1" : "0", Durdur ? "1" : "0" };
+
+            return Çalıştır(false, out Detaylar);
+        }
+        static string Çalıştır(bool HatayıGöster, out string[] Detaylar)
+        {
+            Detaylar = null;
+            int ZamanAşımıAnı = Environment.TickCount + 15000;
+            
+            if (Şebeke == null)
+            {
+                Ortak.Gösterge.Başlat("Gelir Gider Takip ile ilk bağlantı kuruluyor", true, null, 500);
+
+                string EnDüşükSürüm = "0.11";
+                string DosyaYolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Gelir_Gider_Takip", "") + "\\Gelir Gider Takip.exe";
+                string AğAdresi_Uygulama = "https://github.com/ArgeMup/GelirGiderTakip/raw/main/bin/Yay%C4%B1nla/Gelir%20Gider%20Takip.exe";
+                string AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/GelirGiderTakip/raw/main/bin/Yay%C4%B1nla/Gelir%20Gider%20Takip.exe.DogrulamaKoduUreteci";
+
+#if DEBUG
+                //AğAdresi_Uygulama = null;
+                //AğAdresi_DoğrulamaKodu = null;
+                AğAdresi_Uygulama = "https://github.com/ArgeMup/a/raw/main/Gegita/Gelir%20Gider%20Takip.exe";
+                AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/a/raw/main/Gegita/Gelir%20Gider%20Takip.exe.DogrulamaKoduUreteci";
+#endif
+
+                Şebeke = new YanUygulama.Şebeke_(DosyaYolu, GeriBildirim_İşlemi_Uygulama, Ortak.Çalıştır, Banka.Ayarlar_Genel("Gelir Gider Takip/Şebeke", true), AğAdresi_Uygulama, EnDüşükSürüm, AğAdresi_DoğrulamaKodu);
+
+                while (!Şebeke.BağlantıKuruldu && Ortak.Gösterge.Çalışsın && ZamanAşımıAnı > Environment.TickCount && ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın)
+                {
+                    Ortak.Gösterge.İlerleme = 1;
+                    System.Threading.Thread.Sleep(30);
+                }
+
+                Ortak.Gösterge.Açıklama = "Gelir Gider Takip bekleniyor";
+            }
+            else Ortak.Gösterge.Başlat("Gelir Gider Takip bekleniyor", true, null, 500);
+
+            if (!Şebeke.BağlantıKuruldu)
+            {
+                Ortak.Gösterge.Bitir();
+                string açklm = "Gelir Gider Takip ile bağlantı kurulamadı";
+                _Açıkla_(açklm);
+                return açklm;
+            }
+
+            Şube_Talep.Benzersiz_Tanımlayıcı = DateTime.Now.Yazıya();
+            Şube_Talep.Kullanıcı_Adı = Banka.K_lar.KullancıAdı;
             int izinler_başlangıç = (int)Banka.K_lar.İzin.Gelir_gider_Boşta_;
-            for (int i = 1; i < İlkAçılışAyarları.Kullanıcı_Rolİzinleri.Length; i++)
+            for (int i = 1; i < Şube_Talep.Kullanıcı_Rolİzinleri.Length; i++)
             {
                 bool değeri = Banka.K_lar.GeçerliKullanıcı == null ? true : Banka.K_lar.GeçerliKullanıcı.Rol_İzinleri[izinler_başlangıç + i - 1];
-                İlkAçılışAyarları.Kullanıcı_Rolİzinleri[i] = değeri;
+                Şube_Talep.Kullanıcı_Rolİzinleri[i] = değeri;
             }
 
+            Cevap = null;
             Depo_ depo = null;
-            Banka.Sınıf_Kaydet(GelirGiderTakip.İlkAçılışAyarları, ref depo);
-            depo.YazıyaDönüştür().BaytDizisine().Karıştır(Parola.Dizi_GelirGiderTakip).Dosyaİçeriği_Yaz(Komut_DosyasıYolu[0]);
-
-            YeniYazılımKontrolü_ yyk = new YeniYazılımKontrolü_();
-            if (Ortak.DosyaGüncelMi(Uygulama_DosyaYolu, 0, 9)) yyk.KontrolTamamlandı = true;
-            else yyk.Başlat(new Uri("https://github.com/ArgeMup/GelirGiderTakip/blob/main/bin/Yay%C4%B1nla/Gelir%20Gider%20Takip.exe?raw=true"), null, Uygulama_DosyaYolu);
-
-            if (!yyk.KontrolTamamlandı)
+            Banka.Sınıf_Kaydet(Şube_Talep, ref depo);
+            Şebeke.Gönder(depo.YazıyaDönüştür().BaytDizisine());
+            while (Cevap == null && Ortak.Gösterge.Çalışsın && ZamanAşımıAnı > Environment.TickCount && ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın)
             {
-                Ortak.Gösterge.Başlat("Gelir Gider Takip indiriliyor", true, null, 15);
-                int tümü_sayac = Environment.TickCount + 15000;
-                while (!yyk.KontrolTamamlandı && Ortak.Gösterge.Çalışsın && tümü_sayac > Environment.TickCount && ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın)
-                {
-                    Ortak.Gösterge.İlerleme = 1;
-                    System.Threading.Thread.Sleep(1000);
-                }
-                Ortak.Gösterge.Bitir();
-            }
-            if (!yyk.KontrolTamamlandı || !File.Exists(Uygulama_DosyaYolu)) { yyk.Durdur(); return "Gelir Gider Takip indirilemedi"; }
-            
-            if (!Dosya.Sil(Uygulama_Sonuç_DosyaYolu)) return "Sonuç dosyası silinemedi";
-            var işlem = Ortak.Çalıştır.UygulamayıDoğrudanÇalıştır(Uygulama_DosyaYolu, Komut_DosyasıYolu);
-
-            bool Bitti = false;
-            string Sonuç = null;
-            int zamanaşımı = ZamanAşımı_msn > 0 ? Environment.TickCount + ZamanAşımı_msn : 0;
-            System.Threading.Tasks.Task.Run(() =>
-            {
-                while (!işlem.HasExited && ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın && İlkAçılışAyarları != null)
-                {
-                    System.Threading.Thread.Sleep(35);
-
-                    if (ZamanAşımı_msn > 0 && zamanaşımı < Environment.TickCount) break;
-                }
-
-                Bitti = true;
-
-                if (!işlem.HasExited)
-                {
-                    try { işlem.Kill(); } catch (Exception) { }
-                    Sonuç = "Gelir Gider Takip kapanamadı";
-                }
-                else
-                {
-                    Sonuç = Uygulama_Sonuç_DosyaYolu.DosyaYolu_Oku_Yazı();
-                    if (Sonuç.BoşMu(true) || İlkAçılışAyarları.Benzersiz_Tanımlayıcı.BoşMu(true)) Sonuç = "İşlem sonucu belirsiz";
-                    else if (Sonuç == "Tamam " + İlkAçılışAyarları.Benzersiz_Tanımlayıcı) Sonuç = null;
-                    
-                    if (Sonuç.DoluMu())
-                    {
-                        Sonuç = İlkAçılışAyarları.Kullanıcı_Komut + " " + Sonuç;
-                        Sonuç.Günlük("Gelir Gider Takip ");
-
-                        if (HatayıGöster) MessageBox.Show(Sonuç, "Gelir Gider Takip");
-                    }
-                }
-            });
-
-            if (ZamanAşımı_msn > 0) //Bitmesini bekle
-            {
-                Ortak.Gösterge.Başlat("Gelir Gider Takip bekleniyor", false, null, ZamanAşımı_msn / 35);
-
-                while (!Bitti && Ortak.Gösterge.Çalışsın)
-                {
-                    Ortak.Gösterge.İlerleme = 1;
-                    System.Threading.Thread.Sleep(35);
-                }
-
-                Ortak.Gösterge.Bitir();
+                Ortak.Gösterge.İlerleme = 1;
+                System.Threading.Thread.Sleep(30);
             }
 
-            return Sonuç;
+            string açıklama = null;
+            if (Cevap == null) açıklama = Şube_Talep.Kullanıcı_Komut + " İşlem sonucu belirsiz";
+            else
+            {
+                if (Cevap.Başarılı) Detaylar = Cevap.Detaylar;
+                else açıklama = Şube_Talep.Kullanıcı_Komut + " Hatalı " + Cevap.Detaylar?[0];
+            }
+
+            Ortak.Gösterge.Bitir();
+            _Açıkla_(açıklama);
+            return açıklama;
+
+            void _Açıkla_(string _açıklama_)
+            {
+                if (_açıklama_.DoluMu())
+                {
+                    _açıklama_.Günlük("Gelir Gider Takip ");
+
+                    if (HatayıGöster) MessageBox.Show(_açıklama_, "Gelir Gider Takip");
+                }
+            }
+        }
+        static void GeriBildirim_İşlemi_Uygulama(bool BağlantıKuruldu, byte[] Bilgi, string Açıklama)
+        {
+            string içerik = Bilgi.Yazıya();
+            if (!BağlantıKuruldu || içerik.BoşMu()) 
+            {
+                if (Açıklama.DoluMu()) Açıklama.Günlük("Gelir Gider Takip ");
+                return; 
+            }
+
+            Depo_ Depo = new Depo_(içerik);
+            Şube_Talep_Cevap_ Cevap = Banka.Sınıf_Oluştur(typeof(Şube_Talep_Cevap_), Depo) as Şube_Talep_Cevap_;
+            if (Cevap.Benzersiz_Tanımlayıcı != Şube_Talep.Benzersiz_Tanımlayıcı) return;
+
+            GelirGiderTakip.Cevap = Cevap;
         }
         public static void Durdur()
         {
-            İlkAçılışAyarları = null;
-
-            System.Diagnostics.Process[] l = System.Diagnostics.Process.GetProcessesByName("Gelir Gider Takip");
-            if (l != null && l.Length > 0)
-            {
-                foreach (var p in l)
-                {
-                    if (p.HasExited) continue;
-                    if (p.MainModule.FileName == Uygulama_DosyaYolu) p.Kill();
-                }
-            }
+            Şube_Talep = null;
+            Şebeke?.Dispose(); Şebeke = null;
         }
     }
 }

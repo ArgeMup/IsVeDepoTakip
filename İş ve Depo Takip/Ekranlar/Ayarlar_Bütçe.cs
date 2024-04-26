@@ -746,11 +746,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
         #region _4_ Gelir Gider Takip
         private void _4_AyarlarSayfasınıAç_Click(object sender, EventArgs e)
         {
-            GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.İlkAçılışAyarları_Komut_.Sayfa_Ayarlar);
+            GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.Şube_Talep_Komut_.Sayfa_Ayarlar);
         }
         private void _4_CariDökümSayfasınıAç_Click(object sender, EventArgs e)
         {
-            GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.İlkAçılışAyarları_Komut_.Sayfa_CariDöküm);
+            GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.Şube_Talep_Komut_.Sayfa_CariDöküm);
         }
         private void _4_Yazdır_Click(object sender, EventArgs e)
         {
@@ -821,7 +821,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Eposta.Gönder_Kişiye(Ayarlar.Oku(null, null, 2), "Güncel Ödemeler Hk.", mesaj, ek, _GeriBildirimİşlemei_Tamamlandı);
                 void _GeriBildirimİşlemei_Tamamlandı(string Sonuç)
                 {
-                    snç.Günlük("_4_EpostaGönder Aşama 2");
+                    snç.Günlük("_4_EpostaGönder Aşama 2 ");
                 }
             }
             

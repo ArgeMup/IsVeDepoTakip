@@ -185,14 +185,18 @@ namespace İş_ve_Depo_Takip
 
             return false;
         }
-        public static bool Klasör_TamKopya(string Kaynak, string Hedef, bool DoğrulamaKodunuKontrolEt_Yavaşlatır = true)
+        public static bool Klasör_TamKopya(string Kaynak, string Hedef, bool DoğrulamaKodunuKontrolEt_Yavaşlatır = true, bool AynıDoğrulamaKodunaSahipİse_DiğerFarklılıklarıGörmezdenGel = false)
         {
             int ZamanAşımı_msn = Environment.TickCount + 15000;
             while (ZamanAşımı_msn > Environment.TickCount)
             {
                 try
                 {
-                    if (Klasör.Kopyala(Kaynak, Hedef, true, DoğrulamaKodunuKontrolEt_Yavaşlatır)) return true;
+                    if (Directory.Exists(Kaynak))
+                    {
+                        if (Klasör.Kopyala(Kaynak, Hedef, true, DoğrulamaKodunuKontrolEt_Yavaşlatır, AynıDoğrulamaKodunaSahipİse_DiğerFarklılıklarıGörmezdenGel: AynıDoğrulamaKodunaSahipİse_DiğerFarklılıklarıGörmezdenGel)) return true;
+                    }
+                    else if (Klasör.Sil(Hedef)) return true;
                 }
                 catch (Exception ex) { ex.Günlük(); }
 

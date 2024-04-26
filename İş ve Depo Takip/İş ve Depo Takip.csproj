@@ -190,6 +190,7 @@
     <Compile Include="HazirKod_Cdiyez\Depo.cs" />
     <Compile Include="HazirKod_Cdiyez\Değişken.cs" />
     <Compile Include="HazirKod_Cdiyez\DonanımHaberleşmesi.cs" />
+    <Compile Include="HazirKod_Cdiyez\DonanımHaberleşmesi_KomutSatırıUygulaması.cs" />
     <Compile Include="HazirKod_Cdiyez\DonanımHaberleşmesi_SeriPort.cs" />
     <Compile Include="HazirKod_Cdiyez\DonanımHaberleşmesi_Tcp.cs" />
     <Compile Include="HazirKod_Cdiyez\DonanımHaberleşmesi_Udp.cs" />
@@ -218,6 +219,7 @@
     <Compile Include="HazirKod_Cdiyez\Sıkıştırma.cs" />
     <Compile Include="HazirKod_Cdiyez\UygulamaOncedenCalistirildiMi.cs" />
     <Compile Include="HazirKod_Cdiyez\Win32Kutuphaneleri.cs" />
+    <Compile Include="HazirKod_Cdiyez\YanUygulama.cs" />
     <Compile Include="HazirKod_Cdiyez\YeniYazılımKontrolü.cs" />
     <Compile Include="HazirKod_Cdiyez\Çalıştır.cs" />
     <Compile Include="Ortak\Banka.cs" />

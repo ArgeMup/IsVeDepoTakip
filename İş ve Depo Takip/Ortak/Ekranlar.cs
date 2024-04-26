@@ -182,8 +182,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             Tümü.Clear();
-
-            GelirGiderTakip.Durdur();
         }
         public static void Durdur()
         {
@@ -221,15 +219,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     break;
 
                 case Keys.F5: //Gelir
-                    if (Banka.K_lar.İzinliMi(Banka.K_lar.İzin.Gelir_gider_ekleyebilir)) GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.İlkAçılışAyarları_Komut_.Sayfa_GelirGiderEkle, true);
+                    if (Banka.K_lar.İzinliMi(Banka.K_lar.İzin.Gelir_gider_ekleyebilir)) GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.Şube_Talep_Komut_.Sayfa_GelirGiderEkle, true);
                     break;
 
                 case Keys.F6: //Gider
-                    if (Banka.K_lar.İzinliMi(Banka.K_lar.İzin.Gelir_gider_ekleyebilir)) GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.İlkAçılışAyarları_Komut_.Sayfa_GelirGiderEkle);
+                    if (Banka.K_lar.İzinliMi(Banka.K_lar.İzin.Gelir_gider_ekleyebilir)) GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.Şube_Talep_Komut_.Sayfa_GelirGiderEkle);
                     break;
 
                 case Keys.F7: //Cari döküm
-                    if (Banka.K_lar.İzinliMi(Banka.K_lar.İzin.Gelir_gider_cari_dökümü_görebilir)) GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.İlkAçılışAyarları_Komut_.Sayfa_CariDöküm);
+                    if (Banka.K_lar.İzinliMi(Banka.K_lar.İzin.Gelir_gider_cari_dökümü_görebilir)) GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.Şube_Talep_Komut_.Sayfa_CariDöküm);
                     break;
 
                 case Keys.Escape:
@@ -263,7 +261,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 öndeki = Tümü.First(x => x.Ekran == sender);
-                if (öndeki != Tümü.Last()) throw new System.Exception("1 Listedeki son eleman olmamasına rağmen kapatma isteği geldi " + öndeki.Ekran.Text);
 
                 foreach (Control ÜstEleman in öndeki.Ekran.Controls)
                 {
@@ -303,7 +300,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 Önyüz_ öndeki = Tümü.First(x => x.Ekran == sender);
-                if (öndeki != Tümü.Last()) throw new System.Exception("2 Listedeki son eleman olmamasına rağmen kapatma isteği geldi " + öndeki.Ekran.Text);
 
                 Tümü.Remove(öndeki);
 

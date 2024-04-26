@@ -154,15 +154,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         private void GelirGider_Ekle_Gelir_Click(object sender, EventArgs e)
         {
-            GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.İlkAçılışAyarları_Komut_.Sayfa_GelirGiderEkle, true);
+            GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.Şube_Talep_Komut_.Sayfa_GelirGiderEkle, true);
         }
         private void GelirGider_Ekle_Gider_Click(object sender, EventArgs e)
         {
-            GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.İlkAçılışAyarları_Komut_.Sayfa_GelirGiderEkle);
+            GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.Şube_Talep_Komut_.Sayfa_GelirGiderEkle);
         }
         private void GelirGider_CariDöküm_Click(object sender, EventArgs e)
         {
-            GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.İlkAçılışAyarları_Komut_.Sayfa_CariDöküm);
+            GelirGiderTakip.Komut_SayfaAç(GelirGiderTakip.Şube_Talep_Komut_.Sayfa_CariDöküm);
         }
         private void Ayarlar_Click(object sender, EventArgs e)
         {
