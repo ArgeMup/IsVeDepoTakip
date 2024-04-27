@@ -1010,7 +1010,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             else return;
 
-            if (depo == null || depo["Talepler"].Elemanları.Length == 0)
+            if (depo == null)
             {
                 MessageBox.Show("Hiç kayıt bulunamadı", Text);
                 return;
@@ -1192,12 +1192,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     depo = Banka.Tablo(MüşteriAdı, Banka.TabloTürü.Ödendi, false, dönem);
                     if (depo != null)
                     {
-                        IDepo_Eleman de = depo.Bul("Talepler");
-                        if (de != null && de.Elemanları.Length > 0)
-                        {
-                            gecici_dosyadı = gecici_klasör + "Ödendi_" + dönem + ".pdf";
-                            y.İşler_Yazdır(depo, gecici_dosyadı);
-                        }
+                        gecici_dosyadı = gecici_klasör + "Ödendi_" + dönem + ".pdf";
+                        y.İşler_Yazdır(depo, gecici_dosyadı);
                     }
                 }
             }

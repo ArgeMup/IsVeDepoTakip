@@ -229,7 +229,6 @@
     <Compile Include="Ortak\Eposta.cs" />
     <Compile Include="Ortak\Ortak.cs" />
     <Compile Include="Ortak\HttpSunucu.cs" />
-    <Compile Include="Ortak\Parola.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ekranlar\Yeni_İş_Girişi.cs">
@@ -372,6 +371,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>IF EXIST "$(SolutionDir)..\Detaylar\Parola.cs" (copy "$(SolutionDir)..\Detaylar\Parola.cs" "$(SolutionDir)İş ve Depo Takip\Ortak\Parola.cs")</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>

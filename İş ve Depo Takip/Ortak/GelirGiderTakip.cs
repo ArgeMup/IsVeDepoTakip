@@ -150,7 +150,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/a/raw/main/Gegita/Gelir%20Gider%20Takip.exe.DogrulamaKoduUreteci";
 #endif
 
-                Şebeke = new YanUygulama.Şebeke_(DosyaYolu, GeriBildirim_İşlemi_Uygulama, Ortak.Çalıştır, Banka.Ayarlar_Genel("Gelir Gider Takip/Şebeke", true), AğAdresi_Uygulama, EnDüşükSürüm, AğAdresi_DoğrulamaKodu);
+                Şebeke = new YanUygulama.Şebeke_(DosyaYolu, GeriBildirim_İşlemi_Uygulama, Ortak.Çalıştır, Banka.Ayarlar_Genel("YanUygulama/Şube", true), AğAdresi_Uygulama, EnDüşükSürüm, AğAdresi_DoğrulamaKodu);
 
                 while (!Şebeke.BağlantıKuruldu && Ortak.Gösterge.Çalışsın && ZamanAşımıAnı > Environment.TickCount && ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın)
                 {
