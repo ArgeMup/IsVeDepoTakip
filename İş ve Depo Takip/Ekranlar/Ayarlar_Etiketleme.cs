@@ -3,6 +3,7 @@ using System.IO;
 using System;
 using System.Windows.Forms;
 using ArgeMup.HazirKod.Ekİşlemler;
+using System.Threading;
 
 namespace İş_ve_Depo_Takip.Ekranlar
 {
@@ -72,62 +73,117 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             return Barkod;
         }
+        public static void Durdur()
+        {
+            BarkodÜret_Şebeke?.Dispose();
+            BarkodÜret_Şebeke = null;
+
+            EtiketÜret_Şebeke?.Dispose();
+            EtiketÜret_Şebeke = null;
+        }
+        #endregion
+
+        #region Barkod Üret
+        static YanUygulama.Şebeke_ BarkodÜret_Şebeke;
+        static string BarkodÜret_Cevap;
         public static string YeniİşGirişi_Barkod_Üret(string Müşteri, string Hasta, string SeriNo, bool SadeceAyarla)
         {
-            string sonuç = null;
+            int ZamanAşımıAnı = Environment.TickCount + 15000;
+
+            if (BarkodÜret_Şebeke == null)
+            {
+                Ortak.Gösterge.Başlat("BarkodÜret ile ilk bağlantı kuruluyor", true, null, 500);
+
+                string EnDüşükSürüm = "0.5";
+                string DosyaYolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Barkod_Uret", "") + "\\Barkod_Uret.exe";
+                string AğAdresi_Uygulama = "https://github.com/ArgeMup/Barkod_Uret/raw/main/Barkod_Uret/bin/Release/Barkod_Uret.exe";
+                string AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/Barkod_Uret/raw/main/Barkod_Uret/bin/Release/Barkod_Uret.exe.DogrulamaKoduUreteci";
+
+#if DEBUG
+                //AğAdresi_Uygulama = null;
+                //AğAdresi_DoğrulamaKodu = null;
+                AğAdresi_Uygulama = "https://github.com/ArgeMup/a/raw/main/Barkod_Uret/Barkod_Uret.exe";
+                AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/a/raw/main/Barkod_Uret/Barkod_Uret.exe.DogrulamaKoduUreteci";
+#endif
+
+                BarkodÜret_Şebeke = new YanUygulama.Şebeke_(DosyaYolu, BarkodÜret_GeriBildirim_İşlemi_Uygulama, Ortak.Çalıştır, Banka.Ayarlar_Genel("YanUygulama/Şube", true), AğAdresi_Uygulama, EnDüşükSürüm, AğAdresi_DoğrulamaKodu);
+
+                while (!BarkodÜret_Şebeke.BağlantıKuruldu && Ortak.Gösterge.Çalışsın && ZamanAşımıAnı > Environment.TickCount && ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın)
+                {
+                    Ortak.Gösterge.İlerleme = 1;
+                    Thread.Sleep(30);
+                }
+
+                Ortak.Gösterge.Açıklama = "BarkodÜret bekleniyor";
+            }
+            else Ortak.Gösterge.Başlat("BarkodÜret bekleniyor", true, null, 500);
+
+            if (!BarkodÜret_Şebeke.BağlantıKuruldu)
+            {
+                Ortak.Gösterge.Bitir();
+                return "Eposta ile bağlantı kurulamadı";
+            }
+            else if (!Dosya.Sil(Ortak.Klasör_Gecici + "Et\\Barkod.png"))
+            {
+                Ortak.Gösterge.Bitir();
+                return "Dosya silinemedi. " + Ortak.Klasör_Gecici + "Et\\Barkod.png";
+            }
+
             Depo_ Depo_Komut = new Depo_();
             Depo_Komut["Komut"].İçeriği = SadeceAyarla ? new string[] { "Ayarla" } : new string[] { "Dosyaya Kaydet", Ortak.Klasör_Gecici + "Et\\Barkod.png" };
             Depo_Komut["Ayarlar", 0] = Ortak.Klasör_KullanıcıDosyaları_Etiketleme + "YeniİşGirişi_Barkod.mup";
             Depo_Komut["Güncel İçerik", 0] = YeniİşGirişi_Barkodİçeriği_Çözümlenmiş(Müşteri, Hasta, SeriNo);
+            Depo_Komut.Yaz("Benzersiz_Tanımlayıcı", DateTime.Now.Yazıya());
 
-            string Barkod_Uret_dosyayolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Barkod_Uret", "") + "\\Barkod_Uret.exe";
-            YeniYazılımKontrolü_ yyk = new YeniYazılımKontrolü_();
-            if (Ortak.DosyaGüncelMi(Barkod_Uret_dosyayolu, 0, 4)) yyk.KontrolTamamlandı = true;
-            else yyk.Başlat(new Uri("https://github.com/ArgeMup/Barkod_Uret/blob/main/Barkod_Uret/bin/Release/Barkod_Uret.exe?raw=true"), null, Barkod_Uret_dosyayolu);
-
-            if (!yyk.KontrolTamamlandı)
+            BarkodÜret_Cevap = null;
+            BarkodÜret_Şebeke.Gönder(Depo_Komut.YazıyaDönüştür().BaytDizisine());
+            while (BarkodÜret_Cevap == null && Ortak.Gösterge.Çalışsın && ZamanAşımıAnı > Environment.TickCount && ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın)
             {
-                Ortak.Gösterge.Başlat("Barkod_Uret indiriliyor", true, null, 15);
-                int tümü_sayac = Environment.TickCount + 15000;
-                while (!yyk.KontrolTamamlandı && Ortak.Gösterge.Çalışsın && tümü_sayac > Environment.TickCount)
-                {
-                    Ortak.Gösterge.İlerleme = 1;
-                    System.Threading.Thread.Sleep(1000);
-                }
-                Ortak.Gösterge.Bitir();
+                Ortak.Gösterge.İlerleme = 1;
+                Thread.Sleep(30);
+            }
+            Ortak.Gösterge.Bitir();
+
+            if (BarkodÜret_Cevap == null)
+            {
+                BarkodÜret_Şebeke.Dispose();
+                BarkodÜret_Şebeke = null;
+
+                return "BarkodÜret cevap vermesi çok uzun sürdü, tekrar deneyiniz";
             }
 
-            if (!yyk.KontrolTamamlandı || !File.Exists(Barkod_Uret_dosyayolu)) sonuç += "Barkod_Uret indirilemedi" + Environment.NewLine;
-            else
+            if (Depo_Komut["Benzersiz_Tanımlayıcı", 0] != BarkodÜret_Cevap)
             {
-                Dosya.Sil(Ortak.Klasör_Gecici + "Et\\Barkod.png");
+                return "İşlem beklendiği şekilde tamamlanmadı, tekrar deneyiniz." + Environment.NewLine + BarkodÜret_Cevap;
+            }
+            else BarkodÜret_Cevap = null; //Başarılı
 
-                System.Diagnostics.Process uyg = Ortak.Çalıştır.UygulamayıDoğrudanÇalıştır(Barkod_Uret_dosyayolu, new string[] { Depo_Komut.YazıyaDönüştür().BaytDizisine().Taban64e() });
-
-                if (!SadeceAyarla)
+            if (!SadeceAyarla)
+            {
+                if (!File.Exists(Ortak.Klasör_Gecici + "Et\\Barkod.png"))
                 {
-                    Ortak.Gösterge.Başlat("Barkod_Uret bekleniyor", true, null, 15000 / 35);
-                    int tümü_sayac = Environment.TickCount + 15000;
-                    while (!uyg.HasExited && Ortak.Gösterge.Çalışsın && tümü_sayac > Environment.TickCount)
-                    {
-                        Ortak.Gösterge.İlerleme = 1;
-                        System.Threading.Thread.Sleep(35);
-                    }
-
-                    if (!uyg.HasExited) sonuç += "Barkod_Uret.exe kapanamadı" + Environment.NewLine;
-                    else
-                    {
-                        string hatalar = Path.GetDirectoryName(Barkod_Uret_dosyayolu) + "\\Hatalar.txt";
-                        if (File.Exists(hatalar)) sonuç += File.ReadAllText(hatalar) + Environment.NewLine;
-                        else if (!File.Exists(Ortak.Klasör_Gecici + "Et\\Barkod.png")) sonuç += "Barkod dosyası üretilemedi" + Environment.NewLine;
-                    }
-                    Ortak.Gösterge.Bitir();
+                    return "Barkod dosyası üretilemedi.";
                 }
             }
-            yyk.Durdur();
-            
-            return sonuç;
+
+            return null;
         }
+        static void BarkodÜret_GeriBildirim_İşlemi_Uygulama(bool BağlantıKuruldu, byte[] Bilgi, string Açıklama)
+        {
+            string içerik = Bilgi.Yazıya();
+            if (!BağlantıKuruldu || içerik.BoşMu())
+            {
+                if (Açıklama.DoluMu()) Açıklama.Günlük("BarkodÜret ");
+                return;
+            }
+
+            BarkodÜret_Cevap = içerik;
+        }
+        #endregion
+
+        #region Etiket Üret
+        static YanUygulama.Şebeke_ EtiketÜret_Şebeke;
+        static string EtiketÜret_Cevap;
         public static string YeniİşGirişi_Etiket_Üret(YeniİşGirişi_Etiketi Tür, int KopyaSayısı, string Müşteri, string Hasta, string SeriNo, string SonİşKabulTarihi, string SonİşTürü, bool SadeceAyarla, string Açıklama = null)
         {
             string sonuç = YeniİşGirişi_Barkod_Üret(Müşteri, Hasta, SeriNo, false);

@@ -38,9 +38,10 @@ namespace İş_ve_Depo_Takip
             Ekranlar.ÖnYüzler.Durdur();
             Ekranlar.BarkodSorgulama.Durdur();
             Ekranlar.Eposta.Durdur();
-            Çalıştır.Dispose();
             Ekranlar.GelirGiderTakip.Durdur();
+            Ekranlar.Ayarlar_Etiketleme.Durdur();
             Hatırlatıcı?.AyarlarıOku(true);
+            Çalıştır.Dispose();
             Klasör.Sil(Ortak.Klasör_Gecici);
 
             ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın = false;
