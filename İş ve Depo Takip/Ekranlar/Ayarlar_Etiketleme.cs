@@ -121,7 +121,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (!BarkodÜret_Şebeke.BağlantıKuruldu)
             {
                 Ortak.Gösterge.Bitir();
-                return "Eposta ile bağlantı kurulamadı";
+                return "BarkodÜret ile bağlantı kurulamadı";
             }
             else if (!Dosya.Sil(Ortak.Klasör_Gecici + "Et\\Barkod.png"))
             {
@@ -189,9 +189,46 @@ namespace İş_ve_Depo_Takip.Ekranlar
             string sonuç = YeniİşGirişi_Barkod_Üret(Müşteri, Hasta, SeriNo, false);
             if (sonuç.DoluMu()) return "Barkod Üretimi Hatalı -> " + sonuç;
 
+            int ZamanAşımıAnı = Environment.TickCount + 15000;
+
+            if (EtiketÜret_Şebeke == null)
+            {
+                Ortak.Gösterge.Başlat("EtiketÜret ile ilk bağlantı kuruluyor", true, null, 500);
+
+                string EnDüşükSürüm = "0.5";
+                string DosyaYolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Etiket", "") + "\\Etiket.exe";
+                string AğAdresi_Uygulama = "https://github.com/ArgeMup/Etiket/raw/main/Etiket/bin/Release/Etiket.exe";
+                string AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/Etiket/raw/main/Etiket/bin/Release/Etiket.exe.DogrulamaKoduUreteci";
+
+#if DEBUG
+                //AğAdresi_Uygulama = null;
+                //AğAdresi_DoğrulamaKodu = null;
+                AğAdresi_Uygulama = "https://github.com/ArgeMup/a/raw/main/Etiket/Etiket.exe";
+                AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/a/raw/main/Etiket/Etiket.exe.DogrulamaKoduUreteci";
+#endif
+
+                EtiketÜret_Şebeke = new YanUygulama.Şebeke_(DosyaYolu, EtiketÜret_GeriBildirim_İşlemi_Uygulama, Ortak.Çalıştır, Banka.Ayarlar_Genel("YanUygulama/Şube", true), AğAdresi_Uygulama, EnDüşükSürüm, AğAdresi_DoğrulamaKodu);
+
+                while (!EtiketÜret_Şebeke.BağlantıKuruldu && Ortak.Gösterge.Çalışsın && ZamanAşımıAnı > Environment.TickCount && ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın)
+                {
+                    Ortak.Gösterge.İlerleme = 1;
+                    Thread.Sleep(30);
+                }
+
+                Ortak.Gösterge.Açıklama = "EtiketÜret bekleniyor";
+            }
+            else Ortak.Gösterge.Başlat("EtiketÜret bekleniyor", true, null, 500);
+
+            if (!EtiketÜret_Şebeke.BağlantıKuruldu)
+            {
+                Ortak.Gösterge.Bitir();
+                return "EtiketÜret ile bağlantı kurulamadı";
+            }
+
             Depo_ Depo_Komut = new Depo_();
             Depo_Komut["Komut"].İçeriği = new string[] { SadeceAyarla ? "Ayarla" : "Yazdır", KopyaSayısı.Yazıya() };
             Depo_Komut["Ayarlar", 0] = Ortak.Klasör_KullanıcıDosyaları_Etiketleme + (Tür == YeniİşGirişi_Etiketi.Kayıt ? "YeniİşGirişi_Etiket.mup" : Tür == YeniİşGirişi_Etiketi.Acilİş ? "YeniİşGirişi_Etiket_Acil.mup" : "YeniİşGirişi_Etiket_Açıklama.mup");
+            Depo_Komut.Yaz("Benzersiz_Tanımlayıcı", DateTime.Now.Yazıya());
 
             IDepo_Eleman d = Depo_Komut["Değişkenler"];
             d["Firma Adı"].İçeriği = new string[] { Banka.İşyeri_Adı };
@@ -205,50 +242,41 @@ namespace İş_ve_Depo_Takip.Ekranlar
             d["Tarih Saat Şimdi"].İçeriği = new string[] { DateTime.Now.Yazıya() };
             d["Açıklama"].İçeriği = new string[] { Açıklama };
 
-            string Etiket_dosyayolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Etiket", "") + "\\Etiket.exe";
-            YeniYazılımKontrolü_ yyk = new YeniYazılımKontrolü_();
-            if (Ortak.DosyaGüncelMi(Etiket_dosyayolu, 0, 4)) yyk.KontrolTamamlandı = true;
-            else yyk.Başlat(new Uri("https://github.com/ArgeMup/Etiket/blob/main/Etiket/bin/Release/Etiket.exe?raw=true"), null, Etiket_dosyayolu);
-
-            if (!yyk.KontrolTamamlandı)
+            EtiketÜret_Cevap = null;
+            EtiketÜret_Şebeke.Gönder(Depo_Komut.YazıyaDönüştür().BaytDizisine());
+            while (EtiketÜret_Cevap == null && Ortak.Gösterge.Çalışsın && ZamanAşımıAnı > Environment.TickCount && ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın)
             {
-                Ortak.Gösterge.Başlat("Etiket indiriliyor", true, null, 15);
-                int tümü_sayac = Environment.TickCount + 15000;
-                while (!yyk.KontrolTamamlandı && Ortak.Gösterge.Çalışsın && tümü_sayac > Environment.TickCount)
-                {
-                    Ortak.Gösterge.İlerleme = 1;
-                    System.Threading.Thread.Sleep(1000);
-                }
-                Ortak.Gösterge.Bitir();
+                Ortak.Gösterge.İlerleme = 1;
+                Thread.Sleep(30);
+            }
+            Ortak.Gösterge.Bitir();
+
+            if (EtiketÜret_Cevap == null)
+            {
+                EtiketÜret_Şebeke.Dispose();
+                EtiketÜret_Şebeke = null;
+
+                return "EtiketÜret cevap vermesi çok uzun sürdü, tekrar deneyiniz";
             }
 
-            if (!yyk.KontrolTamamlandı || !File.Exists(Etiket_dosyayolu)) sonuç += "Etiket indirilemedi" + Environment.NewLine;
-            else
+            if (Depo_Komut["Benzersiz_Tanımlayıcı", 0] != EtiketÜret_Cevap)
             {
-                System.Diagnostics.Process uyg = Ortak.Çalıştır.UygulamayıDoğrudanÇalıştır(Etiket_dosyayolu, new string[] { Depo_Komut.YazıyaDönüştür().BaytDizisine().Taban64e() });
-                
-                if (!SadeceAyarla)
-                {
-                    Ortak.Gösterge.Başlat("Etiket bekleniyor", true, null, 15000 / 35);
-                    int tümü_sayac = Environment.TickCount + 15000;
-                    while (!uyg.HasExited && Ortak.Gösterge.Çalışsın && tümü_sayac > Environment.TickCount)
-                    {
-                        Ortak.Gösterge.İlerleme = 1;
-                        System.Threading.Thread.Sleep(35);
-                    }
+                return "İşlem beklendiği şekilde tamamlanmadı, tekrar deneyiniz." + Environment.NewLine + EtiketÜret_Cevap;
+            }
+            else EtiketÜret_Cevap = null; //Başarılı
 
-                    if (!uyg.HasExited) sonuç += "Etiket.exe kapanamadı" + Environment.NewLine;
-                    else
-                    {
-                        string hatalar = Path.GetDirectoryName(Etiket_dosyayolu) + "\\Hatalar.txt";
-                        if (File.Exists(hatalar)) sonuç += File.ReadAllText(hatalar) + Environment.NewLine;
-                    }
-                    Ortak.Gösterge.Bitir();
-                }
+            return null;
+        }
+        static void EtiketÜret_GeriBildirim_İşlemi_Uygulama(bool BağlantıKuruldu, byte[] Bilgi, string Açıklama)
+        {
+            string içerik = Bilgi.Yazıya();
+            if (!BağlantıKuruldu || içerik.BoşMu())
+            {
+                if (Açıklama.DoluMu()) Açıklama.Günlük("EtiketÜret ");
+                return;
             }
 
-            yyk.Durdur();
-            return sonuç;
+            EtiketÜret_Cevap = içerik;
         }
         #endregion
 
