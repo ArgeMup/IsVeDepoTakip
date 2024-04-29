@@ -148,9 +148,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     Thread.Sleep(30);
                 }
+
+                EpostaAltyapısı_İlkAçılışAyarlarıYapıldı = false;
+                EpostaAltyapısı_BeyazListe = "";
             }
 
-            if (!Şebeke.BağlantıKuruldu) return "Eposta ile bağlantı kurulamadı";
+            if (!Şebeke.BağlantıKuruldu)
+            {
+                Şebeke.Dispose();
+                Şebeke = null;
+
+                return "Eposta ile bağlantı kurulamadı";
+            }
 
             if (!EpostaAltyapısı_İlkAçılışAyarlarıYapıldı)
             {
@@ -260,9 +269,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             Şebeke?.Dispose();
             Şebeke = null;
-
-            EpostaAltyapısı_İlkAçılışAyarlarıYapıldı = false;
-            EpostaAltyapısı_BeyazListe = "";
         }
         public static void Gönder(string Kime, string Bilgi, string Gizli, string Konu, string Mesaj_Html, string Mesaj, string[] DosyaEkleri, Action<string> GeriBildirimİşlemi_Tamamlandı = null)
         {

@@ -120,6 +120,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             if (!BarkodÜret_Şebeke.BağlantıKuruldu)
             {
+                BarkodÜret_Şebeke.Dispose();
+                BarkodÜret_Şebeke = null;
+
                 Ortak.Gösterge.Bitir();
                 return "BarkodÜret ile bağlantı kurulamadı";
             }
@@ -221,6 +224,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             if (!EtiketÜret_Şebeke.BağlantıKuruldu)
             {
+                EtiketÜret_Şebeke.Dispose();
+                EtiketÜret_Şebeke = null;
+
                 Ortak.Gösterge.Bitir();
                 return "EtiketÜret ile bağlantı kurulamadı";
             }

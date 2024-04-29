@@ -164,6 +164,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             if (!Şebeke.BağlantıKuruldu)
             {
+                Durdur();
+
                 Ortak.Gösterge.Bitir();
                 string açklm = "Gelir Gider Takip ile bağlantı kurulamadı";
                 _Açıkla_(açklm);
@@ -188,6 +190,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Ortak.Gösterge.İlerleme = 1;
                 System.Threading.Thread.Sleep(30);
             }
+            Ortak.Gösterge.Bitir();
 
             string açıklama = null;
             if (Cevap == null) açıklama = Şube_Talep.Kullanıcı_Komut + " İşlem sonucu belirsiz";
@@ -197,7 +200,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 else açıklama = Şube_Talep.Kullanıcı_Komut + " Hatalı " + Cevap.Detaylar?[0];
             }
 
-            Ortak.Gösterge.Bitir();
             _Açıkla_(açıklama);
             return açıklama;
 
@@ -228,8 +230,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         public static void Durdur()
         {
+            Şebeke?.Dispose();
+            Şebeke = null;
             Şube_Talep = null;
-            Şebeke?.Dispose(); Şebeke = null;
         }
     }
 }
