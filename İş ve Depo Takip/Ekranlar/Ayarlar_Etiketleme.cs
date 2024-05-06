@@ -94,7 +94,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 Ortak.Gösterge.Başlat("BarkodÜret ile ilk bağlantı kuruluyor", true, null, 500);
 
-                string EnDüşükSürüm = "0.5";
+                string EnDüşükSürüm = "0.6";
                 string DosyaYolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Barkod_Uret", "") + "\\Barkod_Uret.exe";
                 string AğAdresi_Uygulama = "https://github.com/ArgeMup/Barkod_Uret/raw/main/Barkod_Uret/bin/Release/Barkod_Uret.exe";
                 string AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/Barkod_Uret/raw/main/Barkod_Uret/bin/Release/Barkod_Uret.exe.DogrulamaKoduUreteci";
@@ -126,7 +126,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Ortak.Gösterge.Bitir();
                 return "BarkodÜret ile bağlantı kurulamadı";
             }
-            else if (!Dosya.Sil(Ortak.Klasör_Gecici + "Et\\Barkod.png"))
+            else if (!Temkinli.Dosya.Sil(Ortak.Klasör_Gecici + "Et\\Barkod.png"))
             {
                 Ortak.Gösterge.Bitir();
                 return "Dosya silinemedi. " + Ortak.Klasör_Gecici + "Et\\Barkod.png";
@@ -198,7 +198,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 Ortak.Gösterge.Başlat("EtiketÜret ile ilk bağlantı kuruluyor", true, null, 500);
 
-                string EnDüşükSürüm = "0.5";
+                string EnDüşükSürüm = "0.6";
                 string DosyaYolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Etiket", "") + "\\Etiket.exe";
                 string AğAdresi_Uygulama = "https://github.com/ArgeMup/Etiket/raw/main/Etiket/bin/Release/Etiket.exe";
                 string AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/Etiket/raw/main/Etiket/bin/Release/Etiket.exe.DogrulamaKoduUreteci";

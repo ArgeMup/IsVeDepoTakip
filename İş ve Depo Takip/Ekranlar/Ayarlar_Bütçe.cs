@@ -664,7 +664,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 string gerçekdosyadı = "Ödemeler_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
                 string hedef = Ortak.Kullanıcı_Klasör_Pdf + _3_Müşteri + "\\" + gerçekdosyadı;
-                if (!Dosya.Kopyala(dosyayolu, hedef))
+                if (!Temkinli.Dosya.Kopyala(dosyayolu, hedef))
                 {
                     MessageBox.Show("Üretilen pdf kullanıcı klasörüne kopyalanamadı", Text);
                 }

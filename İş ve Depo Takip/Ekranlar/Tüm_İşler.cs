@@ -966,7 +966,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 foreach (IDepo_Eleman elm in bt.Talepler)
                 {
-                    talepler.Ekle(null, elm.YazıyaDönüştür(null));
+                    talepler.Ekle(null, elm.YazıyaDönüştür(null, false, false), false);
                 }
 
                 if (İşTakip_DevamEden_ÜcretHesaplama.Checked)
@@ -986,7 +986,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 foreach (IDepo_Eleman elm in bt.Talepler)
                 {
-                    talepler.Ekle(null, elm.YazıyaDönüştür(null));
+                    talepler.Ekle(null, elm.YazıyaDönüştür(null, false, false), false);
                 }
 
                 gerçekdosyadı = "Teslim_Edildi_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
@@ -1026,7 +1026,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 !Ortak.Klasör_KendiKlasörleriİçindeMi(Ortak.Kullanıcı_Klasör_Pdf))
             {
                 string hedef = Ortak.Kullanıcı_Klasör_Pdf + MüşteriAdı + "\\" + gerçekdosyadı;
-                if (!Dosya.Kopyala(dosyayolu, hedef))
+                if (!Temkinli.Dosya.Kopyala(dosyayolu, hedef))
                 {
                     MessageBox.Show("Üretilen pdf kullanıcı klasörüne kopyalanamadı", Text);
                 }
@@ -1110,7 +1110,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     foreach (IDepo_Eleman elm in bt.Talepler)
                     {
-                        talepler.Ekle(null, elm.YazıyaDönüştür(null));
+                        talepler.Ekle(null, elm.YazıyaDönüştür(null, false, false), false);
                     }
 
                     gecici_dosyadı = gecici_klasör + "Ücret_Hesaplama_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
@@ -1132,7 +1132,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     foreach (IDepo_Eleman elm in bt.Talepler)
                     {
-                        talepler.Ekle(null, elm.YazıyaDönüştür(null));
+                        talepler.Ekle(null, elm.YazıyaDönüştür(null, false, false), false);
                     }
 
                     gecici_dosyadı = gecici_klasör + "Devam_Eden_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";
@@ -1152,7 +1152,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     foreach (IDepo_Eleman elm in bt.Talepler)
                     {
-                        talepler.Ekle(null, elm.YazıyaDönüştür(null));
+                        talepler.Ekle(null, elm.YazıyaDönüştür(null, false, false), false);
                     }
 
                     gecici_dosyadı = gecici_klasör + "Teslim_Edildi_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf";

@@ -200,6 +200,7 @@
     <Compile Include="HazirKod_Cdiyez\Günlük.cs" />
     <Compile Include="HazirKod_Cdiyez\Karmasiklastirma.cs" />
     <Compile Include="HazirKod_Cdiyez\Kendi.cs" />
+    <Compile Include="HazirKod_Cdiyez\Temkinliİşlemler.cs" />
     <Compile Include="HazirKod_Cdiyez\KlasörDosya.cs" />
     <Compile Include="HazirKod_Cdiyez\KlavyeFareGozlemcisi.cs" />
     <Compile Include="HazirKod_Cdiyez\Liste.cs" />

@@ -17,6 +17,9 @@ namespace İş_ve_Depo_Takip
         static void Main()
         {
             Günlük.Başlat(Kendi.Klasörü + "\\Günlük");
+#if DEBUG
+            Günlük.GenelSeviye = Günlük.Seviye.HazirKod;
+#endif
 
             UyÖnÇa = new UygulamaOncedenCalistirildiMi_();
             if (UyÖnÇa.KontrolEt())

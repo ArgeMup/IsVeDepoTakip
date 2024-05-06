@@ -254,7 +254,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             string dsy_adı = Path.GetFileName(KaynakDosya);
             string kopyalanacak_kls = Klasör.ÜstKlasör(epst["Ekler"].Elemanları[0].Adı);
             string HedefDosya = kopyalanacak_kls + "\\" + dsy_adı;
-            if (!Dosya.Kopyala(KaynakDosya, HedefDosya)) return;
+            if (!Temkinli.Dosya.Kopyala(KaynakDosya, HedefDosya)) return;
 
             epst["Ekler/" + HedefDosya].Yaz(null, dsy_adı);
             Dosyalar.Items.Add(dsy_adı);

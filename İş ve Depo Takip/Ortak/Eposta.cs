@@ -130,7 +130,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             if (Şebeke == null)
             {
-                string EnDüşükSürüm = "0.6";
+                string EnDüşükSürüm = "0.7";
                 string DosyaYolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Eposta", "") + "\\Eposta.exe";
                 string AğAdresi_Uygulama = "https://github.com/ArgeMup/Eposta/raw/main/Eposta/bin/Release/Eposta.exe";
                 string AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/Eposta/raw/main/Eposta/bin/Release/Eposta.exe.DogrulamaKoduUreteci";
@@ -309,7 +309,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         public static string Yenile_DepoDosyaYolu(string KlasörAdı)
         {
-            return D_DosyaKlasörAdı.Düzelt(EpostaAltyapısı_EpostalarınYolu + "\\Epostaları Yenile\\" + _KlasörAdıBoşİseDüzelt_(KlasörAdı) + "\\Depo.mup");
+            return D_DosyaKlasörAdı.Düzelt_Tam(EpostaAltyapısı_EpostalarınYolu + "\\Epostaları Yenile\\" + _KlasörAdıBoşİseDüzelt_(KlasörAdı) + "\\Depo.mup", true);
         }
 
         //public static void EpostaGönder_İstisna(Exception İstisna, int ZamanAşımı_msn = 60000)

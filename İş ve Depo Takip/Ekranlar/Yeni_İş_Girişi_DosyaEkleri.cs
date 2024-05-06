@@ -101,7 +101,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                             while (File.Exists(Ortak.Klasör_Gecici + kapalı_adı) ||
                                    P_DosyaEkleri_Liste.Items.Contains(kapalı_adı)) kapalı_adı = Path.GetRandomFileName() + "_" + dsy_adı;
                             kapalı_adı = Ortak.Klasör_Gecici + kapalı_adı;
-                            if (!Dosya.Kopyala(Girdi, kapalı_adı))
+                            if (!Temkinli.Dosya.Kopyala(Girdi, kapalı_adı))
                             {
                                 MessageBox.Show("Dosya kopyalanamadı " + dsy_adı);
                                 return;

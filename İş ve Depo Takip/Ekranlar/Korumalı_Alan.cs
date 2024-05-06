@@ -181,7 +181,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         if (Directory.Exists(açık_hali))
                         {
                             Banka.KorumalıAlan_Ekle(açık_hali);
-                            if (!Klasör.Sil(açık_hali)) throw new Exception("Klasör silinemedi" + Environment.NewLine + açık_hali);
+                            Klasör.Sil(açık_hali);
                         }
                     }
                     else
@@ -191,7 +191,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         if (File.Exists(açık_hali))
                         {
                             Banka.KorumalıAlan_Ekle(açık_hali);
-                            if (!Dosya.Sil(açık_hali)) throw new Exception("Dosya silinemedi" + Environment.NewLine + açık_hali);
+                            Dosya.Sil(açık_hali);
                         }
                     }
 

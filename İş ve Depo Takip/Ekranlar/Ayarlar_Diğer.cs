@@ -96,7 +96,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         return (false, _Kls_);
                     }
 
-                    if (!Klasör.Oluştur(_Kls_))
+                    if (!Temkinli.Klasör.Oluştur(_Kls_))
                     {
                         MessageBox.Show("Yedek klasörü oluşturulamıyor" + Environment.NewLine + Environment.NewLine + _Kls_, Text);
                         return (false, _Kls_);

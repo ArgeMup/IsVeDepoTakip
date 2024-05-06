@@ -174,9 +174,7 @@ namespace İş_ve_Depo_Takip
             {
                 try
                 {
-                    File.Copy(Kaynak, Hedef, true);
-                    File.SetAttributes(Hedef, File.GetAttributes(Kaynak));
-                    File.SetLastWriteTime(Hedef, File.GetLastWriteTime(Kaynak));
+                    Dosya.Kopyala(Kaynak, Hedef);
                     return true;
                 }
                 catch (Exception ex) { ex.Günlük(); }
@@ -197,7 +195,11 @@ namespace İş_ve_Depo_Takip
                     {
                         if (Klasör.Kopyala(Kaynak, Hedef, true, DoğrulamaKodunuKontrolEt_Yavaşlatır, AynıDoğrulamaKodunaSahipİse_DiğerFarklılıklarıGörmezdenGel: AynıDoğrulamaKodunaSahipİse_DiğerFarklılıklarıGörmezdenGel)) return true;
                     }
-                    else if (Klasör.Sil(Hedef)) return true;
+                    else
+                    {
+                        Klasör.Sil(Hedef);
+                        return true;
+                    }
                 }
                 catch (Exception ex) { ex.Günlük(); }
 
