@@ -142,94 +142,6 @@ namespace İş_ve_Depo_Takip
             #endregion
 
             #region Yeni Sürüme Uygun Hale Getirme
-            IDepo_Eleman ayr = d["Son Banka Kayıt"];
-            if (ayr != null && ayr.Oku(null, null, 2) != Sürüm)
-            {
-                Yedekle_SürümYükseltmeÖncesiYedeği();
-                Günlük.Ekle("Banka yeni sürüme geçirme aşama 1 tamam");
-
-                List<string> dsy_lar = new List<string>();
-                dsy_lar.AddRange(Klasör.Listele_Dosya(Ortak.Klasör_Banka, "*.mup", SearchOption.AllDirectories));
-                dsy_lar.AddRange(Klasör.Listele_Dosya(Ortak.Klasör_KullanıcıDosyaları_Ayarlar, "*.mup", SearchOption.AllDirectories));
-                dsy_lar.Add(Ortak.Klasör_KullanıcıDosyaları_Etiketleme + "Açıklamalar.mup");
-                Günlük.Ekle("Banka yeni sürüme geçirme aşama 2 tamam");
-
-                foreach (string dsy in dsy_lar)
-                {
-                    if (!File.Exists(dsy)) continue;
-
-                    byte[] içerik = File.ReadAllBytes(dsy);
-                    if (içerik == null) throw new Exception("içerik == null");
-                    içerik = Dosya_Düzelt(içerik);
-
-                    string içerik_yazı = içerik.Yazıya();
-                    içerik_yazı = new Depo_(içerik_yazı, null, false).YazıyaDönüştür();
-                    içerik = içerik_yazı.BaytDizisine();
-
-                    içerik = Dosya_Karıştır(içerik);
-                    File.WriteAllBytes(dsy, içerik);
-                }
-                Günlük.Ekle("Banka yeni sürüme geçirme aşama 3 tamam");
-
-                _Depoyu_Yenile_(Ortak.Klasör_KullanıcıDosyaları_Etiketleme + "YeniİşGirişi_Barkod.mup");
-                _Depoyu_Yenile_(Ortak.Klasör_KullanıcıDosyaları_Etiketleme + "YeniİşGirişi_Etiket.mup");
-                _Depoyu_Yenile_(Ortak.Klasör_KullanıcıDosyaları_Etiketleme + "YeniİşGirişi_Etiket_Acil.mup");
-                _Depoyu_Yenile_(Ortak.Klasör_KullanıcıDosyaları_Etiketleme + "YeniİşGirişi_Etiket_Açıklama.mup");
-                void _Depoyu_Yenile_(string _dosyayolu_)
-                {
-                    string _içerik_ = File.ReadAllText(_dosyayolu_);
-                    Depo_ _d_ = new Depo_(_içerik_, null, false);
-                    _içerik_ = _d_.YazıyaDönüştür();
-                    File.WriteAllText(_dosyayolu_, _içerik_);
-                }
-
-                //tabloyu yeniden aç
-                Değişiklikler_TamponuSıfırla();
-                d = Tablo(null, TabloTürü.Ayarlar, true);
-
-                //diğer bilgisayarların ayarlarını sil
-                ayr = d["Bilgisayarlar"];
-                string blg_adı = Kendi.BilgisayarAdı + " " + Kendi.KullanıcıAdı;
-                foreach (IDepo_Eleman blg in ayr.Elemanları)
-                {
-                    if (blg.Adı != blg_adı) blg.Sil(null);
-                }
-
-                //yeni sürüm etiketi
-                ayr = d["Son Banka Kayıt"];
-                ayr.Yaz(null, DateTime.Now, 1);
-                ayr.Yaz(null, Sürüm, 2);
-
-                //müşteri ayarlar sayfasındaki hatalı kısımların temizlenmesi
-                foreach (string müş in Müşteri_Listele(true))
-                {
-                    d = Tablo(müş, TabloTürü.Ayarlar);
-                    if (d == null) continue;
-
-                    foreach (IDepo_Eleman ayrl in d.Elemanları)
-                    {
-                        if (ayrl.Adı == "Tür" ||
-                            ayrl.Adı == "Eposta" ||
-                            ayrl.Adı == "Notlar" ||
-                            ayrl.Adı == "Bütçe") continue;
-
-                        ayrl.Sil(null);
-                    }
-                }
-
-                Değişiklikleri_Kaydet(null);
-                Değişiklikler_TamponuSıfırla();
-                Günlük.Ekle("Banka yeni sürüme geçirme aşama 4 tamam");
-
-                if (DoğrulamaKodu.Üret.Klasörden(Ortak.Klasör_Banka, true, SearchOption.AllDirectories, K_lar.KökParola).BoşMu()) throw new Exception("Doğrulama kodu üretilemedi");
-                Günlük.Ekle("Banka yeni sürüme geçirme aşama 5 tamam");
-
-                Yedekle_Banka();
-                Değişiklikler_TamponuSıfırla();
-
-                Yedekle_SürümYükseltmeÖncesiYedeği_Sil();
-            }
-
             //IDepo_Eleman ayr = d["Son Banka Kayıt"];
             //if (ayr != null && ayr.Oku(null, null, 2) != Sürüm)
             //{
@@ -3180,6 +3092,7 @@ namespace İş_ve_Depo_Takip
                     throw new Exception(msg);
                 }
 
+                d[0] = Kendi.BilgisayarAdı + " " + Kendi.KullanıcıAdı;
                 d[1] = DateTime.Now.Yazıya();
                 Depo_Kaydet("Ay", Ayarlar); 
 
@@ -3362,13 +3275,31 @@ namespace İş_ve_Depo_Takip
                     Günlük.Ekle("Banka yeni sürüme geçirme aşama 3 tamam");
                     Ortak.Gösterge.Bitir();
 
-                    Yedekle_SürümYükseltmeÖncesiYedeği_Sil();
+                    if (Klasör.Listele_Dosya(Ortak.Klasör_KullanıcıDosyaları_GelirGiderTakip, "*.mup").Length > 0)
+                    {
+                        string gegita_parola_mevcut, gegita_parola_yeni, gegita_yok = "_YOK_";
+                        IDepo_Eleman gegita_ayr = Ayarlar_Genel("Gelir Gider Takip");
+                        if (gegita_ayr == null) gegita_parola_mevcut = Ayarlar_Genel("Uygulama Kimliği", true).Oku(null);
+                        else gegita_parola_mevcut = gegita_ayr.Oku(null, gegita_yok);
+                        
+                        gegita_parola_yeni = _Mevcut_KökParola_VarMı_ ? ArgeMup.HazirKod.Dönüştürme.D_HexYazı.BaytDizisinden(Rastgele.BaytDizisi(32)) : gegita_yok;
+                        
+                        string cevap = Ekranlar.GelirGiderTakip.Komut_ParolayıDeğiştir(gegita_parola_mevcut, gegita_parola_yeni);
+                        if (cevap.DoluMu()) throw new Exception("Gelir Gider Takip üzerinde işlem yapılamadı " + cevap);
+
+                        Ayarlar_Genel("Gelir Gider Takip", true).Yaz(null, gegita_parola_yeni);
+                        Ayarlar_Genel("Uygulama Kimliği", true).Sil(null);
+                        Değişiklikleri_Kaydet(null);
+                    }
                     Günlük.Ekle("Banka yeni sürüme geçirme aşama 4 tamam");
+
+                    Yedekle_SürümYükseltmeÖncesiYedeği_Sil();
+                    Günlük.Ekle("Banka yeni sürüme geçirme aşama 5 tamam");
                 }
 
                 Dosya.Yaz(AyarlarDosyaYolu, AyarlarDosyaYolu_İçeriği);
                 if (DoğrulamaKodu.Üret.Klasörden(Ortak.Klasör_Banka, true, SearchOption.AllDirectories, Mevcut_KökParola).BoşMu()) throw new Exception("Doğrulama kodu üretilmedi");
-                Günlük.Ekle("Banka yeni sürüme geçirme aşama 5 tamam");
+                Günlük.Ekle("Banka yeni sürüme geçirme aşama son tamam");
             }
 
             static bool İlkAçılışKontrolleriniYapıldı = false;

@@ -231,53 +231,53 @@
             this.SağTuşMenü_TeslimEdildiOlarakİşaretle});
             this.SağTuşMenü.Name = "SağTuşMenü";
             this.SağTuşMenü.ShowItemToolTips = false;
-            this.SağTuşMenü.Size = new System.Drawing.Size(338, 244);
+            this.SağTuşMenü.Size = new System.Drawing.Size(412, 398);
             this.SağTuşMenü.Opening += new System.ComponentModel.CancelEventHandler(this.SağTuşMenü_Opening);
             // 
             // SağTuşMenü_Ertele_Varsayılan
             // 
             this.SağTuşMenü_Ertele_Varsayılan.Name = "SağTuşMenü_Ertele_Varsayılan";
-            this.SağTuşMenü_Ertele_Varsayılan.Size = new System.Drawing.Size(337, 26);
+            this.SağTuşMenü_Ertele_Varsayılan.Size = new System.Drawing.Size(411, 40);
             this.SağTuşMenü_Ertele_Varsayılan.Text = "Varsayılan gün kadar ertele";
             this.SağTuşMenü_Ertele_Varsayılan.Click += new System.EventHandler(this.SağTuşMenü_Ertele_X_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(334, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(408, 6);
             // 
             // SağTuşMenü_Ertele_1
             // 
             this.SağTuşMenü_Ertele_1.Name = "SağTuşMenü_Ertele_1";
-            this.SağTuşMenü_Ertele_1.Size = new System.Drawing.Size(337, 26);
+            this.SağTuşMenü_Ertele_1.Size = new System.Drawing.Size(411, 40);
             this.SağTuşMenü_Ertele_1.Text = "1 gün ertele -> 01 Ocak 2023 Çrş 10:00";
             this.SağTuşMenü_Ertele_1.Click += new System.EventHandler(this.SağTuşMenü_Ertele_X_Click);
             // 
             // SağTuşMenü_Ertele_2
             // 
             this.SağTuşMenü_Ertele_2.Name = "SağTuşMenü_Ertele_2";
-            this.SağTuşMenü_Ertele_2.Size = new System.Drawing.Size(337, 26);
+            this.SağTuşMenü_Ertele_2.Size = new System.Drawing.Size(411, 40);
             this.SağTuşMenü_Ertele_2.Text = "2";
             this.SağTuşMenü_Ertele_2.Click += new System.EventHandler(this.SağTuşMenü_Ertele_X_Click);
             // 
             // SağTuşMenü_Ertele_3
             // 
             this.SağTuşMenü_Ertele_3.Name = "SağTuşMenü_Ertele_3";
-            this.SağTuşMenü_Ertele_3.Size = new System.Drawing.Size(337, 26);
+            this.SağTuşMenü_Ertele_3.Size = new System.Drawing.Size(411, 40);
             this.SağTuşMenü_Ertele_3.Text = "3";
             this.SağTuşMenü_Ertele_3.Click += new System.EventHandler(this.SağTuşMenü_Ertele_X_Click);
             // 
             // SağTuşMenü_Ertele_4
             // 
             this.SağTuşMenü_Ertele_4.Name = "SağTuşMenü_Ertele_4";
-            this.SağTuşMenü_Ertele_4.Size = new System.Drawing.Size(337, 26);
+            this.SağTuşMenü_Ertele_4.Size = new System.Drawing.Size(411, 40);
             this.SağTuşMenü_Ertele_4.Text = "4";
             this.SağTuşMenü_Ertele_4.Click += new System.EventHandler(this.SağTuşMenü_Ertele_X_Click);
             // 
             // SağTuşMenü_Ertele_5
             // 
             this.SağTuşMenü_Ertele_5.Name = "SağTuşMenü_Ertele_5";
-            this.SağTuşMenü_Ertele_5.Size = new System.Drawing.Size(337, 26);
+            this.SağTuşMenü_Ertele_5.Size = new System.Drawing.Size(411, 40);
             this.SağTuşMenü_Ertele_5.Text = "5";
             this.SağTuşMenü_Ertele_5.Click += new System.EventHandler(this.SağTuşMenü_Ertele_X_Click);
             // 
@@ -286,7 +286,7 @@
             this.SağTuşMenü_ErtelemeyiKaldır_Sil.BackColor = System.Drawing.Color.Salmon;
             this.SağTuşMenü_ErtelemeyiKaldır_Sil.Image = global::İş_ve_Depo_Takip.Properties.Resources.sil;
             this.SağTuşMenü_ErtelemeyiKaldır_Sil.Name = "SağTuşMenü_ErtelemeyiKaldır_Sil";
-            this.SağTuşMenü_ErtelemeyiKaldır_Sil.Size = new System.Drawing.Size(337, 26);
+            this.SağTuşMenü_ErtelemeyiKaldır_Sil.Size = new System.Drawing.Size(411, 40);
             this.SağTuşMenü_ErtelemeyiKaldır_Sil.Text = "Ertelemeyi kaldır / Sil";
             this.SağTuşMenü_ErtelemeyiKaldır_Sil.Click += new System.EventHandler(this.SağTuşMenü_ErtelemeyiKaldır_Sil_Click);
             // 
@@ -295,16 +295,17 @@
             this.SağTuşMenü_MüşteriyeGönder.BackColor = System.Drawing.Color.LightSkyBlue;
             this.SağTuşMenü_MüşteriyeGönder.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
             this.SağTuşMenü_MüşteriyeGönder.Name = "SağTuşMenü_MüşteriyeGönder";
-            this.SağTuşMenü_MüşteriyeGönder.Size = new System.Drawing.Size(337, 26);
+            this.SağTuşMenü_MüşteriyeGönder.Size = new System.Drawing.Size(411, 40);
             this.SağTuşMenü_MüşteriyeGönder.Text = "Müşteriye Gönder";
             this.SağTuşMenü_MüşteriyeGönder.Click += new System.EventHandler(this.SağTuşMenü_MüşteriyeGönder_Click);
             // 
             // SağTuşMenü_TeslimEdildiOlarakİşaretle
             // 
             this.SağTuşMenü_TeslimEdildiOlarakİşaretle.BackColor = System.Drawing.Color.YellowGreen;
+            this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold);
             this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Name = "SağTuşMenü_TeslimEdildiOlarakİşaretle";
-            this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Size = new System.Drawing.Size(337, 26);
+            this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Size = new System.Drawing.Size(411, 40);
             this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Text = "Teslim Edildi Olarak İşaretle";
             this.SağTuşMenü_TeslimEdildiOlarakİşaretle.Click += new System.EventHandler(this.SağTuşMenü_TeslimEdildiOlarakİşaretle_Click);
             // 

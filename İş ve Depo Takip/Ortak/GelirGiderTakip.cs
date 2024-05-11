@@ -1,6 +1,5 @@
 ﻿using ArgeMup.HazirKod.Ekİşlemler;
 using ArgeMup.HazirKod;
-using System.IO;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -13,7 +12,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         public enum İşyeri_Ödeme_İşlem_Durum_ { Boşta, Ödenmedi, KısmenÖdendi, TamÖdendi, İptalEdildi, KısmiÖdemeYapıldı, PeşinatÖdendi }
         public enum İşyeri_Ödeme_ParaBirimi_ { Boşta, TürkLirası, Avro, Dolar, ElemanSayısı = 4 };
         public enum Muhatap_Üyelik_Dönem_ { Boşta, Günlük, Haftalık, Aylık, Yıllık };
-        public enum Şube_Talep_Komut_ { Boşta, Sayfa_GelirGiderEkle, Sayfa_CariDöküm, Sayfa_Ayarlar, Ekle_GelirGider, Yazdır, Kontrol };
+        public enum Şube_Talep_Komut_ { Boşta, Sayfa_GelirGiderEkle, Sayfa_CariDöküm, Sayfa_Ayarlar, Ekle_GelirGider, Yazdır, Kontrol, İşyeriParolasınıDeğiştir };
         public class Şube_Talep_Ekle_GelirGider_
         {
             [Değişken_.Niteliği.Adını_Değiştir("T", 0)] public string Ekle_MuhatapGrubuAdı;
@@ -41,14 +40,21 @@ namespace İş_ve_Depo_Takip.Ekranlar
             [Değişken_.Niteliği.Adını_Değiştir("KuR")] public bool[] Kullanıcı_Rolİzinleri;
             [Değişken_.Niteliği.Adını_Değiştir("Ku", 0)] public string Kullanıcı_Adı;
             [Değişken_.Niteliği.Adını_Değiştir("Ku", 1)] public Şube_Talep_Komut_ Kullanıcı_Komut;
-            [Değişken_.Niteliği.Adını_Değiştir("KuEt")] public string[] Kullanıcı_Komut_EkTanım; //Yazdırma : pdf dosya yolu + Şablon Adı
+            [Değişken_.Niteliği.Adını_Değiştir("KuEt")] public string[] Kullanıcı_Komut_EkTanım;    //Yazdır                    : pdf dosya yolu + Şablon Adı
+                                                                                                    //Sayfa_GelirGiderEkle      : Gelir veya Gider veya Boş
+                                                                                                    //İşyeriParolasınıDeğiştir  : Mevcut_Parola + Yeni_Parola + Mevcut_Parola + Yeni_Parola
+                                                                                                    //                              Parola kullanılmayacak ise içeriği _YOK_ olmalı,
+                                                                                                    //                              yada ArgeMup.HazirKod.Dönüştürme.D_HexYazı.BaytDizisinden( Rastgele.BaytDizisi(32) ) ile üretilmeli
 
             [Değişken_.Niteliği.Adını_Değiştir("E GeGi")] public List<Şube_Talep_Ekle_GelirGider_> Ekle_GelirGider_Talepler;
 
             public Şube_Talep_()
             {
                 İşyeri_Adı = Banka.İşyeri_Adı;
-                İşyeri_Parolası = Banka.Ayarlar_Genel("Uygulama Kimliği", true).Oku(null);
+
+                IDepo_Eleman ayr_gegita = Banka.Ayarlar_Genel("Gelir Gider Takip");
+                if (ayr_gegita == null) İşyeri_Parolası = Banka.Ayarlar_Genel("Uygulama Kimliği", true).Oku(null);
+                else İşyeri_Parolası = ayr_gegita.Oku(null, "_YOK_");
                 if (İşyeri_Parolası.BoşMu(true)) throw new Exception("if (İlkAçılışAyarları.İşyeri_Parolası.BoşMu(true))");
 
                 İşyeri_LogoDosyaYolu = Ortak.Firma_Logo_DosyaYolu;
@@ -129,6 +135,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             return Çalıştır(false, out Detaylar);
         }
+        public static string Komut_ParolayıDeğiştir(string Mevcut_Parola, string Yeni_Parola)
+        {
+        	Durdur();
+            Şube_Talep = new Şube_Talep_();
+
+            Şube_Talep.Kullanıcı_Komut = Şube_Talep_Komut_.İşyeriParolasınıDeğiştir;
+            Şube_Talep.Kullanıcı_Komut_EkTanım = new string[] { Mevcut_Parola, Yeni_Parola, Mevcut_Parola, Yeni_Parola };
+
+            string cevap = Çalıştır(false, out _);
+            Durdur();
+            return cevap;
+        }
         static string Çalıştır(bool HatayıGöster, out string[] Detaylar)
         {
             Detaylar = null;
@@ -138,7 +156,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 Ortak.Gösterge.Başlat("Gelir Gider Takip ile ilk bağlantı kuruluyor", true, null, 500);
 
-                string EnDüşükSürüm = "0.12";
+                string EnDüşükSürüm = "0.13";
                 string DosyaYolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Gelir_Gider_Takip", "") + "\\Gelir Gider Takip.exe";
                 string AğAdresi_Uygulama = "https://github.com/ArgeMup/GelirGiderTakip/raw/main/bin/Yay%C4%B1nla/Gelir%20Gider%20Takip.exe";
                 string AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/GelirGiderTakip/raw/main/bin/Yay%C4%B1nla/Gelir%20Gider%20Takip.exe.DogrulamaKoduUreteci";
