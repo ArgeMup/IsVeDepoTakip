@@ -591,27 +591,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt.Checked = false;
 
-            string snç = Banka.Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(MüşteriAdı, l, İlaveÖdeme_Açıklama, İlaveÖdeme_Miktar, out _);
-            if (string.IsNullOrEmpty(snç))
+            if (!Banka.Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(MüşteriAdı, l, İlaveÖdeme_Açıklama, İlaveÖdeme_Miktar, out _)) return;
+            
+            //başarılı
+            Banka.Değişiklikleri_Kaydet(İşTakip_TeslimEdildi_ÖdemeTalebiOluştur);
+
+            foreach (DataGridViewRow s in silinecek_satırlar)
             {
-                //başarılı
-                Banka.Değişiklikleri_Kaydet(İşTakip_TeslimEdildi_ÖdemeTalebiOluştur);
-
-                foreach (DataGridViewRow s in silinecek_satırlar)
-                {
-                    Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle((string)s.Cells[Tablo_SeriNo.Index].Value);
-                    Tablo.Rows.Remove(s);
-                }
-            }
-            else
-            {
-                Banka.Değişiklikler_TamponuSıfırla();
-
-                DialogResult Dr = MessageBox.Show(snç + Environment.NewLine + Environment.NewLine +
-                    "Ücretler sayfasını açmak ister misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                if (Dr == DialogResult.No) return;
-
-                Ekranlar.ÖnYüzler.Ekle(new Ayarlar_Ücretler());
+                Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle((string)s.Cells[Tablo_SeriNo.Index].Value);
+                Tablo.Rows.Remove(s);
             }
         }
         private void İşTakip_TeslimEdildi_İlaveÖdeme_HesabaDahilEt_CheckedChanged(object sender, EventArgs e)
@@ -748,19 +736,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             DialogResult Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (Dr == DialogResult.No) return;
 
-            string snç = Banka.Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(MüşteriAdı, l, null, null, out string DosyaAdı);
-            if (!string.IsNullOrEmpty(snç))
-            {
-                //hatalı
-                Banka.Değişiklikler_TamponuSıfırla();
-
-                Dr = MessageBox.Show(snç + Environment.NewLine + Environment.NewLine +
-                    "Ücretler sayfasını açmak ister misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                if (Dr == DialogResult.No) return;
-
-                Ekranlar.ÖnYüzler.Ekle(new Ayarlar_Ücretler());
-                return;
-            }
+            if (!Banka.Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(MüşteriAdı, l, null, null, out string DosyaAdı)) return;
 
             if (string.IsNullOrWhiteSpace(İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Notlar.Text)) İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Notlar.Text = null;
             

@@ -94,13 +94,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 object[] dizin = null;
                 string UyarıTarihi_yazı = h.UyarıTarihi.ToString( "dd MMM ddd" + (Gecikmeleri_gün_bazında_hesapla ? null : " hh:mm") );
+                string İşler = null;
                 switch (h.Tip)
                 {
                     case Ortak.Hatırlatıcılar.Tip_.SeriNoluİş_DevamEdenTablosundan:
                     case Ortak.Hatırlatıcılar.Tip_.SeriNoluİş_TakvimTablosundan:
                         Banka.Talep_Bul_Detaylar_ Detaylar = Banka.Talep_Bul(h.İçerik, h.Müşteri, Banka.TabloTürü.DevamEden);
                         double Toplam = 0;
-                        Banka.Talep_Ayıkla_SeriNoDalı(h.Müşteri, Detaylar.SeriNoDalı, out string Hasta, out string İşGirişTarihleri, out string İşÇıkışTarihleri, out string İşler, ref Toplam);
+                        Banka.Talep_Ayıkla_SeriNoDalı(h.Müşteri, Detaylar.SeriNoDalı, out string Hasta, out string İşGirişTarihleri, out string İşÇıkışTarihleri, out İşler, ref Toplam);
                         Banka.Talep_Ayıkla_SeriNoDalı(Detaylar.SeriNoDalı, out _, out _, out _, out string Notlar, out _);
 
                         //Eğer varsa dosya eki sayısının notlar eklenmesi
@@ -162,7 +163,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 yeni_satır_6.ToolTipText += Environment.NewLine + Banka.Yazdır_Tarih_Gün(h.UyarıTarihi - şimdi);
                 yeni_satır.Tag = h;
-                
+
+                if (İşler != null && İşler.Contains("HATA <")) yeni_satır.Cells[Tablo_İş.Index].Style.BackColor = System.Drawing.Color.Khaki;
+
                 dizi.Add(yeni_satır);
             }
 

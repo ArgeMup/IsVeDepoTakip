@@ -16,6 +16,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Liste_işTürleri.GeriBildirim_İşlemi += Liste_işTürleri_GeriBildirim_İşlemi;
 
             Liste_Malzemeler.Başlat(null, Banka.Malzeme_Listele(), "Malzemeler", Banka.ListeKutusu_Ayarlar(true, false));
+
+            Banka.İştürü_Tamamlayıcıİş_Sıfırla();
         }
 
         private bool Liste_işTürleri_GeriBildirim_İşlemi(string Adı, ListeKutusu.İşlemTürü Türü, string YeniAdı = null)
@@ -25,9 +27,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             switch (Türü)
             {
                 case ListeKutusu.İşlemTürü.ElemanSeçildi:
-                    Banka.İşTürü_Malzemeler_TablodaGöster(Tablo, Adı, out string MüşteriyeGösterilecekAdı, out string Notları);
+                    Banka.İşTürü_Malzemeler_TablodaGöster(Tablo, Adı, out string MüşteriyeGösterilecekAdı, out string Notları, out bool Tamamlayıcıİştir);
                     MüşteriyeGösterilecekOlanAdı.Text = MüşteriyeGösterilecekAdı;
                     Notlar.Text = Notları;
+                    Tamamlayıcıİş.Checked = Tamamlayıcıİştir;
 
                     ÖnYüzler_Kaydet.Enabled = false;
                     break;
@@ -44,6 +47,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Banka.Değişiklikleri_Kaydet(Liste_işTürleri);
                     Banka.Değişiklikler_TamponuSıfırla();
                     Ortak.Gösterge.Bitir();
+                    Banka.İştürü_Tamamlayıcıİş_Sıfırla();
                     break;
                 case ListeKutusu.İşlemTürü.KonumDeğişikliğiKaydedildi:
                     Banka.İşTürü_Sırala(Liste_işTürleri.Tüm_Elemanlar);
@@ -52,6 +56,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 case ListeKutusu.İşlemTürü.Silindi:
                     Banka.İşTürü_Sil(Liste_işTürleri.SeçilenEleman_Adı);
                     Banka.Değişiklikleri_Kaydet(Liste_işTürleri);
+                    Banka.İştürü_Tamamlayıcıİş_Sıfırla();
                     break;
             }
 
@@ -122,8 +127,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Miktarlar.Add((string)Tablo[1, i].Value);
             }
 
-            Banka.İşTürü_Malzemeler_Kaydet(Liste_işTürleri.SeçilenEleman_Adı, Malzemeler, Miktarlar, MüşteriyeGösterilecekOlanAdı.Text.Trim(), Notlar.Text.Trim());
+            Banka.İşTürü_Malzemeler_Kaydet(Liste_işTürleri.SeçilenEleman_Adı, Malzemeler, Miktarlar, MüşteriyeGösterilecekOlanAdı.Text.Trim(), Notlar.Text.Trim(), Tamamlayıcıİş.Checked);
             Banka.Değişiklikleri_Kaydet(ÖnYüzler_Kaydet);
+            Banka.İştürü_Tamamlayıcıİş_Sıfırla();
 
             Liste_işTürleri_GeriBildirim_İşlemi(Liste_işTürleri.SeçilenEleman_Adı, ListeKutusu.İşlemTürü.ElemanSeçildi);
         }

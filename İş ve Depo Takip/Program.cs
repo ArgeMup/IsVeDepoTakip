@@ -16,7 +16,7 @@ namespace İş_ve_Depo_Takip
         [STAThread]
         static void Main()
         {
-            Günlük.Başlat(Kendi.Klasörü + "\\Günlük");
+            Günlük.Başlat(Kendi.Klasörü + "\\Günlük", TümDosyaların_KapladığıAlan_bayt:5 * 1024 * 1024/*5Mib*/);
 #if DEBUG
             Günlük.GenelSeviye = Günlük.Seviye.HazirKod;
 #endif

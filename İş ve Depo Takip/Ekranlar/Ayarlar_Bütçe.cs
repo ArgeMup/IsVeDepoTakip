@@ -115,38 +115,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (_1_Dizi == null)
             {
                 _1_AltToplam.BackColor = System.Drawing.Color.Khaki;
-                
-                Ortak.Gösterge.Başlat("Sayılıyor", true, Sekmeler, 0);
-                int kademe = 0;
                 System.Collections.Generic.List<string> Müşteriler = Banka.Müşteri_Listele();
-                for (int i = 0; i < Müşteriler.Count && Ortak.Gösterge.Çalışsın; i++)
-                {
-                    kademe += 2 + Banka.Dosya_Listele_Müşteri(Müşteriler[i], false).Length;
-                }
-                Ortak.Gösterge.Bitir();
-
-                Ortak.Gösterge.Başlat("Hesaplanıyor", true, Sekmeler, kademe);
+                Ortak.Gösterge.Başlat("Hesaplanıyor", true, Sekmeler, Müşteriler.Count);
                 _1_Dizi = new Bütçe_Gelir_Gider_[Müşteriler.Count];
 
+                string HataMesajı = null;
                 for (int i = 0; i < Müşteriler.Count && Ortak.Gösterge.Çalışsın; i++)
                 {
                     Bütçe_Gelir_Gider_ gg = new Bütçe_Gelir_Gider_();
 
                     Ortak.Gösterge.İlerleme = 1;
-                    _1_Hesapla_2(Müşteriler[i], Banka.Talep_Listele(Müşteriler[i], Banka.TabloTürü.DevamEden), out gg.gelir_devameden, out gg.gider_devameden);
-
-                    Ortak.Gösterge.İlerleme = 1;
-                    _1_Hesapla_2(Müşteriler[i], Banka.Talep_Listele(Müşteriler[i], Banka.TabloTürü.TeslimEdildi), out gg.gelir_teslimedilen, out gg.gider_teslimedilen);
-
-                    string[] l = Banka.Dosya_Listele_Müşteri(Müşteriler[i], false);
-                    for (int s = 0; s < l.Length && Ortak.Gösterge.Çalışsın; s++)
-                    {
-                        Ortak.Gösterge.İlerleme = 1;
-                        _1_Hesapla_2(Müşteriler[i], Banka.Talep_Listele(Müşteriler[i], Banka.TabloTürü.ÖdemeTalepEdildi, l[s]), out double gelll, out double giddd);
-
-                        gg.gelir_ödemebekleyen += gelll;
-                        gg.gider_ödemebekleyen += giddd;
-                    }
+                    HataMesajı += Banka.Müşteri_Ayıkla_GelirGider(Müşteriler[i], ref gg.gelir_devameden, ref gg.gider_devameden, ref gg.gelir_teslimedilen, ref gg.gider_teslimedilen, ref gg.gelir_ödemebekleyen, ref gg.gider_ödemebekleyen);
 
                     gg.müşteri = Müşteriler[i];
                     gg.gelir_ipucu =
@@ -173,6 +152,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     else if (_1_Dizi[i].ÖnÖdeme < 0) _1_Tablo[_1_Tablo_Ödeme.Index, i].Style.BackColor = System.Drawing.Color.Red;
                 }
                 Ortak.Gösterge.Bitir();
+
+                HataMesajı = HataMesajı.Trim(' ', '\n');
+                if (HataMesajı.DoluMu())
+                {
+                    MessageBox.Show("Alttaki konuda hesaplama yapılamadı." + Environment.NewLine +
+                        "Ekrandaki hesaplamaların eksik olduğunu göz önünde bulundurunuz." + Environment.NewLine + Environment.NewLine +
+                        HataMesajı, Text);
+                }
             }
 
             //talep edilen müşterilerin talep edilen değerlerini hesapla
@@ -224,26 +211,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             _1_Gider.Tag = gid;
 
             _1_AltToplam.BackColor = gel > gid ? System.Drawing.Color.YellowGreen : System.Drawing.Color.Salmon;
-        }
-        private void _1_Hesapla_2(string Müşteri, Banka_Tablo_ bt, out double Gelir, out double Gider)
-        {
-            Gelir = 0; Gider = 0;
-           
-            foreach (IDepo_Eleman serino in bt.Talepler)
-            {
-                string HataMesajı = Banka.Talep_Ayıkla_SeriNoDalı(Müşteri, serino, ref Gelir, ref Gider);
-                if (!string.IsNullOrEmpty(HataMesajı))
-                {
-                    MessageBox.Show("Alttaki konuda hesaplama yapılamadı." + Environment.NewLine +
-                        "Ekrandaki hesaplamaların eksik olduğunu göz önünde bulundurunuz." + Environment.NewLine + Environment.NewLine +
-                        HataMesajı, Text);
-                }
-            }
-
-            Banka.Müşteri_KDV_İskonto(Müşteri, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde, out _);
-            double İskonto_Hesaplanan = İskonto_Yap ? Gelir / 100 * İskonto_Yüzde : 0;
-            double KDV_Hesaplanan = KDV_Ekle ? (Gelir - İskonto_Hesaplanan) / 100 * KDV_Yüzde : 0;
-            Gelir = Gelir - İskonto_Hesaplanan + KDV_Hesaplanan;
         }
 
         private void _1_GenelDurumRaporu_Click(object sender, EventArgs e)

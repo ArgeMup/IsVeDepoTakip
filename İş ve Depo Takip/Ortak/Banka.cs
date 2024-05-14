@@ -332,7 +332,6 @@ namespace İş_ve_Depo_Takip
                                 if (!YoksaOluştur) goto Çıkış;
 
                                 Ayarlar = Depo_Aç("Ay");
-                                Ayarlar["Uygulama Kimliği", 0] = DoğrulamaKodu.Üret.Yazıdan(DateTime.Now.Yazıya() + Ortak.Klasör_Banka); //yedekleme işleminde tarama aşamasında aynı uygulamanın dosyalarının kullanıldığından emin olmak için
                                 Ayarlar["Son Banka Kayıt"].İçeriği = new string[] { Kendi.BilgisayarAdı + " " + Kendi.KullanıcıAdı, DateTime.Now.Yazıya(), Sürüm };
                             }
                             else Ayarlar = Depo_Aç("Ay");
@@ -777,6 +776,55 @@ namespace İş_ve_Depo_Takip
             DevredenTutar = MevcutÖnÖdeme + AlınanÖdeme - GenelToplam;
             Notlar = ÖdemeDalı[3];
         }
+        public static string Müşteri_Ayıkla_GelirGider(string Adı, TabloTürü Tür, string EkTanım, ref double Gelir, ref double Gider)
+        {
+            Banka_Tablo_ bt = Talep_Listele(Adı, Tür, EkTanım);
+            if (bt.Talepler.Count == 0) return null;
+
+            string HataMesajı = null;
+            double Gelir_iç = 0, Gider_iç = 0;
+
+            foreach (IDepo_Eleman serino in bt.Talepler)
+            {
+                string HataMesajı_gecici = Talep_Ayıkla_SeriNoDalı(Adı, serino, ref Gelir_iç, ref Gider_iç);
+                if (!string.IsNullOrEmpty(HataMesajı_gecici)) HataMesajı += HataMesajı_gecici + "\n";
+            }
+
+            Müşteri_KDV_İskonto(Adı, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde, out _);
+            double İskonto_Hesaplanan = İskonto_Yap ? Gelir_iç / 100 * İskonto_Yüzde : 0;
+            double KDV_Hesaplanan = KDV_Ekle ? (Gelir_iç - İskonto_Hesaplanan) / 100 * KDV_Yüzde : 0;
+            Gelir_iç = Gelir_iç - İskonto_Hesaplanan + KDV_Hesaplanan;
+
+            Gelir += Gelir_iç;
+            Gider += Gider_iç;
+
+            return HataMesajı;
+        }
+        public static string Müşteri_Ayıkla_GelirGider(string Adı, ref double Gelir_DevamEden, ref double Gider_DevamEden, ref double Gelir_TeslimEdildi, ref double Gider_TeslimEdildi, ref double Gelir_ÖdemeTalepEdildi, ref double Gider_ÖdemeTalepEdildi)
+        {
+            string HataMesajı = Müşteri_Ayıkla_GelirGider(Adı, TabloTürü.DevamEden, null, ref Gelir_DevamEden, ref Gider_DevamEden);
+
+            HataMesajı += Müşteri_Ayıkla_GelirGider(Adı, TabloTürü.TeslimEdildi, null, ref Gelir_TeslimEdildi, ref Gider_TeslimEdildi);
+
+            foreach (string ödeme_talebi in Dosya_Listele_Müşteri(Adı, false))
+            {
+                HataMesajı += Müşteri_Ayıkla_GelirGider(Adı, TabloTürü.ÖdemeTalepEdildi, ödeme_talebi, ref Gelir_ÖdemeTalepEdildi, ref Gider_ÖdemeTalepEdildi);
+            }
+            
+            return HataMesajı;
+        }
+        public static string Müşteriler_Ayıkla_GelirGider(out double Gelir_DevamEden, out double Gider_DevamEden, out double Gelir_TeslimEdildi, out double Gider_TeslimEdildi, out double Gelir_ÖdemeTalepEdildi, out double Gider_ÖdemeTalepEdildi)
+        {
+            Gelir_DevamEden = 0; Gider_DevamEden = 0; Gelir_TeslimEdildi = 0; Gider_TeslimEdildi = 0; Gelir_ÖdemeTalepEdildi = 0; Gider_ÖdemeTalepEdildi = 0;
+            string HataMesajı = null;
+
+            foreach (string Müşteri in Müşteri_Listele())
+            {
+                HataMesajı += Müşteri_Ayıkla_GelirGider(Müşteri, ref Gelir_DevamEden, ref Gider_DevamEden, ref Gelir_TeslimEdildi, ref Gider_TeslimEdildi, ref Gelir_ÖdemeTalepEdildi, ref Gider_ÖdemeTalepEdildi);
+            }
+
+            return HataMesajı;
+        }
         public static void Müşteri_Ödemeler_TablodaGöster(string Adı, DataGridView Tablo, int Listelenecek_Adet)
         {
             Tablo.Rows.Clear();
@@ -1040,7 +1088,7 @@ namespace İş_ve_Depo_Takip
                 }
             }
         }
-        public static void İşTürü_Malzemeler_TablodaGöster(DataGridView Tablo, string İşTürü, out string MüşteriyeGösterilecekOlanAdı, out string Notlar)
+        public static void İşTürü_Malzemeler_TablodaGöster(DataGridView Tablo, string İşTürü, out string MüşteriyeGösterilecekOlanAdı, out string Notlar, out bool Tamamlayıcıİş)
         {
             Tablo.Rows.Clear();
             if (Tablo.SortedColumn != null)
@@ -1052,11 +1100,13 @@ namespace İş_ve_Depo_Takip
 
             MüşteriyeGösterilecekOlanAdı = null;
             Notlar = null;
+            Tamamlayıcıİş = false;
             IDepo_Eleman d = Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri/" + İşTürü);
             if (d == null) return;
 
             MüşteriyeGösterilecekOlanAdı = d.Oku("Müşteri için adı");
             Notlar = d.Oku("Notlar");
+            Tamamlayıcıİş = d.Oku_Bit("Tamamlayıcı İş");
 
             d = d.Bul("Malzemeler");
             if (d == null) return;
@@ -1081,17 +1131,40 @@ namespace İş_ve_Depo_Takip
 
             Tablo.ClearSelection();
         }
-        public static void İşTürü_Malzemeler_Kaydet(string İşTürü, List<string> Malzemeler, List<string> Miktarlar, string MüşteriyeGösterilecekOlanAdı, string Notlar)
+        public static void İşTürü_Malzemeler_Kaydet(string İşTürü, List<string> Malzemeler, List<string> Miktarlar, string MüşteriyeGösterilecekOlanAdı, string Notlar, bool Tamamlayıcıİş)
         {
             IDepo_Eleman d = Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri/" + İşTürü, true);
             d.Yaz("Müşteri için adı", MüşteriyeGösterilecekOlanAdı);
             d.Yaz("Notlar", Notlar);
-            d.Sil("Malzemeler");
+            
+            if (Tamamlayıcıİş) d.Yaz("Tamamlayıcı İş", true);
+            else d.Sil("Tamamlayıcı İş");
 
+            d.Sil("Malzemeler");
             for (int i = 0; i < Malzemeler.Count; i++)
             {
                 d.Yaz("Malzemeler/" + Malzemeler[i], Miktarlar[i]);
             }
+        }
+        static List<string> _İştürü_Tamamlayıcıİş_Listesi_ = null;
+        static bool İştürü_Tamamlayıcıİş_Mi(string İşTürü)
+        {
+            if (_İştürü_Tamamlayıcıİş_Listesi_ == null)
+            {
+                _İştürü_Tamamlayıcıİş_Listesi_ = new List<string>();
+
+                IDepo_Eleman d = Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri", true);
+                foreach (IDepo_Eleman iştürü in d.Elemanları)
+                {
+                    if (iştürü.Oku_Bit("Tamamlayıcı İş")) _İştürü_Tamamlayıcıİş_Listesi_.Add(iştürü.Adı);
+                }
+            }
+
+            return _İştürü_Tamamlayıcıİş_Listesi_.Contains(İşTürü);
+        }
+        public static void İştürü_Tamamlayıcıİş_Sıfırla()
+        {
+            _İştürü_Tamamlayıcıİş_Listesi_ = null;
         }
 
         public static void Malzeme_KritikMiktarKontrolü()
@@ -2067,7 +2140,7 @@ namespace İş_ve_Depo_Takip
                 }
             }
         }
-        public static string Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(string Müşteri, List<string> Seri_No_lar, string İlaveÖdeme_Açıklama, string İlaveÖdeme_Miktar, out string DosyaAdı)
+        public static bool Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(string Müşteri, List<string> Seri_No_lar, string İlaveÖdeme_Açıklama, string İlaveÖdeme_Miktar, out string DosyaAdı)
         {
             DateTime t = DateTime.Now;
             DosyaAdı = t.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2);
@@ -2075,12 +2148,15 @@ namespace İş_ve_Depo_Takip
             IDepo_Eleman yeni_tablodaki_işler = yeni_tablo.Bul("Talepler", true);
             IDepo_Eleman eski_tablodaki_işler = Tablo_Dal(Müşteri, TabloTürü.DevamEden, "Talepler");
             double Alt_Toplam = 0;
+            DialogResult Dr;
+            string sonuç = null;
 
             foreach (string sn in Seri_No_lar)
             {
                 IDepo_Eleman seri_no_dalı = eski_tablodaki_işler.Bul(sn); //bir talep
                 if (seri_no_dalı == null) throw new Exception(Müşteri + " / Devam Eden / Talepler / " + sn + " bulunamadı");
                 double iş_toplam = 0;
+                bool TamamlamaİşiVar = false;
 
                 foreach (IDepo_Eleman iş_türü_dalı in seri_no_dalı.Elemanları)
                 {
@@ -2091,10 +2167,12 @@ namespace İş_ve_Depo_Takip
                         string snç = Ücretler_HesaplanmışToplamÜcret(Müşteri, iş_türü_dalı[0], iş_türü_dalı.Oku_BaytDizisi(null, null, 4), out ücret);
                         if (snç.DoluMu() || ücret < 0)
                         {
-                            return Müşteri + " / " + seri_no_dalı.Adı + " / " + iş_türü_dalı[0] + " için ücret hesaplanamadı" + Environment.NewLine + Environment.NewLine +
+                            sonuç = Müşteri + " / " + seri_no_dalı.Adı + " / " + iş_türü_dalı[0] + " için ücret hesaplanamadı." + Environment.NewLine + Environment.NewLine +
                                 snç + Environment.NewLine + Environment.NewLine +
                                 "Hesaplama yöntemi detayları için \"Ana Ekran -> Yeni İş Girişi -> Notlar\" elemanı üzerine" + Environment.NewLine +
                                 "fareyi götürüp 1 sn kadar bekleyiniz";
+
+                            goto Hata;
                         }
 
                         iş_türü_dalı.Yaz(null, ücret, 2); //hesaplanan ücret
@@ -2107,6 +2185,18 @@ namespace İş_ve_Depo_Takip
                     }
 
                     iş_toplam += ücret;
+
+                    if (İştürü_Tamamlayıcıİş_Mi(iş_türü_dalı[0])) TamamlamaİşiVar = true;
+                }
+
+                if (!TamamlamaİşiVar)
+                {
+                    sonuç = Müşteri + " / " + seri_no_dalı.Adı + " / " + seri_no_dalı[0] + " için tamamlama işi yok.";
+
+                    Dr = MessageBox.Show(sonuç + Environment.NewLine + Environment.NewLine +
+                            "Yinede devam etmek istiyor musunuz?", "Tamamlama işi yok", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+
+                    if (Dr == DialogResult.No) goto Hata;
                 }
 
                 double iskonto = seri_no_dalı.Oku_Sayı(null, 0, 1);
@@ -2142,7 +2232,7 @@ namespace İş_ve_Depo_Takip
                    DosyaAdı,
                    0, Ekranlar.GelirGiderTakip.Muhatap_Üyelik_Dönem_.Boşta, 0, t);
 
-                string sonuç = Ekranlar.GelirGiderTakip.Komut_Ekle_GelirGider(new List<Ekranlar.GelirGiderTakip.Şube_Talep_Ekle_GelirGider_>() { ödeme });
+                sonuç = Ekranlar.GelirGiderTakip.Komut_Ekle_GelirGider(new List<Ekranlar.GelirGiderTakip.Şube_Talep_Ekle_GelirGider_>() { ödeme });
                 if (sonuç.DoluMu())
                 {
                     sonuç = "İşleminiz \"İş ve Depo Takip\" içerisine kaydedildi fakat" + Environment.NewLine +
@@ -2152,7 +2242,30 @@ namespace İş_ve_Depo_Takip
             }
             #endregion
 
-            return null;
+            return true;
+
+        Hata:
+            Değişiklikler_TamponuSıfırla();
+
+            if (sonuç.Contains("için ücret hesaplanamadı"))
+            {
+                Dr = MessageBox.Show(sonuç + Environment.NewLine + Environment.NewLine +
+                    "Ücretler sayfasını açmak ister misiniz?", "Ücret hesaplanamadı", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (Dr == DialogResult.Yes) Ekranlar.ÖnYüzler.Ekle(new Ekranlar.Ayarlar_Ücretler());
+            }
+            else if (sonuç.Contains("için tamamlama işi yok"))
+            {
+                Dr = MessageBox.Show("İş türleri sayfasını açmak ister misiniz?", "Tamamlama işi yok", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (Dr == DialogResult.Yes) Ekranlar.ÖnYüzler.Ekle(new Ekranlar.Ayarlar_İş_Türleri());
+            }
+            else throw new Exception("Hata mesajı içeriği hatalı " + sonuç);
+
+            foreach (string seri_no in Seri_No_lar)
+            {
+                Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(seri_no);
+            }
+
+            return false;
         }
         public static void Talep_İşaretle_ÖdemeTalepEdildi_TeslimEdildi(string Müşteri, string EkTanım)
         {
@@ -2353,8 +2466,8 @@ namespace İş_ve_Depo_Takip
                     dizi[dizi_konum].Cells[9].Tag = tar_ödendi_t; //ödeme tarihi
                 }
 
-                //Ücret hesap hatası varsa belirt
-                if (İşler.Contains(" HATA <")) dizi[dizi_konum].Cells[6].Style.BackColor = System.Drawing.Color.Salmon;
+                //Ücret hesap hatası varsa veya tamamlayıcı iş yoksa belirt
+                if (İşler.Contains("HATA <")) dizi[dizi_konum].Cells[6].Style.BackColor = System.Drawing.Color.Salmon;
 
                 dizi_konum++;
             }
@@ -2473,6 +2586,7 @@ namespace İş_ve_Depo_Takip
             İşÇıkışTarihleri = "";
             İşler = "";
             double AltToplam = 0;
+            bool TamamlayıcıİşVar = false;
             foreach (IDepo_Eleman iş in SeriNoDalı.Elemanları)
             {
                 //tarihler
@@ -2505,10 +2619,13 @@ namespace İş_ve_Depo_Takip
                 }
 
                 İşler += "\n";
+
+                if (İştürü_Tamamlayıcıİş_Mi(iş[0])) TamamlayıcıİşVar = true;
             }
             İşGirişTarihleri = İşGirişTarihleri.TrimEnd('\n');
             İşÇıkışTarihleri = İşÇıkışTarihleri.TrimEnd('\n');
             İşler = İşler.TrimEnd('\n');
+            if (!TamamlayıcıİşVar) İşler += "\nHATA <Tamamlayıcı iş yok>";
 
             if (iskonto > 0 && AltToplam > 0) AltToplam -= AltToplam / 100 * iskonto;
 
@@ -3125,6 +3242,8 @@ namespace İş_ve_Depo_Takip
             //Kullanıcılar = null; Önemsiz kullanıcı ayarları
             //Etiket_Açıklamaları = null; Önemsiz etiket açıklamaları
 
+            İştürü_Tamamlayıcıİş_Sıfırla();
+
             Günlük.Ekle("Değişiklikler_TamponuSıfırla");
         }
 
@@ -3145,7 +3264,7 @@ namespace İş_ve_Depo_Takip
         }
         public static string Yazdır_Ücret(double Ücret, bool SondakiSıfırlarıSil = true)
         {
-            string çıktı = string.Format("{0:,0.00}", Ücret);
+            string çıktı = string.Format("{0:#,0.00;-#,0.00;0.00}", Ücret);
             if (SondakiSıfırlarıSil && çıktı.EndsWith("00")) çıktı = çıktı.Remove(çıktı.Length - 3/*.00*/);
 
             return çıktı + " ₺";
@@ -3278,17 +3397,13 @@ namespace İş_ve_Depo_Takip
                     if (Klasör.Listele_Dosya(Ortak.Klasör_KullanıcıDosyaları_GelirGiderTakip, "*.mup").Length > 0)
                     {
                         string gegita_parola_mevcut, gegita_parola_yeni, gegita_yok = "_YOK_";
-                        IDepo_Eleman gegita_ayr = Ayarlar_Genel("Gelir Gider Takip");
-                        if (gegita_ayr == null) gegita_parola_mevcut = Ayarlar_Genel("Uygulama Kimliği", true).Oku(null);
-                        else gegita_parola_mevcut = gegita_ayr.Oku(null, gegita_yok);
-                        
+                        gegita_parola_mevcut = Ayarlar_Genel("Gelir Gider Takip", true).Oku(null, gegita_yok);
                         gegita_parola_yeni = _Mevcut_KökParola_VarMı_ ? ArgeMup.HazirKod.Dönüştürme.D_HexYazı.BaytDizisinden(Rastgele.BaytDizisi(32)) : gegita_yok;
                         
                         string cevap = Ekranlar.GelirGiderTakip.Komut_ParolayıDeğiştir(gegita_parola_mevcut, gegita_parola_yeni);
                         if (cevap.DoluMu()) throw new Exception("Gelir Gider Takip üzerinde işlem yapılamadı " + cevap);
 
                         Ayarlar_Genel("Gelir Gider Takip", true).Yaz(null, gegita_parola_yeni);
-                        Ayarlar_Genel("Uygulama Kimliği", true).Sil(null);
                         Değişiklikleri_Kaydet(null);
                     }
                     Günlük.Ekle("Banka yeni sürüme geçirme aşama 4 tamam");
@@ -3332,7 +3447,7 @@ namespace İş_ve_Depo_Takip
                             break;
 
                         case ArgeMup.HazirKod.Ekranlar.Kullanıcılar.GirişİşlemiSonucu_.Kapatıldı:
-                            Application.Exit();
+                            GirişYap(true);
                             break;
 
                         default:

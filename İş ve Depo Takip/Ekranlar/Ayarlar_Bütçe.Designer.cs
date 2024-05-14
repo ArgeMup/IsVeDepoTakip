@@ -30,9 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -45,6 +42,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ayarlar_Bütçe));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this._1_Gelir = new System.Windows.Forms.GroupBox();
             this._1_Gelir_ÖdemeTalepEdildi = new System.Windows.Forms.CheckBox();
             this._1_Gelir_TeslimEdildi = new System.Windows.Forms.CheckBox();
@@ -54,12 +54,6 @@
             this._1_Gider_DevamEden = new System.Windows.Forms.CheckBox();
             this._1_Gider_TeslimEdildi = new System.Windows.Forms.CheckBox();
             this._1_Tablo = new System.Windows.Forms.DataGridView();
-            this._1_Tablo_Seç = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this._1_Tablo_Müşteri = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._1_Tablo_Gelir = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._1_Tablo_Gider = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._1_Tablo_Fark = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._1_Tablo_Ödeme = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Sekmeler = new System.Windows.Forms.TabControl();
             this.Sekmeler_1 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -110,6 +104,12 @@
             this._4_AyarlarSayfasınıAç = new System.Windows.Forms.Button();
             this.TabloİçeriğiArama = new System.Windows.Forms.TextBox();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
+            this._1_Tablo_Seç = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this._1_Tablo_Müşteri = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._1_Tablo_Gelir = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._1_Tablo_Gider = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._1_Tablo_Fark = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._1_Tablo_Ödeme = new System.Windows.Forms.DataGridViewButtonColumn();
             this._1_Gelir.SuspendLayout();
             this._1_Gider.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1_Tablo)).BeginInit();
@@ -285,65 +285,6 @@
             this._1_Tablo.TabIndex = 10;
             this._1_Tablo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this._1_Tablo_CellClick);
             this._1_Tablo.DoubleClick += new System.EventHandler(this._1_Tablo_DoubleClick);
-            // 
-            // _1_Tablo_Seç
-            // 
-            this._1_Tablo_Seç.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this._1_Tablo_Seç.HeaderText = "Seç";
-            this._1_Tablo_Seç.MinimumWidth = 6;
-            this._1_Tablo_Seç.Name = "_1_Tablo_Seç";
-            this._1_Tablo_Seç.ReadOnly = true;
-            this._1_Tablo_Seç.Width = 44;
-            // 
-            // _1_Tablo_Müşteri
-            // 
-            this._1_Tablo_Müşteri.FillWeight = 40F;
-            this._1_Tablo_Müşteri.HeaderText = "Müşteri";
-            this._1_Tablo_Müşteri.MinimumWidth = 6;
-            this._1_Tablo_Müşteri.Name = "_1_Tablo_Müşteri";
-            this._1_Tablo_Müşteri.ReadOnly = true;
-            // 
-            // _1_Tablo_Gelir
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.Format = "0.00";
-            dataGridViewCellStyle2.NullValue = null;
-            this._1_Tablo_Gelir.DefaultCellStyle = dataGridViewCellStyle2;
-            this._1_Tablo_Gelir.FillWeight = 15F;
-            this._1_Tablo_Gelir.HeaderText = "Gelir ₺";
-            this._1_Tablo_Gelir.MinimumWidth = 6;
-            this._1_Tablo_Gelir.Name = "_1_Tablo_Gelir";
-            this._1_Tablo_Gelir.ReadOnly = true;
-            // 
-            // _1_Tablo_Gider
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.Format = "0.00";
-            this._1_Tablo_Gider.DefaultCellStyle = dataGridViewCellStyle3;
-            this._1_Tablo_Gider.FillWeight = 15F;
-            this._1_Tablo_Gider.HeaderText = "Gider ₺";
-            this._1_Tablo_Gider.MinimumWidth = 6;
-            this._1_Tablo_Gider.Name = "_1_Tablo_Gider";
-            this._1_Tablo_Gider.ReadOnly = true;
-            // 
-            // _1_Tablo_Fark
-            // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.Format = "0.00";
-            this._1_Tablo_Fark.DefaultCellStyle = dataGridViewCellStyle4;
-            this._1_Tablo_Fark.FillWeight = 15F;
-            this._1_Tablo_Fark.HeaderText = "Fark ₺";
-            this._1_Tablo_Fark.MinimumWidth = 6;
-            this._1_Tablo_Fark.Name = "_1_Tablo_Fark";
-            this._1_Tablo_Fark.ReadOnly = true;
-            // 
-            // _1_Tablo_Ödeme
-            // 
-            this._1_Tablo_Ödeme.FillWeight = 15F;
-            this._1_Tablo_Ödeme.HeaderText = "Ön Ödeme";
-            this._1_Tablo_Ödeme.MinimumWidth = 6;
-            this._1_Tablo_Ödeme.Name = "_1_Tablo_Ödeme";
-            this._1_Tablo_Ödeme.ReadOnly = true;
             // 
             // Sekmeler
             // 
@@ -1008,6 +949,65 @@
             this.İpUcu.UseAnimation = false;
             this.İpUcu.UseFading = false;
             // 
+            // _1_Tablo_Seç
+            // 
+            this._1_Tablo_Seç.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this._1_Tablo_Seç.HeaderText = "Seç";
+            this._1_Tablo_Seç.MinimumWidth = 6;
+            this._1_Tablo_Seç.Name = "_1_Tablo_Seç";
+            this._1_Tablo_Seç.ReadOnly = true;
+            this._1_Tablo_Seç.Width = 44;
+            // 
+            // _1_Tablo_Müşteri
+            // 
+            this._1_Tablo_Müşteri.FillWeight = 40F;
+            this._1_Tablo_Müşteri.HeaderText = "Müşteri";
+            this._1_Tablo_Müşteri.MinimumWidth = 6;
+            this._1_Tablo_Müşteri.Name = "_1_Tablo_Müşteri";
+            this._1_Tablo_Müşteri.ReadOnly = true;
+            // 
+            // _1_Tablo_Gelir
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Format = "#,0.00";
+            dataGridViewCellStyle2.NullValue = null;
+            this._1_Tablo_Gelir.DefaultCellStyle = dataGridViewCellStyle2;
+            this._1_Tablo_Gelir.FillWeight = 15F;
+            this._1_Tablo_Gelir.HeaderText = "Gelir ₺";
+            this._1_Tablo_Gelir.MinimumWidth = 6;
+            this._1_Tablo_Gelir.Name = "_1_Tablo_Gelir";
+            this._1_Tablo_Gelir.ReadOnly = true;
+            // 
+            // _1_Tablo_Gider
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.Format = "#,0.00";
+            this._1_Tablo_Gider.DefaultCellStyle = dataGridViewCellStyle3;
+            this._1_Tablo_Gider.FillWeight = 15F;
+            this._1_Tablo_Gider.HeaderText = "Gider ₺";
+            this._1_Tablo_Gider.MinimumWidth = 6;
+            this._1_Tablo_Gider.Name = "_1_Tablo_Gider";
+            this._1_Tablo_Gider.ReadOnly = true;
+            // 
+            // _1_Tablo_Fark
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.Format = "#,0.00";
+            this._1_Tablo_Fark.DefaultCellStyle = dataGridViewCellStyle4;
+            this._1_Tablo_Fark.FillWeight = 15F;
+            this._1_Tablo_Fark.HeaderText = "Fark ₺";
+            this._1_Tablo_Fark.MinimumWidth = 6;
+            this._1_Tablo_Fark.Name = "_1_Tablo_Fark";
+            this._1_Tablo_Fark.ReadOnly = true;
+            // 
+            // _1_Tablo_Ödeme
+            // 
+            this._1_Tablo_Ödeme.FillWeight = 15F;
+            this._1_Tablo_Ödeme.HeaderText = "Ön Ödeme";
+            this._1_Tablo_Ödeme.MinimumWidth = 6;
+            this._1_Tablo_Ödeme.Name = "_1_Tablo_Ödeme";
+            this._1_Tablo_Ödeme.ReadOnly = true;
+            // 
             // Ayarlar_Bütçe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -1081,12 +1081,6 @@
         private System.Windows.Forms.Button ÖnYüzler_Kaydet_2_Kaydet;
         private System.Windows.Forms.TabPage Seklemeler_Ödemeler;
         private System.Windows.Forms.DataGridView _3_Tablo;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn _1_Tablo_Seç;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _1_Tablo_Müşteri;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _1_Tablo_Gelir;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _1_Tablo_Gider;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _1_Tablo_Fark;
-        private System.Windows.Forms.DataGridViewButtonColumn _1_Tablo_Ödeme;
         private System.Windows.Forms.TextBox TabloİçeriğiArama;
         private System.Windows.Forms.Button _1_GenelDurumRaporu;
         private System.Windows.Forms.Panel panel1;
@@ -1123,5 +1117,11 @@
         private System.Windows.Forms.Button _4_Yazdır;
         private System.Windows.Forms.Button _4_CariDökümSayfasınıAç;
         private System.Windows.Forms.Button _4_EpostaGönderimi_Dene;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn _1_Tablo_Seç;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _1_Tablo_Müşteri;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _1_Tablo_Gelir;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _1_Tablo_Gider;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _1_Tablo_Fark;
+        private System.Windows.Forms.DataGridViewButtonColumn _1_Tablo_Ödeme;
     }
 }
