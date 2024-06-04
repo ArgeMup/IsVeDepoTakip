@@ -407,10 +407,10 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.P_İşTakip_TeslimEdildi);
-            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(663, 238);
+            this.tabPage4.Size = new System.Drawing.Size(663, 241);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Teslim Edildi";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -570,10 +570,10 @@
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Controls.Add(this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_ÖdendiOlarakİşsaretle);
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Controls.Add(this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_KadarİşiSeç);
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Controls.Add(this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl_Miktar);
-            this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Location = new System.Drawing.Point(4, 25);
+            this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Location = new System.Drawing.Point(4, 22);
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Name = "İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl";
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Padding = new System.Windows.Forms.Padding(3);
-            this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Size = new System.Drawing.Size(447, 173);
+            this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Size = new System.Drawing.Size(447, 176);
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.TabIndex = 1;
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.Text = "Ödeme Al";
             this.İşTakip_TeslimEdildi_Sekmeler_ÖdemeAl.UseVisualStyleBackColor = true;
@@ -651,11 +651,11 @@
             // 
             this.tabPage5.AutoScroll = true;
             this.tabPage5.Controls.Add(this.P_İşTakip_ÖdemeBekleyen);
-            this.tabPage5.Location = new System.Drawing.Point(4, 25);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage5.Size = new System.Drawing.Size(663, 238);
+            this.tabPage5.Size = new System.Drawing.Size(663, 241);
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "Ödeme Bekleyen";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -818,11 +818,11 @@
             // 
             this.tabPage6.AutoScroll = true;
             this.tabPage6.Controls.Add(this.P_İşTakip_Ödendi);
-            this.tabPage6.Location = new System.Drawing.Point(4, 25);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage6.Size = new System.Drawing.Size(663, 238);
+            this.tabPage6.Size = new System.Drawing.Size(663, 241);
             this.tabPage6.TabIndex = 3;
             this.tabPage6.Text = "Ödendi";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -889,10 +889,10 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.P_Arama);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(663, 238);
+            this.tabPage1.Size = new System.Drawing.Size(663, 241);
             this.tabPage1.TabIndex = 4;
             this.tabPage1.Text = "Arama";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1028,10 +1028,10 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.P_Malzemeler);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(663, 238);
+            this.tabPage2.Size = new System.Drawing.Size(663, 241);
             this.tabPage2.TabIndex = 5;
             this.tabPage2.Text = "Malzemeler";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1411,7 +1411,7 @@
             this.Tablo.AllowUserToDeleteRows = false;
             this.Tablo.AllowUserToResizeRows = false;
             this.Tablo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.Tablo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -1435,7 +1435,7 @@
             this.Tablo_Notlar});
             this.Tablo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Tablo.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
-            this.Tablo.Location = new System.Drawing.Point(0, 22);
+            this.Tablo.Location = new System.Drawing.Point(0, 30);
             this.Tablo.Margin = new System.Windows.Forms.Padding(2);
             this.Tablo.Name = "Tablo";
             this.Tablo.ReadOnly = true;
@@ -1446,7 +1446,7 @@
             this.Tablo.ShowCellErrors = false;
             this.Tablo.ShowEditingIcon = false;
             this.Tablo.ShowRowErrors = false;
-            this.Tablo.Size = new System.Drawing.Size(1095, 82);
+            this.Tablo.Size = new System.Drawing.Size(1095, 74);
             this.Tablo.TabIndex = 0;
             this.Tablo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellClick);
             this.Tablo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tablo_CellDoubleClick);
@@ -1573,18 +1573,17 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1095, 22);
+            this.panel1.Size = new System.Drawing.Size(1095, 30);
             this.panel1.TabIndex = 1;
             // 
             // TabloİçeriğiArama
             // 
             this.TabloİçeriğiArama.BackColor = System.Drawing.SystemColors.Window;
             this.TabloİçeriğiArama.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TabloİçeriğiArama.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.TabloİçeriğiArama.Location = new System.Drawing.Point(116, 0);
+            this.TabloİçeriğiArama.Location = new System.Drawing.Point(113, 0);
             this.TabloİçeriğiArama.Margin = new System.Windows.Forms.Padding(2);
             this.TabloİçeriğiArama.Name = "TabloİçeriğiArama";
-            this.TabloİçeriğiArama.Size = new System.Drawing.Size(680, 23);
+            this.TabloİçeriğiArama.Size = new System.Drawing.Size(549, 26);
             this.TabloİçeriğiArama.TabIndex = 2;
             this.TabloİçeriğiArama.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.İpUcu.SetToolTip(this.TabloİçeriğiArama, "Tablo içinde arama kutucuğu");
@@ -1599,11 +1598,10 @@
             this.TabloİçeriğiArama_SadeceHastaAdındaAra.Dock = System.Windows.Forms.DockStyle.Right;
             this.TabloİçeriğiArama_SadeceHastaAdındaAra.FlatAppearance.CheckedBackColor = System.Drawing.Color.YellowGreen;
             this.TabloİçeriğiArama_SadeceHastaAdındaAra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TabloİçeriğiArama_SadeceHastaAdındaAra.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.TabloİçeriğiArama_SadeceHastaAdındaAra.Location = new System.Drawing.Point(796, 0);
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.Location = new System.Drawing.Point(662, 0);
             this.TabloİçeriğiArama_SadeceHastaAdındaAra.Margin = new System.Windows.Forms.Padding(0);
             this.TabloİçeriğiArama_SadeceHastaAdındaAra.Name = "TabloİçeriğiArama_SadeceHastaAdındaAra";
-            this.TabloİçeriğiArama_SadeceHastaAdındaAra.Size = new System.Drawing.Size(135, 22);
+            this.TabloİçeriğiArama_SadeceHastaAdındaAra.Size = new System.Drawing.Size(204, 30);
             this.TabloİçeriğiArama_SadeceHastaAdındaAra.TabIndex = 20;
             this.TabloİçeriğiArama_SadeceHastaAdındaAra.Text = "Sadece hasta adında ara";
             this.TabloİçeriğiArama_SadeceHastaAdındaAra.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1619,11 +1617,10 @@
             this.TabloİçeriğiArama_VeVeya.Dock = System.Windows.Forms.DockStyle.Right;
             this.TabloİçeriğiArama_VeVeya.FlatAppearance.CheckedBackColor = System.Drawing.Color.YellowGreen;
             this.TabloİçeriğiArama_VeVeya.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TabloİçeriğiArama_VeVeya.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.TabloİçeriğiArama_VeVeya.Location = new System.Drawing.Point(931, 0);
+            this.TabloİçeriğiArama_VeVeya.Location = new System.Drawing.Point(866, 0);
             this.TabloİçeriğiArama_VeVeya.Margin = new System.Windows.Forms.Padding(0);
             this.TabloİçeriğiArama_VeVeya.Name = "TabloİçeriğiArama_VeVeya";
-            this.TabloİçeriğiArama_VeVeya.Size = new System.Drawing.Size(30, 22);
+            this.TabloİçeriğiArama_VeVeya.Size = new System.Drawing.Size(39, 30);
             this.TabloİçeriğiArama_VeVeya.TabIndex = 19;
             this.TabloİçeriğiArama_VeVeya.Text = "Ve";
             this.TabloİçeriğiArama_VeVeya.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1639,11 +1636,10 @@
             this.Müşteri_KDV.Dock = System.Windows.Forms.DockStyle.Right;
             this.Müşteri_KDV.FlatAppearance.CheckedBackColor = System.Drawing.Color.YellowGreen;
             this.Müşteri_KDV.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Müşteri_KDV.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.Müşteri_KDV.Location = new System.Drawing.Point(961, 0);
+            this.Müşteri_KDV.Location = new System.Drawing.Point(905, 0);
             this.Müşteri_KDV.Margin = new System.Windows.Forms.Padding(0);
             this.Müşteri_KDV.Name = "Müşteri_KDV";
-            this.Müşteri_KDV.Size = new System.Drawing.Size(39, 22);
+            this.Müşteri_KDV.Size = new System.Drawing.Size(54, 30);
             this.Müşteri_KDV.TabIndex = 17;
             this.Müşteri_KDV.Text = "KDV";
             this.Müşteri_KDV.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1660,11 +1656,10 @@
             this.Müşteri_İskonto.Dock = System.Windows.Forms.DockStyle.Right;
             this.Müşteri_İskonto.FlatAppearance.CheckedBackColor = System.Drawing.Color.YellowGreen;
             this.Müşteri_İskonto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Müşteri_İskonto.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.Müşteri_İskonto.Location = new System.Drawing.Point(1000, 0);
+            this.Müşteri_İskonto.Location = new System.Drawing.Point(959, 0);
             this.Müşteri_İskonto.Margin = new System.Windows.Forms.Padding(0);
             this.Müşteri_İskonto.Name = "Müşteri_İskonto";
-            this.Müşteri_İskonto.Size = new System.Drawing.Size(51, 22);
+            this.Müşteri_İskonto.Size = new System.Drawing.Size(72, 30);
             this.Müşteri_İskonto.TabIndex = 16;
             this.Müşteri_İskonto.Text = "İskonto";
             this.Müşteri_İskonto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1679,11 +1674,10 @@
             this.Müşteri_Notlar.Dock = System.Windows.Forms.DockStyle.Right;
             this.Müşteri_Notlar.FlatAppearance.CheckedBackColor = System.Drawing.Color.YellowGreen;
             this.Müşteri_Notlar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Müşteri_Notlar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.Müşteri_Notlar.Location = new System.Drawing.Point(1051, 0);
+            this.Müşteri_Notlar.Location = new System.Drawing.Point(1031, 0);
             this.Müşteri_Notlar.Margin = new System.Windows.Forms.Padding(0);
             this.Müşteri_Notlar.Name = "Müşteri_Notlar";
-            this.Müşteri_Notlar.Size = new System.Drawing.Size(44, 22);
+            this.Müşteri_Notlar.Size = new System.Drawing.Size(64, 30);
             this.Müşteri_Notlar.TabIndex = 18;
             this.Müşteri_Notlar.Text = "Notlar";
             this.Müşteri_Notlar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1693,10 +1687,9 @@
             // 
             this.Tablo_TümünüSeç.AutoSize = true;
             this.Tablo_TümünüSeç.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Tablo_TümünüSeç.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Tablo_TümünüSeç.Location = new System.Drawing.Point(0, 0);
             this.Tablo_TümünüSeç.Name = "Tablo_TümünüSeç";
-            this.Tablo_TümünüSeç.Size = new System.Drawing.Size(116, 22);
+            this.Tablo_TümünüSeç.Size = new System.Drawing.Size(113, 30);
             this.Tablo_TümünüSeç.TabIndex = 15;
             this.Tablo_TümünüSeç.Text = "Tümünü Seç";
             this.Tablo_TümünüSeç.UseVisualStyleBackColor = true;

@@ -1291,8 +1291,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 if ((bool)Tablo[0, i].Value) seçili++;
             }
-            
-            Tablo_Notlar.HeaderText = "Notlar ( " + seçili + " / " + Tablo.RowCount + " )";
+
+            Tablo_TümünüSeç.Text = "Tümünü Seç ( " + seçili + " / " + Tablo.RowCount + " )";
         }
 
         bool TabloİçeriğiArama_Çalışıyor = false;
@@ -1316,7 +1316,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     TabloİçeriğiArama.BackColor = Color.White;
                     TabloİçeriğiArama_Sayac_Bulundu = 0;
-                    Tablo_Notlar.HeaderText = "Notlar";
+                    Tablo_TümünüSeç.Text = "Tümünü Seç ( " + Tablo.RowCount + " )";
                 }
 
                 return;
@@ -1381,7 +1381,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             if (TabloİçeriğiArama_Sayac_Bulundu == 0) TabloİçeriğiArama_Sayac_Bulundu = -1;
-            else Tablo_Notlar.HeaderText = "Bulundu : " + TabloİçeriğiArama_Sayac_Bulundu;
+            else Tablo_TümünüSeç.Text = "Tümünü Seç ( " + TabloİçeriğiArama_Sayac_Bulundu + " / " + Tablo.RowCount + " )";
 
             TabloİçeriğiArama.BackColor = Color.White;
             TabloİçeriğiArama_Çalışıyor = false;

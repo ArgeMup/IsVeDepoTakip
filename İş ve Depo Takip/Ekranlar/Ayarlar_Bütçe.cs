@@ -748,48 +748,63 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         public static bool CariDökümüHergünEpostaİleGönder_Başlat()
         {
-            IDepo_Eleman Ayarlar = Banka.Ayarlar_BilgisayarVeKullanıcı("GelirGiderTakip");
-
-            if (Ayarlar != null &&
-                Ayarlar.Oku(null, null, 2).DoluMu() && //kişiler
-                Eposta.BirEpostaHesabıEklenmişMi)
+            try
             {
-                DateTime t = DateTime.Now;
-                t = new DateTime(t.Year, t.Month, t.Day, Ayarlar.Oku_TamSayı(null), 0, 0);
+                IDepo_Eleman Ayarlar = Banka.Ayarlar_BilgisayarVeKullanıcı("GelirGiderTakip");
 
-                if (Ortak.Hatırlatıcı == null) Ortak.Hatırlatıcı = new ArgeMup.HazirKod.ArkaPlan.Hatırlatıcı_();
-                Ortak.Hatırlatıcı.Sil("GelirGiderTakip Eposta Gönderimi");
-                Ortak.Hatırlatıcı.Ekle("GelirGiderTakip Eposta Gönderimi", t, null, CariDökümüHergünEpostaİleGönder_Hatırlatıcı_GerBildirimİşlemi, null, true);
-                return true;
+                if (Ayarlar != null &&
+                    Ayarlar.Oku(null, null, 2).DoluMu() && //kişiler
+                    Eposta.BirEpostaHesabıEklenmişMi)
+                {
+                    DateTime t = DateTime.Now;
+                    t = new DateTime(t.Year, t.Month, t.Day, Ayarlar.Oku_TamSayı(null), 0, 0);
+
+                    if (Ortak.Hatırlatıcı == null) Ortak.Hatırlatıcı = new ArgeMup.HazirKod.ArkaPlan.Hatırlatıcı_();
+                    Ortak.Hatırlatıcı.Sil("GelirGiderTakip Eposta Gönderimi");
+                    Ortak.Hatırlatıcı.Ekle("GelirGiderTakip Eposta Gönderimi", t, null, CariDökümüHergünEpostaİleGönder_Hatırlatıcı_GerBildirimİşlemi, null, true);
+                    return true;
+                }
+                else
+                {
+                    Ortak.Hatırlatıcı?.AyarlarıOku(true);
+                    Ortak.Hatırlatıcı = null;
+                    return false;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Ortak.Hatırlatıcı?.AyarlarıOku(true);
-                Ortak.Hatırlatıcı = null;
+                ex.Günlük();
                 return false;
             }
         }
         static int CariDökümüHergünEpostaİleGönder_Hatırlatıcı_GerBildirimİşlemi(string TakmaAdı, object Hatırlatıcı)
         {
-            if(CariDökümüHergünEpostaİleGönder_Başlat())
+            try
             {
-                IDepo_Eleman Ayarlar = Banka.Ayarlar_BilgisayarVeKullanıcı("GelirGiderTakip");
-
-                string[] ek = new string[] { Ortak.Klasör_Gecici + "Cari_Döküm_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf" };
-                string snç = GelirGiderTakip.Komut_Yazdır(ek[0], Ayarlar.Oku(null, null, 1 /*şablon*/));
-                snç.Günlük("_4_EpostaGönder Aşama 1 ");
-                if (File.Exists(ek[0]) && snç.BoşMu() /*herşey yolunda*/) snç = "Güncel durum ekteki gibidir.";
-                else { ek = null; snç = "Gelir Gider Takip Yazdırma işlem sonucu " + Environment.NewLine + Environment.NewLine + snç; }
-                
-                string mesaj = "<h1>Sayın " + Banka.İşyeri_Adı + "</h1>" +
-                    "<br>" + snç +
-                    "<br><br>İyi çalışmalar.";
-
-                Eposta.Gönder_Kişiye(Ayarlar.Oku(null, null, 2), "Güncel Ödemeler Hk.", mesaj, ek, _GeriBildirimİşlemei_Tamamlandı);
-                void _GeriBildirimİşlemei_Tamamlandı(string Sonuç)
+                if (CariDökümüHergünEpostaİleGönder_Başlat())
                 {
-                    snç.Günlük("_4_EpostaGönder Aşama 2 ");
+                    IDepo_Eleman Ayarlar = Banka.Ayarlar_BilgisayarVeKullanıcı("GelirGiderTakip");
+
+                    string[] ek = new string[] { Ortak.Klasör_Gecici + "Cari_Döküm_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf" };
+                    string snç = GelirGiderTakip.Komut_Yazdır(ek[0], Ayarlar.Oku(null, null, 1 /*şablon*/));
+                    snç.Günlük("_4_EpostaGönder Aşama 1 ");
+                    if (File.Exists(ek[0]) && snç.BoşMu() /*herşey yolunda*/) snç = "Güncel durum ekteki gibidir.";
+                    else { ek = null; snç = "Gelir Gider Takip Yazdırma işlem sonucu " + Environment.NewLine + Environment.NewLine + snç; }
+
+                    string mesaj = "<h1>Sayın " + Banka.İşyeri_Adı + "</h1>" +
+                        "<br>" + snç +
+                        "<br><br>İyi çalışmalar.";
+
+                    Eposta.Gönder_Kişiye(Ayarlar.Oku(null, null, 2), "Güncel Ödemeler Hk.", mesaj, ek, _GeriBildirimİşlemei_Tamamlandı);
+                    void _GeriBildirimİşlemei_Tamamlandı(string Sonuç)
+                    {
+                        snç.Günlük("_4_EpostaGönder Aşama 2 ");
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                ex.Günlük();
             }
             
             return -1;

@@ -3418,6 +3418,7 @@ namespace İş_ve_Depo_Takip
             }
 
             static bool İlkAçılışKontrolleriniYapıldı = false;
+            static int Sayac_Kapatılmakİsteniyor = 0;
             public static void GirişYap(bool Küçültülmüş)
             {
                 Ekranlar.ÖnYüzler.PencereleriKapat();
@@ -3444,10 +3445,12 @@ namespace İş_ve_Depo_Takip
                             }
 
                             Ekranlar.ÖnYüzler.Ekle(new Ekranlar.Açılış_Ekranı());
+                            Sayac_Kapatılmakİsteniyor = 0;
                             break;
 
                         case ArgeMup.HazirKod.Ekranlar.Kullanıcılar.GirişİşlemiSonucu_.Kapatıldı:
-                            GirişYap(true);
+                            if (++Sayac_Kapatılmakİsteniyor >= 3) Application.Exit();
+                            else GirişYap(true);
                             break;
 
                         default:
