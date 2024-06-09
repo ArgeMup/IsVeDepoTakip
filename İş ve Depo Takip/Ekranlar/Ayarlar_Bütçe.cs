@@ -781,7 +781,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             try
             {
-                if (CariDökümüHergünEpostaİleGönder_Başlat())
+                if (CariDökümüHergünEpostaİleGönder_Başlat() && ArkaPlamUygulamaları.ÇalışabilirMi)
                 {
                     IDepo_Eleman Ayarlar = Banka.Ayarlar_BilgisayarVeKullanıcı("GelirGiderTakip");
 

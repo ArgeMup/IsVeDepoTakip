@@ -40,7 +40,7 @@
             this.Klasör_Yedekleme_2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.Klasör_Yedekleme_3 = new System.Windows.Forms.TextBox();
-            this.KüçültüldüğündeParolaSor_sn = new System.Windows.Forms.NumericUpDown();
+            this.Gizlilik_KüçültüldüğündeParolaSor_sn = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -60,10 +60,15 @@
             this.Takvim_Erteleme_4 = new System.Windows.Forms.TextBox();
             this.Takvim_Erteleme_5 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.KorumalıAlan_SürümSayısı = new System.Windows.Forms.NumericUpDown();
+            this.Gizlilik_KorumalıAlan_SürümSayısı = new System.Windows.Forms.NumericUpDown();
             this.groupBox_Takvim = new System.Windows.Forms.GroupBox();
             this.Takvim_GecikmeleriGünBazındaHesapla = new System.Windows.Forms.CheckBox();
             this.groupBox_Gizlilik = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.Gizlilik_ArkaPlanUygulaması_Parola = new System.Windows.Forms.TextBox();
+            this.Gizlilik_ArkaPlanUygulaması_KullanıcıAdı = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.DosyaEkleri_Açıklama = new System.Windows.Forms.GroupBox();
             this.DosyaEkleri_SilinmeSüresiAy = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
@@ -78,11 +83,12 @@
             this.label13 = new System.Windows.Forms.Label();
             this.HttpSunucu_Açıklama = new System.Windows.Forms.Label();
             this.groupBox_Klasörler.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.KüçültüldüğündeParolaSor_sn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Gizlilik_KüçültüldüğündeParolaSor_sn)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.KorumalıAlan_SürümSayısı)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Gizlilik_KorumalıAlan_SürümSayısı)).BeginInit();
             this.groupBox_Takvim.SuspendLayout();
             this.groupBox_Gizlilik.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.DosyaEkleri_Açıklama.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DosyaEkleri_SilinmeSüresiAy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DosyaEkleri_BoyutuMB)).BeginInit();
@@ -97,10 +103,10 @@
             this.ÖnYüzler_Kaydet.Enabled = false;
             this.ÖnYüzler_Kaydet.Image = global::İş_ve_Depo_Takip.Properties.Resources.sag;
             this.ÖnYüzler_Kaydet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ÖnYüzler_Kaydet.Location = new System.Drawing.Point(5, 993);
+            this.ÖnYüzler_Kaydet.Location = new System.Drawing.Point(5, 1121);
             this.ÖnYüzler_Kaydet.Name = "ÖnYüzler_Kaydet";
             this.ÖnYüzler_Kaydet.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.ÖnYüzler_Kaydet.Size = new System.Drawing.Size(572, 44);
+            this.ÖnYüzler_Kaydet.Size = new System.Drawing.Size(551, 44);
             this.ÖnYüzler_Kaydet.TabIndex = 20;
             this.ÖnYüzler_Kaydet.Text = "Kaydet";
             this.ÖnYüzler_Kaydet.UseVisualStyleBackColor = true;
@@ -131,7 +137,7 @@
             this.groupBox_Klasörler.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox_Klasörler.Name = "groupBox_Klasörler";
             this.groupBox_Klasörler.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox_Klasörler.Size = new System.Drawing.Size(572, 266);
+            this.groupBox_Klasörler.Size = new System.Drawing.Size(551, 266);
             this.groupBox_Klasörler.TabIndex = 22;
             this.groupBox_Klasörler.TabStop = false;
             this.groupBox_Klasörler.Text = "Klasörler";
@@ -145,7 +151,7 @@
             this.Klasör_Yedekleme_5.Location = new System.Drawing.Point(13, 168);
             this.Klasör_Yedekleme_5.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.Klasör_Yedekleme_5.Name = "Klasör_Yedekleme_5";
-            this.Klasör_Yedekleme_5.Size = new System.Drawing.Size(544, 26);
+            this.Klasör_Yedekleme_5.Size = new System.Drawing.Size(523, 26);
             this.Klasör_Yedekleme_5.TabIndex = 28;
             this.Klasör_Yedekleme_5.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
@@ -156,7 +162,7 @@
             this.Klasör_Yedekleme_1.Location = new System.Drawing.Point(13, 48);
             this.Klasör_Yedekleme_1.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.Klasör_Yedekleme_1.Name = "Klasör_Yedekleme_1";
-            this.Klasör_Yedekleme_1.Size = new System.Drawing.Size(544, 26);
+            this.Klasör_Yedekleme_1.Size = new System.Drawing.Size(523, 26);
             this.Klasör_Yedekleme_1.TabIndex = 22;
             this.Klasör_Yedekleme_1.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
@@ -167,7 +173,7 @@
             this.Klasör_Yedekleme_4.Location = new System.Drawing.Point(13, 138);
             this.Klasör_Yedekleme_4.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.Klasör_Yedekleme_4.Name = "Klasör_Yedekleme_4";
-            this.Klasör_Yedekleme_4.Size = new System.Drawing.Size(544, 26);
+            this.Klasör_Yedekleme_4.Size = new System.Drawing.Size(523, 26);
             this.Klasör_Yedekleme_4.TabIndex = 27;
             this.Klasör_Yedekleme_4.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
@@ -178,7 +184,7 @@
             this.Klasör_Pdf.Location = new System.Drawing.Point(13, 228);
             this.Klasör_Pdf.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.Klasör_Pdf.Name = "Klasör_Pdf";
-            this.Klasör_Pdf.Size = new System.Drawing.Size(544, 26);
+            this.Klasör_Pdf.Size = new System.Drawing.Size(523, 26);
             this.Klasör_Pdf.TabIndex = 24;
             this.Klasör_Pdf.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
@@ -189,7 +195,7 @@
             this.Klasör_Yedekleme_2.Location = new System.Drawing.Point(13, 78);
             this.Klasör_Yedekleme_2.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.Klasör_Yedekleme_2.Name = "Klasör_Yedekleme_2";
-            this.Klasör_Yedekleme_2.Size = new System.Drawing.Size(544, 26);
+            this.Klasör_Yedekleme_2.Size = new System.Drawing.Size(523, 26);
             this.Klasör_Yedekleme_2.TabIndex = 25;
             this.Klasör_Yedekleme_2.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
@@ -210,34 +216,34 @@
             this.Klasör_Yedekleme_3.Location = new System.Drawing.Point(13, 108);
             this.Klasör_Yedekleme_3.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.Klasör_Yedekleme_3.Name = "Klasör_Yedekleme_3";
-            this.Klasör_Yedekleme_3.Size = new System.Drawing.Size(544, 26);
+            this.Klasör_Yedekleme_3.Size = new System.Drawing.Size(523, 26);
             this.Klasör_Yedekleme_3.TabIndex = 26;
             this.Klasör_Yedekleme_3.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
-            // KüçültüldüğündeParolaSor_sn
+            // Gizlilik_KüçültüldüğündeParolaSor_sn
             // 
-            this.KüçültüldüğündeParolaSor_sn.Location = new System.Drawing.Point(15, 26);
-            this.KüçültüldüğündeParolaSor_sn.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
-            this.KüçültüldüğündeParolaSor_sn.Maximum = new decimal(new int[] {
+            this.Gizlilik_KüçültüldüğündeParolaSor_sn.Location = new System.Drawing.Point(15, 26);
+            this.Gizlilik_KüçültüldüğündeParolaSor_sn.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
+            this.Gizlilik_KüçültüldüğündeParolaSor_sn.Maximum = new decimal(new int[] {
             99999,
             0,
             0,
             0});
-            this.KüçültüldüğündeParolaSor_sn.Minimum = new decimal(new int[] {
+            this.Gizlilik_KüçültüldüğündeParolaSor_sn.Minimum = new decimal(new int[] {
             15,
             0,
             0,
             0});
-            this.KüçültüldüğündeParolaSor_sn.Name = "KüçültüldüğündeParolaSor_sn";
-            this.KüçültüldüğündeParolaSor_sn.Size = new System.Drawing.Size(80, 26);
-            this.KüçültüldüğündeParolaSor_sn.TabIndex = 24;
-            this.KüçültüldüğündeParolaSor_sn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.KüçültüldüğündeParolaSor_sn.Value = new decimal(new int[] {
+            this.Gizlilik_KüçültüldüğündeParolaSor_sn.Name = "Gizlilik_KüçültüldüğündeParolaSor_sn";
+            this.Gizlilik_KüçültüldüğündeParolaSor_sn.Size = new System.Drawing.Size(80, 26);
+            this.Gizlilik_KüçültüldüğündeParolaSor_sn.TabIndex = 24;
+            this.Gizlilik_KüçültüldüğündeParolaSor_sn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Gizlilik_KüçültüldüğündeParolaSor_sn.Value = new decimal(new int[] {
             60,
             0,
             0,
             0});
-            this.KüçültüldüğündeParolaSor_sn.ValueChanged += new System.EventHandler(this.Ayar_Değişti);
+            this.Gizlilik_KüçültüldüğündeParolaSor_sn.ValueChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
             // label3
             // 
@@ -453,25 +459,25 @@
             this.label10.TabIndex = 28;
             this.label10.Text = "farklı sürümü korumalı alan içinde tut";
             // 
-            // KorumalıAlan_SürümSayısı
+            // Gizlilik_KorumalıAlan_SürümSayısı
             // 
-            this.KorumalıAlan_SürümSayısı.Location = new System.Drawing.Point(15, 56);
-            this.KorumalıAlan_SürümSayısı.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
-            this.KorumalıAlan_SürümSayısı.Minimum = new decimal(new int[] {
+            this.Gizlilik_KorumalıAlan_SürümSayısı.Location = new System.Drawing.Point(15, 56);
+            this.Gizlilik_KorumalıAlan_SürümSayısı.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
+            this.Gizlilik_KorumalıAlan_SürümSayısı.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.KorumalıAlan_SürümSayısı.Name = "KorumalıAlan_SürümSayısı";
-            this.KorumalıAlan_SürümSayısı.Size = new System.Drawing.Size(80, 26);
-            this.KorumalıAlan_SürümSayısı.TabIndex = 27;
-            this.KorumalıAlan_SürümSayısı.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.KorumalıAlan_SürümSayısı.Value = new decimal(new int[] {
+            this.Gizlilik_KorumalıAlan_SürümSayısı.Name = "Gizlilik_KorumalıAlan_SürümSayısı";
+            this.Gizlilik_KorumalıAlan_SürümSayısı.Size = new System.Drawing.Size(80, 26);
+            this.Gizlilik_KorumalıAlan_SürümSayısı.TabIndex = 27;
+            this.Gizlilik_KorumalıAlan_SürümSayısı.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Gizlilik_KorumalıAlan_SürümSayısı.Value = new decimal(new int[] {
             15,
             0,
             0,
             0});
-            this.KorumalıAlan_SürümSayısı.ValueChanged += new System.EventHandler(this.Ayar_Değişti);
+            this.Gizlilik_KorumalıAlan_SürümSayısı.ValueChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
             // groupBox_Takvim
             // 
@@ -480,7 +486,7 @@
             this.groupBox_Takvim.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox_Takvim.Location = new System.Drawing.Point(5, 5);
             this.groupBox_Takvim.Name = "groupBox_Takvim";
-            this.groupBox_Takvim.Size = new System.Drawing.Size(572, 334);
+            this.groupBox_Takvim.Size = new System.Drawing.Size(551, 334);
             this.groupBox_Takvim.TabIndex = 29;
             this.groupBox_Takvim.TabStop = false;
             this.groupBox_Takvim.Text = "Takvim";
@@ -501,18 +507,75 @@
             // 
             // groupBox_Gizlilik
             // 
-            this.groupBox_Gizlilik.Controls.Add(this.KorumalıAlan_SürümSayısı);
+            this.groupBox_Gizlilik.Controls.Add(this.groupBox1);
+            this.groupBox_Gizlilik.Controls.Add(this.Gizlilik_KorumalıAlan_SürümSayısı);
             this.groupBox_Gizlilik.Controls.Add(this.label10);
-            this.groupBox_Gizlilik.Controls.Add(this.KüçültüldüğündeParolaSor_sn);
+            this.groupBox_Gizlilik.Controls.Add(this.Gizlilik_KüçültüldüğündeParolaSor_sn);
             this.groupBox_Gizlilik.Controls.Add(this.label3);
             this.groupBox_Gizlilik.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox_Gizlilik.Location = new System.Drawing.Point(5, 779);
             this.groupBox_Gizlilik.Name = "groupBox_Gizlilik";
-            this.groupBox_Gizlilik.Size = new System.Drawing.Size(572, 93);
+            this.groupBox_Gizlilik.Size = new System.Drawing.Size(551, 221);
             this.groupBox_Gizlilik.TabIndex = 30;
             this.groupBox_Gizlilik.TabStop = false;
             this.groupBox_Gizlilik.Text = "Gizlilik";
             this.İpUcu_Genel.SetToolTip(this.groupBox_Gizlilik, "Buradaki seçenekler tüm kullanıcılar için ortaktır.");
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label18);
+            this.groupBox1.Controls.Add(this.Gizlilik_ArkaPlanUygulaması_Parola);
+            this.groupBox1.Controls.Add(this.Gizlilik_ArkaPlanUygulaması_KullanıcıAdı);
+            this.groupBox1.Controls.Add(this.label19);
+            this.groupBox1.Location = new System.Drawing.Point(15, 87);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.groupBox1.Size = new System.Drawing.Size(521, 124);
+            this.groupBox1.TabIndex = 32;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Arka planda çalışan uygulamar için kimlik bilgisi ( Http sunucu ve gelir gider ta" +
+    "kip eposta gönderimi )  ";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(11, 52);
+            this.label18.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(72, 20);
+            this.label18.TabIndex = 33;
+            this.label18.Text = "Kullanıcı";
+            // 
+            // Gizlilik_ArkaPlanUygulaması_Parola
+            // 
+            this.Gizlilik_ArkaPlanUygulaması_Parola.Location = new System.Drawing.Point(101, 83);
+            this.Gizlilik_ArkaPlanUygulaması_Parola.Name = "Gizlilik_ArkaPlanUygulaması_Parola";
+            this.Gizlilik_ArkaPlanUygulaması_Parola.PasswordChar = '*';
+            this.Gizlilik_ArkaPlanUygulaması_Parola.Size = new System.Drawing.Size(217, 26);
+            this.Gizlilik_ArkaPlanUygulaması_Parola.TabIndex = 32;
+            this.Gizlilik_ArkaPlanUygulaması_Parola.TextChanged += new System.EventHandler(this.Ayar_Değişti);
+            // 
+            // Gizlilik_ArkaPlanUygulaması_KullanıcıAdı
+            // 
+            this.Gizlilik_ArkaPlanUygulaması_KullanıcıAdı.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Gizlilik_ArkaPlanUygulaması_KullanıcıAdı.FormattingEnabled = true;
+            this.Gizlilik_ArkaPlanUygulaması_KullanıcıAdı.Location = new System.Drawing.Point(101, 49);
+            this.Gizlilik_ArkaPlanUygulaması_KullanıcıAdı.Name = "Gizlilik_ArkaPlanUygulaması_KullanıcıAdı";
+            this.Gizlilik_ArkaPlanUygulaması_KullanıcıAdı.Size = new System.Drawing.Size(217, 28);
+            this.Gizlilik_ArkaPlanUygulaması_KullanıcıAdı.TabIndex = 31;
+            this.Gizlilik_ArkaPlanUygulaması_KullanıcıAdı.SelectedIndexChanged += new System.EventHandler(this.Ayar_Değişti);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(11, 86);
+            this.label19.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(57, 20);
+            this.label19.TabIndex = 25;
+            this.label19.Text = "Parola";
             // 
             // DosyaEkleri_Açıklama
             // 
@@ -526,7 +589,7 @@
             this.DosyaEkleri_Açıklama.Dock = System.Windows.Forms.DockStyle.Top;
             this.DosyaEkleri_Açıklama.Location = new System.Drawing.Point(5, 605);
             this.DosyaEkleri_Açıklama.Name = "DosyaEkleri_Açıklama";
-            this.DosyaEkleri_Açıklama.Size = new System.Drawing.Size(572, 174);
+            this.DosyaEkleri_Açıklama.Size = new System.Drawing.Size(551, 174);
             this.DosyaEkleri_Açıklama.TabIndex = 31;
             this.DosyaEkleri_Açıklama.TabStop = false;
             this.DosyaEkleri_Açıklama.Text = "Dosya Ekleri";
@@ -641,10 +704,10 @@
             this.groupBox_Sunucu.Controls.Add(this.label13);
             this.groupBox_Sunucu.Controls.Add(this.HttpSunucu_Açıklama);
             this.groupBox_Sunucu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox_Sunucu.Location = new System.Drawing.Point(5, 872);
+            this.groupBox_Sunucu.Location = new System.Drawing.Point(5, 1000);
             this.groupBox_Sunucu.Name = "groupBox_Sunucu";
             this.groupBox_Sunucu.Padding = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.groupBox_Sunucu.Size = new System.Drawing.Size(572, 121);
+            this.groupBox_Sunucu.Size = new System.Drawing.Size(551, 121);
             this.groupBox_Sunucu.TabIndex = 31;
             this.groupBox_Sunucu.TabStop = false;
             this.groupBox_Sunucu.Text = "Http Sunucu";
@@ -694,7 +757,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(603, 503);
+            this.ClientSize = new System.Drawing.Size(582, 503);
             this.Controls.Add(this.ÖnYüzler_Kaydet);
             this.Controls.Add(this.groupBox_Sunucu);
             this.Controls.Add(this.groupBox_Gizlilik);
@@ -710,14 +773,16 @@
             this.Text = "Ayarlar Diğer";
             this.groupBox_Klasörler.ResumeLayout(false);
             this.groupBox_Klasörler.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.KüçültüldüğündeParolaSor_sn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Gizlilik_KüçültüldüğündeParolaSor_sn)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.KorumalıAlan_SürümSayısı)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Gizlilik_KorumalıAlan_SürümSayısı)).EndInit();
             this.groupBox_Takvim.ResumeLayout(false);
             this.groupBox_Takvim.PerformLayout();
             this.groupBox_Gizlilik.ResumeLayout(false);
             this.groupBox_Gizlilik.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.DosyaEkleri_Açıklama.ResumeLayout(false);
             this.DosyaEkleri_Açıklama.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DosyaEkleri_SilinmeSüresiAy)).EndInit();
@@ -742,7 +807,7 @@
         private System.Windows.Forms.TextBox Klasör_Yedekleme_4;
         private System.Windows.Forms.TextBox Klasör_Yedekleme_3;
         private System.Windows.Forms.TextBox Klasör_Yedekleme_2;
-        private System.Windows.Forms.NumericUpDown KüçültüldüğündeParolaSor_sn;
+        private System.Windows.Forms.NumericUpDown Gizlilik_KüçültüldüğündeParolaSor_sn;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label99;
@@ -760,7 +825,7 @@
         private System.Windows.Forms.TextBox Takvim_Erteleme_2;
         private System.Windows.Forms.TextBox Takvim_Erteleme_3;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.NumericUpDown KorumalıAlan_SürümSayısı;
+        private System.Windows.Forms.NumericUpDown Gizlilik_KorumalıAlan_SürümSayısı;
         private System.Windows.Forms.GroupBox groupBox_Takvim;
         private System.Windows.Forms.CheckBox Takvim_GecikmeleriGünBazındaHesapla;
         private System.Windows.Forms.GroupBox groupBox_Gizlilik;
@@ -779,5 +844,10 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox Takvim_GarantiKontrolSüresi;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox Gizlilik_ArkaPlanUygulaması_Parola;
+        private System.Windows.Forms.ComboBox Gizlilik_ArkaPlanUygulaması_KullanıcıAdı;
+        private System.Windows.Forms.Label label18;
     }
 }

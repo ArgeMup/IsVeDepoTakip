@@ -36,12 +36,12 @@ namespace İş_ve_Depo_Takip
 
         static void GeriBildirim_Islemi(string Kaynak, GeriBildirim_Türü_ Tür, object İçerik, object Hatırlatıcı)
         {
-            if (Tür == GeriBildirim_Türü_.BilgiGeldi)
+            if (Tür == GeriBildirim_Türü_.BilgiGeldi && ArkaPlamUygulamaları.ÇalışabilirMi)
             {
                 string[] istek = ((byte[])İçerik).Yazıya().Split('\n');
                 string[] Sayfa_İçeriği = istek[0].Trim(' ', '\r').Split(' ')[1].Trim('/').Split('/');
                 byte[] Gönderilecek_İçerik = null, Gönderilecek_Sayfa;
-                string SayfaBaşlığı = "ArGeMuP " + Kendi.Adı + " " + Kendi.Sürüm;
+                string SayfaBaşlığı = "ArGeMuP " + Kendi.Adı + " " + Kendi.Sürümü_Dosya;
 
                 if (Sayfa_İçeriği[0] == "DoEk")
                 {

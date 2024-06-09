@@ -228,6 +228,7 @@
     <Compile Include="Ortak\Ekranlar.cs" />
     <Compile Include="Ortak\GelirGiderTakip.cs" />
     <Compile Include="Ortak\Eposta.cs" />
+    <Compile Include="Ortak\ArkaPlanUygulamaları.cs" />
     <Compile Include="Ortak\Ortak.cs" />
     <Compile Include="Ortak\HttpSunucu.cs" />
     <Compile Include="Program.cs" />

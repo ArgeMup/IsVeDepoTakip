@@ -60,7 +60,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 SabitMuhataplar = new Dictionary<string, List<string>>
                 {
                     { "Müşteri", Banka.Müşteri_Listele() },
-                    { "Çalışan", Banka.K_lar.KullancıAdları }
+                    { "Çalışan", Banka.K_lar.KullancıAdları(true, false) }
                 };
 
                 Kullanıcı_Rolİzinleri = new bool[(int)Banka.K_lar.İzin.DiziElemanSayısı_Gelir_gider_ + 1 /*boşta*/];

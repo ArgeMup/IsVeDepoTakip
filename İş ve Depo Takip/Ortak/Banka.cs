@@ -3343,14 +3343,9 @@ namespace İş_ve_Depo_Takip
                     return ArgeMup.HazirKod.Ekranlar.Kullanıcılar.KökParola_Dizi;
                 }
             }
-            public static List<string> KullancıAdları
+            public static List<string> KullancıAdları(bool GörünenleriDahilEt = true, bool GizlileriDahilEt = true)
             {
-                get
-                {
-                    List<string> Kişi_ler = new List<string>();
-                    ArgeMup.HazirKod.Ekranlar.Kullanıcılar._Ayarlar_Üst_.Ayarlar_Alt.Kişiler.ForEach(x => Kişi_ler.Add(x.Adı));
-                    return Kişi_ler;
-                }
+                return ArgeMup.HazirKod.Ekranlar.Kullanıcılar.KullanıcıAdları_Tümü(GörünenleriDahilEt, GizlileriDahilEt);
             }
 
             public static void Başlat()

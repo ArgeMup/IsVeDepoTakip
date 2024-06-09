@@ -7,7 +7,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 {
     public partial class Ayarlar_Diğer : Form
     {
-        IDepo_Eleman Ayarlar_Küçültüldüğünde = null, Ayarlar_Bilgisayar = null, Ayarlar_Takvim = null, Ayarlar_SürümKontrol = null;
+        IDepo_Eleman Ayarlar_Küçültüldüğünde = null, Ayarlar_Bilgisayar = null, Ayarlar_Takvim = null, Ayarlar_SürümKontrol = null, Ayarlar_Gizlilik_ArkaPlanUygulamaları = null;
         Depo_ Ayarlar_DosyaEkleri = null;
 
         public Ayarlar_Diğer()
@@ -19,6 +19,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar_Küçültüldüğünde = Banka.Ayarlar_Genel("Küçültüldüğünde Parola Sor", true);
             Ayarlar_SürümKontrol = Banka.Tablo_Dal(null, Banka.TabloTürü.KorumalıAlan, "Sürüm Sayısı", true);
             Ayarlar_DosyaEkleri = Banka.Tablo(null, Banka.TabloTürü.DosyaEkleri, true);
+            Ayarlar_Gizlilik_ArkaPlanUygulamaları = Banka.Ayarlar_Genel("Gizlilik/Arka Plan Uygulamaları", true);
 
             Takvim_Erteleme_İşKabulTarihi.Text = Ayarlar_Takvim.Oku(null, "2", 0);
             Takvim_Erteleme_ÖdemeTalepTarihi.Text = Ayarlar_Takvim.Oku(null, "7", 1);
@@ -37,10 +38,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Klasör_Yedekleme_5.Text = Ayarlar_Bilgisayar.Oku("Klasör/Yedek", null, 4);
             Klasör_Pdf.Text = Ayarlar_Bilgisayar.Oku("Klasör/Pdf");
 
-            KüçültüldüğündeParolaSor_sn.Value = Ayarlar_Küçültüldüğünde.Oku_TamSayı(null, 60, 1);
-
-            KorumalıAlan_SürümSayısı.Value = Ayarlar_SürümKontrol.Oku_TamSayı(null, 15);
-
+            Gizlilik_KüçültüldüğündeParolaSor_sn.Value = Ayarlar_Küçültüldüğünde.Oku_TamSayı(null, 60, 1);
+            Gizlilik_KorumalıAlan_SürümSayısı.Value = Ayarlar_SürümKontrol.Oku_TamSayı(null, 15);
+            Gizlilik_ArkaPlanUygulaması_KullanıcıAdı.Items.Add("Kapalı");
+            Gizlilik_ArkaPlanUygulaması_KullanıcıAdı.Items.AddRange(Banka.K_lar.KullancıAdları(false, true).ToArray());
+            if (ArkaPlamUygulamaları.EtkinMi) Gizlilik_ArkaPlanUygulaması_KullanıcıAdı.Text = Ayarlar_Gizlilik_ArkaPlanUygulamaları[0];
+            else Gizlilik_ArkaPlanUygulaması_KullanıcıAdı.SelectedIndex = 0;
+            
             DosyaEkleri_BoyutuMB.Value = Ayarlar_DosyaEkleri.Oku_TamSayı("Dosya Silme Kıstası", 1000, 0);
             DosyaEkleri_SilinmeSüresiAy.Value = Ayarlar_DosyaEkleri.Oku_TamSayı("Dosya Silme Kıstası", 6, 1);
             DosyaEkleri_Açıklama.Text = "Dosya Ekleri (" + (int)(Ayarlar_DosyaEkleri.Oku_Sayı("Toplam Dosya Boyutu") / 1000000) + "MB)";
@@ -236,10 +240,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Ayarlar_Bilgisayar.Yaz("Klasör/Yedek", Klasör_Yedekleme_5.Text, 4);
             Ayarlar_Bilgisayar.Yaz("Klasör/Pdf", Klasör_Pdf.Text);
 
-            Ayarlar_Küçültüldüğünde.Yaz(null, (int)KüçültüldüğündeParolaSor_sn.Value, 1);
-
-            Ayarlar_SürümKontrol.Yaz(null, (int)KorumalıAlan_SürümSayısı.Value);
-
+            Ayarlar_Küçültüldüğünde.Yaz(null, (int)Gizlilik_KüçültüldüğündeParolaSor_sn.Value, 1);
+            Ayarlar_SürümKontrol.Yaz(null, (int)Gizlilik_KorumalıAlan_SürümSayısı.Value);
+            if (Gizlilik_ArkaPlanUygulaması_Parola.Text.DoluMu())
+            {
+                if (!ArgeMup.HazirKod.Ekranlar.Kullanıcılar.Parola_Kontrol(Gizlilik_ArkaPlanUygulaması_KullanıcıAdı.Text, Gizlilik_ArkaPlanUygulaması_Parola.Text))
+                {
+                    MessageBox.Show("Arka plan uygulamasının kullanıcı adı veya parolası hatalı", Text);
+                    Gizlilik_ArkaPlanUygulaması_Parola.Focus();
+                    return;
+                }
+                Ayarlar_Gizlilik_ArkaPlanUygulamaları.İçeriği = new string[] { Gizlilik_ArkaPlanUygulaması_KullanıcıAdı.Text, Gizlilik_ArkaPlanUygulaması_Parola.Text };
+            }
             Ayarlar_DosyaEkleri.Yaz("Dosya Silme Kıstası", (int)DosyaEkleri_BoyutuMB.Value, 0);
             Ayarlar_DosyaEkleri.Yaz("Dosya Silme Kıstası", (int)DosyaEkleri_SilinmeSüresiAy.Value, 1);
 
@@ -249,7 +261,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Ortak.Kullanıcı_Klasör_Yedek = Ayarlar_Bilgisayar.Bul("Klasör/Yedek", true).İçeriği;
             Ortak.Kullanıcı_Klasör_Pdf = Klasör_Pdf.Text;
-            Ortak.Kullanıcı_KüçültüldüğündeParolaSor_sn = (int)KüçültüldüğündeParolaSor_sn.Value;
+            Ortak.Kullanıcı_KüçültüldüğündeParolaSor_sn = (int)Gizlilik_KüçültüldüğündeParolaSor_sn.Value;
+            Gizlilik_ArkaPlanUygulaması_Parola.Text = null;
             ÖnYüzler_Kaydet.Enabled = false;
         }
     }
