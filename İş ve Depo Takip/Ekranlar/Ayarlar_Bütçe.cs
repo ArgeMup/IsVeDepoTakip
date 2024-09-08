@@ -787,9 +787,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                     string[] ek = new string[] { Ortak.Klasör_Gecici + "Cari_Döküm_" + DateTime.Now.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2) + ".pdf" };
                     string snç = GelirGiderTakip.Komut_Yazdır(ek[0], Ayarlar.Oku(null, null, 1 /*şablon*/));
-                    snç.Günlük("_4_EpostaGönder Aşama 1 ");
                     if (File.Exists(ek[0]) && snç.BoşMu() /*herşey yolunda*/) snç = "Güncel durum ekteki gibidir.";
                     else { ek = null; snç = "Gelir Gider Takip Yazdırma işlem sonucu " + Environment.NewLine + Environment.NewLine + snç; }
+                    snç.Günlük("_4_EpostaGönder Aşama 1 ");
 
                     string mesaj = "<h1>Sayın " + Banka.İşyeri_Adı + "</h1>" +
                         "<br>" + snç +
@@ -798,7 +798,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Eposta.Gönder_Kişiye(Ayarlar.Oku(null, null, 2), "Güncel Ödemeler Hk.", mesaj, ek, _GeriBildirimİşlemei_Tamamlandı);
                     void _GeriBildirimİşlemei_Tamamlandı(string Sonuç)
                     {
-                        snç.Günlük("_4_EpostaGönder Aşama 2 ");
+                        Sonuç.Günlük("_4_EpostaGönder Aşama 2 ");
                     }
                 }
             }

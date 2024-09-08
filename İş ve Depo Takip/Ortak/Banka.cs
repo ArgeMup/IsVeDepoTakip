@@ -75,7 +75,7 @@ namespace İş_ve_Depo_Takip
         }
         public static void Giriş_İşlemleri_Aşama_2()
         {
-            Ortak.Gösterge.Başlat("Klasörler".Günlük(), false, null, 8, true);
+            Ortak.Gösterge.Başlat("Klasörler".Günlük(), false, null, 9, true);
             DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, K_lar.KökParola);
             Ortak.Gösterge.Açıklama = "Bütünlük Kontrolü".Günlük(); Ortak.Gösterge.İlerleme = 1;
             Günlük.Ekle("Bütünlük Kontrolü " + snç.ToString());
@@ -173,6 +173,10 @@ namespace İş_ve_Depo_Takip
 
             Ortak.Gösterge.Açıklama = "Dosya Ekleri Durumu".Günlük();
             DosyaEkleri_İlkAçılışKontrolü(); 
+            Ortak.Gösterge.İlerleme = 1;
+
+            Ortak.Gösterge.Açıklama = "Geçmiş İşler Durumu".Günlük();
+            Geçmiş_İlkAçılışKontrolü();
             Ortak.Gösterge.İlerleme = 1;
 
             Ekranlar.Ayarlar_Bütçe.CariDökümüHergünEpostaİleGönder_Başlat();
@@ -446,6 +450,21 @@ namespace İş_ve_Depo_Takip
                         else KontrolEdildi = true;
 
                         depo = Etiket_Açıklamaları;
+                        break;
+
+                    case TabloTürü.Geçmiş_İşler:
+                        if (Geçmiş_İşler == null)
+                        {
+                            if (!Depo_DosyaVarMı("Is", Ortak.Klasör_KullanıcıDosyaları_Gecmis))
+                            {
+                                if (!YoksaOluştur) goto Çıkış;
+                            }
+
+                            Geçmiş_İşler = Depo_Aç("Is", Ortak.Klasör_KullanıcıDosyaları_Gecmis);
+                        }
+                        else KontrolEdildi = true;
+
+                        depo = Geçmiş_İşler;
                         break;
 
                     default:
@@ -1955,6 +1974,8 @@ namespace İş_ve_Depo_Takip
             }
 
             DosyaEkleri_Düzenle(Detaylar.SeriNo, Detaylar.DosyaEkleri, Detaylar.DosyaEkleri_Html_denGöster); //silmek eklemek
+
+            if (!ÜcretHesaplama) Geçmiş_İşler_Ekle(sn_dalı, TabloTürü.DevamEden.ToString());
         }
         public static void Talep_Sil(string Müşteri, List<string> Seri_No_lar, bool ÜcretHesaplama)
         {
@@ -1981,14 +2002,16 @@ namespace İş_ve_Depo_Takip
                     adetler_silinecek.Add(iş.Oku_BaytDizisi(null, null, 4));
                 }
 
+                DosyaEkleri_Düzenle(sn); //silmek
+
                 if (!ÜcretHesaplama)
                 { 
                     Malzeme_İştürüneGöreHareket(işler_silinecek, false, sn, Müşteri, seri_no_dalı[0]/*hasta*/, adetler_silinecek); //depoya geri teslim et
+
+                    Geçmiş_İşler_Ekle(seri_no_dalı, "Silindi, " + Müşteri);
                 }
 
                 seri_no_dalı.Sil(null);
-
-                DosyaEkleri_Düzenle(sn); //silmek
             }
         }
         public static Talep_Bul_Detaylar_ Talep_Bul(string SeriNo, string Müşteri = null, TabloTürü Tür = TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi, string EkTanım = null)
@@ -2117,6 +2140,8 @@ namespace İş_ve_Depo_Takip
                 IDepo_Eleman iştürü = seri_no_dalı.Elemanları.Last();
                 //iş çıkış tarihi
                 if (string.IsNullOrEmpty(iştürü.Oku(null, null, 1))) iştürü.Yaz(null, DateTime.Now, 1);
+
+                Geçmiş_İşler_Ekle(seri_no_dalı, TabloTürü.DevamEden.ToString());
             }
         }
         public static void Talep_İşaretle_DevamEden_TeslimEdilen(string Müşteri, List<string> SeriNolar, bool TeslimEdildi_1_DevamEden_0)
@@ -2132,11 +2157,15 @@ namespace İş_ve_Depo_Takip
                 {
                     //Teslim edildi olarak işaretle
                     seri_no_dalı.Yaz(null, DateTime.Now, 3); //tamamlanma tarihi bugün
+
+                    Geçmiş_İşler_Ekle(seri_no_dalı, TabloTürü.TeslimEdildi.ToString());
                 }
                 else
                 {
                     //devam eden olarak işaretle
                     seri_no_dalı.Yaz(null, (string)null, 3); //teslim edildi tarihi iptal
+
+                    Geçmiş_İşler_Ekle(seri_no_dalı, TabloTürü.DevamEden.ToString());
                 }
             }
         }
@@ -2204,6 +2233,9 @@ namespace İş_ve_Depo_Takip
                 Alt_Toplam += iş_toplam;
 
                 yeni_tablodaki_işler.Ekle(null, seri_no_dalı.YazıyaDönüştür(null, false, false), false);
+                
+                Geçmiş_İşler_Ekle(seri_no_dalı, TabloTürü.ÖdemeTalepEdildi.ToString());
+
                 seri_no_dalı.Sil(null);
             }
 
@@ -2286,6 +2318,8 @@ namespace İş_ve_Depo_Takip
                 }
 
                 mevcut_devam_eden.Ekle(null, seri_no_dalı.YazıyaDönüştür(null, false, false), false);
+
+                Geçmiş_İşler_Ekle(seri_no_dalı, TabloTürü.TeslimEdildi.ToString());
             }
 
             depo_ÖdemeTalepEdildi.Yaz("Silinecek", "Evet");
@@ -2317,6 +2351,11 @@ namespace İş_ve_Depo_Takip
             string t2 = t.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2);
             Depo_ depo = Tablo(Müşteri, TabloTürü.ÖdemeTalepEdildi, false, EkTanım);
             IDepo_Eleman müş = Ayarlar_Genel("Müşteriler/" + Müşteri);
+
+            foreach (IDepo_Eleman seri_no_dalı in depo["Talepler"].Elemanları)
+            {
+                Geçmiş_İşler_Ekle(seri_no_dalı, TabloTürü.Ödendi.ToString());
+            }
 
             Depo_ yeni_tablo = new Depo_();
             yeni_tablo.Ekle(depo.YazıyaDönüştür(null, false, false), false);
@@ -3099,6 +3138,29 @@ namespace İş_ve_Depo_Takip
             }
         }
 
+        public static void Geçmiş_İlkAçılışKontrolü()
+        {
+            IDepo_Eleman Talepler = Tablo_Dal(null, TabloTürü.Geçmiş_İşler, "Talepler");
+            if (Talepler == null || (DateTime.Now - Talepler.Oku_TarihSaat(null, DateTime.MinValue, 0)).TotalDays < 15) return;
+            
+            DateTime za = DateTime.Now.AddYears(-2);
+            foreach (IDepo_Eleman seri_no_dalı in Talepler.Elemanları)
+            {
+                if (seri_no_dalı.Elemanları.Last().Adı.TarihSaate() < za) seri_no_dalı.Sil(null);
+            }
+
+            Talepler.Yaz(null, DateTime.Now, 0);
+            Değişiklikleri_Kaydet(null);
+        }
+        public static void Geçmiş_İşler_Ekle(IDepo_Eleman SeriNoDalı, string Güncel_Türü)
+        {
+            Talep_Ayıkla_SeriNoDalı(SeriNoDalı, out string SeriNo, out _, out _, out _, out _);
+            
+            IDepo_Eleman Geçmiş_SeriNoDalı = Tablo_Dal(null, TabloTürü.Geçmiş_İşler, "Talepler/" + SeriNo + "/" + DateTime.Now.Yazıya(), true);
+            Geçmiş_SeriNoDalı.İçeriği = new string[] { K_lar.KullancıAdı, Güncel_Türü, DosyaEkleri_Listele(SeriNo).Length.Yazıya() };
+            Geçmiş_SeriNoDalı.Ekle(null, SeriNoDalı.YazıyaDönüştür(null, false, false), false);
+        }
+
         public static void Değişiklikleri_Kaydet(Control Tetikleyen)
         {
             if (Yedekleme_Tümü_Çalışıyor)
@@ -3115,7 +3177,7 @@ namespace İş_ve_Depo_Takip
 
             Günlük.Ekle("Değişiklikleri_Kaydet Başladı");
             bool EnAzBirDeğişiklikYapıldı = false;
-            Ortak.Gösterge.Başlat("Kaydediliyor", false, Tetikleyen, 9 + (Müşteriler == null ? 0 : Müşteriler.Count * 5) + (MalzemeKullanımDetayları == null ? 0 : MalzemeKullanımDetayları.Count * 1));
+            Ortak.Gösterge.Başlat("Kaydediliyor", false, Tetikleyen, 10 + (Müşteriler == null ? 0 : Müşteriler.Count * 5) + (MalzemeKullanımDetayları == null ? 0 : MalzemeKullanımDetayları.Count * 1));
 
             if (Müşteriler != null && Müşteriler.Count > 0)
             {
@@ -3197,6 +3259,9 @@ namespace İş_ve_Depo_Takip
             if (Etiket_Açıklamaları != null && Etiket_Açıklamaları.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Açıklamalar", Etiket_Açıklamaları, Ortak.Klasör_KullanıcıDosyaları_Etiketleme); }
 
             Ortak.Gösterge.İlerleme = 1;
+            if (Geçmiş_İşler != null && Geçmiş_İşler.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Is", Geçmiş_İşler, Ortak.Klasör_KullanıcıDosyaları_Gecmis); }
+
+            Ortak.Gösterge.İlerleme = 1;
             if (EnAzBirDeğişiklikYapıldı || (Ayarlar != null && Ayarlar.EnAzBir_ElemanAdıVeyaİçeriği_Değişti))
             {
                 IDepo_Eleman d = Tablo_Dal(null, TabloTürü.Ayarlar, "Son Banka Kayıt", true);
@@ -3238,6 +3303,7 @@ namespace İş_ve_Depo_Takip
             KorumalıAlan = null;
             Takvim = null;
             MalzemeKullanımDetayları = null;
+            Geçmiş_İşler = null;
 
             //Kullanıcılar = null; Önemsiz kullanıcı ayarları
             //Etiket_Açıklamaları = null; Önemsiz etiket açıklamaları
@@ -3496,7 +3562,7 @@ namespace İş_ve_Depo_Takip
         #endregion
 
         #region Demirbaşlar
-        public enum TabloTürü { Ayarlar, İşTürleri, Malzemeler, MalzemeKullanımDetayı, Ödemeler, Kullanıcılar, Takvim, KorumalıAlan, DosyaEkleri, Etiket_Açıklamaları,
+        public enum TabloTürü { Ayarlar, İşTürleri, Malzemeler, MalzemeKullanımDetayı, Ödemeler, Kullanıcılar, Takvim, KorumalıAlan, DosyaEkleri, Etiket_Açıklamaları, Geçmiş_İşler,
                                 ÜcretHesaplama, DevamEden, TeslimEdildi, ÖdemeTalepEdildi, Ödendi,
                                 DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi
         }
@@ -3508,6 +3574,7 @@ namespace İş_ve_Depo_Takip
         static Depo_ KorumalıAlan = null;
         static Depo_ Takvim = null;
         static Depo_ Etiket_Açıklamaları = null;
+        static Depo_ Geçmiş_İşler = null;
 
         class Müşteri_
         {

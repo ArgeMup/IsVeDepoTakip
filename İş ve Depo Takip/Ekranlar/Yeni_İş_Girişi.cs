@@ -175,6 +175,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     P_Yeni_İş_Girişi_DosyaEkleri.P_DosyaEkleri_Liste.Items.Add(DosyaAdı, Html_denGöster);
                 }
                 P_DosyaEkleri_TuşunuGüncelle();
+
+                Sürümler.Visible = Yeni_İş_Girişi_Sürümler.Varmı(detaylar.SeriNoDalı);
+                Sürümler.Tag = detaylar.SeriNoDalı;
             }
 
             if (SeriNoTürü == Banka.TabloTürü.ÜcretHesaplama)
@@ -775,6 +778,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
             
             Close();
         }
+
+        private void Sürümler_Click(object sender, EventArgs e)
+        {
+            ÖnYüzler.Ekle(new Yeni_İş_Girişi_Sürümler(Sürümler.Tag as IDepo_Eleman));
+        }
+
         void Kaydet_TuşGörünürlüğü(bool Görünsün)
         {
             ÖnYüzler_Kaydet.Enabled = Görünsün;
@@ -803,7 +812,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Müşteriler_SeçimKutusu.Focus();
                 return false;
             }
-
+           
             if (string.IsNullOrWhiteSpace(Hastalar_AramaÇubuğu.Text))
             {
                 MessageBox.Show("Hasta kutucuğu boş olmamalıdır" + Environment.NewLine + "örneğin hasta adı veya iş talep numarası yazılabilir", Text);

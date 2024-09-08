@@ -315,6 +315,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         GüncellenenSeriNolar.Clear();
                     }
                     else if (öndeki.Ekran is Yeni_İş_Girişi_Açıklama) { }
+                    else if (öndeki.Ekran is Yeni_İş_Girişi_Sürümler) { }
                     else if (Tümü.Count > 1)
                     {
                         if (GüncellenenSeriNolar.Count > 0 && !Arkadaki.Ekran.Disposing && !Arkadaki.Ekran.IsDisposed)

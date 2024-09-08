@@ -166,10 +166,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 string AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/GelirGiderTakip/raw/main/bin/Yay%C4%B1nla/Gelir%20Gider%20Takip.exe.DogrulamaKoduUreteci";
 
 #if DEBUG
-                //AğAdresi_Uygulama = null;
-                //AğAdresi_DoğrulamaKodu = null;
-                AğAdresi_Uygulama = "https://github.com/ArgeMup/a/raw/main/Gegita/Gelir%20Gider%20Takip.exe";
-                AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/a/raw/main/Gegita/Gelir%20Gider%20Takip.exe.DogrulamaKoduUreteci";
+                AğAdresi_Uygulama = null;
+                AğAdresi_DoğrulamaKodu = null;
+                //AğAdresi_Uygulama = "https://github.com/ArgeMup/a/raw/main/Gegita/Gelir%20Gider%20Takip.exe";
+                //AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/a/raw/main/Gegita/Gelir%20Gider%20Takip.exe.DogrulamaKoduUreteci";
 #endif
 
                 Şebeke = new YanUygulama.Şebeke_(DosyaYolu, GeriBildirim_İşlemi_Uygulama, Ortak.Çalıştır, Banka.Ayarlar_Genel("YanUygulama/Şube", true), AğAdresi_Uygulama, EnDüşükSürüm, AğAdresi_DoğrulamaKodu);

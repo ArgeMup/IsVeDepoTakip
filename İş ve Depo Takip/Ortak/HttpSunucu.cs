@@ -341,26 +341,19 @@ namespace İş_ve_Depo_Takip
                     Çıktı_yazı = null;
                     Çıktı_dizi = new string[] { "-1", "-1", "-1", "-1" };
 
-                    string Dosya_TCMB = Ortak.Klasör_Gecici + "TCMB_Kurlar.xml";
-                    Dosya.Sil(Dosya_TCMB);
-                    YeniYazılımKontrolü_ Kaynak_TCMB = new YeniYazılımKontrolü_();
-                    Kaynak_TCMB.Başlat(new Uri("https://www.tcmb.gov.tr/kurlar/today.xml"), HedefDosyaYolu: Dosya_TCMB);
+                    Dosya.AğÜzerinde_ dsy_tcmb = new Dosya.AğÜzerinde_(new Uri("https://www.tcmb.gov.tr/kurlar/today.xml"), null);
+                    Dosya.AğÜzerinde_ dsy_diğer = new Dosya.AğÜzerinde_(new Uri("https://api.coinbase.com/v2/exchange-rates?currency=TRY"), null);
 
-                    string Dosya_GenelPara = Ortak.Klasör_Gecici + "GenelPara_Kurlar.xml";
-                    Dosya.Sil(Dosya_GenelPara);
-                    System.Collections.Generic.Dictionary<string, string> İstekBaşlıkları = new System.Collections.Generic.Dictionary<string, string>() { { "User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" } };
-                    Dosya.AğÜzerinde_ Kaynak_GenelPara = new Dosya.AğÜzerinde_(new Uri("https://api.genelpara.com/embed/para-birimleri.json"), Dosya_GenelPara, İstekBaşlıkları: İstekBaşlıkları);
-
-                    int za = Environment.TickCount + 15000;
+                    int za = Environment.TickCount + 16000;
                     while (ArgeMup.HazirKod.ArkaPlan.Ortak.Çalışsın && za > Environment.TickCount &&
-                    (!Kaynak_TCMB.KontrolTamamlandı || !Kaynak_GenelPara.KontrolTamamlandı)) System.Threading.Thread.Sleep(350);
+                            (!dsy_tcmb.KontrolTamamlandı || !dsy_diğer.KontrolTamamlandı)) System.Threading.Thread.Sleep(350);
 
-                    if (File.Exists(Dosya_TCMB))
+                    if (dsy_tcmb.Sonuç)
                     {
                         try
                         {
                             System.Xml.XmlDocument xmlVerisi = new System.Xml.XmlDocument();
-                            xmlVerisi.LoadXml(Dosya.Oku_Yazı(Dosya_TCMB));
+                            xmlVerisi.LoadXml((dsy_tcmb.HedefDosyaYolu_Veya_İçeriği as byte[]).Yazıya());
 
                             string Tarih = xmlVerisi.SelectSingleNode("Tarih_Date").Attributes["Tarih"].InnerText;
                             string dolar = xmlVerisi.SelectSingleNode(string.Format("Tarih_Date/Currency[@Kod='{0}']/BanknoteSelling", "USD")).InnerText;
@@ -377,21 +370,21 @@ namespace İş_ve_Depo_Takip
                     }
                     else Çıktı_yazı += "TCMB Okunamadı" + Environment.NewLine;
 
-                    if (File.Exists(Dosya_GenelPara))
+                    if (dsy_diğer.Sonuç)
                     {
                         try
                         {
-                            string içerik = Dosya.Oku_Yazı(Dosya_GenelPara);
-                            string dolar = _Al_(içerik, @"""USD"":{""satis"":""", @"""");
-                            string avro = _Al_(içerik, @"""EUR"":{""satis"":""", @"""");
+                            string içerik = (dsy_diğer.HedefDosyaYolu_Veya_İçeriği as byte[]).Yazıya();
+                            string dolar = _Al_(içerik, @"""USD"":""", @""",");
+                            string avro = _Al_(içerik, @"""EUR"":""", @""",");
+
+                            Çıktı_dizi[2] = Banka.Yazdır_Ücret(1.0 / dolar.NoktalıSayıya()).TrimEnd(' ', '₺').Replace(',', '.');
+                            Çıktı_dizi[3] = Banka.Yazdır_Ücret(1.0 / avro.NoktalıSayıya()).TrimEnd(' ', '₺').Replace(',', '.');
 
                             Çıktı_yazı +=
-                            "Diğer " + File.GetLastWriteTime(Dosya_GenelPara).Yazıya("dd.MM.yyyy HH:mm") + Environment.NewLine +
-                            "Dolar = " + dolar + " ₺" + Environment.NewLine +
-                            "Avro = " + avro + " ₺";
-
-                            Çıktı_dizi[2] = dolar;
-                            Çıktı_dizi[3] = avro;
+                                "Diğer " + DateTime.Now.Yazıya("dd.MM.yyyy HH:mm") + Environment.NewLine +
+                                "Dolar = " + Çıktı_dizi[2] + " ₺" + Environment.NewLine +
+                                "Avro = " + Çıktı_dizi[3] + " ₺";
 
                             string _Al_(string Girdi, string Başlangıç, string Bitiş)
                             {
@@ -410,8 +403,8 @@ namespace İş_ve_Depo_Takip
                     else Çıktı_yazı += "Diğer Okunamadı";
 
                     EnSonGüncelleme = DateTime.Now;
-                    Kaynak_TCMB.Dispose();
-                    Kaynak_GenelPara.Dispose();
+                    dsy_tcmb.Dispose();
+                    dsy_diğer.Dispose();
                 }
 
                 İşlem?.Invoke(Çıktı_yazı, Çıktı_dizi);

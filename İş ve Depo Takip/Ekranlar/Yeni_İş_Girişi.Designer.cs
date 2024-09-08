@@ -108,6 +108,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.DosyaEkleri = new System.Windows.Forms.Button();
             this.Ayraç_Kat_2_3 = new System.Windows.Forms.SplitContainer();
             this.Ayraç_Detaylar_EtiketSayısı = new System.Windows.Forms.SplitContainer();
+            this.Sürümler = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.AçıklamaEtiketi = new System.Windows.Forms.Button();
@@ -1130,6 +1131,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             // Ayraç_Detaylar_EtiketSayısı.Panel1
             // 
+            this.Ayraç_Detaylar_EtiketSayısı.Panel1.Controls.Add(this.Sürümler);
             this.Ayraç_Detaylar_EtiketSayısı.Panel1.Controls.Add(this.label6);
             this.Ayraç_Detaylar_EtiketSayısı.Panel1.Controls.Add(this.Notlar);
             this.Ayraç_Detaylar_EtiketSayısı.Panel1.Controls.Add(this.DosyaEkleri);
@@ -1143,6 +1145,21 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Detaylar_EtiketSayısı.Size = new System.Drawing.Size(978, 99);
             this.Ayraç_Detaylar_EtiketSayısı.SplitterDistance = 816;
             this.Ayraç_Detaylar_EtiketSayısı.TabIndex = 21;
+            // 
+            // Sürümler
+            // 
+            this.Sürümler.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.Sürümler.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Sürümler.Location = new System.Drawing.Point(205, 0);
+            this.Sürümler.Margin = new System.Windows.Forms.Padding(2);
+            this.Sürümler.Name = "Sürümler";
+            this.Sürümler.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.Sürümler.Size = new System.Drawing.Size(104, 29);
+            this.Sürümler.TabIndex = 21;
+            this.Sürümler.Text = "Sürümler";
+            this.Sürümler.UseVisualStyleBackColor = true;
+            this.Sürümler.Visible = false;
+            this.Sürümler.Click += new System.EventHandler(this.Sürümler_Click);
             // 
             // panel5
             // 
@@ -1477,5 +1494,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Button Sürümler;
     }
 }
