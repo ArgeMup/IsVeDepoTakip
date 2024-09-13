@@ -176,8 +176,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
                 P_DosyaEkleri_TuşunuGüncelle();
 
-                Sürümler.Visible = Yeni_İş_Girişi_Sürümler.Varmı(detaylar.SeriNoDalı);
-                Sürümler.Tag = detaylar.SeriNoDalı;
+                //Sürümler.Visible = Yeni_İş_Girişi_Sürümler.Varmı(detaylar.SeriNoDalı);
+                //Sürümler.Tag = detaylar.SeriNoDalı;
             }
 
             if (SeriNoTürü == Banka.TabloTürü.ÜcretHesaplama)
