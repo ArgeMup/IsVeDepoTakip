@@ -95,7 +95,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
 
                 Banka.Talep_Ayıkla_İşTürüDalı(Detaylar.SeriNoDalı.Elemanları[Detaylar.SeriNoDalı.Elemanları.Length - 1], out string SonİşTürü_, out string SonGirişTarihi_, out _, out _, out _, out _);
-                string sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(Ayarlar_Etiketleme.YeniİşGirişi_Etiketi.Açıklama, 1, Detaylar.Müşteri, Hasta_, SeriNo_, SonGirişTarihi_, SonİşTürü_, false, Açıklama);
+                string sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(Ayarlar_Etiketleme.YeniİşGirişi_Etiketi.Açıklama, 1, Detaylar.Müşteri, Hasta_, SeriNo_, SonGirişTarihi_, SonİşTürü_, false, Açıklama, null, null);
                 if (sonuç.DoluMu()) MessageBox.Show("Açıklama etiketinin yazdırılması aşamasında bir sorun ile karşılaşıldı" + Environment.NewLine + Environment.NewLine + sonuç, "Açıklama Etiketi");
             }
         }

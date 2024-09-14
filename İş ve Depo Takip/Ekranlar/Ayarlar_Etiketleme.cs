@@ -11,7 +11,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
     {
         #region STATİC Yeni İş Girişi
         static string YeniİşGirişi_Barkodİçeriği_ = null;
-        public enum YeniİşGirişi_Etiketi { Kayıt, Acilİş, Açıklama }
+        public enum YeniİşGirişi_Etiketi { Kayıt, Acilİş, Açıklama, İşKağıdı }
         public static string YeniİşGirişi_Barkodİçeriği
         {
             get
@@ -94,16 +94,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 Ortak.Gösterge.Başlat("BarkodÜret ile ilk bağlantı kuruluyor", true, null, 500);
 
-                string EnDüşükSürüm = "0.6";
+                string EnDüşükSürüm = "0.7";
                 string DosyaYolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Barkod_Uret", "") + "\\Barkod_Uret.exe";
                 string AğAdresi_Uygulama = "https://github.com/ArgeMup/Barkod_Uret/raw/main/Barkod_Uret/bin/Release/Barkod_Uret.exe";
                 string AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/Barkod_Uret/raw/main/Barkod_Uret/bin/Release/Barkod_Uret.exe.DogrulamaKoduUreteci";
 
 #if DEBUG
-                //AğAdresi_Uygulama = null;
-                //AğAdresi_DoğrulamaKodu = null;
-                AğAdresi_Uygulama = "https://github.com/ArgeMup/a/raw/main/Barkod_Uret/Barkod_Uret.exe";
-                AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/a/raw/main/Barkod_Uret/Barkod_Uret.exe.DogrulamaKoduUreteci";
+                AğAdresi_Uygulama = null;
+                AğAdresi_DoğrulamaKodu = null;
+                //AğAdresi_Uygulama = "https://github.com/ArgeMup/a/raw/main/Barkod_Uret/Barkod_Uret.exe";
+                //AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/a/raw/main/Barkod_Uret/Barkod_Uret.exe.DogrulamaKoduUreteci";
 #endif
 
                 BarkodÜret_Şebeke = new YanUygulama.Şebeke_(DosyaYolu, BarkodÜret_GeriBildirim_İşlemi_Uygulama, Ortak.Çalıştır, Banka.Ayarlar_Genel("YanUygulama/Şube", true), AğAdresi_Uygulama, EnDüşükSürüm, AğAdresi_DoğrulamaKodu);
@@ -187,10 +187,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
         #region Etiket Üret
         static YanUygulama.Şebeke_ EtiketÜret_Şebeke;
         static string EtiketÜret_Cevap;
-        public static string YeniİşGirişi_Etiket_Üret(YeniİşGirişi_Etiketi Tür, int KopyaSayısı, string Müşteri, string Hasta, string SeriNo, string SonİşKabulTarihi, string SonİşTürü, bool SadeceAyarla, string Açıklama = null)
+        public static string YeniİşGirişi_Etiket_Üret(YeniİşGirişi_Etiketi Tür, int KopyaSayısı, string Müşteri, string Hasta, string SeriNo, string SonİşKabulTarihi, string SonİşTürü, bool SadeceAyarla, string Açıklama, System.Collections.Generic.List<byte> TümDişler, string Notlar)
         {
             string sonuç = YeniİşGirişi_Barkod_Üret(Müşteri, Hasta, SeriNo, false);
             if (sonuç.DoluMu()) return "Barkod Üretimi Hatalı -> " + sonuç;
+
+            if (!Temkinli.Dosya.Sil(Ortak.Klasör_Gecici + "Et\\Dişler.png")) return "Eski dişler resmi silinemedi";
+            İşKağıdı_Dişler_.Yazdır(TümDişler, Ortak.Klasör_Gecici + "Et\\Dişler.png");
 
             int ZamanAşımıAnı = Environment.TickCount + 15000;
 
@@ -198,16 +201,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 Ortak.Gösterge.Başlat("EtiketÜret ile ilk bağlantı kuruluyor", true, null, 500);
 
-                string EnDüşükSürüm = "0.6";
+                string EnDüşükSürüm = "0.7";
                 string DosyaYolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Etiket", "") + "\\Etiket.exe";
                 string AğAdresi_Uygulama = "https://github.com/ArgeMup/Etiket/raw/main/Etiket/bin/Release/Etiket.exe";
                 string AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/Etiket/raw/main/Etiket/bin/Release/Etiket.exe.DogrulamaKoduUreteci";
 
 #if DEBUG
-                //AğAdresi_Uygulama = null;
-                //AğAdresi_DoğrulamaKodu = null;
-                AğAdresi_Uygulama = "https://github.com/ArgeMup/a/raw/main/Etiket/Etiket.exe";
-                AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/a/raw/main/Etiket/Etiket.exe.DogrulamaKoduUreteci";
+                AğAdresi_Uygulama = null;
+                AğAdresi_DoğrulamaKodu = null;
+                //AğAdresi_Uygulama = "https://github.com/ArgeMup/a/raw/main/Etiket/Etiket.exe";
+                //AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/a/raw/main/Etiket/Etiket.exe.DogrulamaKoduUreteci";
 #endif
 
                 EtiketÜret_Şebeke = new YanUygulama.Şebeke_(DosyaYolu, EtiketÜret_GeriBildirim_İşlemi_Uygulama, Ortak.Çalıştır, Banka.Ayarlar_Genel("YanUygulama/Şube", true), AğAdresi_Uygulama, EnDüşükSürüm, AğAdresi_DoğrulamaKodu);
@@ -233,7 +236,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Depo_ Depo_Komut = new Depo_();
             Depo_Komut["Komut"].İçeriği = new string[] { SadeceAyarla ? "Ayarla" : "Yazdır", KopyaSayısı.Yazıya() };
-            Depo_Komut["Ayarlar", 0] = Ortak.Klasör_KullanıcıDosyaları_Etiketleme + (Tür == YeniİşGirişi_Etiketi.Kayıt ? "YeniİşGirişi_Etiket.mup" : Tür == YeniİşGirişi_Etiketi.Acilİş ? "YeniİşGirişi_Etiket_Acil.mup" : "YeniİşGirişi_Etiket_Açıklama.mup");
+            Depo_Komut["Ayarlar", 0] = Ortak.Klasör_KullanıcıDosyaları_Etiketleme + (Tür == YeniİşGirişi_Etiketi.Kayıt ? "YeniİşGirişi_Etiket.mup" : Tür == YeniİşGirişi_Etiketi.Acilİş ? "YeniİşGirişi_Etiket_Acil.mup" : Tür == YeniİşGirişi_Etiketi.Açıklama ? "YeniİşGirişi_Etiket_Açıklama.mup" : "YeniİşGirişi_Etiket_İşKağıdı.mup" );
             Depo_Komut.Yaz("Benzersiz_Tanımlayıcı", DateTime.Now.Yazıya());
 
             IDepo_Eleman d = Depo_Komut["Değişkenler"];
@@ -247,6 +250,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             d["Son İş - Türü"].İçeriği = new string[] { SonİşTürü };
             d["Tarih Saat Şimdi"].İçeriği = new string[] { DateTime.Now.Yazıya() };
             d["Açıklama"].İçeriği = new string[] { Açıklama };
+            d["Dişler"].İçeriği = new string[] { Ortak.Klasör_Gecici + "Et\\Dişler.png" };
+            d["Notlar"].İçeriği = new string[] { Notlar };
 
             EtiketÜret_Cevap = null;
             EtiketÜret_Şebeke.Gönder(Depo_Komut.YazıyaDönüştür().BaytDizisine());
@@ -332,23 +337,30 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void YeniİşGirişi_KayıtEtiketiAyarları_Click(object sender, System.EventArgs e)
         {
             YeniİşGirişi_KayıtEtiketiAyarları.Enabled = false;
-            string sonuç = YeniİşGirişi_Etiket_Üret(YeniİşGirişi_Etiketi.Kayıt, 1, "Örnek Müşteri Adı", "Örnek Hasta Adı", "Örnek Seri No", "GG.AA.YYYY", "Örnek İş Türü", true);
+            string sonuç = YeniİşGirişi_Etiket_Üret(YeniİşGirişi_Etiketi.Kayıt, 1, "Örnek Müşteri Adı", "Örnek Hasta Adı", "Örnek Seri No", "GG.AA.YYYY", "Örnek İş Türü", true, "Örnek Açıklama", null, "Örnek Notlar");
             if (sonuç.DoluMu()) MessageBox.Show(sonuç, Text);
             YeniİşGirişi_KayıtEtiketiAyarları.Enabled = true;
         }
         private void YeniİşGirişi_AcilİşEtiketiAyarları_Click(object sender, EventArgs e)
         {
             YeniİşGirişi_AcilİşEtiketiAyarları.Enabled = false;
-            string sonuç = YeniİşGirişi_Etiket_Üret(YeniİşGirişi_Etiketi.Acilİş, 1, "Örnek Müşteri Adı", "Örnek Hasta Adı", "Örnek Seri No", "GG.AA.YYYY", "Örnek İş Türü", true);
+            string sonuç = YeniİşGirişi_Etiket_Üret(YeniİşGirişi_Etiketi.Acilİş, 1, "Örnek Müşteri Adı", "Örnek Hasta Adı", "Örnek Seri No", "GG.AA.YYYY", "Örnek İş Türü", true, "Örnek Açıklama", null, "Örnek Notlar");
             if (sonuç.DoluMu()) MessageBox.Show(sonuç, Text);
             YeniİşGirişi_AcilİşEtiketiAyarları.Enabled = true;
         }
         private void YeniİşGirişi_AçıklamaEtiketiAyarları_Click(object sender, EventArgs e)
         {
             YeniİşGirişi_AçıklamaEtiketiAyarları.Enabled = false;
-            string sonuç = YeniİşGirişi_Etiket_Üret(YeniİşGirişi_Etiketi.Açıklama, 1, "Örnek Müşteri Adı", "Örnek Hasta Adı", "Örnek Seri No", "GG.AA.YYYY", "Örnek İş Türü", true, "Örnek Açıklama");
+            string sonuç = YeniİşGirişi_Etiket_Üret(YeniİşGirişi_Etiketi.Açıklama, 1, "Örnek Müşteri Adı", "Örnek Hasta Adı", "Örnek Seri No", "GG.AA.YYYY", "Örnek İş Türü", true, "Örnek Açıklama", null, "Örnek Notlar");
             if (sonuç.DoluMu()) MessageBox.Show(sonuç, Text);
             YeniİşGirişi_AçıklamaEtiketiAyarları.Enabled = true;
+        }
+        private void YeniİşGirişi_İşKağıdıGörseliAyarları_Click(object sender, EventArgs e)
+        {
+            YeniİşGirişi_İşKağıdıGörseliAyarları.Enabled = false;
+            string sonuç = YeniİşGirişi_Etiket_Üret(YeniİşGirişi_Etiketi.İşKağıdı, 1, "Örnek Müşteri Adı", "Örnek Hasta Adı", "Örnek Seri No", "GG.AA.YYYY", "Örnek İş Türü", true, "Örnek Açıklama", new System.Collections.Generic.List<byte>() { 0, 18, 11, 28, 48, 31, 38 }, "Örnek Notlar");
+            if (sonuç.DoluMu()) MessageBox.Show(sonuç, Text);
+            YeniİşGirişi_İşKağıdıGörseliAyarları.Enabled = true;
         }
         #endregion
     }

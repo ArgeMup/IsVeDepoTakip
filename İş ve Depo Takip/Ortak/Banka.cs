@@ -3435,6 +3435,7 @@ namespace İş_ve_Depo_Takip
                     dsy_lar.AddRange(Klasör.Listele_Dosya(Ortak.Klasör_KullanıcıDosyaları_DosyaEkleri, "*.*", SearchOption.AllDirectories));
                     dsy_lar.Add(Ortak.Klasör_KullanıcıDosyaları_Etiketleme + "Açıklamalar.mup");
                     dsy_lar.AddRange(Klasör.Listele_Dosya(Ortak.Klasör_KullanıcıDosyaları_KorumalıAlan, "*.*", SearchOption.AllDirectories));
+                    dsy_lar.AddRange(Klasör.Listele_Dosya(Ortak.Klasör_KullanıcıDosyaları_Gecmis, "*.*", SearchOption.AllDirectories));
                     Günlük.Ekle("Banka yeni sürüme geçirme aşama 2 tamam");
 
                     Ortak.Gösterge.Başlat("Kullanıcılar işleniyor", false, null, dsy_lar.Count);

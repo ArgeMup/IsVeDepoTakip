@@ -111,7 +111,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Sürümler = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
             this.AçıklamaEtiketi = new System.Windows.Forms.Button();
+            this.İşKağıdı = new System.Windows.Forms.CheckBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.EtiketSayısı_Acil = new System.Windows.Forms.NumericUpDown();
             this.label34 = new System.Windows.Forms.Label();
@@ -150,6 +152,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Detaylar_EtiketSayısı.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EtiketSayısı_Acil)).BeginInit();
             this.panel2.SuspendLayout();
@@ -174,7 +177,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Notlar.Multiline = true;
             this.Notlar.Name = "Notlar";
             this.Notlar.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.Notlar.Size = new System.Drawing.Size(804, 57);
+            this.Notlar.Size = new System.Drawing.Size(776, 57);
             this.Notlar.TabIndex = 5;
             this.Notlar.TextChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
             this.Notlar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Notlar_KeyDown);
@@ -315,7 +318,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // İskonto
             // 
             this.İskonto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.İskonto.Location = new System.Drawing.Point(738, 4);
+            this.İskonto.Location = new System.Drawing.Point(710, 4);
             this.İskonto.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.İskonto.Name = "İskonto";
             this.İskonto.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -454,7 +457,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(648, 7);
+            this.label6.Location = new System.Drawing.Point(620, 7);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(82, 20);
@@ -1091,7 +1094,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.DosyaEkleri.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.DosyaEkleri.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
             this.DosyaEkleri.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.DosyaEkleri.Location = new System.Drawing.Point(313, 0);
+            this.DosyaEkleri.Location = new System.Drawing.Point(299, 0);
             this.DosyaEkleri.Margin = new System.Windows.Forms.Padding(2);
             this.DosyaEkleri.Name = "DosyaEkleri";
             this.DosyaEkleri.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -1143,14 +1146,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Detaylar_EtiketSayısı.Panel2.Controls.Add(this.panel5);
             this.Ayraç_Detaylar_EtiketSayısı.Panel2.Padding = new System.Windows.Forms.Padding(3);
             this.Ayraç_Detaylar_EtiketSayısı.Size = new System.Drawing.Size(978, 99);
-            this.Ayraç_Detaylar_EtiketSayısı.SplitterDistance = 816;
+            this.Ayraç_Detaylar_EtiketSayısı.SplitterDistance = 788;
             this.Ayraç_Detaylar_EtiketSayısı.TabIndex = 21;
             // 
             // Sürümler
             // 
             this.Sürümler.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.Sürümler.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Sürümler.Location = new System.Drawing.Point(205, 0);
+            this.Sürümler.Location = new System.Drawing.Point(191, 0);
             this.Sürümler.Margin = new System.Windows.Forms.Padding(2);
             this.Sürümler.Name = "Sürümler";
             this.Sürümler.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -1167,31 +1170,58 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(3, 3);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(148, 89);
+            this.panel5.Size = new System.Drawing.Size(176, 89);
             this.panel5.TabIndex = 2;
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.AçıklamaEtiketi);
+            this.panel4.Controls.Add(this.panel6);
             this.panel4.Controls.Add(this.panel3);
             this.panel4.Controls.Add(this.panel2);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(148, 89);
+            this.panel4.Size = new System.Drawing.Size(176, 89);
             this.panel4.TabIndex = 2;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.AçıklamaEtiketi);
+            this.panel6.Controls.Add(this.İşKağıdı);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(0, 58);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(176, 31);
+            this.panel6.TabIndex = 1;
             // 
             // AçıklamaEtiketi
             // 
             this.AçıklamaEtiketi.AutoSize = true;
             this.AçıklamaEtiketi.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AçıklamaEtiketi.Location = new System.Drawing.Point(0, 58);
+            this.AçıklamaEtiketi.Location = new System.Drawing.Point(0, 0);
             this.AçıklamaEtiketi.Name = "AçıklamaEtiketi";
-            this.AçıklamaEtiketi.Size = new System.Drawing.Size(148, 31);
+            this.AçıklamaEtiketi.Size = new System.Drawing.Size(93, 31);
             this.AçıklamaEtiketi.TabIndex = 22;
-            this.AçıklamaEtiketi.Text = "Açıklama Etiketi";
+            this.AçıklamaEtiketi.Text = "Açıklama";
             this.AçıklamaEtiketi.UseVisualStyleBackColor = true;
             this.AçıklamaEtiketi.Click += new System.EventHandler(this.AçıklamaEtiketi_Click);
+            // 
+            // İşKağıdı
+            // 
+            this.İşKağıdı.Appearance = System.Windows.Forms.Appearance.Button;
+            this.İşKağıdı.AutoSize = true;
+            this.İşKağıdı.Dock = System.Windows.Forms.DockStyle.Right;
+            this.İşKağıdı.FlatAppearance.CheckedBackColor = System.Drawing.Color.YellowGreen;
+            this.İşKağıdı.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.İşKağıdı.Location = new System.Drawing.Point(93, 0);
+            this.İşKağıdı.Margin = new System.Windows.Forms.Padding(0);
+            this.İşKağıdı.Name = "İşKağıdı";
+            this.İşKağıdı.Size = new System.Drawing.Size(83, 31);
+            this.İşKağıdı.TabIndex = 24;
+            this.İşKağıdı.Text = "İş Kağıdı";
+            this.İşKağıdı.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.İşKağıdı.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.İşKağıdı.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
@@ -1201,7 +1231,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.panel3.Location = new System.Drawing.Point(0, 29);
             this.panel3.Name = "panel3";
             this.panel3.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.panel3.Size = new System.Drawing.Size(148, 29);
+            this.panel3.Size = new System.Drawing.Size(176, 29);
             this.panel3.TabIndex = 2;
             // 
             // EtiketSayısı_Acil
@@ -1215,7 +1245,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             0,
             0});
             this.EtiketSayısı_Acil.Name = "EtiketSayısı_Acil";
-            this.EtiketSayısı_Acil.Size = new System.Drawing.Size(92, 26);
+            this.EtiketSayısı_Acil.Size = new System.Drawing.Size(120, 26);
             this.EtiketSayısı_Acil.TabIndex = 1;
             this.EtiketSayısı_Acil.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.İpUcu.SetToolTip(this.EtiketSayısı_Acil, "Acil iş etiketi sayısı");
@@ -1241,7 +1271,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.panel2.Size = new System.Drawing.Size(148, 29);
+            this.panel2.Size = new System.Drawing.Size(176, 29);
             this.panel2.TabIndex = 1;
             // 
             // EtiketSayısı_Kayıt
@@ -1255,7 +1285,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             0,
             0});
             this.EtiketSayısı_Kayıt.Name = "EtiketSayısı_Kayıt";
-            this.EtiketSayısı_Kayıt.Size = new System.Drawing.Size(92, 26);
+            this.EtiketSayısı_Kayıt.Size = new System.Drawing.Size(120, 26);
             this.EtiketSayısı_Kayıt.TabIndex = 0;
             this.EtiketSayısı_Kayıt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.İpUcu.SetToolTip(this.EtiketSayısı_Kayıt, "Kayıt etiketi sayısı");
@@ -1388,7 +1418,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Ayraç_Detaylar_EtiketSayısı.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EtiketSayısı_Acil)).EndInit();
@@ -1489,11 +1520,13 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private System.Windows.Forms.Label label3;
         private ArgeMup.HazirKod.Ekranlar.ListeKutusu Liste_İşTürleri;
         private System.Windows.Forms.Button GarantiKapsamındaOlabilir;
-        private System.Windows.Forms.Button AçıklamaEtiketi;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button Sürümler;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Button AçıklamaEtiketi;
+        private System.Windows.Forms.CheckBox İşKağıdı;
     }
 }

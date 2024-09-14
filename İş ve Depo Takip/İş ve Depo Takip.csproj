@@ -237,6 +237,7 @@
     <Compile Include="Ortak\ArkaPlanUygulamaları.cs" />
     <Compile Include="Ortak\Ortak.cs" />
     <Compile Include="Ortak\HttpSunucu.cs" />
+    <Compile Include="Ortak\İş_Kağıdı.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ekranlar\Yeni_İş_Girişi.cs">

@@ -176,8 +176,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
                 P_DosyaEkleri_TuşunuGüncelle();
 
-                //Sürümler.Visible = Yeni_İş_Girişi_Sürümler.Varmı(detaylar.SeriNoDalı);
-                //Sürümler.Tag = detaylar.SeriNoDalı;
+                if (ÖnYüzler.KontrolTuşunaBasılıyor)
+                {
+                    Sürümler.Visible = Yeni_İş_Girişi_Sürümler.Varmı(detaylar.SeriNoDalı);
+                    Sürümler.Tag = detaylar.SeriNoDalı;
+                }
             }
 
             if (SeriNoTürü == Banka.TabloTürü.ÜcretHesaplama)
@@ -523,10 +526,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             if (nud.Value == 0) nud.Value = 1;
         }
 
-        void Dişler_GörseliniGüncelle()
+        List<byte> Dişler_Tümü()
         {
             List<byte> tümü = new List<byte>();
-            List<byte> seçili_olan = new List<byte>();
             foreach (DataGridViewRow biri in Tablo.Rows)
             {
                 byte[] şimdiki = biri.Cells[Tablo_Adet.Index].Tag as byte[];
@@ -535,11 +537,28 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 for (int i = 1; i < şimdiki.Length; i++)
                 {
                     tümü.Add(şimdiki[i]);
-
-                    if (biri.Selected) seçili_olan.Add(şimdiki[i]);
                 }
             }
-            tümü.Distinct();
+
+            return tümü.Distinct().ToList();
+        }
+        void Dişler_GörseliniGüncelle()
+        {
+            List<byte> tümü = Dişler_Tümü();
+
+            List<byte> seçili_olan = new List<byte>();
+            foreach (DataGridViewRow biri in Tablo.Rows)
+            {
+                if (!biri.Selected) continue;
+
+                byte[] şimdiki = biri.Cells[Tablo_Adet.Index].Tag as byte[];
+                if (şimdiki == null || şimdiki.Length < 2) continue;
+
+                for (int i = 1; i < şimdiki.Length; i++)
+                {
+                    seçili_olan.Add(şimdiki[i]);
+                }
+            }
 
             foreach (Label biri in Tablo_Dişler.Controls)
             {
@@ -739,7 +758,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     }
                 }
 
-                string sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(Ayarlar_Etiketleme.YeniİşGirişi_Etiketi.Açıklama, 1, müşteri_adı, Hastalar_AramaÇubuğu.Text, SeriNo, SonGirişTarihi, SonİşTürü, false, Açıklama);
+                string sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(Ayarlar_Etiketleme.YeniİşGirişi_Etiketi.Açıklama, 1, müşteri_adı, Hastalar_AramaÇubuğu.Text, SeriNo, SonGirişTarihi, SonİşTürü, false, Açıklama, null, null);
                 if (sonuç.DoluMu()) MessageBox.Show("Açıklama etiketinin yazdırılması aşamasında bir sorun ile karşılaşıldı" + Environment.NewLine + Environment.NewLine + sonuç, "Açıklama Etiketi");
             }
         }
@@ -762,20 +781,28 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 İşKaydıYapıldı = true;
             }
 
-            if (EtiketSayısı_Kayıt.Value == 0 && EtiketSayısı_Acil.Value == 0) EtiketSayısı_Kayıt.Value = 1;
+            if (EtiketSayısı_Kayıt.Value == 0 && EtiketSayısı_Acil.Value == 0 && !İşKağıdı.Checked) EtiketSayısı_Kayıt.Value = 1;
+
+            List<byte> TümDişler = Dişler_Tümü();
 
             if (EtiketSayısı_Kayıt.Value > 0)
             {
-                string sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(Ayarlar_Etiketleme.YeniİşGirişi_Etiketi.Kayıt, (int)EtiketSayısı_Kayıt.Value, Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, SeriNo ?? YeniKayıtİçinTutulanSeriNo, Banka.Yazdır_Tarih((string)Tablo[Tablo_Giriş_Tarihi.Index, Tablo.RowCount - 2].Value), (string)Tablo[Tablo_İş_Türü.Index, Tablo.RowCount - 2].Value, false);
+                string sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(Ayarlar_Etiketleme.YeniİşGirişi_Etiketi.Kayıt, (int)EtiketSayısı_Kayıt.Value, Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, SeriNo ?? YeniKayıtİçinTutulanSeriNo, Banka.Yazdır_Tarih((string)Tablo[Tablo_Giriş_Tarihi.Index, Tablo.RowCount - 2].Value), (string)Tablo[Tablo_İş_Türü.Index, Tablo.RowCount - 2].Value, false, null, TümDişler, Notlar.Text);
                 if (sonuç.DoluMu()) MessageBox.Show((İşKaydıYapıldı ? "İş kaydı yapıldı fakat y" : "Y") + "azdırma aşamasında bir sorun ile karşılaşıldı" + Environment.NewLine + Environment.NewLine + sonuç, Text);
             }
 
             if (EtiketSayısı_Acil.Value > 0)
             {
-                string sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(Ayarlar_Etiketleme.YeniİşGirişi_Etiketi.Acilİş, (int)EtiketSayısı_Acil.Value, Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, SeriNo ?? YeniKayıtİçinTutulanSeriNo, Banka.Yazdır_Tarih((string)Tablo[Tablo_Giriş_Tarihi.Index, Tablo.RowCount - 2].Value), (string)Tablo[Tablo_İş_Türü.Index, Tablo.RowCount - 2].Value, false);
+                string sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(Ayarlar_Etiketleme.YeniİşGirişi_Etiketi.Acilİş, (int)EtiketSayısı_Acil.Value, Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, SeriNo ?? YeniKayıtİçinTutulanSeriNo, Banka.Yazdır_Tarih((string)Tablo[Tablo_Giriş_Tarihi.Index, Tablo.RowCount - 2].Value), (string)Tablo[Tablo_İş_Türü.Index, Tablo.RowCount - 2].Value, false, null, TümDişler, Notlar.Text);
                 if (sonuç.DoluMu()) MessageBox.Show((İşKaydıYapıldı ? "İş kaydı yapıldı fakat y" : "Y") + "azdırma aşamasında bir sorun ile karşılaşıldı" + Environment.NewLine + Environment.NewLine + sonuç, Text);
             }
-            
+
+            if (İşKağıdı.Checked)
+            {
+                string sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(Ayarlar_Etiketleme.YeniİşGirişi_Etiketi.İşKağıdı, (int)EtiketSayısı_Acil.Value, Müşteriler_SeçimKutusu.Text, Hastalar_AramaÇubuğu.Text, SeriNo ?? YeniKayıtİçinTutulanSeriNo, Banka.Yazdır_Tarih((string)Tablo[Tablo_Giriş_Tarihi.Index, Tablo.RowCount - 2].Value), (string)Tablo[Tablo_İş_Türü.Index, Tablo.RowCount - 2].Value, false, null, TümDişler, Notlar.Text);
+                if (sonuç.DoluMu()) MessageBox.Show((İşKaydıYapıldı ? "İş kaydı yapıldı fakat y" : "Y") + "azdırma aşamasında bir sorun ile karşılaşıldı" + Environment.NewLine + Environment.NewLine + sonuç, Text);
+            }
+
             Close();
         }
 

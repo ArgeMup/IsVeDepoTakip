@@ -26,6 +26,16 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
     public static class ÖnYüzler
     {
+        static int KontrolTuşunaBasılıyor_ = 0;
+        public static bool KontrolTuşunaBasılıyor
+        {
+            get
+            {
+                bool sonuç = KontrolTuşunaBasılıyor_ > Environment.TickCount;
+                KontrolTuşunaBasılıyor_ = 0;
+                return sonuç;
+            }
+        } 
         static List<Önyüz_> Tümü = new List<Önyüz_>();
         static KlavyeFareGozlemcisi_ ÖndekiEkran_KlaFaGö = null;
         static System.Windows.Forms.Timer ÖndekiEkran_Zamanlayıcı = null;
@@ -234,6 +244,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     if (Tümü.Count > 1) Tümü.Last().Ekran.Close();
                     break;
             }
+
+            KontrolTuşunaBasılıyor_ = e.Shift ? Environment.TickCount + 2000 : 0;
         }
         private static void Ekran_Resize(object sender, EventArgs e)
         {
