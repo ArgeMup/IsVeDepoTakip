@@ -26,14 +26,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
     public static class ÖnYüzler
     {
-        static int KontrolTuşunaBasılıyor_ = 0;
-        public static bool KontrolTuşunaBasılıyor
+        static int ShiftTuşunaBasılıyor_ = 0;
+        public static bool ShiftTuşunaBasılıyor
         {
             get
             {
-                bool sonuç = KontrolTuşunaBasılıyor_ > Environment.TickCount;
-                KontrolTuşunaBasılıyor_ = 0;
-                return sonuç;
+                #if DEBUG
+                    return true;
+                #else
+                    bool sonuç = ShiftTuşunaBasılıyor_ > Environment.TickCount;
+                    ShiftTuşunaBasılıyor_ = 0;
+                    return sonuç;
+                #endif
             }
         } 
         static List<Önyüz_> Tümü = new List<Önyüz_>();
@@ -245,7 +249,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     break;
             }
 
-            KontrolTuşunaBasılıyor_ = e.Shift ? Environment.TickCount + 2000 : 0;
+            ShiftTuşunaBasılıyor_ = e.Shift ? Environment.TickCount + 2000 : 0;
         }
         private static void Ekran_Resize(object sender, EventArgs e)
         {

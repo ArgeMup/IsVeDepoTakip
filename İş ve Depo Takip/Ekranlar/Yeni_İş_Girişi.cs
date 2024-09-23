@@ -176,7 +176,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
                 P_DosyaEkleri_TuşunuGüncelle();
 
-                if (ÖnYüzler.KontrolTuşunaBasılıyor)
+                if (ÖnYüzler.ShiftTuşunaBasılıyor)
                 {
                     Sürümler.Visible = Yeni_İş_Girişi_Sürümler.Varmı(detaylar.SeriNoDalı);
                     Sürümler.Tag = detaylar.SeriNoDalı;

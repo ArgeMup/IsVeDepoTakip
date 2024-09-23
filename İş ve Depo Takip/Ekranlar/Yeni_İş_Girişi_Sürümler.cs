@@ -29,6 +29,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             for (int i = 0; i < Geçmiş.Elemanları.Length; i++)
             {
+                Sürümler.SelectionColor = Color.Black;
+                Sürümler.AppendText(Environment.NewLine + Environment.NewLine + "------------------------------------------------------------" + Environment.NewLine + Environment.NewLine);
+
                 IDepo_Eleman ö, s;
                 string _ö, _s;
                 if (i == 0)
@@ -42,8 +45,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     ö = Geçmiş.Elemanları[i - 1];
                     s = Geçmiş.Elemanları[i];
 
-                    Sürümler.SelectionColor = Color.Black;
-                    Sürümler.AppendText(Environment.NewLine + Environment.NewLine + "------------------------------------------------------------" + Environment.NewLine + Environment.NewLine);
                     Sürümler.SelectionColor = Color.Red;
                 }
 
@@ -115,6 +116,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     int enbüyük_bbb = Hesapla.EnBüyük(ö.Elemanları.Length > aaa ? ö.Elemanları[aaa].İçeriği.Length : 0, s.Elemanları.Length > aaa ? s.Elemanları[aaa].İçeriği.Length : 0);
                     for (int bbb = 0; bbb < enbüyük_bbb; bbb++)
                     {
+                        if (bbb == 3) continue; //Ücret2
+
                         _ö = ö != null && ö.Elemanları != null && ö.Elemanları.Length > aaa && ö.Elemanları[aaa].İçeriği != null && ö.Elemanları[aaa].İçeriği.Length > bbb && ö.Elemanları[aaa].İçeriği[bbb].DoluMu() ? ö.Elemanları[aaa].İçeriği[bbb] : "Boş";
                         _s = s != null && s.Elemanları != null && s.Elemanları.Length > aaa && s.Elemanları[aaa].İçeriği != null && s.Elemanları[aaa].İçeriği.Length > bbb && s.Elemanları[aaa].İçeriği[bbb].DoluMu() ? s.Elemanları[aaa].İçeriği[bbb] : "Boş";
 
@@ -128,7 +131,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                             {
                                 string _s_ = null;
                                 foreach (byte _b_ in _bd_) _s_ += _b_.ToString() + " ";
-                                _s_ = _s_.TrimEnd().Insert(2, "- ");
+                                _s_ = _s_.TrimEnd();
+                                if (_bd_.Length > 1) _s_ = _s_.Insert(2, "- ");
                                 return _s_;
                             }
                         }
