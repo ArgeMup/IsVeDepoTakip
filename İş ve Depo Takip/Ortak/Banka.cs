@@ -944,6 +944,61 @@ namespace İş_ve_Depo_Takip
             müş.Yaz(null, İskonto_Yüzde, 1);
             müş.Yaz(null, BirimÜcretBoşİseYapılacakHesaplama, 2);
         }
+        
+        public static List<string> Müşteri_AltGrup_Listele(string Müşteri, bool GizlilerDahil = false)
+        {
+            List<string> l = new List<string>();
+            List<string> l_gizli = new List<string>();
+
+            IDepo_Eleman müş_ag = Ayarlar_Müşteri(Müşteri, "Alt Grup");
+            if (müş_ag == null || müş_ag.İçeriği.Length == 0 || müş_ag.İçiBoşOlduğuİçinSilinecek) return l;
+
+            foreach (string ag in müş_ag.İçeriği)
+            {
+                if (ag.StartsWith(".:Gizli:. "))
+                {
+                    if (GizlilerDahil) l_gizli.Add(ag);
+                }
+                else l.Add(ag);
+            }
+
+            l.AddRange(l_gizli);
+
+            return l;
+        }
+        public static void Müşteri_AltGrup_Ekle(string Müşteri, string Adı)
+        {
+            IDepo_Eleman müş_ag = Ayarlar_Müşteri(Müşteri, "Alt Grup", true);
+            müş_ag.Yaz(null, Adı, müş_ag.İçeriği.Length);
+        }
+        public static void Müşteri_AltGrup_Sırala(string Müşteri, List<string> ElemanAdıSıralaması)
+        {
+            Ayarlar_Müşteri(Müşteri, "Alt Grup", true).İçeriği = ElemanAdıSıralaması.ToArray();
+        }
+        public static void Müşteri_AltGrup_Sil(string Müşteri, string Adı)
+        {
+            IDepo_Eleman müş_ag = Ayarlar_Müşteri(Müşteri, "Alt Grup");
+            if (müş_ag != null)
+            {
+                List<string> tümü = müş_ag.İçeriği.ToList();
+                tümü.Remove(Adı);
+
+                müş_ag.İçeriği = tümü.ToArray();
+            }
+        }
+        public static bool Müşteri_AltGrup_MevcutMu(string Müşteri, string Adı)
+        {
+            return Adı.DoluMu(true) && Müşteri_AltGrup_Listele(Müşteri, true).Contains(Adı);
+        }
+        public static void Müşteri_AltGrup_YenidenAdlandır(string Müşteri, string Eski, string Yeni)
+        {
+            IDepo_Eleman müş_ag = Ayarlar_Müşteri(Müşteri, "Alt Grup", true);
+            
+            List<string> tümü = müş_ag.İçeriği.ToList();
+            tümü.Remove(Eski);
+            tümü.Add(Yeni);
+            müş_ag.İçeriği = tümü.ToArray();
+        }
 
         public static List<string> İşTürü_Listele()
         {
@@ -1899,6 +1954,7 @@ namespace İş_ve_Depo_Takip
             sn_dalı[1] = Detaylar.İskonto;
             sn_dalı[2] = Detaylar.Notlar;
             sn_dalı[3] = null; //teslim edilme tarihi
+            sn_dalı[4] = Detaylar.Müşteri_AltGrubu;
 
             IDepo_Eleman silinecekler = sn_dalı.Bul(null, false, true);
             sn_dalı.Sil(null, false, true);
@@ -2047,7 +2103,7 @@ namespace İş_ve_Depo_Takip
                     Bulunan_sn = Tablo_Dal(Müşteri, TabloTürü.DevamEden, "Talepler/" + SeriNo);
                     if (Bulunan_sn != null)
                     {
-                        Talep_Ayıkla_SeriNoDalı(Bulunan_sn, out _, out _, out _, out _, out string TeslimEdilmeTarihi);
+                        Talep_Ayıkla_SeriNoDalı(Bulunan_sn, out _, out _, out _, out _, out string TeslimEdilmeTarihi, out _);
                         return new Talep_Bul_Detaylar_(Bulunan_sn, Müşteri, TeslimEdilmeTarihi.DoluMu() ? TabloTürü.TeslimEdildi : TabloTürü.DevamEden, EkTanım);
                     }
                 }
@@ -2073,7 +2129,7 @@ namespace İş_ve_Depo_Takip
                     Bulunan_sn = Tablo_Dal(Müşteri, TabloTürü.ÜcretHesaplama, "Talepler/" + SeriNo);
                     if (Bulunan_sn != null)
                     {
-                        Talep_Ayıkla_SeriNoDalı(Bulunan_sn, out _, out _, out _, out _, out _);
+                        Talep_Ayıkla_SeriNoDalı(Bulunan_sn, out _, out _, out _, out _, out _, out _);
                         return new Talep_Bul_Detaylar_(Bulunan_sn, Müşteri, TabloTürü.ÜcretHesaplama, EkTanım);
                     }
                 }
@@ -2569,13 +2625,14 @@ namespace İş_ve_Depo_Takip
             Ücret2 = İşTürüDalı[3];
             Kullanım_AdetVeKonum = İşTürüDalı.Oku_BaytDizisi(null, null, 4);
         }
-        public static void Talep_Ayıkla_SeriNoDalı(IDepo_Eleman SeriNoDalı, out string SeriNo, out string Hasta, out string İskonto, out string Notlar, out string TeslimEdilmeTarihi)
+        public static void Talep_Ayıkla_SeriNoDalı(IDepo_Eleman SeriNoDalı, out string SeriNo, out string Hasta, out string İskonto, out string Notlar, out string TeslimEdilmeTarihi, out string AltGrup)
         {
             SeriNo = SeriNoDalı.Adı;
             Hasta = SeriNoDalı[0];
             İskonto = SeriNoDalı[1];
             Notlar = SeriNoDalı[2];
             TeslimEdilmeTarihi = SeriNoDalı[3];
+            AltGrup = SeriNoDalı[4];
 
             //notların proje içerisinde doğrudan kullanıldığı yerler var
             //SeriNoDalı[2] olarak arat
@@ -2818,7 +2875,7 @@ namespace İş_ve_Depo_Takip
             Talep_Ayıkla_İşTürüDalı(SeriNoDalı.Elemanları[0], out _, out string GirişTarihi, out _, out _, out _, out _);
             DateTime İlkHareket = GirişTarihi.TarihSaate();
 
-            Talep_Ayıkla_SeriNoDalı(SeriNoDalı, out _, out _, out _, out _, out string TeslimEdilmeTarihi);
+            Talep_Ayıkla_SeriNoDalı(SeriNoDalı, out _, out _, out _, out _, out string TeslimEdilmeTarihi, out _);
             DateTime SonHareket = DateTime.Now;
             if (TeslimEdilmeTarihi.DoluMu()) SonHareket = TeslimEdilmeTarihi.TarihSaate();
 
@@ -3154,7 +3211,7 @@ namespace İş_ve_Depo_Takip
         }
         public static void Geçmiş_İşler_Ekle(IDepo_Eleman SeriNoDalı, string Güncel_Türü)
         {
-            Talep_Ayıkla_SeriNoDalı(SeriNoDalı, out string SeriNo, out _, out _, out _, out _);
+            Talep_Ayıkla_SeriNoDalı(SeriNoDalı, out string SeriNo, out _, out _, out _, out _, out _);
             
             IDepo_Eleman Geçmiş_SeriNoDalı = Tablo_Dal(null, TabloTürü.Geçmiş_İşler, "Talepler/" + SeriNo + "/" + DateTime.Now.Yazıya(), true);
             Geçmiş_SeriNoDalı.İçeriği = new string[] { K_lar.KullancıAdı, Güncel_Türü, DosyaEkleri_Listele(SeriNo).Length.Yazıya() };
@@ -3700,7 +3757,7 @@ namespace İş_ve_Depo_Takip
         }
         public class Talep_Ekle_Detaylar_
         {
-            public string SeriNo = null, Müşteri = null, Hasta = null, İskonto = null, Notlar = null;
+            public string SeriNo = null, Müşteri = null, Müşteri_AltGrubu = null, Hasta = null, İskonto = null, Notlar = null;
             public List<string> İşTürleri = null, Ücretler = null, GirişTarihleri = null, ÇıkışTarihleri = null;
             public List<byte[]> Adetler = null;
             

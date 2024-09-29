@@ -45,9 +45,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Sürümler.ReadOnly = true;
             this.Sürümler.Size = new System.Drawing.Size(818, 422);
             this.Sürümler.TabIndex = 0;
-            this.Sürümler.Text = "İşlem zamanı, kullanıcı adı, durumu, dosya eki sayısı\n\tHasta adı, iskonto," +
-    " teslim edilme tarihi\n\t\tNotlar\n\tiş kabul tarihi, iş türü, iş" +
-    " çıkış tarihi, ücret, adet ve konum";
+            this.Sürümler.Text = "İşlem zamanı, kullanıcı adı, durumu, dosya eki sayısı\n\tHasta adı, iskonto, teslim" +
+    " edilme tarihi, müşteri alt grubu\n\t\tNotlar\n\tiş kabul tarihi, iş türü, iş çıkış t" +
+    "arihi, ücret, adet ve konum";
             this.Sürümler.WordWrap = false;
             // 
             // Çıkış_Geri

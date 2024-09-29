@@ -12,7 +12,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         readonly string SeriNo = null, YeniKayıtİçinTutulanSeriNo = null;
         readonly Banka.TabloTürü SeriNoTürü = Banka.TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi;
         bool SadeceOkunabilir = false, Notlar_TarihSaatEklendi = false;
-        List<string> Müşteriler_Liste = null, Hastalar_Liste = new List<string>();
+		List<string> Müşteriler_Liste = null, Müşteriler_AltGrup_Liste = new List<string>(), Hastalar_Liste = new List<string>();
         Yeni_İş_Girişi_DosyaEkleri P_Yeni_İş_Girişi_DosyaEkleri = new Yeni_İş_Girişi_DosyaEkleri();
         Yeni_İş_Girişi_Epostalar P_Yeni_İş_Girişi_Epostalar = new Yeni_İş_Girişi_Epostalar();
 
@@ -105,6 +105,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     case Banka.TabloTürü.Ödendi:
                         SadeceOkunabilir = true;
                         Müşteriler_AramaÇubuğu.ReadOnly = true;
+                        Müşteriler_AltGrup_AramaÇubuğu.ReadOnly = true;
+                        Müşteriler_AltGrup_SeçimKutusu.Enabled = false;
                         Hastalar_AramaÇubuğu.ReadOnly = true;
                         Hastalar_AdVeSoyadıDüzelt.Enabled = false;
                         İskonto.ReadOnly = true;
@@ -115,12 +117,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         break;
                 }
 
-                Banka.Talep_Ayıkla_SeriNoDalı(detaylar.SeriNoDalı, out _, out string Hasta_, out string İskonto_, out string Notlar_, out _);
+                Banka.Talep_Ayıkla_SeriNoDalı(detaylar.SeriNoDalı, out _, out string Hasta_, out string İskonto_, out string Notlar_, out _, out string AltGrup_);
                 Text += " - " + SeriNo + " - " + SeriNoTürü.ToString();
                 Hastalar_AramaÇubuğu.Text = Hasta_;
                 İskonto.Text = İskonto_;
                 Notlar.Text = Notlar_;
 
+                if (Müşteriler_AltGrup_Liste.Count > 0)
+                {
+                    Müşteriler_AltGrup_AramaÇubuğu.Text = AltGrup_;
+                    Müşteriler_AltGrup_SeçimKutusu.Text = AltGrup_;
+                }
+                
                 string hata_bilgilendirmesi = "";
                 Tablo.RowCount = detaylar.SeriNoDalı.Elemanları.Length + 1;
                 for (int i = 0; i < detaylar.SeriNoDalı.Elemanları.Length; i++)
@@ -211,7 +219,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             Tablo.Rows[Tablo.RowCount - 1].Selected = true;
             Kaydet_TuşGörünürlüğü(false);
-            Müşteriler_AramaÇubuğu.Focus();
+
+            if (SeriNo == null) Müşteriler_AramaÇubuğu.Focus();
+            else Liste_İşTürleri.Odaklan();
 
             Döviz.KurlarıAl(_GeriBildirim_Kurlar_);
             void _GeriBildirim_Kurlar_(string Yazı, string[] Sayı)
@@ -252,7 +262,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                Hastalar_AramaÇubuğu.Focus();
+                if (Müşteriler_AltGrup.Visible) Müşteriler_AltGrup_AramaÇubuğu.Focus();
+                else Hastalar_AramaÇubuğu.Focus();
             }
         }
         private void Müşteriler_SeçimKutusu_SelectedIndexChanged(object sender, EventArgs e)
@@ -260,7 +271,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
             GarantiKapsamındaOlabilir.Visible = false;
             Hastalar_Liste.Clear();
             ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Hastalar_SeçimKutusu);
+            Müşteriler_AltGrup.Visible = false;
             if (Müşteriler_SeçimKutusu.SelectedIndex < 0 || !Banka.Müşteri_MevcutMu(Müşteriler_SeçimKutusu.Text)) return;
+
+            Müşteriler_AltGrup_Liste = Banka.Müşteri_AltGrup_Listele(Müşteriler_SeçimKutusu.Text);
+            if (Müşteriler_AltGrup_Liste.Count > 0)
+            {
+                ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Müşteriler_AltGrup_SeçimKutusu, Müşteriler_AltGrup_Liste, Müşteriler_AltGrup_AramaÇubuğu.Text);
+                Müşteriler_AltGrup.Visible = true;
+            }
 
             IDepo_Eleman Talepler = Banka.Tablo_Dal(Müşteriler_SeçimKutusu.Text, SeriNoTürü == Banka.TabloTürü.ÜcretHesaplama ? Banka.TabloTürü.ÜcretHesaplama : Banka.TabloTürü.DevamEden, "Talepler");
             if (Talepler == null || Talepler.Elemanları.Length < 1) return;
@@ -269,12 +288,36 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 if (seri_no_dalı.İçiBoşOlduğuİçinSilinecek) continue;
                 
-                Banka.Talep_Ayıkla_SeriNoDalı(seri_no_dalı, out string SeriNo, out string Hasta, out string _, out string _, out string TeslimEdilmeTarihi);
+                Banka.Talep_Ayıkla_SeriNoDalı(seri_no_dalı, out string SeriNo, out string Hasta, out string _, out string _, out string TeslimEdilmeTarihi, out _);
                 string ha = Hasta + " -=> (" + SeriNo + (SeriNoTürü == Banka.TabloTürü.ÜcretHesaplama ? " Ücret Hesaplama)" : (string.IsNullOrEmpty(TeslimEdilmeTarihi) ? " Devam Eden)" : " Teslim Edildi)"));
                 Hastalar_Liste.Add(ha);
             }
 
             ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Hastalar_SeçimKutusu, Hastalar_Liste, Hastalar_AramaÇubuğu.Text);
+        }
+
+        private void Müşteriler_AltGrup_AramaÇubuğu_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                if (Müşteriler_AltGrup_SeçimKutusu.Items.Count > 0)
+                {
+                    Müşteriler_AltGrup_SeçimKutusu.SelectedIndex = 0;
+                    Müşteriler_AltGrup_SeçimKutusu.Focus();
+                }
+            }
+        }
+        private void Müşteriler_AltGrup_AramaÇubuğu_TextChanged(object sender, EventArgs e)
+        {
+            if (SadeceOkunabilir) return;
+            ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Müşteriler_AltGrup_SeçimKutusu, Müşteriler_AltGrup_Liste, Müşteriler_AltGrup_AramaÇubuğu.Text);
+        }
+        private void Müşteriler_AltGrup_SeçimKutusu_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                Hastalar_AramaÇubuğu.Focus();
+            }
         }
 
         private void Hastalar_AramaÇubuğu_TextChanged(object sender, EventArgs e)
@@ -781,7 +824,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 İşKaydıYapıldı = true;
             }
 
-            if (EtiketSayısı_Kayıt.Value == 0 && EtiketSayısı_Acil.Value == 0 && !İşKağıdı.Checked) EtiketSayısı_Kayıt.Value = 1;
+            if (EtiketSayısı_Kayıt.Value == 0 && EtiketSayısı_Acil.Value == 0) EtiketSayısı_Kayıt.Value = 1;
 
             List<byte> TümDişler = Dişler_Tümü();
 
@@ -840,6 +883,21 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 return false;
             }
            
+            string müşteri_altgrup = null;
+            if (Müşteriler_AltGrup.Visible && Müşteriler_AltGrup_Liste.Count > 0)
+            {
+                if (Müşteriler_AltGrup_SeçimKutusu.SelectedIndex < 0 || !Banka.Müşteri_AltGrup_MevcutMu(Müşteriler_SeçimKutusu.Text, Müşteriler_AltGrup_SeçimKutusu.Text))
+                {
+                    MessageBox.Show("Geçerli bir müşteri alt grubu seçiniz", Text);
+                    Müşteriler_AltGrup_SeçimKutusu.Focus();
+
+                    if (SeriNo != null) Ayraç_Kat_1_2.SplitterDistance = Ayraç_Kat_1_2.Height / 3;
+                    return false;
+                }
+
+                müşteri_altgrup = Müşteriler_AltGrup_SeçimKutusu.Text;
+            }
+
             if (string.IsNullOrWhiteSpace(Hastalar_AramaÇubuğu.Text))
             {
                 MessageBox.Show("Hasta kutucuğu boş olmamalıdır" + Environment.NewLine + "örneğin hasta adı veya iş talep numarası yazılabilir", Text);
@@ -864,6 +922,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Banka.Talep_Ekle_Detaylar_ Detaylar = new Banka.Talep_Ekle_Detaylar_();
             Detaylar.SeriNo = SeriNo;
             Detaylar.Müşteri = Müşteriler_SeçimKutusu.Text;
+            Detaylar.Müşteri_AltGrubu = müşteri_altgrup;
             Detaylar.Hasta = Hastalar_AramaÇubuğu.Text;
             Detaylar.İskonto = İskonto.Text;
             Detaylar.Notlar = Notlar.Text.Trim();

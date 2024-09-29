@@ -248,7 +248,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             d["Barkod"].İçeriği = new string[] { Ortak.Klasör_Gecici + "Et\\Barkod.png" };
             d["Son İş - Kabul Tarihi"].İçeriği = new string[] { SonİşKabulTarihi };
             d["Son İş - Türü"].İçeriği = new string[] { SonİşTürü };
-            d["Tarih Saat Şimdi"].İçeriği = new string[] { DateTime.Now.Yazıya() };
+            d["Şimdi Tarih"].İçeriği = new string[] { DateTime.Now.Yazıya("dd.MM.yyyy") };
+            d["Şimdi Saat"].İçeriği = new string[] { DateTime.Now.Yazıya("HH:mm:ss") };
             d["Açıklama"].İçeriği = new string[] { Açıklama };
             d["Dişler"].İçeriği = new string[] { Ortak.Klasör_Gecici + "Et\\Dişler.png" };
             d["Notlar"].İçeriği = new string[] { Notlar };

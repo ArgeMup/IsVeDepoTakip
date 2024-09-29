@@ -102,7 +102,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         Banka.Talep_Bul_Detaylar_ Detaylar = Banka.Talep_Bul(h.İçerik, h.Müşteri, Banka.TabloTürü.DevamEden);
                         double Toplam = 0;
                         Banka.Talep_Ayıkla_SeriNoDalı(h.Müşteri, Detaylar.SeriNoDalı, out string Hasta, out string İşGirişTarihleri, out string İşÇıkışTarihleri, out İşler, ref Toplam);
-                        Banka.Talep_Ayıkla_SeriNoDalı(Detaylar.SeriNoDalı, out _, out _, out _, out string Notlar, out _);
+                        Banka.Talep_Ayıkla_SeriNoDalı(Detaylar.SeriNoDalı, out _, out _, out _, out string Notlar, out _, out _);
 
                         //Eğer varsa dosya eki sayısının notlar eklenmesi
                         IDepo_Eleman SeriNonun_DosyaEkleri = DosyaEkleri.Bul(Detaylar.SeriNoDalı.Adı);

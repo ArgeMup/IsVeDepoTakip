@@ -15,15 +15,22 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Liste_Müşteriler.Başlat(null, Banka.Müşteri_Listele(true), "Müşteriler", Banka.ListeKutusu_Ayarlar(false, false));
             Liste_Müşteriler.GeriBildirim_İşlemi += Liste_Müşteriler_GeriBildirim_İşlemi;
 
+            Liste_Müşteriler_AltGrup.Başlat(null, null, "Müşteri alt grubu", Banka.ListeKutusu_Ayarlar(false, false));
+            Liste_Müşteriler_AltGrup.GeriBildirim_İşlemi += Liste_Müşteriler_AltGrup_GeriBildirim_İşlemi;
+
             GelirGiderTakip.Durdur();
         }
         private bool Liste_Müşteriler_GeriBildirim_İşlemi(string Adı, ArgeMup.HazirKod.Ekranlar.ListeKutusu.İşlemTürü Türü, string YeniAdı = null)
         {
             if (Adı.BoşMu()) return true;
 
+            if (Türü != ListeKutusu.İşlemTürü.ElemanSeçildi) Liste_Müşteriler_AltGrup.Tüm_Elemanlar = new System.Collections.Generic.List<string>();
+
             switch (Türü)
             {
                 case ListeKutusu.İşlemTürü.ElemanSeçildi:
+                    Liste_Müşteriler_AltGrup.Tüm_Elemanlar = Banka.Müşteri_AltGrup_Listele(Adı, true);
+
                     IDepo_Eleman m = Banka.Ayarlar_Müşteri(Adı, "Eposta", true);
                     Eposta_Kime.Text = m.Oku("Kime");
                     Eposta_Bilgi.Text = m.Oku("Bilgi");
@@ -60,8 +67,49 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     break;
             }
 
+            Liste_Müşteriler_AltGrup.Yenile();
+
             return true;
         }
+        private bool Liste_Müşteriler_AltGrup_GeriBildirim_İşlemi(string Adı, ArgeMup.HazirKod.Ekranlar.ListeKutusu.İşlemTürü Türü, string YeniAdı = null)
+        {
+            if (Adı.BoşMu()) return true;
+
+            string müşteri = Liste_Müşteriler.SeçilenEleman_Adı;
+            if (müşteri.BoşMu()) return true;
+
+            switch (Türü)
+            {
+                case ListeKutusu.İşlemTürü.ElemanSeçildi:
+                    break;
+
+                case ListeKutusu.İşlemTürü.YeniEklendi:
+                    Banka.Müşteri_AltGrup_Ekle(müşteri, Adı);
+                    Banka.Değişiklikleri_Kaydet(Liste_Müşteriler_AltGrup);
+                    break;
+                case ListeKutusu.İşlemTürü.AdıDeğiştirildi:
+                case ListeKutusu.İşlemTürü.Gizlendi:
+                case ListeKutusu.İşlemTürü.GörünürDurumaGetirildi:
+                    Banka.Müşteri_AltGrup_YenidenAdlandır(müşteri, Adı, YeniAdı);
+                    Banka.Değişiklikleri_Kaydet(Liste_Müşteriler_AltGrup);
+                    break;
+                case ListeKutusu.İşlemTürü.KonumDeğişikliğiKaydedildi:
+                    Banka.Müşteri_AltGrup_Sırala(müşteri, Liste_Müşteriler_AltGrup.Tüm_Elemanlar);
+                    Banka.Değişiklikleri_Kaydet(Liste_Müşteriler_AltGrup);
+                    break;
+                case ListeKutusu.İşlemTürü.Silindi:
+                    string soru = Adı + " öğesini silme işlemine devam etmek istiyor musunuz?";
+                    DialogResult Dr = MessageBox.Show(soru, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                    if (Dr == DialogResult.No) return false;
+
+                    Banka.Müşteri_AltGrup_Sil(müşteri, Adı);
+                    Banka.Değişiklikleri_Kaydet(Liste_Müşteriler_AltGrup);
+                    break;
+            }
+
+            return true;
+        }
+
 
         private void Ayar_Değişti(object sender, EventArgs e)
         {

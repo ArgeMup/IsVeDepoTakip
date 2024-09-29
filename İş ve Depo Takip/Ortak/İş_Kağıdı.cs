@@ -12,7 +12,7 @@ namespace İş_ve_Depo_Takip
         static float YakınlaşmaOranı;
         static bool Başladı = false;
 
-        public static void Başlat(float İstenen_Genişlik_mm = 145, float İstenen_YÜkseklik_mm = 20, float YakınlaşmaOranı = 1.0f)
+        public static void Başlat(float İstenen_Genişlik_mm = 600, float İstenen_YÜkseklik_mm = 80, float YakınlaşmaOranı = 1.0f)
         {
             İşKağıdı_Dişler_.YakınlaşmaOranı = YakınlaşmaOranı;
 
@@ -100,7 +100,7 @@ namespace İş_ve_Depo_Takip
             #region Değişkenler
             //Genel
             public RectangleF Çerçeve;
-            public float Açı = 0, KarakterBüyüklüğü = 5.0f, ÇerçveKalınlığı = 0.35f;
+            public float Açı = 0, KarakterBüyüklüğü = 20.0f, ÇerçveKalınlığı = 1f;
             public Color Renk = Color.Black, Renk_ArkaPlan = Color.Transparent;
 
             //Genel Yazı
@@ -169,15 +169,15 @@ namespace İş_ve_Depo_Takip
 
                 Grafik.DrawString(Çözümlenmiş_İçerik, Yazı_KarakterKümesi_, Fırça_, Çerçeve, Yazı_Şekli_);
 
-                if (Çerçeve.Width > 0)
-                {
-                    Pen p = new Pen(Renk, ÇerçveKalınlığı);
-                    float yarı_kalınlık = ÇerçveKalınlığı / 2.0f;
+                //if (Çerçeve.Width > 0)
+                //{
+                //    Pen p = new Pen(Renk, ÇerçveKalınlığı);
+                //    float yarı_kalınlık = ÇerçveKalınlığı / 2.0f;
 
-                    Grafik.DrawRectangle(p, Çerçeve.X + yarı_kalınlık, Çerçeve.Y + yarı_kalınlık, Çerçeve.Width - ÇerçveKalınlığı, Çerçeve.Height - ÇerçveKalınlığı);
+                //    Grafik.DrawRectangle(p, Çerçeve.X + yarı_kalınlık, Çerçeve.Y + yarı_kalınlık, Çerçeve.Width - ÇerçveKalınlığı, Çerçeve.Height - ÇerçveKalınlığı);
 
-                    p.Dispose();
-                }
+                //    p.Dispose();
+                //}
 
                 if (Açı != 0)
                 {

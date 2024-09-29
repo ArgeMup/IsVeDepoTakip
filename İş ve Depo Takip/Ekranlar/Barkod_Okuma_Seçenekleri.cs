@@ -21,7 +21,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         void Başlat(Banka.Talep_Bul_Detaylar_ Detaylar)
         {
             this.Detaylar = Detaylar;
-            Banka.Talep_Ayıkla_SeriNoDalı(Detaylar.SeriNoDalı, out SeriNo_, out Hasta_, out _, out _, out string TeslimEdilmeTarihi);
+            Banka.Talep_Ayıkla_SeriNoDalı(Detaylar.SeriNoDalı, out SeriNo_, out Hasta_, out _, out _, out string TeslimEdilmeTarihi, out _);
             Banka.Talep_Hesaplat_FirmaİçindekiSüreler(Detaylar.SeriNoDalı, out TimeSpan Firmaİçinde, out TimeSpan Toplam);
 
             Text = SeriNo_ + " " + Detaylar.Tür;

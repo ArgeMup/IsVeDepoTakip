@@ -859,8 +859,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 else
                 {
                     double İşlemSonrasıÖnÖdeme = ÖdenenÜcret - (double)İşTakip_ÖdemeBekleyen_ÖdemeMiktarı.Tag;
-                    if (İşlemSonrasıÖnÖdeme > 0) soru += "İşlem sonrasında müşterinizin " + Banka.Yazdır_Ücret(İşlemSonrasıÖnÖdeme) + " alacağı kalacaktır.";
-                    else if (İşlemSonrasıÖnÖdeme < 0) soru += "İşlem sonrasında müşterinizin " + Banka.Yazdır_Ücret(Math.Abs(İşlemSonrasıÖnÖdeme)) + " borcu olacaktır.";
+                    if (İşlemSonrasıÖnÖdeme > 0.01) soru += "İşlem sonrasında müşterinizin " + Banka.Yazdır_Ücret(İşlemSonrasıÖnÖdeme) + " alacağı kalacaktır.";
+                    else if (İşlemSonrasıÖnÖdeme < -0.01) soru += "İşlem sonrasında müşterinizin " + Banka.Yazdır_Ücret(Math.Abs(İşlemSonrasıÖnÖdeme)) + " borcu olacaktır.";
                     else soru += "İşlem sonrasında alacak ve verecek kalmayacaktır.";
                 }
 

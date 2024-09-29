@@ -11,7 +11,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
     {
         public static bool Varmı(IDepo_Eleman SeriNoDalı)
         {
-            Banka.Talep_Ayıkla_SeriNoDalı(SeriNoDalı, out string SeriNo, out _, out _, out _, out _);
+            Banka.Talep_Ayıkla_SeriNoDalı(SeriNoDalı, out string SeriNo, out _, out _, out _, out _, out _);
             IDepo_Eleman Geçmiş_SeriNoDalı = Banka.Tablo_Dal(null, Banka.TabloTürü.Geçmiş_İşler, "Talepler/" + SeriNo);
             return Geçmiş_SeriNoDalı != null && Geçmiş_SeriNoDalı.Elemanları.Length >= 2;
         }
@@ -23,7 +23,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         private void Yeni_İş_Girişi_Sürümler_Shown(object sender, EventArgs e)
         {
-            Banka.Talep_Ayıkla_SeriNoDalı(Tag as IDepo_Eleman, out string SeriNo, out _, out _, out _, out _);
+            Banka.Talep_Ayıkla_SeriNoDalı(Tag as IDepo_Eleman, out string SeriNo, out _, out _, out _, out _, out _);
             IDepo_Eleman Geçmiş = Banka.Tablo_Dal(null, Banka.TabloTürü.Geçmiş_İşler, "Talepler/" + SeriNo);
             if (Geçmiş == null || Geçmiş.Elemanları.Length < 2) return;
 

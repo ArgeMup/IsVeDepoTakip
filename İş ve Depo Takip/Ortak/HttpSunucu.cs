@@ -119,7 +119,7 @@ namespace İş_ve_Depo_Takip
                     string Hasta = "Bulunamadı", Notlar = null, MüşteriNotları = null, İşler = null, DosyaEkleri = null;
                     if (Detaylar != null)
                     {
-                        Banka.Talep_Ayıkla_SeriNoDalı(Detaylar.SeriNoDalı, out _, out Hasta, out _, out Notlar, out _);
+                        Banka.Talep_Ayıkla_SeriNoDalı(Detaylar.SeriNoDalı, out _, out Hasta, out _, out Notlar, out _, out _);
 
                         if (Notlar.DoluMu()) Notlar = Notlar.Replace("\n", "<br>");
 

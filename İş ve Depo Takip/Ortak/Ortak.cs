@@ -372,7 +372,7 @@ namespace İş_ve_Depo_Takip
 
                     foreach (IDepo_Eleman sn in Talepler.Elemanları)
                     {
-                        Banka.Talep_Ayıkla_SeriNoDalı(sn, out string seri_no_yazısı, out _, out _, out _, out string TeslimEdilmeTarihi);
+                        Banka.Talep_Ayıkla_SeriNoDalı(sn, out string seri_no_yazısı, out _, out _, out _, out string TeslimEdilmeTarihi, out _);
 
                         //Teslim edildi ise atla
                         if (TeslimEdilmeTarihi.DoluMu()) continue;
