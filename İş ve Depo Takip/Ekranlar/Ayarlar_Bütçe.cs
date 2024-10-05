@@ -148,8 +148,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     _1_Tablo[_1_Tablo_Müşteri.Index, i].Value = _1_Dizi[i].müşteri;
 
                     _1_Tablo[_1_Tablo_Ödeme.Index, i].Value = Banka.Yazdır_Ücret(_1_Dizi[i].ÖnÖdeme);
-                    if (_1_Dizi[i].ÖnÖdeme > 0) _1_Tablo[_1_Tablo_Ödeme.Index, i].Style.BackColor = System.Drawing.Color.Green;
-                    else if (_1_Dizi[i].ÖnÖdeme < 0) _1_Tablo[_1_Tablo_Ödeme.Index, i].Style.BackColor = System.Drawing.Color.Red;
+                    if (_1_Dizi[i].ÖnÖdeme > 0.01) _1_Tablo[_1_Tablo_Ödeme.Index, i].Style.BackColor = System.Drawing.Color.Green;
+                    else if (_1_Dizi[i].ÖnÖdeme < -0.01) _1_Tablo[_1_Tablo_Ödeme.Index, i].Style.BackColor = System.Drawing.Color.Red;
                 }
                 Ortak.Gösterge.Bitir();
 

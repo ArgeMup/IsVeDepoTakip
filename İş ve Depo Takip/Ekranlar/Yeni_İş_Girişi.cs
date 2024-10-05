@@ -123,11 +123,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 İskonto.Text = İskonto_;
                 Notlar.Text = Notlar_;
 
-                if (Müşteriler_AltGrup_Liste.Count > 0)
-                {
-                    Müşteriler_AltGrup_AramaÇubuğu.Text = AltGrup_;
-                    Müşteriler_AltGrup_SeçimKutusu.Text = AltGrup_;
-                }
+                if (Müşteriler_AltGrup_Liste.Count > 0) Müşteriler_AltGrup_SeçimKutusu.Text = AltGrup_;
                 
                 string hata_bilgilendirmesi = "";
                 Tablo.RowCount = detaylar.SeriNoDalı.Elemanları.Length + 1;
@@ -310,6 +306,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private void Müşteriler_AltGrup_AramaÇubuğu_TextChanged(object sender, EventArgs e)
         {
             if (SadeceOkunabilir) return;
+
             ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Müşteriler_AltGrup_SeçimKutusu, Müşteriler_AltGrup_Liste, Müşteriler_AltGrup_AramaÇubuğu.Text);
         }
         private void Müşteriler_AltGrup_SeçimKutusu_KeyPress(object sender, KeyPressEventArgs e)
@@ -318,6 +315,12 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 Hastalar_AramaÇubuğu.Focus();
             }
+        }
+        private void Müşteriler_AltGrup_SeçimKutusu_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Müşteriler_AltGrup_AramaÇubuğu.Text = Müşteriler_AltGrup_SeçimKutusu.SelectedIndex >= 0 ? Müşteriler_AltGrup_SeçimKutusu.Text : null;
+
+            Değişiklik_Yapılıyor(null, null);
         }
 
         private void Hastalar_AramaÇubuğu_TextChanged(object sender, EventArgs e)
@@ -884,18 +887,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
            
             string müşteri_altgrup = null;
-            if (Müşteriler_AltGrup.Visible && Müşteriler_AltGrup_Liste.Count > 0)
+            if (Müşteriler_AltGrup.Visible && Müşteriler_AltGrup_Liste.Count > 0 && Müşteriler_AltGrup_AramaÇubuğu.Text.DoluMu(true))
             {
-                if (Müşteriler_AltGrup_SeçimKutusu.SelectedIndex < 0 || !Banka.Müşteri_AltGrup_MevcutMu(Müşteriler_SeçimKutusu.Text, Müşteriler_AltGrup_SeçimKutusu.Text))
+                if (!Banka.Müşteri_AltGrup_MevcutMu(Müşteriler_SeçimKutusu.Text, Müşteriler_AltGrup_AramaÇubuğu.Text))
                 {
-                    MessageBox.Show("Geçerli bir müşteri alt grubu seçiniz", Text);
-                    Müşteriler_AltGrup_SeçimKutusu.Focus();
+                    MessageBox.Show("Girilen müşteri alt grubu kayıtlı değil, listeden birisini seçiniz", Text);
+                    Müşteriler_AltGrup_AramaÇubuğu.Focus();
 
                     if (SeriNo != null) Ayraç_Kat_1_2.SplitterDistance = Ayraç_Kat_1_2.Height / 3;
                     return false;
                 }
 
-                müşteri_altgrup = Müşteriler_AltGrup_SeçimKutusu.Text;
+                müşteri_altgrup = Müşteriler_AltGrup_AramaÇubuğu.Text;
             }
 
             if (string.IsNullOrWhiteSpace(Hastalar_AramaÇubuğu.Text))

@@ -522,7 +522,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Müşteriler_AltGrup_SeçimKutusu.Name = "Müşteriler_AltGrup_SeçimKutusu";
             this.Müşteriler_AltGrup_SeçimKutusu.Size = new System.Drawing.Size(161, 58);
             this.Müşteriler_AltGrup_SeçimKutusu.TabIndex = 1;
-            this.Müşteriler_AltGrup_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.Değişiklik_Yapılıyor);
+            this.Müşteriler_AltGrup_SeçimKutusu.SelectedIndexChanged += new System.EventHandler(this.Müşteriler_AltGrup_SeçimKutusu_SelectedIndexChanged);
             this.Müşteriler_AltGrup_SeçimKutusu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Müşteriler_AltGrup_SeçimKutusu_KeyPress);
             // 
             // Müşteriler_AltGrup_AramaÇubuğu
