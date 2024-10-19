@@ -57,14 +57,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.panel4 = new System.Windows.Forms.Panel();
             this.Seç_YazılarıNotlaraEkle = new System.Windows.Forms.CheckBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.Dosyalar_PanodanResimAl = new System.Windows.Forms.Button();
+            this.Dosyalar_İlgiliUygulamadaAç = new System.Windows.Forms.Button();
+            this.Dosyalar_MasaüstüneKopyala = new System.Windows.Forms.Button();
             this.Dosyalar_Resim = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Çıkış_KlasöreTaşı = new System.Windows.Forms.RadioButton();
             this.Çıkış_OkunduOlarakİşaretle = new System.Windows.Forms.RadioButton();
             this.Çıkış_Geri = new System.Windows.Forms.Button();
-            this.Dosyalar_PanodanResimAl = new System.Windows.Forms.Button();
-            this.Dosyalar_İlgiliUygulamadaAç = new System.Windows.Forms.Button();
-            this.Dosyalar_MasaüstüneKopyala = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Dosyalar_Resim_YaklaşmaOranı)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Seç_GünKadarEskiEpostalar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
@@ -419,6 +419,57 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.splitContainer1.SplitterDistance = 298;
             this.splitContainer1.TabIndex = 12;
             // 
+            // Dosyalar_PanodanResimAl
+            // 
+            this.Dosyalar_PanodanResimAl.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Dosyalar_PanodanResimAl.Enabled = false;
+            this.Dosyalar_PanodanResimAl.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
+            this.Dosyalar_PanodanResimAl.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Dosyalar_PanodanResimAl.Location = new System.Drawing.Point(4, 118);
+            this.Dosyalar_PanodanResimAl.Margin = new System.Windows.Forms.Padding(0);
+            this.Dosyalar_PanodanResimAl.Name = "Dosyalar_PanodanResimAl";
+            this.Dosyalar_PanodanResimAl.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.Dosyalar_PanodanResimAl.Size = new System.Drawing.Size(286, 29);
+            this.Dosyalar_PanodanResimAl.TabIndex = 19;
+            this.Dosyalar_PanodanResimAl.Text = "Panodan Resim Al";
+            this.Dosyalar_PanodanResimAl.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Dosyalar_PanodanResimAl.UseVisualStyleBackColor = true;
+            this.Dosyalar_PanodanResimAl.Click += new System.EventHandler(this.Dosyalar_PanodanResimAl_Click);
+            // 
+            // Dosyalar_İlgiliUygulamadaAç
+            // 
+            this.Dosyalar_İlgiliUygulamadaAç.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Dosyalar_İlgiliUygulamadaAç.Enabled = false;
+            this.Dosyalar_İlgiliUygulamadaAç.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
+            this.Dosyalar_İlgiliUygulamadaAç.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Dosyalar_İlgiliUygulamadaAç.Location = new System.Drawing.Point(4, 147);
+            this.Dosyalar_İlgiliUygulamadaAç.Margin = new System.Windows.Forms.Padding(0);
+            this.Dosyalar_İlgiliUygulamadaAç.Name = "Dosyalar_İlgiliUygulamadaAç";
+            this.Dosyalar_İlgiliUygulamadaAç.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.Dosyalar_İlgiliUygulamadaAç.Size = new System.Drawing.Size(286, 29);
+            this.Dosyalar_İlgiliUygulamadaAç.TabIndex = 18;
+            this.Dosyalar_İlgiliUygulamadaAç.Text = "İlgili Uygulamada Aç";
+            this.Dosyalar_İlgiliUygulamadaAç.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Dosyalar_İlgiliUygulamadaAç.UseVisualStyleBackColor = true;
+            this.Dosyalar_İlgiliUygulamadaAç.Click += new System.EventHandler(this.Dosyalar_İlgiliUygulamadaAç_Click);
+            // 
+            // Dosyalar_MasaüstüneKopyala
+            // 
+            this.Dosyalar_MasaüstüneKopyala.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Dosyalar_MasaüstüneKopyala.Enabled = false;
+            this.Dosyalar_MasaüstüneKopyala.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
+            this.Dosyalar_MasaüstüneKopyala.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Dosyalar_MasaüstüneKopyala.Location = new System.Drawing.Point(4, 176);
+            this.Dosyalar_MasaüstüneKopyala.Margin = new System.Windows.Forms.Padding(0);
+            this.Dosyalar_MasaüstüneKopyala.Name = "Dosyalar_MasaüstüneKopyala";
+            this.Dosyalar_MasaüstüneKopyala.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.Dosyalar_MasaüstüneKopyala.Size = new System.Drawing.Size(286, 29);
+            this.Dosyalar_MasaüstüneKopyala.TabIndex = 17;
+            this.Dosyalar_MasaüstüneKopyala.Text = "Masa Üstüne Kopyala";
+            this.Dosyalar_MasaüstüneKopyala.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Dosyalar_MasaüstüneKopyala.UseVisualStyleBackColor = true;
+            this.Dosyalar_MasaüstüneKopyala.Click += new System.EventHandler(this.Dosyalar_MasaüstüneKopyala_Click);
+            // 
             // Dosyalar_Resim
             // 
             this.Dosyalar_Resim.Location = new System.Drawing.Point(0, 0);
@@ -483,57 +534,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Çıkış_Geri.Text = "Geri";
             this.Çıkış_Geri.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.Çıkış_Geri.UseVisualStyleBackColor = true;
-            // 
-            // Dosyalar_PanodanResimAl
-            // 
-            this.Dosyalar_PanodanResimAl.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Dosyalar_PanodanResimAl.Enabled = false;
-            this.Dosyalar_PanodanResimAl.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
-            this.Dosyalar_PanodanResimAl.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Dosyalar_PanodanResimAl.Location = new System.Drawing.Point(4, 118);
-            this.Dosyalar_PanodanResimAl.Margin = new System.Windows.Forms.Padding(0);
-            this.Dosyalar_PanodanResimAl.Name = "Dosyalar_PanodanResimAl";
-            this.Dosyalar_PanodanResimAl.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.Dosyalar_PanodanResimAl.Size = new System.Drawing.Size(286, 29);
-            this.Dosyalar_PanodanResimAl.TabIndex = 19;
-            this.Dosyalar_PanodanResimAl.Text = "Panodan Resim Al";
-            this.Dosyalar_PanodanResimAl.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Dosyalar_PanodanResimAl.UseVisualStyleBackColor = true;
-            this.Dosyalar_PanodanResimAl.Click += new System.EventHandler(this.Dosyalar_PanodanResimAl_Click);
-            // 
-            // Dosyalar_İlgiliUygulamadaAç
-            // 
-            this.Dosyalar_İlgiliUygulamadaAç.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Dosyalar_İlgiliUygulamadaAç.Enabled = false;
-            this.Dosyalar_İlgiliUygulamadaAç.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
-            this.Dosyalar_İlgiliUygulamadaAç.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Dosyalar_İlgiliUygulamadaAç.Location = new System.Drawing.Point(4, 147);
-            this.Dosyalar_İlgiliUygulamadaAç.Margin = new System.Windows.Forms.Padding(0);
-            this.Dosyalar_İlgiliUygulamadaAç.Name = "Dosyalar_İlgiliUygulamadaAç";
-            this.Dosyalar_İlgiliUygulamadaAç.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.Dosyalar_İlgiliUygulamadaAç.Size = new System.Drawing.Size(286, 29);
-            this.Dosyalar_İlgiliUygulamadaAç.TabIndex = 18;
-            this.Dosyalar_İlgiliUygulamadaAç.Text = "İlgili Uygulamada Aç";
-            this.Dosyalar_İlgiliUygulamadaAç.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Dosyalar_İlgiliUygulamadaAç.UseVisualStyleBackColor = true;
-            this.Dosyalar_İlgiliUygulamadaAç.Click += new System.EventHandler(this.Dosyalar_İlgiliUygulamadaAç_Click);
-            // 
-            // Dosyalar_MasaüstüneKopyala
-            // 
-            this.Dosyalar_MasaüstüneKopyala.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Dosyalar_MasaüstüneKopyala.Enabled = false;
-            this.Dosyalar_MasaüstüneKopyala.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol_mavi;
-            this.Dosyalar_MasaüstüneKopyala.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Dosyalar_MasaüstüneKopyala.Location = new System.Drawing.Point(4, 176);
-            this.Dosyalar_MasaüstüneKopyala.Margin = new System.Windows.Forms.Padding(0);
-            this.Dosyalar_MasaüstüneKopyala.Name = "Dosyalar_MasaüstüneKopyala";
-            this.Dosyalar_MasaüstüneKopyala.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.Dosyalar_MasaüstüneKopyala.Size = new System.Drawing.Size(286, 29);
-            this.Dosyalar_MasaüstüneKopyala.TabIndex = 17;
-            this.Dosyalar_MasaüstüneKopyala.Text = "Masa Üstüne Kopyala";
-            this.Dosyalar_MasaüstüneKopyala.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Dosyalar_MasaüstüneKopyala.UseVisualStyleBackColor = true;
-            this.Dosyalar_MasaüstüneKopyala.Click += new System.EventHandler(this.Dosyalar_MasaüstüneKopyala_Click);
             // 
             // Yeni_İş_Girişi_Epostalar
             // 

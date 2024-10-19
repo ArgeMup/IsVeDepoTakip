@@ -1234,7 +1234,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             if (Tablo.Tag != null || Tablo.RowCount < 1 || e.ColumnIndex < 0 || e.RowIndex < 0 || (int)Seviye1_işTakip.Tag != 1) return;
 
-            string Müşteri = Tablo[2, e.RowIndex].Value as string, SeriNo = Tablo[1, e.RowIndex].Value as string, EkTanım = null;
+            string Müşteri = Tablo[2, e.RowIndex].Tag as string, SeriNo = Tablo[1, e.RowIndex].Value as string, EkTanım = null;
             if (Müşteri == null || SeriNo == null) return;
             Banka.TabloTürü SeriNoTürü;
 

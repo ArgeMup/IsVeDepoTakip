@@ -242,7 +242,7 @@ namespace İş_ve_Depo_Takip
 
             foreach (IDepo_Eleman sn in Depo.Bul("Talepler", true).Elemanları)
             {
-                Talep_Ayıkla_SeriNoDalı(Müşteri, sn, out _, out _, out _, out _, ref Toplam);
+                Talep_Ayıkla_SeriNoDalı(Müşteri, sn, out _, out _, out _, out _, ref Toplam, out _);
 
                 foreach (IDepo_Eleman iş in sn.Elemanları)
                 {
@@ -795,15 +795,19 @@ namespace İş_ve_Depo_Takip
             DevredenTutar = MevcutÖnÖdeme + AlınanÖdeme - GenelToplam;
             Notlar = ÖdemeDalı[3];
         }
-        public static string Müşteri_Ayıkla_GelirGider(string Adı, TabloTürü Tür, string EkTanım, ref double Gelir, ref double Gider)
+        static string Müşteri_Ayıkla_GelirGider(string Adı, TabloTürü Tür, string EkTanım, ref double Gelir, ref double Gider)
         {
             Banka_Tablo_ bt = Talep_Listele(Adı, Tür, EkTanım);
-            if (bt.Talepler.Count == 0) return null;
+            return Müşteri_Ayıkla_GelirGider(Adı, bt.Talepler, ref Gelir, ref Gider, true);
+        }
+        public static string Müşteri_Ayıkla_GelirGider(string Adı, List<IDepo_Eleman> Talepler, ref double Gelir, ref double Gider, bool KDV_Dahil_Et)
+        {
+            if (Talepler.Count == 0) return null;
 
             string HataMesajı = null;
             double Gelir_iç = 0, Gider_iç = 0;
 
-            foreach (IDepo_Eleman serino in bt.Talepler)
+            foreach (IDepo_Eleman serino in Talepler)
             {
                 string HataMesajı_gecici = Talep_Ayıkla_SeriNoDalı(Adı, serino, ref Gelir_iç, ref Gider_iç);
                 if (!string.IsNullOrEmpty(HataMesajı_gecici)) HataMesajı += HataMesajı_gecici + "\n";
@@ -811,7 +815,7 @@ namespace İş_ve_Depo_Takip
 
             Müşteri_KDV_İskonto(Adı, out bool KDV_Ekle, out double KDV_Yüzde, out bool İskonto_Yap, out double İskonto_Yüzde, out _);
             double İskonto_Hesaplanan = İskonto_Yap ? Gelir_iç / 100 * İskonto_Yüzde : 0;
-            double KDV_Hesaplanan = KDV_Ekle ? (Gelir_iç - İskonto_Hesaplanan) / 100 * KDV_Yüzde : 0;
+            double KDV_Hesaplanan = (KDV_Dahil_Et && KDV_Ekle) ? (Gelir_iç - İskonto_Hesaplanan) / 100 * KDV_Yüzde : 0;
             Gelir_iç = Gelir_iç - İskonto_Hesaplanan + KDV_Hesaplanan;
 
             Gelir += Gelir_iç;
@@ -2487,7 +2491,9 @@ namespace İş_ve_Depo_Takip
                     col.SortMode = DataGridViewColumnSortMode.Automatic;
                 }
             }
-            Tablo.Columns["Tablo_Teslim_Edildi"].DefaultCellStyle.ForeColor = TeslimEdildiKırmızı ? System.Drawing.Color.Red : System.Drawing.Color.Black;
+
+            if (Tablo.Columns.Contains("Tablo_Teslim_Edildi")) Tablo.Columns["Tablo_Teslim_Edildi"].DefaultCellStyle.ForeColor = TeslimEdildiKırmızı ? System.Drawing.Color.Red : System.Drawing.Color.Black;
+            else if (Tablo.Columns.Contains("_5_Tablo_Teslim_Edildi")) Tablo.Columns["_5_Tablo_Teslim_Edildi"].DefaultCellStyle.ForeColor = TeslimEdildiKırmızı ? System.Drawing.Color.Red : System.Drawing.Color.Black;
 
             string tar_ödeme_talep = null, tar_ödendi = null;
             object tar_ödeme_talep_t = null, tar_ödendi_t = null;
@@ -2513,16 +2519,19 @@ namespace İş_ve_Depo_Takip
 
             int dizi_konum = 0, sutun_sayısı = Tablo.ColumnCount;
             DataGridViewRow[] dizi = new DataGridViewRow[İçerik.Talepler.Count];
+            bool EnAz1_Müşteri_AltGrup_var = false;
 
             foreach (IDepo_Eleman seri_no_dalı in İçerik.Talepler)
             {
                 object[] dizin = new object[sutun_sayısı];
                 double ücreti = 0;
-                Talep_Ayıkla_SeriNoDalı(İçerik.Müşteri, seri_no_dalı, out string Hasta, out string İşGirişTarihleri, out string İşÇıkışTarihleri, out string İşler, ref ücreti);
+                Talep_Ayıkla_SeriNoDalı(İçerik.Müşteri, seri_no_dalı, out string Hasta, out string İşGirişTarihleri, out string İşÇıkışTarihleri, out string İşler, ref ücreti, out string Müşteri_AltGrup);
+
+                if (Müşteri_AltGrup.DoluMu()) EnAz1_Müşteri_AltGrup_var = true;
 
                 dizin[0] = false; //seçim kutucuğu
                 dizin[1] = seri_no_dalı.Adı; //seri no
-                dizin[2] = İçerik.Müşteri;
+                dizin[2] = İçerik.Müşteri + (Müşteri_AltGrup.DoluMu() ? Environment.NewLine + Müşteri_AltGrup : null);
                 dizin[3] = Hasta;
                 dizin[4] = İşGirişTarihleri; //iş giriş tarihi
                 dizin[5] = İşÇıkışTarihleri; //iş çıkış tarihi
@@ -2550,6 +2559,7 @@ namespace İş_ve_Depo_Takip
 
                 dizi[dizi_konum] = new DataGridViewRow();
                 dizi[dizi_konum].CreateCells(Tablo, dizin);
+                dizi[dizi_konum].Cells[2].Tag = İçerik.Müşteri; //müşteri
 
                 if (seri_no_dalı[3].DoluMu())
                 {
@@ -2575,27 +2585,27 @@ namespace İş_ve_Depo_Takip
                 {
                     case TabloTürü.ÜcretHesaplama:
                     case TabloTürü.DevamEden:
-                        Tablo.Columns[2].Visible = false; //müşteri
+                        Tablo.Columns[2].Visible = EnAz1_Müşteri_AltGrup_var; //müşteri
                         Tablo.Columns[7].Visible = false; //tarih teslim
                         Tablo.Columns[8].Visible = false; //tarih ödeme talebi
                         Tablo.Columns[9].Visible = false; //tarih ödendi
                         break;
                     case TabloTürü.TeslimEdildi:
-                        Tablo.Columns[2].Visible = false; //müşteri
+                        Tablo.Columns[2].Visible = EnAz1_Müşteri_AltGrup_var; //müşteri
                         Tablo.Columns[7].Visible = true; //tarih teslim
                         Tablo.Columns[8].Visible = false; //tarih ödeme talebi
                         Tablo.Columns[9].Visible = false; //tarih ödendi
                         break;
 
                     case TabloTürü.ÖdemeTalepEdildi:
-                        Tablo.Columns[2].Visible = false; //müşteri
+                        Tablo.Columns[2].Visible = EnAz1_Müşteri_AltGrup_var; //müşteri
                         Tablo.Columns[7].Visible = true; //tarih teslim
                         Tablo.Columns[8].Visible = true; //tarih ödeme talebi
                         Tablo.Columns[9].Visible = false; //tarih ödendi
                         break;
 
                     case TabloTürü.Ödendi:
-                        Tablo.Columns[2].Visible = false; //müşteri
+                        Tablo.Columns[2].Visible = EnAz1_Müşteri_AltGrup_var; //müşteri
                         Tablo.Columns[7].Visible = true; //tarih teslim
                         Tablo.Columns[8].Visible = true; //tarih ödeme talebi
                         Tablo.Columns[9].Visible = true; //tarih ödendi
@@ -2672,8 +2682,9 @@ namespace İş_ve_Depo_Takip
 
             Toplam += AltToplam;
         }
-        public static void Talep_Ayıkla_SeriNoDalı(string Müşteri, IDepo_Eleman SeriNoDalı, out string Hasta, out string İşGirişTarihleri, out string İşÇıkışTarihleri, out string İşler, ref double Toplam)
+        public static void Talep_Ayıkla_SeriNoDalı(string Müşteri, IDepo_Eleman SeriNoDalı, out string Hasta, out string İşGirişTarihleri, out string İşÇıkışTarihleri, out string İşler, ref double Toplam, out string Müşteri_AltGrup)
         {
+            Müşteri_AltGrup = SeriNoDalı[4];
             Hasta = SeriNoDalı[0];
             double iskonto = SeriNoDalı.Oku_Sayı(null, 0, 1);
             if (iskonto > 0) Hasta += "\n% " + iskonto + " iskonto";
@@ -2727,26 +2738,27 @@ namespace İş_ve_Depo_Takip
 
             Toplam += AltToplam;
         }
-        public static string Talep_Ayıkla_SeriNoDalı(string Müşteri, IDepo_Eleman SeriNoDalı, ref double İskontaDahilÜcretler_Toplamı, ref double Maliyetler_Toplamı)
+        static string Talep_Ayıkla_SeriNoDalı(string Müşteri, IDepo_Eleman SeriNoDalı, ref double İskontaDahilÜcretler_Toplamı, ref double Maliyetler_Toplamı)
         {
             double iskonto = SeriNoDalı.Oku_Sayı(null, 0, 1), Toplam_Ücret = 0, Toplam_Maliyet = 0;
             string snç;
 
-            foreach (IDepo_Eleman iş in SeriNoDalı.Elemanları)
+            foreach (IDepo_Eleman İşTürüDalı in SeriNoDalı.Elemanları)
             {
-                byte[] Adetli_dizi = iş.Oku_BaytDizisi(null, null, 4);
+                Talep_Ayıkla_İşTürüDalı(İşTürüDalı, out string İşTürü, out _, out _, out _, out _, out byte[] Kullanım_AdetVeKonum);
 
-                double değeri = iş.Oku_Sayı(null, -1, 2);
+                double değeri = İşTürüDalı.Oku_Sayı(null, -1, 2); //Ücret1 - kontrol edilerek alınıyor
+
                 if (değeri < 0)
                 {
-                    snç = Ücretler_HesaplanmışToplamÜcret(Müşteri, iş[0], Adetli_dizi, out değeri);
-                    if (snç.DoluMu()) return SeriNoDalı.Adı + " " + iş[0] + " için ücret hesaplanamadı " + snç;
+                    snç = Ücretler_HesaplanmışToplamÜcret(Müşteri, İşTürü, Kullanım_AdetVeKonum, out değeri);
+                    if (snç.DoluMu()) return SeriNoDalı.Adı + " " + İşTürü + " için ücret hesaplanamadı " + snç;
                 }
 
                 if (değeri > 0) Toplam_Ücret += değeri;
 
-                snç = Ücretler_HesaplanmışToplamMaliyet(iş[0], Adetli_dizi, out değeri);
-                if (snç.DoluMu()) return SeriNoDalı.Adı + " " + iş[0] + " için maliyet hesaplanamadı " + snç;
+                snç = Ücretler_HesaplanmışToplamMaliyet(İşTürü, Kullanım_AdetVeKonum, out değeri);
+                if (snç.DoluMu()) return SeriNoDalı.Adı + " " + İşTürü + " için maliyet hesaplanamadı " + snç;
 
                 if (değeri > 0) Toplam_Maliyet += değeri;
             }
@@ -2907,6 +2919,47 @@ namespace İş_ve_Depo_Takip
             }
 
             if (Firmaİçinde > Toplam) Firmaİçinde = Toplam;
+        }
+        public static List<IDepo_Eleman> Talep_Filtrele_İştürüneGöre(List<IDepo_Eleman> Talepler, List<string> İşTürleri)
+        {
+            //Bağımsız kopya oluşturur
+
+            List<IDepo_Eleman> liste = new List<IDepo_Eleman>(), silinecekler = new List<IDepo_Eleman>();
+
+            foreach (IDepo_Eleman seri_no_dalı in Talepler)
+            {
+                foreach (IDepo_Eleman iş_türü_dali in seri_no_dalı.Elemanları)
+                {
+                    Talep_Ayıkla_İşTürüDalı(iş_türü_dali, out string İşTürü, out _, out _, out _, out _, out _);
+
+                    if (!İşTürleri.Contains(İşTürü)) continue;
+
+                    liste.Add(seri_no_dalı.Bul(null, false, true)); //Bağımsız kopya
+                    break;
+                }
+            }
+
+            //kopyanın içindeki istenmeyen işleri sil
+            foreach (IDepo_Eleman seri_no_dalı in liste)
+            {
+                foreach (IDepo_Eleman iş_türü_dali in seri_no_dalı.Elemanları)
+                {
+                    Talep_Ayıkla_İşTürüDalı(iş_türü_dali, out string İşTürü, out _, out _, out _, out _, out _);
+
+                    if (!İşTürleri.Contains(İşTürü)) iş_türü_dali.Sil(null);
+                }
+
+                _ = seri_no_dalı.İçiBoşOlduğuİçinSilinecek; //içeriği tazele
+                if (seri_no_dalı.Elemanları.Length == 0) silinecekler.Add(seri_no_dalı);
+            }
+
+            //listedeki boş serinoları sil
+            foreach (IDepo_Eleman seri_no_dalı in silinecekler)
+            {
+                liste.Remove(seri_no_dalı);
+            }
+
+            return liste;
         }
 
         public static List<string> KorumalıAlan_Listele_Dosyalar()

@@ -891,11 +891,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 if (!Banka.Müşteri_AltGrup_MevcutMu(Müşteriler_SeçimKutusu.Text, Müşteriler_AltGrup_AramaÇubuğu.Text))
                 {
-                    MessageBox.Show("Girilen müşteri alt grubu kayıtlı değil, listeden birisini seçiniz", Text);
-                    Müşteriler_AltGrup_AramaÇubuğu.Focus();
-
-                    if (SeriNo != null) Ayraç_Kat_1_2.SplitterDistance = Ayraç_Kat_1_2.Height / 3;
-                    return false;
+                    Banka.Müşteri_AltGrup_Ekle(Müşteriler_SeçimKutusu.Text, Müşteriler_AltGrup_AramaÇubuğu.Text);
                 }
 
                 müşteri_altgrup = Müşteriler_AltGrup_AramaÇubuğu.Text;
