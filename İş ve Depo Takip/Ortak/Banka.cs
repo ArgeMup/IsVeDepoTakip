@@ -142,6 +142,7 @@ namespace İş_ve_Depo_Takip
             #endregion
 
             #region Yeni Sürüme Uygun Hale Getirme
+            Temkinli.Dosya.Sil(Ortak.Klasör_KullanıcıDosyaları_Gecmis + "Is.mup");
             //IDepo_Eleman ayr = d["Son Banka Kayıt"];
             //if (ayr != null && ayr.Oku(null, null, 2) != Sürüm)
             //{
@@ -453,18 +454,24 @@ namespace İş_ve_Depo_Takip
                         break;
 
                     case TabloTürü.Geçmiş_İşler:
-                        if (Geçmiş_İşler == null)
+                        if (EkTanım.BoşMu()) throw new Exception("Banka/" + Tür.ToString() + "/ EkTanım boş");
+                        if (Geçmiş_İşler == null) Geçmiş_İşler = new Dictionary<string, Depo_>();
+                        EkTanım = "Is_" + EkTanım;
+                        if (!Geçmiş_İşler.ContainsKey(EkTanım))
                         {
-                            if (!Depo_DosyaVarMı("Is", Ortak.Klasör_KullanıcıDosyaları_Gecmis))
+                            if (!Depo_DosyaVarMı(EkTanım, Ortak.Klasör_KullanıcıDosyaları_Gecmis))
                             {
                                 if (!YoksaOluştur) goto Çıkış;
                             }
 
-                            Geçmiş_İşler = Depo_Aç("Is", Ortak.Klasör_KullanıcıDosyaları_Gecmis);
+                            depo = Depo_Aç(EkTanım, Ortak.Klasör_KullanıcıDosyaları_Gecmis);
+                            Geçmiş_İşler.Add(EkTanım, depo);
                         }
-                        else KontrolEdildi = true;
-
-                        depo = Geçmiş_İşler;
+                        else
+                        {
+                            depo = Geçmiş_İşler[EkTanım];
+                            KontrolEdildi = true;
+                        }
                         break;
 
                     default:
@@ -3250,25 +3257,31 @@ namespace İş_ve_Depo_Takip
 
         public static void Geçmiş_İlkAçılışKontrolü()
         {
-            //IDepo_Eleman Talepler = Tablo_Dal(null, TabloTürü.Geçmiş_İşler, "Talepler");
-            //if (Talepler == null || (DateTime.Now - Talepler.Oku_TarihSaat(null, DateTime.MinValue, 0)).TotalDays < 15) return;
-            
-            //DateTime za = DateTime.Now.AddYears(-2);
-            //foreach (IDepo_Eleman seri_no_dalı in Talepler.Elemanları)
-            //{
-            //    if (seri_no_dalı.Elemanları.Last().Adı.TarihSaate() < za) seri_no_dalı.Sil(null);
-            //}
+            //yıl hanesi 2 yıldan eski dosyaları sil
 
-            //Talepler.Yaz(null, DateTime.Now, 0);
-            //Değişiklikleri_Kaydet(null);
+            int hedef_yıl = DateTime.Now.AddYears(-2).Yazıya("yy").TamSayıya();
+            string[] dizi = Temkinli.Klasör.Listele_Dosya(Ortak.Klasör_KullanıcıDosyaları_Gecmis, "Is_*.mup");
+            
+            foreach (string biri in dizi)
+            {
+                string dsy_adı = Dosya.SadeceAdı(biri);
+                if (dsy_adı.Length < 6) continue;
+
+                try 
+                { 
+                    int okunan_yıl = dsy_adı.Substring(4, 2).TamSayıya();
+                    if (okunan_yıl <= hedef_yıl) Dosya.Sil(biri);
+                } 
+                catch (Exception) { }
+            }       
         }
         public static void Geçmiş_İşler_Ekle(IDepo_Eleman SeriNoDalı, string Güncel_Türü)
         {
-            //Talep_Ayıkla_SeriNoDalı(SeriNoDalı, out string SeriNo, out _, out _, out _, out _, out _);
-            
-            //IDepo_Eleman Geçmiş_SeriNoDalı = Tablo_Dal(null, TabloTürü.Geçmiş_İşler, "Talepler/" + SeriNo + "/" + DateTime.Now.Yazıya(), true);
-            //Geçmiş_SeriNoDalı.İçeriği = new string[] { K_lar.KullancıAdı, Güncel_Türü, DosyaEkleri_Listele(SeriNo).Length.Yazıya() };
-            //Geçmiş_SeriNoDalı.Ekle(null, SeriNoDalı.YazıyaDönüştür(null, false, false), false);
+            Talep_Ayıkla_SeriNoDalı(SeriNoDalı, out string SeriNo, out _, out _, out _, out _, out _);
+            string EkTanım = SeriNo.Substring(0, 3);
+            IDepo_Eleman Geçmiş_SeriNoDalı = Tablo_Dal(null, TabloTürü.Geçmiş_İşler, "Talepler/" + SeriNo + "/" + DateTime.Now.Yazıya(), true, EkTanım);
+            Geçmiş_SeriNoDalı.İçeriği = new string[] { K_lar.KullancıAdı, Güncel_Türü, DosyaEkleri_Listele(SeriNo).Length.Yazıya() };
+            Geçmiş_SeriNoDalı.Ekle(null, SeriNoDalı.YazıyaDönüştür(null, false, false), false);
         }
 
         public static void Değişiklikleri_Kaydet(Control Tetikleyen)
@@ -3369,7 +3382,13 @@ namespace İş_ve_Depo_Takip
             if (Etiket_Açıklamaları != null && Etiket_Açıklamaları.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Açıklamalar", Etiket_Açıklamaları, Ortak.Klasör_KullanıcıDosyaları_Etiketleme); }
 
             Ortak.Gösterge.İlerleme = 1;
-            //if (Geçmiş_İşler != null && Geçmiş_İşler.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet("Is", Geçmiş_İşler, Ortak.Klasör_KullanıcıDosyaları_Gecmis); }
+            if (Geçmiş_İşler != null)
+            {
+                foreach (KeyValuePair<string, Depo_> biri in Geçmiş_İşler)
+                {
+                    if (biri.Value.EnAzBir_ElemanAdıVeyaİçeriği_Değişti) { Depo_Kaydet(biri.Key, biri.Value, Ortak.Klasör_KullanıcıDosyaları_Gecmis); }
+                }
+            }
 
             Ortak.Gösterge.İlerleme = 1;
             if (EnAzBirDeğişiklikYapıldı || (Ayarlar != null && Ayarlar.EnAzBir_ElemanAdıVeyaİçeriği_Değişti))
@@ -3685,7 +3704,7 @@ namespace İş_ve_Depo_Takip
         static Depo_ KorumalıAlan = null;
         static Depo_ Takvim = null;
         static Depo_ Etiket_Açıklamaları = null;
-        static Depo_ Geçmiş_İşler = null;
+        static Dictionary<string, Depo_> Geçmiş_İşler = null; //Is_<Ay><Yıl> -> Is_A24 / Depo
 
         class Müşteri_
         {
