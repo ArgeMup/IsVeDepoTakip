@@ -159,7 +159,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     if ((int)Seviye1_işTakip.Tag != 1) Seviye_Değişti(Seviye1_işTakip, null);
 
                     Arama_Müşteriler.SeçilenEleman_Adları = Arama_Müşteriler.Tüm_Elemanlar.Where(x => !x.StartsWith(".:Gizli:. ")).ToList();
-                    Arama_İş_Türleri.SeçilenEleman_Adları = Arama_İş_Türleri.Tüm_Elemanlar.Where(x => !x.StartsWith(".:Gizli:. ")).ToList();
+                    Arama_İş_Türleri.SeçilenEleman_Adları = null;
 
                     Seviye1_işTakip.Checked = false;
                     Seviye1_Arama.Checked = true;
@@ -1411,7 +1411,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Arama_Sorgula_Aranan_Müşteriler = Arama_Müşteriler.SeçilenEleman_Adları;
             if (Arama_Sorgula_Aranan_Müşteriler.Count == 0) Arama_Sorgula_Aranan_Müşteriler = Arama_Müşteriler.Tüm_Elemanlar;
             Arama_Sorgula_Aranan_İşTürleri = Arama_İş_Türleri.SeçilenEleman_Adları;
-            if (Arama_Sorgula_Aranan_İşTürleri.Count == 0) Arama_Sorgula_Aranan_İşTürleri = Arama_İş_Türleri.Tüm_Elemanlar;
 
             if (!Seviye2_DevamEden.Checked && !Seviye2_TeslimEdildi.Checked && !Seviye2_ÖdemeBekleyen.Checked && !Seviye2_Ödendi.Checked)
             {
@@ -1497,7 +1496,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     Banka.Talep_Ayıkla_İşTürüDalı(iş, out string İşTürü, out string GirişTarihi, out _, out _, out _, out _);
 
-                    if (!Arama_Sorgula_Aranan_İşTürleri.Contains(İşTürü)) continue;
+                    if (Arama_Sorgula_Aranan_İşTürleri.Count > 0 && !Arama_Sorgula_Aranan_İşTürleri.Contains(İşTürü)) continue;
 
                     DateTime t = GirişTarihi.TarihSaate();
                     if (Arama_GirişTarihi_Başlangıç.Value > t || t > Arama_GirişTarihi_Bitiş.Value) continue;

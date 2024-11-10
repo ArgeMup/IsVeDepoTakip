@@ -142,7 +142,6 @@ namespace İş_ve_Depo_Takip
             #endregion
 
             #region Yeni Sürüme Uygun Hale Getirme
-            Temkinli.Dosya.Sil(Ortak.Klasör_KullanıcıDosyaları_Gecmis + "Is.mup");
             //IDepo_Eleman ayr = d["Son Banka Kayıt"];
             //if (ayr != null && ayr.Oku(null, null, 2) != Sürüm)
             //{
@@ -827,6 +826,40 @@ namespace İş_ve_Depo_Takip
 
             Gelir += Gelir_iç;
             Gider += Gider_iç;
+
+            return HataMesajı;
+        }
+        public static string Müşteri_Ayıkla_GelirGider(string Adı, IDepo_Eleman seri_no_dalı, out Dictionary<string, Tuple<double, double, int, string, string>> Gelir_Gider_Adet_GirişTarihi_ÇıkışTarihi, bool KDV_Dahil_Et)
+        {
+            string HataMesajı = null;
+            Gelir_Gider_Adet_GirişTarihi_ÇıkışTarihi = new Dictionary<string, Tuple<double, double, int, string, string>>();
+            List<IDepo_Eleman> Araci = new List<IDepo_Eleman>();
+            IDepo_Eleman seri_no_dalı_birarada = seri_no_dalı.Bul(null, false, true); //bağımsız kopya
+            IDepo_Eleman Seri_no_dalı_tek_tek = seri_no_dalı_birarada.Bul(null, false, true);
+
+            foreach (IDepo_Eleman iş_türü_dalı in seri_no_dalı_birarada.Elemanları)
+            {
+                Talep_Ayıkla_İşTürüDalı(iş_türü_dalı, out string İşTürü, out string GirişTarihi, out string ÇıkışTarihi, out _, out _, out byte[] Kullanım_AdetVeKonum);
+                int Adet = Ücretler_AdetÇarpanı(Kullanım_AdetVeKonum);
+
+                Seri_no_dalı_tek_tek.Sil(null, false, true);
+                Seri_no_dalı_tek_tek[İşTürü].İçeriği = iş_türü_dalı.İçeriği;
+                Araci.Clear();
+                Araci.Add(Seri_no_dalı_tek_tek);
+
+                double Gelir_iç = 0, Gider_iç = 0;
+                string HataMesajı_gecici = Müşteri_Ayıkla_GelirGider(Adı, Araci, ref Gelir_iç, ref Gider_iç, KDV_Dahil_Et);
+                if (!string.IsNullOrEmpty(HataMesajı_gecici)) HataMesajı += HataMesajı_gecici + "\n";
+                else
+                {
+                    if (Gelir_Gider_Adet_GirişTarihi_ÇıkışTarihi.ContainsKey(İşTürü))
+                    {
+                        Tuple<double, double, int, string, string> gelir_gider_adet_giriş_çıkış = Gelir_Gider_Adet_GirişTarihi_ÇıkışTarihi[İşTürü];
+                        Gelir_Gider_Adet_GirişTarihi_ÇıkışTarihi[İşTürü] = Tuple.Create(gelir_gider_adet_giriş_çıkış.Item1 + Gelir_iç, gelir_gider_adet_giriş_çıkış.Item2 + Gider_iç, gelir_gider_adet_giriş_çıkış.Item3 + Adet, GirişTarihi, ÇıkışTarihi);
+                    }
+                    else Gelir_Gider_Adet_GirişTarihi_ÇıkışTarihi.Add(İşTürü, Tuple.Create(Gelir_iç, Gider_iç, Adet, GirişTarihi, ÇıkışTarihi));
+                }
+            }
 
             return HataMesajı;
         }
@@ -1880,7 +1913,7 @@ namespace İş_ve_Depo_Takip
             if (Müşteriİçin_BirimÜcretBoşİseYapılacakHesaplama_Var) cevap += Environment.NewLine + @"Müşterinize özel ""Birim ücret boş ise yapılacak hesaplama"" içeriğini de kontrol ediniz.";
             return cevap;
         }
-        static string Ücretler_BirimMaliyet(string İşTürü, out double Değeri)
+        public static string Ücretler_BirimMaliyet(string İşTürü, out double Değeri)
         {
             Değeri = 0;
 

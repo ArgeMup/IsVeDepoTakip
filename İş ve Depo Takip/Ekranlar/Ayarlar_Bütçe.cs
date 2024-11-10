@@ -31,8 +31,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     _2_Tablo.Rows.Add(new object[] { true, a[0], a[1], a[2] });
                 }
             }
-
+            
             var ayrl_arama = Banka.ListeKutusu_Ayarlar(true, true);
+            ayrl_arama.Gruplar = Banka.Ayarlar_Kullanıcı(Name, "_5_Arama_İş_Türleri/Gruplar").Oku(null).Nesneye(typeof(Dictionary<string, List<string>>)) as Dictionary<string, List<string>>;
             _5_Arama_İş_Türleri.Başlat(null, Banka.İşTürü_Listele(), "İş Türleri", ayrl_arama);
 
             DateTime t = DateTime.Now;
@@ -880,17 +881,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
 
         List<string> _5_Arama_Sorgula_Aranan_İşTürleri;
-        class Bütçe_Hesaplama_İşTürüneGöre_
-        {
-            public string HataMesajı = "";
-            public double Gelir = 0, Gider = 0;
-            public Dictionary<string, int> İşler_ve_Adetleri = new Dictionary<string, int>(); //iş türü / adet
-            public Dictionary<string, List<Banka_Tablo_>> Tümü = new Dictionary<string, List<Banka_Tablo_>>(); //müşteri / tablolar
-        }
-        Bütçe_Hesaplama_İşTürüneGöre_ _5_Tam_İçerik = null;
+        Ayarlar_Yazdırma.Bütçe_Hesaplama_ _5_Tam_İçerik = null;
         private void _5_Arama_Sorgula_Click(object sender, EventArgs e)
         {
-            _5_Tam_İçerik = new Bütçe_Hesaplama_İşTürüneGöre_();
+            _5_Tam_İçerik = new Ayarlar_Yazdırma.Bütçe_Hesaplama_();
 
             Ortak.Gösterge.Başlat("Sayılıyor", true, _5_Arama_Sorgula, 0);
            
@@ -900,6 +894,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 _5_Arama_GirişTarihi_Başlangıç.Value = new DateTime(_5_Arama_GirişTarihi_Bitiş.Value.Year, _5_Arama_GirişTarihi_Bitiş.Value.Month, _5_Arama_GirişTarihi_Bitiş.Value.Day, 0, 0, 0);
                 _5_Arama_GirişTarihi_Bitiş.Value = new DateTime(gecici.Year, gecici.Month, gecici.Day, 23, 59, 00);
             }
+            _5_Tam_İçerik.Başlangıç = _5_Arama_GirişTarihi_Başlangıç.Value;
+            _5_Tam_İçerik.Bitiş = _5_Arama_GirişTarihi_Bitiş.Value;
           
             _5_Arama_Sorgula_Aranan_İşTürleri = _5_Arama_İş_Türleri.SeçilenEleman_Adları;
             if (_5_Arama_Sorgula_Aranan_İşTürleri.Count == 0) _5_Arama_Sorgula_Aranan_İşTürleri = _5_Arama_İş_Türleri.Tüm_Elemanlar;
@@ -973,11 +969,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     _5_Tam_İçerik.HataMesajı, Text);
             }
 
-            _5_Arama_Açıklama.Text = "Gelir : " + Banka.Yazdır_Ücret(_5_Tam_İçerik.Gelir);
-            if (_5_Tam_İçerik.Gider > 0) _5_Arama_Açıklama.Text += ", Gider : " + Banka.Yazdır_Ücret(_5_Tam_İçerik.Gider);
-            foreach (KeyValuePair<string, int> biri in _5_Tam_İçerik.İşler_ve_Adetleri)
+            _5_Arama_Açıklama.Text = "Gelir : " + Banka.Yazdır_Ücret(_5_Tam_İçerik.Genel.Gelir);
+            if (_5_Tam_İçerik.Genel.Gider > 0) _5_Arama_Açıklama.Text += ", Gider : " + Banka.Yazdır_Ücret(_5_Tam_İçerik.Genel.Gider);
+            foreach (KeyValuePair<string, Ayarlar_Yazdırma.Bütçe_Hesaplama_İşTürüneGöre_> biri in _5_Tam_İçerik.iştürüne_göre)
             {
-                _5_Arama_Açıklama.Text += Environment.NewLine + biri.Key + " : " + biri.Value + " adet";
+                _5_Arama_Açıklama.Text += Environment.NewLine + biri.Key + " : " + biri.Value.Genel.Adet + " adet";
             }
 
             Ortak.Gösterge.Bitir();
@@ -994,7 +990,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Banka.Talep_Ayıkla_İşTürüDalı(iş_türü_dalı, out string İşTürü, out string GirişTarihi, out _, out _, out _, out _);
 
                     DateTime t = GirişTarihi.TarihSaate();
-                    if (_5_Arama_GirişTarihi_Başlangıç.Value > t || t > _5_Arama_GirişTarihi_Bitiş.Value) continue;
+                    if (_5_Tam_İçerik.Başlangıç > t || t > _5_Tam_İçerik.Bitiş) continue;
 
                     uyuşanlar.Add(seri_no_dalı);
                     break;
@@ -1002,30 +998,91 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             if (uyuşanlar.Count == 0) return;
+            string durumu = bt.Türü == Banka.TabloTürü.DevamEden ? "DE " : bt.Türü == Banka.TabloTürü.TeslimEdildi ? "TE " : bt.Türü == Banka.TabloTürü.ÖdemeTalepEdildi ? "ÖT " : bt.Türü == Banka.TabloTürü.Ödendi ? "Öd " : "?? ";
 
             foreach (IDepo_Eleman seri_no_dalı in uyuşanlar)
             {
-                foreach (IDepo_Eleman iş_türü_dalı in seri_no_dalı.Elemanları)
-                {
-                    Banka.Talep_Ayıkla_İşTürüDalı(iş_türü_dalı, out string İşTürü, out _, out _, out _, out _, out byte[] Kullanım_AdetVeKonum);
-                    int Adet = Banka.Ücretler_AdetÇarpanı(Kullanım_AdetVeKonum);
+                Banka.Talep_Ayıkla_SeriNoDalı(seri_no_dalı, out string SeriNo, out string Hasta, out string İskonto, out _, out _, out _);
 
-                    if (_5_Tam_İçerik.İşler_ve_Adetleri.ContainsKey(İşTürü)) _5_Tam_İçerik.İşler_ve_Adetleri[İşTürü] += Adet;
-                    else _5_Tam_İçerik.İşler_ve_Adetleri.Add(İşTürü, Adet);
+                string HataMesajı_iç = Banka.Müşteri_Ayıkla_GelirGider(bt.Müşteri, seri_no_dalı, out Dictionary<string, Tuple<double, double, int, string, string>> İştürüneGöre_Gelir_Gider_Adet_GirişTarihi_ÇıkışTarihi, false);
+                if (HataMesajı_iç.DoluMu()) _5_Tam_İçerik.HataMesajı += HataMesajı_iç;
+                else
+                {
+                    foreach (KeyValuePair<string, Tuple<double, double, int, string, string>> biri in İştürüneGöre_Gelir_Gider_Adet_GirişTarihi_ÇıkışTarihi)
+                    {
+                        Ayarlar_Yazdırma.Bütçe_Hesaplama_İşTürüneGöre_ iştürüne_göre;
+                        if (_5_Tam_İçerik.iştürüne_göre.ContainsKey(biri.Key)) iştürüne_göre = _5_Tam_İçerik.iştürüne_göre[biri.Key];
+                        else
+                        {
+                            iştürüne_göre = new Ayarlar_Yazdırma.Bütçe_Hesaplama_İşTürüneGöre_();
+                            _5_Tam_İçerik.iştürüne_göre.Add(biri.Key, iştürüne_göre);
+                        }
+
+                        _5_Tam_İçerik.Genel.Topla(biri.Value);
+                        iştürüne_göre.Genel.Topla(biri.Value);
+
+                        Ayarlar_Yazdırma.Bütçe_Hesaplama_Müşteriye_göre_ müşteriye_göre;
+                        if (iştürüne_göre.müşteriye_göre.ContainsKey(bt.Müşteri)) müşteriye_göre = iştürüne_göre.müşteriye_göre[bt.Müşteri];
+                        else
+                        {
+                            müşteriye_göre = new Ayarlar_Yazdırma.Bütçe_Hesaplama_Müşteriye_göre_();
+                            iştürüne_göre.müşteriye_göre.Add(bt.Müşteri, müşteriye_göre);
+                        }
+
+                        müşteriye_göre.Genel.Topla(biri.Value);
+
+                        Ayarlar_Yazdırma.Bütçe_Hesaplama_Müşteriye_göre_iş_içeriği_ iş_içeriği = new Ayarlar_Yazdırma.Bütçe_Hesaplama_Müşteriye_göre_iş_içeriği_();
+                        müşteriye_göre.iş_içerikleri.Add(iş_içeriği);
+
+                        iş_içeriği.Serino = durumu + SeriNo;
+                        iş_içeriği.Hasta = Hasta + (İskonto.DoluMu() ? Environment.NewLine + "İskonto % " + İskonto : null);
+                        iş_içeriği.Adet = biri.Value.Item3.ToString();
+                        iş_içeriği.İş_kabul = Banka.Yazdır_Tarih(biri.Value.Item4);
+                        iş_içeriği.iş_çıkış = Banka.Yazdır_Tarih(biri.Value.Item5);
+                        iş_içeriği.Ücret = Banka.Yazdır_Ücret(biri.Value.Item1);
+                    }
                 }
             }
 
             bt.Talepler = uyuşanlar;
             Banka.Talep_TablodaGöster(_5_Tablo, bt, false, true);
-
-            _5_Tam_İçerik.HataMesajı += Banka.Müşteri_Ayıkla_GelirGider(bt.Müşteri, bt.Talepler, ref _5_Tam_İçerik.Gelir, ref _5_Tam_İçerik.Gider, false);
-
-            if (_5_Tam_İçerik.Tümü.ContainsKey(bt.Müşteri)) _5_Tam_İçerik.Tümü[bt.Müşteri].Add(bt);
-            else _5_Tam_İçerik.Tümü.Add(bt.Müşteri, new List<Banka_Tablo_>() { bt });
         }
         private void _5_Yazdırma_Yazdır_Click(object sender, EventArgs e)
         {
-            if (_5_Tam_İçerik == null || _5_Tam_İçerik.Tümü.Count == 0) return;
+            if (_5_Tam_İçerik == null || _5_Tam_İçerik.iştürüne_göre.Count == 0)
+            {
+                MessageBox.Show("Hiç kayıt bulunamadı", Text);
+                return;
+            }
+
+            string dosyayolu = Ortak.Klasör_Gecici + Path.GetRandomFileName() + ".pdf";
+            Ayarlar_Yazdırma y = new Ayarlar_Yazdırma();
+            y.Bütçe_Hesaplama_İşTürüneGöre_Yazdır(_5_Tam_İçerik, dosyayolu);
+            y.Dispose();
+
+            if (!string.IsNullOrEmpty(Ortak.Kullanıcı_Klasör_Pdf) &&
+                !Ortak.Klasör_KendiKlasörleriİçindeMi(Ortak.Kullanıcı_Klasör_Pdf))
+            {
+                string hedef = Ortak.Kullanıcı_Klasör_Pdf + _5_Tam_İçerik.Başlangıç.Yazıya(ArgeMup.HazirKod.Dönüştürme.D_TarihSaat.Şablon_DosyaAdı2);
+                if (!Temkinli.Dosya.Kopyala(dosyayolu, hedef))
+                {
+                    MessageBox.Show("Üretilen pdf kullanıcı klasörüne kopyalanamadı", Text);
+        }
+                else
+                {
+                    if (_5_Yazdırma_VeGörüntüle.Checked) Ortak.Çalıştır.UygulamayaİşletimSistemiKararVersin(hedef);
+                    if (_5_Yazdırma_VeKlasörüAç.Checked) Ortak.Çalıştır.DosyaGezginindeGöster(hedef);
+                }
+            }
+            else
+        {
+                if (_5_Yazdırma_VeGörüntüle.Checked) Ortak.Çalıştır.UygulamayaİşletimSistemiKararVersin(dosyayolu);
+                if (_5_Yazdırma_VeKlasörüAç.Checked) Ortak.Çalıştır.DosyaGezginindeGöster(dosyayolu);
+            }
+
+            IDepo_Eleman Ayrl_Kullanıcı = Banka.Ayarlar_Kullanıcı(Name, null);
+            Ayrl_Kullanıcı.Yaz("İşTakip_Yazdırma_VeGörüntüle", _5_Yazdırma_VeGörüntüle.Checked);
+            Ayrl_Kullanıcı.Yaz("İşTakip_Yazdırma_VeKlasörüAç", _5_Yazdırma_VeKlasörüAç.Checked);
         }
         #endregion
 
@@ -1116,6 +1173,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             if (TabloİçeriğiArama_KapatmaTalebi) TabloİçeriğiArama_TextChanged(null, null);
             TabloİçeriğiArama_KapatmaTalebi = false;
+        }
+
+        private void Ayarlar_Bütçe_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (_5_Arama_İş_Türleri.Gruplar_Değişti) Banka.Ayarlar_Kullanıcı(Name, "_5_Arama_İş_Türleri/Gruplar").Yaz(null, _5_Arama_İş_Türleri.Gruplar.Yazıya());
         }
     }
 }

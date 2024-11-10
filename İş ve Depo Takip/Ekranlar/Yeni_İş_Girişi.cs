@@ -827,7 +827,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 İşKaydıYapıldı = true;
             }
 
-            if (EtiketSayısı_Kayıt.Value == 0 && EtiketSayısı_Acil.Value == 0) EtiketSayısı_Kayıt.Value = 1;
+            if (EtiketSayısı_Kayıt.Value == 0 && EtiketSayısı_Acil.Value == 0 && !İşKağıdı.Checked) EtiketSayısı_Kayıt.Value = 1;
 
             List<byte> TümDişler = Dişler_Tümü();
 

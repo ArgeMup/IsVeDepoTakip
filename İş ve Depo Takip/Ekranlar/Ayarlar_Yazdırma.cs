@@ -908,6 +908,483 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Sayfa.SonrakiSayfaYazısı.Yazı = "Toplam " + Sayfa.Yazılar.Count + " işlem, sayfa _ArGeMuP_ / " + Sayfa.ToplamSayfaSayısı + ", #" + System.IO.Path.GetRandomFileName().Replace(".", "");
             Sayfa.SonrakiSayfaYazısı.Boyut = Grafik.MeasureString(Sayfa.SonrakiSayfaYazısı.Yazı, Sayfa.KaKü_Diğer, sf_ss);
         }
+
+        class Bütçe_Hesaplama_Bir_Yazı_
+        {
+            public SizeF Boyut;
+            string Yazı;
+            float Sol;
+            Font KarakterKümesi;
+            Brush ArkaPlanRengi;
+            StringFormat Şekil = new StringFormat();
+
+            public Bütçe_Hesaplama_Bir_Yazı_(string Yazı, float Genişlik, float Sol, bool SolaYaslanmış, bool SağaYaslanmış, Font KarakterKümesi, Graphics Grafik, Brush ArkaPlanRengi = null)
+            {
+                this.Yazı = Yazı;
+                this.Sol = Sol;
+                this.KarakterKümesi = KarakterKümesi;
+                this.ArkaPlanRengi = ArkaPlanRengi;
+
+                Şekil.LineAlignment = StringAlignment.Center;
+                if (SolaYaslanmış) Şekil.Alignment = StringAlignment.Near;
+                else if (SağaYaslanmış) Şekil.Alignment = StringAlignment.Far;
+                else Şekil.Alignment = StringAlignment.Center;
+
+                SizeF s = new SizeF(Genişlik, 100);
+                Boyut = Grafik.MeasureString(Yazı, KarakterKümesi, s, Şekil, out _, out int SatırSayisi);
+                if (SatırSayisi > 1 && Yazı.Contains(" | "))
+                {
+                    Yazı = Yazı.Replace(" | ", Environment.NewLine);
+                    Boyut = Grafik.MeasureString(Yazı, KarakterKümesi, s, Şekil);
+                }
+
+                Boyut = new SizeF(Genişlik, Boyut.Height);
+            }
+            public void Yazdır(Graphics Grafik, float Üst, float Yükseklik)
+            {
+                RectangleF alan = new RectangleF(Sol, Üst, Boyut.Width, Yükseklik);
+
+                if (ArkaPlanRengi != null) Grafik.FillRectangle(ArkaPlanRengi, alan);
+
+                Grafik.DrawString(Yazı, KarakterKümesi, Brushes.Black, alan, Şekil);
+
+                Grafik.DrawRectangle(new Pen(Color.Black, 0.1F), Sol, Üst, Boyut.Width, Yükseklik);                
+            }
+        }
+        class Bütçe_Hesaplama_Bir_Satır_
+        {
+            public List<Bütçe_Hesaplama_Bir_Yazı_> Yazılar = new List<Bütçe_Hesaplama_Bir_Yazı_>();
+            
+            float EnYüksek_Yükseklik_ = -1;
+            public float EnYüksek_Yükseklik
+            {
+                get
+                {
+                    if (EnYüksek_Yükseklik_ == -1)
+                    {
+                        foreach (Bütçe_Hesaplama_Bir_Yazı_ biri in Yazılar)
+                        {
+                            if (biri.Boyut.Height > EnYüksek_Yükseklik_) EnYüksek_Yükseklik_ = biri.Boyut.Height;
+                        }
+                    }
+
+                    return EnYüksek_Yükseklik_;
+                }
+            }
+        }
+        public class Bütçe_Hesaplama_Müşteriye_göre_iş_içeriği_
+        {
+            public string Serino, Hasta, Adet, İş_kabul, iş_çıkış, Ücret;
+        }
+        public class Bütçe_Hesaplama_Sayaclar_
+        {
+            public double Gelir = 0, Gider = 0;
+            public int Adet = 0;
+
+            public void Topla(Tuple<double, double, int, string, string> Gelir_Gider_Adet_GirişTarihi_ÇıkışTarihi)
+            {
+                Gelir += Gelir_Gider_Adet_GirişTarihi_ÇıkışTarihi.Item1;
+                Gider += Gelir_Gider_Adet_GirişTarihi_ÇıkışTarihi.Item2;
+                Adet += Gelir_Gider_Adet_GirişTarihi_ÇıkışTarihi.Item3;
+            }
+        }
+        public class Bütçe_Hesaplama_Müşteriye_göre_
+        {
+            public Bütçe_Hesaplama_Sayaclar_ Genel = new Bütçe_Hesaplama_Sayaclar_();
+
+            public List<Bütçe_Hesaplama_Müşteriye_göre_iş_içeriği_> iş_içerikleri = new List<Bütçe_Hesaplama_Müşteriye_göre_iş_içeriği_>();
+        }
+        public class Bütçe_Hesaplama_İşTürüneGöre_
+        {
+            public Bütçe_Hesaplama_Sayaclar_ Genel = new Bütçe_Hesaplama_Sayaclar_();
+
+            public Dictionary<string, Bütçe_Hesaplama_Müşteriye_göre_> müşteriye_göre = new Dictionary<string, Bütçe_Hesaplama_Müşteriye_göre_>();
+        }
+        public class Bütçe_Hesaplama_
+        {
+            public DateTime Başlangıç, Bitiş;
+            public string HataMesajı = "";
+            public Bütçe_Hesaplama_Sayaclar_ Genel = new Bütçe_Hesaplama_Sayaclar_();
+
+            public Dictionary<string, Bütçe_Hesaplama_İşTürüneGöre_> iştürüne_göre = new Dictionary<string, Bütçe_Hesaplama_İşTürüneGöre_>();
+        }
+        class Bütçe_Hesaplama_İşTürüneGöre_Bir_Sayfa_
+        {
+            public float Sol, Üst, Genişlik, Yükseklik, Yükseklik_YazılarİçinKullanılabilir;
+            public Font KaKü_Müşteri, KaKü_Başlık, KaKü_Diğer;
+
+            public float Genişlik_SeriNo, Genişlik_Hasta, Genişlik_Adet, Genişlik_Gelir_Gider_Fark;
+
+            public List<Bütçe_Hesaplama_Bir_Satır_> Yazılar = new List<Bütçe_Hesaplama_Bir_Satır_>();
+
+            public Bir_Yazı_ SonrakiSayfaYazısı = new Bir_Yazı_();
+            public float YazılarİçinToplamYükseklik = 0;
+            public int ŞimdikiSayfaSayısı = 1, ToplamSayfaSayısı = 0;
+        }
+        public void Bütçe_Hesaplama_İşTürüneGöre_Yazdır(Bütçe_Hesaplama_ Tümü, string DosyaAdı)
+        {
+            Bütçe_Hesaplama_İşTürüneGöre_Bir_Sayfa_ Sayfa = null;
+            PrintDocument pd = new PrintDocument();
+            pd.OriginAtMargins = true;
+
+            if (DosyaAdı != null)
+            {
+                Klasör.Oluştur(Path.GetDirectoryName(DosyaAdı));
+                pd.PrinterSettings.PrintFileName = DosyaAdı;
+            }
+            else
+            {
+                pd.EndPrint += Bütçe_Hesaplama_İşTürüneGöre_Yazdır_Pd_EndPrint;
+                Önizleme.Document = pd;
+            }
+
+            pd.PrinterSettings.PrintToFile = DosyayaYazdır.Checked;
+            pd.PrinterSettings.PrinterName = Yazcılar.Text;
+            pd.PrintPage += Bütçe_Hesaplama_İşTürüneGöre_Yazdır_pd;
+            if (!pd.PrinterSettings.IsValid) throw new Exception("Yazıcı kullanılamıyor " + pd.PrinterSettings.PrinterName);
+
+            if (DosyaAdı != null)
+            {
+                pd.Print();
+                pd.Dispose();
+
+                if (Dosya.BaşkaBirYerdeAçıkMı(DosyaAdı)) throw new Exception("Pdf dosyası oluşturulamadı" + Environment.NewLine + DosyaAdı);
+            }
+
+            void Bütçe_Hesaplama_İşTürüneGöre_Yazdır_pd(object senderr, PrintPageEventArgs ev)
+            {
+                //MarginBounds 25,4 25,4 159,258 246,126
+                //PageBounds 0 0 210,058 296,926
+                //tümü mm olarak
+                ev.Graphics.PageUnit = GraphicsUnit.Millimeter;
+                ev.Graphics.ResetTransform();
+                ev.Graphics.Clear(Color.White);
+
+                if (Sayfa == null)
+                {
+                    Sayfa = new Bütçe_Hesaplama_İşTürüneGöre_Bir_Sayfa_();
+                    Sayfa.Sol = (ev.PageBounds.X * (float)0.254) + (ev.PageSettings.HardMarginX * (float)0.254) + (float)KenarBoşluğu.Value;
+                    Sayfa.Üst = (ev.PageBounds.Y * (float)0.254) + (ev.PageSettings.HardMarginY * (float)0.254) + (float)KenarBoşluğu.Value;
+                    Sayfa.Genişlik = (ev.PageBounds.Width * (float)0.254) - (2 * Sayfa.Sol);
+                    Sayfa.Yükseklik = (ev.PageBounds.Height * (float)0.254) - (2 * Sayfa.Üst);
+
+                    Sayfa.KaKü_Müşteri = new Font(KarakterKümeleri.Text, (int)KarakterBüyüklüğü_Müşteri.Value, FontStyle.Bold);
+                    Sayfa.KaKü_Başlık = new Font(KarakterKümeleri.Text, (int)KarakterBüyüklüğü_Başlıklar.Value, FontStyle.Bold);
+                    Sayfa.KaKü_Diğer = new Font(KarakterKümeleri.Text, (int)KarakterBüyüklüğü_Diğerleri.Value);
+
+                    Sayfa.Yükseklik_YazılarİçinKullanılabilir = Sayfa.Yükseklik - (float)FirmaLogo_Yükseklik.Value - ev.Graphics.MeasureString("ŞÇÖĞ", Sayfa.KaKü_Başlık).Height /*Başlık*/;
+                    if (Sayfa.Yükseklik_YazılarİçinKullanılabilir <= 0) throw new Exception("Yazıcının kullanılabilir sayfa yüksekliği uygun değil, farklı bir yazıcı seçiniz veya ayarları kontrol ediniz").Günlük();
+
+                    Bütçe_Hesaplama_İşTürüneGöre_Yazdır_Hesaplat(Sayfa, Tümü, ev.Graphics);
+                }
+
+                float YazdırmaKonumu_Üst = Sayfa.Üst, YazdırmaKonumu_Yükseklik = Sayfa.Yükseklik;
+                Bir_Yazı_Yazdırma_Detayları_ y = new Bir_Yazı_Yazdırma_Detayları_();
+                y.Grafik = ev.Graphics;
+                y.Kalem = new Pen(Color.Black, 0.1F) { DashStyle = System.Drawing.Drawing2D.DashStyle.Solid };
+                y.Yazı = new Bir_Yazı_();
+
+                //logo
+                ev.Graphics.DrawImage(Ortak.Firma_Logo, Sayfa.Sol, Sayfa.Üst, (float)FirmaLogo_Genişlik.Value, (float)FirmaLogo_Yükseklik.Value);
+
+                //Yazdırma zamanı
+                SizeF s1 = new SizeF(Sayfa.Genişlik - (float)FirmaLogo_Genişlik.Value, (float)FirmaLogo_Yükseklik.Value);
+                y.KarakterKümesi = Sayfa.KaKü_Başlık;
+                y.Yazı.Yazı = Banka.Yazdır_Tarih(DateTime.Now.Yazıya());
+                y.Yazı.Boyut = ev.Graphics.MeasureString(y.Yazı.Yazı, y.KarakterKümesi, s1);
+                y.Sol = Sayfa.Sol + (Sayfa.Genişlik - y.Yazı.Boyut.Width);
+                y.Üst = Sayfa.Üst;
+                y.Genişlik = y.Yazı.Boyut.Width;
+                y.Yükseklik = y.Yazı.Boyut.Height;
+                y.Çerçeve = false;
+                y.Yazdır();
+
+                #region Tarih Aralığı
+                s1 = new SizeF(Sayfa.Genişlik - (float)FirmaLogo_Genişlik.Value - y.Yazı.Boyut.Width, (float)FirmaLogo_Yükseklik.Value);
+                y.Yazı.Yazı = "İş kabul tarihi" + Environment.NewLine + Banka.Yazdır_Tarih(Tümü.Başlangıç.Yazıya()) +  " ile " + Banka.Yazdır_Tarih(Tümü.Bitiş.Yazıya()) + Environment.NewLine + "aralığındaki işler";
+                y.Yazı.Boyut = ev.Graphics.MeasureString(y.Yazı.Yazı, Sayfa.KaKü_Müşteri, s1);
+                while (y.Yazı.Boyut.Height >= (float)FirmaLogo_Yükseklik.Value)
+                {
+                    //logo yüksekliğine sığmayan yazının karakterini küçült
+                    Sayfa.KaKü_Müşteri = new Font(Sayfa.KaKü_Müşteri.FontFamily, Sayfa.KaKü_Müşteri.Size - 0.5f);
+
+                    y.Yazı.Boyut = ev.Graphics.MeasureString(y.Yazı.Yazı, Sayfa.KaKü_Müşteri, s1);
+                }
+
+                y.KarakterKümesi = Sayfa.KaKü_Müşteri;
+                y.Sol = Sayfa.Sol + (float)FirmaLogo_Genişlik.Value;
+                y.Üst = Sayfa.Üst;
+                y.Genişlik = s1.Width;
+                y.Yükseklik = s1.Height;
+                y.Yazdır();
+                YazdırmaKonumu_Üst += y.Yükseklik;
+                YazdırmaKonumu_Yükseklik -= y.Yükseklik;
+                #endregion
+
+                #region Çerçeveler
+                //Pen k = new Pen(Color.Red, 0.1f);
+                //ev.Graphics.DrawRectangle(k, Sayfa.Sol, YazdırmaKonumu_Üst, Sayfa.Sutun_Hasta_Genişlik, YazdırmaKonumu_Yükseklik); //hastaadı
+                //ev.Graphics.DrawRectangle(k, Sayfa.Sol + Sayfa.Sutun_Hasta_Genişlik, YazdırmaKonumu_Üst, Sayfa.Sutun_İş_Genişlik, YazdırmaKonumu_Yükseklik); //işler
+                ev.Graphics.DrawRectangle(y.Kalem, Sayfa.Sol, Sayfa.Üst, Sayfa.Genişlik, Sayfa.Yükseklik); //dış çerçeve
+                #endregion
+
+                #region İçeriğin yazdırılması
+                y.KarakterKümesi = Sayfa.KaKü_Diğer;
+                while (Sayfa.Yazılar.Count > 0)
+                {
+                    y.Yükseklik = Sayfa.Yazılar[0].EnYüksek_Yükseklik;
+                    Günlük.Ekle(y.Yükseklik.ToString() + " " + YazdırmaKonumu_Üst.ToString());
+
+                    if (y.Yükseklik + Sayfa.SonrakiSayfaYazısı.Boyut.Height > YazdırmaKonumu_Yükseklik)
+                    {
+                        //daha fazla yazdırılacak iş var, sonraki sayfaya geç
+                        SonrakiSayfaYazısınıYazdır();
+                        ev.HasMorePages = true;
+                        return;
+                    }
+
+                    foreach (Bütçe_Hesaplama_Bir_Yazı_ bir_satır in Sayfa.Yazılar[0].Yazılar)
+                    {
+                        bir_satır.Yazdır(ev.Graphics, YazdırmaKonumu_Üst, y.Yükseklik);
+                    }
+
+                    YazdırmaKonumu_Üst += y.Yükseklik;
+                    YazdırmaKonumu_Yükseklik -= y.Yükseklik;
+                    Sayfa.Yazılar.RemoveAt(0);
+                }
+
+                y.KarakterKümesi = Sayfa.KaKü_Diğer;
+                SonrakiSayfaYazısınıYazdır();
+                #endregion
+
+                void SonrakiSayfaYazısınıYazdır()
+                {
+                    y.YataydaOrtalanmış = false;
+                    y.SağaYaslanmış = false;
+                    y.Çerçeve = false;
+
+                    y.Yazı.Yazı = Sayfa.SonrakiSayfaYazısı.Yazı.Replace("_ArGeMuP_", (Sayfa.ŞimdikiSayfaSayısı++).ToString());
+                    y.Yazı.Boyut = ev.Graphics.MeasureString(y.Yazı.Yazı, y.KarakterKümesi, new SizeF(Sayfa.Genişlik, Sayfa.SonrakiSayfaYazısı.Boyut.Height));
+
+                    y.Sol = Sayfa.Sol;
+                    y.Üst = Sayfa.Üst + Sayfa.Yükseklik - y.Yazı.Boyut.Height;
+                    y.Genişlik = Sayfa.Genişlik;
+                    y.Yükseklik = y.Yazı.Boyut.Height;
+                    y.Yazdır();
+                }
+            }
+            void Bütçe_Hesaplama_İşTürüneGöre_Yazdır_Pd_EndPrint(object senderr, PrintEventArgs ee)
+            {
+                Önizleme.Rows = Sayfa.ToplamSayfaSayısı;
+            }
+        }
+        void Bütçe_Hesaplama_İşTürüneGöre_Yazdır_Hesaplat(Bütçe_Hesaplama_İşTürüneGöre_Bir_Sayfa_ Sayfa, Bütçe_Hesaplama_ Tümü, Graphics Grafik)
+        {
+            //yazıların genişlik hesabı
+            SizeF s = new SizeF(100, 100);//a4 ten büyük
+            string SağSolBoşlukHesaplatmaYazısı = "Ş";
+            Sayfa.Genişlik_SeriNo = Math.Max(Grafik.MeasureString(Tümü.iştürüne_göre.Values.First().müşteriye_göre.Values.First().iş_içerikleri[0].Serino + SağSolBoşlukHesaplatmaYazısı, Sayfa.KaKü_Diğer, s).Width, Grafik.MeasureString("Seri No" + SağSolBoşlukHesaplatmaYazısı, Sayfa.KaKü_Başlık, s).Width);
+            Sayfa.Genişlik_Adet = Math.Max(Grafik.MeasureString(Tümü.Genel.Adet + SağSolBoşlukHesaplatmaYazısı, Sayfa.KaKü_Diğer, s).Width, Grafik.MeasureString("Adet" + SağSolBoşlukHesaplatmaYazısı, Sayfa.KaKü_Başlık, s).Width);
+            Sayfa.Genişlik_Gelir_Gider_Fark = Math.Max(Grafik.MeasureString(Banka.Yazdır_Ücret(Tümü.Genel.Gelir) + SağSolBoşlukHesaplatmaYazısı, Sayfa.KaKü_Diğer, s).Width, Grafik.MeasureString("99.99.9999" + SağSolBoşlukHesaplatmaYazısı, Sayfa.KaKü_Diğer, s).Width);
+            Sayfa.Genişlik_Hasta = Sayfa.Genişlik - (Sayfa.Genişlik_SeriNo + Sayfa.Genişlik_Adet + (3 * Sayfa.Genişlik_Gelir_Gider_Fark));
+
+            //Yazıların oluşturulması
+            Brush Kalem_AçıkMavi = new SolidBrush(Color.FromArgb(0xB4, 0xC7, 0xDC));
+            Brush Kalem_AçıkYeşil = new SolidBrush(Color.FromArgb(0xAF, 0xD0, 0x95));
+            Bütçe_Hesaplama_Bir_Satır_ bir_satır;
+
+            #region Grup A
+            float Genişlik_iştürü = Sayfa.Genişlik_SeriNo + Sayfa.Genişlik_Hasta;
+            //   iştürü başlığı
+            bir_satır = new Bütçe_Hesaplama_Bir_Satır_();
+            Sayfa.Yazılar.Add(bir_satır);
+            float Konum_Sol = Sayfa.Sol;
+            bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_("İş Türü", Genişlik_iştürü, Konum_Sol, false, false, Sayfa.KaKü_Başlık, Grafik, Kalem_AçıkMavi));
+            Konum_Sol += Genişlik_iştürü;
+            bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_("Adet", Sayfa.Genişlik_Adet, Konum_Sol, false, false, Sayfa.KaKü_Başlık, Grafik));
+            Konum_Sol += Sayfa.Genişlik_Adet;
+            bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_("Gelir", Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Başlık, Grafik));
+            Konum_Sol += Sayfa.Genişlik_Gelir_Gider_Fark;
+            bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_("Gider", Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Başlık, Grafik));
+            Konum_Sol += Sayfa.Genişlik_Gelir_Gider_Fark;
+            bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_("Fark", Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Başlık, Grafik));
+            //   Detaylar
+            foreach (KeyValuePair<string, Bütçe_Hesaplama_İşTürüneGöre_> biri in Tümü.iştürüne_göre)
+            {
+                bir_satır = new Bütçe_Hesaplama_Bir_Satır_();
+                Sayfa.Yazılar.Add(bir_satır);
+                Konum_Sol = Sayfa.Sol;
+
+                bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(biri.Key, Genişlik_iştürü, Konum_Sol, true, false, Sayfa.KaKü_Diğer, Grafik)); //iştürü
+                Konum_Sol += Genişlik_iştürü;
+                bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(biri.Value.Genel.Adet.Yazıya(), Sayfa.Genişlik_Adet, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik)); //adet
+                Konum_Sol += Sayfa.Genişlik_Adet;
+                bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(Banka.Yazdır_Ücret(biri.Value.Genel.Gelir), Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik)); //gelir
+                Konum_Sol += Sayfa.Genişlik_Gelir_Gider_Fark;
+                bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(Banka.Yazdır_Ücret(biri.Value.Genel.Gider), Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik)); //gider
+                Konum_Sol += Sayfa.Genişlik_Gelir_Gider_Fark;
+                bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(Banka.Yazdır_Ücret(biri.Value.Genel.Gelir - biri.Value.Genel.Gider), Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik)); //fark
+            }
+            //   Alt toplam
+            bir_satır = new Bütçe_Hesaplama_Bir_Satır_();
+            Sayfa.Yazılar.Add(bir_satır);
+            Konum_Sol = Sayfa.Sol;
+            bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_("Alt Toplam ", Genişlik_iştürü, Konum_Sol, false, true, Sayfa.KaKü_Diğer, Grafik)); //adet
+            Konum_Sol += Genişlik_iştürü;
+            bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(Tümü.Genel.Adet.Yazıya(), Sayfa.Genişlik_Adet, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik)); //adet
+            Konum_Sol += Sayfa.Genişlik_Adet;
+            bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(Banka.Yazdır_Ücret(Tümü.Genel.Gelir), Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik)); //gelir
+            Konum_Sol += Sayfa.Genişlik_Gelir_Gider_Fark;
+            bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(Banka.Yazdır_Ücret(Tümü.Genel.Gider), Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik)); //gider
+            Konum_Sol += Sayfa.Genişlik_Gelir_Gider_Fark;
+            bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(Banka.Yazdır_Ücret(Tümü.Genel.Gelir - Tümü.Genel.Gider), Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik)); //fark
+            #endregion
+
+            #region Grup B
+            foreach (KeyValuePair<string, Bütçe_Hesaplama_İşTürüneGöre_> iş_türü in Tümü.iştürüne_göre)
+            {
+                string HataMesajı = Banka.Ücretler_BirimMaliyet(iş_türü.Key, out double Maliyeti);
+                if (HataMesajı.DoluMu()) Maliyeti = -1;
+
+                //   iştürü başlığı
+                bir_satır = new Bütçe_Hesaplama_Bir_Satır_();
+                Sayfa.Yazılar.Add(bir_satır);
+                Konum_Sol = Sayfa.Sol;
+                bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(iş_türü.Key + " | Birim Maliyet : " + Banka.Yazdır_Ücret(Maliyeti), Sayfa.Genişlik, Sayfa.Sol, false, false, Sayfa.KaKü_Başlık, Grafik, Kalem_AçıkMavi));
+                //   Detaylar
+                foreach (KeyValuePair<string, Bütçe_Hesaplama_Müşteriye_göre_> müşteri in iş_türü.Value.müşteriye_göre)
+                {
+                    bir_satır = new Bütçe_Hesaplama_Bir_Satır_();
+                    Sayfa.Yazılar.Add(bir_satır);
+                    Konum_Sol = Sayfa.Sol;
+
+                    bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(müşteri.Key, Genişlik_iştürü, Konum_Sol, true, false, Sayfa.KaKü_Diğer, Grafik)); //müşteri
+                    Konum_Sol += Genişlik_iştürü;
+                    bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(müşteri.Value.Genel.Adet.Yazıya(), Sayfa.Genişlik_Adet, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik)); //adet
+                    Konum_Sol += Sayfa.Genişlik_Adet;
+                    bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(Banka.Yazdır_Ücret(müşteri.Value.Genel.Gelir), Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik)); //gelir
+                    Konum_Sol += Sayfa.Genişlik_Gelir_Gider_Fark;
+                    bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(Banka.Yazdır_Ücret(müşteri.Value.Genel.Gider), Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik)); //gider
+                    Konum_Sol += Sayfa.Genişlik_Gelir_Gider_Fark;
+                    bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(Banka.Yazdır_Ücret(müşteri.Value.Genel.Gelir - müşteri.Value.Genel.Gider), Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik)); //fark
+                }
+                //   Alt toplam
+                bir_satır = new Bütçe_Hesaplama_Bir_Satır_();
+                Sayfa.Yazılar.Add(bir_satır);
+                Konum_Sol = Sayfa.Sol;
+                bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_("Alt Toplam ", Genişlik_iştürü, Konum_Sol, false, true, Sayfa.KaKü_Diğer, Grafik));
+                Konum_Sol += Genişlik_iştürü;
+                bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(iş_türü.Value.Genel.Adet.Yazıya(), Sayfa.Genişlik_Adet, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik)); //adet
+                Konum_Sol += Sayfa.Genişlik_Adet;
+                bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(Banka.Yazdır_Ücret(iş_türü.Value.Genel.Gelir), Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik)); //gelir
+                Konum_Sol += Sayfa.Genişlik_Gelir_Gider_Fark;
+                bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(Banka.Yazdır_Ücret(iş_türü.Value.Genel.Gider), Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik)); //gider
+                Konum_Sol += Sayfa.Genişlik_Gelir_Gider_Fark;
+                bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(Banka.Yazdır_Ücret(iş_türü.Value.Genel.Gelir - iş_türü.Value.Genel.Gider), Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik)); //fark
+            }
+            #endregion
+
+            #region Grup C
+            bool GrupC_başlık_yazdırıldı = false;
+            foreach (KeyValuePair<string, Bütçe_Hesaplama_İşTürüneGöre_> iş_türü in Tümü.iştürüne_göre)
+            {
+                //   iştürü başlığı
+                bir_satır = new Bütçe_Hesaplama_Bir_Satır_();
+                Sayfa.Yazılar.Add(bir_satır);
+                string HataMesajı = Banka.Ücretler_BirimÜcret(null, iş_türü.Key, out double OrtakÜcreti);
+                if (HataMesajı.DoluMu()) OrtakÜcreti = -1;
+                bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(iş_türü.Key + " | Birim Ücret : " + Banka.Yazdır_Ücret(OrtakÜcreti), Sayfa.Genişlik, Sayfa.Sol, false, true, Sayfa.KaKü_Başlık, Grafik, Kalem_AçıkMavi));
+
+                //   Müşteri başlığı
+                foreach (KeyValuePair<string, Bütçe_Hesaplama_Müşteriye_göre_> müşteri in iş_türü.Value.müşteriye_göre)
+                {
+                    Banka.Müşteri_KDV_İskonto(müşteri.Key, out _, out _, out bool İskonto_Yap, out double İskonto_Yüzde, out _);
+
+                    HataMesajı = Banka.Ücretler_BirimÜcret(müşteri.Key, iş_türü.Key, out double Ücreti);
+                    if (HataMesajı.DoluMu()) Ücreti = -1;
+
+                    bir_satır = new Bütçe_Hesaplama_Bir_Satır_();
+                    Sayfa.Yazılar.Add(bir_satır);
+                    bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(müşteri.Key + (OrtakÜcreti != Ücreti ? " | Birim Ücret : " + Banka.Yazdır_Ücret(Ücreti) : null) + (İskonto_Yap ? " | İskonto % " + İskonto_Yüzde : null), Sayfa.Genişlik, Sayfa.Sol, true, false, Sayfa.KaKü_Başlık, Grafik, Kalem_AçıkYeşil)); //müşteri
+                    
+                    if (!GrupC_başlık_yazdırıldı)
+                    {
+                        GrupC_başlık_yazdırıldı = true;
+
+                        bir_satır = new Bütçe_Hesaplama_Bir_Satır_();
+                        Sayfa.Yazılar.Add(bir_satır);
+                        Konum_Sol = Sayfa.Sol;
+                        bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_("Seri No", Sayfa.Genişlik_SeriNo, Konum_Sol, false, false, Sayfa.KaKü_Başlık, Grafik));
+                        Konum_Sol += Sayfa.Genişlik_SeriNo;
+                        bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_("Hasta", Sayfa.Genişlik_Hasta, Konum_Sol, false, false, Sayfa.KaKü_Başlık, Grafik));
+                        Konum_Sol += Sayfa.Genişlik_Hasta;
+                        bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_("Adet", Sayfa.Genişlik_Adet, Konum_Sol, false, false, Sayfa.KaKü_Başlık, Grafik));
+                        Konum_Sol += Sayfa.Genişlik_Adet;
+                        bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_("İş Kabul", Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Başlık, Grafik));
+                        Konum_Sol += Sayfa.Genişlik_Gelir_Gider_Fark;
+                        bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_("İş Çıkış", Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Başlık, Grafik));
+                        Konum_Sol += Sayfa.Genişlik_Gelir_Gider_Fark;
+                        bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_("Ücret", Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Başlık, Grafik));
+                    }
+
+                    foreach (Bütçe_Hesaplama_Müşteriye_göre_iş_içeriği_ iş_içeriği in müşteri.Value.iş_içerikleri)
+                    {
+                        bir_satır = new Bütçe_Hesaplama_Bir_Satır_();
+                        Sayfa.Yazılar.Add(bir_satır);
+                        Konum_Sol = Sayfa.Sol;
+
+                        bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(iş_içeriği.Serino, Sayfa.Genişlik_SeriNo, Konum_Sol, true, false, Sayfa.KaKü_Diğer, Grafik));
+                        Konum_Sol += Sayfa.Genişlik_SeriNo;
+                        bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(iş_içeriği.Hasta, Sayfa.Genişlik_Hasta, Konum_Sol, true, false, Sayfa.KaKü_Diğer, Grafik));
+                        Konum_Sol += Sayfa.Genişlik_Hasta;
+                        bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(iş_içeriği.Adet, Sayfa.Genişlik_Adet, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik));
+                        Konum_Sol += Sayfa.Genişlik_Adet;
+                        bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(iş_içeriği.İş_kabul, Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik));
+                        Konum_Sol += Sayfa.Genişlik_Gelir_Gider_Fark;
+                        bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(iş_içeriği.iş_çıkış, Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik));
+                        Konum_Sol += Sayfa.Genişlik_Gelir_Gider_Fark;
+                        bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(iş_içeriği.Ücret, Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik));
+                    }
+
+                    //   Alt toplam
+                    bir_satır = new Bütçe_Hesaplama_Bir_Satır_();
+                    Sayfa.Yazılar.Add(bir_satır);
+                    Konum_Sol = Sayfa.Sol;
+
+                    bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_("Alt Toplam ", Genişlik_iştürü, Konum_Sol, false, true, Sayfa.KaKü_Diğer, Grafik));
+                    Konum_Sol += Genişlik_iştürü;
+                    bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(müşteri.Value.Genel.Adet.Yazıya(), Sayfa.Genişlik_Adet, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik)); //adet
+                    Konum_Sol += Sayfa.Genişlik_Adet;
+                    bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_("", Sayfa.Genişlik_Gelir_Gider_Fark + Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik)); //boşluk
+                    Konum_Sol += Sayfa.Genişlik_Gelir_Gider_Fark + Sayfa.Genişlik_Gelir_Gider_Fark;
+                    bir_satır.Yazılar.Add(new Bütçe_Hesaplama_Bir_Yazı_(Banka.Yazdır_Ücret(müşteri.Value.Genel.Gelir), Sayfa.Genişlik_Gelir_Gider_Fark, Konum_Sol, false, false, Sayfa.KaKü_Diğer, Grafik)); //gelir
+                }
+            }
+            #endregion
+
+            //toplam sayfa sayısı hesabı
+            List<Bütçe_Hesaplama_Bir_Satır_> Yazılar2 = new List<Bütçe_Hesaplama_Bir_Satır_>(Sayfa.Yazılar);
+            SizeF sf_ss = new SizeF(Sayfa.Genişlik, Sayfa.Yükseklik);
+            float Kullanılabilir_Yükseklik = Sayfa.Yükseklik_YazılarİçinKullanılabilir;
+            Sayfa.ToplamSayfaSayısı = 1; float konum = 0;
+            while (Yazılar2.Count > 0)
+            {
+                if (konum + Yazılar2[0].EnYüksek_Yükseklik > Kullanılabilir_Yükseklik)
+                {
+                    Sayfa.ToplamSayfaSayısı++;
+                    konum = 0;
+                }
+                else
+                {
+                    konum += Yazılar2[0].EnYüksek_Yükseklik;
+                    Yazılar2.RemoveAt(0);
+                }
+            }
+
+            //Sonraki sayfa yazısının ölçülmesi
+            Sayfa.SonrakiSayfaYazısı.Yazı = "Toplam " + Tümü.iştürüne_göre.Count + " iş türü, sayfa _ArGeMuP_ / " + Sayfa.ToplamSayfaSayısı + ", #" + System.IO.Path.GetRandomFileName().Replace(".", "");
+            Sayfa.SonrakiSayfaYazısı.Boyut = Grafik.MeasureString(Sayfa.SonrakiSayfaYazısı.Yazı, Sayfa.KaKü_Diğer, sf_ss);
+        }
         #endregion
     }
 }

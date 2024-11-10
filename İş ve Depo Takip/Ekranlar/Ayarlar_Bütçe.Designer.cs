@@ -33,8 +33,17 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ayarlar_Bütçe));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -46,16 +55,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ayarlar_Bütçe));
             this._1_Gelir = new System.Windows.Forms.GroupBox();
             this._1_Gelir_ÖdemeTalepEdildi = new System.Windows.Forms.CheckBox();
             this._1_Gelir_TeslimEdildi = new System.Windows.Forms.CheckBox();
@@ -85,7 +85,6 @@
             this._5_Arama_Sorgula = new System.Windows.Forms.Button();
             this._5_Arama_GirişTarihi_Başlangıç = new System.Windows.Forms.DateTimePicker();
             this._5_Arama_GirişTarihi_Bitiş = new System.Windows.Forms.DateTimePicker();
-            this._5_Arama_İş_Türleri = new ArgeMup.HazirKod.Ekranlar.ListeKutusu();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this._5_EpostaGönder = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
@@ -98,6 +97,17 @@
             this._5_Yazdırma_VeKlasörüAç = new System.Windows.Forms.CheckBox();
             this._5_Yazdırma_Yazdır = new System.Windows.Forms.Button();
             this._5_Tablo = new System.Windows.Forms.DataGridView();
+            this._5_Tablo_Seç = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this._5_Tablo_SeriNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._5_Tablo_Müşteri = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._5_Tablo_Hasta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._5_Tablo_İşGiriş = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._5_Tablo_İşÇıkış = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._5_Tablo_İş = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._5_Tablo_Teslim_Edildi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._5_Tablo_Ödeme_Talep_Edildi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._5_Tablo_Ödendi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._5_Tablo_Notlar = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Sekmeler_GenelAnlamda = new System.Windows.Forms.TabPage();
             this._2_Tablo = new System.Windows.Forms.DataGridView();
             this._2_Tablo_Seç = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -143,17 +153,7 @@
             this._4_AyarlarSayfasınıAç = new System.Windows.Forms.Button();
             this.TabloİçeriğiArama = new System.Windows.Forms.TextBox();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
-            this._5_Tablo_Seç = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this._5_Tablo_SeriNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._5_Tablo_Müşteri = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._5_Tablo_Hasta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._5_Tablo_İşGiriş = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._5_Tablo_İşÇıkış = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._5_Tablo_İş = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._5_Tablo_Teslim_Edildi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._5_Tablo_Ödeme_Talep_Edildi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._5_Tablo_Ödendi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._5_Tablo_Notlar = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._5_Arama_İş_Türleri = new ArgeMup.HazirKod.Ekranlar.ListeKutusu();
             this._1_Gelir.SuspendLayout();
             this._1_Gider.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1_Tablo)).BeginInit();
@@ -597,17 +597,6 @@
             this._5_Arama_GirişTarihi_Bitiş.Size = new System.Drawing.Size(203, 26);
             this._5_Arama_GirişTarihi_Bitiş.TabIndex = 11;
             // 
-            // _5_Arama_İş_Türleri
-            // 
-            this._5_Arama_İş_Türleri.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._5_Arama_İş_Türleri.Location = new System.Drawing.Point(0, 0);
-            this._5_Arama_İş_Türleri.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this._5_Arama_İş_Türleri.Name = "_5_Arama_İş_Türleri";
-            this._5_Arama_İş_Türleri.SeçilenEleman_Adı = null;
-            this._5_Arama_İş_Türleri.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("_5_Arama_İş_Türleri.SeçilenEleman_Adları")));
-            this._5_Arama_İş_Türleri.Size = new System.Drawing.Size(517, 188);
-            this._5_Arama_İş_Türleri.TabIndex = 0;
-            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this._5_EpostaGönder);
@@ -702,7 +691,6 @@
             this._5_P_Yazdırma.TabIndex = 13;
             this._5_P_Yazdırma.TabStop = false;
             this._5_P_Yazdırma.Text = "Yazdırma";
-            this._5_P_Yazdırma.Visible = false;
             // 
             // _5_Yazdırma_VeGörüntüle
             // 
@@ -784,6 +772,118 @@
             this._5_Tablo.TabIndex = 1;
             this._5_Tablo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this._5_Tablo_CellClick);
             this._5_Tablo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this._5_Tablo_CellDoubleClick);
+            // 
+            // _5_Tablo_Seç
+            // 
+            this._5_Tablo_Seç.HeaderText = "Seç";
+            this._5_Tablo_Seç.MinimumWidth = 6;
+            this._5_Tablo_Seç.Name = "_5_Tablo_Seç";
+            this._5_Tablo_Seç.ReadOnly = true;
+            this._5_Tablo_Seç.Width = 44;
+            // 
+            // _5_Tablo_SeriNo
+            // 
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this._5_Tablo_SeriNo.DefaultCellStyle = dataGridViewCellStyle6;
+            this._5_Tablo_SeriNo.HeaderText = "Seri No";
+            this._5_Tablo_SeriNo.MinimumWidth = 6;
+            this._5_Tablo_SeriNo.Name = "_5_Tablo_SeriNo";
+            this._5_Tablo_SeriNo.ReadOnly = true;
+            this._5_Tablo_SeriNo.Width = 94;
+            // 
+            // _5_Tablo_Müşteri
+            // 
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this._5_Tablo_Müşteri.DefaultCellStyle = dataGridViewCellStyle7;
+            this._5_Tablo_Müşteri.HeaderText = "Müşteri";
+            this._5_Tablo_Müşteri.MinimumWidth = 6;
+            this._5_Tablo_Müşteri.Name = "_5_Tablo_Müşteri";
+            this._5_Tablo_Müşteri.ReadOnly = true;
+            this._5_Tablo_Müşteri.Width = 94;
+            // 
+            // _5_Tablo_Hasta
+            // 
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this._5_Tablo_Hasta.DefaultCellStyle = dataGridViewCellStyle8;
+            this._5_Tablo_Hasta.HeaderText = "Hasta";
+            this._5_Tablo_Hasta.MinimumWidth = 6;
+            this._5_Tablo_Hasta.Name = "_5_Tablo_Hasta";
+            this._5_Tablo_Hasta.ReadOnly = true;
+            this._5_Tablo_Hasta.Width = 83;
+            // 
+            // _5_Tablo_İşGiriş
+            // 
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this._5_Tablo_İşGiriş.DefaultCellStyle = dataGridViewCellStyle9;
+            this._5_Tablo_İşGiriş.HeaderText = "İş Kabul";
+            this._5_Tablo_İşGiriş.MinimumWidth = 6;
+            this._5_Tablo_İşGiriş.Name = "_5_Tablo_İşGiriş";
+            this._5_Tablo_İşGiriş.ReadOnly = true;
+            this._5_Tablo_İşGiriş.Width = 98;
+            // 
+            // _5_Tablo_İşÇıkış
+            // 
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this._5_Tablo_İşÇıkış.DefaultCellStyle = dataGridViewCellStyle10;
+            this._5_Tablo_İşÇıkış.HeaderText = "İş Çıkış";
+            this._5_Tablo_İşÇıkış.MinimumWidth = 6;
+            this._5_Tablo_İşÇıkış.Name = "_5_Tablo_İşÇıkış";
+            this._5_Tablo_İşÇıkış.ReadOnly = true;
+            this._5_Tablo_İşÇıkış.Width = 93;
+            // 
+            // _5_Tablo_İş
+            // 
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this._5_Tablo_İş.DefaultCellStyle = dataGridViewCellStyle11;
+            this._5_Tablo_İş.HeaderText = "İş";
+            this._5_Tablo_İş.MinimumWidth = 6;
+            this._5_Tablo_İş.Name = "_5_Tablo_İş";
+            this._5_Tablo_İş.ReadOnly = true;
+            this._5_Tablo_İş.Width = 51;
+            // 
+            // _5_Tablo_Teslim_Edildi
+            // 
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this._5_Tablo_Teslim_Edildi.DefaultCellStyle = dataGridViewCellStyle12;
+            this._5_Tablo_Teslim_Edildi.HeaderText = "Teslim Edildi";
+            this._5_Tablo_Teslim_Edildi.MinimumWidth = 6;
+            this._5_Tablo_Teslim_Edildi.Name = "_5_Tablo_Teslim_Edildi";
+            this._5_Tablo_Teslim_Edildi.ReadOnly = true;
+            this._5_Tablo_Teslim_Edildi.Width = 134;
+            // 
+            // _5_Tablo_Ödeme_Talep_Edildi
+            // 
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this._5_Tablo_Ödeme_Talep_Edildi.DefaultCellStyle = dataGridViewCellStyle13;
+            this._5_Tablo_Ödeme_Talep_Edildi.HeaderText = "Ödeme Talebi";
+            this._5_Tablo_Ödeme_Talep_Edildi.MinimumWidth = 6;
+            this._5_Tablo_Ödeme_Talep_Edildi.Name = "_5_Tablo_Ödeme_Talep_Edildi";
+            this._5_Tablo_Ödeme_Talep_Edildi.ReadOnly = true;
+            this._5_Tablo_Ödeme_Talep_Edildi.Width = 142;
+            // 
+            // _5_Tablo_Ödendi
+            // 
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this._5_Tablo_Ödendi.DefaultCellStyle = dataGridViewCellStyle14;
+            this._5_Tablo_Ödendi.HeaderText = "Ödendi";
+            this._5_Tablo_Ödendi.MinimumWidth = 6;
+            this._5_Tablo_Ödendi.Name = "_5_Tablo_Ödendi";
+            this._5_Tablo_Ödendi.ReadOnly = true;
+            this._5_Tablo_Ödendi.Width = 91;
+            // 
+            // _5_Tablo_Notlar
+            // 
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this._5_Tablo_Notlar.DefaultCellStyle = dataGridViewCellStyle15;
+            this._5_Tablo_Notlar.HeaderText = "Notlar";
+            this._5_Tablo_Notlar.MinimumWidth = 6;
+            this._5_Tablo_Notlar.Name = "_5_Tablo_Notlar";
+            this._5_Tablo_Notlar.ReadOnly = true;
+            this._5_Tablo_Notlar.Width = 83;
             // 
             // Sekmeler_GenelAnlamda
             // 
@@ -1383,117 +1483,16 @@
             this.İpUcu.UseAnimation = false;
             this.İpUcu.UseFading = false;
             // 
-            // _5_Tablo_Seç
+            // _5_Arama_İş_Türleri
             // 
-            this._5_Tablo_Seç.HeaderText = "Seç";
-            this._5_Tablo_Seç.MinimumWidth = 6;
-            this._5_Tablo_Seç.Name = "_5_Tablo_Seç";
-            this._5_Tablo_Seç.ReadOnly = true;
-            this._5_Tablo_Seç.Width = 44;
-            // 
-            // _5_Tablo_SeriNo
-            // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this._5_Tablo_SeriNo.DefaultCellStyle = dataGridViewCellStyle6;
-            this._5_Tablo_SeriNo.HeaderText = "Seri No";
-            this._5_Tablo_SeriNo.MinimumWidth = 6;
-            this._5_Tablo_SeriNo.Name = "_5_Tablo_SeriNo";
-            this._5_Tablo_SeriNo.ReadOnly = true;
-            this._5_Tablo_SeriNo.Width = 94;
-            // 
-            // _5_Tablo_Müşteri
-            // 
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this._5_Tablo_Müşteri.DefaultCellStyle = dataGridViewCellStyle7;
-            this._5_Tablo_Müşteri.HeaderText = "Müşteri";
-            this._5_Tablo_Müşteri.MinimumWidth = 6;
-            this._5_Tablo_Müşteri.Name = "_5_Tablo_Müşteri";
-            this._5_Tablo_Müşteri.ReadOnly = true;
-            this._5_Tablo_Müşteri.Width = 94;
-            // 
-            // _5_Tablo_Hasta
-            // 
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this._5_Tablo_Hasta.DefaultCellStyle = dataGridViewCellStyle8;
-            this._5_Tablo_Hasta.HeaderText = "Hasta";
-            this._5_Tablo_Hasta.MinimumWidth = 6;
-            this._5_Tablo_Hasta.Name = "_5_Tablo_Hasta";
-            this._5_Tablo_Hasta.ReadOnly = true;
-            this._5_Tablo_Hasta.Width = 83;
-            // 
-            // _5_Tablo_İşGiriş
-            // 
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this._5_Tablo_İşGiriş.DefaultCellStyle = dataGridViewCellStyle9;
-            this._5_Tablo_İşGiriş.HeaderText = "İş Kabul";
-            this._5_Tablo_İşGiriş.MinimumWidth = 6;
-            this._5_Tablo_İşGiriş.Name = "_5_Tablo_İşGiriş";
-            this._5_Tablo_İşGiriş.ReadOnly = true;
-            this._5_Tablo_İşGiriş.Width = 98;
-            // 
-            // _5_Tablo_İşÇıkış
-            // 
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this._5_Tablo_İşÇıkış.DefaultCellStyle = dataGridViewCellStyle10;
-            this._5_Tablo_İşÇıkış.HeaderText = "İş Çıkış";
-            this._5_Tablo_İşÇıkış.MinimumWidth = 6;
-            this._5_Tablo_İşÇıkış.Name = "_5_Tablo_İşÇıkış";
-            this._5_Tablo_İşÇıkış.ReadOnly = true;
-            this._5_Tablo_İşÇıkış.Width = 93;
-            // 
-            // _5_Tablo_İş
-            // 
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this._5_Tablo_İş.DefaultCellStyle = dataGridViewCellStyle11;
-            this._5_Tablo_İş.HeaderText = "İş";
-            this._5_Tablo_İş.MinimumWidth = 6;
-            this._5_Tablo_İş.Name = "_5_Tablo_İş";
-            this._5_Tablo_İş.ReadOnly = true;
-            this._5_Tablo_İş.Width = 51;
-            // 
-            // _5_Tablo_Teslim_Edildi
-            // 
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this._5_Tablo_Teslim_Edildi.DefaultCellStyle = dataGridViewCellStyle12;
-            this._5_Tablo_Teslim_Edildi.HeaderText = "Teslim Edildi";
-            this._5_Tablo_Teslim_Edildi.MinimumWidth = 6;
-            this._5_Tablo_Teslim_Edildi.Name = "_5_Tablo_Teslim_Edildi";
-            this._5_Tablo_Teslim_Edildi.ReadOnly = true;
-            this._5_Tablo_Teslim_Edildi.Width = 134;
-            // 
-            // _5_Tablo_Ödeme_Talep_Edildi
-            // 
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this._5_Tablo_Ödeme_Talep_Edildi.DefaultCellStyle = dataGridViewCellStyle13;
-            this._5_Tablo_Ödeme_Talep_Edildi.HeaderText = "Ödeme Talebi";
-            this._5_Tablo_Ödeme_Talep_Edildi.MinimumWidth = 6;
-            this._5_Tablo_Ödeme_Talep_Edildi.Name = "_5_Tablo_Ödeme_Talep_Edildi";
-            this._5_Tablo_Ödeme_Talep_Edildi.ReadOnly = true;
-            this._5_Tablo_Ödeme_Talep_Edildi.Width = 142;
-            // 
-            // _5_Tablo_Ödendi
-            // 
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this._5_Tablo_Ödendi.DefaultCellStyle = dataGridViewCellStyle14;
-            this._5_Tablo_Ödendi.HeaderText = "Ödendi";
-            this._5_Tablo_Ödendi.MinimumWidth = 6;
-            this._5_Tablo_Ödendi.Name = "_5_Tablo_Ödendi";
-            this._5_Tablo_Ödendi.ReadOnly = true;
-            this._5_Tablo_Ödendi.Width = 91;
-            // 
-            // _5_Tablo_Notlar
-            // 
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this._5_Tablo_Notlar.DefaultCellStyle = dataGridViewCellStyle15;
-            this._5_Tablo_Notlar.HeaderText = "Notlar";
-            this._5_Tablo_Notlar.MinimumWidth = 6;
-            this._5_Tablo_Notlar.Name = "_5_Tablo_Notlar";
-            this._5_Tablo_Notlar.ReadOnly = true;
-            this._5_Tablo_Notlar.Width = 83;
+            this._5_Arama_İş_Türleri.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._5_Arama_İş_Türleri.Location = new System.Drawing.Point(0, 0);
+            this._5_Arama_İş_Türleri.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this._5_Arama_İş_Türleri.Name = "_5_Arama_İş_Türleri";
+            this._5_Arama_İş_Türleri.SeçilenEleman_Adı = null;
+            this._5_Arama_İş_Türleri.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("_5_Arama_İş_Türleri.SeçilenEleman_Adları")));
+            this._5_Arama_İş_Türleri.Size = new System.Drawing.Size(517, 188);
+            this._5_Arama_İş_Türleri.TabIndex = 0;
             // 
             // Ayarlar_Bütçe
             // 
@@ -1509,6 +1508,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bütçe";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Ayarlar_Bütçe_FormClosed);
             this.Shown += new System.EventHandler(this.Bütçe_Shown);
             this._1_Gelir.ResumeLayout(false);
             this._1_Gelir.PerformLayout();
