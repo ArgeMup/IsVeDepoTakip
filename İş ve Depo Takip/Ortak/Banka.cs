@@ -989,10 +989,11 @@ namespace İş_ve_Depo_Takip
             müş.Yaz(null, BirimÜcretBoşİseYapılacakHesaplama, 2);
         }
         
-        public static List<string> Müşteri_AltGrup_Listele(string Müşteri, bool GizlilerDahil = false)
+        public static List<string> Müşteri_AltGrup_Listele(string Müşteri, out bool SıralaVeYazdır, bool GizlilerDahil = false)
         {
             List<string> l = new List<string>();
             List<string> l_gizli = new List<string>();
+            SıralaVeYazdır = false;
 
             IDepo_Eleman müş_ag = Ayarlar_Müşteri(Müşteri, "Alt Grup");
             if (müş_ag == null || müş_ag.İçeriği.Length == 0 || müş_ag.İçiBoşOlduğuİçinSilinecek) return l;
@@ -1008,12 +1009,15 @@ namespace İş_ve_Depo_Takip
 
             l.AddRange(l_gizli);
 
+            SıralaVeYazdır = müş_ag.Oku_Bit("Yazdırma", false, 0);
+
             return l;
         }
-        public static void Müşteri_AltGrup_Ekle(string Müşteri, string Adı)
+        public static void Müşteri_AltGrup_Ekle(string Müşteri, string Adı, bool SıralaVeYazdır)
         {
             IDepo_Eleman müş_ag = Ayarlar_Müşteri(Müşteri, "Alt Grup", true);
             müş_ag.Yaz(null, Adı, müş_ag.İçeriği.Length);
+            müş_ag.Yaz("Yazdırma", SıralaVeYazdır, 0);
         }
         public static void Müşteri_AltGrup_Sırala(string Müşteri, List<string> ElemanAdıSıralaması)
         {
@@ -1032,7 +1036,7 @@ namespace İş_ve_Depo_Takip
         }
         public static bool Müşteri_AltGrup_MevcutMu(string Müşteri, string Adı)
         {
-            return Adı.DoluMu(true) && Müşteri_AltGrup_Listele(Müşteri, true).Contains(Adı);
+            return Adı.DoluMu(true) && Müşteri_AltGrup_Listele(Müşteri, out _, true).Contains(Adı);
         }
         public static void Müşteri_AltGrup_YenidenAdlandır(string Müşteri, string Eski, string Yeni)
         {
@@ -2687,11 +2691,12 @@ namespace İş_ve_Depo_Takip
             //notların proje içerisinde doğrudan kullanıldığı yerler var
             //SeriNoDalı[2] olarak arat
         }
-        public static void Talep_Ayıkla_SeriNoDalı(IDepo_Eleman SeriNoDalı, out string Hasta, out string İşler, ref double Toplam)
+        public static void Talep_Ayıkla_SeriNoDalı(IDepo_Eleman SeriNoDalı, out string Hasta, out string İşler, ref double Toplam, out string AltGrup)
         {
             Hasta = SeriNoDalı[0];
             double iskonto = SeriNoDalı.Oku_Sayı(null, 0, 1);
             if (iskonto > 0) Hasta += "\n% " + iskonto + " iskonto";
+            AltGrup = SeriNoDalı[4];
 
             İşler = "";
             double AltToplam = 0;

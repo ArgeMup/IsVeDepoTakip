@@ -990,10 +990,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Banka.Talep_Ayıkla_İşTürüDalı(iş_türü_dalı, out string İşTürü, out string GirişTarihi, out _, out _, out _, out _);
 
                     DateTime t = GirişTarihi.TarihSaate();
-                    if (_5_Tam_İçerik.Başlangıç > t || t > _5_Tam_İçerik.Bitiş) continue;
+                    if (_5_Tam_İçerik.Başlangıç > t || t > _5_Tam_İçerik.Bitiş)
+                    {
+                        //aralık dışında
+                        iş_türü_dalı.Sil(null);
+                    }
+                }
 
+                _ = seri_no_dalı.İçiBoşOlduğuİçinSilinecek;
+                if (seri_no_dalı.Elemanları.Length > 0)
+                {
                     uyuşanlar.Add(seri_no_dalı);
-                    break;
                 }
             }
 

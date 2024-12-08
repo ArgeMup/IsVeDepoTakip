@@ -24,12 +24,17 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             if (Adı.BoşMu()) return true;
 
-            if (Türü != ListeKutusu.İşlemTürü.ElemanSeçildi) Liste_Müşteriler_AltGrup.Tüm_Elemanlar = new System.Collections.Generic.List<string>();
+            if (Türü != ListeKutusu.İşlemTürü.ElemanSeçildi)
+            {
+                Liste_Müşteriler_AltGrup.Tüm_Elemanlar = new System.Collections.Generic.List<string>();
+                Liste_Müşteriler_AltGrup_SıralaVeYazdır.Checked = false;
+            }
 
             switch (Türü)
             {
                 case ListeKutusu.İşlemTürü.ElemanSeçildi:
-                    Liste_Müşteriler_AltGrup.Tüm_Elemanlar = Banka.Müşteri_AltGrup_Listele(Adı, true);
+                    Liste_Müşteriler_AltGrup.Tüm_Elemanlar = Banka.Müşteri_AltGrup_Listele(Adı, out bool SıralaVeYazdır, true);
+                    Liste_Müşteriler_AltGrup_SıralaVeYazdır.Checked = SıralaVeYazdır;
 
                     IDepo_Eleman m = Banka.Ayarlar_Müşteri(Adı, "Eposta", true);
                     Eposta_Kime.Text = m.Oku("Kime");
@@ -84,7 +89,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     break;
 
                 case ListeKutusu.İşlemTürü.YeniEklendi:
-                    Banka.Müşteri_AltGrup_Ekle(müşteri, Adı);
+                    Banka.Müşteri_AltGrup_Ekle(müşteri, Adı, Liste_Müşteriler_AltGrup_SıralaVeYazdır.Checked);
                     Banka.Değişiklikleri_Kaydet(Liste_Müşteriler_AltGrup);
                     break;
                 case ListeKutusu.İşlemTürü.AdıDeğiştirildi:
@@ -128,6 +133,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             m.Yaz("Bilgi", Eposta_Bilgi.Text);
             m.Yaz("Gizli", Eposta_Gizli.Text);
             Banka.Ayarlar_Müşteri(Liste_Müşteriler.SeçilenEleman_Adı, "Notlar", true)[0] = Notlar.Text.Trim();
+            Banka.Ayarlar_Müşteri(Liste_Müşteriler.SeçilenEleman_Adı, "Alt Grup", true).Yaz("Yazdırma", Liste_Müşteriler_AltGrup_SıralaVeYazdır.Checked, 0);
             Banka.Değişiklikleri_Kaydet(ÖnYüzler_Kaydet);
 
             Liste_Müşteriler_GeriBildirim_İşlemi(Liste_Müşteriler.SeçilenEleman_Adı, ListeKutusu.İşlemTürü.ElemanSeçildi);

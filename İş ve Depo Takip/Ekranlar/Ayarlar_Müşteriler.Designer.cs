@@ -42,9 +42,10 @@
             this.Liste_Müşteriler = new ArgeMup.HazirKod.Ekranlar.ListeKutusu();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Notlar = new System.Windows.Forms.TextBox();
-            this.Liste_Müşteriler_AltGrup = new ArgeMup.HazirKod.Ekranlar.ListeKutusu();
-            this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.Liste_Müşteriler_AltGrup = new ArgeMup.HazirKod.Ekranlar.ListeKutusu();
+            this.Liste_Müşteriler_AltGrup_SıralaVeYazdır = new System.Windows.Forms.CheckBox();
+            this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -79,7 +80,7 @@
             this.Eposta_Gizli.Location = new System.Drawing.Point(86, 103);
             this.Eposta_Gizli.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Eposta_Gizli.Name = "Eposta_Gizli";
-            this.Eposta_Gizli.Size = new System.Drawing.Size(257, 30);
+            this.Eposta_Gizli.Size = new System.Drawing.Size(320, 30);
             this.Eposta_Gizli.TabIndex = 5;
             this.İpUcu.SetToolTip(this.Eposta_Gizli, "noktalı virgül ile ayrılmış birden fazla adres girilebilir");
             this.Eposta_Gizli.TextChanged += new System.EventHandler(this.Ayar_Değişti);
@@ -91,7 +92,7 @@
             this.Eposta_Bilgi.Location = new System.Drawing.Point(86, 66);
             this.Eposta_Bilgi.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Eposta_Bilgi.Name = "Eposta_Bilgi";
-            this.Eposta_Bilgi.Size = new System.Drawing.Size(257, 30);
+            this.Eposta_Bilgi.Size = new System.Drawing.Size(320, 30);
             this.Eposta_Bilgi.TabIndex = 4;
             this.İpUcu.SetToolTip(this.Eposta_Bilgi, "noktalı virgül ile ayrılmış birden fazla adres girilebilir");
             this.Eposta_Bilgi.TextChanged += new System.EventHandler(this.Ayar_Değişti);
@@ -133,7 +134,7 @@
             this.Eposta_Kime.Location = new System.Drawing.Point(86, 30);
             this.Eposta_Kime.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Eposta_Kime.Name = "Eposta_Kime";
-            this.Eposta_Kime.Size = new System.Drawing.Size(257, 30);
+            this.Eposta_Kime.Size = new System.Drawing.Size(320, 30);
             this.Eposta_Kime.TabIndex = 0;
             this.İpUcu.SetToolTip(this.Eposta_Kime, "noktalı virgül ile ayrılmış birden fazla adres girilebilir");
             this.Eposta_Kime.TextChanged += new System.EventHandler(this.Ayar_Değişti);
@@ -213,26 +214,10 @@
             this.Notlar.TabIndex = 6;
             this.Notlar.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
-            // Liste_Müşteriler_AltGrup
-            // 
-            this.Liste_Müşteriler_AltGrup.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Liste_Müşteriler_AltGrup.Location = new System.Drawing.Point(5, 28);
-            this.Liste_Müşteriler_AltGrup.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.Liste_Müşteriler_AltGrup.Name = "Liste_Müşteriler_AltGrup";
-            this.Liste_Müşteriler_AltGrup.SeçilenEleman_Adı = null;
-            this.Liste_Müşteriler_AltGrup.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("Liste_Müşteriler_AltGrup.SeçilenEleman_Adları")));
-            this.Liste_Müşteriler_AltGrup.Size = new System.Drawing.Size(336, 217);
-            this.Liste_Müşteriler_AltGrup.TabIndex = 7;
-            // 
-            // İpUcu
-            // 
-            this.İpUcu.AutomaticDelay = 0;
-            this.İpUcu.UseAnimation = false;
-            this.İpUcu.UseFading = false;
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.Liste_Müşteriler_AltGrup);
+            this.groupBox3.Controls.Add(this.Liste_Müşteriler_AltGrup_SıralaVeYazdır);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
@@ -241,6 +226,35 @@
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Alt Grup";
+            // 
+            // Liste_Müşteriler_AltGrup
+            // 
+            this.Liste_Müşteriler_AltGrup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Liste_Müşteriler_AltGrup.Location = new System.Drawing.Point(5, 28);
+            this.Liste_Müşteriler_AltGrup.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.Liste_Müşteriler_AltGrup.Name = "Liste_Müşteriler_AltGrup";
+            this.Liste_Müşteriler_AltGrup.SeçilenEleman_Adı = null;
+            this.Liste_Müşteriler_AltGrup.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("Liste_Müşteriler_AltGrup.SeçilenEleman_Adları")));
+            this.Liste_Müşteriler_AltGrup.Size = new System.Drawing.Size(336, 188);
+            this.Liste_Müşteriler_AltGrup.TabIndex = 7;
+            // 
+            // Liste_Müşteriler_AltGrup_SıralaVeYazdır
+            // 
+            this.Liste_Müşteriler_AltGrup_SıralaVeYazdır.AutoSize = true;
+            this.Liste_Müşteriler_AltGrup_SıralaVeYazdır.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Liste_Müşteriler_AltGrup_SıralaVeYazdır.Location = new System.Drawing.Point(5, 216);
+            this.Liste_Müşteriler_AltGrup_SıralaVeYazdır.Name = "Liste_Müşteriler_AltGrup_SıralaVeYazdır";
+            this.Liste_Müşteriler_AltGrup_SıralaVeYazdır.Size = new System.Drawing.Size(336, 29);
+            this.Liste_Müşteriler_AltGrup_SıralaVeYazdır.TabIndex = 8;
+            this.Liste_Müşteriler_AltGrup_SıralaVeYazdır.Text = "Yazdırırken alt grubu da göster";
+            this.Liste_Müşteriler_AltGrup_SıralaVeYazdır.UseVisualStyleBackColor = true;
+            this.Liste_Müşteriler_AltGrup_SıralaVeYazdır.CheckedChanged += new System.EventHandler(this.Ayar_Değişti);
+            // 
+            // İpUcu
+            // 
+            this.İpUcu.AutomaticDelay = 0;
+            this.İpUcu.UseAnimation = false;
+            this.İpUcu.UseFading = false;
             // 
             // Müşteriler
             // 
@@ -264,6 +278,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -284,5 +299,6 @@
         private ArgeMup.HazirKod.Ekranlar.ListeKutusu Liste_Müşteriler;
         private ArgeMup.HazirKod.Ekranlar.ListeKutusu Liste_Müşteriler_AltGrup;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckBox Liste_Müşteriler_AltGrup_SıralaVeYazdır;
     }
 }

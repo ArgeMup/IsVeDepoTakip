@@ -270,7 +270,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             Müşteriler_AltGrup.Visible = false;
             if (Müşteriler_SeçimKutusu.SelectedIndex < 0 || !Banka.Müşteri_MevcutMu(Müşteriler_SeçimKutusu.Text)) return;
 
-            Müşteriler_AltGrup_Liste = Banka.Müşteri_AltGrup_Listele(Müşteriler_SeçimKutusu.Text);
+            Müşteriler_AltGrup_Liste = Banka.Müşteri_AltGrup_Listele(Müşteriler_SeçimKutusu.Text, out _);
             if (Müşteriler_AltGrup_Liste.Count > 0)
             {
                 ArgeMup.HazirKod.Ekranlar.ListeKutusu.Filtrele(Müşteriler_AltGrup_SeçimKutusu, Müşteriler_AltGrup_Liste, Müşteriler_AltGrup_AramaÇubuğu.Text);
@@ -891,7 +891,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 if (!Banka.Müşteri_AltGrup_MevcutMu(Müşteriler_SeçimKutusu.Text, Müşteriler_AltGrup_AramaÇubuğu.Text))
                 {
-                    Banka.Müşteri_AltGrup_Ekle(Müşteriler_SeçimKutusu.Text, Müşteriler_AltGrup_AramaÇubuğu.Text);
+                    Banka.Müşteri_AltGrup_Ekle(Müşteriler_SeçimKutusu.Text, Müşteriler_AltGrup_AramaÇubuğu.Text, false);
                 }
 
                 müşteri_altgrup = Müşteriler_AltGrup_AramaÇubuğu.Text;

@@ -1208,13 +1208,21 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             if (Tablo.Tag != null || Tablo.RowCount < 1) return;
 
-            bool b = !(bool)Tablo[0, 0].Value;
+            List<DataGridViewRow> görünenler = new List<DataGridViewRow>();
+            foreach (DataGridViewRow biri in Tablo.Rows)
+            {
+                if (biri.Visible) görünenler.Add(biri);
+                else biri.Cells[Tablo_Seç.Index].Value = false;
+            }
+            if (görünenler.Count == 0) return;
+
+            bool b = !(bool)görünenler[0].Cells[Tablo_Seç.Index].Value;
             Tablo.Tag = 0;
             Tablo_TümünüSeç.Enabled = false;
 
-            for (int i = 0; i < Tablo.RowCount; i++)
+            foreach (DataGridViewRow biri in görünenler)
             {
-                Tablo[0, i].Value = b;
+                biri.Cells[Tablo_Seç.Index].Value = b;
             }
 
             Tablo.Tag = null;

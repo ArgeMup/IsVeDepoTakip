@@ -156,6 +156,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Hasta = new Bir_Yazı_(),
                 İş = new Bir_Yazı_(),
                 Ücret = new Bir_Yazı_();
+            public string AltGrup;
             public float EnYüksek_Yükseklik;
         }
         class İşler_Bir_Sayfa_
@@ -165,6 +166,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             public Font KaKü_Müşteri, KaKü_Başlık, KaKü_Diğer;
 
             public List<İşler_Bir_Satır_Bilgi_> Yazılar = new List<İşler_Bir_Satır_Bilgi_>();
+
+            public Bir_Yazı_ AltGrup_SıralaVeYazdır = null;
 
             public Bir_Yazı_ SonrakiSayfaYazısı = new Bir_Yazı_();
             public float YazılarİçinToplamYükseklik = 0;
@@ -231,6 +234,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     if (Sayfa.Yükseklik_YazılarİçinKullanılabilir <= 0) throw new Exception("Yazıcının kullanılabilir sayfa yüksekliği uygun değil, farklı bir yazıcı seçiniz veya ayarları kontrol ediniz").Günlük();
 
                     Depo = Banka.YazdırmayaHazırla_İşTürüAdları(Depo);
+                    Banka.Müşteri_AltGrup_Listele(Depo["Tür", 1] /*müşteri*/, out bool Sayfa_AltGrup_SıralaVeYazdır);
+                    if (Sayfa_AltGrup_SıralaVeYazdır)
+                    {
+                        //alt gruba göre sırala, yoksa en alta at, gösterirken Diğer altında topla
+                        Depo["Talepler"].Sırala(null, 4, "zzzzzzzzzz");// isimsizleri alta at
+                        Sayfa.AltGrup_SıralaVeYazdır = new Bir_Yazı_();
+                        Sayfa.AltGrup_SıralaVeYazdır.Yazı = "?";
+                        Sayfa.AltGrup_SıralaVeYazdır.Boyut = new SizeF(0, ev.Graphics.MeasureString("ĞÇ", Sayfa.KaKü_Diğer).Height);
+                    }
                     İşler_Yazdır_Hesaplat(Sayfa, Depo, ev.Graphics);
                 }
 
@@ -326,7 +338,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 while (Sayfa.Yazılar.Count > 0)
                 {
-                    if (Sayfa.Yazılar[0].EnYüksek_Yükseklik + Sayfa.SonrakiSayfaYazısı.Boyut.Height > YazdırmaKonumu_Yükseklik)
+                    bool AltGrup_Yazdırılacak = Sayfa.AltGrup_SıralaVeYazdır != null && Sayfa.AltGrup_SıralaVeYazdır.Yazı != Sayfa.Yazılar[0].AltGrup;
+                    if (Sayfa.Yazılar[0].EnYüksek_Yükseklik + Sayfa.SonrakiSayfaYazısı.Boyut.Height > YazdırmaKonumu_Yükseklik ||
+                        (AltGrup_Yazdırılacak && Sayfa.AltGrup_SıralaVeYazdır.Boyut.Height + Sayfa.SonrakiSayfaYazısı.Boyut.Height > YazdırmaKonumu_Yükseklik) )
                     {
                         //daha fazla yazdırılacak iş var, sonraki sayfaya geç
                         SonrakiSayfaYazısınıYazdır();
@@ -334,10 +348,30 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         return;
                     }
 
+                    if (AltGrup_Yazdırılacak)
+                    {
+                        Sayfa.AltGrup_SıralaVeYazdır.Yazı = Sayfa.Yazılar[0].AltGrup;
+
+                        y.Yükseklik = Sayfa.AltGrup_SıralaVeYazdır.Boyut.Height;
+                        y.Üst = YazdırmaKonumu_Üst;
+
+                        y.YataydaOrtalanmış = true;
+                        y.SağaYaslanmış = false;
+                        y.Yazı = Sayfa.AltGrup_SıralaVeYazdır;
+                        y.Yazı.Boyut = ev.Graphics.MeasureString(Sayfa.Yazılar[0].AltGrup, y.KarakterKümesi);
+                        y.Sol = Sayfa.Sol;
+                        y.Genişlik = Sayfa.Genişlik;
+                        y.Yazdır(Brushes.DarkBlue);
+
+                        YazdırmaKonumu_Üst += y.Yükseklik;
+                        YazdırmaKonumu_Yükseklik -= y.Yükseklik;
+                    }
+
                     y.Yükseklik = Sayfa.Yazılar[0].EnYüksek_Yükseklik;
                     y.Üst = YazdırmaKonumu_Üst;
 
                     y.YataydaOrtalanmış = true;
+                    y.SağaYaslanmış = false;
                     y.Yazı = Sayfa.Yazılar[0].SıraNo;
                     y.Sol = Sayfa.Sol;
                     y.Genişlik = Sayfa.Sutun_SıraNo_Genişlik;
@@ -486,13 +520,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
             for (int i = 0; i < l.Elemanları.Length; i++)
             {
                 double ücret = 0;
-                Banka.Talep_Ayıkla_SeriNoDalı(l.Elemanları[i], out string Hasta, out string İşler_Tümü, ref ücret);
+                Banka.Talep_Ayıkla_SeriNoDalı(l.Elemanları[i], out string Hasta, out string İşler_Tümü, ref ücret, out string AltGrup);
                 İşler_Bir_Satır_Bilgi_ a = new İşler_Bir_Satır_Bilgi_();
 
                 a.SıraNo.Yazı = (i + 1).Yazıya();
                 a.Hasta.Yazı = Hasta;
                 a.İş.Yazı = İşler_Tümü;
                 a.Ücret.Yazı = Banka.Yazdır_Ücret(ücret);
+                a.AltGrup = AltGrup.BoşMu() ? "Diğer" : AltGrup;
                 Sayfa.Yazılar.Add(a);
 
                 HastaAdları.Add(Grafik.MeasureString(Hasta, Sayfa.KaKü_Diğer, s).Width + genişlik_boşluk);
@@ -517,7 +552,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Sayfa.Sutun_Hasta_Genişlik = EnGeniş_HastaAdı + fark;
                 Sayfa.Sutun_İş_Genişlik = EnGeniş_İş + fark;
             }
-
+                                                
             //sınırlandırılmış sutun genişliklkerine göre yazıların son gen ve yük hesabı
             SizeF sf_sn = new SizeF(Sayfa.Sutun_SıraNo_Genişlik, Sayfa.Yükseklik);
             SizeF sf_h = new SizeF(Sayfa.Sutun_Hasta_Genişlik, Sayfa.Yükseklik);
@@ -533,7 +568,14 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 a.EnYüksek_Yükseklik = a.İş.Boyut.Height;
                 if (a.EnYüksek_Yükseklik < a.Hasta.Boyut.Height) a.EnYüksek_Yükseklik = a.Hasta.Boyut.Height;
                 Sayfa.YazılarİçinToplamYükseklik += a.EnYüksek_Yükseklik;
+
+                if (Sayfa.AltGrup_SıralaVeYazdır != null && Sayfa.AltGrup_SıralaVeYazdır.Yazı != a.AltGrup)
+                {
+                    Sayfa.YazılarİçinToplamYükseklik += Sayfa.AltGrup_SıralaVeYazdır.Boyut.Height;
+                    Sayfa.AltGrup_SıralaVeYazdır.Yazı = a.AltGrup;
+                }
             }
+            if (Sayfa.AltGrup_SıralaVeYazdır != null) Sayfa.AltGrup_SıralaVeYazdır.Yazı = "?"; //sistemi başa döndürmek için
 
             //toplam sayfa sayısı hesabı
             List<İşler_Bir_Satır_Bilgi_> Yazılar2 = new List<İşler_Bir_Satır_Bilgi_>(Sayfa.Yazılar);
