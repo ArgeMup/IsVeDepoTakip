@@ -80,11 +80,12 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this._5_Arama_Tarih_Kabul_Teslim = new System.Windows.Forms.ComboBox();
             this._5_Arama_Açıklama = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this._5_Arama_Sorgula = new System.Windows.Forms.Button();
-            this._5_Arama_GirişTarihi_Başlangıç = new System.Windows.Forms.DateTimePicker();
-            this._5_Arama_GirişTarihi_Bitiş = new System.Windows.Forms.DateTimePicker();
+            this._5_Arama_Tarih_Başlangıç = new System.Windows.Forms.DateTimePicker();
+            this._5_Arama_Tarih_Bitiş = new System.Windows.Forms.DateTimePicker();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this._5_EpostaGönder = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
@@ -530,11 +531,12 @@
             // splitContainer3.Panel1
             // 
             this.splitContainer3.Panel1.AutoScroll = true;
+            this.splitContainer3.Panel1.Controls.Add(this._5_Arama_Tarih_Kabul_Teslim);
             this.splitContainer3.Panel1.Controls.Add(this._5_Arama_Açıklama);
             this.splitContainer3.Panel1.Controls.Add(this.label4);
             this.splitContainer3.Panel1.Controls.Add(this._5_Arama_Sorgula);
-            this.splitContainer3.Panel1.Controls.Add(this._5_Arama_GirişTarihi_Başlangıç);
-            this.splitContainer3.Panel1.Controls.Add(this._5_Arama_GirişTarihi_Bitiş);
+            this.splitContainer3.Panel1.Controls.Add(this._5_Arama_Tarih_Başlangıç);
+            this.splitContainer3.Panel1.Controls.Add(this._5_Arama_Tarih_Bitiş);
             // 
             // splitContainer3.Panel2
             // 
@@ -544,10 +546,25 @@
             this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 16;
             // 
+            // _5_Arama_Tarih_Kabul_Teslim
+            // 
+            this._5_Arama_Tarih_Kabul_Teslim.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this._5_Arama_Tarih_Kabul_Teslim.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._5_Arama_Tarih_Kabul_Teslim.FormattingEnabled = true;
+            this._5_Arama_Tarih_Kabul_Teslim.Items.AddRange(new object[] {
+            "İş kabul tarihine göre",
+            "İş teslim tarihine göre"});
+            this._5_Arama_Tarih_Kabul_Teslim.Location = new System.Drawing.Point(12, 34);
+            this._5_Arama_Tarih_Kabul_Teslim.Name = "_5_Arama_Tarih_Kabul_Teslim";
+            this._5_Arama_Tarih_Kabul_Teslim.Size = new System.Drawing.Size(203, 28);
+            this._5_Arama_Tarih_Kabul_Teslim.TabIndex = 14;
+            this._5_Arama_Tarih_Kabul_Teslim.SelectedIndexChanged += new System.EventHandler(this._5_Arama_Tarih_Kabul_Teslim_SelectedIndexChanged);
+            // 
             // _5_Arama_Açıklama
             // 
             this._5_Arama_Açıklama.AutoSize = true;
-            this._5_Arama_Açıklama.Location = new System.Drawing.Point(8, 132);
+            this._5_Arama_Açıklama.Location = new System.Drawing.Point(8, 166);
             this._5_Arama_Açıklama.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this._5_Arama_Açıklama.Name = "_5_Arama_Açıklama";
             this._5_Arama_Açıklama.Size = new System.Drawing.Size(21, 20);
@@ -560,14 +577,14 @@
             this.label4.Location = new System.Drawing.Point(8, 11);
             this.label4.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(164, 20);
+            this.label4.Size = new System.Drawing.Size(99, 20);
             this.label4.TabIndex = 6;
-            this.label4.Text = "İş Kabul Tarih Aralığı";
+            this.label4.Text = "Tarih Aralığı";
             // 
             // _5_Arama_Sorgula
             // 
             this._5_Arama_Sorgula.BackColor = System.Drawing.Color.Transparent;
-            this._5_Arama_Sorgula.Location = new System.Drawing.Point(12, 92);
+            this._5_Arama_Sorgula.Location = new System.Drawing.Point(12, 126);
             this._5_Arama_Sorgula.Margin = new System.Windows.Forms.Padding(2);
             this._5_Arama_Sorgula.Name = "_5_Arama_Sorgula";
             this._5_Arama_Sorgula.Size = new System.Drawing.Size(103, 32);
@@ -577,25 +594,25 @@
             this._5_Arama_Sorgula.UseVisualStyleBackColor = false;
             this._5_Arama_Sorgula.Click += new System.EventHandler(this._5_Arama_Sorgula_Click);
             // 
-            // _5_Arama_GirişTarihi_Başlangıç
+            // _5_Arama_Tarih_Başlangıç
             // 
-            this._5_Arama_GirişTarihi_Başlangıç.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this._5_Arama_Tarih_Başlangıç.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this._5_Arama_GirişTarihi_Başlangıç.Location = new System.Drawing.Point(12, 33);
-            this._5_Arama_GirişTarihi_Başlangıç.Margin = new System.Windows.Forms.Padding(2);
-            this._5_Arama_GirişTarihi_Başlangıç.Name = "_5_Arama_GirişTarihi_Başlangıç";
-            this._5_Arama_GirişTarihi_Başlangıç.Size = new System.Drawing.Size(203, 26);
-            this._5_Arama_GirişTarihi_Başlangıç.TabIndex = 10;
+            this._5_Arama_Tarih_Başlangıç.Location = new System.Drawing.Point(12, 67);
+            this._5_Arama_Tarih_Başlangıç.Margin = new System.Windows.Forms.Padding(2);
+            this._5_Arama_Tarih_Başlangıç.Name = "_5_Arama_Tarih_Başlangıç";
+            this._5_Arama_Tarih_Başlangıç.Size = new System.Drawing.Size(203, 26);
+            this._5_Arama_Tarih_Başlangıç.TabIndex = 10;
             // 
-            // _5_Arama_GirişTarihi_Bitiş
+            // _5_Arama_Tarih_Bitiş
             // 
-            this._5_Arama_GirişTarihi_Bitiş.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this._5_Arama_Tarih_Bitiş.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this._5_Arama_GirişTarihi_Bitiş.Location = new System.Drawing.Point(12, 62);
-            this._5_Arama_GirişTarihi_Bitiş.Margin = new System.Windows.Forms.Padding(2);
-            this._5_Arama_GirişTarihi_Bitiş.Name = "_5_Arama_GirişTarihi_Bitiş";
-            this._5_Arama_GirişTarihi_Bitiş.Size = new System.Drawing.Size(203, 26);
-            this._5_Arama_GirişTarihi_Bitiş.TabIndex = 11;
+            this._5_Arama_Tarih_Bitiş.Location = new System.Drawing.Point(12, 96);
+            this._5_Arama_Tarih_Bitiş.Margin = new System.Windows.Forms.Padding(2);
+            this._5_Arama_Tarih_Bitiş.Name = "_5_Arama_Tarih_Bitiş";
+            this._5_Arama_Tarih_Bitiş.Size = new System.Drawing.Size(203, 26);
+            this._5_Arama_Tarih_Bitiş.TabIndex = 11;
             // 
             // groupBox5
             // 
@@ -931,7 +948,7 @@
             this._2_Tablo.ShowCellErrors = false;
             this._2_Tablo.ShowEditingIcon = false;
             this._2_Tablo.ShowRowErrors = false;
-            this._2_Tablo.Size = new System.Drawing.Size(1083, 305);
+            this._2_Tablo.Size = new System.Drawing.Size(1083, 309);
             this._2_Tablo.TabIndex = 16;
             this._2_Tablo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this._2_Tablo_CellClick);
             this._2_Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this._2_Tablo_CellValueChanged);
@@ -986,7 +1003,7 @@
             this.panel2.Controls.Add(this._2_AltToplam);
             this.panel2.Controls.Add(this.ÖnYüzler_Kaydet_2_Kaydet);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(2, 307);
+            this.panel2.Location = new System.Drawing.Point(2, 311);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1083, 30);
             this.panel2.TabIndex = 19;
@@ -1067,7 +1084,7 @@
             this._3_Tablo.ShowCellErrors = false;
             this._3_Tablo.ShowEditingIcon = false;
             this._3_Tablo.ShowRowErrors = false;
-            this._3_Tablo.Size = new System.Drawing.Size(1083, 286);
+            this._3_Tablo.Size = new System.Drawing.Size(1083, 290);
             this._3_Tablo.TabIndex = 11;
             // 
             // _3_Tablo_Tarih
@@ -1143,7 +1160,7 @@
             this.panel3.Controls.Add(this.groupBox1);
             this.panel3.Controls.Add(this.groupBox3);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(2, 288);
+            this.panel3.Location = new System.Drawing.Point(2, 292);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1083, 49);
             this.panel3.TabIndex = 12;
@@ -1647,8 +1664,8 @@
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button _5_Arama_Sorgula;
-        private System.Windows.Forms.DateTimePicker _5_Arama_GirişTarihi_Başlangıç;
-        private System.Windows.Forms.DateTimePicker _5_Arama_GirişTarihi_Bitiş;
+        private System.Windows.Forms.DateTimePicker _5_Arama_Tarih_Başlangıç;
+        private System.Windows.Forms.DateTimePicker _5_Arama_Tarih_Bitiş;
         private ArgeMup.HazirKod.Ekranlar.ListeKutusu _5_Arama_İş_Türleri;
         private System.Windows.Forms.Button _5_EpostaGönder;
         private System.Windows.Forms.Label _5_Arama_Açıklama;
@@ -1664,5 +1681,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn _5_Tablo_Ödeme_Talep_Edildi;
         private System.Windows.Forms.DataGridViewTextBoxColumn _5_Tablo_Ödendi;
         private System.Windows.Forms.DataGridViewTextBoxColumn _5_Tablo_Notlar;
+        private System.Windows.Forms.ComboBox _5_Arama_Tarih_Kabul_Teslim;
     }
 }

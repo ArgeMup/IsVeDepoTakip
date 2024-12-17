@@ -37,9 +37,10 @@ namespace İş_ve_Depo_Takip.Ekranlar
             _5_Arama_İş_Türleri.Başlat(null, Banka.İşTürü_Listele(), "İş Türleri", ayrl_arama);
 
             DateTime t = DateTime.Now;
-            _5_Arama_GirişTarihi_Bitiş.Value = new DateTime(t.Year, t.Month, t.Day, 23, 59, 59);
+            _5_Arama_Tarih_Bitiş.Value = new DateTime(t.Year, t.Month, t.Day, 23, 59, 59);
             t = t.AddMonths(-1);
-            _5_Arama_GirişTarihi_Başlangıç.Value = new DateTime(t.Year, t.Month, t.Day, 0, 0, 0);
+            _5_Arama_Tarih_Başlangıç.Value = new DateTime(t.Year, t.Month, t.Day, 0, 0, 0);
+            _5_Arama_Tarih_Kabul_Teslim.SelectedIndex = 1;
 
             splitContainer1.SplitterDistance = splitContainer1.Height / 3;
         }
@@ -164,7 +165,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 }
                 Ortak.Gösterge.Bitir();
 
-                HataMesajı = HataMesajı.Trim(' ', '\n');
+                HataMesajı = HataMesajı?.Trim(' ', '\n');
                 if (HataMesajı.DoluMu())
                 {
                     MessageBox.Show("Alttaki konuda hesaplama yapılamadı." + Environment.NewLine +
@@ -882,20 +883,30 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
         List<string> _5_Arama_Sorgula_Aranan_İşTürleri;
         Ayarlar_Yazdırma.Bütçe_Hesaplama_ _5_Tam_İçerik = null;
+        private void _5_Arama_Tarih_Kabul_Teslim_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_5_Arama_Tarih_Kabul_Teslim.SelectedIndex == 0) _5_Türü_DevamEden.Enabled = true;
+            else
+            {
+                _5_Türü_DevamEden.Enabled = false;
+                _5_Türü_DevamEden.Checked = false;
+            }
+        }
         private void _5_Arama_Sorgula_Click(object sender, EventArgs e)
         {
             _5_Tam_İçerik = new Ayarlar_Yazdırma.Bütçe_Hesaplama_();
 
             Ortak.Gösterge.Başlat("Sayılıyor", true, _5_Arama_Sorgula, 0);
            
-            if (_5_Arama_GirişTarihi_Başlangıç.Value > _5_Arama_GirişTarihi_Bitiş.Value)
+            if (_5_Arama_Tarih_Başlangıç.Value > _5_Arama_Tarih_Bitiş.Value)
             {
-                DateTime gecici = _5_Arama_GirişTarihi_Başlangıç.Value;
-                _5_Arama_GirişTarihi_Başlangıç.Value = new DateTime(_5_Arama_GirişTarihi_Bitiş.Value.Year, _5_Arama_GirişTarihi_Bitiş.Value.Month, _5_Arama_GirişTarihi_Bitiş.Value.Day, 0, 0, 0);
-                _5_Arama_GirişTarihi_Bitiş.Value = new DateTime(gecici.Year, gecici.Month, gecici.Day, 23, 59, 00);
+                DateTime gecici = _5_Arama_Tarih_Başlangıç.Value;
+                _5_Arama_Tarih_Başlangıç.Value = new DateTime(_5_Arama_Tarih_Bitiş.Value.Year, _5_Arama_Tarih_Bitiş.Value.Month, _5_Arama_Tarih_Bitiş.Value.Day, 0, 0, 0);
+                _5_Arama_Tarih_Bitiş.Value = new DateTime(gecici.Year, gecici.Month, gecici.Day, 23, 59, 00);
             }
-            _5_Tam_İçerik.Başlangıç = _5_Arama_GirişTarihi_Başlangıç.Value;
-            _5_Tam_İçerik.Bitiş = _5_Arama_GirişTarihi_Bitiş.Value;
+            _5_Tam_İçerik.Başlangıç = _5_Arama_Tarih_Başlangıç.Value;
+            _5_Tam_İçerik.Bitiş = _5_Arama_Tarih_Bitiş.Value;
+            _5_Tam_İçerik.KabulTarihineGöre_0_TeslimTarihineGöre_1 = _5_Arama_Tarih_Kabul_Teslim.SelectedIndex == 1;
           
             _5_Arama_Sorgula_Aranan_İşTürleri = _5_Arama_İş_Türleri.SeçilenEleman_Adları;
             if (_5_Arama_Sorgula_Aranan_İşTürleri.Count == 0) _5_Arama_Sorgula_Aranan_İşTürleri = _5_Arama_İş_Türleri.Tüm_Elemanlar;
@@ -985,15 +996,30 @@ namespace İş_ve_Depo_Takip.Ekranlar
             List<IDepo_Eleman> uyuşanlar = new List<IDepo_Eleman>();
             foreach (IDepo_Eleman seri_no_dalı in bt.Talepler)
             {
-                foreach (IDepo_Eleman iş_türü_dalı in seri_no_dalı.Elemanları)
+                if (_5_Tam_İçerik.KabulTarihineGöre_0_TeslimTarihineGöre_1)
                 {
-                    Banka.Talep_Ayıkla_İşTürüDalı(iş_türü_dalı, out string İşTürü, out string GirişTarihi, out _, out _, out _, out _);
+                    Banka.Talep_Ayıkla_SeriNoDalı(seri_no_dalı, out string SeriNo, out _, out _, out _, out string TeslimEdilmeTarihi, out _);
+                    if (TeslimEdilmeTarihi.BoşMu()) throw new Exception("TeslimEdilmeTarihi boş olamaz " + bt.Müşteri + "/" + bt.Türü.ToString() + "/" + SeriNo);
 
-                    DateTime t = GirişTarihi.TarihSaate();
+                    DateTime t = TeslimEdilmeTarihi.TarihSaate();
                     if (_5_Tam_İçerik.Başlangıç > t || t > _5_Tam_İçerik.Bitiş)
                     {
                         //aralık dışında
-                        iş_türü_dalı.Sil(null);
+                        continue;
+                    }
+                }
+                else
+                {
+                    foreach (IDepo_Eleman iş_türü_dalı in seri_no_dalı.Elemanları)
+                    {
+                        Banka.Talep_Ayıkla_İşTürüDalı(iş_türü_dalı, out string İşTürü, out string GirişTarihi, out _, out _, out _, out _);
+
+                        DateTime t = GirişTarihi.TarihSaate();
+                        if (_5_Tam_İçerik.Başlangıç > t || t > _5_Tam_İçerik.Bitiş)
+                        {
+                            //aralık dışında
+                            iş_türü_dalı.Sil(null);
+                        }
                     }
                 }
 

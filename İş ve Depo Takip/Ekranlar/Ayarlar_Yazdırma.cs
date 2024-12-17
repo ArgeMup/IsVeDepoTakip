@@ -1044,6 +1044,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         }
         public class Bütçe_Hesaplama_
         {
+            public bool KabulTarihineGöre_0_TeslimTarihineGöre_1;
             public DateTime Başlangıç, Bitiş;
             public string HataMesajı = "";
             public Bütçe_Hesaplama_Sayaclar_ Genel = new Bütçe_Hesaplama_Sayaclar_();
@@ -1143,7 +1144,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 #region Tarih Aralığı
                 s1 = new SizeF(Sayfa.Genişlik - (float)FirmaLogo_Genişlik.Value - y.Yazı.Boyut.Width, (float)FirmaLogo_Yükseklik.Value);
-                y.Yazı.Yazı = "İş kabul tarihi" + Environment.NewLine + Banka.Yazdır_Tarih(Tümü.Başlangıç.Yazıya()) +  " ile " + Banka.Yazdır_Tarih(Tümü.Bitiş.Yazıya()) + Environment.NewLine + "aralığındaki işler";
+                y.Yazı.Yazı = (Tümü.KabulTarihineGöre_0_TeslimTarihineGöre_1 ? "İş teslim tarihi" : "İş kabul tarihi") + Environment.NewLine + Banka.Yazdır_Tarih(Tümü.Başlangıç.Yazıya()) +  " ile " + Banka.Yazdır_Tarih(Tümü.Bitiş.Yazıya()) + Environment.NewLine + "aralığındaki işler";
                 y.Yazı.Boyut = ev.Graphics.MeasureString(y.Yazı.Yazı, Sayfa.KaKü_Müşteri, s1);
                 while (y.Yazı.Boyut.Height >= (float)FirmaLogo_Yükseklik.Value)
                 {
