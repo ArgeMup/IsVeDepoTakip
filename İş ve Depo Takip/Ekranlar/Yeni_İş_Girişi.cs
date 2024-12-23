@@ -673,12 +673,34 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
             else _Tersle_((byte)lbl.Tag);
 
-            if (ElleGirilenAdet + dizi_liste.Count == 0) Tablo.SelectedRows[0].Cells[Tablo_Adet.Index].Tag = null;
+            if (dizi_liste.Count == 0)
+            {
+                Tablo.SelectedRows[0].Cells[Tablo_Adet.Index].Tag = null;
+
+                Tablo.SelectedRows[0].Cells[Tablo_Adet.Index].Value = "1";
+                Tablo.SelectedRows[0].Cells[Tablo_Adet.Index].ReadOnly = false;
+            }
             else
             {
-                dizi_liste.Insert(0, ElleGirilenAdet);
+                string Mevcut_adet = Tablo.SelectedRows[0].Cells[Tablo_Adet.Index].Value as string;
+                if (Mevcut_adet == "1") { }
+                else if (!Mevcut_adet.StartsWith("^"))
+                {
+                    DialogResult Dr = MessageBox.Show((Tablo.SelectedRows[0].Index + 1).ToString() + ". satırdaki iş adedini değiştirmek üzeresiniz." + Environment.NewLine + Environment.NewLine +
+                        Tablo.SelectedRows[0].Cells[Tablo_İş_Türü.Index].Value + Environment.NewLine +
+                        "Mevcut adet : " + Tablo.SelectedRows[0].Cells[Tablo_Adet.Index].Value + Environment.NewLine +
+                        "Yeni adet : " + dizi_liste.Count + Environment.NewLine + Environment.NewLine +
+                        "Evet : Yeni adedi kullan" + Environment.NewLine +
+                        "Hayır : Mevcut adedi kullan", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                    if (Dr == DialogResult.No) return;
+                }
+
+                Tablo.SelectedRows[0].Cells[Tablo_Adet.Index].Value = "^ " + dizi_liste.Count + " ^";
+                Tablo.SelectedRows[0].Cells[Tablo_Adet.Index].ReadOnly = true;
+
+                dizi_liste.Insert(0, (byte)dizi_liste.Count);
                 Tablo.SelectedRows[0].Cells[Tablo_Adet.Index].Tag = dizi_liste.ToArray();
-            }
+            } 
 
             Dişler_GörseliniGüncelle();
             Değişiklik_Yapılıyor(null, null);
@@ -944,7 +966,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     }
 
                     //Adet kontrolü
-                    string gecici = (string)Tablo[Tablo_Adet.Index, i].Value;
+                    string gecici = (string)Tablo[Tablo_Adet.Index, i].Value.ToString().Trim(' ', '^');
                     if (!Ortak.YazıyıSayıyaDönüştür(ref gecici,
                         "Tablodaki adet sutununun " + (i + 1).ToString() + ". satırı",
                         "Tamsayı olmalı", 1, 255, true)) return false;
