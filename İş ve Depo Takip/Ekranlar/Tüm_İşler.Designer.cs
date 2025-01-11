@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Tüm_İşler));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -41,6 +40,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Tüm_İşler));
             this.P_Üst_Alt = new System.Windows.Forms.SplitContainer();
             this.P_SolOrta_Sağ = new System.Windows.Forms.SplitContainer();
             this.P_Sol_Orta = new System.Windows.Forms.SplitContainer();
@@ -275,8 +275,6 @@
             this.İşTakip_Müşteriler.Location = new System.Drawing.Point(5, 5);
             this.İşTakip_Müşteriler.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             this.İşTakip_Müşteriler.Name = "İşTakip_Müşteriler";
-            this.İşTakip_Müşteriler.SeçilenEleman_Adı = null;
-            this.İşTakip_Müşteriler.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("İşTakip_Müşteriler.SeçilenEleman_Adları")));
             this.İşTakip_Müşteriler.Size = new System.Drawing.Size(116, 271);
             this.İşTakip_Müşteriler.TabIndex = 0;
             // 
@@ -872,8 +870,6 @@
             this.İşTakip_Ödendi_Dönem.Location = new System.Drawing.Point(5, 5);
             this.İşTakip_Ödendi_Dönem.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             this.İşTakip_Ödendi_Dönem.Name = "İşTakip_Ödendi_Dönem";
-            this.İşTakip_Ödendi_Dönem.SeçilenEleman_Adı = null;
-            this.İşTakip_Ödendi_Dönem.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("İşTakip_Ödendi_Dönem.SeçilenEleman_Adları")));
             this.İşTakip_Ödendi_Dönem.Size = new System.Drawing.Size(95, 153);
             this.İşTakip_Ödendi_Dönem.TabIndex = 0;
             // 
@@ -1010,8 +1006,6 @@
             this.Arama_Müşteriler.Location = new System.Drawing.Point(0, 0);
             this.Arama_Müşteriler.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             this.Arama_Müşteriler.Name = "Arama_Müşteriler";
-            this.Arama_Müşteriler.SeçilenEleman_Adı = null;
-            this.Arama_Müşteriler.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("Arama_Müşteriler.SeçilenEleman_Adları")));
             this.Arama_Müşteriler.Size = new System.Drawing.Size(166, 171);
             this.Arama_Müşteriler.TabIndex = 0;
             // 
@@ -1021,8 +1015,6 @@
             this.Arama_İş_Türleri.Location = new System.Drawing.Point(0, 0);
             this.Arama_İş_Türleri.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             this.Arama_İş_Türleri.Name = "Arama_İş_Türleri";
-            this.Arama_İş_Türleri.SeçilenEleman_Adı = null;
-            this.Arama_İş_Türleri.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("Arama_İş_Türleri.SeçilenEleman_Adları")));
             this.Arama_İş_Türleri.Size = new System.Drawing.Size(177, 171);
             this.Arama_İş_Türleri.TabIndex = 0;
             // 
@@ -1075,8 +1067,6 @@
             this.Malzemeler_Malzeme.Location = new System.Drawing.Point(5, 5);
             this.Malzemeler_Malzeme.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             this.Malzemeler_Malzeme.Name = "Malzemeler_Malzeme";
-            this.Malzemeler_Malzeme.SeçilenEleman_Adı = null;
-            this.Malzemeler_Malzeme.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("Malzemeler_Malzeme.SeçilenEleman_Adları")));
             this.Malzemeler_Malzeme.Size = new System.Drawing.Size(193, 94);
             this.Malzemeler_Malzeme.TabIndex = 0;
             // 

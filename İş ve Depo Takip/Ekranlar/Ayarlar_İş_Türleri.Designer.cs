@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ayarlar_İş_Türleri));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -115,8 +114,6 @@
             this.Liste_işTürleri.Location = new System.Drawing.Point(0, 0);
             this.Liste_işTürleri.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Liste_işTürleri.Name = "Liste_işTürleri";
-            this.Liste_işTürleri.SeçilenEleman_Adı = null;
-            this.Liste_işTürleri.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("Liste_işTürleri.SeçilenEleman_Adları")));
             this.Liste_işTürleri.Size = new System.Drawing.Size(341, 519);
             this.Liste_işTürleri.TabIndex = 0;
             // 
@@ -179,8 +176,6 @@
             this.Liste_Malzemeler.Location = new System.Drawing.Point(3, 26);
             this.Liste_Malzemeler.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Liste_Malzemeler.Name = "Liste_Malzemeler";
-            this.Liste_Malzemeler.SeçilenEleman_Adı = null;
-            this.Liste_Malzemeler.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("Liste_Malzemeler.SeçilenEleman_Adları")));
             this.Liste_Malzemeler.Size = new System.Drawing.Size(242, 265);
             this.Liste_Malzemeler.TabIndex = 23;
             this.Liste_Malzemeler.DoubleClick += new System.EventHandler(this.Liste_Malzemeler_DoubleClick);

@@ -668,6 +668,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 for (byte i = başla; i <= bitir; i++)
                 {
+                    if (i == 19 || i == 20 || i == 39 || i == 40) continue;
+
                     _Tersle_(i);
                 }
             }

@@ -35,7 +35,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Yeni_İş_Girişi));
             this.Notlar = new System.Windows.Forms.TextBox();
             this.Tablo = new System.Windows.Forms.DataGridView();
             this.Tablo_İş_Türü = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -437,8 +436,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Liste_İşTürleri.Location = new System.Drawing.Point(3, 22);
             this.Liste_İşTürleri.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             this.Liste_İşTürleri.Name = "Liste_İşTürleri";
-            this.Liste_İşTürleri.SeçilenEleman_Adı = null;
-            this.Liste_İşTürleri.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("Liste_İşTürleri.SeçilenEleman_Adları")));
             this.Liste_İşTürleri.Size = new System.Drawing.Size(279, 270);
             this.Liste_İşTürleri.TabIndex = 9;
             this.Liste_İşTürleri.DoubleClick += new System.EventHandler(this.Liste_İşTürleri_DoubleClick);

@@ -995,6 +995,8 @@ namespace İş_ve_Depo_Takip
             List<string> l_gizli = new List<string>();
             SıralaVeYazdır = false;
 
+            if (!Müşteri_MevcutMu(Müşteri)) return l;
+
             IDepo_Eleman müş_ag = Ayarlar_Müşteri(Müşteri, "Alt Grup");
             if (müş_ag == null || müş_ag.İçeriği.Length == 0 || müş_ag.İçiBoşOlduğuİçinSilinecek) return l;
 
