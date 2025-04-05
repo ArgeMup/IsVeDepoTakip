@@ -160,7 +160,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             {
                 Ortak.Gösterge.Başlat("Gelir Gider Takip ile ilk bağlantı kuruluyor", true, null, 500);
 
-                string EnDüşükSürüm = "0.14";
+                string EnDüşükSürüm = "0.17";
                 string DosyaYolu = Klasör.Depolama(Klasör.Kapsamı.Geçici, null, "Gelir_Gider_Takip", "") + "\\Gelir Gider Takip.exe";
                 string AğAdresi_Uygulama = "https://github.com/ArgeMup/GelirGiderTakip/raw/main/bin/Yay%C4%B1nla/Gelir%20Gider%20Takip.exe";
                 string AğAdresi_DoğrulamaKodu = "https://github.com/ArgeMup/GelirGiderTakip/raw/main/bin/Yay%C4%B1nla/Gelir%20Gider%20Takip.exe.DogrulamaKoduUreteci";

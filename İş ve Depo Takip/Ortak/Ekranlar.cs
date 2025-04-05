@@ -177,7 +177,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             GüncellenenSeriNolar.Add(SeriNo);
         }
-        public static void PencereleriKapat()
+        public static void PencereleriKapat_PdfleriSil()
         {
             GüncellenenSeriNolar.Clear();
 
@@ -196,6 +196,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             Tümü.Clear();
+
+            Dosya.Sil_SayısınaGöre(Ortak.Klasör_Gecici, 0, new List<string>() { "*.pdf" });
         }
         public static void Durdur()
         {
@@ -204,7 +206,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             ÖndekiEkran_KlaFaGö?.Dispose();
             ÖndekiEkran_KlaFaGö = null;
 
-            PencereleriKapat();
+            PencereleriKapat_PdfleriSil();
         }
 
         private static void Ekran_KeyDown(object sender, KeyEventArgs e)

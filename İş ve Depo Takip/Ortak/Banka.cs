@@ -3652,7 +3652,7 @@ namespace İş_ve_Depo_Takip
             static int Sayac_Kapatılmakİsteniyor = 0;
             public static void GirişYap(bool Küçültülmüş)
             {
-                Ekranlar.ÖnYüzler.PencereleriKapat();
+                Ekranlar.ÖnYüzler.PencereleriKapat_PdfleriSil();
                 GeriBildirimİşlemi_Önyüz_Giriş(ArgeMup.HazirKod.Ekranlar.Kullanıcılar.GirişİşlemiSonucu_.Hatalı);
 
                 void GeriBildirimİşlemi_Önyüz_Giriş(ArgeMup.HazirKod.Ekranlar.Kullanıcılar.GirişİşlemiSonucu_ GirişİşlemiSonucu)
