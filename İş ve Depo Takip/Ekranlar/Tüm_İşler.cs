@@ -241,6 +241,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Seviye2_Ödendi.Checked = true;
 
                     İşTakip_Ödendi_Dönem.Başlat(null, Banka.Müşteri_MevcutMu(MüşteriAdı) ? Banka.Dosya_Listele_Müşteri(MüşteriAdı, true).ToList() : null, "Dönemler", Banka.ListeKutusu_Ayarlar(true, true));
+                    İşTakip_Ödendi_Dönem_Açıklama.Text = "";
                     break;
             }
 
@@ -1502,9 +1503,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
                 foreach (IDepo_Eleman iş in serino.Elemanları)
                 {
-                    Banka.Talep_Ayıkla_İşTürüDalı(iş, out string İşTürü, out string GirişTarihi, out _, out _, out _, out _);
+                    Banka.Talep_Ayıkla_İşTürüDalı(iş, out string Sadece_İşTürü, out _, out string GirişTarihi, out _, out _, out _, out _, out _);
 
-                    if (Arama_Sorgula_Aranan_İşTürleri.Count > 0 && !Arama_Sorgula_Aranan_İşTürleri.Contains(İşTürü)) continue;
+                    if (Arama_Sorgula_Aranan_İşTürleri.Count > 0 && !Arama_Sorgula_Aranan_İşTürleri.Contains(Sadece_İşTürü)) continue;
 
                     DateTime t = GirişTarihi.TarihSaate();
                     if (Arama_GirişTarihi_Başlangıç.Value > t || t > Arama_GirişTarihi_Bitiş.Value) continue;

@@ -114,6 +114,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         Ayraç_Kat_3_SolSağ.Panel1Collapsed = true;
                         Tablo.ReadOnly = true;
                         Seçili_Satırı_Sil.Enabled = false;
+                        Rpt.Enabled = false;
                         break;
                 }
 
@@ -129,18 +130,18 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Tablo.RowCount = detaylar.SeriNoDalı.Elemanları.Length + 1;
                 for (int i = 0; i < detaylar.SeriNoDalı.Elemanları.Length; i++)
                 {
-                    Banka.Talep_Ayıkla_İşTürüDalı(detaylar.SeriNoDalı.Elemanları[i], out string İşTürü, out string GirişTarihi, out string ÇıkışTarihi, out string Ücret1, out string _, out byte[] Kullanım_AdetVeKonum);
+                    Banka.Talep_Ayıkla_İşTürüDalı(detaylar.SeriNoDalı.Elemanları[i], out string Sadece_İşTürü, out string İşTürü_ve_Etiketler, out string GirişTarihi, out string ÇıkışTarihi, out string Ücret1, out _, out byte[] Kullanım_AdetVeKonum, out _);
 
-                    if (!iş_tür_leri.Contains(İşTürü) && !SadeceOkunabilir)
+                    if (!iş_tür_leri.Contains(Sadece_İşTürü) && !SadeceOkunabilir)
                     {
                         //eskiden varolan şuanda bulunmayan bir iş türü 
-                        hata_bilgilendirmesi += (i + 1) + ". satırdaki \"" + İşTürü + "\" olarak tanımlı iş türü şuanda mevcut olmadığından satır içeriği boş olarak bırakıldı" + Environment.NewLine;
+                        hata_bilgilendirmesi += (i + 1) + ". satırdaki \"" + Sadece_İşTürü + "\" olarak tanımlı iş türü şuanda mevcut olmadığından satır içeriği boş olarak bırakıldı" + Environment.NewLine;
                     }
                     else
                     {
                         Tablo.Rows[i].ReadOnly = true;
-                        Tablo[Tablo_İş_Türü.Index, i].Value = İşTürü;
-                        Tablo[Tablo_İş_Türü.Index, i].ToolTipText = Banka.Ücretler_BirimÜcretMaliyet_Detaylı(Müşteri, İşTürü); //ücretlendirme ipucları
+                        Tablo[Tablo_İş_Türü.Index, i].Value = İşTürü_ve_Etiketler;
+                        Tablo[Tablo_İş_Türü.Index, i].ToolTipText = Banka.Ücretler_BirimÜcretMaliyet_Detaylı(Müşteri, Sadece_İşTürü); //ücretlendirme ipucları
                         Tablo[Tablo_Adet.Index, i].Value = Banka.Ücretler_AdetÇarpanı(Kullanım_AdetVeKonum).Yazıya();
                         Tablo[Tablo_Adet.Index, i].Tag = Kullanım_AdetVeKonum;
                     }
@@ -530,7 +531,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             foreach (DataGridViewRow Row in l)
             {
-                Seçili_Satırı_Sil.Text = Row.ReadOnly ? "Seçili satırın kilidini KALDIR" : "Seçili Satırı Sil";
+                Seçili_Satırı_Sil.Text = Row.ReadOnly ? "Kilidini KALDIR" : "Seçili Satırı Sil";
             }
 
             Dişler_GörseliniGüncelle();
@@ -794,7 +795,29 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 Değişiklik_Yapılıyor(null, null);
             }
         }
+        private void Rpt_Click(object sender, EventArgs e)
+        {
+            var l = Tablo.SelectedRows;
+            if (l == null || l.Count > 1 || l[0].Index == Tablo.RowCount - 1) return;
 
+            if (l[0].ReadOnly && !SadeceOkunabilirSatırİseKullanıcıyaSor_DevamEt(l[0])) return;
+           
+            string içerik = l[0].Cells[0].Value.ToString();
+            if (!içerik.Contains(" {Rpt}"))
+            {
+                DialogResult Dr = MessageBox.Show(
+                (l[0].Index + 1).ToString() + ". satırdaki öğe Rpt olarak işaretlenecek." + Environment.NewLine + Environment.NewLine +
+                "Ücret sutünu boş ise ücretlendirme aşamasında KENDİ ÜCRETİ yerine ÜCRETSİZ olarak değerlendirilecek." + Environment.NewLine + Environment.NewLine +
+                "Devam etmek istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (Dr == DialogResult.No) return;
+
+                içerik += " {Rpt}";
+            }
+            else içerik = içerik.Replace(" {Rpt}", "");
+
+            l[0].Cells[0].Value = içerik;
+            Değişiklik_Yapılıyor(null, null);
+        }
         private void AçıklamaEtiketi_Click(object sender, EventArgs e)
         {
             Yeni_İş_Girişi_Açıklama açklm = new Yeni_İş_Girişi_Açıklama();
@@ -824,7 +847,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(SeriNo);
 
                         if (!KaydetTuşuEtkin) Kaydet_TuşGörünürlüğü(false);
-                        Banka.Talep_Ayıkla_İşTürüDalı(detaylar.SeriNoDalı.Elemanları[detaylar.SeriNoDalı.Elemanları.Length - 1], out SonİşTürü, out SonGirişTarihi, out _, out _, out _, out _);
+                        Banka.Talep_Ayıkla_İşTürüDalı(detaylar.SeriNoDalı.Elemanları[detaylar.SeriNoDalı.Elemanları.Length - 1], out _, out SonİşTürü, out SonGirişTarihi, out _, out _, out _, out _, out _);
                     }
                 }
 

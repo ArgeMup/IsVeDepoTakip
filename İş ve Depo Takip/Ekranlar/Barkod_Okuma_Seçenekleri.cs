@@ -34,8 +34,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             string Sonİş_ÇıkışTarihi = null;
             foreach (IDepo_Eleman İşTürüDalı in Detaylar.SeriNoDalı.Elemanları)
             {
-                Banka.Talep_Ayıkla_İşTürüDalı(İşTürüDalı, out string İşTürü, out _, out Sonİş_ÇıkışTarihi, out _, out _, out byte[] Kullanım_AdetVeKonum);
-                İşler.Items.Add(İşTürü + " " + Banka.Ücretler_AdetÇarpanı(Kullanım_AdetVeKonum));
+                Banka.Talep_Ayıkla_İşTürüDalı(İşTürüDalı, out _, out string İşTürü_ve_Etiketler, out _, out Sonİş_ÇıkışTarihi, out _, out _, out byte[] Kullanım_AdetVeKonum, out _);
+                İşler.Items.Add(İşTürü_ve_Etiketler + " " + Banka.Ücretler_AdetÇarpanı(Kullanım_AdetVeKonum));
             }
 
             if (Detaylar.Tür > Banka.TabloTürü.TeslimEdildi)
@@ -94,7 +94,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                     Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle(SeriNo_);
                 }
 
-                Banka.Talep_Ayıkla_İşTürüDalı(Detaylar.SeriNoDalı.Elemanları[Detaylar.SeriNoDalı.Elemanları.Length - 1], out string SonİşTürü_, out string SonGirişTarihi_, out _, out _, out _, out _);
+                Banka.Talep_Ayıkla_İşTürüDalı(Detaylar.SeriNoDalı.Elemanları[Detaylar.SeriNoDalı.Elemanları.Length - 1], out _, out string SonİşTürü_, out string SonGirişTarihi_, out _, out _, out _, out _, out _);
                 string sonuç = Ayarlar_Etiketleme.YeniİşGirişi_Etiket_Üret(Ayarlar_Etiketleme.YeniİşGirişi_Etiketi.Açıklama, 1, Detaylar.Müşteri, Hasta_, SeriNo_, SonGirişTarihi_, SonİşTürü_, false, Açıklama, null, null);
                 if (sonuç.DoluMu()) MessageBox.Show("Açıklama etiketinin yazdırılması aşamasında bir sorun ile karşılaşıldı" + Environment.NewLine + Environment.NewLine + sonuç, "Açıklama Etiketi");
             }

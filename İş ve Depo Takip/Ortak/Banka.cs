@@ -182,6 +182,30 @@ namespace İş_ve_Depo_Takip
             Ekranlar.Ayarlar_Bütçe.CariDökümüHergünEpostaİleGönder_Başlat();
             Ortak.Gösterge.Bitir();
         }
+        public static (string Etiketsiz, List<string> Etiketler) Etiket_Ayıkla(string Girdi)
+        {
+            if (string.IsNullOrEmpty(Girdi))
+                return (string.Empty, new List<string>());
+
+            var Etiketler = new List<string>();
+            Girdi = Girdi.TrimEnd();
+
+            while (Girdi.EndsWith("}"))
+            {
+                int openIndex = Girdi.LastIndexOf('{');
+                if (openIndex == -1)
+                    break; // açılış yoksa döngüden çık
+
+                // Etiket içeriğini al
+                string tag = Girdi.Substring(openIndex + 1, Girdi.Length - openIndex - 2).Trim();
+                Etiketler.Insert(0, tag);
+
+                // Etiketi çıkartıp kalan metne devam et
+                Girdi = Girdi.Substring(0, openIndex).TrimEnd();
+            }
+
+            return (Girdi, Etiketler);
+        }
         public static Depo_ ÖrnekMüşteriTablosuOluştur()
         {
             Depo_ Depo = new Depo_();
@@ -839,7 +863,7 @@ namespace İş_ve_Depo_Takip
 
             foreach (IDepo_Eleman iş_türü_dalı in seri_no_dalı_birarada.Elemanları)
             {
-                Talep_Ayıkla_İşTürüDalı(iş_türü_dalı, out string İşTürü, out string GirişTarihi, out string ÇıkışTarihi, out _, out _, out byte[] Kullanım_AdetVeKonum);
+                Talep_Ayıkla_İşTürüDalı(iş_türü_dalı, out string İşTürü, out _, out string GirişTarihi, out string ÇıkışTarihi, out _, out _, out byte[] Kullanım_AdetVeKonum, out _);
                 int Adet = Ücretler_AdetÇarpanı(Kullanım_AdetVeKonum);
 
                 Seri_no_dalı_tek_tek.Sil(null, false, true);
@@ -1092,7 +1116,10 @@ namespace İş_ve_Depo_Takip
         }
         public static bool İşTürü_MevcutMu(string Adı)
         {
-            return !string.IsNullOrWhiteSpace(Adı) && Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri/" + Adı) != null;
+            // Etiket silme
+            (string Etiketsiz, List<string> Etiketler) = Etiket_Ayıkla(Adı);
+
+            return !string.IsNullOrWhiteSpace(Etiketsiz) && Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri/" + Etiketsiz) != null;
         }
         public static void İşTürü_YenidenAdlandır(string Eski, string Yeni)
         {
@@ -1864,6 +1891,9 @@ namespace İş_ve_Depo_Takip
         }
         public static string Ücretler_BirimÜcret(string Müşteri, string İşTürü, out double Değeri)
         {
+            (string Etiketsiz, List<string> Etiketler) = Etiket_Ayıkla(İşTürü);
+            İşTürü = Etiketsiz;
+
             Değeri = 0;
             bool Müşteriİçin_BirimÜcretBoşİseYapılacakHesaplama_Var = false;
             string cevap, ÜcretiHesaplamaİşlemi = null, OrtakÜcreti = null; //tüm müşteriler için ortak ücret
@@ -1922,6 +1952,8 @@ namespace İş_ve_Depo_Takip
         public static string Ücretler_BirimMaliyet(string İşTürü, out double Değeri)
         {
             Değeri = 0;
+            (string Etiketsiz, List<string> Etiketler) = Etiket_Ayıkla(İşTürü);
+            İşTürü = Etiketsiz;
 
             //tüm müşteriler için ortak ücret
             IDepo_Eleman d = Tablo_Dal(null, TabloTürü.İşTürleri, "İş Türleri/" + İşTürü + "/Bütçe");
@@ -1962,9 +1994,12 @@ namespace İş_ve_Depo_Takip
 
             return Kullanım_İşTürüoDalı_Eleman4 == null || Kullanım_İşTürüoDalı_Eleman4.Length == 0 ? 1 : Kullanım_İşTürüoDalı_Eleman4[0];
         }
-        static string Ücretler_HesaplanmışToplamÜcret(string Müşteri, string İşTürü, byte[] Kullanım_İşTürüoDalı_Eleman4, out double Değeri)
+        static string Ücretler_HesaplanmışToplamÜcret(string Müşteri, string İşTürü_ve_Etiketler, byte[] Kullanım_İşTürüoDalı_Eleman4, out double Değeri)
         {
-            string snç = Ücretler_BirimÜcret(Müşteri, İşTürü, out Değeri);
+            Değeri = 0;
+            if (İşTürü_ve_Etiketler.Contains("{Rpt}")) return null;
+
+            string snç = Ücretler_BirimÜcret(Müşteri, İşTürü_ve_Etiketler, out Değeri);
             if (snç.DoluMu()) return snç;
 
             int Adetli_Adet = Ücretler_AdetÇarpanı(Kullanım_İşTürüoDalı_Eleman4);
@@ -2672,14 +2707,18 @@ namespace İş_ve_Depo_Takip
             Tablo.ClearSelection();
             Tablo.Tag = null;
         }
-        public static void Talep_Ayıkla_İşTürüDalı(IDepo_Eleman İşTürüDalı, out string İşTürü, out string GirişTarihi, out string ÇıkışTarihi, out string Ücret1, out string Ücret2, out byte[] Kullanım_AdetVeKonum)
+        public static void Talep_Ayıkla_İşTürüDalı(IDepo_Eleman İşTürüDalı, out string Sadece_İşTürü, out string İşTürü_ve_Etiketler, out string GirişTarihi, out string ÇıkışTarihi, out string Ücret1, out string Ücret2, out byte[] Kullanım_AdetVeKonum, out List<string> Etiketler)
         {
+            (string Etiketsiz, List<string> Etiketleri) = Etiket_Ayıkla(İşTürüDalı[0]);
+
             GirişTarihi = İşTürüDalı.Adı;
-            İşTürü = İşTürüDalı[0];
+            İşTürü_ve_Etiketler = İşTürüDalı[0];
+            Sadece_İşTürü = Etiketsiz;
             ÇıkışTarihi = İşTürüDalı[1];
             Ücret1 = İşTürüDalı[2];
             Ücret2 = İşTürüDalı[3];
             Kullanım_AdetVeKonum = İşTürüDalı.Oku_BaytDizisi(null, null, 4);
+            Etiketler = Etiketleri;
         }
         public static void Talep_Ayıkla_SeriNoDalı(IDepo_Eleman SeriNoDalı, out string SeriNo, out string Hasta, out string İskonto, out string Notlar, out string TeslimEdilmeTarihi, out string AltGrup)
         {
@@ -2792,20 +2831,20 @@ namespace İş_ve_Depo_Takip
 
             foreach (IDepo_Eleman İşTürüDalı in SeriNoDalı.Elemanları)
             {
-                Talep_Ayıkla_İşTürüDalı(İşTürüDalı, out string İşTürü, out _, out _, out _, out _, out byte[] Kullanım_AdetVeKonum);
+                Talep_Ayıkla_İşTürüDalı(İşTürüDalı, out string Sadece_İşTürü, out string İşTürü_ve_Etiketler, out _, out _, out _, out _, out byte[] Kullanım_AdetVeKonum, out _);
 
                 double değeri = İşTürüDalı.Oku_Sayı(null, -1, 2); //Ücret1 - kontrol edilerek alınıyor
 
                 if (değeri < 0)
                 {
-                    snç = Ücretler_HesaplanmışToplamÜcret(Müşteri, İşTürü, Kullanım_AdetVeKonum, out değeri);
-                    if (snç.DoluMu()) return SeriNoDalı.Adı + " " + İşTürü + " için ücret hesaplanamadı " + snç;
+                    snç = Ücretler_HesaplanmışToplamÜcret(Müşteri, İşTürü_ve_Etiketler, Kullanım_AdetVeKonum, out değeri);
+                    if (snç.DoluMu()) return SeriNoDalı.Adı + " " + Sadece_İşTürü + " için ücret hesaplanamadı " + snç;
                 }
 
                 if (değeri > 0) Toplam_Ücret += değeri;
 
-                snç = Ücretler_HesaplanmışToplamMaliyet(İşTürü, Kullanım_AdetVeKonum, out değeri);
-                if (snç.DoluMu()) return SeriNoDalı.Adı + " " + İşTürü + " için maliyet hesaplanamadı " + snç;
+                snç = Ücretler_HesaplanmışToplamMaliyet(Sadece_İşTürü, Kullanım_AdetVeKonum, out değeri);
+                if (snç.DoluMu()) return SeriNoDalı.Adı + " " + Sadece_İşTürü + " için maliyet hesaplanamadı " + snç;
 
                 if (değeri > 0) Toplam_Maliyet += değeri;
             }
@@ -2931,7 +2970,7 @@ namespace İş_ve_Depo_Takip
         }
         public static void Talep_Hesaplat_FirmaİçindekiSüreler(IDepo_Eleman SeriNoDalı, out TimeSpan Firmaİçinde, out TimeSpan Toplam)
         {
-            Talep_Ayıkla_İşTürüDalı(SeriNoDalı.Elemanları[0], out _, out string GirişTarihi, out _, out _, out _, out _);
+            Talep_Ayıkla_İşTürüDalı(SeriNoDalı.Elemanları[0], out _, out _, out string GirişTarihi, out _, out _, out _, out _, out _);
             DateTime İlkHareket = GirişTarihi.TarihSaate();
 
             Talep_Ayıkla_SeriNoDalı(SeriNoDalı, out _, out _, out _, out _, out string TeslimEdilmeTarihi, out _);
@@ -2947,7 +2986,7 @@ namespace İş_ve_Depo_Takip
             //                                                          yoksa - son harekete göre hesapla
             for (int i = 0; i < SeriNoDalı.Elemanları.Length; i++)
             {
-                Talep_Ayıkla_İşTürüDalı(SeriNoDalı.Elemanları[i], out _, out GirişTarihi, out string ÇıkışTarihi, out _, out _, out _);
+                Talep_Ayıkla_İşTürüDalı(SeriNoDalı.Elemanları[i], out _, out _, out GirişTarihi, out string ÇıkışTarihi, out _, out _, out _, out _);
                 İlkHareket = GirişTarihi.TarihSaate();
 
                 DateTime son;
@@ -2956,7 +2995,7 @@ namespace İş_ve_Depo_Takip
                 {
                     if ((i + 1) < SeriNoDalı.Elemanları.Length)
                     {
-                        Talep_Ayıkla_İşTürüDalı(SeriNoDalı.Elemanları[i + 1], out _, out GirişTarihi, out _, out _, out _, out _);
+                        Talep_Ayıkla_İşTürüDalı(SeriNoDalı.Elemanları[i + 1], out _, out _, out GirişTarihi, out _, out _, out _, out _, out _);
                         son = GirişTarihi.TarihSaate();
                     }
                     else son = SonHareket;
@@ -2977,9 +3016,9 @@ namespace İş_ve_Depo_Takip
             {
                 foreach (IDepo_Eleman iş_türü_dali in seri_no_dalı.Elemanları)
                 {
-                    Talep_Ayıkla_İşTürüDalı(iş_türü_dali, out string İşTürü, out _, out _, out _, out _, out _);
+                    Talep_Ayıkla_İşTürüDalı(iş_türü_dali, out string Sadece_İşTürü, out _, out _, out _, out _, out _, out _, out _);
 
-                    if (!İşTürleri.Contains(İşTürü)) continue;
+                    if (!İşTürleri.Contains(Sadece_İşTürü)) continue;
 
                     liste.Add(seri_no_dalı.Bul(null, false, true)); //Bağımsız kopya
                     break;
@@ -2991,9 +3030,9 @@ namespace İş_ve_Depo_Takip
             {
                 foreach (IDepo_Eleman iş_türü_dali in seri_no_dalı.Elemanları)
                 {
-                    Talep_Ayıkla_İşTürüDalı(iş_türü_dali, out string İşTürü, out _, out _, out _, out _, out _);
-
-                    if (!İşTürleri.Contains(İşTürü)) iş_türü_dali.Sil(null);
+                    Talep_Ayıkla_İşTürüDalı(iş_türü_dali, out string Sadece_İşTürü, out _, out _, out _, out _, out _, out _, out _);
+                   
+                    if (!İşTürleri.Contains(Sadece_İşTürü)) iş_türü_dali.Sil(null);
                 }
 
                 _ = seri_no_dalı.İçiBoşOlduğuİçinSilinecek; //içeriği tazele

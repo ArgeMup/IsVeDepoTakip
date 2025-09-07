@@ -378,7 +378,7 @@ namespace İş_ve_Depo_Takip
                         if (TeslimEdilmeTarihi.DoluMu()) continue;
 
                         //son iş giriş tarihini kontrol et
-                        Banka.Talep_Ayıkla_İşTürüDalı(sn.Elemanları[sn.Elemanları.Length - 1], out _, out string GirişTarihi, out string ÇıkışTarihi, out _, out _, out _);
+                        Banka.Talep_Ayıkla_İşTürüDalı(sn.Elemanları[sn.Elemanları.Length - 1], out _, out _, out string GirişTarihi, out string ÇıkışTarihi, out _, out _, out _, out _);
 
                         //tamamlanmış bir iş ise atla
                         if (ÇıkışTarihi.DoluMu()) continue;

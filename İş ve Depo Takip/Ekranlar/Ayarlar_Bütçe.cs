@@ -285,7 +285,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
                         {
                             if (!Ortak.Gösterge.Çalışsın) break;
                             
-                            Banka.Talep_Ayıkla_İşTürüDalı(it, out string İşTürü, out _, out _, out _, out _, out _);
+                            Banka.Talep_Ayıkla_İşTürüDalı(it, out _, out string İşTürü, out _, out _, out _, out _, out _, out _);
 
                             //İş Türleri|Genel Kullanım (adet)|iştürü|2022 12
                             anahtar = İşTürü + "|" + Ödeme_Tarihi_yıl_ay;
@@ -907,7 +907,8 @@ namespace İş_ve_Depo_Takip.Ekranlar
             _5_Tam_İçerik.Başlangıç = _5_Arama_Tarih_Başlangıç.Value;
             _5_Tam_İçerik.Bitiş = _5_Arama_Tarih_Bitiş.Value;
             _5_Tam_İçerik.KabulTarihineGöre_0_TeslimTarihineGöre_1 = _5_Arama_Tarih_Kabul_Teslim.SelectedIndex == 1;
-          
+            _5_Tam_İçerik.Rpt = _5_Arama_Rpt.Checked;
+
             _5_Arama_Sorgula_Aranan_İşTürleri = _5_Arama_İş_Türleri.SeçilenEleman_Adları;
             if (_5_Arama_Sorgula_Aranan_İşTürleri.Count == 0) _5_Arama_Sorgula_Aranan_İşTürleri = _5_Arama_İş_Türleri.Tüm_Elemanlar;
 
@@ -1012,12 +1013,26 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 {
                     foreach (IDepo_Eleman iş_türü_dalı in seri_no_dalı.Elemanları)
                     {
-                        Banka.Talep_Ayıkla_İşTürüDalı(iş_türü_dalı, out string İşTürü, out string GirişTarihi, out _, out _, out _, out _);
+                        Banka.Talep_Ayıkla_İşTürüDalı(iş_türü_dalı, out _, out _, out string GirişTarihi, out _, out _, out _, out _, out _);
 
                         DateTime t = GirişTarihi.TarihSaate();
                         if (_5_Tam_İçerik.Başlangıç > t || t > _5_Tam_İçerik.Bitiş)
                         {
                             //aralık dışında
+                            iş_türü_dalı.Sil(null);
+                        }
+                    }
+                }
+
+                if (_5_Arama_Rpt.Checked)
+                {
+                    foreach (IDepo_Eleman iş_türü_dalı in seri_no_dalı.Elemanları)
+                    {
+                        Banka.Talep_Ayıkla_İşTürüDalı(iş_türü_dalı, out _, out string İşTürü_ve_Etiketler, out _, out _, out _, out _, out _, out _);
+
+                        if (!İşTürü_ve_Etiketler.Contains("{Rpt}"))
+                        {
+                            //Rpt değil
                             iş_türü_dalı.Sil(null);
                         }
                     }

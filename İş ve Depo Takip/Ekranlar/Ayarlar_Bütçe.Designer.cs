@@ -80,12 +80,14 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this._5_Arama_Rpt = new System.Windows.Forms.CheckBox();
             this._5_Arama_Tarih_Kabul_Teslim = new System.Windows.Forms.ComboBox();
             this._5_Arama_Açıklama = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this._5_Arama_Sorgula = new System.Windows.Forms.Button();
             this._5_Arama_Tarih_Başlangıç = new System.Windows.Forms.DateTimePicker();
             this._5_Arama_Tarih_Bitiş = new System.Windows.Forms.DateTimePicker();
+            this._5_Arama_İş_Türleri = new ArgeMup.HazirKod.Ekranlar.ListeKutusu();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this._5_EpostaGönder = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
@@ -154,7 +156,6 @@
             this._4_AyarlarSayfasınıAç = new System.Windows.Forms.Button();
             this.TabloİçeriğiArama = new System.Windows.Forms.TextBox();
             this.İpUcu = new System.Windows.Forms.ToolTip(this.components);
-            this._5_Arama_İş_Türleri = new ArgeMup.HazirKod.Ekranlar.ListeKutusu();
             this._1_Gelir.SuspendLayout();
             this._1_Gider.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1_Tablo)).BeginInit();
@@ -531,6 +532,7 @@
             // splitContainer3.Panel1
             // 
             this.splitContainer3.Panel1.AutoScroll = true;
+            this.splitContainer3.Panel1.Controls.Add(this._5_Arama_Rpt);
             this.splitContainer3.Panel1.Controls.Add(this._5_Arama_Tarih_Kabul_Teslim);
             this.splitContainer3.Panel1.Controls.Add(this._5_Arama_Açıklama);
             this.splitContainer3.Panel1.Controls.Add(this.label4);
@@ -545,6 +547,16 @@
             this.splitContainer3.SplitterDistance = 236;
             this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 16;
+            // 
+            // _5_Arama_Rpt
+            // 
+            this._5_Arama_Rpt.AutoSize = true;
+            this._5_Arama_Rpt.Location = new System.Drawing.Point(135, 131);
+            this._5_Arama_Rpt.Name = "_5_Arama_Rpt";
+            this._5_Arama_Rpt.Size = new System.Drawing.Size(57, 24);
+            this._5_Arama_Rpt.TabIndex = 15;
+            this._5_Arama_Rpt.Text = "Rpt";
+            this._5_Arama_Rpt.UseVisualStyleBackColor = true;
             // 
             // _5_Arama_Tarih_Kabul_Teslim
             // 
@@ -613,6 +625,15 @@
             this._5_Arama_Tarih_Bitiş.Name = "_5_Arama_Tarih_Bitiş";
             this._5_Arama_Tarih_Bitiş.Size = new System.Drawing.Size(203, 26);
             this._5_Arama_Tarih_Bitiş.TabIndex = 11;
+            // 
+            // _5_Arama_İş_Türleri
+            // 
+            this._5_Arama_İş_Türleri.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._5_Arama_İş_Türleri.Location = new System.Drawing.Point(0, 0);
+            this._5_Arama_İş_Türleri.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this._5_Arama_İş_Türleri.Name = "_5_Arama_İş_Türleri";
+            this._5_Arama_İş_Türleri.Size = new System.Drawing.Size(517, 188);
+            this._5_Arama_İş_Türleri.TabIndex = 0;
             // 
             // groupBox5
             // 
@@ -948,7 +969,7 @@
             this._2_Tablo.ShowCellErrors = false;
             this._2_Tablo.ShowEditingIcon = false;
             this._2_Tablo.ShowRowErrors = false;
-            this._2_Tablo.Size = new System.Drawing.Size(1083, 309);
+            this._2_Tablo.Size = new System.Drawing.Size(1083, 305);
             this._2_Tablo.TabIndex = 16;
             this._2_Tablo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this._2_Tablo_CellClick);
             this._2_Tablo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this._2_Tablo_CellValueChanged);
@@ -1003,7 +1024,7 @@
             this.panel2.Controls.Add(this._2_AltToplam);
             this.panel2.Controls.Add(this.ÖnYüzler_Kaydet_2_Kaydet);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(2, 311);
+            this.panel2.Location = new System.Drawing.Point(2, 307);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1083, 30);
             this.panel2.TabIndex = 19;
@@ -1084,7 +1105,7 @@
             this._3_Tablo.ShowCellErrors = false;
             this._3_Tablo.ShowEditingIcon = false;
             this._3_Tablo.ShowRowErrors = false;
-            this._3_Tablo.Size = new System.Drawing.Size(1083, 290);
+            this._3_Tablo.Size = new System.Drawing.Size(1083, 286);
             this._3_Tablo.TabIndex = 11;
             // 
             // _3_Tablo_Tarih
@@ -1160,7 +1181,7 @@
             this.panel3.Controls.Add(this.groupBox1);
             this.panel3.Controls.Add(this.groupBox3);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(2, 292);
+            this.panel3.Location = new System.Drawing.Point(2, 288);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1083, 49);
             this.panel3.TabIndex = 12;
@@ -1500,17 +1521,6 @@
             this.İpUcu.UseAnimation = false;
             this.İpUcu.UseFading = false;
             // 
-            // _5_Arama_İş_Türleri
-            // 
-            this._5_Arama_İş_Türleri.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._5_Arama_İş_Türleri.Location = new System.Drawing.Point(0, 0);
-            this._5_Arama_İş_Türleri.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this._5_Arama_İş_Türleri.Name = "_5_Arama_İş_Türleri";
-            this._5_Arama_İş_Türleri.SeçilenEleman_Adı = null;
-            this._5_Arama_İş_Türleri.SeçilenEleman_Adları = ((System.Collections.Generic.List<string>)(resources.GetObject("_5_Arama_İş_Türleri.SeçilenEleman_Adları")));
-            this._5_Arama_İş_Türleri.Size = new System.Drawing.Size(517, 188);
-            this._5_Arama_İş_Türleri.TabIndex = 0;
-            // 
             // Ayarlar_Bütçe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -1682,5 +1692,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn _5_Tablo_Ödendi;
         private System.Windows.Forms.DataGridViewTextBoxColumn _5_Tablo_Notlar;
         private System.Windows.Forms.ComboBox _5_Arama_Tarih_Kabul_Teslim;
+        private System.Windows.Forms.CheckBox _5_Arama_Rpt;
     }
 }

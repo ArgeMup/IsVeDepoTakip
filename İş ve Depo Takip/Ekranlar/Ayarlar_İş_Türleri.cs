@@ -12,7 +12,9 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             InitializeComponent();
 
-            Liste_işTürleri.Başlat(null, Banka.İşTürü_Listele(), "İş Türleri", Banka.ListeKutusu_Ayarlar(false, false));
+            ListeKutusu.Ayarlar_ ayrlr = Banka.ListeKutusu_Ayarlar(false, false);
+            ayrlr.Yasakİçerik = new string[] { "{", "}" };
+            Liste_işTürleri.Başlat(null, Banka.İşTürü_Listele(), "İş Türleri", ayrlr);
             Liste_işTürleri.GeriBildirim_İşlemi += Liste_işTürleri_GeriBildirim_İşlemi;
 
             Liste_Malzemeler.Başlat(null, Banka.Malzeme_Listele(), "Malzemeler", Banka.ListeKutusu_Ayarlar(true, false));

@@ -106,6 +106,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.P_DosyaEkleri = new System.Windows.Forms.Panel();
             this.P_Epostalar = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Rpt = new System.Windows.Forms.Button();
             this.KaydetVeEtiketiYazdır = new System.Windows.Forms.Button();
             this.DosyaEkleri = new System.Windows.Forms.Button();
             this.Ayraç_Kat_2_3 = new System.Windows.Forms.SplitContainer();
@@ -311,7 +312,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.Seçili_Satırı_Sil.Margin = new System.Windows.Forms.Padding(2);
             this.Seçili_Satırı_Sil.Name = "Seçili_Satırı_Sil";
             this.Seçili_Satırı_Sil.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.Seçili_Satırı_Sil.Size = new System.Drawing.Size(254, 33);
+            this.Seçili_Satırı_Sil.Size = new System.Drawing.Size(179, 33);
             this.Seçili_Satırı_Sil.TabIndex = 10;
             this.Seçili_Satırı_Sil.Text = "Seçili Satırı Sil";
             this.Seçili_Satırı_Sil.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1102,6 +1103,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.Rpt);
             this.panel1.Controls.Add(this.Seçili_Satırı_Sil);
             this.panel1.Controls.Add(this.KaydetVeEtiketiYazdır);
             this.panel1.Controls.Add(this.ÖnYüzler_Kaydet);
@@ -1110,6 +1112,23 @@ namespace İş_ve_Depo_Takip.Ekranlar
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(685, 33);
             this.panel1.TabIndex = 16;
+            // 
+            // Rpt
+            // 
+            this.Rpt.AutoSize = true;
+            this.Rpt.Dock = System.Windows.Forms.DockStyle.Left;
+            this.Rpt.Image = global::İş_ve_Depo_Takip.Properties.Resources.sol;
+            this.Rpt.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Rpt.Location = new System.Drawing.Point(179, 0);
+            this.Rpt.Margin = new System.Windows.Forms.Padding(2);
+            this.Rpt.Name = "Rpt";
+            this.Rpt.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.Rpt.Size = new System.Drawing.Size(93, 33);
+            this.Rpt.TabIndex = 15;
+            this.Rpt.Text = "Rpt";
+            this.Rpt.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Rpt.UseVisualStyleBackColor = true;
+            this.Rpt.Click += new System.EventHandler(this.Rpt_Click);
             // 
             // KaydetVeEtiketiYazdır
             // 
@@ -1573,5 +1592,6 @@ namespace İş_ve_Depo_Takip.Ekranlar
         private System.Windows.Forms.GroupBox Müşteriler_AltGrup;
         private System.Windows.Forms.ListBox Müşteriler_AltGrup_SeçimKutusu;
         private System.Windows.Forms.TextBox Müşteriler_AltGrup_AramaÇubuğu;
+        private System.Windows.Forms.Button Rpt;
     }
 }
