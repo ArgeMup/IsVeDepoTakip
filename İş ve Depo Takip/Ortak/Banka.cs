@@ -188,20 +188,25 @@ namespace İş_ve_Depo_Takip
                 return (string.Empty, new List<string>());
 
             var Etiketler = new List<string>();
-            Girdi = Girdi.TrimEnd();
+            string işlenen = Girdi.TrimEnd();
 
-            while (Girdi.EndsWith("}"))
+            while (işlenen.EndsWith("}"))
             {
-                int openIndex = Girdi.LastIndexOf('{');
+                int openIndex = işlenen.LastIndexOf('{');
                 if (openIndex == -1)
                     break; // açılış yoksa döngüden çık
 
                 // Etiket içeriğini al
-                string tag = Girdi.Substring(openIndex + 1, Girdi.Length - openIndex - 2).Trim();
+                string tag = işlenen.Substring(openIndex + 1, işlenen.Length - openIndex - 2).Trim();
                 Etiketler.Insert(0, tag);
 
                 // Etiketi çıkartıp kalan metne devam et
-                Girdi = Girdi.Substring(0, openIndex).TrimEnd();
+                işlenen = işlenen.Substring(0, openIndex).TrimEnd();
+            }
+
+            if (Etiketler.Count > 0)
+            {
+                Girdi = Girdi.Remove(Girdi.IndexOf(" {"));
             }
 
             return (Girdi, Etiketler);
@@ -1996,6 +2001,9 @@ namespace İş_ve_Depo_Takip
         }
         static string Ücretler_HesaplanmışToplamÜcret(string Müşteri, string İşTürü_ve_Etiketler, byte[] Kullanım_İşTürüoDalı_Eleman4, out double Değeri)
         {
+            //Sadece ücret kontrol edilip içeriği boş null durumunda iken girlen bir işlem
+            //mevcut kulanımları değerlendirmeden kullanma
+
             Değeri = 0;
             if (İşTürü_ve_Etiketler.Contains("{Rpt}")) return null;
 
