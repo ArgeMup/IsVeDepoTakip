@@ -3371,6 +3371,7 @@ namespace İş_ve_Depo_Takip
             Geçmiş_SeriNoDalı.Ekle(null, SeriNoDalı.YazıyaDönüştür(null, false, false), false);
         }
 
+        public static bool Değişiklikleri_Kaydet_Çalışıyor = false;
         public static void Değişiklikleri_Kaydet(Control Tetikleyen)
         {
             if (Yedekleme_Tümü_Çalışıyor)
@@ -3385,6 +3386,7 @@ namespace İş_ve_Depo_Takip
                 Ortak.Gösterge.Bitir();
             }
 
+            Değişiklikleri_Kaydet_Çalışıyor = true;
             Günlük.Ekle("Değişiklikleri_Kaydet Başladı");
             bool EnAzBirDeğişiklikYapıldı = false;
             Ortak.Gösterge.Başlat("Kaydediliyor", false, Tetikleyen, 10 + (Müşteriler == null ? 0 : Müşteriler.Count * 5) + (MalzemeKullanımDetayları == null ? 0 : MalzemeKullanımDetayları.Count * 1));
@@ -3507,6 +3509,7 @@ namespace İş_ve_Depo_Takip
             }
 
             Günlük.Ekle("Değişiklikleri_Kaydet Bitti " + EnAzBirDeğişiklikYapıldı);
+            Değişiklikleri_Kaydet_Çalışıyor = false;
             Ortak.Gösterge.Bitir();
         }
         public static void Değişiklikler_TamponuSıfırla()
@@ -3732,6 +3735,18 @@ namespace İş_ve_Depo_Takip
                             break;
 
                         default:
+                            if (Değişiklikleri_Kaydet_Çalışıyor)
+                            {
+                                Günlük.Ekle("Değişiklikleri_Kaydet_Çalışıyor");
+                                Ortak.Gösterge.Başlat("Kaydediliyor", false, null, 0);
+
+                                while (Değişiklikleri_Kaydet_Çalışıyor && Ortak.Gösterge.Çalışsın)
+                                {
+                                    System.Threading.Thread.Sleep(250);
+                                }
+                                Ortak.Gösterge.Bitir();
+                            }
+                            
                             ArgeMup.HazirKod.Ekranlar.Kullanıcılar.Önyüz_Giriş(GeriBildirimİşlemi_Önyüz_Giriş, Küçültülmüş, 15);
                             break;
                     }
@@ -4007,7 +4022,7 @@ namespace İş_ve_Depo_Takip
                     if (Yedekleme_EnAz1Kez_Değişiklikler_Kaydedildi)
                     {
                         Klasör_ ydk_ler = new Klasör_(Ortak.Klasör_İçYedek, Filtre_Dosya: new string[] { "*.zip" }, DoğrulamaKodunuÜret: false);
-                        ydk_ler.Dosya_Sil_SayısınaGöre(15);
+                        ydk_ler.Dosya_Sil_SayısınaGöre(35);
                         ydk_ler.Güncelle();
 
                         bool yedekle = false;

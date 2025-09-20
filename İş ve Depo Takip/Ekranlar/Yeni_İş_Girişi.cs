@@ -342,7 +342,7 @@ namespace İş_ve_Depo_Takip.Ekranlar
         {
             if (Hastalar_AdVeSoyadıDüzelt.Checked)
             {
-                string[] dizi = Hastalar_AramaÇubuğu.Text.Trim().Split(' ');
+                string[] dizi = Hastalar_AramaÇubuğu.Text.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 if (dizi.Length < 2 || dizi.Length > 3) return;
 
                 string yeni = "";
