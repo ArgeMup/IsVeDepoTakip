@@ -811,6 +811,23 @@ namespace İş_ve_Depo_Takip.Ekranlar
                 "Devam etmek istediğinize emin misiniz?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 if (Dr == DialogResult.No) return;
 
+                int knm = Tablo.RowCount - 1;
+                if (!Tablo.Rows[knm].IsNewRow)
+                {
+                    Tablo.RowCount++;
+                    knm++;
+                }
+                Tablo.RowCount++;
+
+                l[0].Cells[0].Style.BackColor = System.Drawing.Color.Salmon;
+                DataGridViewRow yeni = Tablo.Rows[knm];
+                yeni.Cells[0].Style.BackColor = l[0].Cells[0].Style.BackColor;
+
+                Tablo[Tablo_İş_Türü.Index, yeni.Index].Value = içerik;
+                Tablo[Tablo_İş_Türü.Index, yeni.Index].ToolTipText = Banka.Ücretler_BirimÜcretMaliyet_Detaylı(Müşteriler_SeçimKutusu.Text, içerik);
+                Tablo[Tablo_Adet.Index, yeni.Index].Value = Tablo[Tablo_Adet.Index, l[0].Index].Value;
+                Tablo[Tablo_Adet.Index, yeni.Index].Tag = Tablo[Tablo_Adet.Index, l[0].Index].Tag;
+
                 içerik += " {Rpt}";
             }
             else içerik = içerik.Replace(" {Rpt}", "");
