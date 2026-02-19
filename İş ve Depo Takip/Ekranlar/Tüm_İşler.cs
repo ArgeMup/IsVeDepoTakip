@@ -471,13 +471,11 @@ namespace İş_ve_Depo_Takip.Ekranlar
             }
 
             List<string> l = new List<string>();
-            List<DataGridViewRow> silinecek_satırlar = new List<DataGridViewRow>();
             for (int i = 0; i < Tablo.RowCount; i++)
             {
                 if ((bool)Tablo[0, i].Value)
                 {
                     l.Add((string)Tablo[1, i].Value);
-                    silinecek_satırlar.Add(Tablo.Rows[i]);
                 }
             }
             if (l.Count < 1)
@@ -488,7 +486,15 @@ namespace İş_ve_Depo_Takip.Ekranlar
 
             Banka.Talep_İşaretle_DevamEden_TeslimEdilen(MüşteriAdı, l, true);
             Banka.Değişiklikleri_Kaydet(İşTakip_DevamEden_İsaretle_TeslimEdildi);
-           
+
+            List<DataGridViewRow> silinecek_satırlar = new List<DataGridViewRow>();
+            for (int i = 0; i < Tablo.RowCount; i++)
+            {
+                if ((bool)Tablo[0, i].Value)
+                {
+                    silinecek_satırlar.Add(Tablo.Rows[i]);
+                }
+            }
             foreach (DataGridViewRow s in silinecek_satırlar)
             {
                 Ekranlar.ÖnYüzler.GüncellenenSeriNoyuİşaretle((string)s.Cells[Tablo_SeriNo.Index].Value);

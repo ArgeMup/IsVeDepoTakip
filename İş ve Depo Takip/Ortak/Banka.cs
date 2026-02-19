@@ -4095,6 +4095,8 @@ namespace İş_ve_Depo_Takip
         }
         public static void Yedekle_Banka_Kurtar()
         {
+            while (Değişiklikleri_Kaydet_Çalışıyor) System.Threading.Thread.Sleep(100);
+
             Değişiklikler_TamponuSıfırla();
 
             DoğrulamaKodu.KontrolEt.Durum_ snç = DoğrulamaKodu.KontrolEt.Klasör(Ortak.Klasör_Banka, SearchOption.AllDirectories, K_lar.KökParola);
