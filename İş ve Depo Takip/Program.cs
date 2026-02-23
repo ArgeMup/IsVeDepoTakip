@@ -36,6 +36,12 @@ namespace İş_ve_Depo_Takip
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
+#if takip_com
+                İş_ve_Depo_Takip.takip_com.Ortak.Başlat();
+#else
+                //dosyaların silinmesini ekle
+#endif
+
                 Banka.K_lar.Başlat();
                 Banka.K_lar.GirişYap(false);
                 Application.Run(new Form() { Opacity = 0, ShowInTaskbar = false, Visible = false });

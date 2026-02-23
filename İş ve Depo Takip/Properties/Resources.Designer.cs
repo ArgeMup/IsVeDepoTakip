@@ -91,6 +91,16 @@ namespace İş_ve_Depo_Takip.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Microsoft_Bcl_AsyncInterfaces {
+            get {
+                object obj = ResourceManager.GetObject("Microsoft_Bcl_AsyncInterfaces", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kök klasör
         ///    İş ve Depo Takip.exe dosyasının bulunduğu klasördür.
         ///    Örneğin exe dosyası C:\\Klasör\İş ve Depo Takip.exe içerisinde ise
@@ -124,19 +134,19 @@ namespace İş_ve_Depo_Takip.Properties {
         ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
         ///&lt;html&gt;
         ///  &lt;head&gt;
-        ///    &lt;meta charset=&quot;utf-8&quot;&gt;
-        ///    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
-        ///    &lt;title&gt;?=? Uygulama Adi ?=?&lt;/title&gt;
-        ///    &lt;link rel=&quot;icon&quot; type=&quot;image/x-icon&quot; href=&quot;DoEk/Uygulama.ico&quot;&gt;
-        ///  &lt;/head&gt;
-        ///  &lt;body&gt;
-        ///      &lt;div class=&quot;ust&quot;&gt;
-        ///          &lt;div class=&quot;kaydir sol&quot;&gt;
-        ///              &lt;img src=&quot;DoEk/LOGO.bmp&quot; alt=&quot;LOGO&quot; width=&quot;90%&quot; onclick=&quot;Degistir()&quot;&gt;
-        ///          &lt;/div&gt;
-        ///          &lt;div class=&quot;kaydir sag&quot;&gt;
-        ///              &lt;div id=&quot;Detaylar&quot;&gt;
-        ///           [rest of string was truncated]&quot;;.
+        ///	    &lt;meta charset=&quot;utf-8&quot;&gt;
+        ///	    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+        ///	    &lt;title&gt;?=? Uygulama Adi ?=?&lt;/title&gt;
+        ///	    &lt;link rel=&quot;icon&quot; type=&quot;image/x-icon&quot; href=&quot;DoEk/Uygulama.ico&quot;&gt;
+        ///	&lt;/head&gt;
+        ///	&lt;body&gt;
+        ///    &lt;div class=&quot;ust&quot;&gt;
+        ///      &lt;div class=&quot;kaydir sol&quot;&gt;
+        ///        &lt;img src=&quot;DoEk/LOGO.bmp&quot; alt=&quot;LOGO&quot; width=&quot;90%&quot; onclick=&quot;Degistir()&quot;&gt;
+        ///      &lt;/div&gt;
+        ///      &lt;div class=&quot;kaydir sag&quot;&gt;
+        ///        &lt;div id=&quot;Detaylar&quot;&gt;
+        ///          &lt;h2&gt;?=? Müşteri ?=?&lt;br&gt;? [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SeriNoDetayları {
             get {
@@ -171,6 +181,86 @@ namespace İş_ve_Depo_Takip.Properties {
             get {
                 object obj = ResourceManager.GetObject("sol_mavi", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] System_Buffers {
+            get {
+                object obj = ResourceManager.GetObject("System_Buffers", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] System_IO_Pipelines {
+            get {
+                object obj = ResourceManager.GetObject("System_IO_Pipelines", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] System_Memory {
+            get {
+                object obj = ResourceManager.GetObject("System_Memory", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] System_Numerics_Vectors {
+            get {
+                object obj = ResourceManager.GetObject("System_Numerics_Vectors", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] System_Runtime_CompilerServices_Unsafe {
+            get {
+                object obj = ResourceManager.GetObject("System_Runtime_CompilerServices_Unsafe", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] System_Text_Encodings_Web {
+            get {
+                object obj = ResourceManager.GetObject("System_Text_Encodings_Web", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] System_Text_Json {
+            get {
+                object obj = ResourceManager.GetObject("System_Text_Json", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] System_Threading_Tasks_Extensions {
+            get {
+                object obj = ResourceManager.GetObject("System_Threading_Tasks_Extensions", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

@@ -7,6 +7,10 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
+#if takip_com
+using İş_ve_Depo_Takip.takip_com;
+#endif
+
 namespace İş_ve_Depo_Takip
 {
     public class Banka_Tablo_
@@ -1303,6 +1307,9 @@ namespace İş_ve_Depo_Takip
             }
         }
         static List<string> _İştürü_Tamamlayıcıİş_Listesi_ = null;
+#if takip_com
+        public
+#endif
         static bool İştürü_Tamamlayıcıİş_Mi(string İşTürü)
         {
             if (_İştürü_Tamamlayıcıİş_Listesi_ == null)
@@ -2028,7 +2035,6 @@ namespace İş_ve_Depo_Takip
 
         public static void Talep_Ekle(Talep_Ekle_Detaylar_ Detaylar, bool ÜcretHesaplama)
         {
-            bool YeniKayıt = false;
             if (string.IsNullOrEmpty(Detaylar.SeriNo))
             {
                 if (ÜcretHesaplama)
@@ -2037,7 +2043,7 @@ namespace İş_ve_Depo_Takip
                 }
                 else
                 {
-                    YeniKayıt = true;
+                    Detaylar.YeniSerinoÜretildi = true;
                     Detaylar.SeriNo = SeriNo_Üret(true);
                 }
             }
@@ -2061,7 +2067,7 @@ namespace İş_ve_Depo_Takip
                 sn_dalı.Yaz(Detaylar.GirişTarihleri[i], Detaylar.Adetler[i], SıraNo:4);
             }
 
-            if (YeniKayıt) Malzeme_İştürüneGöreHareket(Detaylar.İşTürleri, true, Detaylar.SeriNo, Detaylar.Müşteri, Detaylar.Hasta, Detaylar.Adetler, Detaylar.GirişTarihleri); //Depodaki malzemeyi işlere harca
+            if (Detaylar.YeniSerinoÜretildi) Malzeme_İştürüneGöreHareket(Detaylar.İşTürleri, true, Detaylar.SeriNo, Detaylar.Müşteri, Detaylar.Hasta, Detaylar.Adetler, Detaylar.GirişTarihleri); //Depodaki malzemeyi işlere harca
             else
             {
                 //farkların bulunması
@@ -2125,6 +2131,20 @@ namespace İş_ve_Depo_Takip
             DosyaEkleri_Düzenle(Detaylar.SeriNo, Detaylar.DosyaEkleri, Detaylar.DosyaEkleri_Html_denGöster); //silmek eklemek
 
             if (!ÜcretHesaplama) Geçmiş_İşler_Ekle(sn_dalı, TabloTürü.DevamEden.ToString());
+
+#if takip_com
+            if (!ÜcretHesaplama)
+            {
+                if (Detaylar.YeniSerinoÜretildi)
+                {
+                    new takip_com.İşlem_YeniİşGirişi_().Çalıştır(Detaylar);
+                }
+                else
+                {
+                    new takip_com.İşlem_YeniİşGirişi_Düzenleme_().Çalıştır(Detaylar);
+                }
+            }
+#endif
         }
         public static void Talep_Sil(string Müşteri, List<string> Seri_No_lar, bool ÜcretHesaplama)
         {
@@ -2162,6 +2182,13 @@ namespace İş_ve_Depo_Takip
 
                 seri_no_dalı.Sil(null);
             }
+
+#if takip_com
+            if (!ÜcretHesaplama)
+            {
+                new takip_com.İşlem_SeriNolu_().Sil(Müşteri, Seri_No_lar);
+            }
+#endif
         }
         public static Talep_Bul_Detaylar_ Talep_Bul(string SeriNo, string Müşteri = null, TabloTürü Tür = TabloTürü.DevamEden_TeslimEdildi_ÖdemeTalepEdildi_Ödendi, string EkTanım = null)
         {
@@ -2292,6 +2319,10 @@ namespace İş_ve_Depo_Takip
 
                 Geçmiş_İşler_Ekle(seri_no_dalı, TabloTürü.DevamEden.ToString());
             }
+
+#if takip_com
+             new takip_com.İşlem_SeriNolu_().KliniğeGönder(Müşteri, SeriNolar);
+#endif
         }
         public static void Talep_İşaretle_DevamEden_TeslimEdilen(string Müşteri, List<string> SeriNolar, bool TeslimEdildi_1_DevamEden_0)
         {
@@ -2317,6 +2348,10 @@ namespace İş_ve_Depo_Takip
                     Geçmiş_İşler_Ekle(seri_no_dalı, TabloTürü.DevamEden.ToString());
                 }
             }
+
+#if takip_com
+            new takip_com.İşlem_SeriNolu_().TeslimEdildiOlarakİşaretle(Müşteri, SeriNolar);
+#endif
         }
         public static bool Talep_İşaretle_TeslimEdilen_ÖdemeTalepEdildi(string Müşteri, List<string> Seri_No_lar, string İlaveÖdeme_Açıklama, string İlaveÖdeme_Miktar, out string DosyaAdı)
         {
@@ -2423,6 +2458,10 @@ namespace İş_ve_Depo_Takip
             }
             #endregion
 
+#if takip_com
+            new takip_com.İşlem_SeriNolu_().ÖdemeTalebiOluştur(Müşteri, Seri_No_lar, DosyaAdı);
+#endif
+
             return true;
 
         Hata:
@@ -2490,6 +2529,10 @@ namespace İş_ve_Depo_Takip
                 MessageBox.Show(sonuç.Günlük("Gelir Gider Takip "), "Gelir Gider Takip");
             }
             #endregion
+
+#if takip_com
+            new takip_com.İşlem_SeriNolu_().ÖdemeTalebiİptalEt(Müşteri, EkTanım);
+#endif
         }
         public static void Talep_İşaretle_ÖdemeTalepEdildi_Ödendi(string Müşteri, string EkTanım, string AlınanÖdemeMiktarı, string Notlar)
         {
@@ -2564,6 +2607,10 @@ namespace İş_ve_Depo_Takip
                 }
             }
             #endregion
+
+#if takip_com
+            new takip_com.İşlem_SeriNolu_().Öde(Müşteri, EkTanım, AlınanÖdemeMiktarı, Notlar);
+#endif
         }
         public static void Talep_TablodaGöster(DataGridView Tablo, Banka_Tablo_ İçerik, bool ÖnceTemizle = true, bool TeslimEdildiKırmızı = false)
         {
@@ -3931,6 +3978,7 @@ namespace İş_ve_Depo_Takip
         }
         public class Talep_Ekle_Detaylar_
         {
+            public bool YeniSerinoÜretildi = false;
             public string SeriNo = null, Müşteri = null, Müşteri_AltGrubu = null, Hasta = null, İskonto = null, Notlar = null;
             public List<string> İşTürleri = null, Ücretler = null, GirişTarihleri = null, ÇıkışTarihleri = null;
             public List<byte[]> Adetler = null;
