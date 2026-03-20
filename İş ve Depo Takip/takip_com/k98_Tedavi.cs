@@ -96,6 +96,8 @@ namespace İş_ve_Depo_Takip.takip_com.UçNokta
         public string Notlar;
         [JsonInclude, JsonPropertyName("Tt")]
         public DateTime? TeslimEdilmeTarihi; //varsa teslim edildi
+        [JsonInclude, JsonPropertyName("Td")]
+        public DateTime SonDeğişiklikTarihi;
         [JsonInclude, JsonPropertyName("Is")]
         public Dictionary<string, İş_> İşler; //İş Kabul Tarihi, Detaylar
         [JsonInclude, JsonPropertyName("De")]
@@ -181,5 +183,11 @@ namespace İş_ve_Depo_Takip.takip_com.UçNokta
             if (Icerik_Tipi(UygunOlanTip_Veya_DosyaAdı) == Tipi_.Diger) return "application/octet-stream";
             else return UygunOlanTip_Veya_DosyaAdı;
         }
+    }
+
+    public class Tedaviler_SeriNoluİşlem_
+    {
+        [JsonInclude]
+        public Dictionary<string, string> Hepsi; //SeriNo, SonDeğişiklikTarihi
     }
 }

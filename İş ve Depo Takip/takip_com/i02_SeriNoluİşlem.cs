@@ -21,16 +21,18 @@ namespace İş_ve_Depo_Takip.takip_com
 
                     var Klinik = Klinik_Dosyalama_.KontrolEt(Klinik_EkranAdı);
 
-                    string sn_ler = "";
+                    string smd = D_TarihSaat_UTC.Yazıya(DateTime.UtcNow);
+                    Tedaviler_SeriNoluİşlem_ sn_ler = new Tedaviler_SeriNoluİşlem_();
+                    sn_ler.Hepsi = new Dictionary<string, string>();
                     for (int i = 0; i < SeriNolar.Count; i++)
                     {
                         if (!TanımDönüştürücü.Bul(SeriNolar[i], out string Uzak)) continue;
 
-                        sn_ler += "/" + Uzak;
+                        sn_ler.Hepsi.Add(Uzak, smd);
                     }
-                    if (string.IsNullOrWhiteSpace(sn_ler)) return;
+                    if (sn_ler.Hepsi.Count == 0) return;
 
-                    H.İstekYap("PUT", Ortak.Sayfa_Tedavi + "/" + Klinik.Key + "/Sni/Kg" + sn_ler, null);
+                    H.İstekYap("PUT", Ortak.Sayfa_Tedavi + "/" + Klinik.Key + "/Sni/Kg", sn_ler);
 
 #if DEBUG
                     Console.WriteLine("bitti kg");
@@ -53,16 +55,18 @@ namespace İş_ve_Depo_Takip.takip_com
 
                     var Klinik = Klinik_Dosyalama_.KontrolEt(Klinik_EkranAdı);
 
-                    string sn_ler = "";
+                    string smd = D_TarihSaat_UTC.Yazıya(DateTime.UtcNow);
+                    Tedaviler_SeriNoluİşlem_ sn_ler = new Tedaviler_SeriNoluİşlem_();
+                    sn_ler.Hepsi = new Dictionary<string, string>();
                     for (int i = 0; i < SeriNolar.Count; i++)
                     {
                         if (!TanımDönüştürücü.Bul(SeriNolar[i], out string Uzak)) continue;
 
-                        sn_ler += "/" + Uzak;
+                        sn_ler.Hepsi.Add(Uzak, smd);
                     }
-                    if (string.IsNullOrWhiteSpace(sn_ler)) return;
+                    if (sn_ler.Hepsi.Count == 0) return;
 
-                    H.İstekYap("PUT", Ortak.Sayfa_Tedavi + "/" + Klinik.Key + "/Sni/Te" + sn_ler, null);
+                    H.İstekYap("PUT", Ortak.Sayfa_Tedavi + "/" + Klinik.Key + "/Sni/Te", sn_ler);
 
 #if DEBUG
                     Console.WriteLine("bitti te");
@@ -154,16 +158,20 @@ namespace İş_ve_Depo_Takip.takip_com
                     ü.Ücretlendir();
                     #endregion
 
-                    string sn_ler = "";
+                    string smd = D_TarihSaat_UTC.Yazıya(DateTime.UtcNow);
+                    Tedaviler_SeriNoluİşlem_ sn_ler = new Tedaviler_SeriNoluİşlem_();
+                    sn_ler.Hepsi = new Dictionary<string, string>();
                     for (int i = 0; i < SeriNolar.Count; i++)
                     {
                         if (!TanımDönüştürücü.Bul(SeriNolar[i], out string Uzak)) continue;
 
-                        sn_ler += "/" + Uzak;
+                        sn_ler.Hepsi.Add(Uzak, smd);
                     }
-                    if (string.IsNullOrWhiteSpace(sn_ler)) return;
+                    if (sn_ler.Hepsi.Count == 0) return;
+                    var json = Json.Nesneden_Yazıya(sn_ler, sn_ler.GetType());
+                    var içerik = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
-                    HttpResponseMessage cevap = H.İstekYap_Detaylı("PUT", Ortak.Sayfa_Tedavi + "/" + Klinik.Key + "/Sni/Ot" + sn_ler, null);
+                    HttpResponseMessage cevap = H.İstekYap_Detaylı("PUT", Ortak.Sayfa_Tedavi + "/" + Klinik.Key + "/Sni/Ot", içerik);
                     string Ot = cevap.Headers.Contains("Ot") ? cevap.Headers.GetValues("Ot").First() : null;
                     
                     TanımDönüştürücü.Ekle(DosyaAdı, Ot);
@@ -220,7 +228,7 @@ namespace İş_ve_Depo_Takip.takip_com
 
                     var ödm = new Tedaviler_Ödeme_();
                     ödm.Notlar = Notlar;
-                    ödm.AlınanÖdeme = decimal.Parse(AlınanÖdemeMiktarı);
+                    ödm.AlınanÖdeme = Convert.ToDecimal(AlınanÖdemeMiktarı.NoktalıSayıya());
 
                     H.İstekYap("PUT", Ortak.Sayfa_Tedavi + "/" + Klinik.Key + "/Sni/O/" + Uzak, ödm);
 

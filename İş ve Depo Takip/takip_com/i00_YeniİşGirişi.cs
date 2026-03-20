@@ -1,5 +1,4 @@
 ﻿using İş_ve_Depo_Takip.takip_com.UçNokta;
-using System;
 
 namespace İş_ve_Depo_Takip.takip_com
 {
@@ -45,7 +44,7 @@ namespace İş_ve_Depo_Takip.takip_com
                     TanımDönüştürücü.Ekle(Detaylar.SeriNo, uzakserino);
 
 #if DEBUG
-                    Console.WriteLine("bitti yig");
+                    System.Console.WriteLine("bitti yig");
 #endif
                 }
                 catch (System.Exception ex) { Ortak.Günlük(ex.ToString()); }

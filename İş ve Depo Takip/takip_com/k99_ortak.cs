@@ -8,7 +8,7 @@ namespace İş_ve_Depo_Takip.takip_com
 {
     public static class BuSite
     {
-        public static readonly string Sürüm = "s0.2.10";
+        public static readonly string Sürüm = "s0.2.11";
 
 #if DEBUG
         public static readonly string Adres_Ham = "localhost";
@@ -56,6 +56,8 @@ namespace İş_ve_Depo_Takip.takip_com
         {
             System.Threading.Tasks.Task.Run(() =>
             {
+                Json.Başlat();
+
                 File.WriteAllBytes(Kendi.Klasörü + "\\Microsoft.Bcl.AsyncInterfaces.dll", Properties.Resources.Microsoft_Bcl_AsyncInterfaces);
                 File.WriteAllBytes(Kendi.Klasörü + "\\System.Buffers.dll", Properties.Resources.System_Buffers);
                 File.WriteAllBytes(Kendi.Klasörü + "\\System.IO.Pipelines.dll", Properties.Resources.System_IO_Pipelines);

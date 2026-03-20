@@ -19,7 +19,7 @@ namespace İş_ve_Depo_Takip.takip_com
             }
         }
         static JsonSerializerOptions Seçenekler;
-        public static void Başlat(System.Text.Json.Serialization.Metadata.IJsonTypeInfoResolver Çözücü)
+        public static void Başlat()
         {
             Seçenekler = new JsonSerializerOptions{ };
             Seçenekler.Converters.Add(new Dönüştürücü_TarihSaat_());
